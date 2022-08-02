@@ -36,7 +36,7 @@ final class EscapeImplicitBackslashesFixer extends AbstractFixer implements Conf
         $codeSample = <<<'EOF'
 <?php
 
-namespace ECSPrefix202207;
+namespace ECSPrefix202208;
 
 $singleQuoted = 'String with \\" and My\\Prefix\\';
 $doubleQuoted = "Interpret my \n but not my \\a";

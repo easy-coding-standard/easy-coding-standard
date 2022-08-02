@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\Fixer\Annotation;
 
-use ECSPrefix202207\Doctrine\Common\Annotations\DocLexer;
+use ECSPrefix202208\Doctrine\Common\Annotations\DocLexer;
 use PhpCsFixer\Doctrine\Annotation\Token as DoctrineAnnotationToken;
 use PhpCsFixer\Doctrine\Annotation\Tokens as DoctrineAnnotationTokens;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
@@ -16,11 +16,11 @@ use SplFileInfo;
 use Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
 use Symplify\CodingStandard\TokenAnalyzer\DoctrineAnnotationElementAnalyzer;
 use Symplify\CodingStandard\TokenAnalyzer\DoctrineAnnotationNameResolver;
-use ECSPrefix202207\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
-use ECSPrefix202207\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use ECSPrefix202207\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use ECSPrefix202207\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use ECSPrefix202207\Webmozart\Assert\Assert;
+use ECSPrefix202208\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
+use ECSPrefix202208\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use ECSPrefix202208\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use ECSPrefix202208\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix202208\Webmozart\Assert\Assert;
 final class DoctrineAnnotationNestedBracketsFixer extends AbstractSymplifyFixer implements ConfigurableRuleInterface, DocumentedRuleInterface
 {
     /**

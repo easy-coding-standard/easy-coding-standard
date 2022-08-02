@@ -8,25 +8,25 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202207\Symfony\Component\DependencyInjection\Loader;
+namespace ECSPrefix202208\Symfony\Component\DependencyInjection\Loader;
 
-use ECSPrefix202207\Symfony\Component\Config\Util\XmlUtils;
-use ECSPrefix202207\Symfony\Component\DependencyInjection\Alias;
-use ECSPrefix202207\Symfony\Component\DependencyInjection\Argument\AbstractArgument;
-use ECSPrefix202207\Symfony\Component\DependencyInjection\Argument\BoundArgument;
-use ECSPrefix202207\Symfony\Component\DependencyInjection\Argument\IteratorArgument;
-use ECSPrefix202207\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
-use ECSPrefix202207\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
-use ECSPrefix202207\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
-use ECSPrefix202207\Symfony\Component\DependencyInjection\ChildDefinition;
-use ECSPrefix202207\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix202207\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix202207\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix202207\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix202207\Symfony\Component\DependencyInjection\Exception\RuntimeException;
-use ECSPrefix202207\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
-use ECSPrefix202207\Symfony\Component\DependencyInjection\Reference;
-use ECSPrefix202207\Symfony\Component\ExpressionLanguage\Expression;
+use ECSPrefix202208\Symfony\Component\Config\Util\XmlUtils;
+use ECSPrefix202208\Symfony\Component\DependencyInjection\Alias;
+use ECSPrefix202208\Symfony\Component\DependencyInjection\Argument\AbstractArgument;
+use ECSPrefix202208\Symfony\Component\DependencyInjection\Argument\BoundArgument;
+use ECSPrefix202208\Symfony\Component\DependencyInjection\Argument\IteratorArgument;
+use ECSPrefix202208\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
+use ECSPrefix202208\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
+use ECSPrefix202208\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
+use ECSPrefix202208\Symfony\Component\DependencyInjection\ChildDefinition;
+use ECSPrefix202208\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix202208\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix202208\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix202208\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix202208\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use ECSPrefix202208\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
+use ECSPrefix202208\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix202208\Symfony\Component\ExpressionLanguage\Expression;
 /**
  * XmlFileLoader loads XML files service definitions.
  *
@@ -574,7 +574,7 @@ EOF;
             });
             $schema = '<?xml version="1.0" encoding="utf-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <xsd:include schemaLocation="file:///' . \str_replace('\\', '/', $tmpfile) . '" />
+  <xsd:include schemaLocation="file:///' . \rawurlencode(\str_replace('\\', '/', $tmpfile)) . '" />
 </xsd:schema>';
             \file_put_contents($tmpfile, '<?xml version="1.0" encoding="utf-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">

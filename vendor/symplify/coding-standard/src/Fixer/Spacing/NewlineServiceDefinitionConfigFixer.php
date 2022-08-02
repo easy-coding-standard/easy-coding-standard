@@ -11,9 +11,9 @@ use PhpCsFixer\WhitespacesFixerConfig;
 use SplFileInfo;
 use Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
 use Symplify\CodingStandard\TokenAnalyzer\SymfonyClosureAnalyzer;
-use ECSPrefix202207\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use ECSPrefix202207\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use ECSPrefix202207\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix202208\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use ECSPrefix202208\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use ECSPrefix202208\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Symplify\CodingStandard\Tests\Fixer\Spacing\NewlineServiceDefinitionConfigFixer\NewlineServiceDefinitionConfigFixerTest
  */

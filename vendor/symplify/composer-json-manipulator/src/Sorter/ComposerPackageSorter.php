@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202207\Symplify\ComposerJsonManipulator\Sorter;
+namespace ECSPrefix202208\Symplify\ComposerJsonManipulator\Sorter;
 
-use ECSPrefix202207\Nette\Utils\Strings;
+use ECSPrefix202208\Nette\Utils\Strings;
 /**
  * Mostly inspired by https://github.com/composer/composer/blob/master/src/Composer/Json/JsonManipulator.php
  *

@@ -12,10 +12,10 @@ use SplFileInfo;
 use Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
 use Symplify\CodingStandard\TokenAnalyzer\Naming\MethodNameResolver;
 use Symplify\CodingStandard\TokenAnalyzer\ParamNewliner;
-use ECSPrefix202207\Symplify\PackageBuilder\ValueObject\MethodName;
-use ECSPrefix202207\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use ECSPrefix202207\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use ECSPrefix202207\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix202208\Symplify\PackageBuilder\ValueObject\MethodName;
+use ECSPrefix202208\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use ECSPrefix202208\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use ECSPrefix202208\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Symplify\CodingStandard\Tests\Fixer\Spacing\StandaloneLineConstructorParamFixer\StandaloneLineConstructorParamFixerTest
  */

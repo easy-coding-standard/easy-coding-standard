@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202207\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix202208\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix202207\Symfony\Component\DependencyInjection\Argument\AbstractArgument;
-use ECSPrefix202207\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix202207\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix202207\Symfony\Component\DependencyInjection\LazyProxy\ProxyHelper;
-use ECSPrefix202207\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix202208\Symfony\Component\DependencyInjection\Argument\AbstractArgument;
+use ECSPrefix202208\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix202208\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix202208\Symfony\Component\DependencyInjection\LazyProxy\ProxyHelper;
+use ECSPrefix202208\Symfony\Component\DependencyInjection\Reference;
 /**
  * Resolves named arguments to their corresponding numeric index.
  *

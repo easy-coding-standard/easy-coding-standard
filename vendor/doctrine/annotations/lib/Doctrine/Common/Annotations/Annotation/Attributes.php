@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix202207\Doctrine\Common\Annotations\Annotation;
+namespace ECSPrefix202208\Doctrine\Common\Annotations\Annotation;
 
 /**
  * Annotation that can be used to signal to the parser

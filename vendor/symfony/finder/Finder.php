@@ -8,20 +8,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202207\Symfony\Component\Finder;
+namespace ECSPrefix202208\Symfony\Component\Finder;
 
-use ECSPrefix202207\Symfony\Component\Finder\Comparator\DateComparator;
-use ECSPrefix202207\Symfony\Component\Finder\Comparator\NumberComparator;
-use ECSPrefix202207\Symfony\Component\Finder\Exception\DirectoryNotFoundException;
-use ECSPrefix202207\Symfony\Component\Finder\Iterator\CustomFilterIterator;
-use ECSPrefix202207\Symfony\Component\Finder\Iterator\DateRangeFilterIterator;
-use ECSPrefix202207\Symfony\Component\Finder\Iterator\DepthRangeFilterIterator;
-use ECSPrefix202207\Symfony\Component\Finder\Iterator\ExcludeDirectoryFilterIterator;
-use ECSPrefix202207\Symfony\Component\Finder\Iterator\FilecontentFilterIterator;
-use ECSPrefix202207\Symfony\Component\Finder\Iterator\FilenameFilterIterator;
-use ECSPrefix202207\Symfony\Component\Finder\Iterator\LazyIterator;
-use ECSPrefix202207\Symfony\Component\Finder\Iterator\SizeRangeFilterIterator;
-use ECSPrefix202207\Symfony\Component\Finder\Iterator\SortableIterator;
+use ECSPrefix202208\Symfony\Component\Finder\Comparator\DateComparator;
+use ECSPrefix202208\Symfony\Component\Finder\Comparator\NumberComparator;
+use ECSPrefix202208\Symfony\Component\Finder\Exception\DirectoryNotFoundException;
+use ECSPrefix202208\Symfony\Component\Finder\Iterator\CustomFilterIterator;
+use ECSPrefix202208\Symfony\Component\Finder\Iterator\DateRangeFilterIterator;
+use ECSPrefix202208\Symfony\Component\Finder\Iterator\DepthRangeFilterIterator;
+use ECSPrefix202208\Symfony\Component\Finder\Iterator\ExcludeDirectoryFilterIterator;
+use ECSPrefix202208\Symfony\Component\Finder\Iterator\FilecontentFilterIterator;
+use ECSPrefix202208\Symfony\Component\Finder\Iterator\FilenameFilterIterator;
+use ECSPrefix202208\Symfony\Component\Finder\Iterator\LazyIterator;
+use ECSPrefix202208\Symfony\Component\Finder\Iterator\SizeRangeFilterIterator;
+use ECSPrefix202208\Symfony\Component\Finder\Iterator\SortableIterator;
 /**
  * Finder allows to build rules to find files and directories.
  *

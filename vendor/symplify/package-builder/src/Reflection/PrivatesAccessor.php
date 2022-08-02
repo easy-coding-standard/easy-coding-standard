@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202207\Symplify\PackageBuilder\Reflection;
+namespace ECSPrefix202208\Symplify\PackageBuilder\Reflection;
 
 use ReflectionProperty;
-use ECSPrefix202207\Symplify\PackageBuilder\Exception\InvalidPrivatePropertyTypeException;
-use ECSPrefix202207\Symplify\PackageBuilder\Exception\MissingPrivatePropertyException;
+use ECSPrefix202208\Symplify\PackageBuilder\Exception\InvalidPrivatePropertyTypeException;
+use ECSPrefix202208\Symplify\PackageBuilder\Exception\MissingPrivatePropertyException;
 /**
  * @api
  * @see \Symplify\PackageBuilder\Tests\Reflection\PrivatesAccessorTest

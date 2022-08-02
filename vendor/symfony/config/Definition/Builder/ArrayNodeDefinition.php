@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202207\Symfony\Component\Config\Definition\Builder;
+namespace ECSPrefix202208\Symfony\Component\Config\Definition\Builder;
 
-use ECSPrefix202207\Symfony\Component\Config\Definition\ArrayNode;
-use ECSPrefix202207\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException;
-use ECSPrefix202207\Symfony\Component\Config\Definition\NodeInterface;
-use ECSPrefix202207\Symfony\Component\Config\Definition\PrototypedArrayNode;
+use ECSPrefix202208\Symfony\Component\Config\Definition\ArrayNode;
+use ECSPrefix202208\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException;
+use ECSPrefix202208\Symfony\Component\Config\Definition\NodeInterface;
+use ECSPrefix202208\Symfony\Component\Config\Definition\PrototypedArrayNode;
 /**
  * This class provides a fluent interface for defining an array node.
  *

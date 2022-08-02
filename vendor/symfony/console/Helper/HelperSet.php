@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202207\Symfony\Component\Console\Helper;
+namespace ECSPrefix202208\Symfony\Component\Console\Helper;
 
-use ECSPrefix202207\Symfony\Component\Console\Exception\InvalidArgumentException;
+use ECSPrefix202208\Symfony\Component\Console\Exception\InvalidArgumentException;
 /**
  * HelperSet represents a set of helpers to be used with a command.
  *

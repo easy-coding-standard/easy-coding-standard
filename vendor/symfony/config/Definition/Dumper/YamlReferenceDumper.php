@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202207\Symfony\Component\Config\Definition\Dumper;
+namespace ECSPrefix202208\Symfony\Component\Config\Definition\Dumper;
 
-use ECSPrefix202207\Symfony\Component\Config\Definition\ArrayNode;
-use ECSPrefix202207\Symfony\Component\Config\Definition\BaseNode;
-use ECSPrefix202207\Symfony\Component\Config\Definition\ConfigurationInterface;
-use ECSPrefix202207\Symfony\Component\Config\Definition\EnumNode;
-use ECSPrefix202207\Symfony\Component\Config\Definition\NodeInterface;
-use ECSPrefix202207\Symfony\Component\Config\Definition\PrototypedArrayNode;
-use ECSPrefix202207\Symfony\Component\Config\Definition\ScalarNode;
-use ECSPrefix202207\Symfony\Component\Config\Definition\VariableNode;
-use ECSPrefix202207\Symfony\Component\Yaml\Inline;
+use ECSPrefix202208\Symfony\Component\Config\Definition\ArrayNode;
+use ECSPrefix202208\Symfony\Component\Config\Definition\BaseNode;
+use ECSPrefix202208\Symfony\Component\Config\Definition\ConfigurationInterface;
+use ECSPrefix202208\Symfony\Component\Config\Definition\EnumNode;
+use ECSPrefix202208\Symfony\Component\Config\Definition\NodeInterface;
+use ECSPrefix202208\Symfony\Component\Config\Definition\PrototypedArrayNode;
+use ECSPrefix202208\Symfony\Component\Config\Definition\ScalarNode;
+use ECSPrefix202208\Symfony\Component\Config\Definition\VariableNode;
+use ECSPrefix202208\Symfony\Component\Yaml\Inline;
 /**
  * Dumps a Yaml reference configuration for the given configuration/node instance.
  *

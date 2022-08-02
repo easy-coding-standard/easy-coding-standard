@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202207;
+namespace ECSPrefix202208;
 
 use PhpCsFixer\Fixer\PhpUnit\PhpUnitSetUpTearDownVisibilityFixer;
 use PhpCsFixer\Fixer\PhpUnit\PhpUnitTestAnnotationFixer;

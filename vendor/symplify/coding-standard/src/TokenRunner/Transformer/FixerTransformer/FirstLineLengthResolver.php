@@ -9,7 +9,7 @@ use PhpCsFixer\Tokenizer\Tokens;
 use Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException;
 use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
 use Symplify\CodingStandard\TokenRunner\ValueObjectFactory\LineLengthAndPositionFactory;
-use ECSPrefix202207\Symplify\PackageBuilder\Configuration\StaticEolConfiguration;
+use ECSPrefix202208\Symplify\PackageBuilder\Configuration\StaticEolConfiguration;
 final class FirstLineLengthResolver
 {
     /**

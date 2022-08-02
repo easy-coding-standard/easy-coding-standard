@@ -1,5 +1,5 @@
 #!/usr/bin/env php
 <?php 
-namespace ECSPrefix202207;
+namespace ECSPrefix202208;
 
 require __DIR__ . '/easy-testing.php';

@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202207;
+namespace ECSPrefix202208;
 
-use ECSPrefix202207\Symfony\Component\Console\Style\SymfonyStyle;
-use ECSPrefix202207\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use ECSPrefix202207\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
-use ECSPrefix202207\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use ECSPrefix202207\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
-use ECSPrefix202207\Symplify\SmartFileSystem\FileSystemFilter;
-use ECSPrefix202207\Symplify\SmartFileSystem\FileSystemGuard;
-use ECSPrefix202207\Symplify\SmartFileSystem\Finder\FinderSanitizer;
-use ECSPrefix202207\Symplify\SmartFileSystem\Finder\SmartFinder;
-use ECSPrefix202207\Symplify\SmartFileSystem\SmartFileSystem;
-use function ECSPrefix202207\Symfony\Component\DependencyInjection\Loader\Configurator\service;
+use ECSPrefix202208\Symfony\Component\Console\Style\SymfonyStyle;
+use ECSPrefix202208\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use ECSPrefix202208\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
+use ECSPrefix202208\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use ECSPrefix202208\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use ECSPrefix202208\Symplify\SmartFileSystem\FileSystemFilter;
+use ECSPrefix202208\Symplify\SmartFileSystem\FileSystemGuard;
+use ECSPrefix202208\Symplify\SmartFileSystem\Finder\FinderSanitizer;
+use ECSPrefix202208\Symplify\SmartFileSystem\Finder\SmartFinder;
+use ECSPrefix202208\Symplify\SmartFileSystem\SmartFileSystem;
+use function ECSPrefix202208\Symfony\Component\DependencyInjection\Loader\Configurator\service;
 return static function (ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire();

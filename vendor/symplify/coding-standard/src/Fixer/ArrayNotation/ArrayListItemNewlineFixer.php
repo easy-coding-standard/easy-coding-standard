@@ -14,9 +14,9 @@ use Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\ArrayAnalyzer;
 use Symplify\CodingStandard\TokenRunner\Traverser\ArrayBlockInfoFinder;
 use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
 use Symplify\CodingStandard\TokenRunner\ValueObject\TokenKinds;
-use ECSPrefix202207\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use ECSPrefix202207\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use ECSPrefix202207\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix202208\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use ECSPrefix202208\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use ECSPrefix202208\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Symplify\CodingStandard\Tests\Fixer\ArrayNotation\ArrayListItemNewlineFixer\ArrayListItemNewlineFixerTest
  */

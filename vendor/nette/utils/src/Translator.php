@@ -5,7 +5,7 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix202207\Nette\Localization;
+namespace ECSPrefix202208\Nette\Localization;
 
 /**
  * Translator adapter.

@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202207\Symplify\ComposerJsonManipulator\Printer;
+namespace ECSPrefix202208\Symplify\ComposerJsonManipulator\Printer;
 
-use ECSPrefix202207\Symplify\ComposerJsonManipulator\FileSystem\JsonFileManager;
-use ECSPrefix202207\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
-use ECSPrefix202207\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix202208\Symplify\ComposerJsonManipulator\FileSystem\JsonFileManager;
+use ECSPrefix202208\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
+use ECSPrefix202208\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @api
  */

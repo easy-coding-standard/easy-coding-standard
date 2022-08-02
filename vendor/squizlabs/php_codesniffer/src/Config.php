@@ -257,7 +257,7 @@ class Config
      */
     public function __construct(array $cliArgs = [], $dieOnUnknownArg = \true)
     {
-        if (\defined('ECSPrefix202207\\PHP_CODESNIFFER_IN_TESTS') === \true) {
+        if (\defined('ECSPrefix202208\\PHP_CODESNIFFER_IN_TESTS') === \true) {
             // Let everything through during testing so that we can
             // make use of PHPUnit command line arguments as well.
             $this->dieOnUnknownArg = \false;
@@ -455,7 +455,7 @@ class Config
         if ($colors !== null) {
             $this->colors = (bool) $colors;
         }
-        if (\defined('ECSPrefix202207\\PHP_CODESNIFFER_IN_TESTS') === \false) {
+        if (\defined('ECSPrefix202208\\PHP_CODESNIFFER_IN_TESTS') === \false) {
             $cache = self::getConfigData('cache');
             if ($cache !== null) {
                 $this->cache = (bool) $cache;
@@ -608,7 +608,7 @@ class Config
                 if (isset(self::$overriddenDefaults['cache']) === \true) {
                     break;
                 }
-                if (\defined('ECSPrefix202207\\PHP_CODESNIFFER_IN_TESTS') === \false) {
+                if (\defined('ECSPrefix202208\\PHP_CODESNIFFER_IN_TESTS') === \false) {
                     $this->cache = \true;
                     self::$overriddenDefaults['cache'] = \true;
                 }
@@ -723,7 +723,7 @@ class Config
                         $this->exclude = $sniffs;
                         self::$overriddenDefaults['exclude'] = \true;
                     } else {
-                        if (\defined('ECSPrefix202207\\PHP_CODESNIFFER_IN_TESTS') === \false && \substr($arg, 0, 6) === 'cache=') {
+                        if (\defined('ECSPrefix202208\\PHP_CODESNIFFER_IN_TESTS') === \false && \substr($arg, 0, 6) === 'cache=') {
                             if (isset(self::$overriddenDefaults['cache']) === \true && $this->cache === \false || isset(self::$overriddenDefaults['cacheFile']) === \true) {
                                 break;
                             }

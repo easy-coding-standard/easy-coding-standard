@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202207\Symplify\AutowireArrayParameter\DocBlock;
+namespace ECSPrefix202208\Symplify\AutowireArrayParameter\DocBlock;
 
-use ECSPrefix202207\Nette\Utils\Strings;
+use ECSPrefix202208\Nette\Utils\Strings;
 /**
  * @see \Symplify\AutowireArrayParameter\Tests\DocBlock\ParamTypeDocBlockResolverTest
  */

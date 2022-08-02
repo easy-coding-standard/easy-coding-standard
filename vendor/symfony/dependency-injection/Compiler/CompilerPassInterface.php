@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202207\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix202208\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix202207\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix202208\Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * Interface that must be implemented by compilation passes.
  *

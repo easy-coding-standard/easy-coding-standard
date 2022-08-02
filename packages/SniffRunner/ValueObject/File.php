@@ -15,8 +15,8 @@ use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
 use Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException;
-use ECSPrefix202207\Symplify\Skipper\Skipper\Skipper;
-use ECSPrefix202207\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix202208\Symplify\Skipper\Skipper\Skipper;
+use ECSPrefix202208\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @api
  * @see \Symplify\EasyCodingStandard\Tests\SniffRunner\ValueObject\FileTest

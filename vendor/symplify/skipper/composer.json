@@ -18,12 +18,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix202207\\Symplify\\Skipper\\": "src"
+            "ECSPrefix202208\\Symplify\\Skipper\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix202207\\Symplify\\Skipper\\Tests\\": "tests"
+            "ECSPrefix202208\\Symplify\\Skipper\\Tests\\": "tests"
         }
     },
     "extra": {

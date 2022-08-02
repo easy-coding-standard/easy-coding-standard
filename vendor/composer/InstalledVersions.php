@@ -9,10 +9,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202207\Composer;
+namespace ECSPrefix202208\Composer;
 
-use ECSPrefix202207\Composer\Autoload\ClassLoader;
-use ECSPrefix202207\Composer\Semver\VersionParser;
+use ECSPrefix202208\Composer\Autoload\ClassLoader;
+use ECSPrefix202208\Composer\Semver\VersionParser;
 /**
  * This class is copied in every Composer installed project and available to all
  *
@@ -277,7 +277,7 @@ class InstalledVersions
     private static function getInstalled()
     {
         if (null === self::$canGetVendors) {
-            self::$canGetVendors = \method_exists('ECSPrefix202207\\Composer\\Autoload\\ClassLoader', 'getRegisteredLoaders');
+            self::$canGetVendors = \method_exists('ECSPrefix202208\\Composer\\Autoload\\ClassLoader', 'getRegisteredLoaders');
         }
         $installed = array();
         if (self::$canGetVendors) {

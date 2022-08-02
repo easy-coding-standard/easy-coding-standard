@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202207\Symplify\Skipper\FileSystem;
+namespace ECSPrefix202208\Symplify\Skipper\FileSystem;
 
-use ECSPrefix202207\Nette\Utils\Strings;
+use ECSPrefix202208\Nette\Utils\Strings;
 /**
  * @see \Symplify\Skipper\Tests\FileSystem\FnMatchPathNormalizerTest
  */

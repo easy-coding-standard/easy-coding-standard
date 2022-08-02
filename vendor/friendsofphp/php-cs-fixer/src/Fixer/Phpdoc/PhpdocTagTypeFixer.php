@@ -23,8 +23,8 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Preg;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-use ECSPrefix202207\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
-use ECSPrefix202207\Symfony\Component\OptionsResolver\Options;
+use ECSPrefix202208\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+use ECSPrefix202208\Symfony\Component\OptionsResolver\Options;
 final class PhpdocTagTypeFixer extends AbstractFixer implements ConfigurableFixerInterface
 {
     private const TAG_REGEX = '/^(?:

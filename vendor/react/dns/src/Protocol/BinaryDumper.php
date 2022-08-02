@@ -1,10 +1,10 @@
 <?php
 
-namespace ECSPrefix202207\React\Dns\Protocol;
+namespace ECSPrefix202208\React\Dns\Protocol;
 
-use ECSPrefix202207\React\Dns\Model\Message;
-use ECSPrefix202207\React\Dns\Model\Record;
-use ECSPrefix202207\React\Dns\Query\Query;
+use ECSPrefix202208\React\Dns\Model\Message;
+use ECSPrefix202208\React\Dns\Model\Record;
+use ECSPrefix202208\React\Dns\Query\Query;
 final class BinaryDumper
 {
     /**

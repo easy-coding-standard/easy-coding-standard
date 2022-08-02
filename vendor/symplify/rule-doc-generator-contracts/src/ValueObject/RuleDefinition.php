@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202207\Symplify\RuleDocGenerator\ValueObject;
+namespace ECSPrefix202208\Symplify\RuleDocGenerator\ValueObject;
 
-use ECSPrefix202207\Nette\Utils\Strings;
-use ECSPrefix202207\Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
-use ECSPrefix202207\Symplify\RuleDocGenerator\Exception\PoorDocumentationException;
-use ECSPrefix202207\Symplify\RuleDocGenerator\Exception\ShouldNotHappenException;
-use ECSPrefix202207\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use ECSPrefix202208\Nette\Utils\Strings;
+use ECSPrefix202208\Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
+use ECSPrefix202208\Symplify\RuleDocGenerator\Exception\PoorDocumentationException;
+use ECSPrefix202208\Symplify\RuleDocGenerator\Exception\ShouldNotHappenException;
+use ECSPrefix202208\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 final class RuleDefinition
 {
     /**

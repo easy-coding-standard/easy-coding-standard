@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202207\Symfony\Component\Console\Helper;
+namespace ECSPrefix202208\Symfony\Component\Console\Helper;
 
-use ECSPrefix202207\Symfony\Component\Console\Cursor;
-use ECSPrefix202207\Symfony\Component\Console\Exception\LogicException;
-use ECSPrefix202207\Symfony\Component\Console\Output\ConsoleOutputInterface;
-use ECSPrefix202207\Symfony\Component\Console\Output\ConsoleSectionOutput;
-use ECSPrefix202207\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix202207\Symfony\Component\Console\Terminal;
+use ECSPrefix202208\Symfony\Component\Console\Cursor;
+use ECSPrefix202208\Symfony\Component\Console\Exception\LogicException;
+use ECSPrefix202208\Symfony\Component\Console\Output\ConsoleOutputInterface;
+use ECSPrefix202208\Symfony\Component\Console\Output\ConsoleSectionOutput;
+use ECSPrefix202208\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix202208\Symfony\Component\Console\Terminal;
 /**
  * The ProgressBar provides helpers to display progress output.
  *

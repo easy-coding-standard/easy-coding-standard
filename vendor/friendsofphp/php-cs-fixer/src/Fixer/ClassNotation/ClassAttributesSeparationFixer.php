@@ -28,7 +28,7 @@ use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use PhpCsFixer\Tokenizer\TokensAnalyzer;
-use ECSPrefix202207\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+use ECSPrefix202208\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 /**
  * Make sure there is one blank line above and below class elements.
  *

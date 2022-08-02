@@ -9,9 +9,9 @@
  * the LICENSE file that was distributed with this source code.
  */
 declare (strict_types=1);
-namespace ECSPrefix202207\Composer\XdebugHandler;
+namespace ECSPrefix202208\Composer\XdebugHandler;
 
-use ECSPrefix202207\Composer\Pcre\Preg;
+use ECSPrefix202208\Composer\Pcre\Preg;
 /**
  * Process utility functions
  *

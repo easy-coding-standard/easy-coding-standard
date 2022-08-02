@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202207\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix202208\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix202207\Symfony\Component\DependencyInjection\Argument\ArgumentInterface;
-use ECSPrefix202207\Symfony\Component\DependencyInjection\Argument\IteratorArgument;
-use ECSPrefix202207\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix202207\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix202207\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix202207\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix202208\Symfony\Component\DependencyInjection\Argument\ArgumentInterface;
+use ECSPrefix202208\Symfony\Component\DependencyInjection\Argument\IteratorArgument;
+use ECSPrefix202208\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix202208\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix202208\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix202208\Symfony\Component\DependencyInjection\Reference;
 /**
  * Run this pass before passes that need to know more about the relation of
  * your services.

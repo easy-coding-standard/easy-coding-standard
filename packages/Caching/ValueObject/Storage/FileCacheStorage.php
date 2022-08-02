@@ -3,11 +3,11 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Caching\ValueObject\Storage;
 
-use ECSPrefix202207\Nette\Utils\Random;
+use ECSPrefix202208\Nette\Utils\Random;
 use Symplify\EasyCodingStandard\Caching\Exception\CachingException;
 use Symplify\EasyCodingStandard\Caching\ValueObject\CacheFilePaths;
 use Symplify\EasyCodingStandard\Caching\ValueObject\CacheItem;
-use ECSPrefix202207\Symplify\SmartFileSystem\SmartFileSystem;
+use ECSPrefix202208\Symplify\SmartFileSystem\SmartFileSystem;
 /**
  * Inspired by
  * https://github.com/phpstan/phpstan-src/commit/4df7342f3a0aaef4bcd85456dd20ca88d38dd90d#diff-6dc14f6222bf150e6840ca44a7126653052a1cedc6a149b4e5c1e1a2c80eacdc
