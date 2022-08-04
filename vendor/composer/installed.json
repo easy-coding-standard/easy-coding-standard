@@ -3015,7 +3015,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/autowire-array-parameter",
-                "reference": "456b130f9ae066c2a9ef696b87fff4be407f5e8b"
+                "reference": "1f16c460a35a053316d7d35d12caaafea33460f6"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3033,7 +3033,6 @@
                 "symplify\/easy-parallel": "<11.0.9",
                 "symplify\/easy-testing": "<11.0.9",
                 "symplify\/monorepo-builder": "<11.0.9",
-                "symplify\/neon-config-dumper": "<11.0.9",
                 "symplify\/php-config-printer": "<11.0.9",
                 "symplify\/phpstan-extensions": "<11.0.9",
                 "symplify\/phpstan-rules": "<11.0.9",
@@ -3082,7 +3081,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/coding-standard",
-                "reference": "6ffce83f47de8a274a45c4a211542ed049b7811c"
+                "reference": "51d5606a6344c0a0dbc0e39e015c742500c78c8f"
             },
             "require": {
                 "friendsofphp\/php-cs-fixer": "^3.9.5",
@@ -3102,7 +3101,6 @@
                 "symplify\/easy-parallel": "<11.0.9",
                 "symplify\/easy-testing": "<11.0.9",
                 "symplify\/monorepo-builder": "<11.0.9",
-                "symplify\/neon-config-dumper": "<11.0.9",
                 "symplify\/php-config-printer": "<11.0.9",
                 "symplify\/phpstan-extensions": "<11.0.9",
                 "symplify\/phpstan-rules": "<11.0.9",
@@ -3164,7 +3162,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/composer-json-manipulator",
-                "reference": "084304c4b8bf2177f27de8c37bcb9af12b40d063"
+                "reference": "f685358f04baf644976889fb88c42f7ea8fc2cf8"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3186,7 +3184,6 @@
                 "symplify\/easy-parallel": "<11.0.9",
                 "symplify\/easy-testing": "<11.0.9",
                 "symplify\/monorepo-builder": "<11.0.9",
-                "symplify\/neon-config-dumper": "<11.0.9",
                 "symplify\/php-config-printer": "<11.0.9",
                 "symplify\/phpstan-extensions": "<11.0.9",
                 "symplify\/phpstan-rules": "<11.0.9",
@@ -3234,7 +3231,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/easy-parallel",
-                "reference": "c4fe7d304b5ff640fbde9cbd47cc5f54c0183787"
+                "reference": "1a189ef671a50ad528e2bf2178130e4a92cbec35"
             },
             "require": {
                 "clue\/ndjson-react": "^1.2",
@@ -3255,7 +3252,6 @@
                 "symplify\/easy-coding-standard": "<11.0.9",
                 "symplify\/easy-testing": "<11.0.9",
                 "symplify\/monorepo-builder": "<11.0.9",
-                "symplify\/neon-config-dumper": "<11.0.9",
                 "symplify\/php-config-printer": "<11.0.9",
                 "symplify\/phpstan-extensions": "<11.0.9",
                 "symplify\/phpstan-rules": "<11.0.9",
@@ -3304,7 +3300,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/easy-testing",
-                "reference": "5e8c5ba842ff609adb0e6cd28b1685020395fbdc"
+                "reference": "bf146ceb0404921f145f668ec475245a857baed3"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3326,7 +3322,6 @@
                 "symplify\/easy-coding-standard": "<11.0.9",
                 "symplify\/easy-parallel": "<11.0.9",
                 "symplify\/monorepo-builder": "<11.0.9",
-                "symplify\/neon-config-dumper": "<11.0.9",
                 "symplify\/php-config-printer": "<11.0.9",
                 "symplify\/phpstan-extensions": "<11.0.9",
                 "symplify\/phpstan-rules": "<11.0.9",
@@ -3376,7 +3371,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/package-builder",
-                "reference": "50df469b0c69d6299e4d4da3e1ea7caa83cbd8fe"
+                "reference": "2c12942a159688a0dc334481ef38a9d266c6e9ce"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3399,7 +3394,6 @@
                 "symplify\/easy-coding-standard": "<11.0.9",
                 "symplify\/easy-parallel": "<11.0.9",
                 "symplify\/monorepo-builder": "<11.0.9",
-                "symplify\/neon-config-dumper": "<11.0.9",
                 "symplify\/php-config-printer": "<11.0.9",
                 "symplify\/phpstan-extensions": "<11.0.9",
                 "symplify\/phpstan-rules": "<11.0.9",
@@ -3447,7 +3441,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/rule-doc-generator-contracts",
-                "reference": "1446bc7a3ed8764dba19c36705c5ae8cca0ca9aa"
+                "reference": "f0a503557acc0af49f84b6089e9fa0430ffc2548"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3464,7 +3458,6 @@
                 "symplify\/easy-parallel": "<11.0.9",
                 "symplify\/easy-testing": "<11.0.9",
                 "symplify\/monorepo-builder": "<11.0.9",
-                "symplify\/neon-config-dumper": "<11.0.9",
                 "symplify\/package-builder": "<11.0.9",
                 "symplify\/php-config-printer": "<11.0.9",
                 "symplify\/phpstan-extensions": "<11.0.9",
@@ -3505,7 +3498,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/skipper",
-                "reference": "036e6c0abbd5bb13224e08a2052086e4b8873d4e"
+                "reference": "9eebbead44a5b3d490c7c026ca82ae6246388cab"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3529,7 +3522,6 @@
                 "symplify\/easy-parallel": "<11.0.9",
                 "symplify\/easy-testing": "<11.0.9",
                 "symplify\/monorepo-builder": "<11.0.9",
-                "symplify\/neon-config-dumper": "<11.0.9",
                 "symplify\/php-config-printer": "<11.0.9",
                 "symplify\/phpstan-extensions": "<11.0.9",
                 "symplify\/phpstan-rules": "<11.0.9",
@@ -3575,7 +3567,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/smart-file-system",
-                "reference": "428fad7b4d939a9e5c44916f8b1f644d9cd88ce7"
+                "reference": "de7986e9476d5f4951082af5020a25339361673f"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3594,7 +3586,6 @@
                 "symplify\/easy-parallel": "<11.0.9",
                 "symplify\/easy-testing": "<11.0.9",
                 "symplify\/monorepo-builder": "<11.0.9",
-                "symplify\/neon-config-dumper": "<11.0.9",
                 "symplify\/package-builder": "<11.0.9",
                 "symplify\/php-config-printer": "<11.0.9",
                 "symplify\/phpstan-extensions": "<11.0.9",
@@ -3644,7 +3635,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/symplify-kernel",
-                "reference": "4a6778d5e37cea8ba8daa4301718ddfcc071de23"
+                "reference": "564bc77db6466f11ba36695498e74e0e0c089ee3"
             },
             "require": {
                 "php": ">=8.0",
@@ -3665,7 +3656,6 @@
                 "symplify\/easy-parallel": "<11.0.9",
                 "symplify\/easy-testing": "<11.0.9",
                 "symplify\/monorepo-builder": "<11.0.9",
-                "symplify\/neon-config-dumper": "<11.0.9",
                 "symplify\/php-config-printer": "<11.0.9",
                 "symplify\/phpstan-extensions": "<11.0.9",
                 "symplify\/phpstan-rules": "<11.0.9",

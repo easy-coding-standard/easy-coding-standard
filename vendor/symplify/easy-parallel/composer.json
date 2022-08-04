@@ -51,8 +51,7 @@
         "symplify\/composer-json-manipulator": "<11.0.9",
         "symplify\/smart-file-system": "<11.0.9",
         "symplify\/monorepo-builder": "<11.0.9",
-        "symplify\/symplify-kernel": "<11.0.9",
-        "symplify\/neon-config-dumper": "<11.0.9"
+        "symplify\/symplify-kernel": "<11.0.9"
     },
     "minimum-stability": "dev",
     "prefer-stable": true
