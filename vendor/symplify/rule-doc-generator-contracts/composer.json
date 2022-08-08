@@ -13,7 +13,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-main": "11.1-dev"
+            "dev-main": "11.2-dev"
         }
     },
     "conflict": {
