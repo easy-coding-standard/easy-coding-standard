@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInita4025e4d076cf216bcf63ace66df57ce
+class ComposerStaticInita6e733ebf47cbdd9c40f32a65c5ace66
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -1454,6 +1454,7 @@ class ComposerStaticInita4025e4d076cf216bcf63ace66df57ce
         'Symfony\\Polyfill\\Php80\\PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/PhpToken.php',
         'Symfony\\Polyfill\\Php81\\Php81' => __DIR__ . '/..' . '/symfony/polyfill-php81/Php81.php',
         'Symplify\\CodingStandard\\DocBlock\\UselessDocBlockCleaner' => __DIR__ . '/..' . '/symplify/coding-standard/src/DocBlock/UselessDocBlockCleaner.php',
+        'Symplify\\CodingStandard\\Enum\\BlockBorderType' => __DIR__ . '/..' . '/symplify/coding-standard/src/Enum/BlockBorderType.php',
         'Symplify\\CodingStandard\\Exception\\ShouldNotHappenException' => __DIR__ . '/..' . '/symplify/coding-standard/src/Exception/ShouldNotHappenException.php',
         'Symplify\\CodingStandard\\Fixer\\AbstractSymplifyFixer' => __DIR__ . '/..' . '/symplify/coding-standard/src/Fixer/AbstractSymplifyFixer.php',
         'Symplify\\CodingStandard\\Fixer\\Annotation\\DoctrineAnnotationNestedBracketsFixer' => __DIR__ . '/..' . '/symplify/coding-standard/src/Fixer/Annotation/DoctrineAnnotationNestedBracketsFixer.php',
@@ -1517,6 +1518,7 @@ class ComposerStaticInita4025e4d076cf216bcf63ace66df57ce
         'Symplify\\CodingStandard\\TokenRunner\\Whitespace\\IndentResolver' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/Whitespace/IndentResolver.php',
         'Symplify\\CodingStandard\\TokenRunner\\Wrapper\\FixerWrapper\\ArrayWrapperFactory' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/Wrapper/FixerWrapper/ArrayWrapperFactory.php',
         'Symplify\\CodingStandard\\ValueObjectFactory\\DocBlockLinesFactory' => __DIR__ . '/..' . '/symplify/coding-standard/src/ValueObjectFactory/DocBlockLinesFactory.php',
+        'Symplify\\CodingStandard\\ValueObject\\BlockInfoMetadata' => __DIR__ . '/..' . '/symplify/coding-standard/src/ValueObject/BlockInfoMetadata.php',
         'Symplify\\CodingStandard\\ValueObject\\CodingStandardConfig' => __DIR__ . '/..' . '/symplify/coding-standard/src/ValueObject/CodingStandardConfig.php',
         'Symplify\\CodingStandard\\ValueObject\\DocBlockLines' => __DIR__ . '/..' . '/symplify/coding-standard/src/ValueObject/DocBlockLines.php',
         'Symplify\\EasyCodingStandard\\Application\\EasyCodingStandardApplication' => __DIR__ . '/../..' . '/src/Application/EasyCodingStandardApplication.php',
@@ -1605,9 +1607,9 @@ class ComposerStaticInita4025e4d076cf216bcf63ace66df57ce
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInita4025e4d076cf216bcf63ace66df57ce::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInita4025e4d076cf216bcf63ace66df57ce::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInita4025e4d076cf216bcf63ace66df57ce::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInita6e733ebf47cbdd9c40f32a65c5ace66::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInita6e733ebf47cbdd9c40f32a65c5ace66::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInita6e733ebf47cbdd9c40f32a65c5ace66::$classMap;
 
         }, null, ClassLoader::class);
     }

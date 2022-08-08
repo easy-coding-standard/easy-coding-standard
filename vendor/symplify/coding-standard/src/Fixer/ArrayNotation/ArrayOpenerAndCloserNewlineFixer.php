@@ -9,11 +9,12 @@ use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use PhpCsFixer\WhitespacesFixerConfig;
 use SplFileInfo;
+use Symplify\CodingStandard\Enum\BlockBorderType;
 use Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
 use Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\ArrayAnalyzer;
 use Symplify\CodingStandard\TokenRunner\Traverser\ArrayBlockInfoFinder;
-use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
 use Symplify\CodingStandard\TokenRunner\ValueObject\TokenKinds;
+use Symplify\CodingStandard\ValueObject\BlockInfoMetadata;
 use ECSPrefix202208\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use ECSPrefix202208\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use ECSPrefix202208\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -85,15 +86,23 @@ CODE_SAMPLE
     public function fix(SplFileInfo $fileInfo, Tokens $tokens) : void
     {
         $blockInfos = $this->arrayBlockInfoFinder->findArrayOpenerBlockInfos($tokens);
+        $blockInfoMetadatas = [];
         foreach ($blockInfos as $blockInfo) {
-            $this->fixArrayOpener($tokens, $blockInfo);
+            $blockInfoMetadatas[$blockInfo->getStart()] = new BlockInfoMetadata(BlockBorderType::OPENER, $blockInfo);
+            $blockInfoMetadatas[$blockInfo->getEnd()] = new BlockInfoMetadata(BlockBorderType::CLOSER, $blockInfo);
+        }
+        // sort from the highest position to the lowest, so we respect the changed tokens from bottom to the top convention
+        \krsort($blockInfoMetadatas);
+        foreach ($blockInfoMetadatas as $blockInfoMetadata) {
+            $this->fixPositionAndType($blockInfoMetadata, $tokens);
         }
     }
     /**
      * @param Tokens<Token> $tokens
      */
-    private function fixArrayOpener(Tokens $tokens, BlockInfo $blockInfo) : void
+    private function fixPositionAndType(BlockInfoMetadata $blockInfoMetadata, Tokens $tokens) : void
     {
+        $blockInfo = $blockInfoMetadata->getBlockInfo();
         if ($this->isNextTokenAlsoArrayOpener($tokens, $blockInfo->getStart())) {
             return;
         }
@@ -106,8 +115,11 @@ CODE_SAMPLE
             return;
         }
         // closer must run before the opener, as tokens as added by traversing up
-        $this->handleArrayCloser($tokens, $blockInfo->getEnd());
-        $this->handleArrayOpener($tokens, $blockInfo->getStart());
+        if ($blockInfoMetadata->getBlockType() === BlockBorderType::CLOSER) {
+            $this->handleArrayCloser($tokens, $blockInfo->getEnd());
+        } elseif ($blockInfoMetadata->getBlockType() === BlockBorderType::OPENER) {
+            $this->handleArrayOpener($tokens, $blockInfo->getStart());
+        }
     }
     /**
      * @param Tokens<Token> $tokens
