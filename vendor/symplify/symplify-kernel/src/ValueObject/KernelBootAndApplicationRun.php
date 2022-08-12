@@ -72,12 +72,12 @@ final class KernelBootAndApplicationRun
         // remove --no-interaction (with -n shortcut) option from Application
         // because we need to create option with -n shortcuts too
         // for example: --dry-run with shortcut -n
-        $definition = $application->getDefinition();
-        $options = $definition->getOptions();
+        $inputDefinition = $application->getDefinition();
+        $options = $inputDefinition->getOptions();
         $options = \array_filter($options, static function ($option) {
             return $option->getName() !== 'no-interaction';
         });
-        $definition->setOptions($options);
+        $inputDefinition->setOptions($options);
         exit($application->run());
     }
     /**
