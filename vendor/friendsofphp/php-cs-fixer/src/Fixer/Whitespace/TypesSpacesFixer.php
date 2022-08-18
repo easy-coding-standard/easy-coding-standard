@@ -40,7 +40,7 @@ final class TypesSpacesFixer extends AbstractFixer implements ConfigurableFixerI
      */
     public function getDefinition() : FixerDefinitionInterface
     {
-        return new FixerDefinition('A single space or none should be around union type operator.', [new CodeSample("<?php\ntry\n{\n    new Foo();\n} catch (ErrorA | ErrorB \$e) {\necho'error';}\n"), new CodeSample("<?php\ntry\n{\n    new Foo();\n} catch (ErrorA|ErrorB \$e) {\necho'error';}\n", ['space' => 'single']), new VersionSpecificCodeSample("<?php\nfunction foo(int | string \$x)\n{\n}\n", new VersionSpecification(80000))]);
+        return new FixerDefinition('A single space or none should be around union type and intersection type operators.', [new CodeSample("<?php\ntry\n{\n    new Foo();\n} catch (ErrorA | ErrorB \$e) {\necho'error';}\n"), new CodeSample("<?php\ntry\n{\n    new Foo();\n} catch (ErrorA|ErrorB \$e) {\necho'error';}\n", ['space' => 'single']), new VersionSpecificCodeSample("<?php\nfunction foo(int | string \$x)\n{\n}\n", new VersionSpecification(80000))]);
     }
     /**
      * {@inheritdoc}
@@ -54,7 +54,7 @@ final class TypesSpacesFixer extends AbstractFixer implements ConfigurableFixerI
      */
     protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
-        return new FixerConfigurationResolver([(new FixerOptionBuilder('space', 'spacing to apply around union type operator.'))->setAllowedValues(['none', 'single'])->setDefault('none')->getOption(), (new FixerOptionBuilder('space_multiple_catch', 'spacing to apply around type operator when catching exceptions of multiple types, use `null` to follow the value configured for `space`.'))->setAllowedValues(['none', 'single', null])->setDefault(null)->getOption()]);
+        return new FixerConfigurationResolver([(new FixerOptionBuilder('space', 'spacing to apply around union type and intersection type operators.'))->setAllowedValues(['none', 'single'])->setDefault('none')->getOption(), (new FixerOptionBuilder('space_multiple_catch', 'spacing to apply around type operator when catching exceptions of multiple types, use `null` to follow the value configured for `space`.'))->setAllowedValues(['none', 'single', null])->setDefault(null)->getOption()]);
     }
     protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {

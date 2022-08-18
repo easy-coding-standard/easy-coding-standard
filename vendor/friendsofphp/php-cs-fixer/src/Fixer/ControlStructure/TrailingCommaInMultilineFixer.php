@@ -88,9 +88,7 @@ SAMPLE
      */
     protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
-        return new FixerConfigurationResolver([(new FixerOptionBuilder('after_heredoc', 'Whether a trailing comma should also be placed after heredoc end.'))->setAllowedTypes(['bool'])->setDefault(\false)->setNormalizer(static function (Options $options, $value) {
-            return $value;
-        })->getOption(), (new FixerOptionBuilder('elements', \sprintf('Where to fix multiline trailing comma (PHP >= 8.0 for `%s` and `%s`).', self::ELEMENTS_PARAMETERS, self::MATCH_EXPRESSIONS)))->setAllowedTypes(['array'])->setAllowedValues([new AllowedValueSubset([self::ELEMENTS_ARRAYS, self::ELEMENTS_ARGUMENTS, self::ELEMENTS_PARAMETERS, self::MATCH_EXPRESSIONS])])->setDefault([self::ELEMENTS_ARRAYS])->setNormalizer(static function (Options $options, $value) {
+        return new FixerConfigurationResolver([(new FixerOptionBuilder('after_heredoc', 'Whether a trailing comma should also be placed after heredoc end.'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption(), (new FixerOptionBuilder('elements', \sprintf('Where to fix multiline trailing comma (PHP >= 8.0 for `%s` and `%s`).', self::ELEMENTS_PARAMETERS, self::MATCH_EXPRESSIONS)))->setAllowedTypes(['array'])->setAllowedValues([new AllowedValueSubset([self::ELEMENTS_ARRAYS, self::ELEMENTS_ARGUMENTS, self::ELEMENTS_PARAMETERS, self::MATCH_EXPRESSIONS])])->setDefault([self::ELEMENTS_ARRAYS])->setNormalizer(static function (Options $options, $value) {
             if (\PHP_VERSION_ID < 80000) {
                 // @TODO: drop condition when PHP 8.0+ is required
                 foreach ([self::ELEMENTS_PARAMETERS, self::MATCH_EXPRESSIONS] as $option) {
@@ -123,7 +121,7 @@ SAMPLE
                 continue;
             }
             $prevPrevIndex = $tokens->getPrevMeaningfulToken($prevIndex);
-            if ($fixArguments && $tokens[$prevIndex]->equalsAny([']', [\T_CLASS], [\T_STRING], [\T_VARIABLE]]) && !$tokens[$prevPrevIndex]->isGivenKind(\T_FUNCTION)) {
+            if ($fixArguments && $tokens[$prevIndex]->equalsAny([']', [\T_CLASS], [\T_STRING], [\T_VARIABLE], [\T_STATIC]]) && !$tokens[$prevPrevIndex]->isGivenKind(\T_FUNCTION)) {
                 $this->fixBlock($tokens, $index);
                 continue;
             }

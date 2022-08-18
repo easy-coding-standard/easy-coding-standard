@@ -24,7 +24,6 @@ use PhpCsFixer\FixerDefinition\VersionSpecification;
 use PhpCsFixer\FixerDefinition\VersionSpecificCodeSample;
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Tokens;
-use ECSPrefix202208\Symfony\Component\OptionsResolver\Options;
 /**
  * @author Adam Marczuk <adam@marczuk.info>
  */
@@ -71,9 +70,7 @@ SAMPLE
      */
     protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
-        return new FixerConfigurationResolver([(new FixerOptionBuilder('after_heredoc', 'Whether the whitespace between heredoc end and comma should be removed.'))->setAllowedTypes(['bool'])->setDefault(\false)->setNormalizer(static function (Options $options, $value) {
-            return $value;
-        })->getOption()]);
+        return new FixerConfigurationResolver([(new FixerOptionBuilder('after_heredoc', 'Whether the whitespace between heredoc end and comma should be removed.'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption()]);
     }
     /**
      * Method to fix spacing in array declaration.

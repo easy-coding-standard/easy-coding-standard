@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit707555c9c7639dfa0c2ab14deadd54ae
+class ComposerStaticInitdf075ce5c3e0c0297140937e50a313b1
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -1021,22 +1021,6 @@ class ComposerStaticInit707555c9c7639dfa0c2ab14deadd54ae
         'PhpCsFixer\\Console\\Command\\FixCommandExitStatusCalculator' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/Command/FixCommandExitStatusCalculator.php',
         'PhpCsFixer\\Console\\ConfigurationResolver' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/ConfigurationResolver.php',
         'PhpCsFixer\\Console\\WarningsDetector' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Console/WarningsDetector.php',
-        'PhpCsFixer\\Diff\\Chunk' => __DIR__ . '/..' . '/php-cs-fixer/diff/src/Chunk.php',
-        'PhpCsFixer\\Diff\\ConfigurationException' => __DIR__ . '/..' . '/php-cs-fixer/diff/src/Exception/ConfigurationException.php',
-        'PhpCsFixer\\Diff\\Diff' => __DIR__ . '/..' . '/php-cs-fixer/diff/src/Diff.php',
-        'PhpCsFixer\\Diff\\Differ' => __DIR__ . '/..' . '/php-cs-fixer/diff/src/Differ.php',
-        'PhpCsFixer\\Diff\\Exception' => __DIR__ . '/..' . '/php-cs-fixer/diff/src/Exception/Exception.php',
-        'PhpCsFixer\\Diff\\InvalidArgumentException' => __DIR__ . '/..' . '/php-cs-fixer/diff/src/Exception/InvalidArgumentException.php',
-        'PhpCsFixer\\Diff\\Line' => __DIR__ . '/..' . '/php-cs-fixer/diff/src/Line.php',
-        'PhpCsFixer\\Diff\\LongestCommonSubsequenceCalculator' => __DIR__ . '/..' . '/php-cs-fixer/diff/src/LongestCommonSubsequenceCalculator.php',
-        'PhpCsFixer\\Diff\\MemoryEfficientLongestCommonSubsequenceCalculator' => __DIR__ . '/..' . '/php-cs-fixer/diff/src/MemoryEfficientLongestCommonSubsequenceCalculator.php',
-        'PhpCsFixer\\Diff\\Output\\AbstractChunkOutputBuilder' => __DIR__ . '/..' . '/php-cs-fixer/diff/src/Output/AbstractChunkOutputBuilder.php',
-        'PhpCsFixer\\Diff\\Output\\DiffOnlyOutputBuilder' => __DIR__ . '/..' . '/php-cs-fixer/diff/src/Output/DiffOnlyOutputBuilder.php',
-        'PhpCsFixer\\Diff\\Output\\DiffOutputBuilderInterface' => __DIR__ . '/..' . '/php-cs-fixer/diff/src/Output/DiffOutputBuilderInterface.php',
-        'PhpCsFixer\\Diff\\Output\\StrictUnifiedDiffOutputBuilder' => __DIR__ . '/..' . '/php-cs-fixer/diff/src/Output/StrictUnifiedDiffOutputBuilder.php',
-        'PhpCsFixer\\Diff\\Output\\UnifiedDiffOutputBuilder' => __DIR__ . '/..' . '/php-cs-fixer/diff/src/Output/UnifiedDiffOutputBuilder.php',
-        'PhpCsFixer\\Diff\\Parser' => __DIR__ . '/..' . '/php-cs-fixer/diff/src/Parser.php',
-        'PhpCsFixer\\Diff\\TimeEfficientLongestCommonSubsequenceCalculator' => __DIR__ . '/..' . '/php-cs-fixer/diff/src/TimeEfficientLongestCommonSubsequenceCalculator.php',
         'PhpCsFixer\\Differ\\DiffConsoleFormatter' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Differ/DiffConsoleFormatter.php',
         'PhpCsFixer\\Differ\\DifferInterface' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Differ/DifferInterface.php',
         'PhpCsFixer\\Differ\\FullDiffer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Differ/FullDiffer.php',
@@ -1606,9 +1590,9 @@ class ComposerStaticInit707555c9c7639dfa0c2ab14deadd54ae
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit707555c9c7639dfa0c2ab14deadd54ae::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit707555c9c7639dfa0c2ab14deadd54ae::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit707555c9c7639dfa0c2ab14deadd54ae::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitdf075ce5c3e0c0297140937e50a313b1::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitdf075ce5c3e0c0297140937e50a313b1::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitdf075ce5c3e0c0297140937e50a313b1::$classMap;
 
         }, null, ClassLoader::class);
     }

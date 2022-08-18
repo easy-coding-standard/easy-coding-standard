@@ -80,7 +80,7 @@ final class PhpdocAlignFixer extends AbstractFixer implements ConfigurableFixerI
         }
         // e.g. @method <hint> <signature>
         if ([] !== $tagsWithMethodSignatureToAlign) {
-            $types[] = '(?P<tag3>' . \implode('|', $tagsWithMethodSignatureToAlign) . ')(\\s+(?P<hint3>[^\\s(]+)|)\\s+(?P<signature>.+\\))';
+            $types[] = '(?P<tag3>' . \implode('|', $tagsWithMethodSignatureToAlign) . ')(\\s+(?P<static>static))?(\\s+(?P<hint3>[^\\s(]+)|)\\s+(?P<signature>.+\\))';
         }
         // optional <desc>
         $desc = '(?:\\s+(?P<desc>\\V*))';
@@ -183,6 +183,7 @@ EOF;
                 $items[] = $matches;
             }
             // compute the max length of the tag, hint and variables
+            $hasStatic = \false;
             $tagMax = 0;
             $hintMax = 0;
             $varMax = 0;
@@ -190,6 +191,7 @@ EOF;
                 if (null === $item['tag']) {
                     continue;
                 }
+                $hasStatic = $hasStatic || $item['static'];
                 $tagMax = \max($tagMax, \strlen($item['tag']));
                 $hintMax = \max($hintMax, \strlen($item['hint']));
                 $varMax = \max($varMax, \strlen($item['var']));
@@ -206,12 +208,23 @@ EOF;
                     if (\in_array($currTag, self::TAGS_WITH_NAME, \true) || \in_array($currTag, self::TAGS_WITH_METHOD_SIGNATURE, \true)) {
                         $extraIndent = 3;
                     }
+                    if ($hasStatic) {
+                        $extraIndent += 7;
+                        // \strlen('static ');
+                    }
                     $line = $item['indent'] . ' *  ' . $this->getIndent($tagMax + $hintMax + $varMax + $extraIndent, $this->getLeftAlignedDescriptionIndent($items, $j)) . $item['desc'] . $lineEnding;
                     $docBlock->getLine($current + $j)->setContent($line);
                     continue;
                 }
                 $currTag = $item['tag'];
-                $line = $item['indent'] . ' * @' . $item['tag'] . $this->getIndent($tagMax - \strlen($item['tag']) + 1, $item['hint'] ? 1 : 0) . $item['hint'];
+                $line = $item['indent'] . ' * @' . $item['tag'];
+                if ($hasStatic) {
+                    $line .= $this->getIndent($tagMax - \strlen($item['tag']) + 1, $item['static'] ? 1 : 0) . ($item['static'] ?: $this->getIndent(6, 0));
+                    $hintVerticalAlignIndent = 1;
+                } else {
+                    $hintVerticalAlignIndent = $tagMax - \strlen($item['tag']) + 1;
+                }
+                $line .= $this->getIndent($hintVerticalAlignIndent, $item['hint'] ? 1 : 0) . $item['hint'];
                 if (!empty($item['var'])) {
                     $line .= $this->getIndent(($hintMax ?: -1) - \strlen($item['hint']) + 1) . $item['var'] . (!empty($item['desc']) ? $this->getIndent($varMax - \strlen($item['var']) + 1) . $item['desc'] . $lineEnding : $lineEnding);
                 } elseif (!empty($item['desc'])) {
@@ -238,9 +251,18 @@ EOF;
                 $matches['tag'] = $matches['tag3'];
                 $matches['hint'] = $matches['hint3'];
                 $matches['var'] = $matches['signature'];
+                // Since static can be both a return type declaration & a keyword that defines static methods
+                // we assume it's a type declaration when only one value is present
+                if ('' === $matches['hint'] && '' !== $matches['static']) {
+                    $matches['hint'] = $matches['static'];
+                    $matches['static'] = '';
+                }
             }
             if (isset($matches['hint'])) {
                 $matches['hint'] = \trim($matches['hint']);
+            }
+            if (!isset($matches['static'])) {
+                $matches['static'] = '';
             }
             return $matches;
         }
@@ -248,6 +270,7 @@ EOF;
             $matches['tag'] = null;
             $matches['var'] = '';
             $matches['hint'] = '';
+            $matches['static'] = '';
             return $matches;
         }
         return null;
@@ -278,7 +301,7 @@ EOF;
             return 0;
         }
         // Indent according to existing values:
-        return $this->getSentenceIndent($item['tag']) + $this->getSentenceIndent($item['hint']) + $this->getSentenceIndent($item['var']);
+        return $this->getSentenceIndent($item['static']) + $this->getSentenceIndent($item['tag']) + $this->getSentenceIndent($item['hint']) + $this->getSentenceIndent($item['var']);
     }
     /**
      * Get indent for sentence.

@@ -124,7 +124,7 @@ yield  from  baz();
                 continue;
             }
             if ($token->isGivenKind(\T_OPEN_TAG)) {
-                if ($tokens[$whitespaceTokenIndex]->equals([\T_WHITESPACE]) && \strpos($token->getContent(), "\n") === \false) {
+                if ($tokens[$whitespaceTokenIndex]->equals([\T_WHITESPACE]) && \strpos($tokens[$whitespaceTokenIndex]->getContent(), "\n") === \false && \strpos($token->getContent(), "\n") === \false) {
                     $tokens->clearAt($whitespaceTokenIndex);
                 }
                 continue;

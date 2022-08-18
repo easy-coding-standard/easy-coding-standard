@@ -56,6 +56,15 @@ class Sample
     }
     /**
      * {@inheritdoc}
+     *
+     * Must run before ClassAttributesSeparationFixer.
+     */
+    public function getPriority() : int
+    {
+        return 56;
+    }
+    /**
+     * {@inheritdoc}
      */
     public function isCandidate(Tokens $tokens) : bool
     {

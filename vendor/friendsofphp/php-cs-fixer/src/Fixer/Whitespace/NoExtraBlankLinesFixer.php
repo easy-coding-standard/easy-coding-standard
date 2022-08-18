@@ -314,13 +314,7 @@ switch($a) {
             if (\substr_count($content, "\n") < 1) {
                 continue;
             }
-            $pos = \strrpos($content, "\n");
-            if ($pos + 2 <= \strlen($content)) {
-                // preserve indenting where possible
-                $newContent = $ending . \substr($content, $pos + 1);
-            } else {
-                $newContent = $ending;
-            }
+            $newContent = Preg::replace('/^.*\\R(\\h*)$/s', $ending . '$1', $content);
             $this->tokens[$i] = new Token([\T_WHITESPACE, $newContent]);
         }
     }

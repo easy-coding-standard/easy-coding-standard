@@ -52,11 +52,8 @@ final class Configuration
     private $memoryLimit = null;
     /**
      * @param string[] $sources
-     * @param string|null $parallelPort
-     * @param string|null $parallelIdentifier
-     * @param string|null $memoryLimit
      */
-    public function __construct(bool $isFixer = \false, bool $shouldClearCache = \false, bool $showProgressBar = \true, bool $showErrorTable = \true, array $sources = [], string $outputFormat = ConsoleOutputFormatter::NAME, bool $isParallel = \false, ?string $config = null, $parallelPort = null, $parallelIdentifier = null, $memoryLimit = null)
+    public function __construct(bool $isFixer = \false, bool $shouldClearCache = \false, bool $showProgressBar = \true, bool $showErrorTable = \true, array $sources = [], string $outputFormat = ConsoleOutputFormatter::NAME, bool $isParallel = \false, ?string $config = null, ?string $parallelPort = null, ?string $parallelIdentifier = null, ?string $memoryLimit = null)
     {
         $this->isFixer = $isFixer;
         $this->shouldClearCache = $shouldClearCache;

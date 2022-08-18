@@ -12,9 +12,9 @@ declare (strict_types=1);
  */
 namespace PhpCsFixer\Differ;
 
-use PhpCsFixer\Diff\Differ;
-use PhpCsFixer\Diff\Output\StrictUnifiedDiffOutputBuilder;
 use PhpCsFixer\Preg;
+use ECSPrefix202208\SebastianBergmann\Diff\Differ;
+use ECSPrefix202208\SebastianBergmann\Diff\Output\StrictUnifiedDiffOutputBuilder;
 final class UnifiedDiffer implements \PhpCsFixer\Differ\DifferInterface
 {
     /**
