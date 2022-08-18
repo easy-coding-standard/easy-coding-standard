@@ -4,11 +4,10 @@ declare (strict_types=1);
 namespace Symplify\CodingStandard\Fixer;
 
 use PhpCsFixer\Fixer\FixerInterface;
-use PhpCsFixer\Tokenizer\Token;
-use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
 /**
- * @deprecated Use fixer directly :) not much value here
+ * We could use native AbstractFixer here,
+ * but it runs magic setup of newlines/spaces in constructor and many other methods. This keeps it simple :)
  */
 abstract class AbstractSymplifyFixer implements FixerInterface
 {
@@ -27,37 +26,5 @@ abstract class AbstractSymplifyFixer implements FixerInterface
     public function supports(SplFileInfo $file) : bool
     {
         return \true;
-    }
-    /**
-     * @param Tokens<Token> $tokens
-     * @return Token[]
-     */
-    protected function reverseTokens(Tokens $tokens) : array
-    {
-        $reversedTokens = \array_reverse($tokens->toArray(), \true);
-        // remove null values
-        return \array_filter($reversedTokens);
-    }
-    /**
-     * @param Tokens<Token> $tokens
-     */
-    protected function getNextMeaningfulToken(Tokens $tokens, int $index) : ?Token
-    {
-        $nextMeaningfulTokenPosition = $tokens->getNextMeaningfulToken($index);
-        if ($nextMeaningfulTokenPosition === null) {
-            return null;
-        }
-        return $tokens[$nextMeaningfulTokenPosition];
-    }
-    /**
-     * @param Tokens<Token> $tokens
-     */
-    protected function getPreviousToken(Tokens $tokens, int $index) : ?Token
-    {
-        $previousIndex = $index - 1;
-        if (!isset($tokens[$previousIndex])) {
-            return null;
-        }
-        return $tokens[$previousIndex];
     }
 }

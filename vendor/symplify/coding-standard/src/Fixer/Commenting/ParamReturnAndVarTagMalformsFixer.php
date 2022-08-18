@@ -17,6 +17,7 @@ use Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker\ParamNameTypoMalf
 use Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker\SuperfluousReturnNameMalformWorker;
 use Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker\SuperfluousVarNameMalformWorker;
 use Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker\SwitchedTypeAndNameMalformWorker;
+use Symplify\CodingStandard\TokenRunner\Traverser\TokenReverser;
 use ECSPrefix202208\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use ECSPrefix202208\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use ECSPrefix202208\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -46,11 +47,16 @@ final class ParamReturnAndVarTagMalformsFixer extends AbstractSymplifyFixer impl
      */
     private $malformWorkers;
     /**
+     * @var \Symplify\CodingStandard\TokenRunner\Traverser\TokenReverser
+     */
+    private $tokenReverser;
+    /**
      * @param MalformWorkerInterface[] $malformWorkers
      */
-    public function __construct(array $malformWorkers)
+    public function __construct(array $malformWorkers, TokenReverser $tokenReverser)
     {
         $this->malformWorkers = $malformWorkers;
+        $this->tokenReverser = $tokenReverser;
     }
     public function getDefinition() : FixerDefinitionInterface
     {
@@ -64,7 +70,7 @@ final class ParamReturnAndVarTagMalformsFixer extends AbstractSymplifyFixer impl
         if (!$tokens->isAnyTokenKindsFound([\T_DOC_COMMENT, \T_COMMENT])) {
             return \false;
         }
-        $reversedTokens = $this->reverseTokens($tokens);
+        $reversedTokens = $this->tokenReverser->reverse($tokens);
         foreach ($reversedTokens as $index => $token) {
             if (!$token->isGivenKind([\T_CALLABLE])) {
                 continue;
@@ -81,7 +87,7 @@ final class ParamReturnAndVarTagMalformsFixer extends AbstractSymplifyFixer impl
      */
     public function fix(SplFileInfo $fileInfo, Tokens $tokens) : void
     {
-        $reversedTokens = $this->reverseTokens($tokens);
+        $reversedTokens = $this->tokenReverser->reverse($tokens);
         foreach ($reversedTokens as $index => $token) {
             if (!$token->isGivenKind([\T_DOC_COMMENT, \T_COMMENT])) {
                 continue;

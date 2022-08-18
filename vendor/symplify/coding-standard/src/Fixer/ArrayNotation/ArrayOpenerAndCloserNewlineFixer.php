@@ -164,4 +164,15 @@ CODE_SAMPLE
         }
         $tokens->ensureWhitespaceAtIndex($postArrayOpenerPosition, 0, $this->whitespacesFixerConfig->getLineEnding());
     }
+    /**
+     * @param Tokens<Token> $tokens
+     */
+    private function getNextMeaningfulToken(Tokens $tokens, int $index) : ?Token
+    {
+        $nextMeaningfulTokenPosition = $tokens->getNextMeaningfulToken($index);
+        if ($nextMeaningfulTokenPosition === null) {
+            return null;
+        }
+        return $tokens[$nextMeaningfulTokenPosition];
+    }
 }

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitc0c18e28394286e0962817ffc2bf7b60
+class ComposerStaticInitcba6270333b0cdab319581c9ec823c7b
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -1493,6 +1493,7 @@ class ComposerStaticInitc0c18e28394286e0962817ffc2bf7b60
         'Symplify\\CodingStandard\\TokenRunner\\Transformer\\FixerTransformer\\TokensInliner' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/Transformer/FixerTransformer/TokensInliner.php',
         'Symplify\\CodingStandard\\TokenRunner\\Transformer\\FixerTransformer\\TokensNewliner' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/Transformer/FixerTransformer/TokensNewliner.php',
         'Symplify\\CodingStandard\\TokenRunner\\Traverser\\ArrayBlockInfoFinder' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/Traverser/ArrayBlockInfoFinder.php',
+        'Symplify\\CodingStandard\\TokenRunner\\Traverser\\TokenReverser' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/Traverser/TokenReverser.php',
         'Symplify\\CodingStandard\\TokenRunner\\ValueObjectFactory\\LineLengthAndPositionFactory' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/ValueObjectFactory/LineLengthAndPositionFactory.php',
         'Symplify\\CodingStandard\\TokenRunner\\ValueObject\\BlockInfo' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/ValueObject/BlockInfo.php',
         'Symplify\\CodingStandard\\TokenRunner\\ValueObject\\LineLengthAndPosition' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenRunner/ValueObject/LineLengthAndPosition.php',
@@ -1590,9 +1591,9 @@ class ComposerStaticInitc0c18e28394286e0962817ffc2bf7b60
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitc0c18e28394286e0962817ffc2bf7b60::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitc0c18e28394286e0962817ffc2bf7b60::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitc0c18e28394286e0962817ffc2bf7b60::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitcba6270333b0cdab319581c9ec823c7b::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitcba6270333b0cdab319581c9ec823c7b::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitcba6270333b0cdab319581c9ec823c7b::$classMap;
 
         }, null, ClassLoader::class);
     }

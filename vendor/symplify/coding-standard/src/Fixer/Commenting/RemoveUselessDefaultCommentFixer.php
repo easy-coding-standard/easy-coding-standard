@@ -10,6 +10,7 @@ use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
 use Symplify\CodingStandard\DocBlock\UselessDocBlockCleaner;
 use Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
+use Symplify\CodingStandard\TokenRunner\Traverser\TokenReverser;
 use ECSPrefix202208\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use ECSPrefix202208\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use ECSPrefix202208\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -26,9 +27,14 @@ final class RemoveUselessDefaultCommentFixer extends AbstractSymplifyFixer imple
      * @var \Symplify\CodingStandard\DocBlock\UselessDocBlockCleaner
      */
     private $uselessDocBlockCleaner;
-    public function __construct(UselessDocBlockCleaner $uselessDocBlockCleaner)
+    /**
+     * @var \Symplify\CodingStandard\TokenRunner\Traverser\TokenReverser
+     */
+    private $tokenReverser;
+    public function __construct(UselessDocBlockCleaner $uselessDocBlockCleaner, TokenReverser $tokenReverser)
     {
         $this->uselessDocBlockCleaner = $uselessDocBlockCleaner;
+        $this->tokenReverser = $tokenReverser;
     }
     public function getDefinition() : FixerDefinitionInterface
     {
@@ -46,7 +52,7 @@ final class RemoveUselessDefaultCommentFixer extends AbstractSymplifyFixer imple
      */
     public function fix(SplFileInfo $fileInfo, Tokens $tokens) : void
     {
-        $reversedTokens = $this->reverseTokens($tokens);
+        $reversedTokens = $this->tokenReverser->reverse($tokens);
         foreach ($reversedTokens as $index => $token) {
             if (!$token->isGivenKind([\T_DOC_COMMENT, \T_COMMENT])) {
                 continue;

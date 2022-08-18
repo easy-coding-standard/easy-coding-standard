@@ -11,6 +11,7 @@ use PhpCsFixer\WhitespacesFixerConfig;
 use SplFileInfo;
 use Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
 use Symplify\CodingStandard\TokenAnalyzer\SymfonyClosureAnalyzer;
+use Symplify\CodingStandard\TokenRunner\Traverser\TokenReverser;
 use ECSPrefix202208\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use ECSPrefix202208\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use ECSPrefix202208\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -35,10 +36,15 @@ final class NewlineServiceDefinitionConfigFixer extends AbstractSymplifyFixer im
      * @var \Symplify\CodingStandard\TokenAnalyzer\SymfonyClosureAnalyzer
      */
     private $symfonyClosureAnalyzer;
-    public function __construct(WhitespacesFixerConfig $whitespacesFixerConfig, SymfonyClosureAnalyzer $symfonyClosureAnalyzer)
+    /**
+     * @var \Symplify\CodingStandard\TokenRunner\Traverser\TokenReverser
+     */
+    private $tokenReverser;
+    public function __construct(WhitespacesFixerConfig $whitespacesFixerConfig, SymfonyClosureAnalyzer $symfonyClosureAnalyzer, TokenReverser $tokenReverser)
     {
         $this->whitespacesFixerConfig = $whitespacesFixerConfig;
         $this->symfonyClosureAnalyzer = $symfonyClosureAnalyzer;
+        $this->tokenReverser = $tokenReverser;
     }
     public function getDefinition() : FixerDefinitionInterface
     {
@@ -59,7 +65,7 @@ final class NewlineServiceDefinitionConfigFixer extends AbstractSymplifyFixer im
         if (!$this->symfonyClosureAnalyzer->isContainerConfiguratorClosure($tokens)) {
             return;
         }
-        $reversedTokens = $this->reverseTokens($tokens);
+        $reversedTokens = $this->tokenReverser->reverse($tokens);
         foreach ($reversedTokens as $index => $token) {
             if (!$token->isGivenKind(\T_OBJECT_OPERATOR)) {
                 continue;
@@ -124,5 +130,24 @@ CODE_SAMPLE
             return \false;
         }
         return \in_array($nextToken->getContent(), $methodNames, \true);
+    }
+    /**
+     * @param Tokens<Token> $tokens
+     */
+    private function getPreviousToken(Tokens $tokens, int $index) : ?Token
+    {
+        $previousIndex = $index - 1;
+        return $tokens[$previousIndex] ?? null;
+    }
+    /**
+     * @param Tokens<Token> $tokens
+     */
+    private function getNextMeaningfulToken(Tokens $tokens, int $index) : ?Token
+    {
+        $nextMeaningfulTokenPosition = $tokens->getNextMeaningfulToken($index);
+        if ($nextMeaningfulTokenPosition === null) {
+            return null;
+        }
+        return $tokens[$nextMeaningfulTokenPosition];
     }
 }

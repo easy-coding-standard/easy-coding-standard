@@ -1256,6 +1256,7 @@ return array(
     'Symplify\\CodingStandard\\TokenRunner\\Transformer\\FixerTransformer\\TokensInliner' => $vendorDir . '/symplify/coding-standard/src/TokenRunner/Transformer/FixerTransformer/TokensInliner.php',
     'Symplify\\CodingStandard\\TokenRunner\\Transformer\\FixerTransformer\\TokensNewliner' => $vendorDir . '/symplify/coding-standard/src/TokenRunner/Transformer/FixerTransformer/TokensNewliner.php',
     'Symplify\\CodingStandard\\TokenRunner\\Traverser\\ArrayBlockInfoFinder' => $vendorDir . '/symplify/coding-standard/src/TokenRunner/Traverser/ArrayBlockInfoFinder.php',
+    'Symplify\\CodingStandard\\TokenRunner\\Traverser\\TokenReverser' => $vendorDir . '/symplify/coding-standard/src/TokenRunner/Traverser/TokenReverser.php',
     'Symplify\\CodingStandard\\TokenRunner\\ValueObjectFactory\\LineLengthAndPositionFactory' => $vendorDir . '/symplify/coding-standard/src/TokenRunner/ValueObjectFactory/LineLengthAndPositionFactory.php',
     'Symplify\\CodingStandard\\TokenRunner\\ValueObject\\BlockInfo' => $vendorDir . '/symplify/coding-standard/src/TokenRunner/ValueObject/BlockInfo.php',
     'Symplify\\CodingStandard\\TokenRunner\\ValueObject\\LineLengthAndPosition' => $vendorDir . '/symplify/coding-standard/src/TokenRunner/ValueObject/LineLengthAndPosition.php',
