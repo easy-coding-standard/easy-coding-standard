@@ -2960,7 +2960,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/autowire-array-parameter",
-                "reference": "ae5403adc755a8bf5ce58ac2667db32ff03179d8"
+                "reference": "047bc85aa1a87ca95064fb6a63343f03a4d28b46"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -2990,7 +2990,7 @@
                 "symplify\/vendor-patches": "<11.1.5"
             },
             "require-dev": {
-                "phpunit\/phpunit": "^9.5.21"
+                "phpunit\/phpunit": "^9.5.23"
             },
             "type": "library",
             "extra": {
@@ -3026,7 +3026,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/coding-standard",
-                "reference": "eb136750bab19a1dab6579da1f8c6e101875d96a"
+                "reference": "08567490c5b5c2f10147d86017d28677e95089e4"
             },
             "require": {
                 "friendsofphp\/php-cs-fixer": "^3.10",
@@ -3060,7 +3060,7 @@
                 "doctrine\/orm": "^2.12.3",
                 "nette\/application": "^3.1",
                 "nette\/bootstrap": "^3.1.2",
-                "phpunit\/phpunit": "^9.5.21",
+                "phpunit\/phpunit": "^9.5.23",
                 "symfony\/framework-bundle": "^6.0.10",
                 "symplify\/easy-coding-standard": "dev-main",
                 "symplify\/rule-doc-generator": "dev-main",
@@ -3107,7 +3107,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/composer-json-manipulator",
-                "reference": "d46401eeb7c8880e81d898cd86dfec6e19ce09eb"
+                "reference": "34559e6c1df0a43f4d73d445ea149ab4e66bb56d"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3140,7 +3140,7 @@
                 "symplify\/vendor-patches": "<11.1.5"
             },
             "require-dev": {
-                "phpunit\/phpunit": "^9.5.21"
+                "phpunit\/phpunit": "^9.5.23"
             },
             "type": "symfony-bundle",
             "extra": {
@@ -3176,7 +3176,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/easy-parallel",
-                "reference": "e2e50851665449ad570b6611f45f17523b569ef0"
+                "reference": "c791cb0c29ce3f95b5a6b77c993b8f4cfbf87ca8"
             },
             "require": {
                 "clue\/ndjson-react": "^1.2",
@@ -3209,7 +3209,7 @@
                 "symplify\/vendor-patches": "<11.1.5"
             },
             "require-dev": {
-                "phpunit\/phpunit": "^9.5.21"
+                "phpunit\/phpunit": "^9.5.23"
             },
             "type": "library",
             "extra": {
@@ -3245,7 +3245,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/easy-testing",
-                "reference": "23ebe076139db71d3030411e44f1985a9b1988ec"
+                "reference": "56c33a3f345fce727e6066539776fc83356f84c9"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3277,7 +3277,7 @@
                 "symplify\/vendor-patches": "<11.1.5"
             },
             "require-dev": {
-                "phpunit\/phpunit": "^9.5.21"
+                "phpunit\/phpunit": "^9.5.23"
             },
             "bin": [
                 "bin\/easy-testing"
@@ -3316,7 +3316,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/package-builder",
-                "reference": "4ccc304fdf2a7d069ac01be66ec89ff7ecba82d6"
+                "reference": "bf9a0948fdc55d8453cffc9bd8e9fc66bc8e56f7"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3350,7 +3350,7 @@
                 "symplify\/vendor-patches": "<11.1.5"
             },
             "require-dev": {
-                "phpunit\/phpunit": "^9.5.21"
+                "phpunit\/phpunit": "^9.5.23"
             },
             "type": "library",
             "extra": {
@@ -3443,7 +3443,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/skipper",
-                "reference": "56aa8a58c269b43a588a4a332426478de850aa64"
+                "reference": "67ac879d405cfb287d108619518796e8576e76a4"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3476,7 +3476,7 @@
                 "symplify\/vendor-patches": "<11.1.5"
             },
             "require-dev": {
-                "phpunit\/phpunit": "^9.5.21"
+                "phpunit\/phpunit": "^9.5.23"
             },
             "type": "library",
             "extra": {
@@ -3512,7 +3512,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/smart-file-system",
-                "reference": "ac74d7209cd5104ab6a8c67a8f7af581b8ddeece"
+                "reference": "c2d1995482f2e853c64152fcd49272ca89fbfca8"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3544,7 +3544,7 @@
             },
             "require-dev": {
                 "nette\/finder": "^2.5.3",
-                "phpunit\/phpunit": "^9.5.21"
+                "phpunit\/phpunit": "^9.5.23"
             },
             "type": "library",
             "extra": {
@@ -3580,7 +3580,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/symplify-kernel",
-                "reference": "3a7eea48f85de383760d0858df2e991693857a2b"
+                "reference": "ed118a1a5397244e43f1b74cb9dfba8ca1e30a34"
             },
             "require": {
                 "php": ">=8.0",
@@ -3611,7 +3611,7 @@
                 "symplify\/vendor-patches": "<11.1.5"
             },
             "require-dev": {
-                "phpunit\/phpunit": "^9.5.21"
+                "phpunit\/phpunit": "^9.5.23"
             },
             "type": "library",
             "extra": {
