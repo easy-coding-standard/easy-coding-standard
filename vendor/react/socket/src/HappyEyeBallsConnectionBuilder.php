@@ -7,7 +7,7 @@ use ECSPrefix202208\React\Dns\Resolver\ResolverInterface;
 use ECSPrefix202208\React\EventLoop\LoopInterface;
 use ECSPrefix202208\React\EventLoop\TimerInterface;
 use ECSPrefix202208\React\Promise;
-use ECSPrefix202208\React\Promise\CancellablePromiseInterface;
+use ECSPrefix202208\React\Promise\PromiseInterface;
 /**
  * @internal
  */
@@ -198,12 +198,12 @@ final class HappyEyeBallsConnectionBuilder
         // clear list of outstanding IPs to avoid creating new connections
         $this->connectQueue = array();
         foreach ($this->connectionPromises as $connectionPromise) {
-            if ($connectionPromise instanceof CancellablePromiseInterface) {
+            if ($connectionPromise instanceof PromiseInterface && \method_exists($connectionPromise, 'cancel')) {
                 $connectionPromise->cancel();
             }
         }
         foreach ($this->resolverPromises as $resolverPromise) {
-            if ($resolverPromise instanceof CancellablePromiseInterface) {
+            if ($resolverPromise instanceof PromiseInterface && \method_exists($resolverPromise, 'cancel')) {
                 $resolverPromise->cancel();
             }
         }
