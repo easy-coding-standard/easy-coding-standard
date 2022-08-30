@@ -2960,7 +2960,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/autowire-array-parameter",
-                "reference": "047bc85aa1a87ca95064fb6a63343f03a4d28b46"
+                "reference": "41a39e1b80ef140cb80f36272715c3c90396bd21"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -2969,7 +2969,6 @@
                 "symplify\/package-builder": "dev-main"
             },
             "conflict": {
-                "symplify\/astral": "<11.1.5",
                 "symplify\/coding-standard": "<11.1.5",
                 "symplify\/composer-json-manipulator": "<11.1.5",
                 "symplify\/config-transformer": "<11.1.5",
@@ -3026,7 +3025,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/coding-standard",
-                "reference": "08567490c5b5c2f10147d86017d28677e95089e4"
+                "reference": "08bf5c8eac2e163a7f0d3f1a72d10924db9e967c"
             },
             "require": {
                 "friendsofphp\/php-cs-fixer": "^3.10",
@@ -3038,7 +3037,6 @@
                 "symplify\/symplify-kernel": "dev-main"
             },
             "conflict": {
-                "symplify\/astral": "<11.1.5",
                 "symplify\/composer-json-manipulator": "<11.1.5",
                 "symplify\/config-transformer": "<11.1.5",
                 "symplify\/easy-ci": "<11.1.5",
@@ -3107,7 +3105,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/composer-json-manipulator",
-                "reference": "34559e6c1df0a43f4d73d445ea149ab4e66bb56d"
+                "reference": "88b57ff79502a951a9c58cbbbd6c68ec11cc9457"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3120,7 +3118,6 @@
                 "symplify\/symplify-kernel": "dev-main"
             },
             "conflict": {
-                "symplify\/astral": "<11.1.5",
                 "symplify\/autowire-array-parameter": "<11.1.5",
                 "symplify\/coding-standard": "<11.1.5",
                 "symplify\/config-transformer": "<11.1.5",
@@ -3176,7 +3173,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/easy-parallel",
-                "reference": "c791cb0c29ce3f95b5a6b77c993b8f4cfbf87ca8"
+                "reference": "2ecb539b440abb9f883bb3862b9d16165d585080"
             },
             "require": {
                 "clue\/ndjson-react": "^1.2",
@@ -3188,7 +3185,6 @@
                 "symplify\/package-builder": "dev-main"
             },
             "conflict": {
-                "symplify\/astral": "<11.1.5",
                 "symplify\/autowire-array-parameter": "<11.1.5",
                 "symplify\/coding-standard": "<11.1.5",
                 "symplify\/composer-json-manipulator": "<11.1.5",
@@ -3245,7 +3241,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/easy-testing",
-                "reference": "56c33a3f345fce727e6066539776fc83356f84c9"
+                "reference": "67424c83c0457bee1a958017db3fa1666c47faef"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3258,7 +3254,6 @@
                 "symplify\/symplify-kernel": "dev-main"
             },
             "conflict": {
-                "symplify\/astral": "<11.1.5",
                 "symplify\/autowire-array-parameter": "<11.1.5",
                 "symplify\/coding-standard": "<11.1.5",
                 "symplify\/composer-json-manipulator": "<11.1.5",
@@ -3316,7 +3311,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/package-builder",
-                "reference": "bf9a0948fdc55d8453cffc9bd8e9fc66bc8e56f7"
+                "reference": "228026112b95b44736f2d0221c01dab8ee8f0c8b"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3330,7 +3325,6 @@
                 "symplify\/symplify-kernel": "dev-main"
             },
             "conflict": {
-                "symplify\/astral": "<11.1.5",
                 "symplify\/autowire-array-parameter": "<11.1.5",
                 "symplify\/coding-standard": "<11.1.5",
                 "symplify\/composer-json-manipulator": "<11.1.5",
@@ -3386,14 +3380,13 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/rule-doc-generator-contracts",
-                "reference": "f76fc0da6188a5a7801c8ddd42dda3507d2b105e"
+                "reference": "3cbc892f2a869e3a0a0daabbfb230710586f424f"
             },
             "require": {
                 "nette\/utils": "^3.2",
                 "php": ">=8.0"
             },
             "conflict": {
-                "symplify\/astral": "<11.1.5",
                 "symplify\/autowire-array-parameter": "<11.1.5",
                 "symplify\/coding-standard": "<11.1.5",
                 "symplify\/composer-json-manipulator": "<11.1.5",
@@ -3443,7 +3436,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/skipper",
-                "reference": "67ac879d405cfb287d108619518796e8576e76a4"
+                "reference": "9190b503e7d38cc9a236a41842d8bacbb333dc13"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3457,7 +3450,6 @@
                 "symplify\/symplify-kernel": "dev-main"
             },
             "conflict": {
-                "symplify\/astral": "<11.1.5",
                 "symplify\/autowire-array-parameter": "<11.1.5",
                 "symplify\/coding-standard": "<11.1.5",
                 "symplify\/composer-json-manipulator": "<11.1.5",
@@ -3512,7 +3504,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/smart-file-system",
-                "reference": "c2d1995482f2e853c64152fcd49272ca89fbfca8"
+                "reference": "c31892abb534689a51c2ce63cc5393df2cef94db"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3521,7 +3513,6 @@
                 "symfony\/finder": "^6.0"
             },
             "conflict": {
-                "symplify\/astral": "<11.1.5",
                 "symplify\/autowire-array-parameter": "<11.1.5",
                 "symplify\/coding-standard": "<11.1.5",
                 "symplify\/composer-json-manipulator": "<11.1.5",
@@ -3580,7 +3571,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/symplify-kernel",
-                "reference": "ed118a1a5397244e43f1b74cb9dfba8ca1e30a34"
+                "reference": "c1ef9056b06bbccdb3df82487571c294aeda2778"
             },
             "require": {
                 "php": ">=8.0",
@@ -3593,7 +3584,6 @@
                 "webmozart\/assert": "^1.10"
             },
             "conflict": {
-                "symplify\/astral": "<11.1.5",
                 "symplify\/coding-standard": "<11.1.5",
                 "symplify\/config-transformer": "<11.1.5",
                 "symplify\/easy-ci": "<11.1.5",

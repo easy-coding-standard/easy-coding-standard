@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit9bd84f27ebfe26b6a58df13fde7350fe
+class ComposerStaticInit630d78416a6b90ce62b90a588dc4bd2c
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -939,6 +939,7 @@ class ComposerStaticInit9bd84f27ebfe26b6a58df13fde7350fe
         'ECSPrefix202208\\Symplify\\PackageBuilder\\Exception\\HttpKernel\\MissingInterfaceException' => __DIR__ . '/..' . '/symplify/package-builder/src/Exception/HttpKernel/MissingInterfaceException.php',
         'ECSPrefix202208\\Symplify\\PackageBuilder\\Exception\\InvalidPrivatePropertyTypeException' => __DIR__ . '/..' . '/symplify/package-builder/src/Exception/InvalidPrivatePropertyTypeException.php',
         'ECSPrefix202208\\Symplify\\PackageBuilder\\Exception\\MissingPrivatePropertyException' => __DIR__ . '/..' . '/symplify/package-builder/src/Exception/MissingPrivatePropertyException.php',
+        'ECSPrefix202208\\Symplify\\PackageBuilder\\Exception\\MissingServiceException' => __DIR__ . '/..' . '/symplify/package-builder/src/Exception/MissingServiceException.php',
         'ECSPrefix202208\\Symplify\\PackageBuilder\\Parameter\\ParameterProvider' => __DIR__ . '/..' . '/symplify/package-builder/src/Parameter/ParameterProvider.php',
         'ECSPrefix202208\\Symplify\\PackageBuilder\\Php\\TypeChecker' => __DIR__ . '/..' . '/symplify/package-builder/src/Php/TypeChecker.php',
         'ECSPrefix202208\\Symplify\\PackageBuilder\\Reflection\\ClassLikeExistenceChecker' => __DIR__ . '/..' . '/symplify/package-builder/src/Reflection/ClassLikeExistenceChecker.php',
@@ -1591,9 +1592,9 @@ class ComposerStaticInit9bd84f27ebfe26b6a58df13fde7350fe
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit9bd84f27ebfe26b6a58df13fde7350fe::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit9bd84f27ebfe26b6a58df13fde7350fe::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit9bd84f27ebfe26b6a58df13fde7350fe::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit630d78416a6b90ce62b90a588dc4bd2c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit630d78416a6b90ce62b90a588dc4bd2c::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit630d78416a6b90ce62b90a588dc4bd2c::$classMap;
 
         }, null, ClassLoader::class);
     }
