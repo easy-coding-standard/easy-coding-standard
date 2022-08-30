@@ -3311,7 +3311,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/package-builder",
-                "reference": "228026112b95b44736f2d0221c01dab8ee8f0c8b"
+                "reference": "282f491b5e4c9182793024a4f97cb50ea380526a"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3321,7 +3321,6 @@
                 "symfony\/console": "^6.0",
                 "symfony\/dependency-injection": "^6.0",
                 "symfony\/finder": "^6.0",
-                "symplify\/easy-testing": "dev-main",
                 "symplify\/symplify-kernel": "dev-main"
             },
             "conflict": {
