@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit354143ee426e3d70360423ad66bd068b
+class ComposerStaticInitda176c4f5c8288dabdde6daf0abfefdd
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -950,6 +950,7 @@ class ComposerStaticInit354143ee426e3d70360423ad66bd068b
         'ECSPrefix202208\\Symplify\\RuleDocGenerator\\ValueObject\\RuleDefinition' => __DIR__ . '/..' . '/symplify/rule-doc-generator-contracts/src/ValueObject/RuleDefinition.php',
         'ECSPrefix202208\\Symplify\\Skipper\\Contract\\SkipVoterInterface' => __DIR__ . '/..' . '/symplify/skipper/src/Contract/SkipVoterInterface.php',
         'ECSPrefix202208\\Symplify\\Skipper\\FileSystem\\FnMatchPathNormalizer' => __DIR__ . '/..' . '/symplify/skipper/src/FileSystem/FnMatchPathNormalizer.php',
+        'ECSPrefix202208\\Symplify\\Skipper\\Fnmatcher' => __DIR__ . '/..' . '/symplify/skipper/src/Fnmatcher.php',
         'ECSPrefix202208\\Symplify\\Skipper\\Matcher\\FileInfoMatcher' => __DIR__ . '/..' . '/symplify/skipper/src/Matcher/FileInfoMatcher.php',
         'ECSPrefix202208\\Symplify\\Skipper\\SkipCriteriaResolver\\SkippedClassAndCodesResolver' => __DIR__ . '/..' . '/symplify/skipper/src/SkipCriteriaResolver/SkippedClassAndCodesResolver.php',
         'ECSPrefix202208\\Symplify\\Skipper\\SkipCriteriaResolver\\SkippedClassResolver' => __DIR__ . '/..' . '/symplify/skipper/src/SkipCriteriaResolver/SkippedClassResolver.php',
@@ -959,7 +960,6 @@ class ComposerStaticInit354143ee426e3d70360423ad66bd068b
         'ECSPrefix202208\\Symplify\\Skipper\\SkipVoter\\ClassSkipVoter' => __DIR__ . '/..' . '/symplify/skipper/src/SkipVoter/ClassSkipVoter.php',
         'ECSPrefix202208\\Symplify\\Skipper\\SkipVoter\\MessageSkipVoter' => __DIR__ . '/..' . '/symplify/skipper/src/SkipVoter/MessageSkipVoter.php',
         'ECSPrefix202208\\Symplify\\Skipper\\SkipVoter\\PathSkipVoter' => __DIR__ . '/..' . '/symplify/skipper/src/SkipVoter/PathSkipVoter.php',
-        'ECSPrefix202208\\Symplify\\Skipper\\Skipper\\OnlySkipper' => __DIR__ . '/..' . '/symplify/skipper/src/Skipper/OnlySkipper.php',
         'ECSPrefix202208\\Symplify\\Skipper\\Skipper\\SkipSkipper' => __DIR__ . '/..' . '/symplify/skipper/src/Skipper/SkipSkipper.php',
         'ECSPrefix202208\\Symplify\\Skipper\\Skipper\\Skipper' => __DIR__ . '/..' . '/symplify/skipper/src/Skipper/Skipper.php',
         'ECSPrefix202208\\Symplify\\Skipper\\ValueObject\\Option' => __DIR__ . '/..' . '/symplify/skipper/src/ValueObject/Option.php',
@@ -1577,9 +1577,9 @@ class ComposerStaticInit354143ee426e3d70360423ad66bd068b
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit354143ee426e3d70360423ad66bd068b::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit354143ee426e3d70360423ad66bd068b::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit354143ee426e3d70360423ad66bd068b::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitda176c4f5c8288dabdde6daf0abfefdd::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitda176c4f5c8288dabdde6daf0abfefdd::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitda176c4f5c8288dabdde6daf0abfefdd::$classMap;
 
         }, null, ClassLoader::class);
     }

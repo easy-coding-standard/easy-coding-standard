@@ -31,10 +31,11 @@ final class PathSkipVoter implements SkipVoterInterface
     }
     /**
      * @param string|object $element
+     * @param \Symplify\SmartFileSystem\SmartFileInfo|string $file
      */
-    public function shouldSkip($element, SmartFileInfo $smartFileInfo) : bool
+    public function shouldSkip($element, $file) : bool
     {
         $skippedPaths = $this->skippedPathsResolver->resolve();
-        return $this->fileInfoMatcher->doesFileInfoMatchPatterns($smartFileInfo, $skippedPaths);
+        return $this->fileInfoMatcher->doesFileInfoMatchPatterns($file, $skippedPaths);
     }
 }

@@ -34,8 +34,9 @@ final class MessageSkipVoter implements SkipVoterInterface
     }
     /**
      * @param string|object $element
+     * @param \Symplify\SmartFileSystem\SmartFileInfo|string $file
      */
-    public function shouldSkip($element, SmartFileInfo $smartFileInfo) : bool
+    public function shouldSkip($element, $file) : bool
     {
         if (\is_object($element)) {
             return \false;
@@ -49,6 +50,6 @@ final class MessageSkipVoter implements SkipVoterInterface
         if ($skippedPaths === null) {
             return \true;
         }
-        return $this->fileInfoMatcher->doesFileInfoMatchPatterns($smartFileInfo, $skippedPaths);
+        return $this->fileInfoMatcher->doesFileInfoMatchPatterns($file, $skippedPaths);
     }
 }
