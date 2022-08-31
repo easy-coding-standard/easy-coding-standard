@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202208\Symplify\Skipper\Skipper;
+namespace Symplify\EasyCodingStandard\Skipper\Skipper;
 
-use ECSPrefix202208\Symplify\Skipper\Contract\SkipVoterInterface;
+use Symplify\EasyCodingStandard\Skipper\Contract\SkipVoterInterface;
 use ECSPrefix202208\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @api
- * @see \Symplify\Skipper\Tests\Skipper\Skipper\SkipperTest
+ * @see \Symplify\EasyCodingStandard\Tests\Skipper\Skipper\Skipper\SkipperTest
  */
 final class Skipper
 {
@@ -44,9 +44,10 @@ final class Skipper
     public function shouldSkipElementAndFileInfo($element, SmartFileInfo $smartFileInfo) : bool
     {
         foreach ($this->skipVoters as $skipVoter) {
-            if ($skipVoter->match($element)) {
-                return $skipVoter->shouldSkip($element, $smartFileInfo);
+            if (!$skipVoter->match($element)) {
+                continue;
             }
+            return $skipVoter->shouldSkip($element, $smartFileInfo);
         }
         return \false;
     }

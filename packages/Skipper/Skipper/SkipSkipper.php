@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202208\Symplify\Skipper\Skipper;
+namespace Symplify\EasyCodingStandard\Skipper\Skipper;
 
-use ECSPrefix202208\Symplify\Skipper\Matcher\FileInfoMatcher;
+use Symplify\EasyCodingStandard\Skipper\Matcher\FileInfoMatcher;
 use ECSPrefix202208\Symplify\SmartFileSystem\SmartFileInfo;
 /**
- * @see \Symplify\Skipper\Tests\Skipper\Skip\SkipSkipperTest
+ * @see \Symplify\EasyCodingStandard\Tests\Skipper\Skipper\Skip\SkipSkipperTest
  */
 final class SkipSkipper
 {
     /**
-     * @var \Symplify\Skipper\Matcher\FileInfoMatcher
+     * @var \Symplify\EasyCodingStandard\Skipper\Matcher\FileInfoMatcher
      */
     private $fileInfoMatcher;
     public function __construct(FileInfoMatcher $fileInfoMatcher)

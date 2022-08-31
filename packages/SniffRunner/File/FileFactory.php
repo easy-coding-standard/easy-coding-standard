@@ -5,9 +5,9 @@ namespace Symplify\EasyCodingStandard\SniffRunner\File;
 
 use PHP_CodeSniffer\Fixer;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
+use Symplify\EasyCodingStandard\Skipper\Skipper\Skipper;
 use Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\File;
-use ECSPrefix202208\Symplify\Skipper\Skipper\Skipper;
 use ECSPrefix202208\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\SniffRunner\File\FileFactoryTest
@@ -19,7 +19,7 @@ final class FileFactory
      */
     private $fixer;
     /**
-     * @var \Symplify\Skipper\Skipper\Skipper
+     * @var \Symplify\EasyCodingStandard\Skipper\Skipper\Skipper
      */
     private $skipper;
     /**

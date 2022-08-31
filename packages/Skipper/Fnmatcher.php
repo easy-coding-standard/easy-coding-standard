@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202208\Symplify\Skipper;
+namespace Symplify\EasyCodingStandard\Skipper;
 
 final class Fnmatcher
 {

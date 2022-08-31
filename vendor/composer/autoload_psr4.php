@@ -15,7 +15,6 @@ return array(
     'ECSPrefix202208\\Webmozart\\Assert\\' => array($vendorDir . '/webmozart/assert/src'),
     'ECSPrefix202208\\Symplify\\SymplifyKernel\\' => array($vendorDir . '/symplify/symplify-kernel/src'),
     'ECSPrefix202208\\Symplify\\SmartFileSystem\\' => array($vendorDir . '/symplify/smart-file-system/src'),
-    'ECSPrefix202208\\Symplify\\Skipper\\' => array($vendorDir . '/symplify/skipper/src'),
     'ECSPrefix202208\\Symplify\\RuleDocGenerator\\' => array($vendorDir . '/symplify/rule-doc-generator-contracts/src'),
     'ECSPrefix202208\\Symplify\\PackageBuilder\\' => array($vendorDir . '/symplify/package-builder/src'),
     'ECSPrefix202208\\Symplify\\EasyTesting\\' => array($vendorDir . '/symplify/easy-testing/src'),

@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202208\Symplify\Skipper\SkipVoter;
+namespace Symplify\EasyCodingStandard\Skipper\SkipVoter;
 
+use Symplify\EasyCodingStandard\Skipper\Contract\SkipVoterInterface;
+use Symplify\EasyCodingStandard\Skipper\SkipCriteriaResolver\SkippedClassResolver;
+use Symplify\EasyCodingStandard\Skipper\Skipper\SkipSkipper;
 use ECSPrefix202208\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
-use ECSPrefix202208\Symplify\Skipper\Contract\SkipVoterInterface;
-use ECSPrefix202208\Symplify\Skipper\SkipCriteriaResolver\SkippedClassResolver;
-use ECSPrefix202208\Symplify\Skipper\Skipper\SkipSkipper;
 use ECSPrefix202208\Symplify\SmartFileSystem\SmartFileInfo;
 final class ClassSkipVoter implements SkipVoterInterface
 {
@@ -15,11 +15,11 @@ final class ClassSkipVoter implements SkipVoterInterface
      */
     private $classLikeExistenceChecker;
     /**
-     * @var \Symplify\Skipper\Skipper\SkipSkipper
+     * @var \Symplify\EasyCodingStandard\Skipper\Skipper\SkipSkipper
      */
     private $skipSkipper;
     /**
-     * @var \Symplify\Skipper\SkipCriteriaResolver\SkippedClassResolver
+     * @var \Symplify\EasyCodingStandard\Skipper\SkipCriteriaResolver\SkippedClassResolver
      */
     private $skippedClassResolver;
     public function __construct(ClassLikeExistenceChecker $classLikeExistenceChecker, SkipSkipper $skipSkipper, SkippedClassResolver $skippedClassResolver)

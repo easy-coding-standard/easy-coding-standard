@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202208\Symplify\Skipper\Matcher;
+namespace Symplify\EasyCodingStandard\Skipper\Matcher;
 
-use ECSPrefix202208\Symplify\Skipper\FileSystem\FnMatchPathNormalizer;
-use ECSPrefix202208\Symplify\Skipper\Fnmatcher;
+use Symplify\EasyCodingStandard\Skipper\FileSystem\FnMatchPathNormalizer;
+use Symplify\EasyCodingStandard\Skipper\Fnmatcher;
 use ECSPrefix202208\Symplify\SmartFileSystem\SmartFileInfo;
 final class FileInfoMatcher
 {
     /**
-     * @var \Symplify\Skipper\FileSystem\FnMatchPathNormalizer
+     * @var \Symplify\EasyCodingStandard\Skipper\FileSystem\FnMatchPathNormalizer
      */
     private $fnMatchPathNormalizer;
     /**
-     * @var \Symplify\Skipper\Fnmatcher
+     * @var \Symplify\EasyCodingStandard\Skipper\Fnmatcher
      */
     private $fnmatcher;
     public function __construct(FnMatchPathNormalizer $fnMatchPathNormalizer, Fnmatcher $fnmatcher)

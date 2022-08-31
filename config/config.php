@@ -19,11 +19,13 @@ use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\FixerRunner\WhitespacesFixerConfigFactory;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 use ECSPrefix202208\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
+use ECSPrefix202208\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
 use ECSPrefix202208\Symplify\PackageBuilder\Yaml\ParametersMerger;
 use ECSPrefix202208\Symplify\SmartFileSystem\FileSystemFilter;
 use ECSPrefix202208\Symplify\SmartFileSystem\FileSystemGuard;
 use ECSPrefix202208\Symplify\SmartFileSystem\Finder\FinderSanitizer;
 use ECSPrefix202208\Symplify\SmartFileSystem\Finder\SmartFinder;
+use ECSPrefix202208\Symplify\SmartFileSystem\Normalizer\PathNormalizer;
 use ECSPrefix202208\Symplify\SmartFileSystem\SmartFileSystem;
 use function ECSPrefix202208\Symfony\Component\DependencyInjection\Loader\Configurator\service;
 return static function (ECSConfig $ecsConfig) : void {
@@ -39,6 +41,7 @@ return static function (ECSConfig $ecsConfig) : void {
     // parallel
     $ecsConfig->parallel();
     $ecsConfig->paths([]);
+    $ecsConfig->skip([]);
     $ecsConfig->fileExtensions(['php']);
     $parameters = $ecsConfig->parameters();
     $parameters->set('env(TEST_SUFFIX)', '');
@@ -73,4 +76,6 @@ return static function (ECSConfig $ecsConfig) : void {
     $services->set(UnifiedDiffer::class);
     $services->alias(DifferInterface::class, UnifiedDiffer::class);
     $services->set(FixerFileProcessor::class);
+    $services->set(ClassLikeExistenceChecker::class);
+    $services->set(PathNormalizer::class);
 };

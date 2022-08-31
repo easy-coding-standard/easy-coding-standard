@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202208\Symplify\Skipper\FileSystem;
+namespace Symplify\EasyCodingStandard\Skipper\FileSystem;
 
 use ECSPrefix202208\Nette\Utils\Strings;
 /**
- * @see \Symplify\Skipper\Tests\FileSystem\FnMatchPathNormalizerTest
+ * @see \Symplify\EasyCodingStandard\Tests\Skipper\FileSystem\FnMatchPathNormalizerTest
  */
 final class FnMatchPathNormalizer
 {

@@ -20,10 +20,10 @@ use Symplify\EasyCodingStandard\FileSystem\TargetFileInfoResolver;
 use Symplify\EasyCodingStandard\FixerRunner\Exception\Application\FixerFailedException;
 use Symplify\EasyCodingStandard\FixerRunner\Parser\FileToTokensParser;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
+use Symplify\EasyCodingStandard\Skipper\Skipper\Skipper;
 use Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
-use ECSPrefix202208\Symplify\Skipper\Skipper\Skipper;
 use ECSPrefix202208\Symplify\SmartFileSystem\SmartFileInfo;
 use ECSPrefix202208\Symplify\SmartFileSystem\SmartFileSystem;
 use Throwable;
@@ -45,7 +45,7 @@ final class FixerFileProcessor implements FileProcessorInterface
      */
     private $fileToTokensParser;
     /**
-     * @var \Symplify\Skipper\Skipper\Skipper
+     * @var \Symplify\EasyCodingStandard\Skipper\Skipper\Skipper
      */
     private $skipper;
     /**

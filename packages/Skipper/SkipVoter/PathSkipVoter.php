@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202208\Symplify\Skipper\SkipVoter;
+namespace Symplify\EasyCodingStandard\Skipper\SkipVoter;
 
-use ECSPrefix202208\Symplify\Skipper\Contract\SkipVoterInterface;
-use ECSPrefix202208\Symplify\Skipper\Matcher\FileInfoMatcher;
-use ECSPrefix202208\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver;
+use Symplify\EasyCodingStandard\Skipper\Contract\SkipVoterInterface;
+use Symplify\EasyCodingStandard\Skipper\Matcher\FileInfoMatcher;
+use Symplify\EasyCodingStandard\Skipper\SkipCriteriaResolver\SkippedPathsResolver;
 use ECSPrefix202208\Symplify\SmartFileSystem\SmartFileInfo;
 final class PathSkipVoter implements SkipVoterInterface
 {
     /**
-     * @var \Symplify\Skipper\Matcher\FileInfoMatcher
+     * @var \Symplify\EasyCodingStandard\Skipper\Matcher\FileInfoMatcher
      */
     private $fileInfoMatcher;
     /**
-     * @var \Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver
+     * @var \Symplify\EasyCodingStandard\Skipper\SkipCriteriaResolver\SkippedPathsResolver
      */
     private $skippedPathsResolver;
     public function __construct(FileInfoMatcher $fileInfoMatcher, SkippedPathsResolver $skippedPathsResolver)

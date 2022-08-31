@@ -1,37 +1,31 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202208\Symplify\Skipper\SkipCriteriaResolver;
+namespace Symplify\EasyCodingStandard\Skipper\SkipCriteriaResolver;
 
+use Symplify\EasyCodingStandard\ValueObject\Option;
 use ECSPrefix202208\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use ECSPrefix202208\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
-use ECSPrefix202208\Symplify\Skipper\ValueObject\Option;
-final class SkippedClassResolver
+final class SkippedMessagesResolver
 {
     /**
      * @var array<string, string[]|null>
      */
-    private $skippedClasses = [];
+    private $skippedMessages = [];
     /**
      * @var \Symplify\PackageBuilder\Parameter\ParameterProvider
      */
     private $parameterProvider;
-    /**
-     * @var \Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker
-     */
-    private $classLikeExistenceChecker;
-    public function __construct(ParameterProvider $parameterProvider, ClassLikeExistenceChecker $classLikeExistenceChecker)
+    public function __construct(ParameterProvider $parameterProvider)
     {
         $this->parameterProvider = $parameterProvider;
-        $this->classLikeExistenceChecker = $classLikeExistenceChecker;
     }
     /**
      * @return array<string, string[]|null>
      */
     public function resolve() : array
     {
-        if ($this->skippedClasses !== []) {
-            return $this->skippedClasses;
+        if ($this->skippedMessages !== []) {
+            return $this->skippedMessages;
         }
         $skip = $this->parameterProvider->provideArrayParameter(Option::SKIP);
         foreach ($skip as $key => $value) {
@@ -43,11 +37,11 @@ final class SkippedClassResolver
             if (!\is_string($key)) {
                 continue;
             }
-            if (!$this->classLikeExistenceChecker->doesClassLikeExist($key)) {
+            if (\substr_count($key, ' ') === 0) {
                 continue;
             }
-            $this->skippedClasses[$key] = $value;
+            $this->skippedMessages[$key] = $value;
         }
-        return $this->skippedClasses;
+        return $this->skippedMessages;
     }
 }

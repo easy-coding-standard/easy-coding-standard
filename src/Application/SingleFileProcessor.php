@@ -4,15 +4,15 @@ declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Application;
 
 use Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
+use Symplify\EasyCodingStandard\Skipper\Skipper\Skipper;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
-use ECSPrefix202208\Symplify\Skipper\Skipper\Skipper;
 use ECSPrefix202208\Symplify\SmartFileSystem\SmartFileInfo;
 final class SingleFileProcessor
 {
     /**
-     * @var \Symplify\Skipper\Skipper\Skipper
+     * @var \Symplify\EasyCodingStandard\Skipper\Skipper\Skipper
      */
     private $skipper;
     /**
