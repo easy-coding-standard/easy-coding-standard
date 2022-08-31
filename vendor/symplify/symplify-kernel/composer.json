@@ -7,7 +7,6 @@
         "symfony\/console": "^6.0",
         "symfony\/dependency-injection": "^6.0",
         "symplify\/smart-file-system": "dev-main",
-        "symplify\/composer-json-manipulator": "dev-main",
         "symplify\/autowire-array-parameter": "dev-main",
         "symplify\/package-builder": "dev-main",
         "webmozart\/assert": "^1.10"

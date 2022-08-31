@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit51aca9fa9ddbace783dd0da1e70b3048
+class ComposerStaticInit354143ee426e3d70360423ad66bd068b
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -39,7 +39,6 @@ class ComposerStaticInit51aca9fa9ddbace783dd0da1e70b3048
             'ECSPrefix202208\\Symplify\\PackageBuilder\\' => 40,
             'ECSPrefix202208\\Symplify\\EasyTesting\\' => 37,
             'ECSPrefix202208\\Symplify\\EasyParallel\\' => 38,
-            'ECSPrefix202208\\Symplify\\ComposerJsonManipulator\\' => 49,
             'ECSPrefix202208\\Symplify\\AutowireArrayParameter\\' => 48,
             'ECSPrefix202208\\Symfony\\Contracts\\Service\\' => 42,
             'ECSPrefix202208\\Symfony\\Component\\String\\' => 41,
@@ -127,10 +126,6 @@ class ComposerStaticInit51aca9fa9ddbace783dd0da1e70b3048
         'ECSPrefix202208\\Symplify\\EasyParallel\\' => 
         array (
             0 => __DIR__ . '/..' . '/symplify/easy-parallel/src',
-        ),
-        'ECSPrefix202208\\Symplify\\ComposerJsonManipulator\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src',
         ),
         'ECSPrefix202208\\Symplify\\AutowireArrayParameter\\' => 
         array (
@@ -881,16 +876,6 @@ class ComposerStaticInit51aca9fa9ddbace783dd0da1e70b3048
         'ECSPrefix202208\\Symplify\\AutowireArrayParameter\\Exception\\DependencyInjection\\DefinitionForTypeNotFoundException' => __DIR__ . '/..' . '/symplify/autowire-array-parameter/src/Exception/DependencyInjection/DefinitionForTypeNotFoundException.php',
         'ECSPrefix202208\\Symplify\\AutowireArrayParameter\\Skipper\\ParameterSkipper' => __DIR__ . '/..' . '/symplify/autowire-array-parameter/src/Skipper/ParameterSkipper.php',
         'ECSPrefix202208\\Symplify\\AutowireArrayParameter\\TypeResolver\\ParameterTypeResolver' => __DIR__ . '/..' . '/symplify/autowire-array-parameter/src/TypeResolver/ParameterTypeResolver.php',
-        'ECSPrefix202208\\Symplify\\ComposerJsonManipulator\\ComposerJsonFactory' => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src/ComposerJsonFactory.php',
-        'ECSPrefix202208\\Symplify\\ComposerJsonManipulator\\FileSystem\\JsonFileManager' => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src/FileSystem/JsonFileManager.php',
-        'ECSPrefix202208\\Symplify\\ComposerJsonManipulator\\Json\\JsonCleaner' => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src/Json/JsonCleaner.php',
-        'ECSPrefix202208\\Symplify\\ComposerJsonManipulator\\Json\\JsonInliner' => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src/Json/JsonInliner.php',
-        'ECSPrefix202208\\Symplify\\ComposerJsonManipulator\\Printer\\ComposerJsonPrinter' => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src/Printer/ComposerJsonPrinter.php',
-        'ECSPrefix202208\\Symplify\\ComposerJsonManipulator\\Sorter\\ComposerPackageSorter' => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src/Sorter/ComposerPackageSorter.php',
-        'ECSPrefix202208\\Symplify\\ComposerJsonManipulator\\ValueObject\\ComposerJson' => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src/ValueObject/ComposerJson.php',
-        'ECSPrefix202208\\Symplify\\ComposerJsonManipulator\\ValueObject\\ComposerJsonManipulatorConfig' => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src/ValueObject/ComposerJsonManipulatorConfig.php',
-        'ECSPrefix202208\\Symplify\\ComposerJsonManipulator\\ValueObject\\ComposerJsonSection' => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src/ValueObject/ComposerJsonSection.php',
-        'ECSPrefix202208\\Symplify\\ComposerJsonManipulator\\ValueObject\\Option' => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src/ValueObject/Option.php',
         'ECSPrefix202208\\Symplify\\EasyParallel\\CommandLine\\WorkerCommandLineFactory' => __DIR__ . '/..' . '/symplify/easy-parallel/src/CommandLine/WorkerCommandLineFactory.php',
         'ECSPrefix202208\\Symplify\\EasyParallel\\Contract\\SerializableInterface' => __DIR__ . '/..' . '/symplify/easy-parallel/src/Contract/SerializableInterface.php',
         'ECSPrefix202208\\Symplify\\EasyParallel\\CpuCoreCountProvider' => __DIR__ . '/..' . '/symplify/easy-parallel/src/CpuCoreCountProvider.php',
@@ -1592,9 +1577,9 @@ class ComposerStaticInit51aca9fa9ddbace783dd0da1e70b3048
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit51aca9fa9ddbace783dd0da1e70b3048::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit51aca9fa9ddbace783dd0da1e70b3048::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit51aca9fa9ddbace783dd0da1e70b3048::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit354143ee426e3d70360423ad66bd068b::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit354143ee426e3d70360423ad66bd068b::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit354143ee426e3d70360423ad66bd068b::$classMap;
 
         }, null, ClassLoader::class);
     }

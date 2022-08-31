@@ -20,7 +20,6 @@ return array(
     'ECSPrefix202208\\Symplify\\PackageBuilder\\' => array($vendorDir . '/symplify/package-builder/src'),
     'ECSPrefix202208\\Symplify\\EasyTesting\\' => array($vendorDir . '/symplify/easy-testing/src'),
     'ECSPrefix202208\\Symplify\\EasyParallel\\' => array($vendorDir . '/symplify/easy-parallel/src'),
-    'ECSPrefix202208\\Symplify\\ComposerJsonManipulator\\' => array($vendorDir . '/symplify/composer-json-manipulator/src'),
     'ECSPrefix202208\\Symplify\\AutowireArrayParameter\\' => array($vendorDir . '/symplify/autowire-array-parameter/src'),
     'ECSPrefix202208\\Symfony\\Contracts\\Service\\' => array($vendorDir . '/symfony/service-contracts'),
     'ECSPrefix202208\\Symfony\\Component\\String\\' => array($vendorDir . '/symfony/string'),
