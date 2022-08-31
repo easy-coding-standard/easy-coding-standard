@@ -87,6 +87,8 @@ return static function (ECSConfig $ecsConfig): void {
     // alternative to CLI arguments, easier to maintain and extend
     $ecsConfig->paths([__DIR__ . '/src', __DIR__ . '/tests']);
 
+    // bear in mind that this will override SetList skips if one was previously imported
+    // this is result of design decision in symfony https://github.com/symfony/symfony/issues/26713
     $ecsConfig->skip([
         // skip paths with legacy code
         __DIR__ . '/packages/*/src/Legacy',
@@ -110,15 +112,14 @@ return static function (ECSConfig $ecsConfig): void {
     ]);
 
     // scan other file extendsions; [default: [php]]
-    $parameters = $ecsConfig->parameters();
-    $parameters->set(Option::FILE_EXTENSIONS, ['php', 'phpt']);
+    $ecsConfig->fileExtensions(['php', 'phpt']);
 
     // configure cache paths & namespace - useful for Gitlab CI caching, where getcwd() produces always different path
     // [default: sys_get_temp_dir() . '/_changed_files_detector_tests']
-    $parameters->set(Option::CACHE_DIRECTORY, '.ecs_cache');
+    $ecsConfig->cacheDirectory('.ecs_cache');
 
     // [default: \Nette\Utils\Strings::webalize(getcwd())']
-    $parameters->set(Option::CACHE_NAMESPACE, 'my_project_namespace');
+    $ecsConfig->cacheNamespace('my_project_namespace');
 
     // indent and tabs/spaces
     // [default: spaces]
@@ -137,7 +138,15 @@ Do you have multi-core CPUs? ECS can run in *X* parallel threads, where *X* is n
 
 That means 1600 % faster run with same amount of analysed files. Did you code base took 16 minutes to fix? Now it's 1 minute.
 
-It is enabled by default, so you can enjoy it out of the box.
+How to enable it?
+
+```php
+use Symplify\EasyCodingStandard\Config\ECSConfig;
+
+return static function (ECSConfig $ecsConfig): void {
+    $ecsConfig->parallel();
+};
+```
 
 ## Coding Standards in Markdown
 
@@ -171,8 +180,6 @@ vendor/bin/ecs check-markdown --fix
 vendor/bin/ecs check src --clear-cache
 ```
 
-<br>
-
 ## Report Issues
 
 In case you are experiencing a bug or want to request a new feature head over to the [Symplify monorepo issue tracker](https://github.com/symplify/symplify/issues)
@@ -183,4 +190,4 @@ The sources of this package are contained in the Symplify monorepo. We welcome c
 
 ## Acknowledgment
 
-The parallel run is package is heavily inspired by [https://github.com/phpstan/phpstan-src](phpstan/phpstan-src) by Ondřej Mirtes. Thank you.
+The parallel run is heavily inspired by [phpstan/phpstan-src](https://github.com/phpstan/phpstan-src) by Ondřej Mirtes. Thank you.
