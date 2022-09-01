@@ -210,8 +210,8 @@ final class File extends BaseFile
     }
     private function shouldSkipClassWarnings(string $sniffClass) : bool
     {
-        foreach ($this->reportSniffClassesWarnings as $reportWarningsSniff) {
-            if (\is_a($sniffClass, $reportWarningsSniff, \true)) {
+        foreach ($this->reportSniffClassesWarnings as $reportSniffClassWarning) {
+            if (\is_a($sniffClass, $reportSniffClassWarning, \true)) {
                 return \false;
             }
         }

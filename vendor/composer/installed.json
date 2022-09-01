@@ -3025,7 +3025,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/coding-standard",
-                "reference": "fd10886faca0af0413f308c2a6b962210b958753"
+                "reference": "08f5085ecbe9ef7f1579185acd3d95e6b52e0ffb"
             },
             "require": {
                 "friendsofphp\/php-cs-fixer": "^3.10",
@@ -3054,9 +3054,7 @@
             },
             "require-dev": {
                 "cweagans\/composer-patches": "^1.7",
-                "doctrine\/orm": "^2.12.3",
-                "nette\/application": "^3.1",
-                "nette\/bootstrap": "^3.1.2",
+                "doctrine\/orm": "^2.13",
                 "phpunit\/phpunit": "^9.5.23",
                 "symfony\/framework-bundle": "^6.0.10",
                 "symplify\/easy-coding-standard": "dev-main",
@@ -3104,16 +3102,15 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/easy-parallel",
-                "reference": "ec96832ea46a814a6f6937aa3c06aa8fe08f9676"
+                "reference": "6d0ef17c47a625c958dfa3ddc74d75441c240366"
             },
             "require": {
                 "clue\/ndjson-react": "^1.2",
                 "php": ">=8.0",
                 "react\/child-process": "^0.6.4",
                 "react\/event-loop": "^1.3",
-                "react\/socket": "^1.11",
-                "symfony\/console": "^6.0",
-                "symplify\/package-builder": "dev-main"
+                "react\/socket": "^1.12",
+                "symfony\/console": "^6.0"
             },
             "conflict": {
                 "symplify\/autowire-array-parameter": "<11.1.7",
@@ -3135,7 +3132,8 @@
                 "symplify\/vendor-patches": "<11.1.7"
             },
             "require-dev": {
-                "phpunit\/phpunit": "^9.5.23"
+                "phpunit\/phpunit": "^9.5.23",
+                "symplify\/package-builder": "dev-main"
             },
             "type": "library",
             "extra": {
@@ -3430,7 +3428,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/symplify-kernel",
-                "reference": "f6b2e4e1e0548f59861825226ab86560f17686a8"
+                "reference": "2c6f11d5612638fac9944d2e62a5bdd707d8b9bd"
             },
             "require": {
                 "php": ">=8.0",
@@ -3439,7 +3437,7 @@
                 "symplify\/autowire-array-parameter": "dev-main",
                 "symplify\/package-builder": "dev-main",
                 "symplify\/smart-file-system": "dev-main",
-                "webmozart\/assert": "^1.10"
+                "webmozart\/assert": "^1.11"
             },
             "conflict": {
                 "symplify\/coding-standard": "<11.1.7",

@@ -12,9 +12,7 @@
         "symplify\/rule-doc-generator-contracts": "dev-main"
     },
     "require-dev": {
-        "nette\/application": "^3.1",
-        "nette\/bootstrap": "^3.1.2",
-        "doctrine\/orm": "^2.12.3",
+        "doctrine\/orm": "^2.13",
         "symplify\/symplify-kernel": "dev-main",
         "symplify\/smart-file-system": "dev-main",
         "symfony\/framework-bundle": "^6.0.10",
