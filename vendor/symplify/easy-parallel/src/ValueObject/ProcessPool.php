@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202208\Symplify\EasyParallel\ValueObject;
+namespace ECSPrefix202209\Symplify\EasyParallel\ValueObject;
 
-use ECSPrefix202208\React\Socket\TcpServer;
-use ECSPrefix202208\Symplify\EasyParallel\Exception\ParallelShouldNotHappenException;
+use ECSPrefix202209\React\Socket\TcpServer;
+use ECSPrefix202209\Symplify\EasyParallel\Exception\ParallelShouldNotHappenException;
 /**
  * Used from https://github.com/phpstan/phpstan-src/blob/master/src/Parallel/ProcessPool.php
  */

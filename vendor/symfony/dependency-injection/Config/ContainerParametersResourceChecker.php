@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202208\Symfony\Component\DependencyInjection\Config;
+namespace ECSPrefix202209\Symfony\Component\DependencyInjection\Config;
 
-use ECSPrefix202208\Symfony\Component\Config\Resource\ResourceInterface;
-use ECSPrefix202208\Symfony\Component\Config\ResourceCheckerInterface;
-use ECSPrefix202208\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix202209\Symfony\Component\Config\Resource\ResourceInterface;
+use ECSPrefix202209\Symfony\Component\Config\ResourceCheckerInterface;
+use ECSPrefix202209\Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * @author Maxime Steinhausser <maxime.steinhausser@gmail.com>
  */

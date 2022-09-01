@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix202208\React\Stream;
+namespace ECSPrefix202209\React\Stream;
 
 final class Util
 {

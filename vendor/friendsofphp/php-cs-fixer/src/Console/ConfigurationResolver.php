@@ -40,9 +40,9 @@ use PhpCsFixer\ToolInfoInterface;
 use PhpCsFixer\Utils;
 use PhpCsFixer\WhitespacesFixerConfig;
 use PhpCsFixer\WordMatcher;
-use ECSPrefix202208\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix202208\Symfony\Component\Filesystem\Filesystem;
-use ECSPrefix202208\Symfony\Component\Finder\Finder as SymfonyFinder;
+use ECSPrefix202209\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix202209\Symfony\Component\Filesystem\Filesystem;
+use ECSPrefix202209\Symfony\Component\Finder\Finder as SymfonyFinder;
 /**
  * The resolver that resolves configuration to use by command line options and config.
  *

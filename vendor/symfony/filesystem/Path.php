@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202208\Symfony\Component\Filesystem;
+namespace ECSPrefix202209\Symfony\Component\Filesystem;
 
-use ECSPrefix202208\Symfony\Component\Filesystem\Exception\InvalidArgumentException;
-use ECSPrefix202208\Symfony\Component\Filesystem\Exception\RuntimeException;
+use ECSPrefix202209\Symfony\Component\Filesystem\Exception\InvalidArgumentException;
+use ECSPrefix202209\Symfony\Component\Filesystem\Exception\RuntimeException;
 /**
  * Contains utility methods for handling path strings.
  *

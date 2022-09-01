@@ -12,9 +12,9 @@ use SplFileInfo;
 use Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
 use Symplify\CodingStandard\TokenAnalyzer\SymfonyClosureAnalyzer;
 use Symplify\CodingStandard\TokenRunner\Traverser\TokenReverser;
-use ECSPrefix202208\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use ECSPrefix202208\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use ECSPrefix202208\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix202209\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use ECSPrefix202209\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use ECSPrefix202209\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Symplify\CodingStandard\Tests\Fixer\Spacing\NewlineServiceDefinitionConfigFixer\NewlineServiceDefinitionConfigFixerTest
  */

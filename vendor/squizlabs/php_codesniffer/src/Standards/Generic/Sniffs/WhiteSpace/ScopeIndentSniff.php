@@ -91,7 +91,7 @@ class ScopeIndentSniff implements Sniff
      */
     public function register()
     {
-        if (\defined('ECSPrefix202208\\PHP_CODESNIFFER_IN_TESTS') === \true) {
+        if (\defined('ECSPrefix202209\\PHP_CODESNIFFER_IN_TESTS') === \true) {
             $this->debug = \false;
         }
         return [\T_OPEN_TAG];

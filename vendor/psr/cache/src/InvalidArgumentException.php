@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix202208\Psr\Cache;
+namespace ECSPrefix202209\Psr\Cache;
 
 /**
  * Exception interface for invalid cache arguments.

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Output;
 
-use ECSPrefix202208\Symfony\Component\Console\Command\Command;
+use ECSPrefix202209\Symfony\Component\Console\Command\Command;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult;
 final class ExitCodeResolver

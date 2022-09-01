@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202208\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix202209\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix202208\Symfony\Component\DependencyInjection\Alias;
-use ECSPrefix202208\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
-use ECSPrefix202208\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
-use ECSPrefix202208\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
-use ECSPrefix202208\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix202208\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix202208\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix202208\Symfony\Component\DependencyInjection\Reference;
-use ECSPrefix202208\Symfony\Component\DependencyInjection\ServiceLocator;
+use ECSPrefix202209\Symfony\Component\DependencyInjection\Alias;
+use ECSPrefix202209\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
+use ECSPrefix202209\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
+use ECSPrefix202209\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
+use ECSPrefix202209\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix202209\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix202209\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix202209\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix202209\Symfony\Component\DependencyInjection\ServiceLocator;
 /**
  * Applies the "container.service_locator" tag by wrapping references into ServiceClosureArgument instances.
  *

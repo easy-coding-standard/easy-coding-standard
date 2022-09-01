@@ -8,19 +8,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202208\Symfony\Component\DependencyInjection\Loader;
+namespace ECSPrefix202209\Symfony\Component\DependencyInjection\Loader;
 
-use ECSPrefix202208\Symfony\Component\Config\Builder\ConfigBuilderGenerator;
-use ECSPrefix202208\Symfony\Component\Config\Builder\ConfigBuilderGeneratorInterface;
-use ECSPrefix202208\Symfony\Component\Config\Builder\ConfigBuilderInterface;
-use ECSPrefix202208\Symfony\Component\Config\FileLocatorInterface;
-use ECSPrefix202208\Symfony\Component\DependencyInjection\Attribute\When;
-use ECSPrefix202208\Symfony\Component\DependencyInjection\Container;
-use ECSPrefix202208\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix202208\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix202208\Symfony\Component\DependencyInjection\Extension\ConfigurationExtensionInterface;
-use ECSPrefix202208\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
-use ECSPrefix202208\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use ECSPrefix202209\Symfony\Component\Config\Builder\ConfigBuilderGenerator;
+use ECSPrefix202209\Symfony\Component\Config\Builder\ConfigBuilderGeneratorInterface;
+use ECSPrefix202209\Symfony\Component\Config\Builder\ConfigBuilderInterface;
+use ECSPrefix202209\Symfony\Component\Config\FileLocatorInterface;
+use ECSPrefix202209\Symfony\Component\DependencyInjection\Attribute\When;
+use ECSPrefix202209\Symfony\Component\DependencyInjection\Container;
+use ECSPrefix202209\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix202209\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix202209\Symfony\Component\DependencyInjection\Extension\ConfigurationExtensionInterface;
+use ECSPrefix202209\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
+use ECSPrefix202209\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 /**
  * PhpFileLoader loads service definitions from a PHP file.
  *

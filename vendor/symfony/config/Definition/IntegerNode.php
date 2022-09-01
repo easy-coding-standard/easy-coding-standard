@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202208\Symfony\Component\Config\Definition;
+namespace ECSPrefix202209\Symfony\Component\Config\Definition;
 
-use ECSPrefix202208\Symfony\Component\Config\Definition\Exception\InvalidTypeException;
+use ECSPrefix202209\Symfony\Component\Config\Definition\Exception\InvalidTypeException;
 /**
  * This node represents an integer value in the config tree.
  *

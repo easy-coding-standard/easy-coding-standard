@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix202208\Doctrine\Common\Annotations;
+namespace ECSPrefix202209\Doctrine\Common\Annotations;
 
 use Exception;
 use Throwable;

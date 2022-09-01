@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix202208\Nette\Utils;
+namespace ECSPrefix202209\Nette\Utils;
 
-use ECSPrefix202208\Nette;
+use ECSPrefix202209\Nette;
 /**
  * Basic manipulation with images. Supported types are JPEG, PNG, GIF, WEBP, AVIF and BMP.
  *

@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error;
 
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Name;
-use ECSPrefix202208\Symplify\EasyParallel\Contract\SerializableInterface;
+use ECSPrefix202209\Symplify\EasyParallel\Contract\SerializableInterface;
 final class CodingStandardError implements SerializableInterface
 {
     /**
@@ -61,7 +61,7 @@ final class CodingStandardError implements SerializableInterface
      * @param array{line: int, message: string, checker_class: string, relative_file_path: string} $json
      * @return $this
      */
-    public static function decode(array $json) : \ECSPrefix202208\Symplify\EasyParallel\Contract\SerializableInterface
+    public static function decode(array $json) : \ECSPrefix202209\Symplify\EasyParallel\Contract\SerializableInterface
     {
         return new self($json[Name::LINE], $json[Name::MESSAGE], $json[Name::CHECKER_CLASS], $json[Name::RELATIVE_FILE_PATH]);
     }

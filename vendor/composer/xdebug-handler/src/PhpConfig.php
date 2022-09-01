@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-namespace ECSPrefix202208\Composer\XdebugHandler;
+namespace ECSPrefix202209\Composer\XdebugHandler;
 
 /**
  * @author John Stevenson <john-stevenson@blueyonder.co.uk>

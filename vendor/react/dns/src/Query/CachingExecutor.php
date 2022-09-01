@@ -1,10 +1,10 @@
 <?php
 
-namespace ECSPrefix202208\React\Dns\Query;
+namespace ECSPrefix202209\React\Dns\Query;
 
-use ECSPrefix202208\React\Cache\CacheInterface;
-use ECSPrefix202208\React\Dns\Model\Message;
-use ECSPrefix202208\React\Promise\Promise;
+use ECSPrefix202209\React\Cache\CacheInterface;
+use ECSPrefix202209\React\Dns\Model\Message;
+use ECSPrefix202209\React\Promise\Promise;
 final class CachingExecutor implements ExecutorInterface
 {
     /**

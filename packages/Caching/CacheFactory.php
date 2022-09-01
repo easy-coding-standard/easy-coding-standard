@@ -5,8 +5,8 @@ namespace Symplify\EasyCodingStandard\Caching;
 
 use Symplify\EasyCodingStandard\Caching\ValueObject\Storage\FileCacheStorage;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use ECSPrefix202208\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use ECSPrefix202208\Symplify\SmartFileSystem\SmartFileSystem;
+use ECSPrefix202209\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use ECSPrefix202209\Symplify\SmartFileSystem\SmartFileSystem;
 final class CacheFactory
 {
     /**

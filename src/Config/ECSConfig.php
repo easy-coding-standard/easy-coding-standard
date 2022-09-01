@@ -6,11 +6,11 @@ namespace Symplify\EasyCodingStandard\Config;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\Fixer\FixerInterface;
-use ECSPrefix202208\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use ECSPrefix202209\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use ECSPrefix202208\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
-use ECSPrefix202208\Webmozart\Assert\Assert;
-use ECSPrefix202208\Webmozart\Assert\InvalidArgumentException;
+use ECSPrefix202209\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
+use ECSPrefix202209\Webmozart\Assert\Assert;
+use ECSPrefix202209\Webmozart\Assert\InvalidArgumentException;
 /**
  * @api
  */

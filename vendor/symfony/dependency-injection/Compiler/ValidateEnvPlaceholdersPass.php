@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202208\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix202209\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix202208\Symfony\Component\Config\Definition\BaseNode;
-use ECSPrefix202208\Symfony\Component\Config\Definition\ConfigurationInterface;
-use ECSPrefix202208\Symfony\Component\Config\Definition\Processor;
-use ECSPrefix202208\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix202208\Symfony\Component\DependencyInjection\Extension\ConfigurationExtensionInterface;
-use ECSPrefix202208\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag;
-use ECSPrefix202208\Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
+use ECSPrefix202209\Symfony\Component\Config\Definition\BaseNode;
+use ECSPrefix202209\Symfony\Component\Config\Definition\ConfigurationInterface;
+use ECSPrefix202209\Symfony\Component\Config\Definition\Processor;
+use ECSPrefix202209\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix202209\Symfony\Component\DependencyInjection\Extension\ConfigurationExtensionInterface;
+use ECSPrefix202209\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag;
+use ECSPrefix202209\Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 /**
  * Validates environment variable placeholders used in extension configuration with dummy values.
  *

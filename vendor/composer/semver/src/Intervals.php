@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-namespace ECSPrefix202208\Composer\Semver;
+namespace ECSPrefix202209\Composer\Semver;
 
-use ECSPrefix202208\Composer\Semver\Constraint\Constraint;
-use ECSPrefix202208\Composer\Semver\Constraint\ConstraintInterface;
-use ECSPrefix202208\Composer\Semver\Constraint\MatchAllConstraint;
-use ECSPrefix202208\Composer\Semver\Constraint\MatchNoneConstraint;
-use ECSPrefix202208\Composer\Semver\Constraint\MultiConstraint;
+use ECSPrefix202209\Composer\Semver\Constraint\Constraint;
+use ECSPrefix202209\Composer\Semver\Constraint\ConstraintInterface;
+use ECSPrefix202209\Composer\Semver\Constraint\MatchAllConstraint;
+use ECSPrefix202209\Composer\Semver\Constraint\MatchNoneConstraint;
+use ECSPrefix202209\Composer\Semver\Constraint\MultiConstraint;
 /**
  * Helper class generating intervals from constraints
  *

@@ -8,7 +8,7 @@ use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException;
 use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
-use ECSPrefix202208\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use ECSPrefix202209\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 final class TokenSkipper
 {
     /**

@@ -1,11 +1,11 @@
 <?php
 
-namespace ECSPrefix202208\React\Promise\Timer;
+namespace ECSPrefix202209\React\Promise\Timer;
 
-use ECSPrefix202208\React\EventLoop\Loop;
-use ECSPrefix202208\React\EventLoop\LoopInterface;
-use ECSPrefix202208\React\Promise\Promise;
-use ECSPrefix202208\React\Promise\PromiseInterface;
+use ECSPrefix202209\React\EventLoop\Loop;
+use ECSPrefix202209\React\EventLoop\LoopInterface;
+use ECSPrefix202209\React\Promise\Promise;
+use ECSPrefix202209\React\Promise\PromiseInterface;
 /**
  * Cancel operations that take *too long*.
  *

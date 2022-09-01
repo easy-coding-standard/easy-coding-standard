@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix202208\React\Dns\Model;
+namespace ECSPrefix202209\React\Dns\Model;
 
-use ECSPrefix202208\React\Dns\Query\Query;
+use ECSPrefix202209\React\Dns\Query\Query;
 /**
  * This class represents an outgoing query message or an incoming response message
  *

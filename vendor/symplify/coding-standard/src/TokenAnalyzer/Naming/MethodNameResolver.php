@@ -5,7 +5,7 @@ namespace Symplify\CodingStandard\TokenAnalyzer\Naming;
 
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-use ECSPrefix202208\Symplify\PackageBuilder\ValueObject\MethodName;
+use ECSPrefix202209\Symplify\PackageBuilder\ValueObject\MethodName;
 /**
  * @api
  */

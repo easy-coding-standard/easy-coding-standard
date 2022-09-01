@@ -7,7 +7,7 @@ use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException;
 use Symplify\CodingStandard\TokenRunner\ValueObject\LineLengthAndPosition;
-use ECSPrefix202208\Symplify\PackageBuilder\Configuration\StaticEolConfiguration;
+use ECSPrefix202209\Symplify\PackageBuilder\Configuration\StaticEolConfiguration;
 final class LineLengthAndPositionFactory
 {
     /**
