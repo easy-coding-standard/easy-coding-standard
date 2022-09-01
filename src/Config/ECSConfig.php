@@ -133,6 +133,18 @@ final class ECSConfig extends ContainerConfigurator
         $parameters->set(Option::PARALLEL_JOB_SIZE, $jobSize);
     }
     /**
+     * @param array<class-string<Sniff>> $sniffClasses
+     */
+    public function reportSniffClassWarnings(array $sniffClasses) : void
+    {
+        foreach ($sniffClasses as $sniffClass) {
+            Assert::classExists($sniffClass);
+            Assert::isAnyOf($sniffClass, [Sniff::class]);
+        }
+        $parameters = $this->parameters();
+        $parameters->set(Option::REPORT_SNIFF_WARNINGS, $sniffClasses);
+    }
+    /**
      * @param class-string $checkerClass
      */
     private function isCheckerClass(string $checkerClass) : void

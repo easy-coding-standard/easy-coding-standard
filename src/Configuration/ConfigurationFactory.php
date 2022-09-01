@@ -35,11 +35,12 @@ final class ConfigurationFactory
         /** @var string|null $memoryLimit */
         $memoryLimit = $input->getOption(Option::MEMORY_LIMIT);
         $isParallel = $this->parameterProvider->provideBoolParameter(Option::PARALLEL);
+        $reportSniffClassesWarnings = $this->parameterProvider->provideArrayParameter(Option::REPORT_SNIFF_WARNINGS);
         $config = $input->getOption(Option::CONFIG);
         if ($config !== null) {
             $config = (string) $config;
         }
-        return new Configuration($isFixer, $shouldClearCache, $showProgressBar, $showErrorTable, $paths, $outputFormat, $isParallel, $config, $parallelPort, $parallelIdentifier, $memoryLimit);
+        return new Configuration($isFixer, $shouldClearCache, $showProgressBar, $showErrorTable, $paths, $outputFormat, $isParallel, $reportSniffClassesWarnings, $config, $parallelPort, $parallelIdentifier, $memoryLimit);
     }
     private function canShowProgressBar(InputInterface $input) : bool
     {

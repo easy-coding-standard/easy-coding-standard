@@ -122,7 +122,7 @@ final class RemoveMutualCheckersCompilerPass implements CompilerPassInterface
                 continue;
             }
             \array_shift($matchingCheckerGroup);
-            $checkersToRemove = \array_merge($checkersToRemove, $matchingCheckerGroup);
+            $checkersToRemove = \array_merge($checkersToRemove, \is_array($matchingCheckerGroup) ? $matchingCheckerGroup : \iterator_to_array($matchingCheckerGroup));
         }
         return $checkersToRemove;
     }
