@@ -27,7 +27,7 @@ abstract class AbstractTypeTransformer extends \PhpCsFixer\Tokenizer\AbstractTra
         if (!$tokens[$index]->equals($originalToken)) {
             return;
         }
-        $prevIndex = $tokens->getTokenNotOfKindsSibling($index, -1, [\T_CALLABLE, \T_NS_SEPARATOR, \T_STRING, \PhpCsFixer\Tokenizer\CT::T_ARRAY_TYPEHINT, \T_WHITESPACE, \T_COMMENT, \T_DOC_COMMENT]);
+        $prevIndex = $this->getPreviousTokenCandidate($tokens, $index);
         /** @var Token $prevToken */
         $prevToken = $tokens[$prevIndex];
         if ($prevToken->isGivenKind([
@@ -75,4 +75,9 @@ abstract class AbstractTypeTransformer extends \PhpCsFixer\Tokenizer\AbstractTra
         $this->replaceToken($tokens, $index);
     }
     protected abstract function replaceToken(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : void;
+    private function getPreviousTokenCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens, int $index) : int
+    {
+        $candidateIndex = $tokens->getTokenNotOfKindsSibling($index, -1, [\T_CALLABLE, \T_NS_SEPARATOR, \T_STRING, \PhpCsFixer\Tokenizer\CT::T_ARRAY_TYPEHINT, \T_WHITESPACE, \T_COMMENT, \T_DOC_COMMENT]);
+        return $tokens[$candidateIndex]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_ATTRIBUTE_CLOSE) ? $this->getPreviousTokenCandidate($tokens, $tokens->getPrevTokenOfKind($index, [[\T_ATTRIBUTE]])) : $candidateIndex;
+    }
 }

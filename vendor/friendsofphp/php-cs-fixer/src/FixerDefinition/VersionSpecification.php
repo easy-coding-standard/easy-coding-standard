@@ -18,14 +18,17 @@ namespace PhpCsFixer\FixerDefinition;
 final class VersionSpecification implements \PhpCsFixer\FixerDefinition\VersionSpecificationInterface
 {
     /**
-     * @var int|null
+     * @var null|int<1, max>
      */
     private $minimum;
     /**
-     * @var int|null
+     * @var null|int<1, max>
      */
     private $maximum;
     /**
+     * @param null|int<1, max> $minimum
+     * @param null|int<1, max> $maximum
+     *
      * @throws \InvalidArgumentException
      */
     public function __construct(?int $minimum = null, ?int $maximum = null)
@@ -33,10 +36,12 @@ final class VersionSpecification implements \PhpCsFixer\FixerDefinition\VersionS
         if (null === $minimum && null === $maximum) {
             throw new \InvalidArgumentException('Minimum or maximum need to be specified.');
         }
+        // @phpstan-ignore-next-line
         if (null !== $minimum && 1 > $minimum) {
             throw new \InvalidArgumentException('Minimum needs to be either null or an integer greater than 0.');
         }
         if (null !== $maximum) {
+            // @phpstan-ignore-next-line
             if (1 > $maximum) {
                 throw new \InvalidArgumentException('Maximum needs to be either null or an integer greater than 0.');
             }

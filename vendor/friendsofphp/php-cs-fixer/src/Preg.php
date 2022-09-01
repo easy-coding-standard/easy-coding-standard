@@ -89,9 +89,9 @@ final class Preg
         throw self::newPregException(\preg_last_error(), __METHOD__, (array) $pattern);
     }
     /**
-     * @throws PregException
-     *
      * @return string[]
+     *
+     * @throws PregException
      */
     public static function split(string $pattern, string $subject, int $limit = -1, int $flags = 0) : array
     {

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit4ae6eba78a127d8c98fb037504d210b2
+class ComposerStaticInite7b0dc9103570bf26f1747c2b5ffdcc5
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -1053,6 +1053,7 @@ class ComposerStaticInit4ae6eba78a127d8c98fb037504d210b2
         'PhpCsFixer\\Fixer\\Basic\\CurlyBracesPositionFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Basic/CurlyBracesPositionFixer.php',
         'PhpCsFixer\\Fixer\\Basic\\EncodingFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Basic/EncodingFixer.php',
         'PhpCsFixer\\Fixer\\Basic\\NoMultipleStatementsPerLineFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Basic/NoMultipleStatementsPerLineFixer.php',
+        'PhpCsFixer\\Fixer\\Basic\\NoTrailingCommaInSinglelineFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Basic/NoTrailingCommaInSinglelineFixer.php',
         'PhpCsFixer\\Fixer\\Basic\\NonPrintableCharacterFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Basic/NonPrintableCharacterFixer.php',
         'PhpCsFixer\\Fixer\\Basic\\OctalNotationFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Basic/OctalNotationFixer.php',
         'PhpCsFixer\\Fixer\\Basic\\PsrAutoloadingFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/Basic/PsrAutoloadingFixer.php',
@@ -1301,6 +1302,8 @@ class ComposerStaticInit4ae6eba78a127d8c98fb037504d210b2
         'PhpCsFixer\\RuleSet\\RuleSetInterface' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/RuleSet/RuleSetInterface.php',
         'PhpCsFixer\\RuleSet\\RuleSets' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/RuleSet/RuleSets.php',
         'PhpCsFixer\\RuleSet\\Sets\\DoctrineAnnotationSet' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/RuleSet/Sets/DoctrineAnnotationSet.php',
+        'PhpCsFixer\\RuleSet\\Sets\\PERRiskySet' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/RuleSet/Sets/PERRiskySet.php',
+        'PhpCsFixer\\RuleSet\\Sets\\PERSet' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/RuleSet/Sets/PERSet.php',
         'PhpCsFixer\\RuleSet\\Sets\\PHP54MigrationSet' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/RuleSet/Sets/PHP54MigrationSet.php',
         'PhpCsFixer\\RuleSet\\Sets\\PHP56MigrationRiskySet' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/RuleSet/Sets/PHP56MigrationRiskySet.php',
         'PhpCsFixer\\RuleSet\\Sets\\PHP70MigrationRiskySet' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/RuleSet/Sets/PHP70MigrationRiskySet.php',
@@ -1570,9 +1573,9 @@ class ComposerStaticInit4ae6eba78a127d8c98fb037504d210b2
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit4ae6eba78a127d8c98fb037504d210b2::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit4ae6eba78a127d8c98fb037504d210b2::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit4ae6eba78a127d8c98fb037504d210b2::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInite7b0dc9103570bf26f1747c2b5ffdcc5::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInite7b0dc9103570bf26f1747c2b5ffdcc5::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInite7b0dc9103570bf26f1747c2b5ffdcc5::$classMap;
 
         }, null, ClassLoader::class);
     }

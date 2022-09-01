@@ -53,6 +53,7 @@ final class BinaryOperatorSpacesFixer extends AbstractFixer implements Configura
     public const ALIGN_SINGLE_SPACE_MINIMAL = 'align_single_space_minimal';
     /**
      * @internal
+     *
      * @const Placeholder used as anchor for right alignment.
      */
     public const ALIGN_PLACEHOLDER = "\x02 ALIGNABLE%d \x03";
@@ -373,7 +374,10 @@ $array = [
                 continue;
             }
             if ($token->isGivenKind(\T_FN)) {
-                $index = $this->getLastTokenIndexOfFn($tokens, $index);
+                $from = $tokens->getNextMeaningfulToken($index);
+                $until = $this->getLastTokenIndexOfFn($tokens, $index);
+                $this->injectAlignmentPlaceholders($tokens, $from + 1, $until - 1, $tokenContent);
+                $index = $until;
                 continue;
             }
             if ($token->isGivenKind([\T_FUNCTION, \T_CLASS])) {
@@ -434,7 +438,10 @@ $array = [
                 $newLineFoundSinceLastPlaceholder = \true;
             }
             if ($token->isGivenKind(\T_FN)) {
-                $index = $this->getLastTokenIndexOfFn($tokens, $index);
+                $from = $tokens->getNextMeaningfulToken($index);
+                $until = $this->getLastTokenIndexOfFn($tokens, $index);
+                $this->injectArrayAlignmentPlaceholders($tokens, $from + 1, $until - 1);
+                $index = $until;
                 continue;
             }
             if ($token->isGivenKind(\T_ARRAY)) {
@@ -487,6 +494,18 @@ $array = [
                     }
                     ++$index;
                 }
+            }
+            if ($token->equals('{')) {
+                $until = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $index);
+                $this->injectArrayAlignmentPlaceholders($tokens, $index + 1, $until - 1);
+                $index = $until;
+                continue;
+            }
+            if ($token->equals('(')) {
+                $until = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $index);
+                $this->injectArrayAlignmentPlaceholders($tokens, $index + 1, $until - 1);
+                $index = $until;
+                continue;
             }
         }
     }

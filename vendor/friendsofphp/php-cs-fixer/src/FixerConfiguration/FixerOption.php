@@ -31,11 +31,11 @@ final class FixerOption implements \PhpCsFixer\FixerConfiguration\FixerOptionInt
      */
     private $default;
     /**
-     * @var null|string[]
+     * @var null|list<string>
      */
     private $allowedTypes;
     /**
-     * @var null|array
+     * @var null|list<(callable(mixed): bool)|null|scalar>
      */
     private $allowedValues;
     /**
@@ -43,8 +43,9 @@ final class FixerOption implements \PhpCsFixer\FixerConfiguration\FixerOptionInt
      */
     private $normalizer;
     /**
-     * @param mixed         $default
-     * @param null|string[] $allowedTypes
+     * @param mixed             $default
+     * @param null|list<string> $allowedTypes
+     * @param null|list<(callable(mixed): bool)|null|scalar> $allowedValues
      */
     public function __construct(string $name, string $description, bool $isRequired = \true, $default = null, ?array $allowedTypes = null, ?array $allowedValues = null, ?\Closure $normalizer = null)
     {

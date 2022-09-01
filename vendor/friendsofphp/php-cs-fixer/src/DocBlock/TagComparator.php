@@ -17,25 +17,29 @@ namespace PhpCsFixer\DocBlock;
  * together, or kept apart.
  *
  * @author Graham Campbell <hello@gjcampbell.co.uk>
+ * @author Jakub Kwaśniewski <jakub@zero-85.pl>
  */
 final class TagComparator
 {
     /**
      * Groups of tags that should be allowed to immediately follow each other.
-     * @var mixed[]
+     *
+     * @internal
      */
-    private static $groups = [['deprecated', 'link', 'see', 'since'], ['author', 'copyright', 'license'], ['category', 'package', 'subpackage'], ['property', 'property-read', 'property-write']];
+    public const DEFAULT_GROUPS = [['deprecated', 'link', 'see', 'since'], ['author', 'copyright', 'license'], ['category', 'package', 'subpackage'], ['property', 'property-read', 'property-write']];
     /**
      * Should the given tags be kept together, or kept apart?
+     *
+     * @param string[][] $groups
      */
-    public static function shouldBeTogether(\PhpCsFixer\DocBlock\Tag $first, \PhpCsFixer\DocBlock\Tag $second) : bool
+    public static function shouldBeTogether(\PhpCsFixer\DocBlock\Tag $first, \PhpCsFixer\DocBlock\Tag $second, array $groups = self::DEFAULT_GROUPS) : bool
     {
         $firstName = $first->getName();
         $secondName = $second->getName();
         if ($firstName === $secondName) {
             return \true;
         }
-        foreach (self::$groups as $group) {
+        foreach ($groups as $group) {
             if (\in_array($firstName, $group, \true) && \in_array($secondName, $group, \true)) {
                 return \true;
             }

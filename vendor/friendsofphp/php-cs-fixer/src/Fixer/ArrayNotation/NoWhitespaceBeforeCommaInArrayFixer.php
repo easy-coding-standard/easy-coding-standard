@@ -34,7 +34,7 @@ final class NoWhitespaceBeforeCommaInArrayFixer extends AbstractFixer implements
      */
     public function getDefinition() : FixerDefinitionInterface
     {
-        return new FixerDefinition('In array declaration, there MUST NOT be a whitespace before each comma.', [new CodeSample("<?php \$x = array(1 , \"2\");\n"), new VersionSpecificCodeSample(<<<'SAMPLE'
+        return new FixerDefinition('In array declaration, there MUST NOT be a whitespace before each comma.', [new CodeSample("<?php \$x = array(1 , \"2\");\n"), new VersionSpecificCodeSample(<<<'PHP'
 <?php
 
 namespace ECSPrefix202209;
@@ -44,7 +44,7 @@ foo
 EOD
 , 'bar'];
 
-SAMPLE
+PHP
 , new VersionSpecification(70300), ['after_heredoc' => \true])]);
     }
     /**
@@ -59,7 +59,7 @@ SAMPLE
      */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens) : void
     {
-        for ($index = $tokens->count() - 1; $index >= 0; --$index) {
+        for ($index = $tokens->count() - 1; $index > 0; --$index) {
             if ($tokens[$index]->isGivenKind([\T_ARRAY, CT::T_ARRAY_SQUARE_BRACE_OPEN])) {
                 $this->fixSpacing($index, $tokens);
             }
@@ -95,8 +95,6 @@ SAMPLE
     }
     /**
      * Method to move index over the non-array elements like function calls or function declarations.
-     *
-     * @return int New index
      */
     private function skipNonArrayElements(int $index, Tokens $tokens) : int
     {
@@ -110,6 +108,17 @@ SAMPLE
                 return $startIndex;
             }
         }
+        if ($tokens[$index]->equals(',') && $this->commaIsPartOfImplementsList($index, $tokens)) {
+            --$index;
+        }
         return $index;
+    }
+    private function commaIsPartOfImplementsList(int $index, Tokens $tokens) : bool
+    {
+        do {
+            $index = $tokens->getPrevMeaningfulToken($index);
+            $current = $tokens[$index];
+        } while ($current->isGivenKind(\T_STRING) || $current->equals(','));
+        return $current->isGivenKind(\T_IMPLEMENTS);
     }
 }

@@ -15,6 +15,7 @@ namespace PhpCsFixer\Tokenizer\Analyzer;
 use PhpCsFixer\Tokenizer\Tokens;
 /**
  * @internal
+ *
  * @TODO 4.0 remove this analyzer and move this logic into a transformer
  */
 final class AlternativeSyntaxAnalyzer

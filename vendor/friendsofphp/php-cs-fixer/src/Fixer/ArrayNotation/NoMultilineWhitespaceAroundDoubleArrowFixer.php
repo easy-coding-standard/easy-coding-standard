@@ -57,7 +57,9 @@ final class NoMultilineWhitespaceAroundDoubleArrowFixer extends AbstractFixer
             if (!$token->isGivenKind(\T_DOUBLE_ARROW)) {
                 continue;
             }
-            $this->fixWhitespace($tokens, $index - 1);
+            if (!$tokens[$index - 2]->isComment() || \strncmp($tokens[$index - 2]->getContent(), '/*', \strlen('/*')) === 0) {
+                $this->fixWhitespace($tokens, $index - 1);
+            }
             // do not move anything about if there is a comment following the whitespace
             if (!$tokens[$index + 2]->isComment()) {
                 $this->fixWhitespace($tokens, $index + 1);

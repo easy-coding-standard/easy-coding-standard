@@ -18,11 +18,11 @@ use ECSPrefix202209\Symfony\Component\OptionsResolver\OptionsResolver;
 final class FixerConfigurationResolver implements \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
 {
     /**
-     * @var FixerOptionInterface[]
+     * @var list<FixerOptionInterface>
      */
     private $options = [];
     /**
-     * @var string[]
+     * @var list<string>
      */
     private $registeredNames = [];
     /**

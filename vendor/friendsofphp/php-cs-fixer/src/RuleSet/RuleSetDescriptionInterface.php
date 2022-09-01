@@ -21,6 +21,8 @@ interface RuleSetDescriptionInterface
     public function getName() : string;
     /**
      * Get all rules from rules set.
+     *
+     * @return array<string, array<string, mixed>|bool>
      */
     public function getRules() : array;
     public function isRisky() : bool;

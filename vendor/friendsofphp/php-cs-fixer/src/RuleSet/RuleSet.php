@@ -27,7 +27,8 @@ final class RuleSet implements \PhpCsFixer\RuleSet\RuleSetInterface
      *
      * The key is name of rule, value is bool if the rule/set should be used.
      * The key must not point to any set.
-     * @var mixed[]
+     *
+     * @var array<string, array<string, mixed>|bool>
      */
     private $rules;
     public function __construct(array $set = [])
@@ -36,9 +37,11 @@ final class RuleSet implements \PhpCsFixer\RuleSet\RuleSetInterface
             if ('' === $name) {
                 throw new \InvalidArgumentException('Rule/set name must not be empty.');
             }
+            // @phpstan-ignore-next-line
             if (\is_int($name)) {
                 throw new \InvalidArgumentException(\sprintf('Missing value for "%s" rule/set.', $value));
             }
+            // @phpstan-ignore-next-line
             if (!\is_bool($value) && !\is_array($value)) {
                 $message = \strncmp($name, '@', \strlen('@')) === 0 ? 'Set must be enabled (true) or disabled (false). Other values are not allowed.' : 'Rule must be enabled (true), disabled (false) or configured (non-empty, assoc array). Other values are not allowed.';
                 if (null === $value) {
@@ -78,6 +81,8 @@ final class RuleSet implements \PhpCsFixer\RuleSet\RuleSetInterface
     }
     /**
      * Resolve input set into group of rules.
+     *
+     * @param array<string, array<string, mixed>|bool> $rules
      */
     private function resolveSet(array $rules) : void
     {
@@ -103,6 +108,8 @@ final class RuleSet implements \PhpCsFixer\RuleSet\RuleSetInterface
      *
      * If set value is false then disable all fixers in set,
      * if not then get value from set item.
+     *
+     * @return array<string, array<string, mixed>|bool>
      */
     private function resolveSubset(string $setName, bool $setValue) : array
     {

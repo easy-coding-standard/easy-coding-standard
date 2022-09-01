@@ -17,15 +17,14 @@ use PhpCsFixer\Preg;
  * This represents a tag, as defined by the proposed PSR PHPDoc standard.
  *
  * @author Graham Campbell <hello@gjcampbell.co.uk>
+ * @author Jakub Kwaśniewski <jakub@zero-85.pl>
  */
 final class Tag
 {
     /**
      * All the tags defined by the proposed PSR PHPDoc standard.
-     *
-     * @var string[]
      */
-    private static $tags = ['api', 'author', 'category', 'copyright', 'deprecated', 'example', 'global', 'internal', 'license', 'link', 'method', 'package', 'param', 'property', 'property-read', 'property-write', 'return', 'see', 'since', 'subpackage', 'throws', 'todo', 'uses', 'var', 'version'];
+    public const PSR_STANDARD_TAGS = ['api', 'author', 'category', 'copyright', 'deprecated', 'example', 'global', 'internal', 'license', 'link', 'method', 'package', 'param', 'property', 'property-read', 'property-write', 'return', 'see', 'since', 'subpackage', 'throws', 'todo', 'uses', 'var', 'version'];
     /**
      * The line containing the tag.
      * @var \PhpCsFixer\DocBlock\Line
@@ -33,8 +32,7 @@ final class Tag
     private $line;
     /**
      * The cached tag name.
-     *
-     * @var null|string
+     * @var string|null
      */
     private $name;
     /**
@@ -82,6 +80,6 @@ final class Tag
      */
     public function valid() : bool
     {
-        return \in_array($this->getName(), self::$tags, \true);
+        return \in_array($this->getName(), self::PSR_STANDARD_TAGS, \true);
     }
 }

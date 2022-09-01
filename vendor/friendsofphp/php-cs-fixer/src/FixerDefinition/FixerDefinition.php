@@ -22,7 +22,7 @@ final class FixerDefinition implements \PhpCsFixer\FixerDefinition\FixerDefiniti
      */
     private $summary;
     /**
-     * @var CodeSampleInterface[]
+     * @var list<CodeSampleInterface>
      */
     private $codeSamples;
     /**
@@ -34,8 +34,8 @@ final class FixerDefinition implements \PhpCsFixer\FixerDefinition\FixerDefiniti
      */
     private $riskyDescription;
     /**
-     * @param CodeSampleInterface[] $codeSamples      array of samples, where single sample is [code, configuration]
-     * @param null|string           $riskyDescription null for non-risky fixer
+     * @param list<CodeSampleInterface> $codeSamples      array of samples, where single sample is [code, configuration]
+     * @param null|string               $riskyDescription null for non-risky fixer
      */
     public function __construct(string $summary, array $codeSamples, ?string $description = null, ?string $riskyDescription = null)
     {

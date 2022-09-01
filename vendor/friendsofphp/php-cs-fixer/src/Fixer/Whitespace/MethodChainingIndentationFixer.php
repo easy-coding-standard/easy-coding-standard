@@ -18,7 +18,6 @@ use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Preg;
-use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 /**
@@ -50,6 +49,10 @@ final class MethodChainingIndentationFixer extends AbstractFixer implements Whit
             if (!$tokens[$index]->isObjectOperator()) {
                 continue;
             }
+            $endParenthesisIndex = $tokens->getNextTokenOfKind($index, ['(', ';', ',', [\T_CLOSE_TAG]]);
+            if (null === $endParenthesisIndex || !$tokens[$endParenthesisIndex]->equals('(')) {
+                continue;
+            }
             if ($this->canBeMovedToNextLine($index, $tokens)) {
                 $newline = new Token([\T_WHITESPACE, $lineEnding]);
                 if ($tokens[$index - 1]->isWhitespace()) {
@@ -57,6 +60,7 @@ final class MethodChainingIndentationFixer extends AbstractFixer implements Whit
                 } else {
                     $tokens->insertAt($index, $newline);
                     ++$index;
+                    ++$endParenthesisIndex;
                 }
             }
             $currentIndent = $this->getIndentAt($tokens, $index - 1);
@@ -67,7 +71,7 @@ final class MethodChainingIndentationFixer extends AbstractFixer implements Whit
             if ($currentIndent !== $expectedIndent) {
                 $tokens[$index - 1] = new Token([\T_WHITESPACE, $lineEnding . $expectedIndent]);
             }
-            $endParenthesisIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $tokens->getNextTokenOfKind($index, ['(']));
+            $endParenthesisIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $endParenthesisIndex);
             for ($searchIndex = $index + 1; $searchIndex < $endParenthesisIndex; ++$searchIndex) {
                 $searchToken = $tokens[$searchIndex];
                 if (!$searchToken->isWhitespace()) {
@@ -152,11 +156,10 @@ final class MethodChainingIndentationFixer extends AbstractFixer implements Whit
      */
     private function currentLineRequiresExtraIndentLevel(Tokens $tokens, int $start, int $end) : bool
     {
-        if ($tokens[$start + 1]->isObjectOperator()) {
-            return \false;
-        }
-        if ($tokens[$end]->isGivenKind(CT::T_BRACE_CLASS_INSTANTIATION_CLOSE)) {
-            return \true;
+        $firstMeaningful = $tokens->getNextMeaningfulToken($start);
+        if ($tokens[$firstMeaningful]->isObjectOperator()) {
+            $thirdMeaningful = $tokens->getNextMeaningfulToken($tokens->getNextMeaningfulToken($firstMeaningful));
+            return $tokens[$thirdMeaningful]->equals('(') && $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $thirdMeaningful) > $end;
         }
         return !$tokens[$end]->equals(')') || $tokens->findBlockStart(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $end) >= $start;
     }
