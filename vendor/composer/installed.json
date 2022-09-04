@@ -3026,10 +3026,10 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/coding-standard",
-                "reference": "8d2d666ffcc9c55409a0f1151f0295c33f8de4d7"
+                "reference": "595f080ff35b1dd653b7bf43244abc40d49c69cc"
             },
             "require": {
-                "friendsofphp\/php-cs-fixer": "^3.10",
+                "friendsofphp\/php-cs-fixer": "^3.11",
                 "nette\/utils": "^3.2",
                 "php": ">=8.0",
                 "symplify\/autowire-array-parameter": "dev-main",
