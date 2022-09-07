@@ -33,6 +33,6 @@ final class ParamNewliner
         if (!$blockInfo instanceof BlockInfo) {
             return;
         }
-        $this->tokensNewliner->breakMultipleItems($blockInfo, $tokens, LineKind::CALLS);
+        $this->tokensNewliner->breakItems($blockInfo, $tokens, LineKind::CALLS);
     }
 }
