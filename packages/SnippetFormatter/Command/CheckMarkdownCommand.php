@@ -6,18 +6,16 @@ namespace Symplify\EasyCodingStandard\SnippetFormatter\Command;
 use ECSPrefix202209\Symfony\Component\Console\Input\InputInterface;
 use ECSPrefix202209\Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Console\Command\AbstractCheckCommand;
-use Symplify\EasyCodingStandard\SnippetFormatter\Application\SnippetFormatterApplication;
-use Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetKind;
-use Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetPattern;
+use Symplify\EasyCodingStandard\SnippetFormatter\Application\MarkdownSnippetFormatterApplication;
 final class CheckMarkdownCommand extends AbstractCheckCommand
 {
     /**
-     * @var \Symplify\EasyCodingStandard\SnippetFormatter\Application\SnippetFormatterApplication
+     * @var \Symplify\EasyCodingStandard\SnippetFormatter\Application\MarkdownSnippetFormatterApplication
      */
-    private $snippetFormatterApplication;
-    public function __construct(SnippetFormatterApplication $snippetFormatterApplication)
+    private $markdownSnippetFormatterApplication;
+    public function __construct(MarkdownSnippetFormatterApplication $markdownSnippetFormatterApplication)
     {
-        $this->snippetFormatterApplication = $snippetFormatterApplication;
+        $this->markdownSnippetFormatterApplication = $markdownSnippetFormatterApplication;
         parent::__construct();
     }
     protected function configure() : void
@@ -34,6 +32,6 @@ final class CheckMarkdownCommand extends AbstractCheckCommand
         }
         $configuration = $this->configurationFactory->createFromInput($input);
         $phpFileInfos = $this->smartFinder->find($configuration->getSources(), '*.php', ['Fixture']);
-        return $this->snippetFormatterApplication->processFileInfosWithSnippetPattern($configuration, $phpFileInfos, SnippetPattern::MARKDOWN_PHP_SNIPPET_REGEX, SnippetKind::MARKDOWN);
+        return $this->markdownSnippetFormatterApplication->processFileInfosWithSnippetPattern($configuration, $phpFileInfos);
     }
 }

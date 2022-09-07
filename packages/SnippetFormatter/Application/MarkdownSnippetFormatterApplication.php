@@ -8,25 +8,23 @@ use ECSPrefix202209\Symfony\Component\Console\Command\Command;
 use ECSPrefix202209\Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
 use Symplify\EasyCodingStandard\Reporter\ProcessedFileReporter;
-use Symplify\EasyCodingStandard\SnippetFormatter\Formatter\SnippetFormatter;
+use Symplify\EasyCodingStandard\SnippetFormatter\Formatter\MarkdownSnippetFormatter;
 use Symplify\EasyCodingStandard\SnippetFormatter\Reporter\SnippetReporter;
-use Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetKind;
-use Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetPattern;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use ECSPrefix202209\Symplify\PackageBuilder\Console\Formatter\ColorConsoleDiffFormatter;
 use ECSPrefix202209\Symplify\SmartFileSystem\SmartFileInfo;
 use ECSPrefix202209\Symplify\SmartFileSystem\SmartFileSystem;
-final class SnippetFormatterApplication
+final class MarkdownSnippetFormatterApplication
 {
     /**
      * @var \Symplify\EasyCodingStandard\SnippetFormatter\Reporter\SnippetReporter
      */
     private $snippetReporter;
     /**
-     * @var \Symplify\EasyCodingStandard\SnippetFormatter\Formatter\SnippetFormatter
+     * @var \Symplify\EasyCodingStandard\SnippetFormatter\Formatter\MarkdownSnippetFormatter
      */
-    private $snippetFormatter;
+    private $markdownSnippetFormatter;
     /**
      * @var \Symplify\SmartFileSystem\SmartFileSystem
      */
@@ -47,10 +45,10 @@ final class SnippetFormatterApplication
      * @var \Symplify\PackageBuilder\Console\Formatter\ColorConsoleDiffFormatter
      */
     private $colorConsoleDiffFormatter;
-    public function __construct(SnippetReporter $snippetReporter, SnippetFormatter $snippetFormatter, SmartFileSystem $smartFileSystem, SymfonyStyle $symfonyStyle, ProcessedFileReporter $processedFileReporter, DifferInterface $differ, ColorConsoleDiffFormatter $colorConsoleDiffFormatter)
+    public function __construct(SnippetReporter $snippetReporter, MarkdownSnippetFormatter $markdownSnippetFormatter, SmartFileSystem $smartFileSystem, SymfonyStyle $symfonyStyle, ProcessedFileReporter $processedFileReporter, DifferInterface $differ, ColorConsoleDiffFormatter $colorConsoleDiffFormatter)
     {
         $this->snippetReporter = $snippetReporter;
-        $this->snippetFormatter = $snippetFormatter;
+        $this->markdownSnippetFormatter = $markdownSnippetFormatter;
         $this->smartFileSystem = $smartFileSystem;
         $this->symfonyStyle = $symfonyStyle;
         $this->processedFileReporter = $processedFileReporter;
@@ -59,10 +57,8 @@ final class SnippetFormatterApplication
     }
     /**
      * @param SmartFileInfo[] $fileInfos
-     * @param SnippetPattern::* $snippetPattern
-     * @param SnippetKind::* $kind
      */
-    public function processFileInfosWithSnippetPattern(Configuration $configuration, array $fileInfos, string $snippetPattern, string $kind) : int
+    public function processFileInfosWithSnippetPattern(Configuration $configuration, array $fileInfos) : int
     {
         $sources = $configuration->getSources();
         $fileCount = \count($fileInfos);
@@ -73,7 +69,7 @@ final class SnippetFormatterApplication
         $this->symfonyStyle->progressStart($fileCount);
         $errorsAndDiffs = [];
         foreach ($fileInfos as $fileInfo) {
-            $fileDiff = $this->processFileInfoWithPattern($fileInfo, $snippetPattern, $kind, $configuration);
+            $fileDiff = $this->processFileInfoWithPattern($fileInfo, $configuration);
             if ($fileDiff instanceof FileDiff) {
                 $errorsAndDiffs[Bridge::FILE_DIFFS][] = $fileDiff;
             }
@@ -81,13 +77,9 @@ final class SnippetFormatterApplication
         }
         return $this->processedFileReporter->report($errorsAndDiffs, $configuration);
     }
-    /**
-     * @param SnippetPattern::* $snippetPattern
-     * @param SnippetKind::* $kind
-     */
-    private function processFileInfoWithPattern(SmartFileInfo $phpFileInfo, string $snippetPattern, string $kind, Configuration $configuration) : ?FileDiff
+    private function processFileInfoWithPattern(SmartFileInfo $phpFileInfo, Configuration $configuration) : ?FileDiff
     {
-        $fixedContent = $this->snippetFormatter->format($phpFileInfo, $snippetPattern, $kind, $configuration);
+        $fixedContent = $this->markdownSnippetFormatter->format($phpFileInfo, $configuration);
         $originalContent = $phpFileInfo->getContents();
         if ($phpFileInfo->getContents() === $fixedContent) {
             // nothing has changed

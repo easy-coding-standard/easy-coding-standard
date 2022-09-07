@@ -7,7 +7,6 @@ use ECSPrefix202209\Nette\Utils\Strings;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 use Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider;
-use Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetKind;
 use Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetPattern;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use ECSPrefix202209\Symplify\SmartFileSystem\SmartFileInfo;
@@ -15,9 +14,8 @@ use ECSPrefix202209\Symplify\SmartFileSystem\SmartFileSystem;
 use Throwable;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\SnippetFormatter\Markdown\MarkdownSnippetFormatterTest
- * @see \Symplify\EasyCodingStandard\Tests\SnippetFormatter\HeredocNowdoc\HereNowDocSnippetFormatterTest
  */
-final class SnippetFormatter
+final class MarkdownSnippetFormatter
 {
     /**
      * @see https://regex101.com/r/MJTq5C/1
@@ -64,29 +62,25 @@ final class SnippetFormatter
         $this->sniffFileProcessor = $sniffFileProcessor;
         $this->currentParentFileInfoProvider = $currentParentFileInfoProvider;
     }
-    /**
-     * @param SnippetPattern::* $snippetRegex
-     * @param SnippetKind::* $kind
-     */
-    public function format(SmartFileInfo $fileInfo, string $snippetRegex, string $kind, Configuration $configuration) : string
+    public function format(SmartFileInfo $fileInfo, Configuration $configuration) : string
     {
         $this->currentParentFileInfoProvider->setParentFileInfo($fileInfo);
-        return Strings::replace($fileInfo->getContents(), $snippetRegex, function ($match) use($kind, $configuration) : string {
+        return Strings::replace($fileInfo->getContents(), SnippetPattern::MARKDOWN_PHP_SNIPPET_REGEX, function ($match) use($configuration) : string {
             if (\strpos($match[self::CONTENT], '-----') !== \false) {
                 // do nothing
                 return $match[self::OPENING] . $match[self::CONTENT] . $match[self::CLOSING];
             }
-            return $this->fixContentAndPreserveFormatting($match, $kind, $configuration);
+            return $this->fixContentAndPreserveFormatting($match, $configuration);
         });
     }
     /**
      * @param string[] $match
      */
-    private function fixContentAndPreserveFormatting(array $match, string $kind, Configuration $configuration) : string
+    private function fixContentAndPreserveFormatting(array $match, Configuration $configuration) : string
     {
-        return \str_replace(\PHP_EOL, '', $match[self::OPENING]) . \PHP_EOL . $this->fixContent($match[self::CONTENT], $kind, $configuration) . \str_replace(\PHP_EOL, '', $match[self::CLOSING]);
+        return \str_replace(\PHP_EOL, '', $match[self::OPENING]) . \PHP_EOL . $this->fixContent($match[self::CONTENT], $configuration) . \str_replace(\PHP_EOL, '', $match[self::CLOSING]);
     }
-    private function fixContent(string $content, string $kind, Configuration $configuration) : string
+    private function fixContent(string $content, Configuration $configuration) : string
     {
         $temporaryFilePath = $this->createTemporaryFilePath($content);
         if (\strncmp(\trim($content), '<?php', \strlen('<?php')) !== 0) {
@@ -107,10 +101,7 @@ final class SnippetFormatter
             $this->smartFileSystem->remove($temporaryFilePath);
         }
         $changedFileContent = \rtrim($changedFileContent, \PHP_EOL) . \PHP_EOL;
-        if ($kind === SnippetKind::MARKDOWN) {
-            return $this->resolveMarkdownFileContent($changedFileContent);
-        }
-        return Strings::replace($changedFileContent, self::OPENING_TAG_REGEX, '$1');
+        return $this->resolveMarkdownFileContent($changedFileContent);
     }
     /**
      * It does not have any added value and only clutters the output

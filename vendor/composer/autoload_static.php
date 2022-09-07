@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitb143c9eeab8e788fd84b2bc0d8b95056
+class ComposerStaticInit1f13bf929a5cb35d8b1fd006b79a0325
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -1548,13 +1548,11 @@ class ComposerStaticInitb143c9eeab8e788fd84b2bc0d8b95056
         'Symplify\\EasyCodingStandard\\SniffRunner\\File\\FileFactory' => __DIR__ . '/../..' . '/packages/SniffRunner/File/FileFactory.php',
         'Symplify\\EasyCodingStandard\\SniffRunner\\ValueObject\\Error\\CodingStandardError' => __DIR__ . '/../..' . '/packages/SniffRunner/ValueObject/Error/CodingStandardError.php',
         'Symplify\\EasyCodingStandard\\SniffRunner\\ValueObject\\File' => __DIR__ . '/../..' . '/packages/SniffRunner/ValueObject/File.php',
-        'Symplify\\EasyCodingStandard\\SnippetFormatter\\Application\\SnippetFormatterApplication' => __DIR__ . '/../..' . '/packages/SnippetFormatter/Application/SnippetFormatterApplication.php',
-        'Symplify\\EasyCodingStandard\\SnippetFormatter\\Command\\CheckHeredocNowdocCommand' => __DIR__ . '/../..' . '/packages/SnippetFormatter/Command/CheckHeredocNowdocCommand.php',
+        'Symplify\\EasyCodingStandard\\SnippetFormatter\\Application\\MarkdownSnippetFormatterApplication' => __DIR__ . '/../..' . '/packages/SnippetFormatter/Application/MarkdownSnippetFormatterApplication.php',
         'Symplify\\EasyCodingStandard\\SnippetFormatter\\Command\\CheckMarkdownCommand' => __DIR__ . '/../..' . '/packages/SnippetFormatter/Command/CheckMarkdownCommand.php',
-        'Symplify\\EasyCodingStandard\\SnippetFormatter\\Formatter\\SnippetFormatter' => __DIR__ . '/../..' . '/packages/SnippetFormatter/Formatter/SnippetFormatter.php',
+        'Symplify\\EasyCodingStandard\\SnippetFormatter\\Formatter\\MarkdownSnippetFormatter' => __DIR__ . '/../..' . '/packages/SnippetFormatter/Formatter/MarkdownSnippetFormatter.php',
         'Symplify\\EasyCodingStandard\\SnippetFormatter\\Provider\\CurrentParentFileInfoProvider' => __DIR__ . '/../..' . '/packages/SnippetFormatter/Provider/CurrentParentFileInfoProvider.php',
         'Symplify\\EasyCodingStandard\\SnippetFormatter\\Reporter\\SnippetReporter' => __DIR__ . '/../..' . '/packages/SnippetFormatter/Reporter/SnippetReporter.php',
-        'Symplify\\EasyCodingStandard\\SnippetFormatter\\ValueObject\\SnippetKind' => __DIR__ . '/../..' . '/packages/SnippetFormatter/ValueObject/SnippetKind.php',
         'Symplify\\EasyCodingStandard\\SnippetFormatter\\ValueObject\\SnippetPattern' => __DIR__ . '/../..' . '/packages/SnippetFormatter/ValueObject/SnippetPattern.php',
         'Symplify\\EasyCodingStandard\\Testing\\Contract\\ConfigAwareInterface' => __DIR__ . '/../..' . '/src/Testing/Contract/ConfigAwareInterface.php',
         'Symplify\\EasyCodingStandard\\Testing\\Exception\\ShouldNotHappenException' => __DIR__ . '/../..' . '/src/Testing/Exception/ShouldNotHappenException.php',
@@ -1573,9 +1571,9 @@ class ComposerStaticInitb143c9eeab8e788fd84b2bc0d8b95056
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitb143c9eeab8e788fd84b2bc0d8b95056::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitb143c9eeab8e788fd84b2bc0d8b95056::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitb143c9eeab8e788fd84b2bc0d8b95056::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit1f13bf929a5cb35d8b1fd006b79a0325::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit1f13bf929a5cb35d8b1fd006b79a0325::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit1f13bf929a5cb35d8b1fd006b79a0325::$classMap;
 
         }, null, ClassLoader::class);
     }
