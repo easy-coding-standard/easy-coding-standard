@@ -593,21 +593,21 @@
         },
         {
             "name": "nette\/utils",
-            "version": "v3.2.7",
-            "version_normalized": "3.2.7.0",
+            "version": "v3.2.8",
+            "version_normalized": "3.2.8.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/nette\/utils.git",
-                "reference": "0af4e3de4df9f1543534beab255ccf459e7a2c99"
+                "reference": "02a54c4c872b99e4ec05c4aec54b5a06eb0f6368"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/nette\/utils\/zipball\/0af4e3de4df9f1543534beab255ccf459e7a2c99",
-                "reference": "0af4e3de4df9f1543534beab255ccf459e7a2c99",
+                "url": "https:\/\/api.github.com\/repos\/nette\/utils\/zipball\/02a54c4c872b99e4ec05c4aec54b5a06eb0f6368",
+                "reference": "02a54c4c872b99e4ec05c4aec54b5a06eb0f6368",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.2 <8.2"
+                "php": ">=7.2 <8.3"
             },
             "conflict": {
                 "nette\/di": "<3.0.6"
@@ -626,7 +626,7 @@
                 "ext-tokenizer": "to use Nette\\Utils\\Reflection::getUseStatements()",
                 "ext-xml": "to use Strings::length() etc. when mbstring is not available"
             },
-            "time": "2022-01-24T11:29:14+00:00",
+            "time": "2022-09-12T23:36:20+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -675,7 +675,7 @@
             ],
             "support": {
                 "issues": "https:\/\/github.com\/nette\/utils\/issues",
-                "source": "https:\/\/github.com\/nette\/utils\/tree\/v3.2.7"
+                "source": "https:\/\/github.com\/nette\/utils\/tree\/v3.2.8"
             },
             "install-path": "..\/nette\/utils"
         },
@@ -974,17 +974,17 @@
         },
         {
             "name": "react\/child-process",
-            "version": "v0.6.4",
-            "version_normalized": "0.6.4.0",
+            "version": "v0.6.5",
+            "version_normalized": "0.6.5.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/reactphp\/child-process.git",
-                "reference": "a778f3fb828d68caf8a9ab6567fd8342a86f12fe"
+                "reference": "e71eb1aa55f057c7a4a0d08d06b0b0a484bead43"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/reactphp\/child-process\/zipball\/a778f3fb828d68caf8a9ab6567fd8342a86f12fe",
-                "reference": "a778f3fb828d68caf8a9ab6567fd8342a86f12fe",
+                "url": "https:\/\/api.github.com\/repos\/reactphp\/child-process\/zipball\/e71eb1aa55f057c7a4a0d08d06b0b0a484bead43",
+                "reference": "e71eb1aa55f057c7a4a0d08d06b0b0a484bead43",
                 "shasum": ""
             },
             "require": {
@@ -998,7 +998,7 @@
                 "react\/socket": "^1.8",
                 "sebastian\/environment": "^5.0 || ^3.0 || ^2.0 || ^1.0"
             },
-            "time": "2021-10-12T10:37:07+00:00",
+            "time": "2022-09-16T13:41:56+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -1040,7 +1040,7 @@
             ],
             "support": {
                 "issues": "https:\/\/github.com\/reactphp\/child-process\/issues",
-                "source": "https:\/\/github.com\/reactphp\/child-process\/tree\/v0.6.4"
+                "source": "https:\/\/github.com\/reactphp\/child-process\/tree\/v0.6.5"
             },
             "funding": [
                 {
@@ -1056,17 +1056,17 @@
         },
         {
             "name": "react\/dns",
-            "version": "v1.9.0",
-            "version_normalized": "1.9.0.0",
+            "version": "v1.10.0",
+            "version_normalized": "1.10.0.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/reactphp\/dns.git",
-                "reference": "6d38296756fa644e6cb1bfe95eff0f9a4ed6edcb"
+                "reference": "a5427e7dfa47713e438016905605819d101f238c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/reactphp\/dns\/zipball\/6d38296756fa644e6cb1bfe95eff0f9a4ed6edcb",
-                "reference": "6d38296756fa644e6cb1bfe95eff0f9a4ed6edcb",
+                "url": "https:\/\/api.github.com\/repos\/reactphp\/dns\/zipball\/a5427e7dfa47713e438016905605819d101f238c",
+                "reference": "a5427e7dfa47713e438016905605819d101f238c",
                 "shasum": ""
             },
             "require": {
@@ -1074,13 +1074,13 @@
                 "react\/cache": "^1.0 || ^0.6 || ^0.5",
                 "react\/event-loop": "^1.2",
                 "react\/promise": "^3.0 || ^2.7 || ^1.2.1",
-                "react\/promise-timer": "^1.8"
+                "react\/promise-timer": "^1.9"
             },
             "require-dev": {
-                "clue\/block-react": "^1.2",
-                "phpunit\/phpunit": "^9.3 || ^4.8.35"
+                "phpunit\/phpunit": "^9.3 || ^4.8.35",
+                "react\/async": "^4 || ^3 || ^2"
             },
-            "time": "2021-12-20T08:46:54+00:00",
+            "time": "2022-09-08T12:22:46+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -1123,7 +1123,7 @@
             ],
             "support": {
                 "issues": "https:\/\/github.com\/reactphp\/dns\/issues",
-                "source": "https:\/\/github.com\/reactphp\/dns\/tree\/v1.9.0"
+                "source": "https:\/\/github.com\/reactphp\/dns\/tree\/v1.10.0"
             },
             "funding": [
                 {
