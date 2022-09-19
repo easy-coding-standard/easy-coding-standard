@@ -74,7 +74,7 @@ final class KernelBootAndApplicationRun
         // for example: --dry-run with shortcut -n
         $inputDefinition = $application->getDefinition();
         $options = $inputDefinition->getOptions();
-        $options = \array_filter($options, static function ($option) {
+        $options = \array_filter($options, static function ($option) : bool {
             return $option->getName() !== 'no-interaction';
         });
         $inputDefinition->setOptions($options);
