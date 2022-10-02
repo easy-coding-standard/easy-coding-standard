@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202209\Symfony\Component\DependencyInjection\ParameterBag;
+namespace ECSPrefix202210\Symfony\Component\DependencyInjection\ParameterBag;
 
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Exception\RuntimeException;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
@@ -39,7 +39,7 @@ class EnvPlaceholderParameterBag extends ParameterBag
     private static $counter = 0;
     /**
      * {@inheritdoc}
-     * @return mixed[]|bool|string|int|float|null
+     * @return mixed[]|bool|string|int|float|\UnitEnum|null
      */
     public function get(string $name)
     {

@@ -1,10 +1,10 @@
 <?php
 
-namespace ECSPrefix202209\React\Socket;
+namespace ECSPrefix202210\React\Socket;
 
-use ECSPrefix202209\Evenement\EventEmitter;
-use ECSPrefix202209\React\EventLoop\Loop;
-use ECSPrefix202209\React\EventLoop\LoopInterface;
+use ECSPrefix202210\Evenement\EventEmitter;
+use ECSPrefix202210\React\EventLoop\Loop;
+use ECSPrefix202210\React\EventLoop\LoopInterface;
 use InvalidArgumentException;
 use RuntimeException;
 /**

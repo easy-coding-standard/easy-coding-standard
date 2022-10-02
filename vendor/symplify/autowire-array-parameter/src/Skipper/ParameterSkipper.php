@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202209\Symplify\AutowireArrayParameter\Skipper;
+namespace ECSPrefix202210\Symplify\AutowireArrayParameter\Skipper;
 
 use ReflectionMethod;
 use ReflectionNamedType;
 use ReflectionParameter;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix202209\Symplify\AutowireArrayParameter\TypeResolver\ParameterTypeResolver;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix202210\Symplify\AutowireArrayParameter\TypeResolver\ParameterTypeResolver;
 final class ParameterSkipper
 {
     /**
@@ -15,7 +15,7 @@ final class ParameterSkipper
      *
      * @var string[]
      */
-    private const DEFAULT_EXCLUDED_FATAL_CLASSES = ['ECSPrefix202209\\Symfony\\Component\\Form\\FormExtensionInterface', 'ECSPrefix202209\\Symfony\\Component\\Asset\\PackageInterface', 'ECSPrefix202209\\Symfony\\Component\\Config\\Loader\\LoaderInterface', 'ECSPrefix202209\\Symfony\\Component\\VarDumper\\Dumper\\ContextProvider\\ContextProviderInterface', 'ECSPrefix202209\\EasyCorp\\Bundle\\EasyAdminBundle\\Form\\Type\\Configurator\\TypeConfiguratorInterface', 'ECSPrefix202209\\Sonata\\CoreBundle\\Model\\Adapter\\AdapterInterface', 'ECSPrefix202209\\Sonata\\Doctrine\\Adapter\\AdapterChain', 'ECSPrefix202209\\Sonata\\Twig\\Extension\\TemplateExtension'];
+    private const DEFAULT_EXCLUDED_FATAL_CLASSES = ['ECSPrefix202210\\Symfony\\Component\\Form\\FormExtensionInterface', 'ECSPrefix202210\\Symfony\\Component\\Asset\\PackageInterface', 'ECSPrefix202210\\Symfony\\Component\\Config\\Loader\\LoaderInterface', 'ECSPrefix202210\\Symfony\\Component\\VarDumper\\Dumper\\ContextProvider\\ContextProviderInterface', 'ECSPrefix202210\\EasyCorp\\Bundle\\EasyAdminBundle\\Form\\Type\\Configurator\\TypeConfiguratorInterface', 'ECSPrefix202210\\Sonata\\CoreBundle\\Model\\Adapter\\AdapterInterface', 'ECSPrefix202210\\Sonata\\Doctrine\\Adapter\\AdapterChain', 'ECSPrefix202210\\Sonata\\Twig\\Extension\\TemplateExtension'];
     /**
      * @var string[]
      */

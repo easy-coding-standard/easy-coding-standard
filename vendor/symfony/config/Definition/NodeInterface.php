@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202209\Symfony\Component\Config\Definition;
+namespace ECSPrefix202210\Symfony\Component\Config\Definition;
 
-use ECSPrefix202209\Symfony\Component\Config\Definition\Exception\ForbiddenOverwriteException;
-use ECSPrefix202209\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
-use ECSPrefix202209\Symfony\Component\Config\Definition\Exception\InvalidTypeException;
+use ECSPrefix202210\Symfony\Component\Config\Definition\Exception\ForbiddenOverwriteException;
+use ECSPrefix202210\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
+use ECSPrefix202210\Symfony\Component\Config\Definition\Exception\InvalidTypeException;
 /**
  * Common Interface among all nodes.
  *

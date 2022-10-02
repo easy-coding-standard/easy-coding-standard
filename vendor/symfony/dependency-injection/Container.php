@@ -8,20 +8,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202209\Symfony\Component\DependencyInjection;
+namespace ECSPrefix202210\Symfony\Component\DependencyInjection;
 
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Argument\RewindableGenerator;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Argument\ServiceLocator as ArgumentServiceLocator;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Exception\EnvNotFoundException;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Exception\ParameterCircularReferenceException;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Exception\RuntimeException;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use ECSPrefix202209\Symfony\Contracts\Service\ResetInterface;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Argument\RewindableGenerator;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Argument\ServiceLocator as ArgumentServiceLocator;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Exception\EnvNotFoundException;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Exception\ParameterCircularReferenceException;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use ECSPrefix202210\Symfony\Contracts\Service\ResetInterface;
 // Help opcache.preload discover always-needed symbols
 \class_exists(RewindableGenerator::class);
 \class_exists(ArgumentServiceLocator::class);

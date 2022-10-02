@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Skipper\SkipCriteriaResolver;
 
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use ECSPrefix202209\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use ECSPrefix202210\Symplify\PackageBuilder\Parameter\ParameterProvider;
 final class SkippedMessagesResolver
 {
     /**

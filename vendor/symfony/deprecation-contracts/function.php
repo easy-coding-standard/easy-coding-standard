@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix202209;
+namespace ECSPrefix202210;
 
 /*
  * This file is part of the Symfony package.
@@ -10,7 +10,7 @@ namespace ECSPrefix202209;
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-if (!\function_exists('ECSPrefix202209\\trigger_deprecation')) {
+if (!\function_exists('ECSPrefix202210\\trigger_deprecation')) {
     /**
      * Triggers a silenced deprecation notice.
      *

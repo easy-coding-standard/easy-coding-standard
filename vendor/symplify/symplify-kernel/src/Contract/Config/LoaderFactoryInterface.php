@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202209\Symplify\SymplifyKernel\Contract\Config;
+namespace ECSPrefix202210\Symplify\SymplifyKernel\Contract\Config;
 
-use ECSPrefix202209\Symfony\Component\Config\Loader\LoaderInterface;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix202210\Symfony\Component\Config\Loader\LoaderInterface;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\ContainerBuilder;
 interface LoaderFactoryInterface
 {
     public function create(ContainerBuilder $containerBuilder, string $currentWorkingDirectory) : LoaderInterface;

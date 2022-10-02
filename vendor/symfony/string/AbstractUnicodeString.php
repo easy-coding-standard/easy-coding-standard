@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202209\Symfony\Component\String;
+namespace ECSPrefix202210\Symfony\Component\String;
 
-use ECSPrefix202209\Symfony\Component\String\Exception\ExceptionInterface;
-use ECSPrefix202209\Symfony\Component\String\Exception\InvalidArgumentException;
-use ECSPrefix202209\Symfony\Component\String\Exception\RuntimeException;
+use ECSPrefix202210\Symfony\Component\String\Exception\ExceptionInterface;
+use ECSPrefix202210\Symfony\Component\String\Exception\InvalidArgumentException;
+use ECSPrefix202210\Symfony\Component\String\Exception\RuntimeException;
 /**
  * Represents a string of abstract Unicode characters.
  *
@@ -141,7 +141,7 @@ abstract class AbstractUnicodeString extends AbstractString
     public function camel()
     {
         $str = clone $this;
-        $str->string = \str_replace(' ', '', \preg_replace_callback('/\\b./u', static function ($m) use(&$i) {
+        $str->string = \str_replace(' ', '', \preg_replace_callback('/\\b.(?![A-Z]{2,})/u', static function ($m) use(&$i) {
             return 1 === ++$i ? 'İ' === $m[0] ? 'i̇' : \mb_strtolower($m[0], 'UTF-8') : \mb_convert_case($m[0], \MB_CASE_TITLE, 'UTF-8');
         }, \preg_replace('/[^\\pL0-9]++/u', ' ', $this->string)));
         return $str;
@@ -327,7 +327,7 @@ abstract class AbstractUnicodeString extends AbstractString
     public function snake()
     {
         $str = $this->camel();
-        $str->string = \mb_strtolower(\preg_replace(['/(\\p{Lu}+)(\\p{Lu}\\p{Ll})/u', '/([\\p{Ll}0-9])(\\p{Lu})/u'], 'ECSPrefix202209\\1_\\2', $str->string), 'UTF-8');
+        $str->string = \mb_strtolower(\preg_replace(['/(\\p{Lu}+)(\\p{Lu}\\p{Ll})/u', '/([\\p{Ll}0-9])(\\p{Lu})/u'], 'ECSPrefix202210\\1_\\2', $str->string), 'UTF-8');
         return $str;
     }
     /**

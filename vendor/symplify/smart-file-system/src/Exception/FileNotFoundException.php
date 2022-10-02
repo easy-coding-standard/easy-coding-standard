@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202209\Symplify\SmartFileSystem\Exception;
+namespace ECSPrefix202210\Symplify\SmartFileSystem\Exception;
 
 use Exception;
 final class FileNotFoundException extends Exception

@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202209\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix202210\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Argument\ArgumentInterface;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Exception\RuntimeException;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Reference;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\TypedReference;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Argument\ArgumentInterface;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\TypedReference;
 /**
  * Emulates the invalid behavior if the reference is not found within the
  * container.

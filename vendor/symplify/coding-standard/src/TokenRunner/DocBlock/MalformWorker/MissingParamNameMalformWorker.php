@@ -3,14 +3,14 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker;
 
-use ECSPrefix202209\Nette\Utils\Strings;
+use ECSPrefix202210\Nette\Utils\Strings;
 use PhpCsFixer\DocBlock\DocBlock;
 use PhpCsFixer\DocBlock\Line;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use Symplify\CodingStandard\TokenAnalyzer\DocblockRelatedParamNamesResolver;
 use Symplify\CodingStandard\TokenRunner\Contract\DocBlock\MalformWorkerInterface;
-use ECSPrefix202209\Symplify\PackageBuilder\Configuration\StaticEolConfiguration;
+use ECSPrefix202210\Symplify\PackageBuilder\Configuration\StaticEolConfiguration;
 final class MissingParamNameMalformWorker implements MalformWorkerInterface
 {
     /**

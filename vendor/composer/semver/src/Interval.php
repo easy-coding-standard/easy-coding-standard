@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-namespace ECSPrefix202209\Composer\Semver;
+namespace ECSPrefix202210\Composer\Semver;
 
-use ECSPrefix202209\Composer\Semver\Constraint\Constraint;
+use ECSPrefix202210\Composer\Semver\Constraint\Constraint;
 class Interval
 {
     /** @var Constraint */

@@ -13,7 +13,7 @@ use Symplify\EasyCodingStandard\Skipper\Skipper\Skipper;
 use Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
 use Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException;
-use ECSPrefix202209\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix202210\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @api
  * @see \Symplify\EasyCodingStandard\Tests\SniffRunner\ValueObject\FileTest

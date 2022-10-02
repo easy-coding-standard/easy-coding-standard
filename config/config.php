@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202209;
+namespace ECSPrefix202210;
 
 use PHP_CodeSniffer\Fixer;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff;
@@ -12,8 +12,8 @@ use PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\CommentedOutCodeSniff;
 use PhpCsFixer\Differ\DifferInterface;
 use PhpCsFixer\Differ\UnifiedDiffer;
 use PhpCsFixer\WhitespacesFixerConfig;
-use ECSPrefix202209\Symfony\Component\Console\Style\SymfonyStyle;
-use ECSPrefix202209\Symfony\Component\Console\Terminal;
+use ECSPrefix202210\Symfony\Component\Console\Style\SymfonyStyle;
+use ECSPrefix202210\Symfony\Component\Console\Terminal;
 use Symplify\EasyCodingStandard\Application\Version\StaticVersionResolver;
 use Symplify\EasyCodingStandard\Caching\Cache;
 use Symplify\EasyCodingStandard\Caching\CacheFactory;
@@ -23,16 +23,16 @@ use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyleFactory;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\FixerRunner\WhitespacesFixerConfigFactory;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use ECSPrefix202209\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
-use ECSPrefix202209\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
-use ECSPrefix202209\Symplify\PackageBuilder\Yaml\ParametersMerger;
-use ECSPrefix202209\Symplify\SmartFileSystem\FileSystemFilter;
-use ECSPrefix202209\Symplify\SmartFileSystem\FileSystemGuard;
-use ECSPrefix202209\Symplify\SmartFileSystem\Finder\FinderSanitizer;
-use ECSPrefix202209\Symplify\SmartFileSystem\Finder\SmartFinder;
-use ECSPrefix202209\Symplify\SmartFileSystem\Normalizer\PathNormalizer;
-use ECSPrefix202209\Symplify\SmartFileSystem\SmartFileSystem;
-use function ECSPrefix202209\Symfony\Component\DependencyInjection\Loader\Configurator\service;
+use ECSPrefix202210\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
+use ECSPrefix202210\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
+use ECSPrefix202210\Symplify\PackageBuilder\Yaml\ParametersMerger;
+use ECSPrefix202210\Symplify\SmartFileSystem\FileSystemFilter;
+use ECSPrefix202210\Symplify\SmartFileSystem\FileSystemGuard;
+use ECSPrefix202210\Symplify\SmartFileSystem\Finder\FinderSanitizer;
+use ECSPrefix202210\Symplify\SmartFileSystem\Finder\SmartFinder;
+use ECSPrefix202210\Symplify\SmartFileSystem\Normalizer\PathNormalizer;
+use ECSPrefix202210\Symplify\SmartFileSystem\SmartFileSystem;
+use function ECSPrefix202210\Symfony\Component\DependencyInjection\Loader\Configurator\service;
 return static function (ECSConfig $ecsConfig) : void {
     $ecsConfig->indentation(Option::INDENTATION_SPACES);
     $ecsConfig->lineEnding(\PHP_EOL);

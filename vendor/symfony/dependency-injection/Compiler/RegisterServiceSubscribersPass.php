@@ -8,19 +8,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202209\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix202210\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix202209\Psr\Container\ContainerInterface as PsrContainerInterface;
-use ECSPrefix202209\Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Argument\BoundArgument;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Reference;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\TypedReference;
-use ECSPrefix202209\Symfony\Component\HttpFoundation\Session\SessionInterface;
-use ECSPrefix202209\Symfony\Contracts\Service\ServiceProviderInterface;
-use ECSPrefix202209\Symfony\Contracts\Service\ServiceSubscriberInterface;
+use ECSPrefix202210\Psr\Container\ContainerInterface as PsrContainerInterface;
+use ECSPrefix202210\Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Argument\BoundArgument;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\TypedReference;
+use ECSPrefix202210\Symfony\Component\HttpFoundation\Session\SessionInterface;
+use ECSPrefix202210\Symfony\Contracts\Service\ServiceProviderInterface;
+use ECSPrefix202210\Symfony\Contracts\Service\ServiceSubscriberInterface;
 /**
  * Compiler pass to register tagged services that require a service locator.
  *

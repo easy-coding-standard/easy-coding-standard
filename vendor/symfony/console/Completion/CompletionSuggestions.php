@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202209\Symfony\Component\Console\Completion;
+namespace ECSPrefix202210\Symfony\Component\Console\Completion;
 
-use ECSPrefix202209\Symfony\Component\Console\Input\InputOption;
+use ECSPrefix202210\Symfony\Component\Console\Input\InputOption;
 /**
  * Stores all completion suggestions for the current input.
  *

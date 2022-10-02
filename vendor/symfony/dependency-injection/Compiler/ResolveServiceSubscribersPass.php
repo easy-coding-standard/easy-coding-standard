@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202209\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix202210\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix202209\Psr\Container\ContainerInterface;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Reference;
-use ECSPrefix202209\Symfony\Contracts\Service\ServiceProviderInterface;
+use ECSPrefix202210\Psr\Container\ContainerInterface;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix202210\Symfony\Contracts\Service\ServiceProviderInterface;
 /**
  * Compiler pass to inject their service locator to service subscribers.
  *

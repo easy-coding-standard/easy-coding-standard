@@ -8,42 +8,42 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202209\Symfony\Component\DependencyInjection;
+namespace ECSPrefix202210\Symfony\Component\DependencyInjection;
 
-use ECSPrefix202209\Composer\InstalledVersions;
-use ECSPrefix202209\Symfony\Component\Config\Resource\ClassExistenceResource;
-use ECSPrefix202209\Symfony\Component\Config\Resource\ComposerResource;
-use ECSPrefix202209\Symfony\Component\Config\Resource\DirectoryResource;
-use ECSPrefix202209\Symfony\Component\Config\Resource\FileExistenceResource;
-use ECSPrefix202209\Symfony\Component\Config\Resource\FileResource;
-use ECSPrefix202209\Symfony\Component\Config\Resource\GlobResource;
-use ECSPrefix202209\Symfony\Component\Config\Resource\ReflectionClassResource;
-use ECSPrefix202209\Symfony\Component\Config\Resource\ResourceInterface;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Argument\AbstractArgument;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Argument\IteratorArgument;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Argument\RewindableGenerator;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Argument\ServiceLocator;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Attribute\Target;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Compiler\Compiler;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Compiler\PassConfig;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Compiler\ResolveEnvPlaceholdersPass;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Exception\BadMethodCallException;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Exception\LogicException;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Exception\RuntimeException;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\LazyProxy\Instantiator\InstantiatorInterface;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\LazyProxy\Instantiator\RealServiceInstantiator;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use ECSPrefix202209\Symfony\Component\ExpressionLanguage\Expression;
-use ECSPrefix202209\Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
+use ECSPrefix202210\Composer\InstalledVersions;
+use ECSPrefix202210\Symfony\Component\Config\Resource\ClassExistenceResource;
+use ECSPrefix202210\Symfony\Component\Config\Resource\ComposerResource;
+use ECSPrefix202210\Symfony\Component\Config\Resource\DirectoryResource;
+use ECSPrefix202210\Symfony\Component\Config\Resource\FileExistenceResource;
+use ECSPrefix202210\Symfony\Component\Config\Resource\FileResource;
+use ECSPrefix202210\Symfony\Component\Config\Resource\GlobResource;
+use ECSPrefix202210\Symfony\Component\Config\Resource\ReflectionClassResource;
+use ECSPrefix202210\Symfony\Component\Config\Resource\ResourceInterface;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Argument\AbstractArgument;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Argument\IteratorArgument;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Argument\RewindableGenerator;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Argument\ServiceLocator;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Attribute\Target;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Compiler\Compiler;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Compiler\PassConfig;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Compiler\ResolveEnvPlaceholdersPass;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Exception\BadMethodCallException;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Exception\LogicException;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\LazyProxy\Instantiator\InstantiatorInterface;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\LazyProxy\Instantiator\RealServiceInstantiator;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use ECSPrefix202210\Symfony\Component\ExpressionLanguage\Expression;
+use ECSPrefix202210\Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 /**
  * ContainerBuilder is a DI container that provides an API to easily describe services.
  *
@@ -1366,7 +1366,7 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
     private function getExpressionLanguage() : ExpressionLanguage
     {
         if (!isset($this->expressionLanguage)) {
-            if (!\class_exists(\ECSPrefix202209\Symfony\Component\ExpressionLanguage\ExpressionLanguage::class)) {
+            if (!\class_exists(\ECSPrefix202210\Symfony\Component\ExpressionLanguage\ExpressionLanguage::class)) {
                 throw new LogicException('Unable to use expressions as the Symfony ExpressionLanguage component is not installed.');
             }
             $this->expressionLanguage = new ExpressionLanguage(null, $this->expressionLanguageProviders);

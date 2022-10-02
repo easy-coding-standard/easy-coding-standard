@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\SnippetFormatter\Command;
 
-use ECSPrefix202209\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix202209\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix202210\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix202210\Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Console\Command\AbstractCheckCommand;
 use Symplify\EasyCodingStandard\SnippetFormatter\Application\MarkdownSnippetFormatterApplication;
 final class CheckMarkdownCommand extends AbstractCheckCommand

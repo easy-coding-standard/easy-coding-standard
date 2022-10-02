@@ -16,9 +16,9 @@ use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardErro
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\File;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
-use ECSPrefix202209\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
-use ECSPrefix202209\Symplify\SmartFileSystem\SmartFileInfo;
-use ECSPrefix202209\Symplify\SmartFileSystem\SmartFileSystem;
+use ECSPrefix202210\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use ECSPrefix202210\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix202210\Symplify\SmartFileSystem\SmartFileSystem;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\Error\ErrorCollector\SniffFileProcessorTest
  */

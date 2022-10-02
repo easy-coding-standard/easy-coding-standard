@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202209\Symfony\Component\Console\Question;
+namespace ECSPrefix202210\Symfony\Component\Console\Question;
 
-use ECSPrefix202209\Symfony\Component\Console\Exception\InvalidArgumentException;
+use ECSPrefix202210\Symfony\Component\Console\Exception\InvalidArgumentException;
 /**
  * Represents a choice question.
  *

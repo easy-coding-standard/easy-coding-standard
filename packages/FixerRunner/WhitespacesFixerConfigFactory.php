@@ -6,7 +6,7 @@ namespace Symplify\EasyCodingStandard\FixerRunner;
 use PhpCsFixer\WhitespacesFixerConfig;
 use Symplify\EasyCodingStandard\Exception\Configuration\WhitespaceConfigurationException;
 use Symplify\EasyCodingStandard\FixerRunner\ValueObject\Spacing;
-use ECSPrefix202209\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use ECSPrefix202210\Symplify\PackageBuilder\Parameter\ParameterProvider;
 final class WhitespacesFixerConfigFactory
 {
     /**

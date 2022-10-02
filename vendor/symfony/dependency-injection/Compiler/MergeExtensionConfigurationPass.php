@@ -8,18 +8,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202209\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix202210\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix202209\Symfony\Component\Config\Definition\BaseNode;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Exception\LogicException;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Exception\RuntimeException;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Extension\ConfigurationExtensionInterface;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Extension\Extension;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use ECSPrefix202210\Symfony\Component\Config\Definition\BaseNode;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Exception\LogicException;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Extension\ConfigurationExtensionInterface;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Extension\Extension;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 /**
  * Merges extension configs into the container builder.
  *

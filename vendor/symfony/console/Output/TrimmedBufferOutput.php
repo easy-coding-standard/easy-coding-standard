@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202209\Symfony\Component\Console\Output;
+namespace ECSPrefix202210\Symfony\Component\Console\Output;
 
-use ECSPrefix202209\Symfony\Component\Console\Exception\InvalidArgumentException;
-use ECSPrefix202209\Symfony\Component\Console\Formatter\OutputFormatterInterface;
+use ECSPrefix202210\Symfony\Component\Console\Exception\InvalidArgumentException;
+use ECSPrefix202210\Symfony\Component\Console\Formatter\OutputFormatterInterface;
 /**
  * A BufferedOutput that keeps only the last N chars.
  *

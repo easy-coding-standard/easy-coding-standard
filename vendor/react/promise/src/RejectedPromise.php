@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix202209\React\Promise;
+namespace ECSPrefix202210\React\Promise;
 
 /**
  * @deprecated 2.8.0 External usage of RejectedPromise is deprecated, use `reject()` instead.

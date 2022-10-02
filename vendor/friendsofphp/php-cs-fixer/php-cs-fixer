@@ -1,6 +1,6 @@
 #!/usr/bin/env php
 <?php 
-namespace ECSPrefix202209;
+namespace ECSPrefix202210;
 
 /*
  * This file is part of PHP CS Fixer.
@@ -19,7 +19,7 @@ namespace ECSPrefix202209;
 });
 // check environment requirements
 (function () {
-    if (\defined('ECSPrefix202209\\HHVM_VERSION_ID')) {
+    if (\defined('ECSPrefix202210\\HHVM_VERSION_ID')) {
         \fwrite(\STDERR, "HHVM is not supported.\n");
         if (\getenv('PHP_CS_FIXER_IGNORE_ENV')) {
             \fwrite(\STDERR, "Ignoring environment requirements because `PHP_CS_FIXER_IGNORE_ENV` is set. Execution may be unstable.\n");
@@ -85,7 +85,7 @@ namespace ECSPrefix202209;
         require_once $file;
     }
 })();
-use ECSPrefix202209\Composer\XdebugHandler\XdebugHandler;
+use ECSPrefix202210\Composer\XdebugHandler\XdebugHandler;
 use PhpCsFixer\Console\Application;
 // Restart if xdebug is loaded, unless the environment variable PHP_CS_FIXER_ALLOW_XDEBUG is set.
 $xdebug = new XdebugHandler('PHP_CS_FIXER');

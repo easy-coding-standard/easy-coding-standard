@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202209\Symfony\Component\OptionsResolver;
+namespace ECSPrefix202210\Symfony\Component\OptionsResolver;
 
-use ECSPrefix202209\Symfony\Component\OptionsResolver\Exception\AccessException;
-use ECSPrefix202209\Symfony\Component\OptionsResolver\Exception\InvalidArgumentException;
-use ECSPrefix202209\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
-use ECSPrefix202209\Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
-use ECSPrefix202209\Symfony\Component\OptionsResolver\Exception\NoSuchOptionException;
-use ECSPrefix202209\Symfony\Component\OptionsResolver\Exception\OptionDefinitionException;
-use ECSPrefix202209\Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException;
+use ECSPrefix202210\Symfony\Component\OptionsResolver\Exception\AccessException;
+use ECSPrefix202210\Symfony\Component\OptionsResolver\Exception\InvalidArgumentException;
+use ECSPrefix202210\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+use ECSPrefix202210\Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
+use ECSPrefix202210\Symfony\Component\OptionsResolver\Exception\NoSuchOptionException;
+use ECSPrefix202210\Symfony\Component\OptionsResolver\Exception\OptionDefinitionException;
+use ECSPrefix202210\Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException;
 /**
  * Validates options and merges them with default values.
  *

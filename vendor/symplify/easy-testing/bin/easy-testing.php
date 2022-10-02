@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202209;
+namespace ECSPrefix202210;
 
-use ECSPrefix202209\Symplify\EasyTesting\Kernel\EasyTestingKernel;
-use ECSPrefix202209\Symplify\SymplifyKernel\ValueObject\KernelBootAndApplicationRun;
+use ECSPrefix202210\Symplify\EasyTesting\Kernel\EasyTestingKernel;
+use ECSPrefix202210\Symplify\SymplifyKernel\ValueObject\KernelBootAndApplicationRun;
 $possibleAutoloadPaths = [
     // dependency
     __DIR__ . '/../../../autoload.php',

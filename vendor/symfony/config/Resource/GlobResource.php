@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202209\Symfony\Component\Config\Resource;
+namespace ECSPrefix202210\Symfony\Component\Config\Resource;
 
-use ECSPrefix202209\Symfony\Component\Finder\Finder;
-use ECSPrefix202209\Symfony\Component\Finder\Glob;
+use ECSPrefix202210\Symfony\Component\Finder\Finder;
+use ECSPrefix202210\Symfony\Component\Finder\Glob;
 /**
  * GlobResource represents a set of resources stored on the filesystem.
  *

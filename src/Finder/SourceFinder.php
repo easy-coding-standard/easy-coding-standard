@@ -3,11 +3,11 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Finder;
 
-use ECSPrefix202209\Symfony\Component\Finder\Finder;
+use ECSPrefix202210\Symfony\Component\Finder\Finder;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use ECSPrefix202209\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use ECSPrefix202209\Symplify\SmartFileSystem\Finder\FinderSanitizer;
-use ECSPrefix202209\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix202210\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use ECSPrefix202210\Symplify\SmartFileSystem\Finder\FinderSanitizer;
+use ECSPrefix202210\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\Finder\SourceFinderTest
  */

@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202209\Symfony\Component\Config\Definition;
+namespace ECSPrefix202210\Symfony\Component\Config\Definition;
 
-use ECSPrefix202209\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
+use ECSPrefix202210\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 /**
  * Node which only allows a finite set of values.
  *

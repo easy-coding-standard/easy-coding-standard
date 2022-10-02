@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202209\Symplify\PackageBuilder\Configuration;
+namespace ECSPrefix202210\Symplify\PackageBuilder\Configuration;
 
 /**
  * @api

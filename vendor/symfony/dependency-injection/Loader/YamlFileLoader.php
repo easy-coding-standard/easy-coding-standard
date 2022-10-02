@@ -8,28 +8,28 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202209\Symfony\Component\DependencyInjection\Loader;
+namespace ECSPrefix202210\Symfony\Component\DependencyInjection\Loader;
 
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Alias;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Argument\AbstractArgument;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Argument\BoundArgument;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Argument\IteratorArgument;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\ChildDefinition;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Exception\RuntimeException;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Reference;
-use ECSPrefix202209\Symfony\Component\ExpressionLanguage\Expression;
-use ECSPrefix202209\Symfony\Component\Yaml\Exception\ParseException;
-use ECSPrefix202209\Symfony\Component\Yaml\Parser as YamlParser;
-use ECSPrefix202209\Symfony\Component\Yaml\Tag\TaggedValue;
-use ECSPrefix202209\Symfony\Component\Yaml\Yaml;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Alias;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Argument\AbstractArgument;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Argument\BoundArgument;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Argument\IteratorArgument;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\ChildDefinition;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix202210\Symfony\Component\ExpressionLanguage\Expression;
+use ECSPrefix202210\Symfony\Component\Yaml\Exception\ParseException;
+use ECSPrefix202210\Symfony\Component\Yaml\Parser as YamlParser;
+use ECSPrefix202210\Symfony\Component\Yaml\Tag\TaggedValue;
+use ECSPrefix202210\Symfony\Component\Yaml\Yaml;
 /**
  * YamlFileLoader loads YAML files service definitions.
  *
@@ -553,7 +553,7 @@ class YamlFileLoader extends FileLoader
      */
     protected function loadFile(string $file) : ?array
     {
-        if (!\class_exists(\ECSPrefix202209\Symfony\Component\Yaml\Parser::class)) {
+        if (!\class_exists(\ECSPrefix202210\Symfony\Component\Yaml\Parser::class)) {
             throw new RuntimeException('Unable to load YAML config files as the Symfony Yaml Component is not installed.');
         }
         if (!\stream_is_local($file)) {

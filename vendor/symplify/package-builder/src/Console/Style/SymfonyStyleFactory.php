@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202209\Symplify\PackageBuilder\Console\Style;
+namespace ECSPrefix202210\Symplify\PackageBuilder\Console\Style;
 
-use ECSPrefix202209\Symfony\Component\Console\Application;
-use ECSPrefix202209\Symfony\Component\Console\Input\ArgvInput;
-use ECSPrefix202209\Symfony\Component\Console\Output\ConsoleOutput;
-use ECSPrefix202209\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix202209\Symfony\Component\Console\Style\SymfonyStyle;
-use ECSPrefix202209\Symplify\PackageBuilder\Reflection\PrivatesCaller;
+use ECSPrefix202210\Symfony\Component\Console\Application;
+use ECSPrefix202210\Symfony\Component\Console\Input\ArgvInput;
+use ECSPrefix202210\Symfony\Component\Console\Output\ConsoleOutput;
+use ECSPrefix202210\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix202210\Symfony\Component\Console\Style\SymfonyStyle;
+use ECSPrefix202210\Symplify\PackageBuilder\Reflection\PrivatesCaller;
 /**
  * @api
  */
@@ -47,6 +47,6 @@ final class SymfonyStyleFactory
      */
     private function isPHPUnitRun() : bool
     {
-        return \defined('ECSPrefix202209\\PHPUNIT_COMPOSER_INSTALL') || \defined('ECSPrefix202209\\__PHPUNIT_PHAR__');
+        return \defined('ECSPrefix202210\\PHPUNIT_COMPOSER_INSTALL') || \defined('ECSPrefix202210\\__PHPUNIT_PHAR__');
     }
 }

@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202209\Symfony\Component\Console\Event;
+namespace ECSPrefix202210\Symfony\Component\Console\Event;
 
-use ECSPrefix202209\Symfony\Component\Console\Command\Command;
-use ECSPrefix202209\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix202209\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix202210\Symfony\Component\Console\Command\Command;
+use ECSPrefix202210\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix202210\Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author marie <marie@users.noreply.github.com>
  */

@@ -8,21 +8,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202209\Symfony\Component\Console\Command;
+namespace ECSPrefix202210\Symfony\Component\Console\Command;
 
-use ECSPrefix202209\Symfony\Component\Console\Application;
-use ECSPrefix202209\Symfony\Component\Console\Attribute\AsCommand;
-use ECSPrefix202209\Symfony\Component\Console\Completion\CompletionInput;
-use ECSPrefix202209\Symfony\Component\Console\Completion\CompletionSuggestions;
-use ECSPrefix202209\Symfony\Component\Console\Exception\ExceptionInterface;
-use ECSPrefix202209\Symfony\Component\Console\Exception\InvalidArgumentException;
-use ECSPrefix202209\Symfony\Component\Console\Exception\LogicException;
-use ECSPrefix202209\Symfony\Component\Console\Helper\HelperSet;
-use ECSPrefix202209\Symfony\Component\Console\Input\InputArgument;
-use ECSPrefix202209\Symfony\Component\Console\Input\InputDefinition;
-use ECSPrefix202209\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix202209\Symfony\Component\Console\Input\InputOption;
-use ECSPrefix202209\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix202210\Symfony\Component\Console\Application;
+use ECSPrefix202210\Symfony\Component\Console\Attribute\AsCommand;
+use ECSPrefix202210\Symfony\Component\Console\Completion\CompletionInput;
+use ECSPrefix202210\Symfony\Component\Console\Completion\CompletionSuggestions;
+use ECSPrefix202210\Symfony\Component\Console\Exception\ExceptionInterface;
+use ECSPrefix202210\Symfony\Component\Console\Exception\InvalidArgumentException;
+use ECSPrefix202210\Symfony\Component\Console\Exception\LogicException;
+use ECSPrefix202210\Symfony\Component\Console\Helper\HelperSet;
+use ECSPrefix202210\Symfony\Component\Console\Input\InputArgument;
+use ECSPrefix202210\Symfony\Component\Console\Input\InputDefinition;
+use ECSPrefix202210\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix202210\Symfony\Component\Console\Input\InputOption;
+use ECSPrefix202210\Symfony\Component\Console\Output\OutputInterface;
 /**
  * Base class for all commands.
  *
@@ -260,7 +260,7 @@ class Command
                         \cli_set_process_title($this->processTitle);
                     }
                 }
-            } elseif (\function_exists('ECSPrefix202209\\setproctitle')) {
+            } elseif (\function_exists('ECSPrefix202210\\setproctitle')) {
                 setproctitle($this->processTitle);
             } elseif (OutputInterface::VERBOSITY_VERY_VERBOSE === $output->getVerbosity()) {
                 $output->writeln('<comment>Install the proctitle PECL to be able to change the process title.</comment>');

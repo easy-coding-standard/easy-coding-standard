@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202209\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass;
+namespace ECSPrefix202210\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass;
 
-use ECSPrefix202209\Nette\Utils\Strings;
+use ECSPrefix202210\Nette\Utils\Strings;
 use ReflectionClass;
 use ReflectionMethod;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Reference;
-use ECSPrefix202209\Symplify\AutowireArrayParameter\DependencyInjection\DefinitionFinder;
-use ECSPrefix202209\Symplify\AutowireArrayParameter\DocBlock\ParamTypeDocBlockResolver;
-use ECSPrefix202209\Symplify\AutowireArrayParameter\Skipper\ParameterSkipper;
-use ECSPrefix202209\Symplify\AutowireArrayParameter\TypeResolver\ParameterTypeResolver;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix202210\Symplify\AutowireArrayParameter\DependencyInjection\DefinitionFinder;
+use ECSPrefix202210\Symplify\AutowireArrayParameter\DocBlock\ParamTypeDocBlockResolver;
+use ECSPrefix202210\Symplify\AutowireArrayParameter\Skipper\ParameterSkipper;
+use ECSPrefix202210\Symplify\AutowireArrayParameter\TypeResolver\ParameterTypeResolver;
 /**
  * @inspiration https://github.com/nette/di/pull/178
  * @see \Symplify\AutowireArrayParameter\Tests\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPassTest
@@ -32,7 +32,7 @@ final class AutowireArrayParameterCompilerPass implements CompilerPassInterface
      * @var string[]
      * @noRector
      */
-    private $excludedFatalClasses = ['ECSPrefix202209\\Symfony\\Component\\Form\\FormExtensionInterface', 'ECSPrefix202209\\Symfony\\Component\\Asset\\PackageInterface', 'ECSPrefix202209\\Symfony\\Component\\Config\\Loader\\LoaderInterface', 'ECSPrefix202209\\Symfony\\Component\\VarDumper\\Dumper\\ContextProvider\\ContextProviderInterface', 'ECSPrefix202209\\EasyCorp\\Bundle\\EasyAdminBundle\\Form\\Type\\Configurator\\TypeConfiguratorInterface', 'ECSPrefix202209\\Sonata\\CoreBundle\\Model\\Adapter\\AdapterInterface', 'ECSPrefix202209\\Sonata\\Doctrine\\Adapter\\AdapterChain', 'ECSPrefix202209\\Sonata\\Twig\\Extension\\TemplateExtension', 'ECSPrefix202209\\Symfony\\Component\\HttpKernel\\KernelInterface'];
+    private $excludedFatalClasses = ['ECSPrefix202210\\Symfony\\Component\\Form\\FormExtensionInterface', 'ECSPrefix202210\\Symfony\\Component\\Asset\\PackageInterface', 'ECSPrefix202210\\Symfony\\Component\\Config\\Loader\\LoaderInterface', 'ECSPrefix202210\\Symfony\\Component\\VarDumper\\Dumper\\ContextProvider\\ContextProviderInterface', 'ECSPrefix202210\\EasyCorp\\Bundle\\EasyAdminBundle\\Form\\Type\\Configurator\\TypeConfiguratorInterface', 'ECSPrefix202210\\Sonata\\CoreBundle\\Model\\Adapter\\AdapterInterface', 'ECSPrefix202210\\Sonata\\Doctrine\\Adapter\\AdapterChain', 'ECSPrefix202210\\Sonata\\Twig\\Extension\\TemplateExtension', 'ECSPrefix202210\\Symfony\\Component\\HttpKernel\\KernelInterface'];
     /**
      * @var \Symplify\AutowireArrayParameter\DependencyInjection\DefinitionFinder
      */

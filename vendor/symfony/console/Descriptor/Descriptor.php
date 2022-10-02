@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202209\Symfony\Component\Console\Descriptor;
+namespace ECSPrefix202210\Symfony\Component\Console\Descriptor;
 
-use ECSPrefix202209\Symfony\Component\Console\Application;
-use ECSPrefix202209\Symfony\Component\Console\Command\Command;
-use ECSPrefix202209\Symfony\Component\Console\Exception\InvalidArgumentException;
-use ECSPrefix202209\Symfony\Component\Console\Input\InputArgument;
-use ECSPrefix202209\Symfony\Component\Console\Input\InputDefinition;
-use ECSPrefix202209\Symfony\Component\Console\Input\InputOption;
-use ECSPrefix202209\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix202210\Symfony\Component\Console\Application;
+use ECSPrefix202210\Symfony\Component\Console\Command\Command;
+use ECSPrefix202210\Symfony\Component\Console\Exception\InvalidArgumentException;
+use ECSPrefix202210\Symfony\Component\Console\Input\InputArgument;
+use ECSPrefix202210\Symfony\Component\Console\Input\InputDefinition;
+use ECSPrefix202210\Symfony\Component\Console\Input\InputOption;
+use ECSPrefix202210\Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author Jean-François Simon <jeanfrancois.simon@sensiolabs.com>
  *

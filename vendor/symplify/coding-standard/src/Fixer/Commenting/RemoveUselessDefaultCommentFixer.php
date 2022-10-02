@@ -11,9 +11,9 @@ use SplFileInfo;
 use Symplify\CodingStandard\DocBlock\UselessDocBlockCleaner;
 use Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
 use Symplify\CodingStandard\TokenRunner\Traverser\TokenReverser;
-use ECSPrefix202209\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use ECSPrefix202209\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use ECSPrefix202209\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix202210\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use ECSPrefix202210\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use ECSPrefix202210\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Symplify\CodingStandard\Tests\Fixer\Commenting\RemoveUselessDefaultCommentFixer\RemoveUselessDefaultCommentFixerTest
  */

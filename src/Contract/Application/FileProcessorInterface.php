@@ -6,7 +6,7 @@ namespace Symplify\EasyCodingStandard\Contract\Application;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
-use ECSPrefix202209\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix202210\Symplify\SmartFileSystem\SmartFileInfo;
 interface FileProcessorInterface
 {
     public function processFileToString(SmartFileInfo $smartFileInfo) : string;

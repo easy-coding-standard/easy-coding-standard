@@ -19,12 +19,12 @@ use Symplify\CodingStandard\TokenAnalyzer\Naming\MethodNameResolver;
 use Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder;
 use Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\LineLengthTransformer;
 use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
-use ECSPrefix202209\Symplify\PackageBuilder\ValueObject\MethodName;
-use ECSPrefix202209\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
-use ECSPrefix202209\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use ECSPrefix202209\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use ECSPrefix202209\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use ECSPrefix202209\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use ECSPrefix202210\Symplify\PackageBuilder\ValueObject\MethodName;
+use ECSPrefix202210\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
+use ECSPrefix202210\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use ECSPrefix202210\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use ECSPrefix202210\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix202210\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 /**
  * @see \Symplify\CodingStandard\Tests\Fixer\LineLength\LineLengthFixer\LineLengthFixerTest
  * @see \Symplify\CodingStandard\Tests\Fixer\LineLength\LineLengthFixer\ConfiguredLineLengthFixerTest

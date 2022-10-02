@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202209\Symplify\PackageBuilder\Composer;
+namespace ECSPrefix202210\Symplify\PackageBuilder\Composer;
 
-use ECSPrefix202209\Composer\Autoload\ClassLoader;
+use ECSPrefix202210\Composer\Autoload\ClassLoader;
 use ReflectionClass;
 /**
  * @api

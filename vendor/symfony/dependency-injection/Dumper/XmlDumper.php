@@ -8,20 +8,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202209\Symfony\Component\DependencyInjection\Dumper;
+namespace ECSPrefix202210\Symfony\Component\DependencyInjection\Dumper;
 
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Alias;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Argument\AbstractArgument;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Argument\IteratorArgument;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Exception\RuntimeException;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Parameter;
-use ECSPrefix202209\Symfony\Component\DependencyInjection\Reference;
-use ECSPrefix202209\Symfony\Component\ExpressionLanguage\Expression;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Alias;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Argument\AbstractArgument;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Argument\IteratorArgument;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Parameter;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix202210\Symfony\Component\ExpressionLanguage\Expression;
 /**
  * XmlDumper dumps a service container as an XML string.
  *

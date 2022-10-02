@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202209\Symplify\SmartFileSystem\Normalizer;
+namespace ECSPrefix202210\Symplify\SmartFileSystem\Normalizer;
 
-use ECSPrefix202209\Nette\Utils\Strings;
+use ECSPrefix202210\Nette\Utils\Strings;
 /**
  * @api
  *
