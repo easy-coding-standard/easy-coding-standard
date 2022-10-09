@@ -3103,12 +3103,12 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/easy-parallel",
-                "reference": "084e6f7be6d170d49f0b71601fc68b48d2953213"
+                "reference": "cbe06e40464a1b8df243cbcf26e1ecd0337b1f23"
             },
             "require": {
                 "clue\/ndjson-react": "^1.2",
                 "php": ">=8.0",
-                "react\/child-process": "^0.6.4",
+                "react\/child-process": "^0.6.5",
                 "react\/event-loop": "^1.3",
                 "react\/socket": "^1.12",
                 "symfony\/console": "^6.0"
