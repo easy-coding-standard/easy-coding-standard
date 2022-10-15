@@ -105,6 +105,9 @@ final class GetClassToClassKeywordFixer extends AbstractFixer
         }
         $tokens->insertSlices($tokenSlices);
     }
+    /**
+     * @return list<Token>
+     */
     private function getReplacementTokenSlices(Tokens $tokens, int $variableIndex) : array
     {
         return [new Token([\T_VARIABLE, $tokens[$variableIndex]->getContent()]), new Token([\T_DOUBLE_COLON, '::']), new Token([CT::T_CLASS_CONSTANT, 'class'])];

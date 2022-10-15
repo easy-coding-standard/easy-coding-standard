@@ -148,11 +148,17 @@ final class ControlStructureBracesFixer extends AbstractFixer
             }
         }
     }
+    /**
+     * @return list<int>
+     */
     private function getControlTokens() : array
     {
         static $tokens = [\T_DECLARE, \T_DO, \T_ELSE, \T_ELSEIF, \T_FINALLY, \T_FOR, \T_FOREACH, \T_IF, \T_WHILE, \T_TRY, \T_CATCH, \T_SWITCH];
         return $tokens;
     }
+    /**
+     * @return list<int>
+     */
     private function getControlContinuationTokensForOpeningToken(int $openingTokenKind) : array
     {
         if (\T_IF === $openingTokenKind) {
@@ -166,6 +172,9 @@ final class ControlStructureBracesFixer extends AbstractFixer
         }
         return [];
     }
+    /**
+     * @return list<int>
+     */
     private function getFinalControlContinuationTokensForOpeningToken(int $openingTokenKind) : array
     {
         if (\T_IF === $openingTokenKind) {

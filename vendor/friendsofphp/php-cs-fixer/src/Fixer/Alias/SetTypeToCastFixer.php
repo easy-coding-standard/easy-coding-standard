@@ -35,7 +35,7 @@ settype($bar, "null");
     /**
      * {@inheritdoc}
      *
-     * Must run after NoBinaryStringFixer.
+     * Must run after NoBinaryStringFixer, NoUselessConcatOperatorFixer.
      */
     public function getPriority() : int
     {
@@ -103,12 +103,15 @@ settype($bar, "null");
             $argumentToken = $tokens[$firstArgumentStart];
             $this->removeSettypeCall($tokens, $functionNameIndex, $candidate[1], $firstArgumentStart, $commaIndex, $secondArgumentStart, $candidate[2]);
             if ('null' === $type) {
-                $this->findSettypeNullCall($tokens, $functionNameIndex, $argumentToken);
+                $this->fixSettypeNullCall($tokens, $functionNameIndex, $argumentToken);
             } else {
                 $this->fixSettypeCall($tokens, $functionNameIndex, $argumentToken, new Token($map[$type]));
             }
         }
     }
+    /**
+     * @return list<list<int>>
+     */
     private function findSettypeCalls(Tokens $tokens) : array
     {
         $candidates = [];
@@ -145,7 +148,7 @@ settype($bar, "null");
         $tokens->removeTrailingWhitespace($functionNameIndex + 6);
         // 6 = number of inserted tokens -1 for offset correction
     }
-    private function findSettypeNullCall(Tokens $tokens, int $functionNameIndex, Token $argumentToken) : void
+    private function fixSettypeNullCall(Tokens $tokens, int $functionNameIndex, Token $argumentToken) : void
     {
         $tokens->insertAt($functionNameIndex, [clone $argumentToken, new Token([\T_WHITESPACE, ' ']), new Token('='), new Token([\T_WHITESPACE, ' ']), new Token([\T_STRING, 'null'])]);
         $tokens->removeTrailingWhitespace($functionNameIndex + 4);

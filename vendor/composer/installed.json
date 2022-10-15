@@ -501,17 +501,17 @@
         },
         {
             "name": "friendsofphp\/php-cs-fixer",
-            "version": "v3.11.0",
-            "version_normalized": "3.11.0.0",
+            "version": "v3.12.0",
+            "version_normalized": "3.12.0.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/FriendsOfPHP\/PHP-CS-Fixer.git",
-                "reference": "7dcdea3f2f5f473464e835be9be55283ff8cfdc3"
+                "reference": "eae11d945e2885d86e1c080eec1bb30a2aa27998"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/FriendsOfPHP\/PHP-CS-Fixer\/zipball\/7dcdea3f2f5f473464e835be9be55283ff8cfdc3",
-                "reference": "7dcdea3f2f5f473464e835be9be55283ff8cfdc3",
+                "url": "https:\/\/api.github.com\/repos\/FriendsOfPHP\/PHP-CS-Fixer\/zipball\/eae11d945e2885d86e1c080eec1bb30a2aa27998",
+                "reference": "eae11d945e2885d86e1c080eec1bb30a2aa27998",
                 "shasum": ""
             },
             "require": {
@@ -544,8 +544,8 @@
                 "phpspec\/prophecy": "^1.15",
                 "phpspec\/prophecy-phpunit": "^2.0",
                 "phpunit\/phpunit": "^9.5",
-                "phpunitgoodpractices\/polyfill": "^1.5",
-                "phpunitgoodpractices\/traits": "^1.9.1",
+                "phpunitgoodpractices\/polyfill": "^1.6",
+                "phpunitgoodpractices\/traits": "^1.9.2",
                 "symfony\/phpunit-bridge": "^6.0",
                 "symfony\/yaml": "^5.4 || ^6.0"
             },
@@ -553,7 +553,7 @@
                 "ext-dom": "For handling output formats in XML",
                 "ext-mbstring": "For handling non-UTF8 characters."
             },
-            "time": "2022-09-01T18:24:51+00:00",
+            "time": "2022-10-12T14:20:51+00:00",
             "bin": [
                 "php-cs-fixer"
             ],
@@ -581,7 +581,7 @@
             "description": "A tool to automatically fix PHP code style",
             "support": {
                 "issues": "https:\/\/github.com\/FriendsOfPHP\/PHP-CS-Fixer\/issues",
-                "source": "https:\/\/github.com\/FriendsOfPHP\/PHP-CS-Fixer\/tree\/v3.11.0"
+                "source": "https:\/\/github.com\/FriendsOfPHP\/PHP-CS-Fixer\/tree\/v3.12.0"
             },
             "funding": [
                 {
@@ -1766,17 +1766,17 @@
         },
         {
             "name": "symfony\/console",
-            "version": "v6.0.13",
-            "version_normalized": "6.0.13.0",
+            "version": "v6.0.14",
+            "version_normalized": "6.0.14.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/symfony\/console.git",
-                "reference": "8f14753b865651c2aad107ef97475740a9b0730f"
+                "reference": "1f89cab8d52c84424f798495b3f10342a7b1a070"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/symfony\/console\/zipball\/8f14753b865651c2aad107ef97475740a9b0730f",
-                "reference": "8f14753b865651c2aad107ef97475740a9b0730f",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/console\/zipball\/1f89cab8d52c84424f798495b3f10342a7b1a070",
+                "reference": "1f89cab8d52c84424f798495b3f10342a7b1a070",
                 "shasum": ""
             },
             "require": {
@@ -1810,7 +1810,7 @@
                 "symfony\/lock": "",
                 "symfony\/process": ""
             },
-            "time": "2022-09-03T14:23:25+00:00",
+            "time": "2022-10-07T08:02:12+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -1844,7 +1844,7 @@
                 "terminal"
             ],
             "support": {
-                "source": "https:\/\/github.com\/symfony\/console\/tree\/v6.0.13"
+                "source": "https:\/\/github.com\/symfony\/console\/tree\/v6.0.14"
             },
             "funding": [
                 {
@@ -2867,17 +2867,17 @@
         },
         {
             "name": "symfony\/string",
-            "version": "v6.0.13",
-            "version_normalized": "6.0.13.0",
+            "version": "v6.0.14",
+            "version_normalized": "6.0.14.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/symfony\/string.git",
-                "reference": "65e99fb179e7241606377e4042cd2161f3dd1c05"
+                "reference": "3db7da820a6e4a584b714b3933c34c6a7db4d86c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/symfony\/string\/zipball\/65e99fb179e7241606377e4042cd2161f3dd1c05",
-                "reference": "65e99fb179e7241606377e4042cd2161f3dd1c05",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/string\/zipball\/3db7da820a6e4a584b714b3933c34c6a7db4d86c",
+                "reference": "3db7da820a6e4a584b714b3933c34c6a7db4d86c",
                 "shasum": ""
             },
             "require": {
@@ -2896,7 +2896,7 @@
                 "symfony\/translation-contracts": "^2.0|^3.0",
                 "symfony\/var-exporter": "^5.4|^6.0"
             },
-            "time": "2022-09-02T08:05:03+00:00",
+            "time": "2022-10-10T09:34:08+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -2935,7 +2935,7 @@
                 "utf8"
             ],
             "support": {
-                "source": "https:\/\/github.com\/symfony\/string\/tree\/v6.0.13"
+                "source": "https:\/\/github.com\/symfony\/string\/tree\/v6.0.14"
             },
             "funding": [
                 {

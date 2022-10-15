@@ -61,7 +61,9 @@ class Config implements \PhpCsFixer\ConfigInterface
      */
     private $phpExecutable;
     /**
-     * @var mixed[]
+     * @TODO: 4.0 - update to @PER
+     *
+     * @var array<string, array<string, mixed>|bool>
      */
     private $rules = ['@PSR12' => \true];
     /**

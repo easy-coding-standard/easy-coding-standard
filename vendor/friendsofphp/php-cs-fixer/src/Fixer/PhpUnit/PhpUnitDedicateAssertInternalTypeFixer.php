@@ -29,7 +29,7 @@ use PhpCsFixer\Tokenizer\TokensAnalyzer;
 final class PhpUnitDedicateAssertInternalTypeFixer extends AbstractPhpUnitFixer implements ConfigurableFixerInterface
 {
     /**
-     * @var mixed[]
+     * @var array<string, string>
      */
     private $typeToDedicatedAssertMap = ['array' => 'assertIsArray', 'boolean' => 'assertIsBool', 'bool' => 'assertIsBool', 'double' => 'assertIsFloat', 'float' => 'assertIsFloat', 'integer' => 'assertIsInt', 'int' => 'assertIsInt', 'null' => 'assertNull', 'numeric' => 'assertIsNumeric', 'object' => 'assertIsObject', 'real' => 'assertIsFloat', 'resource' => 'assertIsResource', 'string' => 'assertIsString', 'scalar' => 'assertIsScalar', 'callable' => 'assertIsCallable', 'iterable' => 'assertIsIterable'];
     /**
@@ -67,7 +67,7 @@ final class MyTest extends \\PHPUnit\\Framework\\TestCase
     /**
      * {@inheritdoc}
      *
-     * Must run after NoBinaryStringFixer, PhpUnitDedicateAssertFixer.
+     * Must run after NoBinaryStringFixer, NoUselessConcatOperatorFixer, PhpUnitDedicateAssertFixer.
      */
     public function getPriority() : int
     {

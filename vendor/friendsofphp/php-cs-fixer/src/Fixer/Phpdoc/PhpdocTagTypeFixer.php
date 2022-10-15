@@ -122,6 +122,9 @@ final class PhpdocTagTypeFixer extends AbstractFixer implements ConfigurableFixe
             return $normalized;
         })->getOption()]);
     }
+    /**
+     * @param list<string> $parts
+     */
     private function tagIsSurroundedByText(array $parts, int $index) : bool
     {
         return Preg::match('/(^|\\R)\\h*[^@\\s]\\N*/', $this->cleanComment($parts[$index - 1])) || Preg::match('/^.*?\\R\\s*[^@\\s]/', $this->cleanComment($parts[$index + 1]));

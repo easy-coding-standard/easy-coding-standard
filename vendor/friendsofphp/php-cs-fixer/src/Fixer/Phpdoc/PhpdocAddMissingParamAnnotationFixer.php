@@ -154,6 +154,9 @@ function f9(string $foo, $bar, $baz) {}
     {
         return new FixerConfigurationResolver([(new FixerOptionBuilder('only_untyped', 'Whether to add missing `@param` annotations for untyped parameters only.'))->setDefault(\true)->setAllowedTypes(['bool'])->getOption()]);
     }
+    /**
+     * @return array{default: string, name: string, type: string}
+     */
     private function prepareArgumentInformation(Tokens $tokens, int $start, int $end) : array
     {
         $info = ['default' => '', 'name' => '', 'type' => ''];

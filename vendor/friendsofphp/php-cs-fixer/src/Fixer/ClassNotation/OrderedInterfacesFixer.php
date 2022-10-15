@@ -140,6 +140,9 @@ final class OrderedInterfacesFixer extends AbstractFixer implements Configurable
     {
         return new FixerConfigurationResolver([(new FixerOptionBuilder(self::OPTION_ORDER, 'How the interfaces should be ordered'))->setAllowedValues(self::SUPPORTED_ORDER_OPTIONS)->setDefault(self::ORDER_ALPHA)->getOption(), (new FixerOptionBuilder(self::OPTION_DIRECTION, 'Which direction the interfaces should be ordered'))->setAllowedValues(self::SUPPORTED_DIRECTION_OPTIONS)->setDefault(self::DIRECTION_ASCEND)->getOption()]);
     }
+    /**
+     * @return array<int, list<Token>>
+     */
     private function getInterfaces(Tokens $tokens, int $implementsStart, int $implementsEnd) : array
     {
         $interfaces = [];

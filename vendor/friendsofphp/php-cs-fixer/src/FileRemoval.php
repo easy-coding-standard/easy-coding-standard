@@ -24,7 +24,8 @@ final class FileRemoval
 {
     /**
      * List of observed files to be removed.
-     * @var mixed[]
+     *
+     * @var array<string, true>
      */
     private $files = [];
     public function __construct()

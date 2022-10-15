@@ -46,13 +46,16 @@ final class Error
      */
     private $source;
     /**
-     * @var mixed[]
+     * @var list<string>
      */
     private $appliedFixers;
     /**
      * @var string|null
      */
     private $diff;
+    /**
+     * @param list<string> $appliedFixers
+     */
     public function __construct(int $type, string $filePath, ?\Throwable $source = null, array $appliedFixers = [], ?string $diff = null)
     {
         $this->type = $type;
@@ -73,6 +76,9 @@ final class Error
     {
         return $this->type;
     }
+    /**
+     * @return list<string>
+     */
     public function getAppliedFixers() : array
     {
         return $this->appliedFixers;

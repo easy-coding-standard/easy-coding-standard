@@ -25,7 +25,7 @@ final class ToolInfo implements \PhpCsFixer\ToolInfoInterface
     public const COMPOSER_PACKAGE_NAME = 'friendsofphp/php-cs-fixer';
     public const COMPOSER_LEGACY_PACKAGE_NAME = 'fabpot/php-cs-fixer';
     /**
-     * @var null|array
+     * @var null|array{name: string, version: string, dist: array{reference?: string}}
      */
     private $composerInstallationDetails;
     /**

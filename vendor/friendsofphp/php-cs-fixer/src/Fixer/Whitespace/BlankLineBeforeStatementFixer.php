@@ -32,11 +32,11 @@ use PhpCsFixer\Tokenizer\TokensAnalyzer;
 final class BlankLineBeforeStatementFixer extends AbstractFixer implements ConfigurableFixerInterface, WhitespacesAwareFixerInterface
 {
     /**
-     * @var mixed[]
+     * @var array<string, int>
      */
     private static $tokenMap = ['break' => \T_BREAK, 'case' => \T_CASE, 'continue' => \T_CONTINUE, 'declare' => \T_DECLARE, 'default' => \T_DEFAULT, 'do' => \T_DO, 'exit' => \T_EXIT, 'for' => \T_FOR, 'foreach' => \T_FOREACH, 'goto' => \T_GOTO, 'if' => \T_IF, 'include' => \T_INCLUDE, 'include_once' => \T_INCLUDE_ONCE, 'phpdoc' => \T_DOC_COMMENT, 'require' => \T_REQUIRE, 'require_once' => \T_REQUIRE_ONCE, 'return' => \T_RETURN, 'switch' => \T_SWITCH, 'throw' => \T_THROW, 'try' => \T_TRY, 'while' => \T_WHILE, 'yield' => \T_YIELD, 'yield_from' => \T_YIELD_FROM];
     /**
-     * @var mixed[]
+     * @var list<int>
      */
     private $fixTokenMap = [];
     /**

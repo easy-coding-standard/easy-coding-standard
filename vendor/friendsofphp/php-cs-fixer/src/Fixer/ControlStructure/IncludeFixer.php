@@ -52,6 +52,9 @@ include_once("sample4.php");
     {
         $this->clearIncludies($tokens, $this->findIncludies($tokens));
     }
+    /**
+     * @param array<int, array{begin: int, braces: ?array{open: int, close: int}, end: int}> $includies
+     */
     private function clearIncludies(Tokens $tokens, array $includies) : void
     {
         $blocksAnalyzer = new BlocksAnalyzer();
@@ -83,6 +86,9 @@ include_once("sample4.php");
             }
         }
     }
+    /**
+     * @return array<int, array{begin: int, braces: ?array{open: int, close: int}, end: int}>
+     */
     private function findIncludies(Tokens $tokens) : array
     {
         static $includyTokenKinds = [\T_REQUIRE, \T_REQUIRE_ONCE, \T_INCLUDE, \T_INCLUDE_ONCE];

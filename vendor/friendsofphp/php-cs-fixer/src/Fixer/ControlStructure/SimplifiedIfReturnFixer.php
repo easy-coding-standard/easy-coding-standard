@@ -24,7 +24,7 @@ use PhpCsFixer\Tokenizer\Tokens;
 final class SimplifiedIfReturnFixer extends AbstractFixer
 {
     /**
-     * @var array[]
+     * @var list<array{isNegative: bool, sequence: array<int, list<int|string>|string>}>
      */
     private $sequences = [['isNegative' => \false, 'sequence' => ['{', [\T_RETURN], [\T_STRING, 'true'], ';', '}', [\T_RETURN], [\T_STRING, 'false'], ';']], ['isNegative' => \true, 'sequence' => ['{', [\T_RETURN], [\T_STRING, 'false'], ';', '}', [\T_RETURN], [\T_STRING, 'true'], ';']], ['isNegative' => \false, 'sequence' => [[\T_RETURN], [\T_STRING, 'true'], ';', [\T_RETURN], [\T_STRING, 'false'], ';']], ['isNegative' => \true, 'sequence' => [[\T_RETURN], [\T_STRING, 'false'], ';', [\T_RETURN], [\T_STRING, 'true'], ';']]];
     /**

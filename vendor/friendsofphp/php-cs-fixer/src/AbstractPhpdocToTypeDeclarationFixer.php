@@ -112,6 +112,9 @@ abstract class AbstractPhpdocToTypeDeclarationFixer extends \PhpCsFixer\Abstract
         }
         return $newTokens;
     }
+    /**
+     * @return null|array{string, bool}
+     */
     protected function getCommonTypeFromAnnotation(Annotation $annotation, bool $isReturnType) : ?array
     {
         $typesExpression = $annotation->getTypeExpression();

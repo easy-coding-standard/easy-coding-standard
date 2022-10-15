@@ -165,13 +165,12 @@ EOF;
     {
         $lineEnding = $this->whitespacesConfig->getLineEnding();
         for ($i = 0, $l = \count($docBlock->getLines()); $i < $l; ++$i) {
-            $items = [];
             $matches = $this->getMatches($docBlock->getLine($i)->getContent());
             if (null === $matches) {
                 continue;
             }
             $current = $i;
-            $items[] = $matches;
+            $items = [$matches];
             while (\true) {
                 if (null === $docBlock->getLine(++$i)) {
                     break 2;

@@ -270,10 +270,16 @@ return $foo === count($bar);
         }
         return $yoda && !$leftSideIsVariable || !$yoda && !$rightSideIsVariable ? null : ['left' => $left, 'right' => $right];
     }
+    /**
+     * @return array{start: int, end: int}
+     */
     private function getLeftSideCompareFixableInfo(Tokens $tokens, int $index) : array
     {
         return ['start' => $this->findComparisonStart($tokens, $index), 'end' => $tokens->getPrevMeaningfulToken($index)];
     }
+    /**
+     * @return array{start: int, end: int}
+     */
     private function getRightSideCompareFixableInfo(Tokens $tokens, int $index) : array
     {
         return ['start' => $tokens->getNextMeaningfulToken($index), 'end' => $this->findComparisonEnd($tokens, $index)];

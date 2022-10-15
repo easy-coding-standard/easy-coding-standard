@@ -199,6 +199,9 @@ final class NoUnusedImportsFixer extends AbstractFixer
             $tokens->clearAt($prevIndex);
         }
     }
+    /**
+     * @param list<NamespaceUseAnalysis> $useDeclarations
+     */
     private function removeUsesInSameNamespace(Tokens $tokens, array $useDeclarations, NamespaceAnalysis $namespaceDeclaration) : void
     {
         $namespace = $namespaceDeclaration->getFullName();

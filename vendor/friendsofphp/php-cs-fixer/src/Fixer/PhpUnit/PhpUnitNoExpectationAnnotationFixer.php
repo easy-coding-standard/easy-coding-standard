@@ -175,6 +175,11 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
         }
         return \rtrim($content);
     }
+    /**
+     * @param array<string, string> $annotations
+     *
+     * @return list<string>
+     */
     private function annotationsToParamList(array $annotations) : array
     {
         $params = [];

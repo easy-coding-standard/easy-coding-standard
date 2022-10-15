@@ -30,7 +30,7 @@ use ECSPrefix202210\Symfony\Component\OptionsResolver\Exception\InvalidOptionsEx
 final class RandomApiMigrationFixer extends AbstractFunctionReferenceFixer implements ConfigurableFixerInterface
 {
     /**
-     * @var mixed[]
+     * @var array<string, array<int, int>>
      */
     private static $argumentCounts = ['getrandmax' => [0], 'mt_rand' => [1, 2], 'rand' => [0, 2], 'srand' => [0, 1], 'random_int' => [0, 2]];
     /**

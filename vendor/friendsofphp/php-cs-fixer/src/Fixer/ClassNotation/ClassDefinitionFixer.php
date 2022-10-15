@@ -201,6 +201,16 @@ $foo = new class(){};
         $tokens->insertAt($openIndex, new Token([\T_WHITESPACE, $spacing]));
         return $openIndex + 1;
     }
+    /**
+     * @return array{
+     *     start: int,
+     *     classy: int,
+     *     open: int,
+     *     extends: false|array{start: int, numberOfExtends: int, multiLine: bool},
+     *     implements: false|array{start: int, numberOfImplements: int, multiLine: bool},
+     *     anonymousClass: bool,
+     * }
+     */
     private function getClassyDefinitionInfo(Tokens $tokens, int $classyIndex) : array
     {
         $openIndex = $tokens->getNextTokenOfKind($classyIndex, ['{']);

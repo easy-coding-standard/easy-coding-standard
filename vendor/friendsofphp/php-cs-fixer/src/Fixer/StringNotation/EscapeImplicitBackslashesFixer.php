@@ -63,7 +63,7 @@ EOF;
      */
     public function getPriority() : int
     {
-        return 1;
+        return 15;
     }
     /**
      * {@inheritdoc}

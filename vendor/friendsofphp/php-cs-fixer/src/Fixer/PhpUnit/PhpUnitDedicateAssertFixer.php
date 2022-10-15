@@ -31,7 +31,7 @@ use PhpCsFixer\Tokenizer\Tokens;
 final class PhpUnitDedicateAssertFixer extends AbstractPhpUnitFixer implements ConfigurableFixerInterface
 {
     /**
-     * @var array<string,array|true>
+     * @var array<string, array<string, bool|int|string>|true>
      */
     private static $fixMap = ['array_key_exists' => ['positive' => 'assertArrayHasKey', 'negative' => 'assertArrayNotHasKey', 'argument_count' => 2], 'empty' => ['positive' => 'assertEmpty', 'negative' => 'assertNotEmpty'], 'file_exists' => ['positive' => 'assertFileExists', 'negative' => 'assertFileNotExists'], 'is_array' => \true, 'is_bool' => \true, 'is_callable' => \true, 'is_dir' => ['positive' => 'assertDirectoryExists', 'negative' => 'assertDirectoryNotExists'], 'is_double' => \true, 'is_float' => \true, 'is_infinite' => ['positive' => 'assertInfinite', 'negative' => 'assertFinite'], 'is_int' => \true, 'is_integer' => \true, 'is_long' => \true, 'is_nan' => ['positive' => 'assertNan', 'negative' => \false], 'is_null' => ['positive' => 'assertNull', 'negative' => 'assertNotNull'], 'is_numeric' => \true, 'is_object' => \true, 'is_readable' => ['positive' => 'assertIsReadable', 'negative' => 'assertNotIsReadable'], 'is_real' => \true, 'is_resource' => \true, 'is_scalar' => \true, 'is_string' => \true, 'is_writable' => ['positive' => 'assertIsWritable', 'negative' => 'assertNotIsWritable'], 'str_contains' => [
         // since 7.5
@@ -148,6 +148,14 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
     {
         return new FixerConfigurationResolver([(new FixerOptionBuilder('target', 'Target version of PHPUnit.'))->setAllowedTypes(['string'])->setAllowedValues([\PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_3_0, \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_3_5, \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_5_0, \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_5_6, \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_NEWEST])->setDefault(\PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_NEWEST)->getOption()]);
     }
+    /**
+     * @param array{
+     *     index: int,
+     *     loweredName: string,
+     *     openBraceIndex: int,
+     *     closeBraceIndex: int,
+     * } $assertCall
+     */
     private function fixAssertTrueFalse(Tokens $tokens, ArgumentsAnalyzer $argumentsAnalyzer, array $assertCall) : void
     {
         $testDefaultNamespaceTokenIndex = null;
@@ -216,6 +224,14 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
             $tokens->clearTokenAndMergeSurroundingWhitespace($testDefaultNamespaceTokenIndex);
         }
     }
+    /**
+     * @param array{
+     *     index: int,
+     *     loweredName: string,
+     *     openBraceIndex: int,
+     *     closeBraceIndex: int,
+     * } $assertCall
+     */
     private function fixAssertTrueFalseInstanceof(Tokens $tokens, array $assertCall, int $testIndex) : bool
     {
         if ($tokens[$testIndex]->equals('!')) {
@@ -264,6 +280,14 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
         }
         return \true;
     }
+    /**
+     * @param array{
+     *     index: int,
+     *     loweredName: string,
+     *     openBraceIndex: int,
+     *     closeBraceIndex: int,
+     * } $assertCall
+     */
     private function fixAssertSameEquals(Tokens $tokens, array $assertCall) : void
     {
         // @ $this->/self::assertEquals/Same([$nextIndex])
@@ -358,6 +382,9 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
         }
         $tokens->clearTokenAndMergeSurroundingWhitespace($closeIndex);
     }
+    /**
+     * @param array<int, int> $argumentsIndices
+     */
     private function swapArguments(Tokens $tokens, array $argumentsIndices) : void
     {
         [$firstArgumentIndex, $secondArgumentIndex] = \array_keys($argumentsIndices);
@@ -374,6 +401,9 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
         }
         $tokens->insertAt($firstArgumentIndex, $secondClone);
     }
+    /**
+     * @return list<Token>
+     */
     private function cloneAndClearTokens(Tokens $tokens, int $start, int $end) : array
     {
         $clone = [];

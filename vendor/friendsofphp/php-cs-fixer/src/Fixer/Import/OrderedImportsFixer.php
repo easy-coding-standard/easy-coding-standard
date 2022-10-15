@@ -233,7 +233,7 @@ use Bar;
         return \trim(Preg::replace('%/\\*(.*)\\*/%s', '', $namespace));
     }
     /**
-     * @param int[] $uses
+     * @param list<int> $uses
      */
     private function getNewOrder(array $uses, Tokens $tokens) : array
     {
@@ -369,7 +369,27 @@ use Bar;
         return $usesOrder;
     }
     /**
-     * @param array[] $indices
+     * @param array<
+     *     int,
+     *     array{
+     *         namespace: string,
+     *         startIndex: int,
+     *         endIndex: int,
+     *         importType: string,
+     *         group: bool,
+     *     }
+     * > $indices
+     *
+     * @return array<
+     *     int,
+     *     array{
+     *         namespace: string,
+     *         startIndex: int,
+     *         endIndex: int,
+     *         importType: string,
+     *         group: bool,
+     *     }
+     * >
      */
     private function sortByAlgorithm(array $indices) : array
     {

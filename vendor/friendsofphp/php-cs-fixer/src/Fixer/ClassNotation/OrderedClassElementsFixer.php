@@ -35,15 +35,15 @@ final class OrderedClassElementsFixer extends AbstractFixer implements Configura
     public const SORT_NONE = 'none';
     private const SUPPORTED_SORT_ALGORITHMS = [self::SORT_NONE, self::SORT_ALPHA];
     /**
-     * @var array Array containing all class element base types (keys) and their parent types (values)
+     * @var array<string, null|list<string>> Array containing all class element base types (keys) and their parent types (values)
      */
     private static $typeHierarchy = ['use_trait' => null, 'public' => null, 'protected' => null, 'private' => null, 'case' => ['public'], 'constant' => null, 'constant_public' => ['constant', 'public'], 'constant_protected' => ['constant', 'protected'], 'constant_private' => ['constant', 'private'], 'property' => null, 'property_static' => ['property'], 'property_public' => ['property', 'public'], 'property_protected' => ['property', 'protected'], 'property_private' => ['property', 'private'], 'property_public_readonly' => ['property_readonly', 'property_public'], 'property_protected_readonly' => ['property_readonly', 'property_protected'], 'property_private_readonly' => ['property_readonly', 'property_private'], 'property_public_static' => ['property_static', 'property_public'], 'property_protected_static' => ['property_static', 'property_protected'], 'property_private_static' => ['property_static', 'property_private'], 'method' => null, 'method_abstract' => ['method'], 'method_static' => ['method'], 'method_public' => ['method', 'public'], 'method_protected' => ['method', 'protected'], 'method_private' => ['method', 'private'], 'method_public_abstract' => ['method_abstract', 'method_public'], 'method_protected_abstract' => ['method_abstract', 'method_protected'], 'method_private_abstract' => ['method_abstract', 'method_private'], 'method_public_abstract_static' => ['method_abstract', 'method_static', 'method_public'], 'method_protected_abstract_static' => ['method_abstract', 'method_static', 'method_protected'], 'method_private_abstract_static' => ['method_abstract', 'method_static', 'method_private'], 'method_public_static' => ['method_static', 'method_public'], 'method_protected_static' => ['method_static', 'method_protected'], 'method_private_static' => ['method_static', 'method_private']];
     /**
-     * @var array Array containing special method types
+     * @var array<string, null> Array containing special method types
      */
     private static $specialTypes = ['construct' => null, 'destruct' => null, 'magic' => null, 'phpunit' => null];
     /**
-     * @var array Resolved configuration array (type => position)
+     * @var array<string, int> Resolved configuration array (type => position)
      */
     private $typePosition;
     /**
@@ -180,7 +180,16 @@ class Example
         return new FixerConfigurationResolver([(new FixerOptionBuilder('order', 'List of strings defining order of elements.'))->setAllowedTypes(['array'])->setAllowedValues([new AllowedValueSubset(\array_keys(\array_merge(self::$typeHierarchy, self::$specialTypes)))])->setDefault(['use_trait', 'case', 'constant_public', 'constant_protected', 'constant_private', 'property_public', 'property_protected', 'property_private', 'construct', 'destruct', 'magic', 'phpunit', 'method_public', 'method_protected', 'method_private'])->getOption(), (new FixerOptionBuilder('sort_algorithm', 'How multiple occurrences of same type statements should be sorted'))->setAllowedValues(self::SUPPORTED_SORT_ALGORITHMS)->setDefault(self::SORT_NONE)->getOption()]);
     }
     /**
-     * @return array[]
+     * @return list<array{
+     *     start: int,
+     *     visibility: string,
+     *     abstract: bool,
+     *     static: bool,
+     *     readonly: bool,
+     *     type: string,
+     *     name: string,
+     *     end: int,
+     * }>
      */
     private function getElements(Tokens $tokens, int $startIndex) : array
     {
@@ -234,7 +243,7 @@ class Example
         }
     }
     /**
-     * @return array|string type or array of type and name
+     * @return array<string>|string type or array of type and name
      */
     private function detectElementType(Tokens $tokens, int $index)
     {
@@ -275,9 +284,17 @@ class Example
         return $tokens[$index]->isWhitespace() ? $index - 1 : $index;
     }
     /**
-     * @param array[] $elements
-     *
-     * @return array[]
+     * @return list<array{
+     *     start: int,
+     *     visibility: string,
+     *     abstract: bool,
+     *     static: bool,
+     *     readonly: bool,
+     *     type: string,
+     *     name: string,
+     *     end: int,
+     *     position: int,
+     * }>
      */
     private function sortElements(array $elements) : array
     {
@@ -317,6 +334,30 @@ class Example
         });
         return $elements;
     }
+    /**
+     * @param array{
+     *     start: int,
+     *     visibility: string,
+     *     abstract: bool,
+     *     static: bool,
+     *     readonly: bool,
+     *     type: string,
+     *     name: string,
+     *     end: int,
+     *     position: int,
+     * } $a
+     * @param array{
+     *     start: int,
+     *     visibility: string,
+     *     abstract: bool,
+     *     static: bool,
+     *     readonly: bool,
+     *     type: string,
+     *     name: string,
+     *     end: int,
+     *     position: int,
+     * } $b
+     */
     private function sortGroupElements(array $a, array $b) : int
     {
         $selectedSortAlgorithm = $this->configuration['sort_algorithm'];
@@ -326,7 +367,17 @@ class Example
         return $a['start'] <=> $b['start'];
     }
     /**
-     * @param array[] $elements
+     * @param list<array{
+     *     start: int,
+     *     visibility: string,
+     *     abstract: bool,
+     *     static: bool,
+     *     readonly: bool,
+     *     type: string,
+     *     name: string,
+     *     end: int,
+     *     position: int,
+     * }> $elements
      */
     private function sortTokens(Tokens $tokens, int $startIndex, int $endIndex, array $elements) : void
     {

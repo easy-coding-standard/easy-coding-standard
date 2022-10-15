@@ -134,7 +134,6 @@ final class ArrayPushFixer extends AbstractFixer
         if ($tokens[$index]->isGivenKind(\T_ELLIPSIS)) {
             return null;
         }
-        $index = $tokens->getNextMeaningfulToken($index);
         for (; $index <= $endIndex; ++$index) {
             $blockType = Tokens::detectBlockType($tokens[$index]);
             while (null !== $blockType && $blockType['isStart']) {

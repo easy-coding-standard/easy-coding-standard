@@ -39,11 +39,11 @@ final class FixerFactory
      */
     private $nameValidator;
     /**
-     * @var FixerInterface[]
+     * @var list<FixerInterface>
      */
     private $fixers = [];
     /**
-     * @var FixerInterface[] Associative array of fixers with names as keys
+     * @var array<string, FixerInterface>
      */
     private $fixersByName = [];
     public function __construct()
@@ -60,7 +60,7 @@ final class FixerFactory
         return $this;
     }
     /**
-     * @return FixerInterface[]
+     * @return list<FixerInterface>
      */
     public function getFixers() : array
     {

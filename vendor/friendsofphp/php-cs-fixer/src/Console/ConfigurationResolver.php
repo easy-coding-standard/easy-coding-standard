@@ -101,7 +101,7 @@ final class ConfigurationResolver
      */
     private $toolInfo;
     /**
-     * @var mixed[]
+     * @var array<string, mixed>
      */
     private $options = ['allow-risky' => null, 'cache-file' => null, 'config' => null, 'diff' => null, 'dry-run' => null, 'format' => null, 'path' => [], 'path-mode' => self::PATH_MODE_OVERRIDE, 'rules' => null, 'show-progress' => null, 'stop-on-violation' => null, 'using-cache' => null, 'verbosity' => null];
     /**
@@ -152,6 +152,9 @@ final class ConfigurationResolver
      * @var FixerFactory
      */
     private $fixerFactory;
+    /**
+     * @param array<string, mixed> $options
+     */
     public function __construct(ConfigInterface $config, array $options, string $cwd, ToolInfoInterface $toolInfo)
     {
         $this->defaultConfig = $config;
@@ -346,6 +349,8 @@ final class ConfigurationResolver
     }
     /**
      * Returns rules.
+     *
+     * @return array<string, array<string, mixed>|bool>
      */
     public function getRules() : array
     {
@@ -486,7 +491,7 @@ final class ConfigurationResolver
         return \is_array($iterable) ? new \ArrayIterator($iterable) : $iterable;
     }
     /**
-     * Compute rules.
+     * @return array<mixed>
      */
     private function parseRules() : array
     {
@@ -519,6 +524,8 @@ final class ConfigurationResolver
         return $rules;
     }
     /**
+     * @param array<mixed> $rules
+     *
      * @throws InvalidConfigurationException
      */
     private function validateRules(array $rules) : void
@@ -536,10 +543,8 @@ final class ConfigurationResolver
             $ruleSet[$key] = \true;
         }
         $ruleSet = new RuleSet($ruleSet);
-        /** @var string[] $configuredFixers */
         $configuredFixers = \array_keys($ruleSet->getRules());
         $fixers = $this->createFixerFactory()->getFixers();
-        /** @var string[] $availableFixers */
         $availableFixers = \array_map(static function (FixerInterface $fixer) : string {
             return $fixer->getName();
         }, $fixers);

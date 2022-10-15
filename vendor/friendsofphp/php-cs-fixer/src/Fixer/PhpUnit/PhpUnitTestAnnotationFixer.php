@@ -289,6 +289,8 @@ public function testItDoesSomething() {}}' . $this->whitespacesConfig->getLineEn
     }
     /**
      * Helps to find where the function name in the doc block starts.
+     *
+     * @param list<string> $line
      */
     private function findWhereDependsFunctionNameStarts(array $line) : int
     {

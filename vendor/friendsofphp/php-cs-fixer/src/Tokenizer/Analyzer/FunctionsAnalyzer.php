@@ -24,7 +24,7 @@ use PhpCsFixer\Tokenizer\Tokens;
 final class FunctionsAnalyzer
 {
     /**
-     * @var mixed[]
+     * @var array{tokens: string, imports: list<NamespaceUseAnalysis>, declarations: list<int>}
      */
     private $functionsAnalysis = ['tokens' => '', 'imports' => [], 'declarations' => []];
     /**

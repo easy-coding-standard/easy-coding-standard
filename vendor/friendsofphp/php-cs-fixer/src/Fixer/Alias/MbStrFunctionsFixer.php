@@ -25,11 +25,25 @@ use PhpCsFixer\Tokenizer\Tokens;
 final class MbStrFunctionsFixer extends AbstractFunctionReferenceFixer
 {
     /**
-     * @var array the list of the string-related function names and their mb_ equivalent
+     * list of the string-related function names and their mb_ equivalent.
+     *
+     * @var array<
+     *     string,
+     *     array{
+     *         alternativeName: string,
+     *         argumentCount: list<int>,
+     *     },
+     * >
      */
     private static $functionsMap = ['str_split' => ['alternativeName' => 'mb_str_split', 'argumentCount' => [1, 2, 3]], 'stripos' => ['alternativeName' => 'mb_stripos', 'argumentCount' => [2, 3]], 'stristr' => ['alternativeName' => 'mb_stristr', 'argumentCount' => [2, 3]], 'strlen' => ['alternativeName' => 'mb_strlen', 'argumentCount' => [1]], 'strpos' => ['alternativeName' => 'mb_strpos', 'argumentCount' => [2, 3]], 'strrchr' => ['alternativeName' => 'mb_strrchr', 'argumentCount' => [2]], 'strripos' => ['alternativeName' => 'mb_strripos', 'argumentCount' => [2, 3]], 'strrpos' => ['alternativeName' => 'mb_strrpos', 'argumentCount' => [2, 3]], 'strstr' => ['alternativeName' => 'mb_strstr', 'argumentCount' => [2, 3]], 'strtolower' => ['alternativeName' => 'mb_strtolower', 'argumentCount' => [1]], 'strtoupper' => ['alternativeName' => 'mb_strtoupper', 'argumentCount' => [1]], 'substr' => ['alternativeName' => 'mb_substr', 'argumentCount' => [2, 3]], 'substr_count' => ['alternativeName' => 'mb_substr_count', 'argumentCount' => [2, 3, 4]]];
     /**
-     * @var array<string, array>
+     * @var array<
+     *     string,
+     *     array{
+     *         alternativeName: string,
+     *         argumentCount: list<int>,
+     *     },
+     * >
      */
     private $functions;
     public function __construct()

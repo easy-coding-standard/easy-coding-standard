@@ -65,6 +65,8 @@ interface ConfigInterface
      * Get rules.
      *
      * Keys of array are names of fixers/sets, values are true/false.
+     *
+     * @return array<string, array<string, mixed>|bool>
      */
     public function getRules() : array;
     /**
@@ -106,6 +108,8 @@ interface ConfigInterface
      * Value for set must be bool (turn it on or off).
      * Value for fixer may be bool (turn it on or off) or array of configuration
      * (turn it on and contains configuration for FixerInterface::configure method).
+     *
+     * @param array<string, array<string, mixed>|bool> $rules
      */
     public function setRules(array $rules) : self;
     public function setUsingCache(bool $usingCache) : self;

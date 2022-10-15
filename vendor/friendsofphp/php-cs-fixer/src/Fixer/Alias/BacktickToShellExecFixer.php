@@ -54,7 +54,7 @@ EOT
      */
     public function getPriority() : int
     {
-        return 2;
+        return 17;
     }
     /**
      * {@inheritdoc}

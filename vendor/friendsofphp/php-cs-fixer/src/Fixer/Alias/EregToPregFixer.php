@@ -27,12 +27,12 @@ use PhpCsFixer\Tokenizer\Tokens;
 final class EregToPregFixer extends AbstractFixer
 {
     /**
-     * @var array the list of the ext/ereg function names, their preg equivalent and the preg modifier(s), if any
-     *            all condensed in an array of arrays
+     * @var list<array<int, string>> the list of the ext/ereg function names, their preg equivalent and the preg modifier(s), if any
+     *                               all condensed in an array of arrays
      */
     private static $functions = [['ereg', 'preg_match', ''], ['eregi', 'preg_match', 'i'], ['ereg_replace', 'preg_replace', ''], ['eregi_replace', 'preg_replace', 'i'], ['split', 'preg_split', ''], ['spliti', 'preg_split', 'i']];
     /**
-     * @var array the list of preg delimiters, in order of preference
+     * @var list<string> the list of preg delimiters, in order of preference
      */
     private static $delimiters = ['/', '#', '!'];
     /**
@@ -41,6 +41,15 @@ final class EregToPregFixer extends AbstractFixer
     public function getDefinition() : FixerDefinitionInterface
     {
         return new FixerDefinition('Replace deprecated `ereg` regular expression functions with `preg`.', [new CodeSample("<?php \$x = ereg('[A-Z]');\n")], null, 'Risky if the `ereg` function is overridden.');
+    }
+    /**
+     * {@inheritdoc}
+     *
+     * Must run after NoUselessConcatOperatorFixer.
+     */
+    public function getPriority() : int
+    {
+        return 0;
     }
     /**
      * {@inheritdoc}

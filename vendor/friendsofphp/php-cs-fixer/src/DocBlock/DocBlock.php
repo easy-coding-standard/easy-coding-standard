@@ -25,15 +25,11 @@ use PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis;
 final class DocBlock
 {
     /**
-     * The array of lines.
-     *
-     * @var Line[]
+     * @var list<Line>
      */
     private $lines = [];
     /**
-     * The array of annotations.
-     *
-     * @var null|Annotation[]
+     * @var null|list<Annotation>
      */
     private $annotations;
     /**
@@ -41,9 +37,12 @@ final class DocBlock
      */
     private $namespace;
     /**
-     * @var NamespaceUseAnalysis[]
+     * @var list<NamespaceUseAnalysis>
      */
     private $namespaceUses;
+    /**
+     * @param list<NamespaceUseAnalysis> $namespaceUses
+     */
     public function __construct(string $content, ?NamespaceAnalysis $namespace = null, array $namespaceUses = [])
     {
         foreach (Preg::split('/([^\\n\\r]+\\R*)/', $content, -1, \PREG_SPLIT_NO_EMPTY | \PREG_SPLIT_DELIM_CAPTURE) as $line) {
@@ -52,9 +51,6 @@ final class DocBlock
         $this->namespace = $namespace;
         $this->namespaceUses = $namespaceUses;
     }
-    /**
-     * Get the string representation of object.
-     */
     public function __toString() : string
     {
         return $this->getContent();
@@ -62,7 +58,7 @@ final class DocBlock
     /**
      * Get this docblock's lines.
      *
-     * @return Line[]
+     * @return list<Line>
      */
     public function getLines() : array
     {
@@ -78,7 +74,7 @@ final class DocBlock
     /**
      * Get this docblock's annotations.
      *
-     * @return Annotation[]
+     * @return list<Annotation>
      */
     public function getAnnotations() : array
     {
@@ -146,11 +142,9 @@ final class DocBlock
     /**
      * Get specific types of annotations only.
      *
-     * If none exist, we're returning an empty array.
+     * @param list<string>|string $types
      *
-     * @param string|string[] $types
-     *
-     * @return Annotation[]
+     * @return list<Annotation>
      */
     public function getAnnotationsOfType($types) : array
     {

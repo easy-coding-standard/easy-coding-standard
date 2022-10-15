@@ -123,6 +123,9 @@ final class ClassReferenceNameCasingFixer extends AbstractFixer
             (yield $index);
         }
     }
+    /**
+     * @return array<string, string>
+     */
     private function getClassNames() : array
     {
         static $classes = null;

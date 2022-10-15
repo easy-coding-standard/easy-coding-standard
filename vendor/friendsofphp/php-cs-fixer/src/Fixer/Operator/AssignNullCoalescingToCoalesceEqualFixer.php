@@ -92,6 +92,9 @@ final class AssignNullCoalescingToCoalesceEqualFixer extends AbstractFixer
             }
         }
     }
+    /**
+     * @return array{start: int, end: int}
+     */
     private function getBeforeOperator(Tokens $tokens, int $index) : array
     {
         $controlStructureWithoutBracesTypes = [\T_IF, \T_ELSE, \T_ELSEIF, \T_FOR, \T_FOREACH, \T_WHILE];
@@ -121,6 +124,9 @@ final class AssignNullCoalescingToCoalesceEqualFixer extends AbstractFixer
         $range['start'] = $index;
         return $range;
     }
+    /**
+     * @param array{start: int, end: int} $range
+     */
     private function clearMeaningfulFromRange(Tokens $tokens, array $range) : void
     {
         // $range['end'] must be meaningful!
