@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit5e1749c4e6e9ae6566984757922c0207
+class ComposerStaticInit47de73564439b804b52a88392c3fb525
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -1421,7 +1421,6 @@ class ComposerStaticInit5e1749c4e6e9ae6566984757922c0207
         'Symplify\\CodingStandard\\Enum\\BlockBorderType' => __DIR__ . '/..' . '/symplify/coding-standard/src/Enum/BlockBorderType.php',
         'Symplify\\CodingStandard\\Exception\\ShouldNotHappenException' => __DIR__ . '/..' . '/symplify/coding-standard/src/Exception/ShouldNotHappenException.php',
         'Symplify\\CodingStandard\\Fixer\\AbstractSymplifyFixer' => __DIR__ . '/..' . '/symplify/coding-standard/src/Fixer/AbstractSymplifyFixer.php',
-        'Symplify\\CodingStandard\\Fixer\\Annotation\\DoctrineAnnotationNestedBracketsFixer' => __DIR__ . '/..' . '/symplify/coding-standard/src/Fixer/Annotation/DoctrineAnnotationNestedBracketsFixer.php',
         'Symplify\\CodingStandard\\Fixer\\Annotation\\RemovePHPStormAnnotationFixer' => __DIR__ . '/..' . '/symplify/coding-standard/src/Fixer/Annotation/RemovePHPStormAnnotationFixer.php',
         'Symplify\\CodingStandard\\Fixer\\ArrayNotation\\ArrayListItemNewlineFixer' => __DIR__ . '/..' . '/symplify/coding-standard/src/Fixer/ArrayNotation/ArrayListItemNewlineFixer.php',
         'Symplify\\CodingStandard\\Fixer\\ArrayNotation\\ArrayOpenerAndCloserNewlineFixer' => __DIR__ . '/..' . '/symplify/coding-standard/src/Fixer/ArrayNotation/ArrayOpenerAndCloserNewlineFixer.php',
@@ -1439,8 +1438,6 @@ class ComposerStaticInit5e1749c4e6e9ae6566984757922c0207
         'Symplify\\CodingStandard\\Fixer\\Strict\\BlankLineAfterStrictTypesFixer' => __DIR__ . '/..' . '/symplify/coding-standard/src/Fixer/Strict/BlankLineAfterStrictTypesFixer.php',
         'Symplify\\CodingStandard\\TokenAnalyzer\\ChainMethodCallAnalyzer' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenAnalyzer/ChainMethodCallAnalyzer.php',
         'Symplify\\CodingStandard\\TokenAnalyzer\\DocblockRelatedParamNamesResolver' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenAnalyzer/DocblockRelatedParamNamesResolver.php',
-        'Symplify\\CodingStandard\\TokenAnalyzer\\DoctrineAnnotationElementAnalyzer' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenAnalyzer/DoctrineAnnotationElementAnalyzer.php',
-        'Symplify\\CodingStandard\\TokenAnalyzer\\DoctrineAnnotationNameResolver' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenAnalyzer/DoctrineAnnotationNameResolver.php',
         'Symplify\\CodingStandard\\TokenAnalyzer\\FunctionCallNameMatcher' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenAnalyzer/FunctionCallNameMatcher.php',
         'Symplify\\CodingStandard\\TokenAnalyzer\\HeredocAnalyzer' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenAnalyzer/HeredocAnalyzer.php',
         'Symplify\\CodingStandard\\TokenAnalyzer\\Naming\\MethodNameResolver' => __DIR__ . '/..' . '/symplify/coding-standard/src/TokenAnalyzer/Naming/MethodNameResolver.php',
@@ -1584,9 +1581,9 @@ class ComposerStaticInit5e1749c4e6e9ae6566984757922c0207
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit5e1749c4e6e9ae6566984757922c0207::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit5e1749c4e6e9ae6566984757922c0207::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit5e1749c4e6e9ae6566984757922c0207::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit47de73564439b804b52a88392c3fb525::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit47de73564439b804b52a88392c3fb525::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit47de73564439b804b52a88392c3fb525::$classMap;
 
         }, null, ClassLoader::class);
     }
