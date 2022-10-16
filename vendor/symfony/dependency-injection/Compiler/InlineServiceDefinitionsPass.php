@@ -22,6 +22,9 @@ use ECSPrefix202210\Symfony\Component\DependencyInjection\Reference;
  */
 class InlineServiceDefinitionsPass extends AbstractRecursivePass
 {
+    /**
+     * @var \Symfony\Component\DependencyInjection\Compiler\AnalyzeServiceReferencesPass|null
+     */
     private $analyzingPass;
     /**
      * @var mixed[]
@@ -43,7 +46,10 @@ class InlineServiceDefinitionsPass extends AbstractRecursivePass
      * @var mixed[]
      */
     private $notInlinableIds = [];
-    private $graph = null;
+    /**
+     * @var \Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraph|null
+     */
+    private $graph;
     public function __construct(AnalyzeServiceReferencesPass $analyzingPass = null)
     {
         $this->analyzingPass = $analyzingPass;

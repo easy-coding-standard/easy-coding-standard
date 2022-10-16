@@ -27,7 +27,13 @@ use ECSPrefix202210\Symfony\Component\ExpressionLanguage\Expression;
 class ContainerConfigurator extends AbstractConfigurator
 {
     public const FACTORY = 'container';
+    /**
+     * @var \Symfony\Component\DependencyInjection\ContainerBuilder
+     */
     private $container;
+    /**
+     * @var \Symfony\Component\DependencyInjection\Loader\PhpFileLoader
+     */
     private $loader;
     /**
      * @var mixed[]
@@ -143,17 +149,19 @@ function iterator(array $values) : IteratorArgument
 }
 /**
  * Creates a lazy iterator by tag name.
+ * @param string|mixed[] $exclude
  */
-function tagged_iterator(string $tag, string $indexAttribute = null, string $defaultIndexMethod = null, string $defaultPriorityMethod = null) : TaggedIteratorArgument
+function tagged_iterator(string $tag, string $indexAttribute = null, string $defaultIndexMethod = null, string $defaultPriorityMethod = null, $exclude = []) : TaggedIteratorArgument
 {
-    return new TaggedIteratorArgument($tag, $indexAttribute, $defaultIndexMethod, \false, $defaultPriorityMethod);
+    return new TaggedIteratorArgument($tag, $indexAttribute, $defaultIndexMethod, \false, $defaultPriorityMethod, (array) $exclude);
 }
 /**
  * Creates a service locator by tag name.
+ * @param string|mixed[] $exclude
  */
-function tagged_locator(string $tag, string $indexAttribute = null, string $defaultIndexMethod = null, string $defaultPriorityMethod = null) : ServiceLocatorArgument
+function tagged_locator(string $tag, string $indexAttribute = null, string $defaultIndexMethod = null, string $defaultPriorityMethod = null, $exclude = []) : ServiceLocatorArgument
 {
-    return new ServiceLocatorArgument(new TaggedIteratorArgument($tag, $indexAttribute, $defaultIndexMethod, \true, $defaultPriorityMethod));
+    return new ServiceLocatorArgument(new TaggedIteratorArgument($tag, $indexAttribute, $defaultIndexMethod, \true, $defaultPriorityMethod, (array) $exclude));
 }
 /**
  * Creates an expression.
@@ -182,4 +190,12 @@ function env(string $name) : EnvConfigurator
 function service_closure(string $serviceId) : ClosureReferenceConfigurator
 {
     return new ClosureReferenceConfigurator($serviceId);
+}
+/**
+ * Creates a closure.
+ * @param string|mixed[]|\Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator|\Symfony\Component\ExpressionLanguage\Expression $callable
+ */
+function closure($callable) : InlineServiceConfigurator
+{
+    return (new InlineServiceConfigurator(new Definition('Closure')))->factory(['Closure', 'fromCallable'])->args([$callable]);
 }

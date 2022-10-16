@@ -16,6 +16,9 @@ use ECSPrefix202210\Symfony\Component\Console\Output\OutputInterface;
  */
 final class Cursor
 {
+    /**
+     * @var \Symfony\Component\Console\Output\OutputInterface
+     */
     private $output;
     private $input;
     /**

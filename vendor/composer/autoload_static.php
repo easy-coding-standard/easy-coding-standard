@@ -4,16 +4,16 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit15ec6a972ef2909c35ab239b8d47d317
+class ComposerStaticInit5e1749c4e6e9ae6566984757922c0207
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
-        '23c18046f52bef3eea034657bafda50f' => __DIR__ . '/..' . '/symfony/polyfill-php81/bootstrap.php',
         'ad155f8f1cf0d418fe49e248db8c661b' => __DIR__ . '/..' . '/react/promise/src/functions_include.php',
         'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         '972fda704d680a3a53c68e34e193cb22' => __DIR__ . '/..' . '/react/promise-timer/src/functions_include.php',
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
+        '23c18046f52bef3eea034657bafda50f' => __DIR__ . '/..' . '/symfony/polyfill-php81/bootstrap.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -478,7 +478,10 @@ class ComposerStaticInit15ec6a972ef2909c35ab239b8d47d317
         'ECSPrefix202210\\Symfony\\Component\\Config\\Definition\\Builder\\TreeBuilder' => __DIR__ . '/..' . '/symfony/config/Definition/Builder/TreeBuilder.php',
         'ECSPrefix202210\\Symfony\\Component\\Config\\Definition\\Builder\\ValidationBuilder' => __DIR__ . '/..' . '/symfony/config/Definition/Builder/ValidationBuilder.php',
         'ECSPrefix202210\\Symfony\\Component\\Config\\Definition\\Builder\\VariableNodeDefinition' => __DIR__ . '/..' . '/symfony/config/Definition/Builder/VariableNodeDefinition.php',
+        'ECSPrefix202210\\Symfony\\Component\\Config\\Definition\\ConfigurableInterface' => __DIR__ . '/..' . '/symfony/config/Definition/ConfigurableInterface.php',
+        'ECSPrefix202210\\Symfony\\Component\\Config\\Definition\\Configuration' => __DIR__ . '/..' . '/symfony/config/Definition/Configuration.php',
         'ECSPrefix202210\\Symfony\\Component\\Config\\Definition\\ConfigurationInterface' => __DIR__ . '/..' . '/symfony/config/Definition/ConfigurationInterface.php',
+        'ECSPrefix202210\\Symfony\\Component\\Config\\Definition\\Configurator\\DefinitionConfigurator' => __DIR__ . '/..' . '/symfony/config/Definition/Configurator/DefinitionConfigurator.php',
         'ECSPrefix202210\\Symfony\\Component\\Config\\Definition\\Dumper\\XmlReferenceDumper' => __DIR__ . '/..' . '/symfony/config/Definition/Dumper/XmlReferenceDumper.php',
         'ECSPrefix202210\\Symfony\\Component\\Config\\Definition\\Dumper\\YamlReferenceDumper' => __DIR__ . '/..' . '/symfony/config/Definition/Dumper/YamlReferenceDumper.php',
         'ECSPrefix202210\\Symfony\\Component\\Config\\Definition\\EnumNode' => __DIR__ . '/..' . '/symfony/config/Definition/EnumNode.php',
@@ -491,6 +494,7 @@ class ComposerStaticInit15ec6a972ef2909c35ab239b8d47d317
         'ECSPrefix202210\\Symfony\\Component\\Config\\Definition\\Exception\\UnsetKeyException' => __DIR__ . '/..' . '/symfony/config/Definition/Exception/UnsetKeyException.php',
         'ECSPrefix202210\\Symfony\\Component\\Config\\Definition\\FloatNode' => __DIR__ . '/..' . '/symfony/config/Definition/FloatNode.php',
         'ECSPrefix202210\\Symfony\\Component\\Config\\Definition\\IntegerNode' => __DIR__ . '/..' . '/symfony/config/Definition/IntegerNode.php',
+        'ECSPrefix202210\\Symfony\\Component\\Config\\Definition\\Loader\\DefinitionFileLoader' => __DIR__ . '/..' . '/symfony/config/Definition/Loader/DefinitionFileLoader.php',
         'ECSPrefix202210\\Symfony\\Component\\Config\\Definition\\NodeInterface' => __DIR__ . '/..' . '/symfony/config/Definition/NodeInterface.php',
         'ECSPrefix202210\\Symfony\\Component\\Config\\Definition\\NumericNode' => __DIR__ . '/..' . '/symfony/config/Definition/NumericNode.php',
         'ECSPrefix202210\\Symfony\\Component\\Config\\Definition\\Processor' => __DIR__ . '/..' . '/symfony/config/Definition/Processor.php',
@@ -546,6 +550,7 @@ class ComposerStaticInit15ec6a972ef2909c35ab239b8d47d317
         'ECSPrefix202210\\Symfony\\Component\\Console\\Completion\\CompletionSuggestions' => __DIR__ . '/..' . '/symfony/console/Completion/CompletionSuggestions.php',
         'ECSPrefix202210\\Symfony\\Component\\Console\\Completion\\Output\\BashCompletionOutput' => __DIR__ . '/..' . '/symfony/console/Completion/Output/BashCompletionOutput.php',
         'ECSPrefix202210\\Symfony\\Component\\Console\\Completion\\Output\\CompletionOutputInterface' => __DIR__ . '/..' . '/symfony/console/Completion/Output/CompletionOutputInterface.php',
+        'ECSPrefix202210\\Symfony\\Component\\Console\\Completion\\Output\\FishCompletionOutput' => __DIR__ . '/..' . '/symfony/console/Completion/Output/FishCompletionOutput.php',
         'ECSPrefix202210\\Symfony\\Component\\Console\\Completion\\Suggestion' => __DIR__ . '/..' . '/symfony/console/Completion/Suggestion.php',
         'ECSPrefix202210\\Symfony\\Component\\Console\\ConsoleEvents' => __DIR__ . '/..' . '/symfony/console/ConsoleEvents.php',
         'ECSPrefix202210\\Symfony\\Component\\Console\\Cursor' => __DIR__ . '/..' . '/symfony/console/Cursor.php',
@@ -643,9 +648,12 @@ class ComposerStaticInit15ec6a972ef2909c35ab239b8d47d317
         'ECSPrefix202210\\Symfony\\Component\\DependencyInjection\\Argument\\ServiceLocator' => __DIR__ . '/..' . '/symfony/dependency-injection/Argument/ServiceLocator.php',
         'ECSPrefix202210\\Symfony\\Component\\DependencyInjection\\Argument\\ServiceLocatorArgument' => __DIR__ . '/..' . '/symfony/dependency-injection/Argument/ServiceLocatorArgument.php',
         'ECSPrefix202210\\Symfony\\Component\\DependencyInjection\\Argument\\TaggedIteratorArgument' => __DIR__ . '/..' . '/symfony/dependency-injection/Argument/TaggedIteratorArgument.php',
+        'ECSPrefix202210\\Symfony\\Component\\DependencyInjection\\Attribute\\AsDecorator' => __DIR__ . '/..' . '/symfony/dependency-injection/Attribute/AsDecorator.php',
         'ECSPrefix202210\\Symfony\\Component\\DependencyInjection\\Attribute\\AsTaggedItem' => __DIR__ . '/..' . '/symfony/dependency-injection/Attribute/AsTaggedItem.php',
         'ECSPrefix202210\\Symfony\\Component\\DependencyInjection\\Attribute\\Autoconfigure' => __DIR__ . '/..' . '/symfony/dependency-injection/Attribute/Autoconfigure.php',
         'ECSPrefix202210\\Symfony\\Component\\DependencyInjection\\Attribute\\AutoconfigureTag' => __DIR__ . '/..' . '/symfony/dependency-injection/Attribute/AutoconfigureTag.php',
+        'ECSPrefix202210\\Symfony\\Component\\DependencyInjection\\Attribute\\Autowire' => __DIR__ . '/..' . '/symfony/dependency-injection/Attribute/Autowire.php',
+        'ECSPrefix202210\\Symfony\\Component\\DependencyInjection\\Attribute\\MapDecorated' => __DIR__ . '/..' . '/symfony/dependency-injection/Attribute/MapDecorated.php',
         'ECSPrefix202210\\Symfony\\Component\\DependencyInjection\\Attribute\\TaggedIterator' => __DIR__ . '/..' . '/symfony/dependency-injection/Attribute/TaggedIterator.php',
         'ECSPrefix202210\\Symfony\\Component\\DependencyInjection\\Attribute\\TaggedLocator' => __DIR__ . '/..' . '/symfony/dependency-injection/Attribute/TaggedLocator.php',
         'ECSPrefix202210\\Symfony\\Component\\DependencyInjection\\Attribute\\Target' => __DIR__ . '/..' . '/symfony/dependency-injection/Attribute/Target.php',
@@ -656,6 +664,7 @@ class ComposerStaticInit15ec6a972ef2909c35ab239b8d47d317
         'ECSPrefix202210\\Symfony\\Component\\DependencyInjection\\Compiler\\AnalyzeServiceReferencesPass' => __DIR__ . '/..' . '/symfony/dependency-injection/Compiler/AnalyzeServiceReferencesPass.php',
         'ECSPrefix202210\\Symfony\\Component\\DependencyInjection\\Compiler\\AttributeAutoconfigurationPass' => __DIR__ . '/..' . '/symfony/dependency-injection/Compiler/AttributeAutoconfigurationPass.php',
         'ECSPrefix202210\\Symfony\\Component\\DependencyInjection\\Compiler\\AutoAliasServicePass' => __DIR__ . '/..' . '/symfony/dependency-injection/Compiler/AutoAliasServicePass.php',
+        'ECSPrefix202210\\Symfony\\Component\\DependencyInjection\\Compiler\\AutowireAsDecoratorPass' => __DIR__ . '/..' . '/symfony/dependency-injection/Compiler/AutowireAsDecoratorPass.php',
         'ECSPrefix202210\\Symfony\\Component\\DependencyInjection\\Compiler\\AutowirePass' => __DIR__ . '/..' . '/symfony/dependency-injection/Compiler/AutowirePass.php',
         'ECSPrefix202210\\Symfony\\Component\\DependencyInjection\\Compiler\\AutowireRequiredMethodsPass' => __DIR__ . '/..' . '/symfony/dependency-injection/Compiler/AutowireRequiredMethodsPass.php',
         'ECSPrefix202210\\Symfony\\Component\\DependencyInjection\\Compiler\\AutowireRequiredPropertiesPass' => __DIR__ . '/..' . '/symfony/dependency-injection/Compiler/AutowireRequiredPropertiesPass.php',
@@ -736,9 +745,12 @@ class ComposerStaticInit15ec6a972ef2909c35ab239b8d47d317
         'ECSPrefix202210\\Symfony\\Component\\DependencyInjection\\Exception\\ServiceNotFoundException' => __DIR__ . '/..' . '/symfony/dependency-injection/Exception/ServiceNotFoundException.php',
         'ECSPrefix202210\\Symfony\\Component\\DependencyInjection\\ExpressionLanguage' => __DIR__ . '/..' . '/symfony/dependency-injection/ExpressionLanguage.php',
         'ECSPrefix202210\\Symfony\\Component\\DependencyInjection\\ExpressionLanguageProvider' => __DIR__ . '/..' . '/symfony/dependency-injection/ExpressionLanguageProvider.php',
+        'ECSPrefix202210\\Symfony\\Component\\DependencyInjection\\Extension\\AbstractExtension' => __DIR__ . '/..' . '/symfony/dependency-injection/Extension/AbstractExtension.php',
+        'ECSPrefix202210\\Symfony\\Component\\DependencyInjection\\Extension\\ConfigurableExtensionInterface' => __DIR__ . '/..' . '/symfony/dependency-injection/Extension/ConfigurableExtensionInterface.php',
         'ECSPrefix202210\\Symfony\\Component\\DependencyInjection\\Extension\\ConfigurationExtensionInterface' => __DIR__ . '/..' . '/symfony/dependency-injection/Extension/ConfigurationExtensionInterface.php',
         'ECSPrefix202210\\Symfony\\Component\\DependencyInjection\\Extension\\Extension' => __DIR__ . '/..' . '/symfony/dependency-injection/Extension/Extension.php',
         'ECSPrefix202210\\Symfony\\Component\\DependencyInjection\\Extension\\ExtensionInterface' => __DIR__ . '/..' . '/symfony/dependency-injection/Extension/ExtensionInterface.php',
+        'ECSPrefix202210\\Symfony\\Component\\DependencyInjection\\Extension\\ExtensionTrait' => __DIR__ . '/..' . '/symfony/dependency-injection/Extension/ExtensionTrait.php',
         'ECSPrefix202210\\Symfony\\Component\\DependencyInjection\\Extension\\PrependExtensionInterface' => __DIR__ . '/..' . '/symfony/dependency-injection/Extension/PrependExtensionInterface.php',
         'ECSPrefix202210\\Symfony\\Component\\DependencyInjection\\LazyProxy\\Instantiator\\InstantiatorInterface' => __DIR__ . '/..' . '/symfony/dependency-injection/LazyProxy/Instantiator/InstantiatorInterface.php',
         'ECSPrefix202210\\Symfony\\Component\\DependencyInjection\\LazyProxy\\Instantiator\\RealServiceInstantiator' => __DIR__ . '/..' . '/symfony/dependency-injection/LazyProxy/Instantiator/RealServiceInstantiator.php',
@@ -864,7 +876,6 @@ class ComposerStaticInit15ec6a972ef2909c35ab239b8d47d317
         'ECSPrefix202210\\Symfony\\Contracts\\Service\\ServiceProviderInterface' => __DIR__ . '/..' . '/symfony/service-contracts/ServiceProviderInterface.php',
         'ECSPrefix202210\\Symfony\\Contracts\\Service\\ServiceSubscriberInterface' => __DIR__ . '/..' . '/symfony/service-contracts/ServiceSubscriberInterface.php',
         'ECSPrefix202210\\Symfony\\Contracts\\Service\\ServiceSubscriberTrait' => __DIR__ . '/..' . '/symfony/service-contracts/ServiceSubscriberTrait.php',
-        'ECSPrefix202210\\Symfony\\Contracts\\Service\\Test\\ServiceLocatorTest' => __DIR__ . '/..' . '/symfony/service-contracts/Test/ServiceLocatorTest.php',
         'ECSPrefix202210\\Symplify\\AutowireArrayParameter\\DependencyInjection\\CompilerPass\\AutowireArrayParameterCompilerPass' => __DIR__ . '/..' . '/symplify/autowire-array-parameter/src/DependencyInjection/CompilerPass/AutowireArrayParameterCompilerPass.php',
         'ECSPrefix202210\\Symplify\\AutowireArrayParameter\\DependencyInjection\\DefinitionFinder' => __DIR__ . '/..' . '/symplify/autowire-array-parameter/src/DependencyInjection/DefinitionFinder.php',
         'ECSPrefix202210\\Symplify\\AutowireArrayParameter\\DocBlock\\ParamTypeDocBlockResolver' => __DIR__ . '/..' . '/symplify/autowire-array-parameter/src/DocBlock/ParamTypeDocBlockResolver.php',
@@ -1573,9 +1584,9 @@ class ComposerStaticInit15ec6a972ef2909c35ab239b8d47d317
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit15ec6a972ef2909c35ab239b8d47d317::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit15ec6a972ef2909c35ab239b8d47d317::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit15ec6a972ef2909c35ab239b8d47d317::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit5e1749c4e6e9ae6566984757922c0207::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit5e1749c4e6e9ae6566984757922c0207::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit5e1749c4e6e9ae6566984757922c0207::$classMap;
 
         }, null, ClassLoader::class);
     }

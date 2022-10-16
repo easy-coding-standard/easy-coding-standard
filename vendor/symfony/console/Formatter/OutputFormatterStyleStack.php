@@ -21,6 +21,9 @@ class OutputFormatterStyleStack implements ResetInterface
      * @var OutputFormatterStyleInterface[]
      */
     private $styles = [];
+    /**
+     * @var \Symfony\Component\Console\Formatter\OutputFormatterStyleInterface
+     */
     private $emptyStyle;
     public function __construct(OutputFormatterStyleInterface $emptyStyle = null)
     {

@@ -107,7 +107,7 @@ class ReflectionClassResource implements SelfCheckingResourceInterface
     {
         try {
             $this->classReflector = $this->classReflector ?? new \ReflectionClass($this->className);
-        } catch (\ReflectionException $e) {
+        } catch (\ReflectionException $exception) {
             // the class does not exist anymore
             return \false;
         }
@@ -121,7 +121,7 @@ class ReflectionClassResource implements SelfCheckingResourceInterface
     {
         $attributes = [];
         foreach (\method_exists($class, 'getAttributes') ? $class->getAttributes() : [] as $a) {
-            $attributes[] = [$a->getName(), \PHP_VERSION_ID >= 80100 ? (string) $a : $a->getArguments()];
+            $attributes[] = [$a->getName(), (string) $a];
         }
         (yield \print_r($attributes, \true));
         $attributes = [];
@@ -139,7 +139,7 @@ class ReflectionClassResource implements SelfCheckingResourceInterface
             $defaults = $class->getDefaultProperties();
             foreach ($class->getProperties(\ReflectionProperty::IS_PUBLIC | \ReflectionProperty::IS_PROTECTED) as $p) {
                 foreach (\method_exists($p, 'getAttributes') ? $p->getAttributes() : [] as $a) {
-                    $attributes[] = [$a->getName(), \PHP_VERSION_ID >= 80100 ? (string) $a : $a->getArguments()];
+                    $attributes[] = [$a->getName(), (string) $a];
                 }
                 (yield \print_r($attributes, \true));
                 $attributes = [];
@@ -156,15 +156,14 @@ class ReflectionClassResource implements SelfCheckingResourceInterface
         }, null, $class->name);
         foreach ($class->getMethods(\ReflectionMethod::IS_PUBLIC | \ReflectionMethod::IS_PROTECTED) as $m) {
             foreach (\method_exists($m, 'getAttributes') ? $m->getAttributes() : [] as $a) {
-                $attributes[] = [$a->getName(), \PHP_VERSION_ID >= 80100 ? (string) $a : $a->getArguments()];
+                $attributes[] = [$a->getName(), (string) $a];
             }
             (yield \print_r($attributes, \true));
             $attributes = [];
             $defaults = [];
-            $parametersWithUndefinedConstants = [];
             foreach ($m->getParameters() as $p) {
                 foreach (\method_exists($p, 'getAttributes') ? $p->getAttributes() : [] as $a) {
-                    $attributes[] = [$a->getName(), \PHP_VERSION_ID >= 80100 ? (string) $a : $a->getArguments()];
+                    $attributes[] = [$a->getName(), (string) $a];
                 }
                 (yield \print_r($attributes, \true));
                 $attributes = [];
@@ -172,36 +171,9 @@ class ReflectionClassResource implements SelfCheckingResourceInterface
                     $defaults[$p->name] = null;
                     continue;
                 }
-                if (\PHP_VERSION_ID >= 80100) {
-                    $defaults[$p->name] = (string) $p;
-                    continue;
-                }
-                if (!$p->isDefaultValueConstant() || $defined($p->getDefaultValueConstantName())) {
-                    $defaults[$p->name] = $p->getDefaultValue();
-                    continue;
-                }
-                $defaults[$p->name] = $p->getDefaultValueConstantName();
-                $parametersWithUndefinedConstants[$p->name] = \true;
+                $defaults[$p->name] = (string) $p;
             }
-            if (!$parametersWithUndefinedConstants) {
-                (yield \preg_replace('/^  @@.*/m', '', $m));
-            } else {
-                $t = $m->getReturnType();
-                $stack = [$m->getDocComment(), $m->getName(), $m->isAbstract(), $m->isFinal(), $m->isStatic(), $m->isPublic(), $m->isPrivate(), $m->isProtected(), $m->returnsReference(), $t instanceof \ReflectionNamedType ? (string) $t->allowsNull() . $t->getName() : (string) $t];
-                foreach ($m->getParameters() as $p) {
-                    if (!isset($parametersWithUndefinedConstants[$p->name])) {
-                        $stack[] = (string) $p;
-                    } else {
-                        $t = $p->getType();
-                        $stack[] = $p->isOptional();
-                        $stack[] = $t instanceof \ReflectionNamedType ? (string) $t->allowsNull() . $t->getName() : (string) $t;
-                        $stack[] = $p->isPassedByReference();
-                        $stack[] = $p->isVariadic();
-                        $stack[] = $p->getName();
-                    }
-                }
-                (yield \implode(',', $stack));
-            }
+            (yield \preg_replace('/^  @@.*/m', '', $m));
             (yield \print_r($defaults, \true));
         }
         if ($class->isAbstract() || $class->isInterface() || $class->isTrait()) {

@@ -129,12 +129,12 @@ class GraphvizDumper extends Dumper
         $container = $this->cloneContainer();
         foreach ($container->getDefinitions() as $id => $definition) {
             $class = $definition->getClass();
-            if ('\\' === \substr($class, 0, 1)) {
+            if (\strncmp($class, '\\', \strlen('\\')) === 0) {
                 $class = \substr($class, 1);
             }
             try {
                 $class = $this->container->getParameterBag()->resolveValue($class);
-            } catch (ParameterNotFoundException $e) {
+            } catch (ParameterNotFoundException $exception) {
             }
             $nodes[$id] = ['class' => \str_replace('\\', '\\\\', $class), 'attributes' => \array_merge($this->options['node.definition'], ['style' => $definition->isShared() ? 'filled' : 'dotted'])];
             $container->setDefinition($id, new Definition('stdClass'));

@@ -27,7 +27,13 @@ use ECSPrefix202210\Symfony\Component\DependencyInjection\TypedReference;
  */
 class ResolveInvalidReferencesPass implements CompilerPassInterface
 {
+    /**
+     * @var \Symfony\Component\DependencyInjection\ContainerBuilder
+     */
     private $container;
+    /**
+     * @var \Symfony\Component\DependencyInjection\Exception\RuntimeException
+     */
     private $signalingException;
     /**
      * @var string

@@ -210,7 +210,7 @@ abstract class AbstractUnicodeString extends AbstractString
             if (\false === $match($regexp . 'u', $this->string, $matches, $flags | \PREG_UNMATCHED_AS_NULL, $offset)) {
                 $lastError = \preg_last_error();
                 foreach (\get_defined_constants(\true)['pcre'] as $k => $v) {
-                    if ($lastError === $v && '_ERROR' === \substr($k, -6)) {
+                    if ($lastError === $v && \substr_compare($k, '_ERROR', -\strlen('_ERROR')) === 0) {
                         throw new RuntimeException('Matching failed with ' . $k . '.');
                     }
                 }
@@ -299,7 +299,7 @@ abstract class AbstractUnicodeString extends AbstractString
             if (null === ($string = $replace($fromRegexp . 'u', $to, $this->string))) {
                 $lastError = \preg_last_error();
                 foreach (\get_defined_constants(\true)['pcre'] as $k => $v) {
-                    if ($lastError === $v && '_ERROR' === \substr($k, -6)) {
+                    if ($lastError === $v && \substr_compare($k, '_ERROR', -\strlen('_ERROR')) === 0) {
                         throw new RuntimeException('Matching failed with ' . $k . '.');
                     }
                 }
@@ -430,7 +430,7 @@ abstract class AbstractUnicodeString extends AbstractString
     {
         $width = 0;
         $s = \str_replace(["\x00", "\x05", "\x07"], '', $this->string);
-        if (\false !== \strpos($s, "\r")) {
+        if (\strpos($s, "\r") !== \false) {
             $s = \str_replace(["\r\n", "\r"], "\n", $s);
         }
         if (!$ignoreAnsiDecoration) {

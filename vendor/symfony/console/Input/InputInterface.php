@@ -16,6 +16,9 @@ use ECSPrefix202210\Symfony\Component\Console\Exception\RuntimeException;
  * InputInterface is the interface implemented by all input classes.
  *
  * @author Fabien Potencier <fabien@symfony.com>
+ *
+ * @method string __toString() Returns a stringified representation of the args passed to the command.
+ *                             InputArguments MUST be escaped as well as the InputOption values passed to the command.
  */
 interface InputInterface
 {

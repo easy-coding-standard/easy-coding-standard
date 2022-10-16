@@ -19,6 +19,9 @@ use ECSPrefix202210\Symfony\Component\ExpressionLanguage\Expression;
 class ParametersConfigurator extends AbstractConfigurator
 {
     public const FACTORY = 'parameters';
+    /**
+     * @var \Symfony\Component\DependencyInjection\ContainerBuilder
+     */
     private $container;
     public function __construct(ContainerBuilder $container)
     {

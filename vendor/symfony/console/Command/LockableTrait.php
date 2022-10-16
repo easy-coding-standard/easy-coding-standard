@@ -12,6 +12,7 @@ namespace ECSPrefix202210\Symfony\Component\Console\Command;
 
 use ECSPrefix202210\Symfony\Component\Console\Exception\LogicException;
 use ECSPrefix202210\Symfony\Component\Lock\LockFactory;
+use ECSPrefix202210\Symfony\Component\Lock\LockInterface;
 use ECSPrefix202210\Symfony\Component\Lock\Store\FlockStore;
 use ECSPrefix202210\Symfony\Component\Lock\Store\SemaphoreStore;
 /**
@@ -21,7 +22,10 @@ use ECSPrefix202210\Symfony\Component\Lock\Store\SemaphoreStore;
  */
 trait LockableTrait
 {
-    private $lock = null;
+    /**
+     * @var \Symfony\Component\Lock\LockInterface|null
+     */
+    private $lock;
     /**
      * Locks a command.
      */

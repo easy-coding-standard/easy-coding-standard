@@ -10,6 +10,10 @@
  */
 namespace ECSPrefix202210\Symfony\Component\Console\Input;
 
+use ECSPrefix202210\Symfony\Component\Console\Command\Command;
+use ECSPrefix202210\Symfony\Component\Console\Completion\CompletionInput;
+use ECSPrefix202210\Symfony\Component\Console\Completion\CompletionSuggestions;
+use ECSPrefix202210\Symfony\Component\Console\Completion\Suggestion;
 use ECSPrefix202210\Symfony\Component\Console\Exception\InvalidArgumentException;
 use ECSPrefix202210\Symfony\Component\Console\Exception\LogicException;
 /**
@@ -35,6 +39,10 @@ class InputArgument
      */
     private $default;
     /**
+     * @var mixed[]|\Closure
+     */
+    private $suggestedValues;
+    /**
      * @var string
      */
     private $description;
@@ -43,10 +51,11 @@ class InputArgument
      * @param int|null                         $mode        The argument mode: self::REQUIRED or self::OPTIONAL
      * @param string                           $description A description text
      * @param string|bool|int|float|mixed[] $default The default value (for self::OPTIONAL mode only)
+     * @param array|\Closure(CompletionInput,CompletionSuggestions):list<string|Suggestion> $suggestedValues The values used for input completion
      *
      * @throws InvalidArgumentException When argument mode is not valid
      */
-    public function __construct(string $name, int $mode = null, string $description = '', $default = null)
+    public function __construct(string $name, int $mode = null, string $description = '', $default = null, $suggestedValues = [])
     {
         if (null === $mode) {
             $mode = self::OPTIONAL;
@@ -56,6 +65,7 @@ class InputArgument
         $this->name = $name;
         $this->mode = $mode;
         $this->description = $description;
+        $this->suggestedValues = $suggestedValues;
         $this->setDefault($default);
     }
     /**
@@ -110,6 +120,25 @@ class InputArgument
     public function getDefault()
     {
         return $this->default;
+    }
+    public function hasCompletion() : bool
+    {
+        return [] !== $this->suggestedValues;
+    }
+    /**
+     * Adds suggestions to $suggestions for the current completion input.
+     *
+     * @see Command::complete()
+     */
+    public function complete(CompletionInput $input, CompletionSuggestions $suggestions) : void
+    {
+        $values = $this->suggestedValues;
+        if ($values instanceof \Closure && !\is_array($values = $values($input))) {
+            throw new LogicException(\sprintf('Closure for argument "%s" must return an array. Got "%s".', $this->name, \get_debug_type($values)));
+        }
+        if ($values) {
+            $suggestions->suggestValues($values);
+        }
     }
     /**
      * Returns the description text.

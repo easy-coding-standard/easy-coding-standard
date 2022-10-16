@@ -27,6 +27,9 @@ class OutputFormatter implements WrappableOutputFormatterInterface
      * @var mixed[]
      */
     private $styles = [];
+    /**
+     * @var \Symfony\Component\Console\Formatter\OutputFormatterStyleStack
+     */
     private $styleStack;
     public function __clone()
     {
@@ -224,7 +227,7 @@ class OutputFormatter implements WrappableOutputFormatterInterface
         \preg_match('~(\\n)$~', $text, $matches);
         $text = $prefix . \preg_replace('~([^\\n]{' . $width . '})\\ *~', "\$1\n", $text);
         $text = \rtrim($text, "\n") . ($matches[1] ?? '');
-        if (!$currentLineLength && '' !== $current && "\n" !== \substr($current, -1)) {
+        if (!$currentLineLength && '' !== $current && \substr_compare($current, "\n", -\strlen("\n")) !== 0) {
             $text = "\n" . $text;
         }
         $lines = \explode("\n", $text);

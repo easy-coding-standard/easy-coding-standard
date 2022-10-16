@@ -224,7 +224,7 @@ class ByteString extends AbstractString
             if (\false === $match($regexp, $this->string, $matches, $flags | \PREG_UNMATCHED_AS_NULL, $offset)) {
                 $lastError = \preg_last_error();
                 foreach (\get_defined_constants(\true)['pcre'] as $k => $v) {
-                    if ($lastError === $v && '_ERROR' === \substr($k, -6)) {
+                    if ($lastError === $v && \substr_compare($k, '_ERROR', -\strlen('_ERROR')) === 0) {
                         throw new RuntimeException('Matching failed with ' . $k . '.');
                     }
                 }
@@ -299,7 +299,7 @@ class ByteString extends AbstractString
             if (null === ($string = $replace($fromRegexp, $to, $this->string))) {
                 $lastError = \preg_last_error();
                 foreach (\get_defined_constants(\true)['pcre'] as $k => $v) {
-                    if ($lastError === $v && '_ERROR' === \substr($k, -6)) {
+                    if ($lastError === $v && \substr_compare($k, '_ERROR', -\strlen('_ERROR')) === 0) {
                         throw new RuntimeException('Matching failed with ' . $k . '.');
                     }
                 }

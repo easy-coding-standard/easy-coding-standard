@@ -11,6 +11,7 @@
 namespace ECSPrefix202210\Symfony\Contracts\Service;
 
 use ECSPrefix202210\Psr\Container\ContainerInterface;
+use ECSPrefix202210\Symfony\Contracts\Service\Attribute\Required;
 use ECSPrefix202210\Symfony\Contracts\Service\Attribute\SubscribedService;
 /**
  * Implementation of ServiceSubscriberInterface that determines subscribed services from

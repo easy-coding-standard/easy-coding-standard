@@ -10,7 +10,6 @@
  */
 namespace ECSPrefix202210\Symfony\Component\DependencyInjection\Argument;
 
-use ECSPrefix202210\Symfony\Component\DependencyInjection\Reference;
 /**
  * Represents a closure acting as a service locator.
  *
@@ -18,22 +17,35 @@ use ECSPrefix202210\Symfony\Component\DependencyInjection\Reference;
  */
 class ServiceLocatorArgument implements ArgumentInterface
 {
-    use ReferenceSetArgumentTrait;
-    private $taggedIteratorArgument = null;
     /**
-     * @param Reference[]|TaggedIteratorArgument $values
+     * @var mixed[]
+     */
+    private $values;
+    /**
+     * @var \Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument|null
+     */
+    private $taggedIteratorArgument;
+    /**
+     * @param mixed[]|\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument $values
      */
     public function __construct($values = [])
     {
         if ($values instanceof TaggedIteratorArgument) {
             $this->taggedIteratorArgument = $values;
-            $this->values = [];
-        } else {
-            $this->setValues($values);
+            $values = [];
         }
+        $this->setValues($values);
     }
     public function getTaggedIteratorArgument() : ?TaggedIteratorArgument
     {
         return $this->taggedIteratorArgument;
+    }
+    public function getValues() : array
+    {
+        return $this->values;
+    }
+    public function setValues(array $values)
+    {
+        $this->values = $values;
     }
 }

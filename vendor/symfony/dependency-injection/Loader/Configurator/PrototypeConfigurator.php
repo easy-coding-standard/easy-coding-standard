@@ -33,6 +33,9 @@ class PrototypeConfigurator extends AbstractServiceConfigurator
     use Traits\ShareTrait;
     use Traits\TagTrait;
     public const FACTORY = 'load';
+    /**
+     * @var \Symfony\Component\DependencyInjection\Loader\PhpFileLoader
+     */
     private $loader;
     /**
      * @var string

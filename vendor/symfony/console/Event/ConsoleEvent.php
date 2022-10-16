@@ -22,7 +22,13 @@ use ECSPrefix202210\Symfony\Contracts\EventDispatcher\Event;
 class ConsoleEvent extends Event
 {
     protected $command;
+    /**
+     * @var \Symfony\Component\Console\Input\InputInterface
+     */
     private $input;
+    /**
+     * @var \Symfony\Component\Console\Output\OutputInterface
+     */
     private $output;
     public function __construct(?Command $command, InputInterface $input, OutputInterface $output)
     {

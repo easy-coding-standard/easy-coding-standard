@@ -18,6 +18,9 @@ use ECSPrefix202210\Symfony\Component\DependencyInjection\Exception\RuntimeExcep
  */
 class EnvVarProcessor implements EnvVarProcessorInterface
 {
+    /**
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface
+     */
     private $container;
     /**
      * @var \Traversable
@@ -78,7 +81,7 @@ class EnvVarProcessor implements EnvVarProcessorInterface
                 if ('' !== $env && null !== $env) {
                     return $env;
                 }
-            } catch (EnvNotFoundException $e) {
+            } catch (EnvNotFoundException $exception) {
                 // no-op
             }
             return '' === $default ? null : $this->container->getParameter($default);
@@ -129,7 +132,7 @@ class EnvVarProcessor implements EnvVarProcessorInterface
                     if ($ended || $count === $i) {
                         $loaders = $this->loaders;
                     }
-                } catch (ParameterCircularReferenceException $e) {
+                } catch (ParameterCircularReferenceException $exception) {
                     // skip loaders that need an env var that is not defined
                 } finally {
                     $this->loaders = $loaders;

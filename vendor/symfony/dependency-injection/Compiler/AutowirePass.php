@@ -13,14 +13,18 @@ namespace ECSPrefix202210\Symfony\Component\DependencyInjection\Compiler;
 use ECSPrefix202210\Symfony\Component\Config\Resource\ClassExistenceResource;
 use ECSPrefix202210\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
 use ECSPrefix202210\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Attribute\Autowire;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Attribute\MapDecorated;
 use ECSPrefix202210\Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
 use ECSPrefix202210\Symfony\Component\DependencyInjection\Attribute\TaggedLocator;
 use ECSPrefix202210\Symfony\Component\DependencyInjection\Attribute\Target;
 use ECSPrefix202210\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\ContainerInterface;
 use ECSPrefix202210\Symfony\Component\DependencyInjection\Definition;
 use ECSPrefix202210\Symfony\Component\DependencyInjection\Exception\AutowiringFailedException;
 use ECSPrefix202210\Symfony\Component\DependencyInjection\Exception\RuntimeException;
 use ECSPrefix202210\Symfony\Component\DependencyInjection\LazyProxy\ProxyHelper;
+use ECSPrefix202210\Symfony\Component\DependencyInjection\Reference;
 use ECSPrefix202210\Symfony\Component\DependencyInjection\TypedReference;
 /**
  * Inspects existing service definitions and wires the autowired ones using the type hints of their classes.
@@ -222,7 +226,7 @@ class AutowirePass extends AbstractRecursivePass
                 if ($namedArguments || !$value instanceof $this->defaultArgument) {
                     continue;
                 }
-                if (\PHP_VERSION_ID >= 80100 && (\is_array($value->value) ? $value->value : \is_object($value->value))) {
+                if (\is_array($value->value) ? $value->value : \is_object($value->value)) {
                     unset($arguments[$j]);
                     $namedArguments = $value->names;
                 } else {
@@ -257,12 +261,26 @@ class AutowirePass extends AbstractRecursivePass
                 foreach (\method_exists($parameter, 'getAttributes') ? $parameter->getAttributes() : [] as $attribute) {
                     if (TaggedIterator::class === $attribute->getName()) {
                         $attribute = $attribute->newInstance();
-                        $arguments[$index] = new TaggedIteratorArgument($attribute->tag, $attribute->indexAttribute, $attribute->defaultIndexMethod, \false, $attribute->defaultPriorityMethod);
+                        $arguments[$index] = new TaggedIteratorArgument($attribute->tag, $attribute->indexAttribute, $attribute->defaultIndexMethod, \false, $attribute->defaultPriorityMethod, (array) $attribute->exclude);
                         break;
                     }
                     if (TaggedLocator::class === $attribute->getName()) {
                         $attribute = $attribute->newInstance();
-                        $arguments[$index] = new ServiceLocatorArgument(new TaggedIteratorArgument($attribute->tag, $attribute->indexAttribute, $attribute->defaultIndexMethod, \true, $attribute->defaultPriorityMethod));
+                        $arguments[$index] = new ServiceLocatorArgument(new TaggedIteratorArgument($attribute->tag, $attribute->indexAttribute, $attribute->defaultIndexMethod, \true, $attribute->defaultPriorityMethod, (array) $attribute->exclude));
+                        break;
+                    }
+                    if (Autowire::class === $attribute->getName()) {
+                        $value = $attribute->newInstance()->value;
+                        $value = $this->container->getParameterBag()->resolveValue($value);
+                        if ($value instanceof Reference && $parameter->allowsNull()) {
+                            $value = new Reference($value, ContainerInterface::NULL_ON_INVALID_REFERENCE);
+                        }
+                        $arguments[$index] = $value;
+                        break;
+                    }
+                    if (MapDecorated::class === $attribute->getName()) {
+                        $definition = $this->container->getDefinition($this->currentId);
+                        $arguments[$index] = new Reference($definition->innerServiceId ?? $this->currentId . '.inner', $definition->decorationOnInvalid ?? ContainerInterface::NULL_ON_INVALID_REFERENCE);
                         break;
                     }
                 }

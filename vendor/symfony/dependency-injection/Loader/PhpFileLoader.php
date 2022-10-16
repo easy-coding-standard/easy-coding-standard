@@ -32,6 +32,9 @@ use ECSPrefix202210\Symfony\Component\DependencyInjection\Loader\Configurator\Co
 class PhpFileLoader extends FileLoader
 {
     protected $autoRegisterAliasesForSinglyImplementedInterfaces = \false;
+    /**
+     * @var \Symfony\Component\Config\Builder\ConfigBuilderGeneratorInterface|null
+     */
     private $generator;
     public function __construct(ContainerBuilder $container, FileLocatorInterface $locator, string $env = null, ConfigBuilderGeneratorInterface $generator = null)
     {
@@ -88,9 +91,7 @@ class PhpFileLoader extends FileLoader
      */
     private function executeCallback(callable $callback, ContainerConfigurator $containerConfigurator, string $path)
     {
-        if (!$callback instanceof \Closure) {
-            $callback = \Closure::fromCallable($callback);
-        }
+        $callback = \Closure::fromCallable($callback);
         $arguments = [];
         $configBuilders = [];
         $r = new \ReflectionFunction($callback);
@@ -156,12 +157,12 @@ class PhpFileLoader extends FileLoader
             return new $namespace();
         }
         // If it does not start with Symfony\Config\ we dont know how to handle this
-        if ('Symfony\\Config\\' !== \substr($namespace, 0, 15)) {
+        if (\strncmp($namespace, 'Symfony\\Config\\', \strlen('Symfony\\Config\\')) !== 0) {
             throw new InvalidArgumentException(\sprintf('Could not find or generate class "%s".', $namespace));
         }
         // Try to get the extension alias
         $alias = Container::underscore(\substr($namespace, 15, -6));
-        if (\false !== \strpos($alias, '\\')) {
+        if (\strpos($alias, '\\') !== \false) {
             throw new InvalidArgumentException('You can only use "root" ConfigBuilders from "Symfony\\Config\\" namespace. Nested classes like "Symfony\\Config\\Framework\\CacheConfig" cannot be used.');
         }
         if (!$this->container->hasExtension($alias)) {

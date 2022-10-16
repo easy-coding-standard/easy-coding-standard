@@ -148,7 +148,7 @@ class Filesystem
                     if (\file_exists($tmpName)) {
                         try {
                             self::doRemove([$tmpName], \true);
-                        } catch (IOException $e) {
+                        } catch (IOException $exception) {
                         }
                     }
                     if (!\file_exists($tmpName) && self::box('rename', $file, $tmpName)) {
@@ -158,8 +158,8 @@ class Filesystem
                         $origFile = null;
                     }
                 }
-                $files = new \FilesystemIterator($file, \FilesystemIterator::CURRENT_AS_PATHNAME | \FilesystemIterator::SKIP_DOTS);
-                self::doRemove(\iterator_to_array($files, \true), \true);
+                $filesystemIterator = new \FilesystemIterator($file, \FilesystemIterator::CURRENT_AS_PATHNAME | \FilesystemIterator::SKIP_DOTS);
+                self::doRemove(\iterator_to_array($filesystemIterator, \true), \true);
                 if (!self::box('rmdir', $file) && \file_exists($file) && !$isRecursive) {
                     $lastError = self::$lastError;
                     if (null !== $origFile && self::box('rename', $file, $origFile)) {

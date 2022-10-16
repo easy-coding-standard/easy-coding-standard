@@ -170,26 +170,24 @@ class GlobResource implements \IteratorAggregate, SelfCheckingResourceInterface
         } else {
             $pattern = $this->pattern;
         }
-        $finder = new Finder();
         $regex = Glob::toRegex($pattern);
         if ($this->recursive) {
             $regex = \substr_replace($regex, '(/|$)', -2, 1);
         }
         $prefixLen = \strlen($prefix);
-        foreach ($finder->followLinks()->sortByName()->in($prefix) as $path => $info) {
-            $normalizedPath = \str_replace('\\', '/', $path);
+        yield from (new Finder())->followLinks()->filter(function (\SplFileInfo $info) use($regex, $prefixLen, $prefix) {
+            $normalizedPath = \str_replace('\\', '/', $info->getPathname());
             if (!\preg_match($regex, \substr($normalizedPath, $prefixLen)) || !$info->isFile()) {
-                continue;
+                return \false;
             }
             if ($this->excludedPrefixes) {
                 do {
                     if (isset($this->excludedPrefixes[$dirPath = $normalizedPath])) {
-                        continue 2;
+                        return \false;
                     }
                 } while ($prefix !== $dirPath && $dirPath !== ($normalizedPath = \dirname($dirPath)));
             }
-            (yield $path => $info);
-        }
+        })->sortByName()->in($prefix);
     }
     private function computeHash() : string
     {

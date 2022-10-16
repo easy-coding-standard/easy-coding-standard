@@ -21,6 +21,9 @@ use ECSPrefix202210\Symfony\Component\DependencyInjection\ContainerBuilder;
  */
 class ClosureLoader extends Loader
 {
+    /**
+     * @var \Symfony\Component\DependencyInjection\ContainerBuilder
+     */
     private $container;
     public function __construct(ContainerBuilder $container, string $env = null)
     {

@@ -22,6 +22,9 @@ use ECSPrefix202210\Symfony\Component\Console\Formatter\OutputFormatterInterface
  */
 class NullOutput implements OutputInterface
 {
+    /**
+     * @var \Symfony\Component\Console\Formatter\NullOutputFormatter
+     */
     private $formatter;
     /**
      * {@inheritdoc}

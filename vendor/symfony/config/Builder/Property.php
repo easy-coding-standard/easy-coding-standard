@@ -60,11 +60,11 @@ class Property
     {
         $this->array = \false;
         $this->type = $type;
-        if ('|scalar' === \substr($type, -7)) {
+        if (\substr_compare($type, '|scalar', -\strlen('|scalar')) === 0) {
             $this->scalarsAllowed = \true;
             $this->type = $type = \substr($type, 0, -7);
         }
-        if ('[]' === \substr($type, -2)) {
+        if (\substr_compare($type, '[]', -\strlen('[]')) === 0) {
             $this->array = \true;
             $this->type = \substr($type, 0, -2);
         }

@@ -158,7 +158,7 @@ class PrototypedArrayNode extends ArrayNode
             $prototype = $this->getPrototypeForChild($k);
             try {
                 $value[$k] = $prototype->finalize($v);
-            } catch (UnsetKeyException $e) {
+            } catch (UnsetKeyException $exception) {
                 unset($value[$k]);
             }
         }

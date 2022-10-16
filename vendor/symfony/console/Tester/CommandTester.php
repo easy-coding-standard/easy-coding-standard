@@ -21,6 +21,9 @@ use ECSPrefix202210\Symfony\Component\Console\Input\ArrayInput;
 class CommandTester
 {
     use TesterTrait;
+    /**
+     * @var \Symfony\Component\Console\Command\Command
+     */
     private $command;
     public function __construct(Command $command)
     {

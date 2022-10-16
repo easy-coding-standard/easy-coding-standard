@@ -22,7 +22,7 @@ use ECSPrefix202210\Symfony\Contracts\Service\ServiceSubscriberInterface;
  * @author Robin Chalas <robin.chalas@gmail.com>
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class ServiceLocator implements ServiceProviderInterface
+class ServiceLocator implements ServiceProviderInterface, \Countable
 {
     use ServiceLocatorTrait {
         get as private doGet;
@@ -31,7 +31,10 @@ class ServiceLocator implements ServiceProviderInterface
      * @var string|null
      */
     private $externalId;
-    private $container = null;
+    /**
+     * @var \Symfony\Component\DependencyInjection\Container|null
+     */
+    private $container;
     /**
      * {@inheritdoc}
      * @return mixed
@@ -50,7 +53,6 @@ class ServiceLocator implements ServiceProviderInterface
                 $message = \sprintf('Cannot resolve %s: %s', $what, $message);
             }
             $r = new \ReflectionProperty($e, 'message');
-            $r->setAccessible(\true);
             $r->setValue($e, $message);
             throw $e;
         }
@@ -69,6 +71,10 @@ class ServiceLocator implements ServiceProviderInterface
         $locator->externalId = $externalId;
         $locator->container = $container;
         return $locator;
+    }
+    public function count() : int
+    {
+        return \count($this->getProvidedServices());
     }
     private function createNotFoundException(string $id) : NotFoundExceptionInterface
     {

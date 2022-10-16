@@ -25,6 +25,9 @@ use ECSPrefix202210\Symfony\Component\Console\Input\ArrayInput;
 class ApplicationTester
 {
     use TesterTrait;
+    /**
+     * @var \Symfony\Component\Console\Application
+     */
     private $application;
     public function __construct(Application $application)
     {

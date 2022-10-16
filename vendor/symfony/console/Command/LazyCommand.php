@@ -13,6 +13,7 @@ namespace ECSPrefix202210\Symfony\Component\Console\Command;
 use ECSPrefix202210\Symfony\Component\Console\Application;
 use ECSPrefix202210\Symfony\Component\Console\Completion\CompletionInput;
 use ECSPrefix202210\Symfony\Component\Console\Completion\CompletionSuggestions;
+use ECSPrefix202210\Symfony\Component\Console\Completion\Suggestion;
 use ECSPrefix202210\Symfony\Component\Console\Helper\HelperSet;
 use ECSPrefix202210\Symfony\Component\Console\Input\InputDefinition;
 use ECSPrefix202210\Symfony\Component\Console\Input\InputInterface;
@@ -22,6 +23,9 @@ use ECSPrefix202210\Symfony\Component\Console\Output\OutputInterface;
  */
 final class LazyCommand extends Command
 {
+    /**
+     * @var \Closure|\Symfony\Component\Console\Command\Command
+     */
     private $command;
     /**
      * @var bool|null
@@ -96,22 +100,30 @@ final class LazyCommand extends Command
         return $this->getCommand()->getNativeDefinition();
     }
     /**
+     * {@inheritdoc}
+     *
+     * @param array|\Closure(CompletionInput,CompletionSuggestions):list<string|Suggestion> $suggestedValues The values used for input completion
      * @param mixed $default
      * @return $this
      */
     public function addArgument(string $name, int $mode = null, string $description = '', $default = null)
     {
-        $this->getCommand()->addArgument($name, $mode, $description, $default);
+        $suggestedValues = 5 <= \func_num_args() ? \func_get_arg(4) : [];
+        $this->getCommand()->addArgument($name, $mode, $description, $default, $suggestedValues);
         return $this;
     }
     /**
+     * {@inheritdoc}
+     *
+     * @param array|\Closure(CompletionInput,CompletionSuggestions):list<string|Suggestion> $suggestedValues The values used for input completion
      * @param string|mixed[] $shortcut
      * @param mixed $default
      * @return $this
      */
     public function addOption(string $name, $shortcut = null, int $mode = null, string $description = '', $default = null)
     {
-        $this->getCommand()->addOption($name, $shortcut, $mode, $description, $default);
+        $suggestedValues = 6 <= \func_num_args() ? \func_get_arg(5) : [];
+        $this->getCommand()->addOption($name, $shortcut, $mode, $description, $default, $suggestedValues);
         return $this;
     }
     /**

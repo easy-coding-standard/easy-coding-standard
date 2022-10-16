@@ -12,10 +12,14 @@ namespace ECSPrefix202210\Symfony\Component\Config\Definition\Dumper;
 
 use ECSPrefix202210\Symfony\Component\Config\Definition\ArrayNode;
 use ECSPrefix202210\Symfony\Component\Config\Definition\BaseNode;
+use ECSPrefix202210\Symfony\Component\Config\Definition\BooleanNode;
 use ECSPrefix202210\Symfony\Component\Config\Definition\ConfigurationInterface;
 use ECSPrefix202210\Symfony\Component\Config\Definition\EnumNode;
+use ECSPrefix202210\Symfony\Component\Config\Definition\FloatNode;
+use ECSPrefix202210\Symfony\Component\Config\Definition\IntegerNode;
 use ECSPrefix202210\Symfony\Component\Config\Definition\NodeInterface;
 use ECSPrefix202210\Symfony\Component\Config\Definition\PrototypedArrayNode;
+use ECSPrefix202210\Symfony\Component\Config\Definition\ScalarNode;
 /**
  * Dumps an XML reference configuration for the given configuration/node instance.
  *
@@ -88,21 +92,22 @@ class XmlReferenceDumper
                         $prototypeValue = $prototype->getDefaultValue();
                     } else {
                         switch (\get_class($prototype)) {
-                            case 'Symfony\\Component\\Config\\Definition\\ScalarNode':
+                            case ScalarNode::class:
                                 $prototypeValue = 'scalar value';
                                 break;
-                            case 'Symfony\\Component\\Config\\Definition\\FloatNode':
-                            case 'Symfony\\Component\\Config\\Definition\\IntegerNode':
+                            case FloatNode::class:
+                            case IntegerNode::class:
                                 $prototypeValue = 'numeric value';
                                 break;
-                            case 'Symfony\\Component\\Config\\Definition\\BooleanNode':
+                            case BooleanNode::class:
                                 $prototypeValue = 'true|false';
                                 break;
-                            case 'Symfony\\Component\\Config\\Definition\\EnumNode':
+                            case EnumNode::class:
                                 $prototypeValue = \implode('|', \array_map('json_encode', $prototype->getValues()));
                                 break;
                             default:
                                 $prototypeValue = 'value';
+                                break;
                         }
                     }
                 }

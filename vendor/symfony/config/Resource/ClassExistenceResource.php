@@ -200,7 +200,6 @@ class ClassExistenceResource implements SelfCheckingResourceInterface
             foreach ($props as $p => $v) {
                 if (null !== $v) {
                     $r = new \ReflectionProperty(\Exception::class, $p);
-                    $r->setAccessible(\true);
                     $r->setValue($e, $v);
                 }
             }

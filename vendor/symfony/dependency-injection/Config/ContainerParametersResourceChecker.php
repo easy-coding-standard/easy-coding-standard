@@ -18,6 +18,9 @@ use ECSPrefix202210\Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class ContainerParametersResourceChecker implements ResourceCheckerInterface
 {
+    /**
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface
+     */
     private $container;
     public function __construct(ContainerInterface $container)
     {

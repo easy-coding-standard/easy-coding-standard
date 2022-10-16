@@ -26,6 +26,9 @@ class ConsoleLogger extends AbstractLogger
 {
     public const INFO = 'info';
     public const ERROR = 'error';
+    /**
+     * @var \Symfony\Component\Console\Output\OutputInterface
+     */
     private $output;
     /**
      * @var mixed[]

@@ -78,7 +78,7 @@ class DirectoryResource implements SelfCheckingResourceInterface
             // for broken links
             try {
                 $fileMTime = $file->getMTime();
-            } catch (\RuntimeException $e) {
+            } catch (\RuntimeException $exception) {
                 continue;
             }
             // early return if a file's mtime exceeds the passed timestamp

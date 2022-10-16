@@ -67,7 +67,7 @@ class AutowireRequiredMethodsPass extends AbstractRecursivePass
                 }
                 try {
                     $r = $r->getPrototype();
-                } catch (\ReflectionException $e) {
+                } catch (\ReflectionException $exception) {
                     break;
                     // method has no prototype
                 }

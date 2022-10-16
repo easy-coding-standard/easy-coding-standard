@@ -22,6 +22,9 @@ use ECSPrefix202210\Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class ErrorListener implements EventSubscriberInterface
 {
+    /**
+     * @var \Psr\Log\LoggerInterface|null
+     */
     private $logger;
     public function __construct(LoggerInterface $logger = null)
     {
@@ -60,7 +63,7 @@ class ErrorListener implements EventSubscriberInterface
     }
     private static function getInputString(ConsoleEvent $event) : ?string
     {
-        $commandName = $event->getCommand() ? $event->getCommand()->getName() : null;
+        $commandName = ($getCommand = $event->getCommand()) ? $getCommand->getName() : null;
         $input = $event->getInput();
         if ($input instanceof \Stringable) {
             if ($commandName) {

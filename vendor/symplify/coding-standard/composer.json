@@ -3,19 +3,18 @@
     "description": "Set of Symplify rules for PHP_CodeSniffer and PHP CS Fixer.",
     "license": "MIT",
     "require": {
-        "php": ">=8.0",
+        "php": ">=8.1",
         "nette\/utils": "^3.2",
-        "friendsofphp\/php-cs-fixer": "^3.11",
+        "friendsofphp\/php-cs-fixer": "^3.12",
         "symplify\/symplify-kernel": "dev-main",
         "symplify\/package-builder": "dev-main",
         "symplify\/autowire-array-parameter": "dev-main",
         "symplify\/rule-doc-generator-contracts": "dev-main"
     },
     "require-dev": {
-        "doctrine\/orm": "^2.13",
         "symplify\/symplify-kernel": "dev-main",
         "symplify\/smart-file-system": "dev-main",
-        "symfony\/framework-bundle": "^6.0.10",
+        "symfony\/framework-bundle": "^6.1",
         "symplify\/easy-coding-standard": "dev-main",
         "phpunit\/phpunit": "^9.5.23",
         "symplify\/rule-doc-generator": "dev-main",

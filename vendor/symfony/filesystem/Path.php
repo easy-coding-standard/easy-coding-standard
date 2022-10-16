@@ -495,7 +495,7 @@ final class Path
      */
     public static function isLocal(string $path) : bool
     {
-        return '' !== $path && \false === \strpos($path, '://');
+        return '' !== $path && \strpos($path, '://') === \false;
     }
     /**
      * Returns the longest common base path in canonical form of a set of paths or
@@ -553,7 +553,7 @@ final class Path
                 }
                 // Prevent false positives for common prefixes
                 // see isBasePath()
-                if (0 === \strpos($path . '/', $basePath . '/')) {
+                if (\strncmp($path . '/', $basePath . '/', \strlen($basePath . '/')) === 0) {
                     // next path
                     continue 2;
                 }
@@ -576,7 +576,7 @@ final class Path
             if (null === $finalPath) {
                 // For first part we keep slashes, like '/top', 'C:\' or 'phar://'
                 $finalPath = $path;
-                $wasScheme = \false !== \strpos($path, '://');
+                $wasScheme = \strpos($path, '://') !== \false;
                 continue;
             }
             // Only add slash if previous part didn't end with '/' or '\'
@@ -621,7 +621,7 @@ final class Path
         // Don't append a slash for the root "/", because then that root
         // won't be discovered as common prefix ("//" is not a prefix of
         // "/foobar/").
-        return 0 === \strpos($ofPath . '/', \rtrim($basePath, '/') . '/');
+        return \strncmp($ofPath . '/', \rtrim($basePath, '/') . '/', \strlen(\rtrim($basePath, '/') . '/')) === 0;
     }
     /**
      * @return string[]
@@ -679,7 +679,7 @@ final class Path
         }
         $length = \strlen($path);
         // Remove and remember root directory
-        if (0 === \strpos($path, '/')) {
+        if (\strncmp($path, '/', \strlen('/')) === 0) {
             $root .= '/';
             $path = $length > 1 ? \substr($path, 1) : '';
         } elseif ($length > 1 && \ctype_alpha($path[0]) && ':' === $path[1]) {

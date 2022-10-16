@@ -18,6 +18,9 @@ use ECSPrefix202210\Symfony\Component\Console\Output\OutputInterface;
  */
 class GithubActionReporter
 {
+    /**
+     * @var \Symfony\Component\Console\Output\OutputInterface
+     */
     private $output;
     /**
      * @see https://github.com/actions/toolkit/blob/5e5e1b7aacba68a53836a34db4a288c3c1c1585b/packages/core/src/command.ts#L80-L85

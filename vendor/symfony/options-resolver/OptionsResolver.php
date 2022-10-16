@@ -957,7 +957,7 @@ class OptionsResolver implements Options
      */
     private function verifyTypes(string $type, $value, array &$invalidTypes, int $level = 0) : bool
     {
-        if (\is_array($value) && '[]' === \substr($type, -2)) {
+        if (\is_array($value) && \substr_compare($type, '[]', -\strlen('[]')) === 0) {
             $type = \substr($type, 0, -2);
             $valid = \true;
             foreach ($value as $val) {

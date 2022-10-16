@@ -16,6 +16,9 @@ use ECSPrefix202210\Symfony\Component\DependencyInjection\Container;
  */
 class ContainerBag extends FrozenParameterBag implements ContainerBagInterface
 {
+    /**
+     * @var \Symfony\Component\DependencyInjection\Container
+     */
     private $container;
     public function __construct(Container $container)
     {
