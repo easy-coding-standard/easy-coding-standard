@@ -782,7 +782,7 @@ class OptionsResolver implements Options
         // Shortcut for resolved options
         if (isset($this->resolved[$option]) || \array_key_exists($option, $this->resolved)) {
             if ($triggerDeprecation && isset($this->deprecated[$option]) && (isset($this->given[$option]) || $this->calling) && \is_string($this->deprecated[$option]['message'])) {
-                trigger_deprecation($this->deprecated[$option]['package'], $this->deprecated[$option]['version'], \strtr($this->deprecated[$option]['message'], ['%name%' => $option]));
+                \ECSPrefix202210\trigger_deprecation($this->deprecated[$option]['package'], $this->deprecated[$option]['version'], \strtr($this->deprecated[$option]['message'], ['%name%' => $option]));
             }
             return $this->resolved[$option];
         }
@@ -924,7 +924,7 @@ class OptionsResolver implements Options
                 }
             }
             if ('' !== $message) {
-                trigger_deprecation($deprecation['package'], $deprecation['version'], \strtr($message, ['%name%' => $option]));
+                \ECSPrefix202210\trigger_deprecation($deprecation['package'], $deprecation['version'], \strtr($message, ['%name%' => $option]));
             }
         }
         // Normalize the validated option
