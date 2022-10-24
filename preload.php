@@ -10,3 +10,4 @@ require_once __DIR__ . '/vendor/psr/container/src/ContainerInterface.php';
 require_once __DIR__ . '/vendor/symplify/rule-doc-generator-contracts/src/ValueObject/RuleDefinition.php';
 require_once __DIR__ . '/vendor/symplify/rule-doc-generator-contracts/src/Contract/DocumentedRuleInterface.php';
 require_once __DIR__ . '/vendor/react/promise/src/functions.php';
+require_once __DIR__ . '/symfony/deprecation-contracts/function.php';
