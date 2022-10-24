@@ -113,7 +113,7 @@ class Command
         if ($class !== $r->class || null === static::$defaultName) {
             return null;
         }
-        trigger_deprecation('symfony/console', '6.1', 'Relying on the static property "$defaultName" for setting a command name is deprecated. Add the "%s" attribute to the "%s" class instead.', AsCommand::class, static::class);
+        \ECSPrefix202210\trigger_deprecation('symfony/console', '6.1', 'Relying on the static property "$defaultName" for setting a command name is deprecated. Add the "%s" attribute to the "%s" class instead.', AsCommand::class, static::class);
         return static::$defaultName;
     }
     public static function getDefaultDescription() : ?string
@@ -126,7 +126,7 @@ class Command
         if ($class !== $r->class || null === static::$defaultDescription) {
             return null;
         }
-        trigger_deprecation('symfony/console', '6.1', 'Relying on the static property "$defaultDescription" for setting a command description is deprecated. Add the "%s" attribute to the "%s" class instead.', AsCommand::class, static::class);
+        \ECSPrefix202210\trigger_deprecation('symfony/console', '6.1', 'Relying on the static property "$defaultDescription" for setting a command description is deprecated. Add the "%s" attribute to the "%s" class instead.', AsCommand::class, static::class);
         return static::$defaultDescription;
     }
     /**
