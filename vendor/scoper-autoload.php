@@ -10,12 +10,4 @@ if (!class_exists('Symplify\SmartFileSystem\SmartFileInfo', false) && !interface
     spl_autoload_call('ECSPrefix202210\Symplify\SmartFileSystem\SmartFileInfo');
 }
 
-// Exposed functions. For more information see:
-// https://github.com/humbug/php-scoper/blob/master/docs/configuration.md#exposing-functions
-if (!function_exists('trigger_deprecation')) {
-    function trigger_deprecation() {
-        return \ECSPrefix202210\trigger_deprecation(...func_get_args());
-    }
-}
-
 return $loader;
