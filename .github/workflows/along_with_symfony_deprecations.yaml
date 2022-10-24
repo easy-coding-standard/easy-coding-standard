@@ -10,14 +10,14 @@ jobs:
             fail-fast: false
 
         steps:
-            -   uses: actions/checkout@v2
-
             -
                 uses: shivammathur/setup-php@v2
                 with:
                     php-version: 8.1
                     coverage: none
 
+            -   run: composer require symplify/easy-coding-standard
+
             -   run: composer require symfony/deprecation-contracts
 
-            -   run: php bin/ecs init --ansi --debug
+            -   run: vendor/bin/ecs init --ansi --debug
