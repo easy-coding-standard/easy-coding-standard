@@ -8,7 +8,7 @@
         "symfony\/dependency-injection": "^6.1"
     },
     "require-dev": {
-        "phpunit\/phpunit": "^9.5.23",
+        "phpunit\/phpunit": "^9.5.25",
         "symplify\/package-builder": "dev-main",
         "symplify\/symplify-kernel": "dev-main"
     },
