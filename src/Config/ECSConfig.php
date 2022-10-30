@@ -34,15 +34,6 @@ final class ECSConfig extends ContainerConfigurator
         $parameters->set(Option::SKIP, $skips);
     }
     /**
-     * @deprecated This feature is deprecated, as hard to configure right and confusing. Use skip() instead
-     * @param mixed[] $onlys
-     */
-    public function only(array $onlys) : void
-    {
-        echo 'The option only() is deprecated as error prone and hard to do right. Use skip() with configuration instead.';
-        \sleep(3);
-    }
-    /**
      * @param string[] $sets
      */
     public function sets(array $sets) : void
