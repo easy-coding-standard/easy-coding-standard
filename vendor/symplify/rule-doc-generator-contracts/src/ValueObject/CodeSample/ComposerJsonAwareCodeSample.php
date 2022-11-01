@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202210\Symplify\RuleDocGenerator\ValueObject\CodeSample;
+namespace ECSPrefix202211\Symplify\RuleDocGenerator\ValueObject\CodeSample;
 
-use ECSPrefix202210\Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample;
+use ECSPrefix202211\Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample;
 final class ComposerJsonAwareCodeSample extends AbstractCodeSample
 {
     /**

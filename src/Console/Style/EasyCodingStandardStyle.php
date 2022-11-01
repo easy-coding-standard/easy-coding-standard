@@ -3,14 +3,14 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Style;
 
-use ECSPrefix202210\Symfony\Component\Console\Helper\ProgressBar;
-use ECSPrefix202210\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix202210\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix202210\Symfony\Component\Console\Style\SymfonyStyle;
-use ECSPrefix202210\Symfony\Component\Console\Terminal;
+use ECSPrefix202211\Symfony\Component\Console\Helper\ProgressBar;
+use ECSPrefix202211\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix202211\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix202211\Symfony\Component\Console\Style\SymfonyStyle;
+use ECSPrefix202211\Symfony\Component\Console\Terminal;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
-use ECSPrefix202210\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
-use ECSPrefix202210\Symplify\PackageBuilder\Reflection\PrivatesCaller;
+use ECSPrefix202211\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use ECSPrefix202211\Symplify\PackageBuilder\Reflection\PrivatesCaller;
 final class EasyCodingStandardStyle extends SymfonyStyle
 {
     /**

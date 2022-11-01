@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202210\Symfony\Component\Config\Definition\Builder;
+namespace ECSPrefix202211\Symfony\Component\Config\Definition\Builder;
 
-use ECSPrefix202210\Symfony\Component\Config\Definition\IntegerNode;
+use ECSPrefix202211\Symfony\Component\Config\Definition\IntegerNode;
 /**
  * This class provides a fluent interface for defining an integer node.
  *
@@ -21,7 +21,7 @@ class IntegerNodeDefinition extends NumericNodeDefinition
     /**
      * Instantiates a Node.
      */
-    protected function instantiateNode() : \ECSPrefix202210\Symfony\Component\Config\Definition\ScalarNode
+    protected function instantiateNode() : \ECSPrefix202211\Symfony\Component\Config\Definition\ScalarNode
     {
         return new IntegerNode($this->name, $this->parent, $this->min, $this->max, $this->pathSeparator);
     }

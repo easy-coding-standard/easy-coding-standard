@@ -5,7 +5,7 @@ namespace Symplify\EasyCodingStandard\Skipper\Matcher;
 
 use Symplify\EasyCodingStandard\Skipper\FileSystem\FnMatchPathNormalizer;
 use Symplify\EasyCodingStandard\Skipper\Fnmatcher;
-use ECSPrefix202210\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix202211\Symplify\SmartFileSystem\SmartFileInfo;
 final class FileInfoMatcher
 {
     /**

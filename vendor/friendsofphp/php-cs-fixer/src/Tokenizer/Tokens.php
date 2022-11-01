@@ -58,7 +58,7 @@ class Tokens extends \SplFixedArray
      */
     private $blockEndCache = [];
     /**
-     * crc32 hash of code string.
+     * A MD5 hash of the code string.
      * @var string|null
      */
     private $codeHash;
@@ -645,7 +645,7 @@ class Tokens extends \SplFixedArray
      * Insert a slices or individual Tokens into multiple places in a single run.
      *
      * This approach is kind-of an experiment - it's proven to improve performance a lot for big files that needs plenty of new tickets to be inserted,
-     * like edge case example of 3.7h vs 4s (https://github.com/FriendsOfPHP/PHP-CS-Fixer/issues/3996#issuecomment-455617637),
+     * like edge case example of 3.7h vs 4s (https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/issues/3996#issuecomment-455617637),
      * yet at same time changing a logic of fixers in not-always easy way.
      *
      * To be discussed:

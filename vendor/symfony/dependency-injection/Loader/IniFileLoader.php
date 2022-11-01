@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202210\Symfony\Component\DependencyInjection\Loader;
+namespace ECSPrefix202211\Symfony\Component\DependencyInjection\Loader;
 
-use ECSPrefix202210\Symfony\Component\Config\Util\XmlUtils;
-use ECSPrefix202210\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix202211\Symfony\Component\Config\Util\XmlUtils;
+use ECSPrefix202211\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 /**
  * IniFileLoader loads parameters from INI files.
  *

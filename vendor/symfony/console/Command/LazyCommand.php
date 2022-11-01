@@ -8,16 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202210\Symfony\Component\Console\Command;
+namespace ECSPrefix202211\Symfony\Component\Console\Command;
 
-use ECSPrefix202210\Symfony\Component\Console\Application;
-use ECSPrefix202210\Symfony\Component\Console\Completion\CompletionInput;
-use ECSPrefix202210\Symfony\Component\Console\Completion\CompletionSuggestions;
-use ECSPrefix202210\Symfony\Component\Console\Completion\Suggestion;
-use ECSPrefix202210\Symfony\Component\Console\Helper\HelperSet;
-use ECSPrefix202210\Symfony\Component\Console\Input\InputDefinition;
-use ECSPrefix202210\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix202210\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix202211\Symfony\Component\Console\Application;
+use ECSPrefix202211\Symfony\Component\Console\Completion\CompletionInput;
+use ECSPrefix202211\Symfony\Component\Console\Completion\CompletionSuggestions;
+use ECSPrefix202211\Symfony\Component\Console\Completion\Suggestion;
+use ECSPrefix202211\Symfony\Component\Console\Helper\HelperSet;
+use ECSPrefix202211\Symfony\Component\Console\Input\InputDefinition;
+use ECSPrefix202211\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix202211\Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */

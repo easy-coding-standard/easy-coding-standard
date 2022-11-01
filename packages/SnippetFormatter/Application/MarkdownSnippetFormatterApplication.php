@@ -4,17 +4,17 @@ declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\SnippetFormatter\Application;
 
 use PhpCsFixer\Differ\DifferInterface;
-use ECSPrefix202210\Symfony\Component\Console\Command\Command;
-use ECSPrefix202210\Symfony\Component\Console\Style\SymfonyStyle;
+use ECSPrefix202211\Symfony\Component\Console\Command\Command;
+use ECSPrefix202211\Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
 use Symplify\EasyCodingStandard\Reporter\ProcessedFileReporter;
 use Symplify\EasyCodingStandard\SnippetFormatter\Formatter\MarkdownSnippetFormatter;
 use Symplify\EasyCodingStandard\SnippetFormatter\Reporter\SnippetReporter;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
-use ECSPrefix202210\Symplify\PackageBuilder\Console\Formatter\ColorConsoleDiffFormatter;
-use ECSPrefix202210\Symplify\SmartFileSystem\SmartFileInfo;
-use ECSPrefix202210\Symplify\SmartFileSystem\SmartFileSystem;
+use ECSPrefix202211\Symplify\PackageBuilder\Console\Formatter\ColorConsoleDiffFormatter;
+use ECSPrefix202211\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix202211\Symplify\SmartFileSystem\SmartFileSystem;
 final class MarkdownSnippetFormatterApplication
 {
     /**

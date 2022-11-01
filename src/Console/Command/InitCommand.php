@@ -3,9 +3,9 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Command;
 
-use ECSPrefix202210\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix202210\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix202210\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
+use ECSPrefix202211\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix202211\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix202211\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
 final class InitCommand extends AbstractSymplifyCommand
 {
     protected function configure() : void

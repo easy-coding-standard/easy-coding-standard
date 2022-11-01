@@ -6,7 +6,7 @@ namespace Symplify\EasyCodingStandard\ValueObject\Error;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\FixerInterface;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Name;
-use ECSPrefix202210\Symplify\EasyParallel\Contract\SerializableInterface;
+use ECSPrefix202211\Symplify\EasyParallel\Contract\SerializableInterface;
 final class FileDiff implements SerializableInterface
 {
     /**
@@ -67,7 +67,7 @@ final class FileDiff implements SerializableInterface
      * @param array{relative_file_path: string, diff: string, diff_console_formatted: string, applied_checkers: string[]} $json
      * @return $this
      */
-    public static function decode(array $json) : \ECSPrefix202210\Symplify\EasyParallel\Contract\SerializableInterface
+    public static function decode(array $json) : \ECSPrefix202211\Symplify\EasyParallel\Contract\SerializableInterface
     {
         return new self($json[Name::RELATIVE_FILE_PATH], $json[Name::DIFF], $json[Name::DIFF_CONSOLE_FORMATTED], $json[Name::APPLIED_CHECKERS]);
     }

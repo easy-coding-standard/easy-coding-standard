@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202210\Symplify\SmartFileSystem;
+namespace ECSPrefix202211\Symplify\SmartFileSystem;
 
-use ECSPrefix202210\Nette\Utils\Strings;
-use ECSPrefix202210\Symfony\Component\Finder\SplFileInfo;
-use ECSPrefix202210\Symplify\EasyTesting\PHPUnit\StaticPHPUnitEnvironment;
-use ECSPrefix202210\Symplify\EasyTesting\StaticFixtureSplitter;
-use ECSPrefix202210\Symplify\SmartFileSystem\Exception\DirectoryNotFoundException;
-use ECSPrefix202210\Symplify\SmartFileSystem\Exception\FileNotFoundException;
+use ECSPrefix202211\Nette\Utils\Strings;
+use ECSPrefix202211\Symfony\Component\Finder\SplFileInfo;
+use ECSPrefix202211\Symplify\EasyTesting\PHPUnit\StaticPHPUnitEnvironment;
+use ECSPrefix202211\Symplify\EasyTesting\StaticFixtureSplitter;
+use ECSPrefix202211\Symplify\SmartFileSystem\Exception\DirectoryNotFoundException;
+use ECSPrefix202211\Symplify\SmartFileSystem\Exception\FileNotFoundException;
 /**
  * @api
  * @see \Symplify\SmartFileSystem\Tests\SmartFileInfo\SmartFileInfoTest
@@ -128,4 +128,4 @@ final class SmartFileInfo extends SplFileInfo
  * @api
  * @see \Symplify\SmartFileSystem\Tests\SmartFileInfo\SmartFileInfoTest
  */
-\class_alias('ECSPrefix202210\\Symplify\\SmartFileSystem\\SmartFileInfo', 'Symplify\\SmartFileSystem\\SmartFileInfo', \false);
+\class_alias('ECSPrefix202211\\Symplify\\SmartFileSystem\\SmartFileInfo', 'Symplify\\SmartFileSystem\\SmartFileInfo', \false);

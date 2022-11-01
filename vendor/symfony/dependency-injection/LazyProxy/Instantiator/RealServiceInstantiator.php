@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202210\Symfony\Component\DependencyInjection\LazyProxy\Instantiator;
+namespace ECSPrefix202211\Symfony\Component\DependencyInjection\LazyProxy\Instantiator;
 
-use ECSPrefix202210\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix202210\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix202211\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix202211\Symfony\Component\DependencyInjection\Definition;
 /**
  * {@inheritdoc}
  *

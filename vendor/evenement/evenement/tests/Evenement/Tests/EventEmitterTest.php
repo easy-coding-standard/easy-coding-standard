@@ -9,11 +9,11 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202210\Evenement\Tests;
+namespace ECSPrefix202211\Evenement\Tests;
 
-use ECSPrefix202210\Evenement\EventEmitter;
+use ECSPrefix202211\Evenement\EventEmitter;
 use InvalidArgumentException;
-use ECSPrefix202210\PHPUnit\Framework\TestCase;
+use ECSPrefix202211\PHPUnit\Framework\TestCase;
 class EventEmitterTest extends TestCase
 {
     private $emitter;
@@ -33,7 +33,7 @@ class EventEmitterTest extends TestCase
     }
     public function testAddListenerWithStaticMethod()
     {
-        $this->emitter->on('bar', ['ECSPrefix202210\\Evenement\\Tests\\Listener', 'onBar']);
+        $this->emitter->on('bar', ['ECSPrefix202211\\Evenement\\Tests\\Listener', 'onBar']);
     }
     public function testAddListenerWithInvalidListener()
     {
@@ -211,7 +211,7 @@ class EventEmitterTest extends TestCase
     }
     public function testCallablesFunction()
     {
-        $this->emitter->on('foo', 'ECSPrefix202210\\Evenement\\Tests\\setGlobalTestData');
+        $this->emitter->on('foo', 'ECSPrefix202211\\Evenement\\Tests\\setGlobalTestData');
         $this->emitter->emit('foo', ['bar']);
         self::assertSame('bar', $GLOBALS['evenement-evenement-test-data']);
         unset($GLOBALS['evenement-evenement-test-data']);

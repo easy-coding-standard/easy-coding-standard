@@ -3,18 +3,18 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Parallel;
 
-use ECSPrefix202210\Clue\React\NDJson\Decoder;
-use ECSPrefix202210\Clue\React\NDJson\Encoder;
+use ECSPrefix202211\Clue\React\NDJson\Decoder;
+use ECSPrefix202211\Clue\React\NDJson\Encoder;
 use Symplify\EasyCodingStandard\Application\SingleFileProcessor;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
-use ECSPrefix202210\Symplify\EasyParallel\Enum\Action;
-use ECSPrefix202210\Symplify\EasyParallel\Enum\Content;
-use ECSPrefix202210\Symplify\EasyParallel\Enum\ReactCommand;
-use ECSPrefix202210\Symplify\EasyParallel\Enum\ReactEvent;
-use ECSPrefix202210\Symplify\PackageBuilder\Yaml\ParametersMerger;
-use ECSPrefix202210\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix202211\Symplify\EasyParallel\Enum\Action;
+use ECSPrefix202211\Symplify\EasyParallel\Enum\Content;
+use ECSPrefix202211\Symplify\EasyParallel\Enum\ReactCommand;
+use ECSPrefix202211\Symplify\EasyParallel\Enum\ReactEvent;
+use ECSPrefix202211\Symplify\PackageBuilder\Yaml\ParametersMerger;
+use ECSPrefix202211\Symplify\SmartFileSystem\SmartFileInfo;
 use Throwable;
 final class WorkerRunner
 {

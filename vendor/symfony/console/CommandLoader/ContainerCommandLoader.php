@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202210\Symfony\Component\Console\CommandLoader;
+namespace ECSPrefix202211\Symfony\Component\Console\CommandLoader;
 
-use ECSPrefix202210\Psr\Container\ContainerInterface;
-use ECSPrefix202210\Symfony\Component\Console\Command\Command;
-use ECSPrefix202210\Symfony\Component\Console\Exception\CommandNotFoundException;
+use ECSPrefix202211\Psr\Container\ContainerInterface;
+use ECSPrefix202211\Symfony\Component\Console\Command\Command;
+use ECSPrefix202211\Symfony\Component\Console\Exception\CommandNotFoundException;
 /**
  * Loads commands from a PSR-11 container.
  *

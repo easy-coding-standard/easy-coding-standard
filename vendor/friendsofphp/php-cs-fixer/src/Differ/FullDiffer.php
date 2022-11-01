@@ -12,8 +12,8 @@ declare (strict_types=1);
  */
 namespace PhpCsFixer\Differ;
 
-use ECSPrefix202210\SebastianBergmann\Diff\Differ;
-use ECSPrefix202210\SebastianBergmann\Diff\Output\StrictUnifiedDiffOutputBuilder;
+use ECSPrefix202211\SebastianBergmann\Diff\Differ;
+use ECSPrefix202211\SebastianBergmann\Diff\Output\StrictUnifiedDiffOutputBuilder;
 /**
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  *

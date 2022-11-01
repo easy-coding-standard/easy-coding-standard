@@ -5,10 +5,10 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix202210\Nette\Utils;
+namespace ECSPrefix202211\Nette\Utils;
 
-use ECSPrefix202210\Nette;
-use ECSPrefix202210\Nette\MemberAccessException;
+use ECSPrefix202211\Nette;
+use ECSPrefix202211\Nette\MemberAccessException;
 /**
  * Nette\SmartObject helpers.
  */

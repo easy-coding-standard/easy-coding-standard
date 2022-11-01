@@ -146,7 +146,7 @@ class Ruleset
                 }
                 \PHP_CodeSniffer\Autoload::addSearchPath(\dirname($standard), $namespace);
             }
-            if (\defined('ECSPrefix202210\\PHP_CODESNIFFER_IN_TESTS') === \true && empty($restrictions) === \false) {
+            if (\defined('ECSPrefix202211\\PHP_CODESNIFFER_IN_TESTS') === \true && empty($restrictions) === \false) {
                 // In unit tests, only register the sniffs that the test wants and not the entire standard.
                 try {
                     foreach ($restrictions as $restriction) {

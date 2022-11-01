@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202210\Symfony\Component\Console\Command;
+namespace ECSPrefix202211\Symfony\Component\Console\Command;
 
-use ECSPrefix202210\Symfony\Component\Console\Descriptor\ApplicationDescription;
-use ECSPrefix202210\Symfony\Component\Console\Helper\DescriptorHelper;
-use ECSPrefix202210\Symfony\Component\Console\Input\InputArgument;
-use ECSPrefix202210\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix202210\Symfony\Component\Console\Input\InputOption;
-use ECSPrefix202210\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix202211\Symfony\Component\Console\Descriptor\ApplicationDescription;
+use ECSPrefix202211\Symfony\Component\Console\Helper\DescriptorHelper;
+use ECSPrefix202211\Symfony\Component\Console\Input\InputArgument;
+use ECSPrefix202211\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix202211\Symfony\Component\Console\Input\InputOption;
+use ECSPrefix202211\Symfony\Component\Console\Output\OutputInterface;
 /**
  * ListCommand displays the list of all available commands for the application.
  *

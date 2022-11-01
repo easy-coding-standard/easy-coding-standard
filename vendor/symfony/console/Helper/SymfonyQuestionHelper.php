@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202210\Symfony\Component\Console\Helper;
+namespace ECSPrefix202211\Symfony\Component\Console\Helper;
 
-use ECSPrefix202210\Symfony\Component\Console\Formatter\OutputFormatter;
-use ECSPrefix202210\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix202210\Symfony\Component\Console\Question\ChoiceQuestion;
-use ECSPrefix202210\Symfony\Component\Console\Question\ConfirmationQuestion;
-use ECSPrefix202210\Symfony\Component\Console\Question\Question;
-use ECSPrefix202210\Symfony\Component\Console\Style\SymfonyStyle;
+use ECSPrefix202211\Symfony\Component\Console\Formatter\OutputFormatter;
+use ECSPrefix202211\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix202211\Symfony\Component\Console\Question\ChoiceQuestion;
+use ECSPrefix202211\Symfony\Component\Console\Question\ConfirmationQuestion;
+use ECSPrefix202211\Symfony\Component\Console\Question\Question;
+use ECSPrefix202211\Symfony\Component\Console\Style\SymfonyStyle;
 /**
  * Symfony Style Guide compliant question helper.
  *

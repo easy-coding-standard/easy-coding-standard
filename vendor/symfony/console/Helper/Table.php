@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202210\Symfony\Component\Console\Helper;
+namespace ECSPrefix202211\Symfony\Component\Console\Helper;
 
-use ECSPrefix202210\Symfony\Component\Console\Exception\InvalidArgumentException;
-use ECSPrefix202210\Symfony\Component\Console\Exception\RuntimeException;
-use ECSPrefix202210\Symfony\Component\Console\Formatter\OutputFormatter;
-use ECSPrefix202210\Symfony\Component\Console\Formatter\WrappableOutputFormatterInterface;
-use ECSPrefix202210\Symfony\Component\Console\Output\ConsoleSectionOutput;
-use ECSPrefix202210\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix202211\Symfony\Component\Console\Exception\InvalidArgumentException;
+use ECSPrefix202211\Symfony\Component\Console\Exception\RuntimeException;
+use ECSPrefix202211\Symfony\Component\Console\Formatter\OutputFormatter;
+use ECSPrefix202211\Symfony\Component\Console\Formatter\WrappableOutputFormatterInterface;
+use ECSPrefix202211\Symfony\Component\Console\Output\ConsoleSectionOutput;
+use ECSPrefix202211\Symfony\Component\Console\Output\OutputInterface;
 /**
  * Provides helpers to display a table.
  *

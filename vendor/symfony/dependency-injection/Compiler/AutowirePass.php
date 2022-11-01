@@ -8,24 +8,24 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202210\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix202211\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix202210\Symfony\Component\Config\Resource\ClassExistenceResource;
-use ECSPrefix202210\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
-use ECSPrefix202210\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
-use ECSPrefix202210\Symfony\Component\DependencyInjection\Attribute\Autowire;
-use ECSPrefix202210\Symfony\Component\DependencyInjection\Attribute\MapDecorated;
-use ECSPrefix202210\Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
-use ECSPrefix202210\Symfony\Component\DependencyInjection\Attribute\TaggedLocator;
-use ECSPrefix202210\Symfony\Component\DependencyInjection\Attribute\Target;
-use ECSPrefix202210\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix202210\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix202210\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix202210\Symfony\Component\DependencyInjection\Exception\AutowiringFailedException;
-use ECSPrefix202210\Symfony\Component\DependencyInjection\Exception\RuntimeException;
-use ECSPrefix202210\Symfony\Component\DependencyInjection\LazyProxy\ProxyHelper;
-use ECSPrefix202210\Symfony\Component\DependencyInjection\Reference;
-use ECSPrefix202210\Symfony\Component\DependencyInjection\TypedReference;
+use ECSPrefix202211\Symfony\Component\Config\Resource\ClassExistenceResource;
+use ECSPrefix202211\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
+use ECSPrefix202211\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
+use ECSPrefix202211\Symfony\Component\DependencyInjection\Attribute\Autowire;
+use ECSPrefix202211\Symfony\Component\DependencyInjection\Attribute\MapDecorated;
+use ECSPrefix202211\Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
+use ECSPrefix202211\Symfony\Component\DependencyInjection\Attribute\TaggedLocator;
+use ECSPrefix202211\Symfony\Component\DependencyInjection\Attribute\Target;
+use ECSPrefix202211\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix202211\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix202211\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix202211\Symfony\Component\DependencyInjection\Exception\AutowiringFailedException;
+use ECSPrefix202211\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use ECSPrefix202211\Symfony\Component\DependencyInjection\LazyProxy\ProxyHelper;
+use ECSPrefix202211\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix202211\Symfony\Component\DependencyInjection\TypedReference;
 /**
  * Inspects existing service definitions and wires the autowired ones using the type hints of their classes.
  *

@@ -13,6 +13,7 @@ declare (strict_types=1);
 namespace PhpCsFixer\Fixer\Phpdoc;
 
 use PhpCsFixer\AbstractFixer;
+use PhpCsFixer\DocBlock\Annotation;
 use PhpCsFixer\DocBlock\DocBlock;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolver;
@@ -38,9 +39,17 @@ final class GeneralPhpdocAnnotationRemoveFixer extends AbstractFixer implements 
 /**
  * @internal
  * @author John Doe
+ * @AuThOr Jane Doe
  */
 function foo() {}
 ', ['annotations' => ['author']]), new CodeSample('<?php
+/**
+ * @internal
+ * @author John Doe
+ * @AuThOr Jane Doe
+ */
+function foo() {}
+', ['annotations' => ['author'], 'case_sensitive' => \false]), new CodeSample('<?php
 /**
  * @author John Doe
  * @package ACME API
@@ -80,7 +89,7 @@ function foo() {}
                 continue;
             }
             $doc = new DocBlock($token->getContent());
-            $annotations = $doc->getAnnotationsOfType($this->configuration['annotations']);
+            $annotations = $this->getAnnotationsToRemove($doc);
             // nothing to do if there are no annotations
             if (0 === \count($annotations)) {
                 continue;
@@ -100,6 +109,26 @@ function foo() {}
      */
     protected function createConfigurationDefinition() : FixerConfigurationResolverInterface
     {
-        return new FixerConfigurationResolver([(new FixerOptionBuilder('annotations', 'List of annotations to remove, e.g. `["author"]`.'))->setAllowedTypes(['array'])->setDefault([])->getOption()]);
+        return new FixerConfigurationResolver([(new FixerOptionBuilder('annotations', 'List of annotations to remove, e.g. `["author"]`.'))->setAllowedTypes(['array'])->setDefault([])->getOption(), (new FixerOptionBuilder('case_sensitive', 'Should annotations be case sensitive.'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption()]);
+    }
+    /**
+     * @return list<Annotation>
+     */
+    private function getAnnotationsToRemove(DocBlock $doc) : array
+    {
+        if (\true === $this->configuration['case_sensitive']) {
+            return $doc->getAnnotationsOfType($this->configuration['annotations']);
+        }
+        $typesToSearchFor = \array_map(function (string $type) : string {
+            return \strtolower($type);
+        }, $this->configuration['annotations']);
+        $annotations = [];
+        foreach ($doc->getAnnotations() as $annotation) {
+            $tagName = \strtolower($annotation->getTag()->getName());
+            if (\in_array($tagName, $typesToSearchFor, \true)) {
+                $annotations[] = $annotation;
+            }
+        }
+        return $annotations;
     }
 }

@@ -40,9 +40,9 @@ use PhpCsFixer\ToolInfoInterface;
 use PhpCsFixer\Utils;
 use PhpCsFixer\WhitespacesFixerConfig;
 use PhpCsFixer\WordMatcher;
-use ECSPrefix202210\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix202210\Symfony\Component\Filesystem\Filesystem;
-use ECSPrefix202210\Symfony\Component\Finder\Finder as SymfonyFinder;
+use ECSPrefix202211\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix202211\Symfony\Component\Filesystem\Filesystem;
+use ECSPrefix202211\Symfony\Component\Finder\Finder as SymfonyFinder;
 /**
  * The resolver that resolves configuration to use by command line options and config.
  *
@@ -567,7 +567,7 @@ final class ConfigurationResolver
             }
             $message = \substr($message, 0, -2) . '.';
             if ($hasOldRule) {
-                $message .= "\nFor more info about updating see: https://github.com/FriendsOfPHP/PHP-CS-Fixer/blob/v3.0.0/UPGRADE-v3.md#renamed-ruless.";
+                $message .= "\nFor more info about updating see: https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/blob/v3.0.0/UPGRADE-v3.md#renamed-ruless.";
             }
             throw new InvalidConfigurationException($message);
         }

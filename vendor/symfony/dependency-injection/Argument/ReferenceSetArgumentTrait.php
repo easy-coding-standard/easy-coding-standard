@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202210\Symfony\Component\DependencyInjection\Argument;
+namespace ECSPrefix202211\Symfony\Component\DependencyInjection\Argument;
 
-\ECSPrefix202210\trigger_deprecation('symfony/dependency-injection', '6.1', '"%s" is deprecated.', ReferenceSetArgumentTrait::class);
-use ECSPrefix202210\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix202210\Symfony\Component\DependencyInjection\Reference;
+\ECSPrefix202211\trigger_deprecation('symfony/dependency-injection', '6.1', '"%s" is deprecated.', ReferenceSetArgumentTrait::class);
+use ECSPrefix202211\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix202211\Symfony\Component\DependencyInjection\Reference;
 /**
  * @author Titouan Galopin <galopintitouan@gmail.com>
  * @author Nicolas Grekas <p@tchwork.com>

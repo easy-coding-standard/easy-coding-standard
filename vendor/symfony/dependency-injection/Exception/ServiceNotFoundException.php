@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202210\Symfony\Component\DependencyInjection\Exception;
+namespace ECSPrefix202211\Symfony\Component\DependencyInjection\Exception;
 
-use ECSPrefix202210\Psr\Container\NotFoundExceptionInterface;
+use ECSPrefix202211\Psr\Container\NotFoundExceptionInterface;
 /**
  * This exception is thrown when a non-existent service is requested.
  *

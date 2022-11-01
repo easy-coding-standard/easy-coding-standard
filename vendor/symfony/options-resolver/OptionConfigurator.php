@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202210\Symfony\Component\OptionsResolver;
+namespace ECSPrefix202211\Symfony\Component\OptionsResolver;
 
-use ECSPrefix202210\Symfony\Component\OptionsResolver\Exception\AccessException;
+use ECSPrefix202211\Symfony\Component\OptionsResolver\Exception\AccessException;
 final class OptionConfigurator
 {
     private $name;

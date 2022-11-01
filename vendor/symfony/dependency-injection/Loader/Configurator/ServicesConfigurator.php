@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202210\Symfony\Component\DependencyInjection\Loader\Configurator;
+namespace ECSPrefix202211\Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use ECSPrefix202210\Symfony\Component\DependencyInjection\Alias;
-use ECSPrefix202210\Symfony\Component\DependencyInjection\ChildDefinition;
-use ECSPrefix202210\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix202210\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix202210\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix202210\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
-use ECSPrefix202210\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use ECSPrefix202211\Symfony\Component\DependencyInjection\Alias;
+use ECSPrefix202211\Symfony\Component\DependencyInjection\ChildDefinition;
+use ECSPrefix202211\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix202211\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix202211\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix202211\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+use ECSPrefix202211\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */

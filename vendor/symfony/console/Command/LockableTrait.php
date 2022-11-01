@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202210\Symfony\Component\Console\Command;
+namespace ECSPrefix202211\Symfony\Component\Console\Command;
 
-use ECSPrefix202210\Symfony\Component\Console\Exception\LogicException;
-use ECSPrefix202210\Symfony\Component\Lock\LockFactory;
-use ECSPrefix202210\Symfony\Component\Lock\LockInterface;
-use ECSPrefix202210\Symfony\Component\Lock\Store\FlockStore;
-use ECSPrefix202210\Symfony\Component\Lock\Store\SemaphoreStore;
+use ECSPrefix202211\Symfony\Component\Console\Exception\LogicException;
+use ECSPrefix202211\Symfony\Component\Lock\LockFactory;
+use ECSPrefix202211\Symfony\Component\Lock\LockInterface;
+use ECSPrefix202211\Symfony\Component\Lock\Store\FlockStore;
+use ECSPrefix202211\Symfony\Component\Lock\Store\SemaphoreStore;
 /**
  * Basic lock feature for commands.
  *

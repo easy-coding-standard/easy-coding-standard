@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Skipper\FileSystem;
 
-use ECSPrefix202210\Nette\Utils\Strings;
+use ECSPrefix202211\Nette\Utils\Strings;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\Skipper\FileSystem\FnMatchPathNormalizerTest
  */

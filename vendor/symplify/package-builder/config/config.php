@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202210;
+namespace ECSPrefix202211;
 
-use ECSPrefix202210\SebastianBergmann\Diff\Differ;
-use ECSPrefix202210\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use ECSPrefix202210\Symplify\PackageBuilder\Console\Formatter\ColorConsoleDiffFormatter;
-use ECSPrefix202210\Symplify\PackageBuilder\Console\Output\ConsoleDiffer;
-use ECSPrefix202210\Symplify\PackageBuilder\Diff\Output\CompleteUnifiedDiffOutputBuilderFactory;
-use ECSPrefix202210\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use ECSPrefix202211\SebastianBergmann\Diff\Differ;
+use ECSPrefix202211\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use ECSPrefix202211\Symplify\PackageBuilder\Console\Formatter\ColorConsoleDiffFormatter;
+use ECSPrefix202211\Symplify\PackageBuilder\Console\Output\ConsoleDiffer;
+use ECSPrefix202211\Symplify\PackageBuilder\Diff\Output\CompleteUnifiedDiffOutputBuilderFactory;
+use ECSPrefix202211\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 return static function (ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire();

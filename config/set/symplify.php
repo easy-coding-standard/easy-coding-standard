@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202210;
+namespace ECSPrefix202211;
 
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 return static function (ECSConfig $ecsConfig) : void {

@@ -313,7 +313,7 @@ else {
     private function getLineIndentationWithBracesCompatibility(Tokens $tokens, int $index, string $regularIndent) : string
     {
         if ($this->bracesFixerCompatibility && $tokens[$index]->isGivenKind(\T_OPEN_TAG) && Preg::match('/\\R/', $tokens[$index]->getContent()) && isset($tokens[$index + 1]) && $tokens[$index + 1]->isWhitespace() && Preg::match('/\\h+$/D', $tokens[$index + 1]->getContent())) {
-            return Preg::replace('/.*?(\\h+)$/D', '$1', $tokens[$index + 1]->getContent());
+            return Preg::replace('/.*?(\\h+)$/sD', '$1', $tokens[$index + 1]->getContent());
         }
         return $regularIndent;
     }

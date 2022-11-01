@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202210\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix202211\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix202210\Symfony\Component\DependencyInjection\Alias;
-use ECSPrefix202210\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix202210\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix202210\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix202210\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
-use ECSPrefix202210\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix202211\Symfony\Component\DependencyInjection\Alias;
+use ECSPrefix202211\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix202211\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix202211\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix202211\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+use ECSPrefix202211\Symfony\Component\DependencyInjection\Reference;
 /**
  * Overwrites a service but keeps the overridden one.
  *

@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202210\Symplify\EasyParallel\ValueObject;
+namespace ECSPrefix202211\Symplify\EasyParallel\ValueObject;
 
-use ECSPrefix202210\Clue\React\NDJson\Decoder;
-use ECSPrefix202210\Clue\React\NDJson\Encoder;
+use ECSPrefix202211\Clue\React\NDJson\Decoder;
+use ECSPrefix202211\Clue\React\NDJson\Encoder;
 use Exception;
-use ECSPrefix202210\React\ChildProcess\Process;
-use ECSPrefix202210\React\EventLoop\LoopInterface;
-use ECSPrefix202210\React\EventLoop\TimerInterface;
-use ECSPrefix202210\Symplify\EasyParallel\Enum\Action;
-use ECSPrefix202210\Symplify\EasyParallel\Enum\Content;
-use ECSPrefix202210\Symplify\EasyParallel\Enum\ReactCommand;
-use ECSPrefix202210\Symplify\EasyParallel\Enum\ReactEvent;
-use ECSPrefix202210\Symplify\EasyParallel\Exception\ParallelShouldNotHappenException;
+use ECSPrefix202211\React\ChildProcess\Process;
+use ECSPrefix202211\React\EventLoop\LoopInterface;
+use ECSPrefix202211\React\EventLoop\TimerInterface;
+use ECSPrefix202211\Symplify\EasyParallel\Enum\Action;
+use ECSPrefix202211\Symplify\EasyParallel\Enum\Content;
+use ECSPrefix202211\Symplify\EasyParallel\Enum\ReactCommand;
+use ECSPrefix202211\Symplify\EasyParallel\Enum\ReactEvent;
+use ECSPrefix202211\Symplify\EasyParallel\Exception\ParallelShouldNotHappenException;
 use Throwable;
 /**
  * Inspired at @see https://raw.githubusercontent.com/phpstan/phpstan-src/master/src/Parallel/Process.php

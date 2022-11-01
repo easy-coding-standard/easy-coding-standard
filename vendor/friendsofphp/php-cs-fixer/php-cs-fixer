@@ -1,6 +1,6 @@
 #!/usr/bin/env php
 <?php 
-namespace ECSPrefix202210;
+namespace ECSPrefix202211;
 
 /*
  * This file is part of PHP CS Fixer.
@@ -32,7 +32,7 @@ namespace ECSPrefix202210;
         } else {
             \fwrite(\STDERR, "To ignore this requirement please set `PHP_CS_FIXER_IGNORE_ENV`.\n");
             \fwrite(\STDERR, "If you use PHP version higher than supported, you may experience code modified in a wrong way.\n");
-            \fwrite(\STDERR, "Please report such cases at https://github.com/FriendsOfPHP/PHP-CS-Fixer .\n");
+            \fwrite(\STDERR, "Please report such cases at https://github.com/PHP-CS-Fixer/PHP-CS-Fixer .\n");
             exit(1);
         }
     }
@@ -75,7 +75,7 @@ namespace ECSPrefix202210;
         require_once $file;
     }
 })();
-use ECSPrefix202210\Composer\XdebugHandler\XdebugHandler;
+use ECSPrefix202211\Composer\XdebugHandler\XdebugHandler;
 use PhpCsFixer\Console\Application;
 // Restart if xdebug is loaded, unless the environment variable PHP_CS_FIXER_ALLOW_XDEBUG is set.
 $xdebug = new XdebugHandler('PHP_CS_FIXER');

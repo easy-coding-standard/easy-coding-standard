@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202210\Symfony\Component\Config\Definition\Configurator;
+namespace ECSPrefix202211\Symfony\Component\Config\Definition\Configurator;
 
-use ECSPrefix202210\Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
-use ECSPrefix202210\Symfony\Component\Config\Definition\Builder\NodeDefinition;
-use ECSPrefix202210\Symfony\Component\Config\Definition\Builder\TreeBuilder;
-use ECSPrefix202210\Symfony\Component\Config\Definition\Loader\DefinitionFileLoader;
+use ECSPrefix202211\Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
+use ECSPrefix202211\Symfony\Component\Config\Definition\Builder\NodeDefinition;
+use ECSPrefix202211\Symfony\Component\Config\Definition\Builder\TreeBuilder;
+use ECSPrefix202211\Symfony\Component\Config\Definition\Loader\DefinitionFileLoader;
 /**
  * @author Yonel Ceruto <yonelceruto@gmail.com>
  */

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\Fixer\Naming;
 
-use ECSPrefix202210\Nette\Utils\Strings;
+use ECSPrefix202211\Nette\Utils\Strings;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
@@ -12,11 +12,11 @@ use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
 use Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
-use ECSPrefix202210\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
-use ECSPrefix202210\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use ECSPrefix202210\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use ECSPrefix202210\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use ECSPrefix202210\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use ECSPrefix202211\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
+use ECSPrefix202211\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use ECSPrefix202211\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use ECSPrefix202211\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix202211\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 /**
  * @see \Symplify\CodingStandard\Tests\Fixer\Naming\StandardizeHereNowDocKeywordFixer\StandardizeHereNowDocKeywordFixerTest
  */

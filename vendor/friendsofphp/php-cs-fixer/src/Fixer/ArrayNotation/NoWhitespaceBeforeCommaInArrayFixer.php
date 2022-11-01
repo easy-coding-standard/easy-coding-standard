@@ -37,7 +37,7 @@ final class NoWhitespaceBeforeCommaInArrayFixer extends AbstractFixer implements
         return new FixerDefinition('In array declaration, there MUST NOT be a whitespace before each comma.', [new CodeSample("<?php \$x = array(1 , \"2\");\n"), new VersionSpecificCodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202210;
+namespace ECSPrefix202211;
 
 $x = [<<<EOD
 foo

@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix202210\React\Dns\Query;
+namespace ECSPrefix202211\React\Dns\Query;
 
-use ECSPrefix202210\React\Dns\Model\Message;
+use ECSPrefix202211\React\Dns\Model\Message;
 /**
  * This class represents a single question in a query/response message
  *
@@ -50,7 +50,7 @@ final class Query
     {
         $class = $this->class !== Message::CLASS_IN ? 'CLASS' . $this->class . ' ' : '';
         $type = 'TYPE' . $this->type;
-        $ref = new \ReflectionClass('ECSPrefix202210\\React\\Dns\\Model\\Message');
+        $ref = new \ReflectionClass('ECSPrefix202211\\React\\Dns\\Model\\Message');
         foreach ($ref->getConstants() as $name => $value) {
             if ($value === $this->type && \strpos($name, 'TYPE_') === 0) {
                 $type = \substr($name, 5);

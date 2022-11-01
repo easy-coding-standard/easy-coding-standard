@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Skipper\Skipper;
 
 use Symplify\EasyCodingStandard\Skipper\Matcher\FileInfoMatcher;
-use ECSPrefix202210\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix202211\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\Skipper\Skipper\Skip\SkipSkipperTest
  */

@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix202210\Doctrine\Common\Annotations;
+namespace ECSPrefix202211\Doctrine\Common\Annotations;
 
 use function array_merge;
 use function count;

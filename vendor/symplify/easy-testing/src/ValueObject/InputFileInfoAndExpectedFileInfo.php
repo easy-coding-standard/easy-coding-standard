@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202210\Symplify\EasyTesting\ValueObject;
+namespace ECSPrefix202211\Symplify\EasyTesting\ValueObject;
 
-use ECSPrefix202210\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix202211\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @api
  */

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202210;
+namespace ECSPrefix202211;
 
 /*
  * This file is part of Evenement.
@@ -12,14 +12,14 @@ namespace ECSPrefix202210;
  * file that was distributed with this source code.
  */
 const ITERATIONS = 10000000;
-use ECSPrefix202210\Evenement\EventEmitter;
+use ECSPrefix202211\Evenement\EventEmitter;
 require __DIR__ . '/../vendor/autoload.php';
 $emitter = new EventEmitter();
 $emitter->on('event', function ($a, $b, $c) {
 });
 $start = \microtime(\true);
-for ($i = 0; $i < \ECSPrefix202210\ITERATIONS; $i++) {
+for ($i = 0; $i < \ECSPrefix202211\ITERATIONS; $i++) {
     $emitter->emit('event', [1, 2, 3]);
 }
 $time = \microtime(\true) - $start;
-echo 'Emitting ', \number_format(\ECSPrefix202210\ITERATIONS), ' events took: ', \number_format($time, 2), 's', \PHP_EOL;
+echo 'Emitting ', \number_format(\ECSPrefix202211\ITERATIONS), ' events took: ', \number_format($time, 2), 's', \PHP_EOL;

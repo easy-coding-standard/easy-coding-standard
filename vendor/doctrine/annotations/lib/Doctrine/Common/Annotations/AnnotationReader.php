@@ -1,9 +1,9 @@
 <?php
 
-namespace ECSPrefix202210\Doctrine\Common\Annotations;
+namespace ECSPrefix202211\Doctrine\Common\Annotations;
 
-use ECSPrefix202210\Doctrine\Common\Annotations\Annotation\IgnoreAnnotation;
-use ECSPrefix202210\Doctrine\Common\Annotations\Annotation\Target;
+use ECSPrefix202211\Doctrine\Common\Annotations\Annotation\IgnoreAnnotation;
+use ECSPrefix202211\Doctrine\Common\Annotations\Annotation\Target;
 use ReflectionClass;
 use ReflectionFunction;
 use ReflectionMethod;
