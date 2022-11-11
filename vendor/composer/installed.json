@@ -3368,7 +3368,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/smart-file-system",
-                "reference": "f025ea9a1c4b29289df8fef21bd8b46d2bddf90f"
+                "reference": "3dd6b0fb1faa7764f8d1fd21e795bb6aeba1200b"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3397,7 +3397,6 @@
                 "symplify\/vendor-patches": "<11.1.17"
             },
             "require-dev": {
-                "nette\/finder": "^2.5.3",
                 "phpunit\/phpunit": "^9.5.25"
             },
             "type": "library",
