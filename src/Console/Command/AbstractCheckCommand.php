@@ -45,7 +45,7 @@ abstract class AbstractCheckCommand extends AbstractSymplifyCommand
     {
         $this->addArgument(
             Option::PATHS,
-            // optional is on purpose here, since path from ecs.php can se ubsed
+            // optional is on purpose here, since path from ecs.php can se used
             InputArgument::OPTIONAL | InputArgument::IS_ARRAY,
             'The path(s) to be checked.'
         );

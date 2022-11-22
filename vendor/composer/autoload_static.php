@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit8a6f84a562c5f902fe23b525bde49af2
+class ComposerStaticInitadacba5f5761175649b928e7671f5e29
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -1503,12 +1503,14 @@ class ComposerStaticInit8a6f84a562c5f902fe23b525bde49af2
         'Symplify\\EasyCodingStandard\\Console\\Command\\AbstractCheckCommand' => __DIR__ . '/../..' . '/src/Console/Command/AbstractCheckCommand.php',
         'Symplify\\EasyCodingStandard\\Console\\Command\\CheckCommand' => __DIR__ . '/../..' . '/src/Console/Command/CheckCommand.php',
         'Symplify\\EasyCodingStandard\\Console\\Command\\InitCommand' => __DIR__ . '/../..' . '/src/Console/Command/InitCommand.php',
+        'Symplify\\EasyCodingStandard\\Console\\Command\\ListCheckersCommand' => __DIR__ . '/../..' . '/src/Console/Command/ListCheckersCommand.php',
         'Symplify\\EasyCodingStandard\\Console\\Command\\WorkerCommand' => __DIR__ . '/../..' . '/src/Console/Command/WorkerCommand.php',
         'Symplify\\EasyCodingStandard\\Console\\EasyCodingStandardConsoleApplication' => __DIR__ . '/../..' . '/src/Console/EasyCodingStandardConsoleApplication.php',
         'Symplify\\EasyCodingStandard\\Console\\Output\\ConsoleOutputFormatter' => __DIR__ . '/../..' . '/src/Console/Output/ConsoleOutputFormatter.php',
         'Symplify\\EasyCodingStandard\\Console\\Output\\ExitCodeResolver' => __DIR__ . '/../..' . '/src/Console/Output/ExitCodeResolver.php',
         'Symplify\\EasyCodingStandard\\Console\\Output\\JsonOutputFormatter' => __DIR__ . '/../..' . '/src/Console/Output/JsonOutputFormatter.php',
         'Symplify\\EasyCodingStandard\\Console\\Output\\OutputFormatterCollector' => __DIR__ . '/../..' . '/src/Console/Output/OutputFormatterCollector.php',
+        'Symplify\\EasyCodingStandard\\Console\\Reporter\\CheckerListReporter' => __DIR__ . '/../..' . '/src/Console/Reporter/CheckerListReporter.php',
         'Symplify\\EasyCodingStandard\\Console\\Style\\EasyCodingStandardStyle' => __DIR__ . '/../..' . '/src/Console/Style/EasyCodingStandardStyle.php',
         'Symplify\\EasyCodingStandard\\Console\\Style\\EasyCodingStandardStyleFactory' => __DIR__ . '/../..' . '/src/Console/Style/EasyCodingStandardStyleFactory.php',
         'Symplify\\EasyCodingStandard\\Contract\\Application\\FileProcessorInterface' => __DIR__ . '/../..' . '/src/Contract/Application/FileProcessorInterface.php',
@@ -1584,9 +1586,9 @@ class ComposerStaticInit8a6f84a562c5f902fe23b525bde49af2
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit8a6f84a562c5f902fe23b525bde49af2::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit8a6f84a562c5f902fe23b525bde49af2::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit8a6f84a562c5f902fe23b525bde49af2::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitadacba5f5761175649b928e7671f5e29::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitadacba5f5761175649b928e7671f5e29::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitadacba5f5761175649b928e7671f5e29::$classMap;
 
         }, null, ClassLoader::class);
     }
