@@ -3244,12 +3244,12 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/package-builder",
-                "reference": "3bd0cb4bc8e0db0dc252b4dd990b9c7cbe9a5bf6"
+                "reference": "feb951c999b5bea38f5a5174c8aaf1850d234c74"
             },
             "require": {
                 "nette\/utils": "^3.2",
                 "php": ">=8.1",
-                "sebastian\/diff": "^4.0",
+                "sebastian\/diff": "^4.0|^5.0",
                 "symfony\/config": "^6.1",
                 "symfony\/console": "^6.1",
                 "symfony\/dependency-injection": "^6.1",
