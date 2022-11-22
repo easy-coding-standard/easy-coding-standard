@@ -12,7 +12,6 @@ use ECSPrefix202211\Symfony\Component\Console\Input\InputOption;
 use ECSPrefix202211\Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 use Symplify\EasyCodingStandard\Console\Reporter\CheckerListReporter;
-use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\Guard\LoadedCheckersGuard;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
@@ -29,10 +28,6 @@ final class ListCheckersCommand extends AbstractSymplifyCommand
      */
     private $fixerFileProcessor;
     /**
-     * @var \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle
-     */
-    private $easyCodingStandardStyle;
-    /**
      * @var \Symplify\EasyCodingStandard\Console\Reporter\CheckerListReporter
      */
     private $checkerListReporter;
@@ -40,11 +35,10 @@ final class ListCheckersCommand extends AbstractSymplifyCommand
      * @var \Symplify\EasyCodingStandard\Guard\LoadedCheckersGuard
      */
     private $loadedCheckersGuard;
-    public function __construct(SniffFileProcessor $sniffFileProcessor, FixerFileProcessor $fixerFileProcessor, EasyCodingStandardStyle $easyCodingStandardStyle, CheckerListReporter $checkerListReporter, LoadedCheckersGuard $loadedCheckersGuard)
+    public function __construct(SniffFileProcessor $sniffFileProcessor, FixerFileProcessor $fixerFileProcessor, CheckerListReporter $checkerListReporter, LoadedCheckersGuard $loadedCheckersGuard)
     {
         $this->sniffFileProcessor = $sniffFileProcessor;
         $this->fixerFileProcessor = $fixerFileProcessor;
-        $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->checkerListReporter = $checkerListReporter;
         $this->loadedCheckersGuard = $loadedCheckersGuard;
         parent::__construct();
@@ -60,27 +54,43 @@ final class ListCheckersCommand extends AbstractSymplifyCommand
         if (!$this->loadedCheckersGuard->areSomeCheckersRegistered()) {
             return self::SUCCESS;
         }
-        $totalCheckerCount = \count($this->sniffFileProcessor->getCheckers()) + \count($this->fixerFileProcessor->getCheckers());
         $outputFormat = $input->getOption(Option::OUTPUT_FORMAT);
         if ($outputFormat === 'json') {
-            $sniffs = $this->sniffFileProcessor->getCheckers();
-            $fixers = $this->fixerFileProcessor->getCheckers();
-            $sniffClasses = \array_map(static function (Sniff $sniff) : string {
-                return \get_class($sniff);
-            }, $sniffs);
-            \sort($sniffClasses);
-            $fixerClasses = \array_map(static function (FixerInterface $fixer) : string {
-                return \get_class($fixer);
-            }, $fixers);
-            \sort($fixerClasses);
-            $data = ['sniffs' => $sniffClasses, 'fixers' => $fixerClasses];
-            echo Json::encode($data, Json::PRETTY);
+            $data = ['sniffs' => $this->getSniffClasses(), 'fixers' => $this->getFixerClasses()];
+            echo Json::encode($data, Json::PRETTY) . \PHP_EOL;
             return Command::SUCCESS;
         }
-        $this->checkerListReporter->report($this->sniffFileProcessor->getCheckers(), 'PHP_CodeSniffer');
-        $this->checkerListReporter->report($this->fixerFileProcessor->getCheckers(), 'PHP-CS-Fixer');
-        $successMessage = \sprintf('Loaded %d checker%s in total', $totalCheckerCount, $totalCheckerCount === 1 ? '' : 's');
-        $this->easyCodingStandardStyle->success($successMessage);
+        $this->checkerListReporter->report($this->getSniffClasses(), 'PHP_CodeSniffer');
+        $this->checkerListReporter->report($this->getFixerClasses(), 'PHP-CS-Fixer');
         return self::SUCCESS;
+    }
+    /**
+     * @return array<class-string<FixerInterface>>
+     */
+    private function getFixerClasses() : array
+    {
+        $fixers = $this->fixerFileProcessor->getCheckers();
+        return $this->getObjectClasses($fixers);
+    }
+    /**
+     * @return array<class-string<Sniff>>
+     */
+    private function getSniffClasses() : array
+    {
+        $sniffs = $this->sniffFileProcessor->getCheckers();
+        return $this->getObjectClasses($sniffs);
+    }
+    /**
+     * @template TObject as Sniff|FixerInterface
+     * @param TObject[] $checkers
+     * @return array<class-string<TObject>>
+     */
+    private function getObjectClasses(array $checkers) : array
+    {
+        $objectClasses = \array_map(static function (object $fixer) : string {
+            return \get_class($fixer);
+        }, $checkers);
+        \sort($objectClasses);
+        return $objectClasses;
     }
 }
