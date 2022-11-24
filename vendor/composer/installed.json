@@ -2965,7 +2965,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/autowire-array-parameter",
-                "reference": "63399c6edd8f048b3c013af9ab0e3f5150e46870"
+                "reference": "06720899190ce485e99b81fe4c739b9f82a582ba"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -2977,7 +2977,6 @@
                 "symplify\/composer-json-manipulator": "<11.1.17",
                 "symplify\/config-transformer": "<11.1.17",
                 "symplify\/easy-ci": "<11.1.17",
-                "symplify\/easy-coding-standard": "<11.1.17",
                 "symplify\/easy-parallel": "<11.1.17",
                 "symplify\/easy-testing": "<11.1.17",
                 "symplify\/monorepo-builder": "<11.1.17",
@@ -3031,7 +3030,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/coding-standard",
-                "reference": "ac7c536ff79da81dd6e06bc55cf82072d3472f0c"
+                "reference": "c6868531cdec48e49b9cc263b67f04bb975f1414"
             },
             "require": {
                 "friendsofphp\/php-cs-fixer": "^3.12",
@@ -3046,7 +3045,6 @@
                 "symplify\/composer-json-manipulator": "<11.1.17",
                 "symplify\/config-transformer": "<11.1.17",
                 "symplify\/easy-ci": "<11.1.17",
-                "symplify\/easy-coding-standard": "<11.1.17",
                 "symplify\/easy-parallel": "<11.1.17",
                 "symplify\/easy-testing": "<11.1.17",
                 "symplify\/monorepo-builder": "<11.1.17",
@@ -3107,7 +3105,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/easy-parallel",
-                "reference": "7f6d18feffc48a41668b71aa62ecee8f02121f2e"
+                "reference": "306d7d8917f3eaabb187214bb6ba9a18e83881e4"
             },
             "require": {
                 "clue\/ndjson-react": "^1.2",
@@ -3123,7 +3121,6 @@
                 "symplify\/composer-json-manipulator": "<11.1.17",
                 "symplify\/config-transformer": "<11.1.17",
                 "symplify\/easy-ci": "<11.1.17",
-                "symplify\/easy-coding-standard": "<11.1.17",
                 "symplify\/easy-testing": "<11.1.17",
                 "symplify\/monorepo-builder": "<11.1.17",
                 "symplify\/package-builder": "<11.1.17",
@@ -3175,7 +3172,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/easy-testing",
-                "reference": "91ed5f07c444e665bc35a3b1910b466ac0764b16"
+                "reference": "ed947e1b51959f0fb5a23bd8f6b8c3ca147053bb"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3193,7 +3190,6 @@
                 "symplify\/composer-json-manipulator": "<11.1.17",
                 "symplify\/config-transformer": "<11.1.17",
                 "symplify\/easy-ci": "<11.1.17",
-                "symplify\/easy-coding-standard": "<11.1.17",
                 "symplify\/easy-parallel": "<11.1.17",
                 "symplify\/monorepo-builder": "<11.1.17",
                 "symplify\/php-config-printer": "<11.1.17",
@@ -3244,7 +3240,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/package-builder",
-                "reference": "feb951c999b5bea38f5a5174c8aaf1850d234c74"
+                "reference": "51afac36bcd7055e16f39013fce182dfd83b6ab8"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3261,7 +3257,6 @@
                 "symplify\/composer-json-manipulator": "<11.1.17",
                 "symplify\/config-transformer": "<11.1.17",
                 "symplify\/easy-ci": "<11.1.17",
-                "symplify\/easy-coding-standard": "<11.1.17",
                 "symplify\/easy-parallel": "<11.1.17",
                 "symplify\/easy-testing": "<11.1.17",
                 "symplify\/monorepo-builder": "<11.1.17",
@@ -3313,7 +3308,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/rule-doc-generator-contracts",
-                "reference": "b7ff5741ea71d37a5ca8b4fc15ccfad146886562"
+                "reference": "dca6a27c057e9a558af44fb8d84935b2fec7aa30"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3325,7 +3320,6 @@
                 "symplify\/composer-json-manipulator": "<11.1.17",
                 "symplify\/config-transformer": "<11.1.17",
                 "symplify\/easy-ci": "<11.1.17",
-                "symplify\/easy-coding-standard": "<11.1.17",
                 "symplify\/easy-parallel": "<11.1.17",
                 "symplify\/easy-testing": "<11.1.17",
                 "symplify\/monorepo-builder": "<11.1.17",
@@ -3368,7 +3362,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/smart-file-system",
-                "reference": "3dd6b0fb1faa7764f8d1fd21e795bb6aeba1200b"
+                "reference": "727e5ce8b216343058d883930772f83f496c64ad"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3382,7 +3376,6 @@
                 "symplify\/composer-json-manipulator": "<11.1.17",
                 "symplify\/config-transformer": "<11.1.17",
                 "symplify\/easy-ci": "<11.1.17",
-                "symplify\/easy-coding-standard": "<11.1.17",
                 "symplify\/easy-parallel": "<11.1.17",
                 "symplify\/easy-testing": "<11.1.17",
                 "symplify\/monorepo-builder": "<11.1.17",
@@ -3433,7 +3426,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/symplify-kernel",
-                "reference": "74a57187ffc66df8acaebeb57f61de07a4a54514"
+                "reference": "65ad672c2f9d41ce484740cd7625b8f2ae47100f"
             },
             "require": {
                 "php": ">=8.1",
@@ -3449,7 +3442,6 @@
                 "symplify\/composer-json-manipulator": "<11.1.17",
                 "symplify\/config-transformer": "<11.1.17",
                 "symplify\/easy-ci": "<11.1.17",
-                "symplify\/easy-coding-standard": "<11.1.17",
                 "symplify\/easy-parallel": "<11.1.17",
                 "symplify\/easy-testing": "<11.1.17",
                 "symplify\/monorepo-builder": "<11.1.17",
