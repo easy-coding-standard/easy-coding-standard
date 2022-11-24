@@ -36,11 +36,8 @@
         "symplify\/php-config-printer": "<11.1.17",
         "symplify\/phpstan-extensions": "<11.1.17",
         "symplify\/rule-doc-generator": "<11.1.17",
-        "symplify\/vendor-patches": "<11.1.17",
         "symplify\/symfony-static-dumper": "<11.1.17",
-        "symplify\/monorepo-builder": "<11.1.17",
         "symplify\/config-transformer": "<11.1.17",
-        "symplify\/easy-ci": "<11.1.17",
         "symplify\/coding-standard": "<11.1.17",
         "symplify\/easy-parallel": "<11.1.17",
         "symplify\/composer-json-manipulator": "<11.1.17"
