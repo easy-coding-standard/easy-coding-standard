@@ -13,7 +13,7 @@
     },
     "require-dev": {
         "symplify\/symplify-kernel": "dev-main",
-        "phpunit\/phpunit": "^9.5.25"
+        "phpunit\/phpunit": "^9.5.26"
     },
     "autoload": {
         "psr-4": {

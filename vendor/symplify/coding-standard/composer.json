@@ -16,7 +16,7 @@
         "symplify\/smart-file-system": "dev-main",
         "symfony\/framework-bundle": "^6.1",
         "symplify\/easy-coding-standard": "dev-main",
-        "phpunit\/phpunit": "^9.5.25",
+        "phpunit\/phpunit": "^9.5.26",
         "symplify\/rule-doc-generator": "dev-main",
         "cweagans\/composer-patches": "^1.7"
     },
