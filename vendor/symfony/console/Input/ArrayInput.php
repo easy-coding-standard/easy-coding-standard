@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\Console\Input;
+namespace ECSPrefix202212\Symfony\Component\Console\Input;
 
-use ECSPrefix202211\Symfony\Component\Console\Exception\InvalidArgumentException;
-use ECSPrefix202211\Symfony\Component\Console\Exception\InvalidOptionException;
+use ECSPrefix202212\Symfony\Component\Console\Exception\InvalidArgumentException;
+use ECSPrefix202212\Symfony\Component\Console\Exception\InvalidOptionException;
 /**
  * ArrayInput represents an input provided as an array.
  *
@@ -32,9 +32,6 @@ class ArrayInput extends Input
         $this->parameters = $parameters;
         parent::__construct($definition);
     }
-    /**
-     * {@inheritdoc}
-     */
     public function getFirstArgument() : ?string
     {
         foreach ($this->parameters as $param => $value) {
@@ -46,7 +43,6 @@ class ArrayInput extends Input
         return null;
     }
     /**
-     * {@inheritdoc}
      * @param string|mixed[] $values
      */
     public function hasParameterOption($values, bool $onlyParams = \false) : bool
@@ -66,7 +62,6 @@ class ArrayInput extends Input
         return \false;
     }
     /**
-     * {@inheritdoc}
      * @param string|mixed[] $values
      * @param string|bool|int|float|mixed[]|null $default
      * @return mixed
@@ -110,9 +105,6 @@ class ArrayInput extends Input
         }
         return \implode(' ', $params);
     }
-    /**
-     * {@inheritdoc}
-     */
     protected function parse()
     {
         foreach ($this->parameters as $key => $value) {

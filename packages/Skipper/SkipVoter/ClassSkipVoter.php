@@ -6,8 +6,8 @@ namespace Symplify\EasyCodingStandard\Skipper\SkipVoter;
 use Symplify\EasyCodingStandard\Skipper\Contract\SkipVoterInterface;
 use Symplify\EasyCodingStandard\Skipper\SkipCriteriaResolver\SkippedClassResolver;
 use Symplify\EasyCodingStandard\Skipper\Skipper\SkipSkipper;
-use ECSPrefix202211\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
-use ECSPrefix202211\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix202212\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
+use ECSPrefix202212\Symplify\SmartFileSystem\SmartFileInfo;
 final class ClassSkipVoter implements SkipVoterInterface
 {
     /**

@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\DependencyInjection\Argument;
+namespace ECSPrefix202212\Symfony\Component\DependencyInjection\Argument;
 
-use ECSPrefix202211\Symfony\Component\DependencyInjection\ServiceLocator as BaseServiceLocator;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\ServiceLocator as BaseServiceLocator;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  *
@@ -38,7 +38,6 @@ class ServiceLocator extends BaseServiceLocator
         parent::__construct($serviceMap);
     }
     /**
-     * {@inheritdoc}
      * @return mixed
      */
     public function get(string $id)
@@ -52,9 +51,6 @@ class ServiceLocator extends BaseServiceLocator
                 return ($this->factory)(...$this->serviceMap[$id]);
         }
     }
-    /**
-     * {@inheritdoc}
-     */
     public function getProvidedServices() : array
     {
         return $this->serviceTypes = $this->serviceTypes ?? \array_map(function () {

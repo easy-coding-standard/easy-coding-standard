@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202211\Symplify\PackageBuilder\Parameter;
+namespace ECSPrefix202212\Symplify\PackageBuilder\Parameter;
 
-use ECSPrefix202211\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
-use ECSPrefix202211\Symfony\Component\HttpFoundation\ParameterBag;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
+use ECSPrefix202212\Symfony\Component\HttpFoundation\ParameterBag;
 /**
  * @api
  * @see \Symplify\PackageBuilder\Tests\Parameter\ParameterProviderTest

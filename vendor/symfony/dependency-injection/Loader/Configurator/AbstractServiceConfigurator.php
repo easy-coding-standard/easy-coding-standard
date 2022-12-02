@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\DependencyInjection\Loader\Configurator;
+namespace ECSPrefix202212\Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 abstract class AbstractServiceConfigurator extends AbstractConfigurator
 {
     protected $parent;

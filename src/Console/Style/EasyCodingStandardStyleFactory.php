@@ -3,13 +3,13 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Style;
 
-use ECSPrefix202211\Symfony\Component\Console\Application;
-use ECSPrefix202211\Symfony\Component\Console\Input\ArgvInput;
-use ECSPrefix202211\Symfony\Component\Console\Output\ConsoleOutput;
-use ECSPrefix202211\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix202211\Symfony\Component\Console\Terminal;
-use ECSPrefix202211\Symplify\EasyTesting\PHPUnit\StaticPHPUnitEnvironment;
-use ECSPrefix202211\Symplify\PackageBuilder\Reflection\PrivatesCaller;
+use ECSPrefix202212\Symfony\Component\Console\Application;
+use ECSPrefix202212\Symfony\Component\Console\Input\ArgvInput;
+use ECSPrefix202212\Symfony\Component\Console\Output\ConsoleOutput;
+use ECSPrefix202212\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix202212\Symfony\Component\Console\Terminal;
+use ECSPrefix202212\Symplify\EasyTesting\PHPUnit\StaticPHPUnitEnvironment;
+use ECSPrefix202212\Symplify\PackageBuilder\Reflection\PrivatesCaller;
 final class EasyCodingStandardStyleFactory
 {
     /**

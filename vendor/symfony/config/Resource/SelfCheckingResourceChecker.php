@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\Config\Resource;
+namespace ECSPrefix202212\Symfony\Component\Config\Resource;
 
-use ECSPrefix202211\Symfony\Component\Config\ResourceCheckerInterface;
+use ECSPrefix202212\Symfony\Component\Config\ResourceCheckerInterface;
 /**
  * Resource checker for instances of SelfCheckingResourceInterface.
  *
@@ -39,6 +39,6 @@ class SelfCheckingResourceChecker implements ResourceCheckerInterface
     public function isFresh(ResourceInterface $resource, int $timestamp) : bool
     {
         $key = "{$resource}:{$timestamp}";
-        return self::$cache[$key] ?? (self::$cache[$key] = $resource->isFresh($timestamp));
+        return self::$cache[$key] = self::$cache[$key] ?? $resource->isFresh($timestamp);
     }
 }

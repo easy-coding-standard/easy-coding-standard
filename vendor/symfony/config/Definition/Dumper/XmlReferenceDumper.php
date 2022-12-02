@@ -8,18 +8,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\Config\Definition\Dumper;
+namespace ECSPrefix202212\Symfony\Component\Config\Definition\Dumper;
 
-use ECSPrefix202211\Symfony\Component\Config\Definition\ArrayNode;
-use ECSPrefix202211\Symfony\Component\Config\Definition\BaseNode;
-use ECSPrefix202211\Symfony\Component\Config\Definition\BooleanNode;
-use ECSPrefix202211\Symfony\Component\Config\Definition\ConfigurationInterface;
-use ECSPrefix202211\Symfony\Component\Config\Definition\EnumNode;
-use ECSPrefix202211\Symfony\Component\Config\Definition\FloatNode;
-use ECSPrefix202211\Symfony\Component\Config\Definition\IntegerNode;
-use ECSPrefix202211\Symfony\Component\Config\Definition\NodeInterface;
-use ECSPrefix202211\Symfony\Component\Config\Definition\PrototypedArrayNode;
-use ECSPrefix202211\Symfony\Component\Config\Definition\ScalarNode;
+use ECSPrefix202212\Symfony\Component\Config\Definition\ArrayNode;
+use ECSPrefix202212\Symfony\Component\Config\Definition\BaseNode;
+use ECSPrefix202212\Symfony\Component\Config\Definition\BooleanNode;
+use ECSPrefix202212\Symfony\Component\Config\Definition\ConfigurationInterface;
+use ECSPrefix202212\Symfony\Component\Config\Definition\EnumNode;
+use ECSPrefix202212\Symfony\Component\Config\Definition\FloatNode;
+use ECSPrefix202212\Symfony\Component\Config\Definition\IntegerNode;
+use ECSPrefix202212\Symfony\Component\Config\Definition\NodeInterface;
+use ECSPrefix202212\Symfony\Component\Config\Definition\PrototypedArrayNode;
+use ECSPrefix202212\Symfony\Component\Config\Definition\ScalarNode;
 /**
  * Dumps an XML reference configuration for the given configuration/node instance.
  *

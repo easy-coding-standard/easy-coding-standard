@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\Config\Definition\Builder;
+namespace ECSPrefix202212\Symfony\Component\Config\Definition\Builder;
 
 /**
  * This class builds normalization conditions.
@@ -19,6 +19,7 @@ class NormalizationBuilder
 {
     protected $node;
     public $before = [];
+    public $declaredTypes = [];
     public $remappings = [];
     public function __construct(NodeDefinition $node)
     {

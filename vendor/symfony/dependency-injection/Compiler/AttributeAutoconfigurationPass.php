@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix202212\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix202211\Symfony\Component\DependencyInjection\ChildDefinition;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Exception\LogicException;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\ChildDefinition;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Exception\LogicException;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Exception\RuntimeException;
 /**
  * @author Alexander M. Turek <me@derrabus.de>
  */

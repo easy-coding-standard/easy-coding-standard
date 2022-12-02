@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\Config\Definition\Builder;
+namespace ECSPrefix202212\Symfony\Component\Config\Definition\Builder;
 
-use ECSPrefix202211\Symfony\Component\Config\Definition\EnumNode;
+use ECSPrefix202212\Symfony\Component\Config\Definition\EnumNode;
 /**
  * Enum Node Definition.
  *
@@ -28,7 +28,7 @@ class EnumNodeDefinition extends ScalarNodeDefinition
     public function values(array $values)
     {
         $values = \array_unique($values);
-        if (empty($values)) {
+        if (!$values) {
             throw new \InvalidArgumentException('->values() must be called with at least one value.');
         }
         $this->values = $values;
@@ -39,7 +39,7 @@ class EnumNodeDefinition extends ScalarNodeDefinition
      *
      * @throws \RuntimeException
      */
-    protected function instantiateNode() : \ECSPrefix202211\Symfony\Component\Config\Definition\ScalarNode
+    protected function instantiateNode() : \ECSPrefix202212\Symfony\Component\Config\Definition\ScalarNode
     {
         if (!isset($this->values)) {
             throw new \RuntimeException('You must call ->values() on enum nodes.');

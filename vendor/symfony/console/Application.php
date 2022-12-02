@@ -8,49 +8,51 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\Console;
+namespace ECSPrefix202212\Symfony\Component\Console;
 
-use ECSPrefix202211\Symfony\Component\Console\Command\Command;
-use ECSPrefix202211\Symfony\Component\Console\Command\CompleteCommand;
-use ECSPrefix202211\Symfony\Component\Console\Command\DumpCompletionCommand;
-use ECSPrefix202211\Symfony\Component\Console\Command\HelpCommand;
-use ECSPrefix202211\Symfony\Component\Console\Command\LazyCommand;
-use ECSPrefix202211\Symfony\Component\Console\Command\ListCommand;
-use ECSPrefix202211\Symfony\Component\Console\Command\SignalableCommandInterface;
-use ECSPrefix202211\Symfony\Component\Console\CommandLoader\CommandLoaderInterface;
-use ECSPrefix202211\Symfony\Component\Console\Completion\CompletionInput;
-use ECSPrefix202211\Symfony\Component\Console\Completion\CompletionSuggestions;
-use ECSPrefix202211\Symfony\Component\Console\Event\ConsoleCommandEvent;
-use ECSPrefix202211\Symfony\Component\Console\Event\ConsoleErrorEvent;
-use ECSPrefix202211\Symfony\Component\Console\Event\ConsoleSignalEvent;
-use ECSPrefix202211\Symfony\Component\Console\Event\ConsoleTerminateEvent;
-use ECSPrefix202211\Symfony\Component\Console\Exception\CommandNotFoundException;
-use ECSPrefix202211\Symfony\Component\Console\Exception\ExceptionInterface;
-use ECSPrefix202211\Symfony\Component\Console\Exception\LogicException;
-use ECSPrefix202211\Symfony\Component\Console\Exception\NamespaceNotFoundException;
-use ECSPrefix202211\Symfony\Component\Console\Exception\RuntimeException;
-use ECSPrefix202211\Symfony\Component\Console\Formatter\OutputFormatter;
-use ECSPrefix202211\Symfony\Component\Console\Helper\DebugFormatterHelper;
-use ECSPrefix202211\Symfony\Component\Console\Helper\FormatterHelper;
-use ECSPrefix202211\Symfony\Component\Console\Helper\Helper;
-use ECSPrefix202211\Symfony\Component\Console\Helper\HelperSet;
-use ECSPrefix202211\Symfony\Component\Console\Helper\ProcessHelper;
-use ECSPrefix202211\Symfony\Component\Console\Helper\QuestionHelper;
-use ECSPrefix202211\Symfony\Component\Console\Input\ArgvInput;
-use ECSPrefix202211\Symfony\Component\Console\Input\ArrayInput;
-use ECSPrefix202211\Symfony\Component\Console\Input\InputArgument;
-use ECSPrefix202211\Symfony\Component\Console\Input\InputAwareInterface;
-use ECSPrefix202211\Symfony\Component\Console\Input\InputDefinition;
-use ECSPrefix202211\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix202211\Symfony\Component\Console\Input\InputOption;
-use ECSPrefix202211\Symfony\Component\Console\Output\ConsoleOutput;
-use ECSPrefix202211\Symfony\Component\Console\Output\ConsoleOutputInterface;
-use ECSPrefix202211\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix202211\Symfony\Component\Console\SignalRegistry\SignalRegistry;
-use ECSPrefix202211\Symfony\Component\Console\Style\SymfonyStyle;
-use ECSPrefix202211\Symfony\Component\ErrorHandler\ErrorHandler;
-use ECSPrefix202211\Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
-use ECSPrefix202211\Symfony\Contracts\Service\ResetInterface;
+use ECSPrefix202212\Symfony\Component\Console\Command\Command;
+use ECSPrefix202212\Symfony\Component\Console\Command\CompleteCommand;
+use ECSPrefix202212\Symfony\Component\Console\Command\DumpCompletionCommand;
+use ECSPrefix202212\Symfony\Component\Console\Command\HelpCommand;
+use ECSPrefix202212\Symfony\Component\Console\Command\LazyCommand;
+use ECSPrefix202212\Symfony\Component\Console\Command\ListCommand;
+use ECSPrefix202212\Symfony\Component\Console\Command\SignalableCommandInterface;
+use ECSPrefix202212\Symfony\Component\Console\CommandLoader\CommandLoaderInterface;
+use ECSPrefix202212\Symfony\Component\Console\Completion\CompletionInput;
+use ECSPrefix202212\Symfony\Component\Console\Completion\CompletionSuggestions;
+use ECSPrefix202212\Symfony\Component\Console\Completion\Suggestion;
+use ECSPrefix202212\Symfony\Component\Console\Event\ConsoleCommandEvent;
+use ECSPrefix202212\Symfony\Component\Console\Event\ConsoleErrorEvent;
+use ECSPrefix202212\Symfony\Component\Console\Event\ConsoleSignalEvent;
+use ECSPrefix202212\Symfony\Component\Console\Event\ConsoleTerminateEvent;
+use ECSPrefix202212\Symfony\Component\Console\Exception\CommandNotFoundException;
+use ECSPrefix202212\Symfony\Component\Console\Exception\ExceptionInterface;
+use ECSPrefix202212\Symfony\Component\Console\Exception\LogicException;
+use ECSPrefix202212\Symfony\Component\Console\Exception\NamespaceNotFoundException;
+use ECSPrefix202212\Symfony\Component\Console\Exception\RuntimeException;
+use ECSPrefix202212\Symfony\Component\Console\Formatter\OutputFormatter;
+use ECSPrefix202212\Symfony\Component\Console\Helper\DebugFormatterHelper;
+use ECSPrefix202212\Symfony\Component\Console\Helper\DescriptorHelper;
+use ECSPrefix202212\Symfony\Component\Console\Helper\FormatterHelper;
+use ECSPrefix202212\Symfony\Component\Console\Helper\Helper;
+use ECSPrefix202212\Symfony\Component\Console\Helper\HelperSet;
+use ECSPrefix202212\Symfony\Component\Console\Helper\ProcessHelper;
+use ECSPrefix202212\Symfony\Component\Console\Helper\QuestionHelper;
+use ECSPrefix202212\Symfony\Component\Console\Input\ArgvInput;
+use ECSPrefix202212\Symfony\Component\Console\Input\ArrayInput;
+use ECSPrefix202212\Symfony\Component\Console\Input\InputArgument;
+use ECSPrefix202212\Symfony\Component\Console\Input\InputAwareInterface;
+use ECSPrefix202212\Symfony\Component\Console\Input\InputDefinition;
+use ECSPrefix202212\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix202212\Symfony\Component\Console\Input\InputOption;
+use ECSPrefix202212\Symfony\Component\Console\Output\ConsoleOutput;
+use ECSPrefix202212\Symfony\Component\Console\Output\ConsoleOutputInterface;
+use ECSPrefix202212\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix202212\Symfony\Component\Console\SignalRegistry\SignalRegistry;
+use ECSPrefix202212\Symfony\Component\Console\Style\SymfonyStyle;
+use ECSPrefix202212\Symfony\Component\ErrorHandler\ErrorHandler;
+use ECSPrefix202212\Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use ECSPrefix202212\Symfony\Contracts\Service\ResetInterface;
 /**
  * An Application is the container for a collection of commands.
  *
@@ -182,12 +184,8 @@ class Application implements ResetInterface
             @\putenv('LINES=' . $this->terminal->getHeight());
             @\putenv('COLUMNS=' . $this->terminal->getWidth());
         }
-        if (null === $input) {
-            $input = new ArgvInput();
-        }
-        if (null === $output) {
-            $output = new ConsoleOutput();
-        }
+        $input = $input ?? new ArgvInput();
+        $output = $output ?? new ConsoleOutput();
         $renderException = function (\Throwable $e) use($output) {
             if ($output instanceof ConsoleOutputInterface) {
                 $this->renderThrowable($e, $output->getErrorOutput());
@@ -279,7 +277,22 @@ class Application implements ResetInterface
             // the command name MUST be the first element of the input
             $command = $this->find($name);
         } catch (\Throwable $e) {
-            if (!($e instanceof CommandNotFoundException && !$e instanceof NamespaceNotFoundException) || 1 !== \count($alternatives = $e->getAlternatives()) || !$input->isInteractive()) {
+            if ($e instanceof CommandNotFoundException && !$e instanceof NamespaceNotFoundException && 1 === \count($alternatives = $e->getAlternatives()) && $input->isInteractive()) {
+                $alternative = $alternatives[0];
+                $style = new SymfonyStyle($input, $output);
+                $output->writeln('');
+                $formattedBlock = (new FormatterHelper())->formatBlock(\sprintf('Command "%s" is not defined.', $name), 'error', \true);
+                $output->writeln($formattedBlock);
+                if (!$style->confirm(\sprintf('Do you want to run "%s" instead? ', $alternative), \false)) {
+                    if (null !== $this->dispatcher) {
+                        $event = new ConsoleErrorEvent($input, $output, $e);
+                        $this->dispatcher->dispatch($event, ConsoleEvents::ERROR);
+                        return $event->getExitCode();
+                    }
+                    return 1;
+                }
+                $command = $this->find($alternative);
+            } else {
                 if (null !== $this->dispatcher) {
                     $event = new ConsoleErrorEvent($input, $output, $e);
                     $this->dispatcher->dispatch($event, ConsoleEvents::ERROR);
@@ -288,22 +301,16 @@ class Application implements ResetInterface
                     }
                     $e = $event->getError();
                 }
-                throw $e;
-            }
-            $alternative = $alternatives[0];
-            $style = new SymfonyStyle($input, $output);
-            $output->writeln('');
-            $formattedBlock = (new FormatterHelper())->formatBlock(\sprintf('Command "%s" is not defined.', $name), 'error', \true);
-            $output->writeln($formattedBlock);
-            if (!$style->confirm(\sprintf('Do you want to run "%s" instead? ', $alternative), \false)) {
-                if (null !== $this->dispatcher) {
-                    $event = new ConsoleErrorEvent($input, $output, $e);
-                    $this->dispatcher->dispatch($event, ConsoleEvents::ERROR);
-                    return $event->getExitCode();
+                try {
+                    if ($e instanceof CommandNotFoundException && ($namespace = $this->findNamespace($name))) {
+                        $helper = new DescriptorHelper();
+                        $helper->describe($output instanceof ConsoleOutputInterface ? $output->getErrorOutput() : $output, $this, ['format' => 'txt', 'raw_text' => \false, 'namespace' => $namespace, 'short' => \false]);
+                        return isset($event) ? $event->getExitCode() : 1;
+                    }
+                } catch (NamespaceNotFoundException $exception) {
+                    throw $e;
                 }
-                return 1;
             }
-            $command = $this->find($alternative);
         }
         if ($command instanceof LazyCommand) {
             $command = $command->getCommand();
@@ -313,9 +320,6 @@ class Application implements ResetInterface
         $this->runningCommand = null;
         return $exitCode;
     }
-    /**
-     * {@inheritdoc}
-     */
     public function reset()
     {
     }
@@ -353,18 +357,16 @@ class Application implements ResetInterface
     public function complete(CompletionInput $input, CompletionSuggestions $suggestions) : void
     {
         if (CompletionInput::TYPE_ARGUMENT_VALUE === $input->getCompletionType() && 'command' === $input->getCompletionName()) {
-            $commandNames = [];
             foreach ($this->all() as $name => $command) {
                 // skip hidden commands and aliased commands as they already get added below
                 if ($command->isHidden() || $command->getName() !== $name) {
                     continue;
                 }
-                $commandNames[] = $command->getName();
+                $suggestions->suggestValue(new Suggestion($command->getName(), $command->getDescription()));
                 foreach ($command->getAliases() as $name) {
-                    $commandNames[] = $name;
+                    $suggestions->suggestValue(new Suggestion($name, $command->getDescription()));
                 }
             }
-            $suggestions->suggestValues(\array_filter($commandNames));
             return;
         }
         if (CompletionInput::TYPE_OPTION_NAME === $input->getCompletionType()) {
@@ -873,9 +875,6 @@ class Application implements ResetInterface
                         });
                     }
                 }
-                foreach ($commandSignals as $signal) {
-                    $this->signalRegistry->register($signal, [$command, 'handleSignal']);
-                }
             }
             if (null !== $this->dispatcher) {
                 foreach ($this->signalsToDispatchEvent as $signal) {
@@ -890,6 +889,9 @@ class Application implements ResetInterface
                         }
                     });
                 }
+            }
+            foreach ($commandSignals as $signal) {
+                $this->signalRegistry->register($signal, [$command, 'handleSignal']);
             }
         }
         if (null === $this->dispatcher) {

@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Caching;
 
-use ECSPrefix202211\Symplify\SmartFileSystem\SmartFileInfo;
-use ECSPrefix202211\Webmozart\Assert\Assert;
+use ECSPrefix202212\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix202212\Webmozart\Assert\Assert;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\ChangedFilesDetector\ChangedFilesDetector\ChangedFilesDetectorTest
  */

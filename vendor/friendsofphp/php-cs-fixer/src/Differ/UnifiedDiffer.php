@@ -13,8 +13,8 @@ declare (strict_types=1);
 namespace PhpCsFixer\Differ;
 
 use PhpCsFixer\Preg;
-use ECSPrefix202211\SebastianBergmann\Diff\Differ;
-use ECSPrefix202211\SebastianBergmann\Diff\Output\StrictUnifiedDiffOutputBuilder;
+use ECSPrefix202212\SebastianBergmann\Diff\Differ;
+use ECSPrefix202212\SebastianBergmann\Diff\Output\StrictUnifiedDiffOutputBuilder;
 final class UnifiedDiffer implements \PhpCsFixer\Differ\DifferInterface
 {
     /**

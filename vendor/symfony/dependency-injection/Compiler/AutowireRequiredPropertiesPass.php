@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix202212\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix202211\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\TypedReference;
-use ECSPrefix202211\Symfony\Contracts\Service\Attribute\Required;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\TypedReference;
+use ECSPrefix202212\Symfony\Contracts\Service\Attribute\Required;
 /**
  * Looks for definitions with autowiring enabled and registers their corresponding "@required" properties.
  *
@@ -23,7 +23,6 @@ use ECSPrefix202211\Symfony\Contracts\Service\Attribute\Required;
 class AutowireRequiredPropertiesPass extends AbstractRecursivePass
 {
     /**
-     * {@inheritdoc}
      * @param mixed $value
      * @return mixed
      */

@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\DependencyInjection\Loader\Configurator;
+namespace ECSPrefix202212\Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
@@ -43,11 +43,7 @@ class DefaultsConfigurator extends AbstractServiceConfigurator
         if ('' === $name) {
             throw new InvalidArgumentException('The tag name in "_defaults" must be a non-empty string.');
         }
-        foreach ($attributes as $attribute => $value) {
-            if (null !== $value && !\is_scalar($value)) {
-                throw new InvalidArgumentException(\sprintf('Tag "%s", attribute "%s" in "_defaults" must be of a scalar-type.', $name, $attribute));
-            }
-        }
+        $this->validateAttributes($name, $attributes);
         $this->definition->addTag($name, $attributes);
         return $this;
     }
@@ -57,5 +53,15 @@ class DefaultsConfigurator extends AbstractServiceConfigurator
     public final function instanceof(string $fqcn) : InstanceofConfigurator
     {
         return $this->parent->instanceof($fqcn);
+    }
+    private function validateAttributes(string $tagName, array $attributes, string $prefix = '') : void
+    {
+        foreach ($attributes as $attribute => $value) {
+            if (\is_array($value)) {
+                $this->validateAttributes($tagName, $value, $attribute . '.');
+            } elseif (!\is_scalar($value ?? '')) {
+                throw new InvalidArgumentException(\sprintf('Tag "%s", attribute "%s" in "_defaults" must be of a scalar-type or an array of scalar-type.', $tagName, $prefix . $attribute));
+            }
+        }
     }
 }

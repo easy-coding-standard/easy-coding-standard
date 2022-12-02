@@ -8,26 +8,26 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\DependencyInjection\Dumper;
+namespace ECSPrefix202212\Symfony\Component\DependencyInjection\Dumper;
 
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Alias;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Argument\AbstractArgument;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Argument\ArgumentInterface;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Argument\IteratorArgument;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Exception\LogicException;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Exception\RuntimeException;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Parameter;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Reference;
-use ECSPrefix202211\Symfony\Component\ExpressionLanguage\Expression;
-use ECSPrefix202211\Symfony\Component\Yaml\Dumper as YmlDumper;
-use ECSPrefix202211\Symfony\Component\Yaml\Parser;
-use ECSPrefix202211\Symfony\Component\Yaml\Tag\TaggedValue;
-use ECSPrefix202211\Symfony\Component\Yaml\Yaml;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Alias;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Argument\AbstractArgument;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Argument\ArgumentInterface;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Argument\IteratorArgument;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Exception\LogicException;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Parameter;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix202212\Symfony\Component\ExpressionLanguage\Expression;
+use ECSPrefix202212\Symfony\Component\Yaml\Dumper as YmlDumper;
+use ECSPrefix202212\Symfony\Component\Yaml\Parser;
+use ECSPrefix202212\Symfony\Component\Yaml\Tag\TaggedValue;
+use ECSPrefix202212\Symfony\Component\Yaml\Yaml;
 /**
  * YamlDumper dumps a service container as a YAML string.
  *
@@ -224,6 +224,12 @@ class YamlDumper extends Dumper
                     if (null !== $tag->getDefaultPriorityMethod()) {
                         $content['default_priority_method'] = $tag->getDefaultPriorityMethod();
                     }
+                }
+                if ($excludes = $tag->getExclude()) {
+                    if (!\is_array($content)) {
+                        $content = ['tag' => $content];
+                    }
+                    $content['exclude'] = 1 === \count($excludes) ? $excludes[0] : $excludes;
                 }
                 return new TaggedValue($value instanceof TaggedIteratorArgument ? 'tagged_iterator' : 'tagged_locator', $content);
             }

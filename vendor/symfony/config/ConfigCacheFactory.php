@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\Config;
+namespace ECSPrefix202212\Symfony\Component\Config;
 
 /**
  * Basic implementation of ConfigCacheFactoryInterface that
@@ -32,9 +32,6 @@ class ConfigCacheFactory implements ConfigCacheFactoryInterface
     {
         $this->debug = $debug;
     }
-    /**
-     * {@inheritdoc}
-     */
     public function cache(string $file, callable $callback) : ConfigCacheInterface
     {
         $cache = new ConfigCache($file, $this->debug);

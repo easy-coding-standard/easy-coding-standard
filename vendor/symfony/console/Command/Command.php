@@ -8,22 +8,23 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\Console\Command;
+namespace ECSPrefix202212\Symfony\Component\Console\Command;
 
-use ECSPrefix202211\Symfony\Component\Console\Application;
-use ECSPrefix202211\Symfony\Component\Console\Attribute\AsCommand;
-use ECSPrefix202211\Symfony\Component\Console\Completion\CompletionInput;
-use ECSPrefix202211\Symfony\Component\Console\Completion\CompletionSuggestions;
-use ECSPrefix202211\Symfony\Component\Console\Completion\Suggestion;
-use ECSPrefix202211\Symfony\Component\Console\Exception\ExceptionInterface;
-use ECSPrefix202211\Symfony\Component\Console\Exception\InvalidArgumentException;
-use ECSPrefix202211\Symfony\Component\Console\Exception\LogicException;
-use ECSPrefix202211\Symfony\Component\Console\Helper\HelperSet;
-use ECSPrefix202211\Symfony\Component\Console\Input\InputArgument;
-use ECSPrefix202211\Symfony\Component\Console\Input\InputDefinition;
-use ECSPrefix202211\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix202211\Symfony\Component\Console\Input\InputOption;
-use ECSPrefix202211\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix202212\Symfony\Component\Console\Application;
+use ECSPrefix202212\Symfony\Component\Console\Attribute\AsCommand;
+use ECSPrefix202212\Symfony\Component\Console\Completion\CompletionInput;
+use ECSPrefix202212\Symfony\Component\Console\Completion\CompletionSuggestions;
+use ECSPrefix202212\Symfony\Component\Console\Completion\Suggestion;
+use ECSPrefix202212\Symfony\Component\Console\Exception\ExceptionInterface;
+use ECSPrefix202212\Symfony\Component\Console\Exception\InvalidArgumentException;
+use ECSPrefix202212\Symfony\Component\Console\Exception\LogicException;
+use ECSPrefix202212\Symfony\Component\Console\Helper\HelperInterface;
+use ECSPrefix202212\Symfony\Component\Console\Helper\HelperSet;
+use ECSPrefix202212\Symfony\Component\Console\Input\InputArgument;
+use ECSPrefix202212\Symfony\Component\Console\Input\InputDefinition;
+use ECSPrefix202212\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix202212\Symfony\Component\Console\Input\InputOption;
+use ECSPrefix202212\Symfony\Component\Console\Output\OutputInterface;
 /**
  * Base class for all commands.
  *
@@ -113,7 +114,7 @@ class Command
         if ($class !== $r->class || null === static::$defaultName) {
             return null;
         }
-        \ECSPrefix202211\trigger_deprecation('symfony/console', '6.1', 'Relying on the static property "$defaultName" for setting a command name is deprecated. Add the "%s" attribute to the "%s" class instead.', AsCommand::class, static::class);
+        \ECSPrefix202212\trigger_deprecation('symfony/console', '6.1', 'Relying on the static property "$defaultName" for setting a command name is deprecated. Add the "%s" attribute to the "%s" class instead.', AsCommand::class, static::class);
         return static::$defaultName;
     }
     public static function getDefaultDescription() : ?string
@@ -126,7 +127,7 @@ class Command
         if ($class !== $r->class || null === static::$defaultDescription) {
             return null;
         }
-        \ECSPrefix202211\trigger_deprecation('symfony/console', '6.1', 'Relying on the static property "$defaultDescription" for setting a command description is deprecated. Add the "%s" attribute to the "%s" class instead.', AsCommand::class, static::class);
+        \ECSPrefix202212\trigger_deprecation('symfony/console', '6.1', 'Relying on the static property "$defaultDescription" for setting a command description is deprecated. Add the "%s" attribute to the "%s" class instead.', AsCommand::class, static::class);
         return static::$defaultDescription;
     }
     /**
@@ -164,6 +165,9 @@ class Command
     }
     public function setApplication(Application $application = null)
     {
+        if (1 > \func_num_args()) {
+            \ECSPrefix202212\trigger_deprecation('symfony/console', '6.2', 'Calling "%s()" without any arguments is deprecated, pass null explicitly instead.', __METHOD__);
+        }
         $this->application = $application;
         if ($application) {
             $this->setHelperSet($application->getHelperSet());
@@ -285,7 +289,7 @@ class Command
                         \cli_set_process_title($this->processTitle);
                     }
                 }
-            } elseif (\function_exists('ECSPrefix202211\\setproctitle')) {
+            } elseif (\function_exists('ECSPrefix202212\\setproctitle')) {
                 setproctitle($this->processTitle);
             } elseif (OutputInterface::VERBOSITY_VERY_VERBOSE === $output->getVerbosity()) {
                 $output->writeln('<comment>Install the proctitle PECL to be able to change the process title.</comment>');
@@ -427,9 +431,9 @@ class Command
      * @param $default The default value (for InputArgument::OPTIONAL mode only)
      * @param array|\Closure(CompletionInput,CompletionSuggestions):list<string|Suggestion> $suggestedValues The values used for input completion
      *
-     * @throws InvalidArgumentException When argument mode is not valid
-     *
      * @return $this
+     *
+     * @throws InvalidArgumentException When argument mode is not valid
      * @param mixed $default
      */
     public function addArgument(string $name, int $mode = null, string $description = '', $default = null)
@@ -450,9 +454,9 @@ class Command
      * @param $default  The default value (must be null for InputOption::VALUE_NONE)
      * @param array|\Closure(CompletionInput,CompletionSuggestions):list<string|Suggestion> $suggestedValues The values used for input completion
      *
-     * @throws InvalidArgumentException If option mode is invalid or incompatible
-     *
      * @return $this
+     *
+     * @throws InvalidArgumentException If option mode is invalid or incompatible
      * @param string|mixed[] $shortcut
      * @param mixed $default
      */
@@ -629,9 +633,10 @@ class Command
     /**
      * Gets a helper instance by name.
      *
+     * @return HelperInterface
+     *
      * @throws LogicException           if no HelperSet is defined
      * @throws InvalidArgumentException if the helper is not defined
-     * @return mixed
      */
     public function getHelper(string $name)
     {

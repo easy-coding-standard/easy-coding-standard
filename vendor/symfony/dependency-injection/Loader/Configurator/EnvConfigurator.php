@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\DependencyInjection\Loader\Configurator;
+namespace ECSPrefix202212\Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use ECSPrefix202211\Symfony\Component\Config\Loader\ParamConfigurator;
+use ECSPrefix202212\Symfony\Component\Config\Loader\ParamConfigurator;
 class EnvConfigurator extends ParamConfigurator
 {
     /**
@@ -30,7 +30,7 @@ class EnvConfigurator extends ParamConfigurator
      */
     public function __call(string $name, array $arguments)
     {
-        $processor = \strtolower(\preg_replace(['/([A-Z]+)([A-Z][a-z])/', '/([a-z\\d])([A-Z])/'], 'ECSPrefix202211\\1_\\2', $name));
+        $processor = \strtolower(\preg_replace(['/([A-Z]+)([A-Z][a-z])/', '/([a-z\\d])([A-Z])/'], 'ECSPrefix202212\\1_\\2', $name));
         $this->custom($processor, ...$arguments);
         return $this;
     }
@@ -176,6 +176,16 @@ class EnvConfigurator extends ParamConfigurator
     public function require()
     {
         \array_unshift($this->stack, 'require');
+        return $this;
+    }
+    /**
+     * @param class-string<\BackedEnum> $backedEnumClassName
+     *
+     * @return $this
+     */
+    public function enum(string $backedEnumClassName)
+    {
+        \array_unshift($this->stack, 'enum', $backedEnumClassName);
         return $this;
     }
 }

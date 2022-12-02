@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\Console\Formatter;
+namespace ECSPrefix202212\Symfony\Component\Console\Formatter;
 
 /**
  * Formatter style interface for defining styles.
@@ -20,11 +20,11 @@ interface OutputFormatterStyleInterface
     /**
      * Sets style foreground color.
      */
-    public function setForeground(string $color = null);
+    public function setForeground(?string $color);
     /**
      * Sets style background color.
      */
-    public function setBackground(string $color = null);
+    public function setBackground(?string $color);
     /**
      * Sets some specific style option.
      */

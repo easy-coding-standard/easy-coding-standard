@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\DependencyInjection\Loader;
+namespace ECSPrefix202212\Symfony\Component\DependencyInjection\Loader;
 
-use ECSPrefix202211\Symfony\Component\Config\Loader\Loader;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix202212\Symfony\Component\Config\Loader\Loader;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * ClosureLoader loads service definitions from a PHP closure.
  *
@@ -31,7 +31,6 @@ class ClosureLoader extends Loader
         parent::__construct($env);
     }
     /**
-     * {@inheritdoc}
      * @param mixed $resource
      * @return mixed
      */
@@ -40,7 +39,6 @@ class ClosureLoader extends Loader
         return $resource($this->container, $this->env);
     }
     /**
-     * {@inheritdoc}
      * @param mixed $resource
      */
     public function supports($resource, string $type = null) : bool

@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix202212\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix202211\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Exception\RuntimeException;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Reference;
 /**
  * Throws an exception for any Definitions that have errors and still exist.
  *
@@ -22,7 +22,6 @@ use ECSPrefix202211\Symfony\Component\DependencyInjection\Reference;
 class DefinitionErrorExceptionPass extends AbstractRecursivePass
 {
     /**
-     * {@inheritdoc}
      * @param mixed $value
      * @return mixed
      */

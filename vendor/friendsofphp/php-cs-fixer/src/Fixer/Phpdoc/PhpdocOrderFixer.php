@@ -23,7 +23,7 @@ use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-use ECSPrefix202211\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+use ECSPrefix202212\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 /**
  * @author Graham Campbell <hello@gjcampbell.co.uk>
  * @author Jakub Kwaśniewski <jakub@zero-85.pl>
@@ -44,7 +44,7 @@ final class PhpdocOrderFixer extends AbstractFixer implements ConfigurableFixerI
         $code = <<<'EOF'
 <?php
 
-namespace ECSPrefix202211;
+namespace ECSPrefix202212;
 
 /**
  * Hello there!

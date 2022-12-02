@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\Config\Definition\Builder;
+namespace ECSPrefix202212\Symfony\Component\Config\Definition\Builder;
 
-use ECSPrefix202211\Symfony\Component\Config\Definition\ArrayNode;
-use ECSPrefix202211\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException;
-use ECSPrefix202211\Symfony\Component\Config\Definition\NodeInterface;
-use ECSPrefix202211\Symfony\Component\Config\Definition\PrototypedArrayNode;
+use ECSPrefix202212\Symfony\Component\Config\Definition\ArrayNode;
+use ECSPrefix202212\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException;
+use ECSPrefix202212\Symfony\Component\Config\Definition\NodeInterface;
+use ECSPrefix202212\Symfony\Component\Config\Definition\PrototypedArrayNode;
 /**
  * This class provides a fluent interface for defining an array node.
  *
@@ -34,25 +34,16 @@ class ArrayNodeDefinition extends NodeDefinition implements ParentNodeDefinition
     protected $addDefaultChildren = \false;
     protected $nodeBuilder;
     protected $normalizeKeys = \true;
-    /**
-     * {@inheritdoc}
-     */
     public function __construct(?string $name, NodeParentInterface $parent = null)
     {
         parent::__construct($name, $parent);
         $this->nullEquivalent = [];
         $this->trueEquivalent = [];
     }
-    /**
-     * {@inheritdoc}
-     */
     public function setBuilder(NodeBuilder $builder)
     {
         $this->nodeBuilder = $builder;
     }
-    /**
-     * {@inheritdoc}
-     */
     public function children() : NodeBuilder
     {
         return $this->getNodeBuilder();
@@ -276,7 +267,6 @@ class ArrayNodeDefinition extends NodeDefinition implements ParentNodeDefinition
         return $this;
     }
     /**
-     * {@inheritdoc}
      * @return $this
      */
     public function append(NodeDefinition $node)
@@ -289,14 +279,9 @@ class ArrayNodeDefinition extends NodeDefinition implements ParentNodeDefinition
      */
     protected function getNodeBuilder() : NodeBuilder
     {
-        if (null === $this->nodeBuilder) {
-            $this->nodeBuilder = new NodeBuilder();
-        }
+        $this->nodeBuilder = $this->nodeBuilder ?? new NodeBuilder();
         return $this->nodeBuilder->setParent($this);
     }
-    /**
-     * {@inheritdoc}
-     */
     protected function createNode() : NodeInterface
     {
         if (null === $this->prototype) {
@@ -344,6 +329,7 @@ class ArrayNodeDefinition extends NodeDefinition implements ParentNodeDefinition
         }
         if (null !== $this->normalization) {
             $node->setNormalizationClosures($this->normalization->before);
+            $node->setNormalizedTypes($this->normalization->declaredTypes);
             $node->setXmlRemappings($this->normalization->remappings);
         }
         if (null !== $this->merge) {

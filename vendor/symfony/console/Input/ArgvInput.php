@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\Console\Input;
+namespace ECSPrefix202212\Symfony\Component\Console\Input;
 
-use ECSPrefix202211\Symfony\Component\Console\Exception\RuntimeException;
+use ECSPrefix202212\Symfony\Component\Console\Exception\RuntimeException;
 /**
  * ArgvInput represents an input coming from the CLI arguments.
  *
@@ -58,9 +58,6 @@ class ArgvInput extends Input
     {
         $this->tokens = $tokens;
     }
-    /**
-     * {@inheritdoc}
-     */
     protected function parse()
     {
         $parseOptions = \true;
@@ -237,9 +234,6 @@ class ArgvInput extends Input
             $this->options[$name] = $value;
         }
     }
-    /**
-     * {@inheritdoc}
-     */
     public function getFirstArgument() : ?string
     {
         $isOption = \false;
@@ -267,7 +261,6 @@ class ArgvInput extends Input
         return null;
     }
     /**
-     * {@inheritdoc}
      * @param string|mixed[] $values
      */
     public function hasParameterOption($values, bool $onlyParams = \false) : bool
@@ -290,7 +283,6 @@ class ArgvInput extends Input
         return \false;
     }
     /**
-     * {@inheritdoc}
      * @param string|mixed[] $values
      * @param string|bool|int|float|mixed[]|null $default
      * @return mixed

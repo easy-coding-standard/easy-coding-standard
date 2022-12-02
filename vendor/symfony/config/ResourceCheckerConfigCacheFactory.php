@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\Config;
+namespace ECSPrefix202212\Symfony\Component\Config;
 
 /**
  * A ConfigCacheFactory implementation that validates the
@@ -29,9 +29,6 @@ class ResourceCheckerConfigCacheFactory implements ConfigCacheFactoryInterface
     {
         $this->resourceCheckers = $resourceCheckers;
     }
-    /**
-     * {@inheritdoc}
-     */
     public function cache(string $file, callable $callable) : ConfigCacheInterface
     {
         $cache = new ResourceCheckerConfigCache($file, $this->resourceCheckers);

@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\Config\Loader;
+namespace ECSPrefix202212\Symfony\Component\Config\Loader;
 
 /**
  * LoaderResolver selects a loader for a given resource.
@@ -34,7 +34,6 @@ class LoaderResolver implements LoaderResolverInterface
         }
     }
     /**
-     * {@inheritdoc}
      * @return \Symfony\Component\Config\Loader\LoaderInterface|true
      * @param mixed $resource
      */

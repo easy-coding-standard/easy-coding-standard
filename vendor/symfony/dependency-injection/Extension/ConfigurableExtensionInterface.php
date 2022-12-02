@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\DependencyInjection\Extension;
+namespace ECSPrefix202212\Symfony\Component\DependencyInjection\Extension;
 
-use ECSPrefix202211\Symfony\Component\Config\Definition\ConfigurableInterface;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use ECSPrefix202212\Symfony\Component\Config\Definition\ConfigurableInterface;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 /**
  * @author Yonel Ceruto <yonelceruto@gmail.com>
  */

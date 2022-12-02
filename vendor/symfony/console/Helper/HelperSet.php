@@ -8,22 +8,22 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\Console\Helper;
+namespace ECSPrefix202212\Symfony\Component\Console\Helper;
 
-use ECSPrefix202211\Symfony\Component\Console\Exception\InvalidArgumentException;
+use ECSPrefix202212\Symfony\Component\Console\Exception\InvalidArgumentException;
 /**
  * HelperSet represents a set of helpers to be used with a command.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  *
- * @implements \IteratorAggregate<string, Helper>
+ * @implements \IteratorAggregate<string, HelperInterface>
  */
 class HelperSet implements \IteratorAggregate
 {
-    /** @var array<string, Helper> */
+    /** @var array<string, HelperInterface> */
     private $helpers = [];
     /**
-     * @param Helper[] $helpers An array of helper
+     * @param HelperInterface[] $helpers
      */
     public function __construct(array $helpers = [])
     {

@@ -5,9 +5,9 @@ namespace Symplify\EasyCodingStandard\Kernel;
 
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\FixerInterface;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix202211\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix202212\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
 use Symplify\CodingStandard\ValueObject\CodingStandardConfig;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\ConflictingCheckersCompilerPass;
@@ -15,16 +15,16 @@ use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\FixerWhitespace
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveExcludedCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualCheckersCompilerPass;
 use Symplify\EasyCodingStandard\ValueObject\EasyCodingStandardConfig;
-use ECSPrefix202211\Symplify\EasyParallel\ValueObject\EasyParallelConfig;
-use ECSPrefix202211\Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireInterfacesCompilerPass;
-use ECSPrefix202211\Symplify\PackageBuilder\ValueObject\ConsoleColorDiffConfig;
-use ECSPrefix202211\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
+use ECSPrefix202212\Symplify\EasyParallel\ValueObject\EasyParallelConfig;
+use ECSPrefix202212\Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireInterfacesCompilerPass;
+use ECSPrefix202212\Symplify\PackageBuilder\ValueObject\ConsoleColorDiffConfig;
+use ECSPrefix202212\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
 final class EasyCodingStandardKernel extends AbstractSymplifyKernel
 {
     /**
      * @param string[] $configFiles
      */
-    public function createFromConfigs(array $configFiles) : \ECSPrefix202211\Psr\Container\ContainerInterface
+    public function createFromConfigs(array $configFiles) : \ECSPrefix202212\Psr\Container\ContainerInterface
     {
         $configFiles[] = __DIR__ . '/../../config/config.php';
         $compilerPasses = $this->createCompilerPasses();

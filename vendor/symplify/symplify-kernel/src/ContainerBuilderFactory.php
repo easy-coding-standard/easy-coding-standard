@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202211\Symplify\SymplifyKernel;
+namespace ECSPrefix202212\Symplify\SymplifyKernel;
 
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
-use ECSPrefix202211\Symplify\SymplifyKernel\Contract\Config\LoaderFactoryInterface;
-use ECSPrefix202211\Symplify\SymplifyKernel\DependencyInjection\LoadExtensionConfigsCompilerPass;
-use ECSPrefix202211\Webmozart\Assert\Assert;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
+use ECSPrefix202212\Symplify\SymplifyKernel\Contract\Config\LoaderFactoryInterface;
+use ECSPrefix202212\Symplify\SymplifyKernel\DependencyInjection\LoadExtensionConfigsCompilerPass;
+use ECSPrefix202212\Webmozart\Assert\Assert;
 /**
  * @see \Symplify\SymplifyKernel\Tests\ContainerBuilderFactory\ContainerBuilderFactoryTest
  */

@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\Console\Output;
+namespace ECSPrefix202212\Symfony\Component\Console\Output;
 
 /**
  * @author Jean-François Simon <contact@jfsimon.fr>
@@ -28,9 +28,6 @@ class BufferedOutput extends Output
         $this->buffer = '';
         return $content;
     }
-    /**
-     * {@inheritdoc}
-     */
     protected function doWrite(string $message, bool $newline)
     {
         $this->buffer .= $message;

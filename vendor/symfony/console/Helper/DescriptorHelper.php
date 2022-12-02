@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\Console\Helper;
+namespace ECSPrefix202212\Symfony\Component\Console\Helper;
 
-use ECSPrefix202211\Symfony\Component\Console\Descriptor\DescriptorInterface;
-use ECSPrefix202211\Symfony\Component\Console\Descriptor\JsonDescriptor;
-use ECSPrefix202211\Symfony\Component\Console\Descriptor\MarkdownDescriptor;
-use ECSPrefix202211\Symfony\Component\Console\Descriptor\TextDescriptor;
-use ECSPrefix202211\Symfony\Component\Console\Descriptor\XmlDescriptor;
-use ECSPrefix202211\Symfony\Component\Console\Exception\InvalidArgumentException;
-use ECSPrefix202211\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix202212\Symfony\Component\Console\Descriptor\DescriptorInterface;
+use ECSPrefix202212\Symfony\Component\Console\Descriptor\JsonDescriptor;
+use ECSPrefix202212\Symfony\Component\Console\Descriptor\MarkdownDescriptor;
+use ECSPrefix202212\Symfony\Component\Console\Descriptor\TextDescriptor;
+use ECSPrefix202212\Symfony\Component\Console\Descriptor\XmlDescriptor;
+use ECSPrefix202212\Symfony\Component\Console\Exception\InvalidArgumentException;
+use ECSPrefix202212\Symfony\Component\Console\Output\OutputInterface;
 /**
  * This class adds helper method to describe objects in various formats.
  *
@@ -60,9 +60,6 @@ class DescriptorHelper extends Helper
         $this->descriptors[$format] = $descriptor;
         return $this;
     }
-    /**
-     * {@inheritdoc}
-     */
     public function getName() : string
     {
         return 'descriptor';

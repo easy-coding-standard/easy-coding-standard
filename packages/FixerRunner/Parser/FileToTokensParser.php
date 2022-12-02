@@ -5,7 +5,7 @@ namespace Symplify\EasyCodingStandard\FixerRunner\Parser;
 
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-use ECSPrefix202211\Symplify\SmartFileSystem\SmartFileSystem;
+use ECSPrefix202212\Symplify\SmartFileSystem\SmartFileSystem;
 final class FileToTokensParser
 {
     /**

@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\Config\Definition;
+namespace ECSPrefix202212\Symfony\Component\Config\Definition;
 
-use ECSPrefix202211\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
-use ECSPrefix202211\Symfony\Component\Config\Definition\Exception\InvalidTypeException;
-use ECSPrefix202211\Symfony\Component\Config\Definition\Exception\UnsetKeyException;
+use ECSPrefix202212\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
+use ECSPrefix202212\Symfony\Component\Config\Definition\Exception\InvalidTypeException;
+use ECSPrefix202212\Symfony\Component\Config\Definition\Exception\UnsetKeyException;
 /**
  * Represents an Array node in the config tree.
  *
@@ -34,8 +34,6 @@ class ArrayNode extends BaseNode implements PrototypeNodeInterface
         $this->normalizeKeys = $normalizeKeys;
     }
     /**
-     * {@inheritdoc}
-     *
      * Namely, you mostly have foo_bar in YAML while you have foo-bar in XML.
      * After running this method, all keys are normalized to foo_bar.
      *
@@ -133,22 +131,15 @@ class ArrayNode extends BaseNode implements PrototypeNodeInterface
     {
         return $this->ignoreExtraKeys;
     }
-    /**
-     * {@inheritdoc}
-     */
     public function setName(string $name)
     {
         $this->name = $name;
     }
-    /**
-     * {@inheritdoc}
-     */
     public function hasDefaultValue() : bool
     {
         return $this->addIfNotSet;
     }
     /**
-     * {@inheritdoc}
      * @return mixed
      */
     public function getDefaultValue()
@@ -182,8 +173,6 @@ class ArrayNode extends BaseNode implements PrototypeNodeInterface
         $this->children[$name] = $node;
     }
     /**
-     * {@inheritdoc}
-     *
      * @throws UnsetKeyException
      * @throws InvalidConfigurationException if the node doesn't have enough children
      * @param mixed $value
@@ -214,7 +203,7 @@ class ArrayNode extends BaseNode implements PrototypeNodeInterface
             }
             if ($child->isDeprecated()) {
                 $deprecation = $child->getDeprecation($name, $this->getPath());
-                \ECSPrefix202211\trigger_deprecation($deprecation['package'], $deprecation['version'], $deprecation['message']);
+                \ECSPrefix202212\trigger_deprecation($deprecation['package'], $deprecation['version'], $deprecation['message']);
             }
             try {
                 $value[$name] = $child->finalize($value[$name]);
@@ -225,7 +214,6 @@ class ArrayNode extends BaseNode implements PrototypeNodeInterface
         return $value;
     }
     /**
-     * {@inheritdoc}
      * @param mixed $value
      */
     protected function validateType($value)
@@ -240,8 +228,6 @@ class ArrayNode extends BaseNode implements PrototypeNodeInterface
         }
     }
     /**
-     * {@inheritdoc}
-     *
      * @throws InvalidConfigurationException
      * @param mixed $value
      * @return mixed
@@ -307,8 +293,6 @@ class ArrayNode extends BaseNode implements PrototypeNodeInterface
         return $value;
     }
     /**
-     * {@inheritdoc}
-     *
      * @throws InvalidConfigurationException
      * @throws \RuntimeException
      * @param mixed $leftSide
@@ -347,9 +331,6 @@ class ArrayNode extends BaseNode implements PrototypeNodeInterface
         }
         return $leftSide;
     }
-    /**
-     * {@inheritdoc}
-     */
     protected function allowPlaceholders() : bool
     {
         return \false;

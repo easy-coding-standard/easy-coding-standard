@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix202211\Nette;
+namespace ECSPrefix202212\Nette;
 
-use ECSPrefix202211\Nette\Utils\ObjectHelpers;
+use ECSPrefix202212\Nette\Utils\ObjectHelpers;
 /**
  * Strict class for better experience.
  * - 'did you mean' hints

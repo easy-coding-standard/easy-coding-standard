@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\Config\Resource;
+namespace ECSPrefix202212\Symfony\Component\Config\Resource;
 
 /**
  * ClassExistenceResource represents a class existence.
@@ -62,8 +62,6 @@ class ClassExistenceResource implements SelfCheckingResourceInterface
         return $this->resource;
     }
     /**
-     * {@inheritdoc}
-     *
      * @throws \ReflectionException when a parent class/interface/trait is not found
      */
     public function isFresh(int $timestamp) : bool
@@ -102,9 +100,7 @@ class ClassExistenceResource implements SelfCheckingResourceInterface
                 }
             }
         }
-        if (null === $this->exists) {
-            $this->exists = $exists;
-        }
+        $this->exists = $this->exists ?? $exists;
         return $this->exists[0] xor !$exists[0];
     }
     /**

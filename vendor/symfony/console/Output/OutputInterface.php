@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\Console\Output;
+namespace ECSPrefix202212\Symfony\Component\Console\Output;
 
-use ECSPrefix202211\Symfony\Component\Console\Formatter\OutputFormatterInterface;
+use ECSPrefix202212\Symfony\Component\Console\Formatter\OutputFormatterInterface;
 /**
  * OutputInterface is the interface implemented by all Output classes.
  *
@@ -29,15 +29,17 @@ interface OutputInterface
     /**
      * Writes a message to the output.
      *
-     * @param $newline Whether to add a newline
-     * @param $options A bitmask of options (one of the OUTPUT or VERBOSITY constants), 0 is considered the same as self::OUTPUT_NORMAL | self::VERBOSITY_NORMAL
+     * @param bool $newline Whether to add a newline
+     * @param int  $options A bitmask of options (one of the OUTPUT or VERBOSITY constants),
+     *                      0 is considered the same as self::OUTPUT_NORMAL | self::VERBOSITY_NORMAL
      * @param string|mixed[] $messages
      */
     public function write($messages, bool $newline = \false, int $options = 0);
     /**
      * Writes a message to the output and adds a newline at the end.
      *
-     * @param $options A bitmask of options (one of the OUTPUT or VERBOSITY constants), 0 is considered the same as self::OUTPUT_NORMAL | self::VERBOSITY_NORMAL
+     * @param int $options A bitmask of options (one of the OUTPUT or VERBOSITY constants),
+     *                     0 is considered the same as self::OUTPUT_NORMAL | self::VERBOSITY_NORMAL
      * @param string|mixed[] $messages
      */
     public function writeln($messages, int $options = 0);

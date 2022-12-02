@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\DependencyInjection\Loader;
+namespace ECSPrefix202212\Symfony\Component\DependencyInjection\Loader;
 
 /**
  * DirectoryLoader is a recursive loader to go through directories.
@@ -18,7 +18,6 @@ namespace ECSPrefix202211\Symfony\Component\DependencyInjection\Loader;
 class DirectoryLoader extends FileLoader
 {
     /**
-     * {@inheritdoc}
      * @param mixed $file
      * @return mixed
      */
@@ -40,7 +39,6 @@ class DirectoryLoader extends FileLoader
         return null;
     }
     /**
-     * {@inheritdoc}
      * @param mixed $resource
      */
     public function supports($resource, string $type = null) : bool

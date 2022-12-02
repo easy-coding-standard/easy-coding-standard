@@ -9,9 +9,9 @@
     "require": {
         "php": ">=8.1",
         "nette\/utils": "^3.2",
-        "symfony\/finder": "^6.1",
-        "symfony\/console": "^6.1",
-        "symfony\/dependency-injection": "^6.1",
+        "symfony\/finder": "^6.2",
+        "symfony\/console": "^6.2",
+        "symfony\/dependency-injection": "^6.2",
         "symplify\/package-builder": "dev-main",
         "symplify\/smart-file-system": "dev-main",
         "symplify\/symplify-kernel": "dev-main"
@@ -21,12 +21,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix202211\\Symplify\\EasyTesting\\": "src"
+            "ECSPrefix202212\\Symplify\\EasyTesting\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix202211\\Symplify\\EasyTesting\\Tests\\": "tests"
+            "ECSPrefix202212\\Symplify\\EasyTesting\\Tests\\": "tests"
         }
     },
     "extra": {

@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\DependencyInjection\ParameterBag;
+namespace ECSPrefix202212\Symfony\Component\DependencyInjection\ParameterBag;
 
-use ECSPrefix202211\Psr\Container\ContainerInterface;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
+use ECSPrefix202212\Psr\Container\ContainerInterface;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
 /**
  * ContainerBagInterface is the interface implemented by objects that manage service container parameters.
  *
@@ -26,8 +26,13 @@ interface ContainerBagInterface extends ContainerInterface
     /**
      * Replaces parameter placeholders (%name%) by their values.
      *
-     * @throws ParameterNotFoundException if a placeholder references a parameter that does not exist
+     * @template TValue of array<array|scalar>|scalar
+     *
      * @param mixed $value
+     *
+     * @psalm-return (TValue is scalar ? array|scalar : array<array|scalar>)
+     *
+     * @throws ParameterNotFoundException if a placeholder references a parameter that does not exist
      */
     public function resolveValue($value);
     /**

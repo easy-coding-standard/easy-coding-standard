@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\Config\Definition;
+namespace ECSPrefix202212\Symfony\Component\Config\Definition;
 
-use ECSPrefix202211\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
+use ECSPrefix202212\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 /**
  * Node which only allows a finite set of values.
  *
@@ -25,7 +25,7 @@ class EnumNode extends ScalarNode
     public function __construct(?string $name, NodeInterface $parent = null, array $values = [], string $pathSeparator = BaseNode::DEFAULT_PATH_SEPARATOR)
     {
         $values = \array_unique($values);
-        if (empty($values)) {
+        if (!$values) {
             throw new \InvalidArgumentException('$values must contain at least one element.');
         }
         parent::__construct($name, $parent, $pathSeparator);
@@ -36,7 +36,6 @@ class EnumNode extends ScalarNode
         return $this->values;
     }
     /**
-     * {@inheritdoc}
      * @param mixed $value
      * @return mixed
      */

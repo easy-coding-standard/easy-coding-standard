@@ -14,7 +14,7 @@
     "require-dev": {
         "symplify\/symplify-kernel": "dev-main",
         "symplify\/smart-file-system": "dev-main",
-        "symfony\/framework-bundle": "^6.1",
+        "symfony\/framework-bundle": "^6.2",
         "symplify\/easy-coding-standard": "dev-main",
         "phpunit\/phpunit": "^9.5.26",
         "symplify\/rule-doc-generator": "dev-main",
@@ -37,7 +37,7 @@
         "enable-patching": true,
         "patches": {
             "symfony\/dependency-injection": [
-                "https:\/\/raw.githubusercontent.com\/symplify\/vendor-patch-files\/main\/patches\/generic-php-config-loader.patch"
+                "https:\/\/raw.githubusercontent.com\/rectorphp\/vendor-patches\/main\/patches\/symfony-dependency-injection-loader-phpfileloader-php.patch"
             ]
         }
     },

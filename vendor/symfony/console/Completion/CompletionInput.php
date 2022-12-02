@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\Console\Completion;
+namespace ECSPrefix202212\Symfony\Component\Console\Completion;
 
-use ECSPrefix202211\Symfony\Component\Console\Exception\RuntimeException;
-use ECSPrefix202211\Symfony\Component\Console\Input\ArgvInput;
-use ECSPrefix202211\Symfony\Component\Console\Input\InputDefinition;
-use ECSPrefix202211\Symfony\Component\Console\Input\InputOption;
+use ECSPrefix202212\Symfony\Component\Console\Exception\RuntimeException;
+use ECSPrefix202212\Symfony\Component\Console\Input\ArgvInput;
+use ECSPrefix202212\Symfony\Component\Console\Input\InputDefinition;
+use ECSPrefix202212\Symfony\Component\Console\Input\InputOption;
 /**
  * An input specialized for shell completion.
  *
@@ -56,9 +56,6 @@ final class CompletionInput extends ArgvInput
         $input->currentIndex = $currentIndex;
         return $input;
     }
-    /**
-     * {@inheritdoc}
-     */
     public function bind(InputDefinition $definition) : void
     {
         parent::bind($definition);

@@ -32,7 +32,7 @@ final class ExplicitIndirectVariableFixer extends AbstractFixer
         return new FixerDefinition('Add curly braces to indirect variables to make them clear to understand. Requires PHP >= 7.0.', [new CodeSample(<<<'EOT'
 <?php
 
-namespace ECSPrefix202211;
+namespace ECSPrefix202212;
 
 echo ${$foo};
 echo ${$foo}['bar'];

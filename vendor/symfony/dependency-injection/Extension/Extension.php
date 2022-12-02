@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\DependencyInjection\Extension;
+namespace ECSPrefix202212\Symfony\Component\DependencyInjection\Extension;
 
-use ECSPrefix202211\Symfony\Component\Config\Definition\ConfigurationInterface;
-use ECSPrefix202211\Symfony\Component\Config\Definition\Processor;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Container;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Exception\BadMethodCallException;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Exception\LogicException;
+use ECSPrefix202212\Symfony\Component\Config\Definition\ConfigurationInterface;
+use ECSPrefix202212\Symfony\Component\Config\Definition\Processor;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Container;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Exception\BadMethodCallException;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Exception\LogicException;
 /**
  * Provides useful features shared by many extensions.
  *
@@ -28,16 +28,10 @@ abstract class Extension implements ExtensionInterface, ConfigurationExtensionIn
      * @var mixed[]
      */
     private $processedConfigs = [];
-    /**
-     * {@inheritdoc}
-     */
     public function getXsdValidationBasePath()
     {
         return \false;
     }
-    /**
-     * {@inheritdoc}
-     */
     public function getNamespace()
     {
         return 'http://example.org/schema/dic/' . $this->getAlias();
@@ -69,9 +63,6 @@ abstract class Extension implements ExtensionInterface, ConfigurationExtensionIn
         $classBaseName = \substr(\strrchr($className, '\\'), 1, -9);
         return Container::underscore($classBaseName);
     }
-    /**
-     * {@inheritdoc}
-     */
     public function getConfiguration(array $config, ContainerBuilder $container)
     {
         $class = static::class;

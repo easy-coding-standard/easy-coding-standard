@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\Console\CommandLoader;
+namespace ECSPrefix202212\Symfony\Component\Console\CommandLoader;
 
-use ECSPrefix202211\Symfony\Component\Console\Command\Command;
-use ECSPrefix202211\Symfony\Component\Console\Exception\CommandNotFoundException;
+use ECSPrefix202212\Symfony\Component\Console\Command\Command;
+use ECSPrefix202212\Symfony\Component\Console\Exception\CommandNotFoundException;
 /**
  * @author Robin Chalas <robin.chalas@gmail.com>
  */

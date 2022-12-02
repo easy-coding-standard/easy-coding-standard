@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\Config\Exception;
+namespace ECSPrefix202212\Symfony\Component\Config\Exception;
 
 /**
  * Exception class for when a resource cannot be loaded or imported.
@@ -18,14 +18,21 @@ namespace ECSPrefix202211\Symfony\Component\Config\Exception;
 class LoaderLoadException extends \Exception
 {
     /**
-     * @param string          $resource       The resource that could not be imported
+     * @param mixed           $resource       The resource that could not be imported
      * @param string|null     $sourceResource The original resource importing the new resource
      * @param int             $code           The error code
      * @param \Throwable|null $previous       A previous exception
      * @param string|null     $type           The type of resource
      */
-    public function __construct(string $resource, string $sourceResource = null, int $code = 0, \Throwable $previous = null, string $type = null)
+    public function __construct($resource, string $sourceResource = null, int $code = 0, \Throwable $previous = null, string $type = null)
     {
+        if (!\is_string($resource)) {
+            try {
+                $resource = \json_encode($resource, 0);
+            } catch (\JsonException $exception) {
+                $resource = \sprintf('resource of type "%s"', \get_debug_type($resource));
+            }
+        }
         $message = '';
         if ($previous) {
             // Include the previous exception, to help the user see what might be the underlying cause

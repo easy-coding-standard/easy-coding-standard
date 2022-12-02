@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202211\Symplify\SymplifyKernel\HttpKernel;
+namespace ECSPrefix202212\Symplify\SymplifyKernel\HttpKernel;
 
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Container;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
-use ECSPrefix202211\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
-use ECSPrefix202211\Symplify\SymplifyKernel\Config\Loader\ParameterMergingLoaderFactory;
-use ECSPrefix202211\Symplify\SymplifyKernel\ContainerBuilderFactory;
-use ECSPrefix202211\Symplify\SymplifyKernel\Contract\LightKernelInterface;
-use ECSPrefix202211\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
-use ECSPrefix202211\Symplify\SymplifyKernel\ValueObject\SymplifyKernelConfig;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Container;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
+use ECSPrefix202212\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
+use ECSPrefix202212\Symplify\SymplifyKernel\Config\Loader\ParameterMergingLoaderFactory;
+use ECSPrefix202212\Symplify\SymplifyKernel\ContainerBuilderFactory;
+use ECSPrefix202212\Symplify\SymplifyKernel\Contract\LightKernelInterface;
+use ECSPrefix202212\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use ECSPrefix202212\Symplify\SymplifyKernel\ValueObject\SymplifyKernelConfig;
 /**
  * @api
  */
@@ -37,7 +37,7 @@ abstract class AbstractSymplifyKernel implements LightKernelInterface
         $this->container = $containerBuilder;
         return $containerBuilder;
     }
-    public function getContainer() : \ECSPrefix202211\Psr\Container\ContainerInterface
+    public function getContainer() : \ECSPrefix202212\Psr\Container\ContainerInterface
     {
         if (!$this->container instanceof Container) {
             throw new ShouldNotHappenException();

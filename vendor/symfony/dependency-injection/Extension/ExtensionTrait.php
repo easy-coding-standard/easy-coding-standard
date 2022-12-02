@@ -8,21 +8,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\DependencyInjection\Extension;
+namespace ECSPrefix202212\Symfony\Component\DependencyInjection\Extension;
 
-use ECSPrefix202211\Symfony\Component\Config\Builder\ConfigBuilderGenerator;
-use ECSPrefix202211\Symfony\Component\Config\FileLocator;
-use ECSPrefix202211\Symfony\Component\Config\Loader\DelegatingLoader;
-use ECSPrefix202211\Symfony\Component\Config\Loader\LoaderResolver;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Loader\ClosureLoader;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Loader\DirectoryLoader;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Loader\GlobFileLoader;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Loader\IniFileLoader;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use ECSPrefix202212\Symfony\Component\Config\Builder\ConfigBuilderGenerator;
+use ECSPrefix202212\Symfony\Component\Config\FileLocator;
+use ECSPrefix202212\Symfony\Component\Config\Loader\DelegatingLoader;
+use ECSPrefix202212\Symfony\Component\Config\Loader\LoaderResolver;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Loader\ClosureLoader;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Loader\DirectoryLoader;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Loader\GlobFileLoader;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Loader\IniFileLoader;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 /**
  * @author Yonel Ceruto <yonelceruto@gmail.com>
  */

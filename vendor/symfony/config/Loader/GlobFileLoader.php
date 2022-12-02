@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\Config\Loader;
+namespace ECSPrefix202212\Symfony\Component\Config\Loader;
 
 /**
  * GlobFileLoader loads files from a glob pattern.
@@ -18,7 +18,6 @@ namespace ECSPrefix202211\Symfony\Component\Config\Loader;
 class GlobFileLoader extends FileLoader
 {
     /**
-     * {@inheritdoc}
      * @param mixed $resource
      * @return mixed
      */
@@ -27,7 +26,6 @@ class GlobFileLoader extends FileLoader
         return $this->import($resource);
     }
     /**
-     * {@inheritdoc}
      * @param mixed $resource
      */
     public function supports($resource, string $type = null) : bool

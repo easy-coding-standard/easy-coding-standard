@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\Config\Loader;
+namespace ECSPrefix202212\Symfony\Component\Config\Loader;
 
-use ECSPrefix202211\Symfony\Component\Config\Exception\LoaderLoadException;
+use ECSPrefix202212\Symfony\Component\Config\Exception\LoaderLoadException;
 /**
  * Loader is the abstract class used by all built-in loaders.
  *
@@ -24,16 +24,10 @@ abstract class Loader implements LoaderInterface
     {
         $this->env = $env;
     }
-    /**
-     * {@inheritdoc}
-     */
     public function getResolver() : LoaderResolverInterface
     {
         return $this->resolver;
     }
-    /**
-     * {@inheritdoc}
-     */
     public function setResolver(LoaderResolverInterface $resolver)
     {
         $this->resolver = $resolver;

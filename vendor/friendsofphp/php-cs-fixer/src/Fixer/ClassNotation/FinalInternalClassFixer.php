@@ -26,7 +26,7 @@ use PhpCsFixer\Preg;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use PhpCsFixer\Tokenizer\TokensAnalyzer;
-use ECSPrefix202211\Symfony\Component\OptionsResolver\Options;
+use ECSPrefix202212\Symfony\Component\OptionsResolver\Options;
 /**
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  */
@@ -111,7 +111,7 @@ final class FinalInternalClassFixer extends AbstractFixer implements Configurabl
             }
             return $newValue;
         };
-        return new FixerConfigurationResolver([(new FixerOptionBuilder('annotation_include', 'Class level annotations tags that must be set in order to fix the class. (case insensitive)'))->setAllowedTypes(['array'])->setAllowedValues($annotationsAsserts)->setDefault(['@internal'])->setNormalizer($annotationsNormalizer)->getOption(), (new FixerOptionBuilder('annotation_exclude', 'Class level annotations tags that must be omitted to fix the class, even if all of the white list ones are used as well. (case insensitive)'))->setAllowedTypes(['array'])->setAllowedValues($annotationsAsserts)->setDefault(['@final', '@Entity', 'ECSPrefix202211\\@ORM\\Entity', 'ECSPrefix202211\\@ORM\\Mapping\\Entity', 'ECSPrefix202211\\@Mapping\\Entity', '@Document', 'ECSPrefix202211\\@ODM\\Document'])->setNormalizer($annotationsNormalizer)->getOption(), (new FixerOptionBuilder('consider_absent_docblock_as_internal_class', 'Should classes without any DocBlock be fixed to final?'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption()]);
+        return new FixerConfigurationResolver([(new FixerOptionBuilder('annotation_include', 'Class level annotations tags that must be set in order to fix the class. (case insensitive)'))->setAllowedTypes(['array'])->setAllowedValues($annotationsAsserts)->setDefault(['@internal'])->setNormalizer($annotationsNormalizer)->getOption(), (new FixerOptionBuilder('annotation_exclude', 'Class level annotations tags that must be omitted to fix the class, even if all of the white list ones are used as well. (case insensitive)'))->setAllowedTypes(['array'])->setAllowedValues($annotationsAsserts)->setDefault(['@final', '@Entity', 'ECSPrefix202212\\@ORM\\Entity', 'ECSPrefix202212\\@ORM\\Mapping\\Entity', 'ECSPrefix202212\\@Mapping\\Entity', '@Document', 'ECSPrefix202212\\@ODM\\Document'])->setNormalizer($annotationsNormalizer)->getOption(), (new FixerOptionBuilder('consider_absent_docblock_as_internal_class', 'Should classes without any DocBlock be fixed to final?'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption()]);
     }
     /**
      * @param int $index T_CLASS index

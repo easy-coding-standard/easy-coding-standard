@@ -8,19 +8,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\DependencyInjection\Loader\Configurator;
+namespace ECSPrefix202212\Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use ECSPrefix202211\Symfony\Component\Config\Loader\ParamConfigurator;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Argument\AbstractArgument;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Argument\IteratorArgument;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-use ECSPrefix202211\Symfony\Component\ExpressionLanguage\Expression;
+use ECSPrefix202212\Symfony\Component\Config\Loader\ParamConfigurator;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Argument\AbstractArgument;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Argument\IteratorArgument;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use ECSPrefix202212\Symfony\Component\ExpressionLanguage\Expression;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */

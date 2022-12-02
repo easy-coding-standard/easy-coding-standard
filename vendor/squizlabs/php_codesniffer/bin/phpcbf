@@ -1,6 +1,6 @@
 #!/usr/bin/env php
 <?php 
-namespace ECSPrefix202211;
+namespace ECSPrefix202212;
 
 /**
  * PHP Code Beautifier and Fixer fixes violations of a defined coding standard.

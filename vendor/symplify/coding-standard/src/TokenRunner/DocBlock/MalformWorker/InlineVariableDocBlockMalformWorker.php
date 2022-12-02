@@ -3,11 +3,11 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker;
 
-use ECSPrefix202211\Nette\Utils\Strings;
+use ECSPrefix202212\Nette\Utils\Strings;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use Symplify\CodingStandard\TokenRunner\Contract\DocBlock\MalformWorkerInterface;
-use ECSPrefix202211\Symplify\PackageBuilder\Configuration\StaticEolConfiguration;
+use ECSPrefix202212\Symplify\PackageBuilder\Configuration\StaticEolConfiguration;
 final class InlineVariableDocBlockMalformWorker implements MalformWorkerInterface
 {
     /**

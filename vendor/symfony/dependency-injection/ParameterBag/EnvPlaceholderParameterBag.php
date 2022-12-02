@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\DependencyInjection\ParameterBag;
+namespace ECSPrefix202212\Symfony\Component\DependencyInjection\ParameterBag;
 
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Exception\RuntimeException;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
@@ -38,7 +38,6 @@ class EnvPlaceholderParameterBag extends ParameterBag
      */
     private static $counter = 0;
     /**
-     * {@inheritdoc}
      * @return mixed[]|bool|string|int|float|\UnitEnum|null
      */
     public function get(string $name)
@@ -57,7 +56,7 @@ class EnvPlaceholderParameterBag extends ParameterBag
                     // return first result
                 }
             }
-            if (!\preg_match('/^(?:[-.\\w]*+:)*+\\w++$/', $env)) {
+            if (!\preg_match('/^(?:[-.\\w\\\\]*+:)*+\\w++$/', $env)) {
                 throw new InvalidArgumentException(\sprintf('Invalid %s name: only "word" characters are allowed.', $name));
             }
             if ($this->has($name) && null !== ($defaultValue = parent::get($name)) && !\is_string($defaultValue)) {
@@ -135,9 +134,6 @@ class EnvPlaceholderParameterBag extends ParameterBag
     {
         return $this->providedTypes;
     }
-    /**
-     * {@inheritdoc}
-     */
     public function resolve()
     {
         if ($this->resolved) {

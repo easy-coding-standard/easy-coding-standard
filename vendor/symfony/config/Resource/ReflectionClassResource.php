@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\Config\Resource;
+namespace ECSPrefix202212\Symfony\Component\Config\Resource;
 
-use ECSPrefix202211\Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use ECSPrefix202211\Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
-use ECSPrefix202211\Symfony\Contracts\Service\ServiceSubscriberInterface;
+use ECSPrefix202212\Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use ECSPrefix202212\Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
+use ECSPrefix202212\Symfony\Contracts\Service\ServiceSubscriberInterface;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  *
@@ -46,9 +46,6 @@ class ReflectionClassResource implements SelfCheckingResourceInterface
         $this->classReflector = $classReflector;
         $this->excludedVendors = $excludedVendors;
     }
-    /**
-     * {@inheritdoc}
-     */
     public function isFresh(int $timestamp) : bool
     {
         if (!isset($this->hash)) {

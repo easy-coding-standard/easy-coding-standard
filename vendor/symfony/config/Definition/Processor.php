@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\Config\Definition;
+namespace ECSPrefix202212\Symfony\Component\Config\Definition;
 
 /**
  * This class is the entry point for config normalization/merging/finalization.
@@ -65,9 +65,7 @@ class Processor
      */
     public static function normalizeConfig(array $config, string $key, string $plural = null) : array
     {
-        if (null === $plural) {
-            $plural = $key . 's';
-        }
+        $plural = $plural ?? $key . 's';
         if (isset($config[$plural])) {
             return $config[$plural];
         }

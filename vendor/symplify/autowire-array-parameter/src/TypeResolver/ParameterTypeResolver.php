@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202211\Symplify\AutowireArrayParameter\TypeResolver;
+namespace ECSPrefix202212\Symplify\AutowireArrayParameter\TypeResolver;
 
-use ECSPrefix202211\Nette\Utils\Reflection;
+use ECSPrefix202212\Nette\Utils\Reflection;
 use ReflectionMethod;
-use ECSPrefix202211\Symplify\AutowireArrayParameter\DocBlock\ParamTypeDocBlockResolver;
+use ECSPrefix202212\Symplify\AutowireArrayParameter\DocBlock\ParamTypeDocBlockResolver;
 final class ParameterTypeResolver
 {
     /**

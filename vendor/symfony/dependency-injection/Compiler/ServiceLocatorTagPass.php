@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix202212\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Alias;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Reference;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\ServiceLocator;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Alias;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\ServiceLocator;
 /**
  * Applies the "container.service_locator" tag by wrapping references into ServiceClosureArgument instances.
  *
@@ -38,6 +38,9 @@ final class ServiceLocatorTagPass extends AbstractRecursivePass
                 $value->setValues($this->findAndSortTaggedServices($value->getTaggedIteratorArgument(), $this->container));
             }
             return self::register($this->container, $value->getValues());
+        }
+        if ($value instanceof Definition) {
+            $value->setBindings(parent::processValue($value->getBindings()));
         }
         if (!$value instanceof Definition || !$value->hasTag('container.service_locator')) {
             return parent::processValue($value, $isRoot);

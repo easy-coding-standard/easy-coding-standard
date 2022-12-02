@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\DependencyInjection\Extension;
+namespace ECSPrefix202212\Symfony\Component\DependencyInjection\Extension;
 
-use ECSPrefix202211\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * ExtensionInterface is the interface implemented by container extension classes.
  *
@@ -20,6 +20,8 @@ interface ExtensionInterface
 {
     /**
      * Loads a specific configuration.
+     *
+     * @param array<array<mixed>> $configs
      *
      * @throws \InvalidArgumentException When provided tag is not defined in this extension
      */

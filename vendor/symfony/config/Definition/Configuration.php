@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\Config\Definition;
+namespace ECSPrefix202212\Symfony\Component\Config\Definition;
 
-use ECSPrefix202211\Symfony\Component\Config\Definition\Builder\TreeBuilder;
-use ECSPrefix202211\Symfony\Component\Config\Definition\Configurator\DefinitionConfigurator;
-use ECSPrefix202211\Symfony\Component\Config\Definition\Loader\DefinitionFileLoader;
-use ECSPrefix202211\Symfony\Component\Config\FileLocator;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix202212\Symfony\Component\Config\Definition\Builder\TreeBuilder;
+use ECSPrefix202212\Symfony\Component\Config\Definition\Configurator\DefinitionConfigurator;
+use ECSPrefix202212\Symfony\Component\Config\Definition\Loader\DefinitionFileLoader;
+use ECSPrefix202212\Symfony\Component\Config\FileLocator;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * @author Yonel Ceruto <yonelceruto@gmail.com>
  *

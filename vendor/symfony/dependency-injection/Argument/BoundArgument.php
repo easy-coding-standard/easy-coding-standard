@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\DependencyInjection\Argument;
+namespace ECSPrefix202212\Symfony\Component\DependencyInjection\Argument;
 
 /**
  * @author Guilhem Niot <guilhem.niot@gmail.com>
@@ -56,16 +56,10 @@ final class BoundArgument implements ArgumentInterface
         $this->type = $type;
         $this->file = $file;
     }
-    /**
-     * {@inheritdoc}
-     */
     public function getValues() : array
     {
         return [$this->value, $this->identifier, $this->used, $this->type, $this->file];
     }
-    /**
-     * {@inheritdoc}
-     */
     public function setValues(array $values)
     {
         if (5 === \count($values)) {

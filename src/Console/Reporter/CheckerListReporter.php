@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Reporter;
 
-use ECSPrefix202211\Symfony\Component\Console\Style\SymfonyStyle;
+use ECSPrefix202212\Symfony\Component\Console\Style\SymfonyStyle;
 final class CheckerListReporter
 {
     /**

@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\Config\Definition\Builder;
+namespace ECSPrefix202212\Symfony\Component\Config\Definition\Builder;
 
-use ECSPrefix202211\Symfony\Component\Config\Definition\BaseNode;
-use ECSPrefix202211\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException;
-use ECSPrefix202211\Symfony\Component\Config\Definition\NodeInterface;
+use ECSPrefix202212\Symfony\Component\Config\Definition\BaseNode;
+use ECSPrefix202212\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException;
+use ECSPrefix202212\Symfony\Component\Config\Definition\NodeInterface;
 /**
  * This class provides a fluent interface for defining a node.
  *
@@ -97,7 +97,13 @@ abstract class NodeDefinition implements NodeParentInterface
             $this->parent = null;
         }
         if (null !== $this->normalization) {
+            $allowedTypes = [];
+            foreach ($this->normalization->before as $expr) {
+                $allowedTypes[] = $expr->allowedTypes;
+            }
+            $allowedTypes = \array_unique($allowedTypes);
             $this->normalization->before = ExprBuilder::buildExpressions($this->normalization->before);
+            $this->normalization->declaredTypes = $allowedTypes;
         }
         if (null !== $this->validation) {
             $this->validation->rules = ExprBuilder::buildExpressions($this->validation->rules);
@@ -250,30 +256,21 @@ abstract class NodeDefinition implements NodeParentInterface
      */
     protected function validation() : ValidationBuilder
     {
-        if (null === $this->validation) {
-            $this->validation = new ValidationBuilder($this);
-        }
-        return $this->validation;
+        return $this->validation = $this->validation ?? new ValidationBuilder($this);
     }
     /**
      * Gets the builder for merging rules.
      */
     protected function merge() : MergeBuilder
     {
-        if (null === $this->merge) {
-            $this->merge = new MergeBuilder($this);
-        }
-        return $this->merge;
+        return $this->merge = $this->merge ?? new MergeBuilder($this);
     }
     /**
      * Gets the builder for normalization rules.
      */
     protected function normalization() : NormalizationBuilder
     {
-        if (null === $this->normalization) {
-            $this->normalization = new NormalizationBuilder($this);
-        }
-        return $this->normalization;
+        return $this->normalization = $this->normalization ?? new NormalizationBuilder($this);
     }
     /**
      * Instantiate and configure the node according to this definition.

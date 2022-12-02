@@ -8,36 +8,24 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\Console\Tester\Constraint;
+namespace ECSPrefix202212\Symfony\Component\Console\Tester\Constraint;
 
-use ECSPrefix202211\PHPUnit\Framework\Constraint\Constraint;
-use ECSPrefix202211\Symfony\Component\Console\Command\Command;
+use ECSPrefix202212\PHPUnit\Framework\Constraint\Constraint;
+use ECSPrefix202212\Symfony\Component\Console\Command\Command;
 final class CommandIsSuccessful extends Constraint
 {
-    /**
-     * {@inheritdoc}
-     */
     public function toString() : string
     {
         return 'is successful';
     }
-    /**
-     * {@inheritdoc}
-     */
     protected function matches($other) : bool
     {
         return Command::SUCCESS === $other;
     }
-    /**
-     * {@inheritdoc}
-     */
     protected function failureDescription($other) : string
     {
         return 'the command ' . $this->toString();
     }
-    /**
-     * {@inheritdoc}
-     */
     protected function additionalFailureDescription($other) : string
     {
         $mapping = [Command::FAILURE => 'Command failed.', Command::INVALID => 'Command was invalid.'];

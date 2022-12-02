@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\Console\Helper;
+namespace ECSPrefix202212\Symfony\Component\Console\Helper;
 
-use ECSPrefix202211\Symfony\Component\Console\Input\InputAwareInterface;
-use ECSPrefix202211\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix202212\Symfony\Component\Console\Input\InputAwareInterface;
+use ECSPrefix202212\Symfony\Component\Console\Input\InputInterface;
 /**
  * An implementation of InputAwareInterface for Helpers.
  *
@@ -20,9 +20,6 @@ use ECSPrefix202211\Symfony\Component\Console\Input\InputInterface;
 abstract class InputAwareHelper extends Helper implements InputAwareInterface
 {
     protected $input;
-    /**
-     * {@inheritdoc}
-     */
     public function setInput(InputInterface $input)
     {
         $this->input = $input;

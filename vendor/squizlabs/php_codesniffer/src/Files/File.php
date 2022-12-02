@@ -294,7 +294,7 @@ class File
         }
         $foundCode = \false;
         $listenerIgnoreTo = [];
-        $inTests = \defined('ECSPrefix202211\\PHP_CODESNIFFER_IN_TESTS');
+        $inTests = \defined('ECSPrefix202212\\PHP_CODESNIFFER_IN_TESTS');
         $checkAnnotations = $this->config->annotations;
         // Foreach of the listeners that have registered to listen for this
         // token, get them to process it.

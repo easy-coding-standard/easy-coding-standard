@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\String\Inflector;
+namespace ECSPrefix202212\Symfony\Component\String\Inflector;
 
 /**
  * French inflector.
@@ -50,8 +50,8 @@ final class FrenchInflector implements InflectorInterface
         // Invariable words
         ['/^(cinquante|soixante|mille)$/i', '\\1'],
         // French titles
-        ['/^(mon|ma)(sieur|dame|demoiselle|seigneur)$/', 'ECSPrefix202211\\mes\\2s'],
-        ['/^(Mon|Ma)(sieur|dame|demoiselle|seigneur)$/', 'ECSPrefix202211\\Mes\\2s'],
+        ['/^(mon|ma)(sieur|dame|demoiselle|seigneur)$/', 'ECSPrefix202212\\mes\\2s'],
+        ['/^(Mon|Ma)(sieur|dame|demoiselle|seigneur)$/', 'ECSPrefix202212\\Mes\\2s'],
     ];
     /**
      * A list of all rules for singularize.
@@ -77,10 +77,10 @@ final class FrenchInflector implements InflectorInterface
         // Les mots finissant par "ou" prennent un "s" sauf bijou, caillou, chou, genou, hibou, joujou, pou
         ['/(bij|caill|ch|gen|hib|jouj|p)oux$/i', '\\1ou'],
         // French titles
-        ['/^mes(dame|demoiselle)s$/', 'ECSPrefix202211\\ma\\1'],
-        ['/^Mes(dame|demoiselle)s$/', 'ECSPrefix202211\\Ma\\1'],
-        ['/^mes(sieur|seigneur)s$/', 'ECSPrefix202211\\mon\\1'],
-        ['/^Mes(sieur|seigneur)s$/', 'ECSPrefix202211\\Mon\\1'],
+        ['/^mes(dame|demoiselle)s$/', 'ECSPrefix202212\\ma\\1'],
+        ['/^Mes(dame|demoiselle)s$/', 'ECSPrefix202212\\Ma\\1'],
+        ['/^mes(sieur|seigneur)s$/', 'ECSPrefix202212\\mon\\1'],
+        ['/^Mes(sieur|seigneur)s$/', 'ECSPrefix202212\\Mon\\1'],
         // Default rule
         ['/s$/i', ''],
     ];
@@ -89,9 +89,6 @@ final class FrenchInflector implements InflectorInterface
      * This list is only used by singularize.
      */
     private const UNINFLECTED = '/^(abcès|accès|abus|albatros|anchois|anglais|autobus|bois|brebis|carquois|cas|chas|colis|concours|corps|cours|cyprès|décès|devis|discours|dos|embarras|engrais|entrelacs|excès|fils|fois|gâchis|gars|glas|héros|intrus|jars|jus|kermès|lacis|legs|lilas|marais|mars|matelas|mépris|mets|mois|mors|obus|os|palais|paradis|parcours|pardessus|pays|plusieurs|poids|pois|pouls|printemps|processus|progrès|puits|pus|rabais|radis|recors|recours|refus|relais|remords|remous|rictus|rhinocéros|repas|rubis|sans|sas|secours|sens|souris|succès|talus|tapis|tas|taudis|temps|tiers|univers|velours|verglas|vernis|virus)$/i';
-    /**
-     * {@inheritdoc}
-     */
     public function singularize(string $plural) : array
     {
         if ($this->isInflectedWord($plural)) {
@@ -105,9 +102,6 @@ final class FrenchInflector implements InflectorInterface
         }
         return [$plural];
     }
-    /**
-     * {@inheritdoc}
-     */
     public function pluralize(string $singular) : array
     {
         if ($this->isInflectedWord($singular)) {

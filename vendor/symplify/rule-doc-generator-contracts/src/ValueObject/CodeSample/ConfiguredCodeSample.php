@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202211\Symplify\RuleDocGenerator\ValueObject\CodeSample;
+namespace ECSPrefix202212\Symplify\RuleDocGenerator\ValueObject\CodeSample;
 
-use ECSPrefix202211\Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
-use ECSPrefix202211\Symplify\RuleDocGenerator\Exception\ShouldNotHappenException;
-use ECSPrefix202211\Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample;
+use ECSPrefix202212\Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
+use ECSPrefix202212\Symplify\RuleDocGenerator\Exception\ShouldNotHappenException;
+use ECSPrefix202212\Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample;
 final class ConfiguredCodeSample extends AbstractCodeSample implements CodeSampleInterface
 {
     /**

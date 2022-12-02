@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\Console\Helper;
+namespace ECSPrefix202212\Symfony\Component\Console\Helper;
 
 /**
  * Helps outputting debug information when running an external program from a command.
@@ -82,9 +82,6 @@ class DebugFormatterHelper extends Helper
     {
         return \sprintf('<bg=%s> </>', self::COLORS[$this->started[$id]['border']]);
     }
-    /**
-     * {@inheritdoc}
-     */
     public function getName() : string
     {
         return 'debug_formatter';

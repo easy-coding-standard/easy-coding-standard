@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\Console\CommandLoader;
+namespace ECSPrefix202212\Symfony\Component\Console\CommandLoader;
 
-use ECSPrefix202211\Psr\Container\ContainerInterface;
-use ECSPrefix202211\Symfony\Component\Console\Command\Command;
-use ECSPrefix202211\Symfony\Component\Console\Exception\CommandNotFoundException;
+use ECSPrefix202212\Psr\Container\ContainerInterface;
+use ECSPrefix202212\Symfony\Component\Console\Command\Command;
+use ECSPrefix202212\Symfony\Component\Console\Exception\CommandNotFoundException;
 /**
  * Loads commands from a PSR-11 container.
  *
@@ -36,9 +36,6 @@ class ContainerCommandLoader implements CommandLoaderInterface
         $this->container = $container;
         $this->commandMap = $commandMap;
     }
-    /**
-     * {@inheritdoc}
-     */
     public function get(string $name) : Command
     {
         if (!$this->has($name)) {
@@ -46,16 +43,10 @@ class ContainerCommandLoader implements CommandLoaderInterface
         }
         return $this->container->get($this->commandMap[$name]);
     }
-    /**
-     * {@inheritdoc}
-     */
     public function has(string $name) : bool
     {
         return isset($this->commandMap[$name]) && $this->container->has($this->commandMap[$name]);
     }
-    /**
-     * {@inheritdoc}
-     */
     public function getNames() : array
     {
         return \array_keys($this->commandMap);

@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\Config\Definition\Dumper;
+namespace ECSPrefix202212\Symfony\Component\Config\Definition\Dumper;
 
-use ECSPrefix202211\Symfony\Component\Config\Definition\ArrayNode;
-use ECSPrefix202211\Symfony\Component\Config\Definition\BaseNode;
-use ECSPrefix202211\Symfony\Component\Config\Definition\ConfigurationInterface;
-use ECSPrefix202211\Symfony\Component\Config\Definition\EnumNode;
-use ECSPrefix202211\Symfony\Component\Config\Definition\NodeInterface;
-use ECSPrefix202211\Symfony\Component\Config\Definition\PrototypedArrayNode;
-use ECSPrefix202211\Symfony\Component\Config\Definition\ScalarNode;
-use ECSPrefix202211\Symfony\Component\Config\Definition\VariableNode;
-use ECSPrefix202211\Symfony\Component\Yaml\Inline;
+use ECSPrefix202212\Symfony\Component\Config\Definition\ArrayNode;
+use ECSPrefix202212\Symfony\Component\Config\Definition\BaseNode;
+use ECSPrefix202212\Symfony\Component\Config\Definition\ConfigurationInterface;
+use ECSPrefix202212\Symfony\Component\Config\Definition\EnumNode;
+use ECSPrefix202212\Symfony\Component\Config\Definition\NodeInterface;
+use ECSPrefix202212\Symfony\Component\Config\Definition\PrototypedArrayNode;
+use ECSPrefix202212\Symfony\Component\Config\Definition\ScalarNode;
+use ECSPrefix202212\Symfony\Component\Config\Definition\VariableNode;
+use ECSPrefix202212\Symfony\Component\Yaml\Inline;
 /**
  * Dumps a Yaml reference configuration for the given configuration/node instance.
  *
@@ -140,7 +140,7 @@ class YamlReferenceDumper
             $this->writeLine('');
             $message = \count($example) > 1 ? 'Examples' : 'Example';
             $this->writeLine('# ' . $message . ':', $depth * 4 + 4);
-            $this->writeArray(\array_map([Inline::class, 'dump'], $example), $depth + 1);
+            $this->writeArray(\array_map(\Closure::fromCallable([Inline::class, 'dump']), $example), $depth + 1);
         }
         if ($children) {
             foreach ($children as $childNode) {

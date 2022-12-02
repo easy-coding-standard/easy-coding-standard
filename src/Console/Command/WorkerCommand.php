@@ -3,17 +3,17 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Command;
 
-use ECSPrefix202211\Clue\React\NDJson\Decoder;
-use ECSPrefix202211\Clue\React\NDJson\Encoder;
-use ECSPrefix202211\React\EventLoop\StreamSelectLoop;
-use ECSPrefix202211\React\Socket\ConnectionInterface;
-use ECSPrefix202211\React\Socket\TcpConnector;
-use ECSPrefix202211\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix202211\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix202212\Clue\React\NDJson\Decoder;
+use ECSPrefix202212\Clue\React\NDJson\Encoder;
+use ECSPrefix202212\React\EventLoop\StreamSelectLoop;
+use ECSPrefix202212\React\Socket\ConnectionInterface;
+use ECSPrefix202212\React\Socket\TcpConnector;
+use ECSPrefix202212\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix202212\Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\MemoryLimitter;
 use Symplify\EasyCodingStandard\Parallel\WorkerRunner;
-use ECSPrefix202211\Symplify\EasyParallel\Enum\Action;
-use ECSPrefix202211\Symplify\EasyParallel\Enum\ReactCommand;
+use ECSPrefix202212\Symplify\EasyParallel\Enum\Action;
+use ECSPrefix202212\Symplify\EasyParallel\Enum\ReactCommand;
 /**
  * Inspired at: https://github.com/phpstan/phpstan-src/commit/9124c66dcc55a222e21b1717ba5f60771f7dda92
  * https://github.com/phpstan/phpstan-src/blob/c471c7b050e0929daf432288770de673b394a983/src/Command/WorkerCommand.php

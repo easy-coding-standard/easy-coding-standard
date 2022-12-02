@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\DependencyInjection\LazyProxy\PhpDumper;
+namespace ECSPrefix202212\Symfony\Component\DependencyInjection\LazyProxy\PhpDumper;
 
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Definition;
 /**
  * Null dumper, negates any proxy code generation for any given service definition.
  *
@@ -20,24 +20,15 @@ use ECSPrefix202211\Symfony\Component\DependencyInjection\Definition;
  */
 class NullDumper implements DumperInterface
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function isProxyCandidate(Definition $definition) : bool
+    public function isProxyCandidate(Definition $definition, bool &$asGhostObject = null, string $id = null) : bool
     {
-        return \false;
+        return $asGhostObject = \false;
     }
-    /**
-     * {@inheritdoc}
-     */
     public function getProxyFactoryCode(Definition $definition, string $id, string $factoryCode) : string
     {
         return '';
     }
-    /**
-     * {@inheritdoc}
-     */
-    public function getProxyCode(Definition $definition) : string
+    public function getProxyCode(Definition $definition, string $id = null) : string
     {
         return '';
     }

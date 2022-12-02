@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\Console\Helper;
+namespace ECSPrefix202212\Symfony\Component\Console\Helper;
 
-use ECSPrefix202211\Symfony\Component\Console\Output\ConsoleOutputInterface;
-use ECSPrefix202211\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix202211\Symfony\Component\Process\Exception\ProcessFailedException;
-use ECSPrefix202211\Symfony\Component\Process\Process;
+use ECSPrefix202212\Symfony\Component\Console\Output\ConsoleOutputInterface;
+use ECSPrefix202212\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix202212\Symfony\Component\Process\Exception\ProcessFailedException;
+use ECSPrefix202212\Symfony\Component\Process\Process;
 /**
  * The ProcessHelper class provides helpers to run external processes.
  *
@@ -109,9 +109,6 @@ class ProcessHelper extends Helper
     {
         return \str_replace('<', '\\<', $str);
     }
-    /**
-     * {@inheritdoc}
-     */
     public function getName() : string
     {
         return 'process';

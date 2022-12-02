@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Contracts\Service;
+namespace ECSPrefix202212\Symfony\Contracts\Service;
 
-use ECSPrefix202211\Psr\Container\ContainerInterface;
+use ECSPrefix202212\Psr\Container\ContainerInterface;
 /**
  * A ServiceProviderInterface exposes the identifiers and the types of services provided by a container.
  *

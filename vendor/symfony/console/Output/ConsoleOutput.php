@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\Console\Output;
+namespace ECSPrefix202212\Symfony\Component\Console\Output;
 
-use ECSPrefix202211\Symfony\Component\Console\Formatter\OutputFormatterInterface;
+use ECSPrefix202212\Symfony\Component\Console\Formatter\OutputFormatterInterface;
 /**
  * ConsoleOutput is the default class for all CLI output. It uses STDOUT and STDERR.
  *
@@ -61,40 +61,25 @@ class ConsoleOutput extends StreamOutput implements ConsoleOutputInterface
     {
         return new ConsoleSectionOutput($this->getStream(), $this->consoleSectionOutputs, $this->getVerbosity(), $this->isDecorated(), $this->getFormatter());
     }
-    /**
-     * {@inheritdoc}
-     */
     public function setDecorated(bool $decorated)
     {
         parent::setDecorated($decorated);
         $this->stderr->setDecorated($decorated);
     }
-    /**
-     * {@inheritdoc}
-     */
     public function setFormatter(OutputFormatterInterface $formatter)
     {
         parent::setFormatter($formatter);
         $this->stderr->setFormatter($formatter);
     }
-    /**
-     * {@inheritdoc}
-     */
     public function setVerbosity(int $level)
     {
         parent::setVerbosity($level);
         $this->stderr->setVerbosity($level);
     }
-    /**
-     * {@inheritdoc}
-     */
     public function getErrorOutput() : OutputInterface
     {
         return $this->stderr;
     }
-    /**
-     * {@inheritdoc}
-     */
     public function setErrorOutput(OutputInterface $error)
     {
         $this->stderr = $error;

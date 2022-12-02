@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\DependencyInjection\ParameterBag;
+namespace ECSPrefix202212\Symfony\Component\DependencyInjection\ParameterBag;
 
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Exception\LogicException;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Exception\LogicException;
 /**
  * Holds read-only parameters.
  *
@@ -31,31 +31,21 @@ class FrozenParameterBag extends ParameterBag
         $this->parameters = $parameters;
         $this->resolved = \true;
     }
-    /**
-     * {@inheritdoc}
-     */
     public function clear()
     {
         throw new LogicException('Impossible to call clear() on a frozen ParameterBag.');
     }
-    /**
-     * {@inheritdoc}
-     */
     public function add(array $parameters)
     {
         throw new LogicException('Impossible to call add() on a frozen ParameterBag.');
     }
     /**
-     * {@inheritdoc}
      * @param mixed[]|bool|string|int|float|\UnitEnum|null $value
      */
     public function set(string $name, $value)
     {
         throw new LogicException('Impossible to call set() on a frozen ParameterBag.');
     }
-    /**
-     * {@inheritdoc}
-     */
     public function remove(string $name)
     {
         throw new LogicException('Impossible to call remove() on a frozen ParameterBag.');

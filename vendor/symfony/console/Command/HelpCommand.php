@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\Console\Command;
+namespace ECSPrefix202212\Symfony\Component\Console\Command;
 
-use ECSPrefix202211\Symfony\Component\Console\Descriptor\ApplicationDescription;
-use ECSPrefix202211\Symfony\Component\Console\Helper\DescriptorHelper;
-use ECSPrefix202211\Symfony\Component\Console\Input\InputArgument;
-use ECSPrefix202211\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix202211\Symfony\Component\Console\Input\InputOption;
-use ECSPrefix202211\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix202212\Symfony\Component\Console\Descriptor\ApplicationDescription;
+use ECSPrefix202212\Symfony\Component\Console\Helper\DescriptorHelper;
+use ECSPrefix202212\Symfony\Component\Console\Input\InputArgument;
+use ECSPrefix202212\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix202212\Symfony\Component\Console\Input\InputOption;
+use ECSPrefix202212\Symfony\Component\Console\Output\OutputInterface;
 /**
  * HelpCommand displays the help for a given command.
  *
@@ -27,9 +27,6 @@ class HelpCommand extends Command
      * @var \Symfony\Component\Console\Command\Command
      */
     private $command;
-    /**
-     * {@inheritdoc}
-     */
     protected function configure()
     {
         $this->ignoreValidationErrors();
@@ -54,9 +51,6 @@ EOF
     {
         $this->command = $command;
     }
-    /**
-     * {@inheritdoc}
-     */
     protected function execute(InputInterface $input, OutputInterface $output) : int
     {
         $this->command = $this->command ?? $this->getApplication()->find($input->getArgument('command_name'));

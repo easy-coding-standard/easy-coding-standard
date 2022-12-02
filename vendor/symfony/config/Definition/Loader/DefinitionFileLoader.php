@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\Config\Definition\Loader;
+namespace ECSPrefix202212\Symfony\Component\Config\Definition\Loader;
 
-use ECSPrefix202211\Symfony\Component\Config\Definition\Builder\TreeBuilder;
-use ECSPrefix202211\Symfony\Component\Config\Definition\Configurator\DefinitionConfigurator;
-use ECSPrefix202211\Symfony\Component\Config\FileLocatorInterface;
-use ECSPrefix202211\Symfony\Component\Config\Loader\FileLoader;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix202212\Symfony\Component\Config\Definition\Builder\TreeBuilder;
+use ECSPrefix202212\Symfony\Component\Config\Definition\Configurator\DefinitionConfigurator;
+use ECSPrefix202212\Symfony\Component\Config\FileLocatorInterface;
+use ECSPrefix202212\Symfony\Component\Config\Loader\FileLoader;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * DefinitionFileLoader loads config definitions from a PHP file.
  *
@@ -39,7 +39,6 @@ class DefinitionFileLoader extends FileLoader
         parent::__construct($locator);
     }
     /**
-     * {@inheritdoc}
      * @param mixed $resource
      * @return mixed
      */
@@ -61,7 +60,6 @@ class DefinitionFileLoader extends FileLoader
         return null;
     }
     /**
-     * {@inheritdoc}
      * @param mixed $resource
      */
     public function supports($resource, string $type = null) : bool

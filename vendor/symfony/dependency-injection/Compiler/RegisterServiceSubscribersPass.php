@@ -8,19 +8,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix202212\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix202211\Psr\Container\ContainerInterface as PsrContainerInterface;
-use ECSPrefix202211\Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Argument\BoundArgument;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\Reference;
-use ECSPrefix202211\Symfony\Component\DependencyInjection\TypedReference;
-use ECSPrefix202211\Symfony\Component\HttpFoundation\Session\SessionInterface;
-use ECSPrefix202211\Symfony\Contracts\Service\ServiceProviderInterface;
-use ECSPrefix202211\Symfony\Contracts\Service\ServiceSubscriberInterface;
+use ECSPrefix202212\Psr\Container\ContainerInterface as PsrContainerInterface;
+use ECSPrefix202212\Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Argument\BoundArgument;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\TypedReference;
+use ECSPrefix202212\Symfony\Component\HttpFoundation\Session\SessionInterface;
+use ECSPrefix202212\Symfony\Contracts\Service\Attribute\SubscribedService;
+use ECSPrefix202212\Symfony\Contracts\Service\ServiceProviderInterface;
+use ECSPrefix202212\Symfony\Contracts\Service\ServiceSubscriberInterface;
 /**
  * Compiler pass to register tagged services that require a service locator.
  *
@@ -71,6 +72,15 @@ class RegisterServiceSubscribersPass extends AbstractRecursivePass
         $replaceDeprecatedSession = $this->container->has('.session.deprecated') && $r->isSubclassOf(AbstractController::class);
         $subscriberMap = [];
         foreach ($class::getSubscribedServices() as $key => $type) {
+            $attributes = [];
+            if ($type instanceof SubscribedService) {
+                $key = $type->key;
+                $attributes = $type->attributes;
+                if ($type->type === null) {
+                    throw new InvalidArgumentException(\sprintf('When "%s::getSubscribedServices()" returns "%s", a type must be set.', $class, SubscribedService::class));
+                }
+                $type = ($type->nullable ? '?' : '') . $type->type;
+            }
             if (!\is_string($type) || !\preg_match('/(?(DEFINE)(?<cn>[a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*+))(?(DEFINE)(?<fqcn>(?&cn)(?:\\\\(?&cn))*+))^\\??(?&fqcn)(?:(?:\\|(?&fqcn))*+|(?:&(?&fqcn))*+)$/', $type)) {
                 throw new InvalidArgumentException(\sprintf('"%s::getSubscribedServices()" must return valid PHP types for service "%s" key "%s", "%s" returned.', $class, $this->currentId, $key, \is_string($type) ? $type : \get_debug_type($type)));
             }
@@ -104,7 +114,7 @@ class RegisterServiceSubscribersPass extends AbstractRecursivePass
                 $camelCaseName = \lcfirst(\str_replace(' ', '', \ucwords(\preg_replace('/[^a-zA-Z0-9\\x7f-\\xff]++/', ' ', $name))));
                 $name = $this->container->has($type . ' $' . $camelCaseName) ? $camelCaseName : $name;
             }
-            $subscriberMap[$key] = new TypedReference((string) $serviceMap[$key], $type, $optionalBehavior ?: ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $name);
+            $subscriberMap[$key] = new TypedReference((string) $serviceMap[$key], $type, $optionalBehavior ?: ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $name, $attributes);
             unset($serviceMap[$key]);
         }
         if ($serviceMap = \array_keys($serviceMap)) {

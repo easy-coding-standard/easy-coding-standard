@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202211\Symfony\Component\Console\Helper;
+namespace ECSPrefix202212\Symfony\Component\Console\Helper;
 
-use ECSPrefix202211\Symfony\Component\Console\Formatter\OutputFormatter;
-use ECSPrefix202211\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix202211\Symfony\Component\Console\Question\ChoiceQuestion;
-use ECSPrefix202211\Symfony\Component\Console\Question\ConfirmationQuestion;
-use ECSPrefix202211\Symfony\Component\Console\Question\Question;
-use ECSPrefix202211\Symfony\Component\Console\Style\SymfonyStyle;
+use ECSPrefix202212\Symfony\Component\Console\Formatter\OutputFormatter;
+use ECSPrefix202212\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix202212\Symfony\Component\Console\Question\ChoiceQuestion;
+use ECSPrefix202212\Symfony\Component\Console\Question\ConfirmationQuestion;
+use ECSPrefix202212\Symfony\Component\Console\Question\Question;
+use ECSPrefix202212\Symfony\Component\Console\Style\SymfonyStyle;
 /**
  * Symfony Style Guide compliant question helper.
  *
@@ -23,9 +23,6 @@ use ECSPrefix202211\Symfony\Component\Console\Style\SymfonyStyle;
  */
 class SymfonyQuestionHelper extends QuestionHelper
 {
-    /**
-     * {@inheritdoc}
-     */
     protected function writePrompt(OutputInterface $output, Question $question)
     {
         $text = OutputFormatter::escapeTrailingBackslash($question->getQuestion());
@@ -63,9 +60,6 @@ class SymfonyQuestionHelper extends QuestionHelper
         }
         $output->write($prompt);
     }
-    /**
-     * {@inheritdoc}
-     */
     protected function writeError(OutputInterface $output, \Exception $error)
     {
         if ($output instanceof SymfonyStyle) {

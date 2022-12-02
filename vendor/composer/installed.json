@@ -28,7 +28,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202211\\Clue\\React\\NDJson\\": "src\/"
+                    "ECSPrefix202212\\Clue\\React\\NDJson\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -100,7 +100,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202211\\Composer\\Pcre\\": "src"
+                    "ECSPrefix202212\\Composer\\Pcre\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -173,7 +173,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202211\\Composer\\Semver\\": "src"
+                    "ECSPrefix202212\\Composer\\Semver\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -255,7 +255,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202211\\Composer\\XdebugHandler\\": "src"
+                    "ECSPrefix202212\\Composer\\XdebugHandler\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -328,7 +328,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202211\\Doctrine\\Common\\Annotations\\": "lib\/Doctrine\/Common\/Annotations"
+                    "ECSPrefix202212\\Doctrine\\Common\\Annotations\\": "lib\/Doctrine\/Common\/Annotations"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -399,7 +399,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202211\\Doctrine\\Common\\Lexer\\": "lib\/Doctrine\/Common\/Lexer"
+                    "ECSPrefix202212\\Doctrine\\Common\\Lexer\\": "lib\/Doctrine\/Common\/Lexer"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -475,7 +475,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202211\\Evenement\\": "src\/Evenement\/"
+                    "ECSPrefix202212\\Evenement\\": "src\/Evenement\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -707,7 +707,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202211\\Psr\\Cache\\": "src\/"
+                    "ECSPrefix202212\\Psr\\Cache\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -759,7 +759,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202211\\Psr\\Container\\": "src\/"
+                    "ECSPrefix202212\\Psr\\Container\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -815,7 +815,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202211\\Psr\\EventDispatcher\\": "src\/"
+                    "ECSPrefix202212\\Psr\\EventDispatcher\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -868,7 +868,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202211\\Psr\\Log\\": "src"
+                    "ECSPrefix202212\\Psr\\Log\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -895,17 +895,17 @@
         },
         {
             "name": "react\/cache",
-            "version": "v1.1.1",
-            "version_normalized": "1.1.1.0",
+            "version": "v1.2.0",
+            "version_normalized": "1.2.0.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/reactphp\/cache.git",
-                "reference": "4bf736a2cccec7298bdf745db77585966fc2ca7e"
+                "reference": "d47c472b64aa5608225f47965a484b75c7817d5b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/reactphp\/cache\/zipball\/4bf736a2cccec7298bdf745db77585966fc2ca7e",
-                "reference": "4bf736a2cccec7298bdf745db77585966fc2ca7e",
+                "url": "https:\/\/api.github.com\/repos\/reactphp\/cache\/zipball\/d47c472b64aa5608225f47965a484b75c7817d5b",
+                "reference": "d47c472b64aa5608225f47965a484b75c7817d5b",
                 "shasum": ""
             },
             "require": {
@@ -913,14 +913,14 @@
                 "react\/promise": "^3.0 || ^2.0 || ^1.1"
             },
             "require-dev": {
-                "phpunit\/phpunit": "^9.3 || ^5.7 || ^4.8.35"
+                "phpunit\/phpunit": "^9.5 || ^5.7 || ^4.8.35"
             },
-            "time": "2021-02-02T06:47:52+00:00",
+            "time": "2022-11-30T15:59:55+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202211\\React\\Cache\\": "src\/"
+                    "ECSPrefix202212\\React\\Cache\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -958,16 +958,12 @@
             ],
             "support": {
                 "issues": "https:\/\/github.com\/reactphp\/cache\/issues",
-                "source": "https:\/\/github.com\/reactphp\/cache\/tree\/v1.1.1"
+                "source": "https:\/\/github.com\/reactphp\/cache\/tree\/v1.2.0"
             },
             "funding": [
                 {
-                    "url": "https:\/\/github.com\/WyriHaximus",
-                    "type": "github"
-                },
-                {
-                    "url": "https:\/\/github.com\/clue",
-                    "type": "github"
+                    "url": "https:\/\/opencollective.com\/reactphp",
+                    "type": "open_collective"
                 }
             ],
             "install-path": "..\/react\/cache"
@@ -1003,7 +999,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202211\\React\\ChildProcess\\": "src"
+                    "ECSPrefix202212\\React\\ChildProcess\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -1085,7 +1081,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202211\\React\\Dns\\": "src"
+                    "ECSPrefix202212\\React\\Dns\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -1168,7 +1164,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202211\\React\\EventLoop\\": "src"
+                    "ECSPrefix202212\\React\\EventLoop\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -1247,7 +1243,7 @@
                     "src\/functions_include.php"
                 ],
                 "psr-4": {
-                    "ECSPrefix202211\\React\\Promise\\": "src\/"
+                    "ECSPrefix202212\\React\\Promise\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -1328,7 +1324,7 @@
                     "src\/functions_include.php"
                 ],
                 "psr-4": {
-                    "ECSPrefix202211\\React\\Promise\\Timer\\": "src\/"
+                    "ECSPrefix202212\\React\\Promise\\Timer\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -1417,7 +1413,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202211\\React\\Socket\\": "src"
+                    "ECSPrefix202212\\React\\Socket\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -1499,7 +1495,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202211\\React\\Stream\\": "src"
+                    "ECSPrefix202212\\React\\Stream\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -1685,17 +1681,17 @@
         },
         {
             "name": "symfony\/config",
-            "version": "v6.1.3",
-            "version_normalized": "6.1.3.0",
+            "version": "v6.2.0",
+            "version_normalized": "6.2.0.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/symfony\/config.git",
-                "reference": "a0645dc585d378b73c01115dd7ab9348f7d40c85"
+                "reference": "ebf27792246165a2a0b6b69ec9c620cac8c5a2f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/symfony\/config\/zipball\/a0645dc585d378b73c01115dd7ab9348f7d40c85",
-                "reference": "a0645dc585d378b73c01115dd7ab9348f7d40c85",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/config\/zipball\/ebf27792246165a2a0b6b69ec9c620cac8c5a2f0",
+                "reference": "ebf27792246165a2a0b6b69ec9c620cac8c5a2f0",
                 "shasum": ""
             },
             "require": {
@@ -1717,12 +1713,12 @@
             "suggest": {
                 "symfony\/yaml": "To use the yaml reference dumper"
             },
-            "time": "2022-07-20T15:00:40+00:00",
+            "time": "2022-11-02T09:08:04+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202211\\Symfony\\Component\\Config\\": ""
+                    "ECSPrefix202212\\Symfony\\Component\\Config\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -1745,7 +1741,7 @@
             "description": "Helps you find, load, combine, autofill and validate configuration values of any kind",
             "homepage": "https:\/\/symfony.com",
             "support": {
-                "source": "https:\/\/github.com\/symfony\/config\/tree\/v6.1.3"
+                "source": "https:\/\/github.com\/symfony\/config\/tree\/v6.2.0"
             },
             "funding": [
                 {
@@ -1765,17 +1761,17 @@
         },
         {
             "name": "symfony\/console",
-            "version": "v6.1.7",
-            "version_normalized": "6.1.7.0",
+            "version": "v6.2.0",
+            "version_normalized": "6.2.0.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/symfony\/console.git",
-                "reference": "a1282bd0c096e0bdb8800b104177e2ce404d8815"
+                "reference": "75d4749d9620a8fa21a2d2847800a84b5c4e7682"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/symfony\/console\/zipball\/a1282bd0c096e0bdb8800b104177e2ce404d8815",
-                "reference": "a1282bd0c096e0bdb8800b104177e2ce404d8815",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/console\/zipball\/75d4749d9620a8fa21a2d2847800a84b5c4e7682",
+                "reference": "75d4749d9620a8fa21a2d2847800a84b5c4e7682",
                 "shasum": ""
             },
             "require": {
@@ -1810,12 +1806,12 @@
                 "symfony\/lock": "",
                 "symfony\/process": ""
             },
-            "time": "2022-10-26T21:42:49+00:00",
+            "time": "2022-11-29T16:44:51+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202211\\Symfony\\Component\\Console\\": ""
+                    "ECSPrefix202212\\Symfony\\Component\\Console\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -1844,7 +1840,7 @@
                 "terminal"
             ],
             "support": {
-                "source": "https:\/\/github.com\/symfony\/console\/tree\/v6.1.7"
+                "source": "https:\/\/github.com\/symfony\/console\/tree\/v6.2.0"
             },
             "funding": [
                 {
@@ -1864,30 +1860,31 @@
         },
         {
             "name": "symfony\/dependency-injection",
-            "version": "v6.1.5",
-            "version_normalized": "6.1.5.0",
+            "version": "v6.2.0",
+            "version_normalized": "6.2.0.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/symfony\/dependency-injection.git",
-                "reference": "b9c797c9d56afc290d4265854bafd01b4e379240"
+                "reference": "bb328032f400961be5db5aed87fac9742b506f80"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/symfony\/dependency-injection\/zipball\/b9c797c9d56afc290d4265854bafd01b4e379240",
-                "reference": "b9c797c9d56afc290d4265854bafd01b4e379240",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/dependency-injection\/zipball\/bb328032f400961be5db5aed87fac9742b506f80",
+                "reference": "bb328032f400961be5db5aed87fac9742b506f80",
                 "shasum": ""
             },
             "require": {
                 "php": ">=8.1",
                 "psr\/container": "^1.1|^2.0",
                 "symfony\/deprecation-contracts": "^2.1|^3",
-                "symfony\/service-contracts": "^1.1.6|^2.0|^3.0"
+                "symfony\/service-contracts": "^1.1.6|^2.0|^3.0",
+                "symfony\/var-exporter": "^6.2"
             },
             "conflict": {
                 "ext-psr": "<1.1|>=2",
                 "symfony\/config": "<6.1",
                 "symfony\/finder": "<5.4",
-                "symfony\/proxy-manager-bridge": "<5.4",
+                "symfony\/proxy-manager-bridge": "<6.2",
                 "symfony\/yaml": "<5.4"
             },
             "provide": {
@@ -1906,17 +1903,17 @@
                 "symfony\/proxy-manager-bridge": "Generate service proxies to lazy load them",
                 "symfony\/yaml": ""
             },
-            "time": "2022-09-28T16:00:52+00:00",
+            "time": "2022-11-25T07:37:13+00:00",
             "type": "library",
             "extra": {
                 "patches_applied": [
-                    "https:\/\/raw.githubusercontent.com\/symplify\/vendor-patch-files\/main\/patches\/generic-php-config-loader.patch"
+                    "https:\/\/raw.githubusercontent.com\/rectorphp\/vendor-patches\/main\/patches\/symfony-dependency-injection-loader-phpfileloader-php.patch"
                 ]
             },
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202211\\Symfony\\Component\\DependencyInjection\\": ""
+                    "ECSPrefix202212\\Symfony\\Component\\DependencyInjection\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -1939,7 +1936,7 @@
             "description": "Allows you to standardize and centralize the way objects are constructed in your application",
             "homepage": "https:\/\/symfony.com",
             "support": {
-                "source": "https:\/\/github.com\/symfony\/dependency-injection\/tree\/v6.1.5"
+                "source": "https:\/\/github.com\/symfony\/dependency-injection\/tree\/v6.2.0"
             },
             "funding": [
                 {
@@ -2029,17 +2026,17 @@
         },
         {
             "name": "symfony\/event-dispatcher",
-            "version": "v6.1.0",
-            "version_normalized": "6.1.0.0",
+            "version": "v6.2.0",
+            "version_normalized": "6.2.0.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/symfony\/event-dispatcher.git",
-                "reference": "a0449a7ad7daa0f7c0acd508259f80544ab5a347"
+                "reference": "9efb1618fabee89515fe031314e8ed5625f85a53"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/symfony\/event-dispatcher\/zipball\/a0449a7ad7daa0f7c0acd508259f80544ab5a347",
-                "reference": "a0449a7ad7daa0f7c0acd508259f80544ab5a347",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/event-dispatcher\/zipball\/9efb1618fabee89515fe031314e8ed5625f85a53",
+                "reference": "9efb1618fabee89515fe031314e8ed5625f85a53",
                 "shasum": ""
             },
             "require": {
@@ -2067,12 +2064,12 @@
                 "symfony\/dependency-injection": "",
                 "symfony\/http-kernel": ""
             },
-            "time": "2022-05-05T16:51:07+00:00",
+            "time": "2022-11-02T09:08:04+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202211\\Symfony\\Component\\EventDispatcher\\": ""
+                    "ECSPrefix202212\\Symfony\\Component\\EventDispatcher\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -2095,7 +2092,7 @@
             "description": "Provides tools that allow your application components to communicate with each other by dispatching events and listening to them",
             "homepage": "https:\/\/symfony.com",
             "support": {
-                "source": "https:\/\/github.com\/symfony\/event-dispatcher\/tree\/v6.1.0"
+                "source": "https:\/\/github.com\/symfony\/event-dispatcher\/tree\/v6.2.0"
             },
             "funding": [
                 {
@@ -2149,7 +2146,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202211\\Symfony\\Contracts\\EventDispatcher\\": ""
+                    "ECSPrefix202212\\Symfony\\Contracts\\EventDispatcher\\": ""
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -2197,17 +2194,17 @@
         },
         {
             "name": "symfony\/filesystem",
-            "version": "v6.1.5",
-            "version_normalized": "6.1.5.0",
+            "version": "v6.2.0",
+            "version_normalized": "6.2.0.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/symfony\/filesystem.git",
-                "reference": "4d216a2beef096edf040a070117c39ca2abce307"
+                "reference": "50b2523c874605cf3d4acf7a9e2b30b6a440a016"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/symfony\/filesystem\/zipball\/4d216a2beef096edf040a070117c39ca2abce307",
-                "reference": "4d216a2beef096edf040a070117c39ca2abce307",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/filesystem\/zipball\/50b2523c874605cf3d4acf7a9e2b30b6a440a016",
+                "reference": "50b2523c874605cf3d4acf7a9e2b30b6a440a016",
                 "shasum": ""
             },
             "require": {
@@ -2215,12 +2212,12 @@
                 "symfony\/polyfill-ctype": "~1.8",
                 "symfony\/polyfill-mbstring": "~1.8"
             },
-            "time": "2022-09-21T20:29:40+00:00",
+            "time": "2022-11-20T13:01:27+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202211\\Symfony\\Component\\Filesystem\\": ""
+                    "ECSPrefix202212\\Symfony\\Component\\Filesystem\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -2243,7 +2240,7 @@
             "description": "Provides basic utilities for the filesystem",
             "homepage": "https:\/\/symfony.com",
             "support": {
-                "source": "https:\/\/github.com\/symfony\/filesystem\/tree\/v6.1.5"
+                "source": "https:\/\/github.com\/symfony\/filesystem\/tree\/v6.2.0"
             },
             "funding": [
                 {
@@ -2263,17 +2260,17 @@
         },
         {
             "name": "symfony\/finder",
-            "version": "v6.1.3",
-            "version_normalized": "6.1.3.0",
+            "version": "v6.2.0",
+            "version_normalized": "6.2.0.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/symfony\/finder.git",
-                "reference": "39696bff2c2970b3779a5cac7bf9f0b88fc2b709"
+                "reference": "eb2355f69519e4ef33f1835bca4c935f5d42e570"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/symfony\/finder\/zipball\/39696bff2c2970b3779a5cac7bf9f0b88fc2b709",
-                "reference": "39696bff2c2970b3779a5cac7bf9f0b88fc2b709",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/finder\/zipball\/eb2355f69519e4ef33f1835bca4c935f5d42e570",
+                "reference": "eb2355f69519e4ef33f1835bca4c935f5d42e570",
                 "shasum": ""
             },
             "require": {
@@ -2282,12 +2279,12 @@
             "require-dev": {
                 "symfony\/filesystem": "^6.0"
             },
-            "time": "2022-07-29T07:42:06+00:00",
+            "time": "2022-10-09T08:55:40+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202211\\Symfony\\Component\\Finder\\": ""
+                    "ECSPrefix202212\\Symfony\\Component\\Finder\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -2310,7 +2307,7 @@
             "description": "Finds files and directories via an intuitive fluent interface",
             "homepage": "https:\/\/symfony.com",
             "support": {
-                "source": "https:\/\/github.com\/symfony\/finder\/tree\/v6.1.3"
+                "source": "https:\/\/github.com\/symfony\/finder\/tree\/v6.2.0"
             },
             "funding": [
                 {
@@ -2330,29 +2327,29 @@
         },
         {
             "name": "symfony\/options-resolver",
-            "version": "v6.1.0",
-            "version_normalized": "6.1.0.0",
+            "version": "v6.2.0",
+            "version_normalized": "6.2.0.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/symfony\/options-resolver.git",
-                "reference": "a3016f5442e28386ded73c43a32a5b68586dd1c4"
+                "reference": "d28f02acde71ff75e957082cd36e973df395f626"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/symfony\/options-resolver\/zipball\/a3016f5442e28386ded73c43a32a5b68586dd1c4",
-                "reference": "a3016f5442e28386ded73c43a32a5b68586dd1c4",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/options-resolver\/zipball\/d28f02acde71ff75e957082cd36e973df395f626",
+                "reference": "d28f02acde71ff75e957082cd36e973df395f626",
                 "shasum": ""
             },
             "require": {
                 "php": ">=8.1",
                 "symfony\/deprecation-contracts": "^2.1|^3"
             },
-            "time": "2022-02-25T11:15:52+00:00",
+            "time": "2022-11-02T09:08:04+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202211\\Symfony\\Component\\OptionsResolver\\": ""
+                    "ECSPrefix202212\\Symfony\\Component\\OptionsResolver\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -2380,7 +2377,7 @@
                 "options"
             ],
             "support": {
-                "source": "https:\/\/github.com\/symfony\/options-resolver\/tree\/v6.1.0"
+                "source": "https:\/\/github.com\/symfony\/options-resolver\/tree\/v6.2.0"
             },
             "funding": [
                 {
@@ -2655,28 +2652,28 @@
         },
         {
             "name": "symfony\/process",
-            "version": "v6.1.3",
-            "version_normalized": "6.1.3.0",
+            "version": "v6.2.0",
+            "version_normalized": "6.2.0.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/symfony\/process.git",
-                "reference": "a6506e99cfad7059b1ab5cab395854a0a0c21292"
+                "reference": "ba6e55359f8f755fe996c58a81e00eaa67a35877"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/symfony\/process\/zipball\/a6506e99cfad7059b1ab5cab395854a0a0c21292",
-                "reference": "a6506e99cfad7059b1ab5cab395854a0a0c21292",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/process\/zipball\/ba6e55359f8f755fe996c58a81e00eaa67a35877",
+                "reference": "ba6e55359f8f755fe996c58a81e00eaa67a35877",
                 "shasum": ""
             },
             "require": {
                 "php": ">=8.1"
             },
-            "time": "2022-06-27T17:24:16+00:00",
+            "time": "2022-11-02T09:08:04+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202211\\Symfony\\Component\\Process\\": ""
+                    "ECSPrefix202212\\Symfony\\Component\\Process\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -2699,7 +2696,7 @@
             "description": "Executes commands in sub-processes",
             "homepage": "https:\/\/symfony.com",
             "support": {
-                "source": "https:\/\/github.com\/symfony\/process\/tree\/v6.1.3"
+                "source": "https:\/\/github.com\/symfony\/process\/tree\/v6.2.0"
             },
             "funding": [
                 {
@@ -2756,7 +2753,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202211\\Symfony\\Contracts\\Service\\": ""
+                    "ECSPrefix202212\\Symfony\\Contracts\\Service\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Test\/"
@@ -2807,8 +2804,8 @@
         },
         {
             "name": "symfony\/stopwatch",
-            "version": "v6.1.5",
-            "version_normalized": "6.1.5.0",
+            "version": "v6.2.0",
+            "version_normalized": "6.2.0.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/symfony\/stopwatch.git",
@@ -2829,7 +2826,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202211\\Symfony\\Component\\Stopwatch\\": ""
+                    "ECSPrefix202212\\Symfony\\Component\\Stopwatch\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -2852,7 +2849,7 @@
             "description": "Provides a way to profile code",
             "homepage": "https:\/\/symfony.com",
             "support": {
-                "source": "https:\/\/github.com\/symfony\/stopwatch\/tree\/v6.1.5"
+                "source": "https:\/\/github.com\/symfony\/stopwatch\/tree\/v6.2.0"
             },
             "funding": [
                 {
@@ -2872,17 +2869,17 @@
         },
         {
             "name": "symfony\/string",
-            "version": "v6.1.7",
-            "version_normalized": "6.1.7.0",
+            "version": "v6.2.0",
+            "version_normalized": "6.2.0.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/symfony\/string.git",
-                "reference": "823f143370880efcbdfa2dbca946b3358c4707e5"
+                "reference": "145702685e0d12f81d755c71127bfff7582fdd36"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/symfony\/string\/zipball\/823f143370880efcbdfa2dbca946b3358c4707e5",
-                "reference": "823f143370880efcbdfa2dbca946b3358c4707e5",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/string\/zipball\/145702685e0d12f81d755c71127bfff7582fdd36",
+                "reference": "145702685e0d12f81d755c71127bfff7582fdd36",
                 "shasum": ""
             },
             "require": {
@@ -2898,10 +2895,11 @@
             "require-dev": {
                 "symfony\/error-handler": "^5.4|^6.0",
                 "symfony\/http-client": "^5.4|^6.0",
+                "symfony\/intl": "^6.2",
                 "symfony\/translation-contracts": "^2.0|^3.0",
                 "symfony\/var-exporter": "^5.4|^6.0"
             },
-            "time": "2022-10-10T09:34:31+00:00",
+            "time": "2022-11-30T17:13:47+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -2909,7 +2907,7 @@
                     "Resources\/functions.php"
                 ],
                 "psr-4": {
-                    "ECSPrefix202211\\Symfony\\Component\\String\\": ""
+                    "ECSPrefix202212\\Symfony\\Component\\String\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -2940,7 +2938,7 @@
                 "utf8"
             ],
             "support": {
-                "source": "https:\/\/github.com\/symfony\/string\/tree\/v6.1.7"
+                "source": "https:\/\/github.com\/symfony\/string\/tree\/v6.2.0"
             },
             "funding": [
                 {
@@ -2959,18 +2957,95 @@
             "install-path": "..\/symfony\/string"
         },
         {
+            "name": "symfony\/var-exporter",
+            "version": "v6.2.0",
+            "version_normalized": "6.2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/symfony\/var-exporter.git",
+                "reference": "0437f26ca0c648071cc15ddacd26152cc65f4cd6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/var-exporter\/zipball\/0437f26ca0c648071cc15ddacd26152cc65f4cd6",
+                "reference": "0437f26ca0c648071cc15ddacd26152cc65f4cd6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1"
+            },
+            "require-dev": {
+                "symfony\/var-dumper": "^5.4|^6.0"
+            },
+            "time": "2022-11-25T08:33:31+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "ECSPrefix202212\\Symfony\\Component\\VarExporter\\": ""
+                },
+                "exclude-from-classmap": [
+                    "\/Tests\/"
+                ]
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https:\/\/symfony.com\/contributors"
+                }
+            ],
+            "description": "Allows exporting any serializable PHP data structure to plain PHP code",
+            "homepage": "https:\/\/symfony.com",
+            "keywords": [
+                "clone",
+                "construct",
+                "export",
+                "hydrate",
+                "instantiate",
+                "lazy loading",
+                "proxy",
+                "serialize"
+            ],
+            "support": {
+                "source": "https:\/\/github.com\/symfony\/var-exporter\/tree\/v6.2.0"
+            },
+            "funding": [
+                {
+                    "url": "https:\/\/symfony.com\/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https:\/\/github.com\/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https:\/\/tidelift.com\/funding\/github\/packagist\/symfony\/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "install-path": "..\/symfony\/var-exporter"
+        },
+        {
             "name": "symplify\/autowire-array-parameter",
             "version": "dev-main",
             "version_normalized": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/autowire-array-parameter",
-                "reference": "8a76d007bf28aad47a0ce9cb2e5c0e33c7f3d0cd"
+                "reference": "7ddbc7d9ca078e99dbe3f800ec44da4980a7962c"
             },
             "require": {
                 "nette\/utils": "^3.2",
                 "php": ">=8.1",
-                "symfony\/dependency-injection": "^6.1"
+                "symfony\/dependency-injection": "^6.2"
             },
             "conflict": {
                 "symplify\/coding-standard": "<11.1.17",
@@ -3002,12 +3077,12 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202211\\Symplify\\AutowireArrayParameter\\": "src"
+                    "ECSPrefix202212\\Symplify\\AutowireArrayParameter\\": "src"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "ECSPrefix202211\\Symplify\\AutowireArrayParameter\\Tests\\": "tests"
+                    "ECSPrefix202212\\Symplify\\AutowireArrayParameter\\Tests\\": "tests"
                 }
             },
             "license": [
@@ -3027,7 +3102,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/coding-standard",
-                "reference": "4a20c4f28774a63fdb6c68e1c1c5605fe4d02f2c"
+                "reference": "12557873d53b9c936d2d281faa74b16de82b8618"
             },
             "require": {
                 "friendsofphp\/php-cs-fixer": "^3.12",
@@ -3053,7 +3128,7 @@
             "require-dev": {
                 "cweagans\/composer-patches": "^1.7",
                 "phpunit\/phpunit": "^9.5.26",
-                "symfony\/framework-bundle": "^6.1",
+                "symfony\/framework-bundle": "^6.2",
                 "symplify\/easy-coding-standard": "dev-main",
                 "symplify\/rule-doc-generator": "dev-main",
                 "symplify\/smart-file-system": "dev-main",
@@ -3067,7 +3142,7 @@
                 "enable-patching": true,
                 "patches": {
                     "symfony\/dependency-injection": [
-                        "https:\/\/raw.githubusercontent.com\/symplify\/vendor-patch-files\/main\/patches\/generic-php-config-loader.patch"
+                        "https:\/\/raw.githubusercontent.com\/rectorphp\/vendor-patches\/main\/patches\/symfony-dependency-injection-loader-phpfileloader-php.patch"
                     ]
                 }
             },
@@ -3099,7 +3174,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/easy-parallel",
-                "reference": "f00b9cea3c6a5ad33c2a03d71845da6c3173d722"
+                "reference": "575b41b1b191fd9de26383ca13df8c9cee5e9460"
             },
             "require": {
                 "clue\/ndjson-react": "^1.2",
@@ -3107,7 +3182,7 @@
                 "react\/child-process": "^0.6.5",
                 "react\/event-loop": "^1.3",
                 "react\/socket": "^1.12",
-                "symfony\/console": "^6.1"
+                "symfony\/console": "^6.2"
             },
             "conflict": {
                 "symplify\/autowire-array-parameter": "<11.1.17",
@@ -3138,12 +3213,12 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202211\\Symplify\\EasyParallel\\": "src"
+                    "ECSPrefix202212\\Symplify\\EasyParallel\\": "src"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "ECSPrefix202211\\Symplify\\EasyParallel\\Tests\\": "tests"
+                    "ECSPrefix202212\\Symplify\\EasyParallel\\Tests\\": "tests"
                 }
             },
             "license": [
@@ -3163,14 +3238,14 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/easy-testing",
-                "reference": "d9781acfbc7044833a3ae5dec0287067807b4784"
+                "reference": "49016e649ef950d44dc2559084268e955f881abc"
             },
             "require": {
                 "nette\/utils": "^3.2",
                 "php": ">=8.1",
-                "symfony\/console": "^6.1",
-                "symfony\/dependency-injection": "^6.1",
-                "symfony\/finder": "^6.1",
+                "symfony\/console": "^6.2",
+                "symfony\/dependency-injection": "^6.2",
+                "symfony\/finder": "^6.2",
                 "symplify\/package-builder": "dev-main",
                 "symplify\/smart-file-system": "dev-main",
                 "symplify\/symplify-kernel": "dev-main"
@@ -3203,12 +3278,12 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202211\\Symplify\\EasyTesting\\": "src"
+                    "ECSPrefix202212\\Symplify\\EasyTesting\\": "src"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "ECSPrefix202211\\Symplify\\EasyTesting\\Tests\\": "tests"
+                    "ECSPrefix202212\\Symplify\\EasyTesting\\Tests\\": "tests"
                 }
             },
             "license": [
@@ -3228,16 +3303,16 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/package-builder",
-                "reference": "c8bca8dc5259f2e96842f6e7a85c8adac97a17c8"
+                "reference": "656a44d55c19e1696a2963e91ec4df5026613cf7"
             },
             "require": {
                 "nette\/utils": "^3.2",
                 "php": ">=8.1",
                 "sebastian\/diff": "^4.0|^5.0",
-                "symfony\/config": "^6.1",
-                "symfony\/console": "^6.1",
-                "symfony\/dependency-injection": "^6.1",
-                "symfony\/finder": "^6.1"
+                "symfony\/config": "^6.2",
+                "symfony\/console": "^6.2",
+                "symfony\/dependency-injection": "^6.2",
+                "symfony\/finder": "^6.2"
             },
             "conflict": {
                 "symplify\/autowire-array-parameter": "<11.1.17",
@@ -3268,12 +3343,12 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202211\\Symplify\\PackageBuilder\\": "src"
+                    "ECSPrefix202212\\Symplify\\PackageBuilder\\": "src"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "ECSPrefix202211\\Symplify\\PackageBuilder\\Tests\\": "tests"
+                    "ECSPrefix202212\\Symplify\\PackageBuilder\\Tests\\": "tests"
                 }
             },
             "license": [
@@ -3324,7 +3399,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202211\\Symplify\\RuleDocGenerator\\": "src"
+                    "ECSPrefix202212\\Symplify\\RuleDocGenerator\\": "src"
                 }
             },
             "license": [
@@ -3344,13 +3419,13 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/smart-file-system",
-                "reference": "3c6a87a319d147fe54ccae221122d3a2b5b66831"
+                "reference": "d49c825630d3cd8c9eaa9b8b803e1cf1f11dcd44"
             },
             "require": {
                 "nette\/utils": "^3.2",
                 "php": ">=8.1",
-                "symfony\/filesystem": "^6.1",
-                "symfony\/finder": "^6.1"
+                "symfony\/filesystem": "^6.2",
+                "symfony\/finder": "^6.2"
             },
             "conflict": {
                 "symplify\/autowire-array-parameter": "<11.1.17",
@@ -3380,12 +3455,12 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202211\\Symplify\\SmartFileSystem\\": "src"
+                    "ECSPrefix202212\\Symplify\\SmartFileSystem\\": "src"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "ECSPrefix202211\\Symplify\\SmartFileSystem\\Tests\\": "tests"
+                    "ECSPrefix202212\\Symplify\\SmartFileSystem\\Tests\\": "tests"
                 }
             },
             "license": [
@@ -3405,12 +3480,12 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/symplify-kernel",
-                "reference": "eaa714bbf1197c3f0dd535abdfe2abff7c6463f5"
+                "reference": "d0e3188612ece932b8aa6b380cef74cebb96cd1a"
             },
             "require": {
                 "php": ">=8.1",
-                "symfony\/console": "^6.1",
-                "symfony\/dependency-injection": "^6.1",
+                "symfony\/console": "^6.2",
+                "symfony\/dependency-injection": "^6.2",
                 "symplify\/autowire-array-parameter": "dev-main",
                 "symplify\/package-builder": "dev-main",
                 "symplify\/smart-file-system": "dev-main",
@@ -3441,12 +3516,12 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202211\\Symplify\\SymplifyKernel\\": "src"
+                    "ECSPrefix202212\\Symplify\\SymplifyKernel\\": "src"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "ECSPrefix202211\\Symplify\\SymplifyKernel\\Tests\\": "tests"
+                    "ECSPrefix202212\\Symplify\\SymplifyKernel\\Tests\\": "tests"
                 }
             },
             "license": [
@@ -3495,7 +3570,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202211\\Webmozart\\Assert\\": "src\/"
+                    "ECSPrefix202212\\Webmozart\\Assert\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",

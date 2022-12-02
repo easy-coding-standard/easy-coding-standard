@@ -4,8 +4,8 @@ declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Skipper\SkipCriteriaResolver;
 
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use ECSPrefix202211\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use ECSPrefix202211\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
+use ECSPrefix202212\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use ECSPrefix202212\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
 final class SkippedClassResolver
 {
     /**
