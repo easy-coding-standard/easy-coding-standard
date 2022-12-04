@@ -20,16 +20,10 @@ final class ExpectedAndOutputFileInfoPair
         $this->expectedFileInfo = $expectedFileInfo;
         $this->outputFileInfo = $outputFileInfo;
     }
-    /**
-     * @noRector \Rector\Privatization\Rector\ClassMethod\PrivatizeLocalOnlyMethodRector
-     */
     public function getExpectedFileContent() : string
     {
         return $this->expectedFileInfo->getContents();
     }
-    /**
-     * @noRector \Rector\Privatization\Rector\ClassMethod\PrivatizeLocalOnlyMethodRector
-     */
     public function getOutputFileContent() : string
     {
         if (!$this->outputFileInfo instanceof SmartFileInfo) {
@@ -37,9 +31,6 @@ final class ExpectedAndOutputFileInfoPair
         }
         return $this->outputFileInfo->getContents();
     }
-    /**
-     * @noRector \Rector\Privatization\Rector\ClassMethod\PrivatizeLocalOnlyMethodRector
-     */
     public function doesOutputFileExist() : bool
     {
         return $this->outputFileInfo !== null;

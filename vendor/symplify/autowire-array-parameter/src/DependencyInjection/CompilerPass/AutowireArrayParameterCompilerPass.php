@@ -30,8 +30,6 @@ final class AutowireArrayParameterCompilerPass implements CompilerPassInterface
      * Classes that create circular dependencies
      *
      * @var string[]
-     * @noRector \Rector\Privatization\Rector\Property\ChangeReadOnlyPropertyWithDefaultValueToConstantRector
-     * @noRector \Rector\Php55\Rector\String_\StringClassNameToClassConstantRector
      */
     private $excludedFatalClasses = ['ECSPrefix202212\\Symfony\\Component\\Form\\FormExtensionInterface', 'ECSPrefix202212\\Symfony\\Component\\Asset\\PackageInterface', 'ECSPrefix202212\\Symfony\\Component\\Config\\Loader\\LoaderInterface', 'ECSPrefix202212\\Symfony\\Component\\VarDumper\\Dumper\\ContextProvider\\ContextProviderInterface', 'ECSPrefix202212\\EasyCorp\\Bundle\\EasyAdminBundle\\Form\\Type\\Configurator\\TypeConfiguratorInterface', 'ECSPrefix202212\\Sonata\\CoreBundle\\Model\\Adapter\\AdapterInterface', 'ECSPrefix202212\\Sonata\\Doctrine\\Adapter\\AdapterChain', 'ECSPrefix202212\\Sonata\\Twig\\Extension\\TemplateExtension', 'ECSPrefix202212\\Symfony\\Component\\HttpKernel\\KernelInterface'];
     /**
