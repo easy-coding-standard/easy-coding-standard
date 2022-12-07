@@ -28,7 +28,6 @@ use ECSPrefix202212\Symfony\Component\DependencyInjection\Exception\EnvParameter
 use ECSPrefix202212\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 use ECSPrefix202212\Symfony\Component\DependencyInjection\Exception\LogicException;
 use ECSPrefix202212\Symfony\Component\DependencyInjection\Exception\RuntimeException;
-use ECSPrefix202212\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
 use ECSPrefix202212\Symfony\Component\DependencyInjection\ExpressionLanguage;
 use ECSPrefix202212\Symfony\Component\DependencyInjection\LazyProxy\PhpDumper\DumperInterface as ProxyDumper;
 use ECSPrefix202212\Symfony\Component\DependencyInjection\LazyProxy\PhpDumper\LazyServiceDumper;
@@ -227,14 +226,7 @@ class PhpDumper extends Dumper
         $this->initializeMethodNamesMap('Container' === $baseClass ? Container::class : $baseClass);
         if ($this->getProxyDumper() instanceof NullDumper) {
             (new AnalyzeServiceReferencesPass(\true, \false))->process($this->container);
-            try {
-                (new CheckCircularReferencesPass())->process($this->container);
-            } catch (ServiceCircularReferenceException $e) {
-                $path = $e->getPath();
-                \end($path);
-                $path[\key($path)] .= '". Try running "composer require symfony/proxy-manager-bridge';
-                throw new ServiceCircularReferenceException($e->getServiceId(), $path);
-            }
+            (new CheckCircularReferencesPass())->process($this->container);
         }
         $this->analyzeReferences();
         $this->docStar = $options['debug'] ? '*' : '';

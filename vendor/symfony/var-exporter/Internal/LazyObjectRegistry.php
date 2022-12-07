@@ -20,10 +20,6 @@ namespace ECSPrefix202212\Symfony\Component\VarExporter\Internal;
 class LazyObjectRegistry
 {
     /**
-     * @var array<int, LazyObjectState>
-     */
-    public static $states = [];
-    /**
      * @var array<class-string, \ReflectionClass>
      */
     public static $classReflectors = [];
@@ -43,6 +39,10 @@ class LazyObjectRegistry
      * @var array<class-string, array{set: bool, isset: bool, unset: bool, clone: bool, serialize: bool, unserialize: bool, sleep: bool, wakeup: bool, destruct: bool, get: int}>
      */
     public static $parentMethods = [];
+    /**
+     * @var LazyObjectState
+     */
+    public static $noInitializerState;
     public static function getClassResetters($class)
     {
         $classProperties = [];
@@ -53,7 +53,7 @@ class LazyObjectRegistry
         }
         foreach ($propertyScopes as $key => [$scope, $name, $readonlyScope]) {
             $propertyScopes[$k = "\x00{$scope}\x00{$name}"] ?? $propertyScopes[$k = "\x00*\x00{$name}"] ?? ($k = $name);
-            if ($k === $key && "\x00{$class}\x00lazyObjectId" !== $k) {
+            if ($k === $key && "\x00{$class}\x00lazyObjectState" !== $k) {
                 $classProperties[$readonlyScope ?? $scope][$name] = $key;
             }
         }

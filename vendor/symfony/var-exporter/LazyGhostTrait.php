@@ -16,9 +16,9 @@ use ECSPrefix202212\Symfony\Component\VarExporter\Internal\LazyObjectState;
 trait LazyGhostTrait
 {
     /**
-     * @var int
+     * @var \Symfony\Component\VarExporter\Internal\LazyObjectState
      */
-    private $lazyObjectId;
+    private $lazyObjectState;
     /**
      * Creates a lazy-loading ghost instance.
      *
@@ -47,14 +47,13 @@ trait LazyGhostTrait
     {
         $onlyProperties = null === $skippedProperties && \is_array($initializer) ? $initializer : null;
         if (self::class !== ($class = $instance ? \get_class($instance) : static::class)) {
-            $skippedProperties["\x00" . self::class . "\x00lazyObjectId"] = \true;
+            $skippedProperties["\x00" . self::class . "\x00lazyObjectState"] = \true;
         } elseif (\defined($class . '::LAZY_OBJECT_PROPERTY_SCOPES')) {
             Hydrator::$propertyScopes[$class] = Hydrator::$propertyScopes[$class] ?? $class::LAZY_OBJECT_PROPERTY_SCOPES;
         }
         $instance = $instance ?? (Registry::$classReflectors[$class] = Registry::$classReflectors[$class] ?? new \ReflectionClass($class))->newInstanceWithoutConstructor();
         Registry::$defaultProperties[$class] = Registry::$defaultProperties[$class] ?? (array) $instance;
-        $instance->lazyObjectId = $id = \spl_object_id($instance);
-        Registry::$states[$id] = new LazyObjectState($initializer, $skippedProperties = $skippedProperties ?? []);
+        $instance->lazyObjectState = new LazyObjectState($initializer, $skippedProperties = $skippedProperties ?? []);
         foreach (Registry::$classResetters[$class] = Registry::$classResetters[$class] ?? Registry::getClassResetters($class) as $reset) {
             $reset($instance, $skippedProperties, $onlyProperties);
         }
@@ -67,7 +66,7 @@ trait LazyGhostTrait
      */
     public function isLazyObjectInitialized(bool $partial = \false) : bool
     {
-        if (!($state = Registry::$states[$this->lazyObjectId ?? ''] ?? null)) {
+        if (!($state = $this->lazyObjectState ?? null)) {
             return \true;
         }
         if (!\is_array($state->initializer)) {
@@ -92,7 +91,7 @@ trait LazyGhostTrait
      */
     public function initializeLazyObject()
     {
-        if (!($state = Registry::$states[$this->lazyObjectId ?? ''] ?? null)) {
+        if (!($state = $this->lazyObjectState ?? null)) {
             return $this;
         }
         if (!\is_array($state->initializer)) {
@@ -133,7 +132,7 @@ trait LazyGhostTrait
      */
     public function resetLazyObject() : bool
     {
-        if (!($state = Registry::$states[$this->lazyObjectId ?? ''] ?? null)) {
+        if (!($state = $this->lazyObjectState ?? null)) {
             return \false;
         }
         if (LazyObjectState::STATUS_UNINITIALIZED_FULL !== $state->status) {
@@ -150,7 +149,7 @@ trait LazyGhostTrait
         $scope = null;
         if ([$class, , $readonlyScope] = $propertyScopes[$name] ?? null) {
             $scope = Registry::getScope($propertyScopes, $class, $name);
-            $state = Registry::$states[$this->lazyObjectId ?? ''] ?? null;
+            $state = $this->lazyObjectState ?? null;
             if ($state && (null === $scope || isset($propertyScopes["\x00{$scope}\x00{$name}"])) && LazyObjectState::STATUS_UNINITIALIZED_PARTIAL !== $state->initialize($this, $name, $readonlyScope ?? $scope)) {
                 goto get_in_scope;
             }
@@ -184,7 +183,7 @@ trait LazyGhostTrait
         $state = null;
         if ([$class, , $readonlyScope] = $propertyScopes[$name] ?? null) {
             $scope = Registry::getScope($propertyScopes, $class, $name, $readonlyScope);
-            $state = Registry::$states[$this->lazyObjectId ?? ''] ?? null;
+            $state = $this->lazyObjectState ?? null;
             if ($state && ($readonlyScope === $scope || isset($propertyScopes["\x00{$scope}\x00{$name}"]))) {
                 if (LazyObjectState::STATUS_UNINITIALIZED_FULL === $state->status) {
                     $state->initialize($this, $name, $readonlyScope ?? $scope);
@@ -210,7 +209,7 @@ trait LazyGhostTrait
         $scope = null;
         if ([$class, , $readonlyScope] = $propertyScopes[$name] ?? null) {
             $scope = Registry::getScope($propertyScopes, $class, $name);
-            $state = Registry::$states[$this->lazyObjectId ?? ''] ?? null;
+            $state = $this->lazyObjectState ?? null;
             if ($state && (null === $scope || isset($propertyScopes["\x00{$scope}\x00{$name}"])) && LazyObjectState::STATUS_UNINITIALIZED_PARTIAL !== $state->initialize($this, $name, $readonlyScope ?? $scope)) {
                 goto isset_in_scope;
             }
@@ -231,7 +230,7 @@ trait LazyGhostTrait
         $scope = null;
         if ([$class, , $readonlyScope] = $propertyScopes[$name] ?? null) {
             $scope = Registry::getScope($propertyScopes, $class, $name, $readonlyScope);
-            $state = Registry::$states[$this->lazyObjectId ?? ''] ?? null;
+            $state = $this->lazyObjectState ?? null;
             if ($state && ($readonlyScope === $scope || isset($propertyScopes["\x00{$scope}\x00{$name}"]))) {
                 if (LazyObjectState::STATUS_UNINITIALIZED_FULL === $state->status) {
                     $state->initialize($this, $name, $readonlyScope ?? $scope);
@@ -253,8 +252,8 @@ trait LazyGhostTrait
     }
     public function __clone()
     {
-        if ($state = Registry::$states[$this->lazyObjectId ?? ''] ?? null) {
-            Registry::$states[$this->lazyObjectId = \spl_object_id($this)] = clone $state;
+        if ($state = $this->lazyObjectState ?? null) {
+            $this->lazyObjectState = clone $state;
         }
         if ((Registry::$parentMethods[self::class] = Registry::$parentMethods[self::class] ?? Registry::getParentMethods(self::class))['clone']) {
             parent::__clone();
@@ -269,7 +268,7 @@ trait LazyGhostTrait
             $this->initializeLazyObject();
             $properties = (array) $this;
         }
-        unset($properties["\x00{$class}\x00lazyObjectId"]);
+        unset($properties["\x00{$class}\x00lazyObjectState"]);
         if (Registry::$parentMethods[$class]['serialize'] || !Registry::$parentMethods[$class]['sleep']) {
             return $properties;
         }
@@ -287,23 +286,17 @@ trait LazyGhostTrait
     }
     public function __destruct()
     {
-        $state = Registry::$states[$this->lazyObjectId ?? ''] ?? null;
-        try {
-            if ($state && \in_array($state->status, [LazyObjectState::STATUS_UNINITIALIZED_FULL, LazyObjectState::STATUS_UNINITIALIZED_PARTIAL], \true)) {
-                return;
-            }
-            if ((Registry::$parentMethods[self::class] = Registry::$parentMethods[self::class] ?? Registry::getParentMethods(self::class))['destruct']) {
-                parent::__destruct();
-            }
-        } finally {
-            if ($state) {
-                unset(Registry::$states[$this->lazyObjectId]);
-            }
+        $state = $this->lazyObjectState ?? null;
+        if ($state && \in_array($state->status, [LazyObjectState::STATUS_UNINITIALIZED_FULL, LazyObjectState::STATUS_UNINITIALIZED_PARTIAL], \true)) {
+            return;
+        }
+        if ((Registry::$parentMethods[self::class] = Registry::$parentMethods[self::class] ?? Registry::getParentMethods(self::class))['destruct']) {
+            parent::__destruct();
         }
     }
     private function setLazyObjectAsInitialized(bool $initialized) : void
     {
-        $state = Registry::$states[$this->lazyObjectId ?? ''];
+        $state = $this->lazyObjectState ?? null;
         if ($state && !\is_array($state->initializer)) {
             $state->status = $initialized ? LazyObjectState::STATUS_INITIALIZED_FULL : LazyObjectState::STATUS_UNINITIALIZED_FULL;
         }

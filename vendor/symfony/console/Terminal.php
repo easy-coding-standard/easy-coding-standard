@@ -69,9 +69,8 @@ class Terminal
     }
     /**
      * Force a terminal color mode rendering.
-     * @param ?\Symfony\Component\Console\Output\AnsiColorMode::* $colorMode
      */
-    public static function setColorMode($colorMode) : void
+    public static function setColorMode(?AnsiColorMode $colorMode) : void
     {
         self::$colorMode = $colorMode;
     }
