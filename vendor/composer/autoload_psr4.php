@@ -40,6 +40,7 @@ return array(
     'ECSPrefix202212\\Psr\\Log\\' => array($vendorDir . '/psr/log/src'),
     'ECSPrefix202212\\Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
     'ECSPrefix202212\\Psr\\Cache\\' => array($vendorDir . '/psr/cache/src'),
+    'ECSPrefix202212\\Fidry\\CpuCoreCounter\\' => array($vendorDir . '/fidry/cpu-core-counter/src'),
     'ECSPrefix202212\\Evenement\\' => array($vendorDir . '/evenement/evenement/src/Evenement'),
     'ECSPrefix202212\\Doctrine\\Common\\Lexer\\' => array($vendorDir . '/doctrine/lexer/lib/Doctrine/Common/Lexer'),
     'ECSPrefix202212\\Doctrine\\Common\\Annotations\\' => array($vendorDir . '/doctrine/annotations/lib/Doctrine/Common/Annotations'),

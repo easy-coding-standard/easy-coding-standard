@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit470584a23abd19b743d16d9d436fa663
+class ComposerStaticInit4601c3340ba6b6c0c9e82b478ea7bafb
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -59,6 +59,7 @@ class ComposerStaticInit470584a23abd19b743d16d9d436fa663
             'ECSPrefix202212\\Psr\\Log\\' => 24,
             'ECSPrefix202212\\Psr\\Container\\' => 30,
             'ECSPrefix202212\\Psr\\Cache\\' => 26,
+            'ECSPrefix202212\\Fidry\\CpuCoreCounter\\' => 37,
             'ECSPrefix202212\\Evenement\\' => 26,
             'ECSPrefix202212\\Doctrine\\Common\\Lexer\\' => 38,
             'ECSPrefix202212\\Doctrine\\Common\\Annotations\\' => 44,
@@ -207,6 +208,10 @@ class ComposerStaticInit470584a23abd19b743d16d9d436fa663
         array (
             0 => __DIR__ . '/..' . '/psr/cache/src',
         ),
+        'ECSPrefix202212\\Fidry\\CpuCoreCounter\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/fidry/cpu-core-counter/src',
+        ),
         'ECSPrefix202212\\Evenement\\' => 
         array (
             0 => __DIR__ . '/..' . '/evenement/evenement/src/Evenement',
@@ -296,6 +301,25 @@ class ComposerStaticInit470584a23abd19b743d16d9d436fa663
         'ECSPrefix202212\\Evenement\\EventEmitter' => __DIR__ . '/..' . '/evenement/evenement/src/Evenement/EventEmitter.php',
         'ECSPrefix202212\\Evenement\\EventEmitterInterface' => __DIR__ . '/..' . '/evenement/evenement/src/Evenement/EventEmitterInterface.php',
         'ECSPrefix202212\\Evenement\\EventEmitterTrait' => __DIR__ . '/..' . '/evenement/evenement/src/Evenement/EventEmitterTrait.php',
+        'ECSPrefix202212\\Fidry\\CpuCoreCounter\\CpuCoreCounter' => __DIR__ . '/..' . '/fidry/cpu-core-counter/src/CpuCoreCounter.php',
+        'ECSPrefix202212\\Fidry\\CpuCoreCounter\\Diagnoser' => __DIR__ . '/..' . '/fidry/cpu-core-counter/src/Diagnoser.php',
+        'ECSPrefix202212\\Fidry\\CpuCoreCounter\\Exec\\ProcOpen' => __DIR__ . '/..' . '/fidry/cpu-core-counter/src/Exec/ProcOpen.php',
+        'ECSPrefix202212\\Fidry\\CpuCoreCounter\\Finder\\CpuCoreFinder' => __DIR__ . '/..' . '/fidry/cpu-core-counter/src/Finder/CpuCoreFinder.php',
+        'ECSPrefix202212\\Fidry\\CpuCoreCounter\\Finder\\CpuInfoFinder' => __DIR__ . '/..' . '/fidry/cpu-core-counter/src/Finder/CpuInfoFinder.php',
+        'ECSPrefix202212\\Fidry\\CpuCoreCounter\\Finder\\DummyCpuCoreFinder' => __DIR__ . '/..' . '/fidry/cpu-core-counter/src/Finder/DummyCpuCoreFinder.php',
+        'ECSPrefix202212\\Fidry\\CpuCoreCounter\\Finder\\FinderRegistry' => __DIR__ . '/..' . '/fidry/cpu-core-counter/src/Finder/FinderRegistry.php',
+        'ECSPrefix202212\\Fidry\\CpuCoreCounter\\Finder\\HwLogicalFinder' => __DIR__ . '/..' . '/fidry/cpu-core-counter/src/Finder/HwLogicalFinder.php',
+        'ECSPrefix202212\\Fidry\\CpuCoreCounter\\Finder\\HwPhysicalFinder' => __DIR__ . '/..' . '/fidry/cpu-core-counter/src/Finder/HwPhysicalFinder.php',
+        'ECSPrefix202212\\Fidry\\CpuCoreCounter\\Finder\\NProcFinder' => __DIR__ . '/..' . '/fidry/cpu-core-counter/src/Finder/NProcFinder.php',
+        'ECSPrefix202212\\Fidry\\CpuCoreCounter\\Finder\\NProcessorFinder' => __DIR__ . '/..' . '/fidry/cpu-core-counter/src/Finder/NProcessorFinder.php',
+        'ECSPrefix202212\\Fidry\\CpuCoreCounter\\Finder\\NullCpuCoreFinder' => __DIR__ . '/..' . '/fidry/cpu-core-counter/src/Finder/NullCpuCoreFinder.php',
+        'ECSPrefix202212\\Fidry\\CpuCoreCounter\\Finder\\OnlyOnWindowsFinder' => __DIR__ . '/..' . '/fidry/cpu-core-counter/src/Finder/OnlyOnWindowsFinder.php',
+        'ECSPrefix202212\\Fidry\\CpuCoreCounter\\Finder\\ProcOpenBasedFinder' => __DIR__ . '/..' . '/fidry/cpu-core-counter/src/Finder/ProcOpenBasedFinder.php',
+        'ECSPrefix202212\\Fidry\\CpuCoreCounter\\Finder\\SkipOnWindowsFinder' => __DIR__ . '/..' . '/fidry/cpu-core-counter/src/Finder/SkipOnWindowsFinder.php',
+        'ECSPrefix202212\\Fidry\\CpuCoreCounter\\Finder\\WmicLogicalFinder' => __DIR__ . '/..' . '/fidry/cpu-core-counter/src/Finder/WmicLogicalFinder.php',
+        'ECSPrefix202212\\Fidry\\CpuCoreCounter\\Finder\\WmicPhysicalFinder' => __DIR__ . '/..' . '/fidry/cpu-core-counter/src/Finder/WmicPhysicalFinder.php',
+        'ECSPrefix202212\\Fidry\\CpuCoreCounter\\Finder\\_NProcessorFinder' => __DIR__ . '/..' . '/fidry/cpu-core-counter/src/Finder/_NProcessorFinder.php',
+        'ECSPrefix202212\\Fidry\\CpuCoreCounter\\NumberOfCpuCoreNotFound' => __DIR__ . '/..' . '/fidry/cpu-core-counter/src/NumberOfCpuCoreNotFound.php',
         'ECSPrefix202212\\Nette\\ArgumentOutOfRangeException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',
         'ECSPrefix202212\\Nette\\DeprecatedException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',
         'ECSPrefix202212\\Nette\\DirectoryNotFoundException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',
@@ -1615,9 +1639,9 @@ class ComposerStaticInit470584a23abd19b743d16d9d436fa663
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit470584a23abd19b743d16d9d436fa663::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit470584a23abd19b743d16d9d436fa663::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit470584a23abd19b743d16d9d436fa663::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit4601c3340ba6b6c0c9e82b478ea7bafb::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit4601c3340ba6b6c0c9e82b478ea7bafb::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit4601c3340ba6b6c0c9e82b478ea7bafb::$classMap;
 
         }, null, ClassLoader::class);
     }
