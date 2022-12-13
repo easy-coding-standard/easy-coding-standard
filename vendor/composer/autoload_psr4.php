@@ -21,7 +21,6 @@ return array(
     'ECSPrefix202212\\Symplify\\EasyParallel\\' => array($vendorDir . '/symplify/easy-parallel/src'),
     'ECSPrefix202212\\Symplify\\AutowireArrayParameter\\' => array($vendorDir . '/symplify/autowire-array-parameter/src'),
     'ECSPrefix202212\\Symfony\\Contracts\\Service\\' => array($vendorDir . '/symfony/service-contracts'),
-    'ECSPrefix202212\\Symfony\\Component\\VarExporter\\' => array($vendorDir . '/symfony/var-exporter'),
     'ECSPrefix202212\\Symfony\\Component\\String\\' => array($vendorDir . '/symfony/string'),
     'ECSPrefix202212\\Symfony\\Component\\OptionsResolver\\' => array($vendorDir . '/symfony/options-resolver'),
     'ECSPrefix202212\\Symfony\\Component\\Finder\\' => array($vendorDir . '/symfony/finder'),

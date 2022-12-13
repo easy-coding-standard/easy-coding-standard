@@ -5,7 +5,7 @@
     "require": {
         "php": ">=8.1",
         "symfony\/console": "^6.2",
-        "symfony\/dependency-injection": "^6.2",
+        "symfony\/dependency-injection": "6.1.*",
         "symplify\/smart-file-system": "dev-main",
         "symplify\/autowire-array-parameter": "dev-main",
         "symplify\/package-builder": "dev-main",

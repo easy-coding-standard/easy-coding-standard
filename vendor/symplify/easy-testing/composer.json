@@ -11,7 +11,7 @@
         "nette\/utils": "^3.2",
         "symfony\/finder": "^6.2",
         "symfony\/console": "^6.2",
-        "symfony\/dependency-injection": "^6.2",
+        "symfony\/dependency-injection": "6.1.*",
         "symplify\/package-builder": "dev-main",
         "symplify\/smart-file-system": "dev-main",
         "symplify\/symplify-kernel": "dev-main"

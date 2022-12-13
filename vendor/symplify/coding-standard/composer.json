@@ -37,7 +37,7 @@
         "enable-patching": true,
         "patches": {
             "symfony\/dependency-injection": [
-                "https:\/\/raw.githubusercontent.com\/rectorphp\/vendor-patches\/main\/patches\/symfony-dependency-injection-loader-phpfileloader-php.patch"
+                "https:\/\/raw.githubusercontent.com\/symplify\/vendor-patch-files\/main\/patches\/generic-php-config-loader.patch"
             ]
         }
     },

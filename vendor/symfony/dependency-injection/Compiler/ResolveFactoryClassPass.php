@@ -18,6 +18,7 @@ use ECSPrefix202212\Symfony\Component\DependencyInjection\Exception\RuntimeExcep
 class ResolveFactoryClassPass extends AbstractRecursivePass
 {
     /**
+     * {@inheritdoc}
      * @param mixed $value
      * @return mixed
      */

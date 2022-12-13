@@ -18,9 +18,9 @@ use ECSPrefix202212\Symfony\Component\DependencyInjection\ContainerBuilder;
 use ECSPrefix202212\Symfony\Component\DependencyInjection\Definition;
 use ECSPrefix202212\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 use ECSPrefix202212\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use ECSPrefix202212\Symfony\Component\DependencyInjection\LazyProxy\ProxyHelper;
 use ECSPrefix202212\Symfony\Component\DependencyInjection\Reference;
 use ECSPrefix202212\Symfony\Component\DependencyInjection\TypedReference;
-use ECSPrefix202212\Symfony\Component\VarExporter\ProxyHelper;
 /**
  * @author Guilhem Niot <guilhem.niot@gmail.com>
  */
@@ -38,6 +38,9 @@ class ResolveBindingsPass extends AbstractRecursivePass
      * @var mixed[]
      */
     private $errorMessages = [];
+    /**
+     * {@inheritdoc}
+     */
     public function process(ContainerBuilder $container)
     {
         $this->usedBindings = $container->getRemovedBindingIds();
@@ -84,6 +87,7 @@ class ResolveBindingsPass extends AbstractRecursivePass
         }
     }
     /**
+     * {@inheritdoc}
      * @param mixed $value
      * @return mixed
      */
@@ -158,9 +162,9 @@ class ResolveBindingsPass extends AbstractRecursivePass
                 if (\array_key_exists($key, $arguments) && '' !== $arguments[$key]) {
                     continue;
                 }
-                $typeHint = \ltrim(ProxyHelper::exportType($parameter) ?? '', '?');
+                $typeHint = ProxyHelper::getTypeHint($reflectionMethod, $parameter);
                 $name = Target::parseName($parameter);
-                if ($typeHint && \array_key_exists($k = \preg_replace('/(^|[(|&])\\\\/', '\\1', $typeHint) . ' $' . $name, $bindings)) {
+                if ($typeHint && \array_key_exists($k = \ltrim($typeHint, '\\') . ' $' . $name, $bindings)) {
                     $arguments[$key] = $this->getBindingValue($bindings[$k]);
                     continue;
                 }

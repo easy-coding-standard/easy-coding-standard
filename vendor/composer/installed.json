@@ -1975,31 +1975,30 @@
         },
         {
             "name": "symfony\/dependency-injection",
-            "version": "v6.2.1",
-            "version_normalized": "6.2.1.0",
+            "version": "v6.1.8",
+            "version_normalized": "6.1.8.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/symfony\/dependency-injection.git",
-                "reference": "1989baaa573b64eab1a8535717e3e8670e06cb7a"
+                "reference": "11e33ed84db0ced77511a23b35168db127909f0e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/symfony\/dependency-injection\/zipball\/1989baaa573b64eab1a8535717e3e8670e06cb7a",
-                "reference": "1989baaa573b64eab1a8535717e3e8670e06cb7a",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/dependency-injection\/zipball\/11e33ed84db0ced77511a23b35168db127909f0e",
+                "reference": "11e33ed84db0ced77511a23b35168db127909f0e",
                 "shasum": ""
             },
             "require": {
                 "php": ">=8.1",
                 "psr\/container": "^1.1|^2.0",
                 "symfony\/deprecation-contracts": "^2.1|^3",
-                "symfony\/service-contracts": "^1.1.6|^2.0|^3.0",
-                "symfony\/var-exporter": "^6.2"
+                "symfony\/service-contracts": "^1.1.6|^2.0|^3.0"
             },
             "conflict": {
                 "ext-psr": "<1.1|>=2",
                 "symfony\/config": "<6.1",
                 "symfony\/finder": "<5.4",
-                "symfony\/proxy-manager-bridge": "<6.2",
+                "symfony\/proxy-manager-bridge": "<5.4",
                 "symfony\/yaml": "<5.4"
             },
             "provide": {
@@ -2015,13 +2014,14 @@
                 "symfony\/config": "",
                 "symfony\/expression-language": "For using expressions in service container configuration",
                 "symfony\/finder": "For using double-star glob patterns or when GLOB_BRACE portability is required",
+                "symfony\/proxy-manager-bridge": "Generate service proxies to lazy load them",
                 "symfony\/yaml": ""
             },
-            "time": "2022-12-06T17:08:33+00:00",
+            "time": "2022-11-25T07:34:52+00:00",
             "type": "library",
             "extra": {
                 "patches_applied": [
-                    "https:\/\/raw.githubusercontent.com\/rectorphp\/vendor-patches\/main\/patches\/symfony-dependency-injection-loader-phpfileloader-php.patch"
+                    "https:\/\/raw.githubusercontent.com\/symplify\/vendor-patch-files\/main\/patches\/generic-php-config-loader.patch"
                 ]
             },
             "installation-source": "dist",
@@ -2050,7 +2050,7 @@
             "description": "Allows you to standardize and centralize the way objects are constructed in your application",
             "homepage": "https:\/\/symfony.com",
             "support": {
-                "source": "https:\/\/github.com\/symfony\/dependency-injection\/tree\/v6.2.1"
+                "source": "https:\/\/github.com\/symfony\/dependency-injection\/tree\/v6.1.8"
             },
             "funding": [
                 {
@@ -3071,95 +3071,18 @@
             "install-path": "..\/symfony\/string"
         },
         {
-            "name": "symfony\/var-exporter",
-            "version": "v6.2.1",
-            "version_normalized": "6.2.1.0",
-            "source": {
-                "type": "git",
-                "url": "https:\/\/github.com\/symfony\/var-exporter.git",
-                "reference": "8a3f442d48567a5447e984ce9e86875ed768304a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/symfony\/var-exporter\/zipball\/8a3f442d48567a5447e984ce9e86875ed768304a",
-                "reference": "8a3f442d48567a5447e984ce9e86875ed768304a",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.1"
-            },
-            "require-dev": {
-                "symfony\/var-dumper": "^5.4|^6.0"
-            },
-            "time": "2022-12-03T22:32:58+00:00",
-            "type": "library",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "ECSPrefix202212\\Symfony\\Component\\VarExporter\\": ""
-                },
-                "exclude-from-classmap": [
-                    "\/Tests\/"
-                ]
-            },
-            "notification-url": "https:\/\/packagist.org\/downloads\/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nicolas Grekas",
-                    "email": "p@tchwork.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https:\/\/symfony.com\/contributors"
-                }
-            ],
-            "description": "Allows exporting any serializable PHP data structure to plain PHP code",
-            "homepage": "https:\/\/symfony.com",
-            "keywords": [
-                "clone",
-                "construct",
-                "export",
-                "hydrate",
-                "instantiate",
-                "lazy loading",
-                "proxy",
-                "serialize"
-            ],
-            "support": {
-                "source": "https:\/\/github.com\/symfony\/var-exporter\/tree\/v6.2.1"
-            },
-            "funding": [
-                {
-                    "url": "https:\/\/symfony.com\/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https:\/\/github.com\/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https:\/\/tidelift.com\/funding\/github\/packagist\/symfony\/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "install-path": "..\/symfony\/var-exporter"
-        },
-        {
             "name": "symplify\/autowire-array-parameter",
             "version": "dev-main",
             "version_normalized": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/autowire-array-parameter",
-                "reference": "7ddbc7d9ca078e99dbe3f800ec44da4980a7962c"
+                "reference": "e284e3f785950e1ea2c0349808ad5f8710ce56fc"
             },
             "require": {
                 "nette\/utils": "^3.2",
                 "php": ">=8.1",
-                "symfony\/dependency-injection": "^6.2"
+                "symfony\/dependency-injection": "6.1.*"
             },
             "conflict": {
                 "symplify\/coding-standard": "<11.1.17",
@@ -3216,7 +3139,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/coding-standard",
-                "reference": "12557873d53b9c936d2d281faa74b16de82b8618"
+                "reference": "6ddfb6f937ebc48072b2f0019d3c951e4052b2c7"
             },
             "require": {
                 "friendsofphp\/php-cs-fixer": "^3.12",
@@ -3256,7 +3179,7 @@
                 "enable-patching": true,
                 "patches": {
                     "symfony\/dependency-injection": [
-                        "https:\/\/raw.githubusercontent.com\/rectorphp\/vendor-patches\/main\/patches\/symfony-dependency-injection-loader-phpfileloader-php.patch"
+                        "https:\/\/raw.githubusercontent.com\/symplify\/vendor-patch-files\/main\/patches\/generic-php-config-loader.patch"
                     ]
                 }
             },
@@ -3353,13 +3276,13 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/easy-testing",
-                "reference": "49016e649ef950d44dc2559084268e955f881abc"
+                "reference": "45b874b73633f0b81150505e09c10cee6a57de0e"
             },
             "require": {
                 "nette\/utils": "^3.2",
                 "php": ">=8.1",
                 "symfony\/console": "^6.2",
-                "symfony\/dependency-injection": "^6.2",
+                "symfony\/dependency-injection": "6.1.*",
                 "symfony\/finder": "^6.2",
                 "symplify\/package-builder": "dev-main",
                 "symplify\/smart-file-system": "dev-main",
@@ -3418,7 +3341,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/package-builder",
-                "reference": "656a44d55c19e1696a2963e91ec4df5026613cf7"
+                "reference": "6825fccb7b55a692822ae8e1892522ad09097856"
             },
             "require": {
                 "nette\/utils": "^3.2",
@@ -3426,7 +3349,7 @@
                 "sebastian\/diff": "^4.0|^5.0",
                 "symfony\/config": "^6.2",
                 "symfony\/console": "^6.2",
-                "symfony\/dependency-injection": "^6.2",
+                "symfony\/dependency-injection": "6.1.*",
                 "symfony\/finder": "^6.2"
             },
             "conflict": {
@@ -3595,12 +3518,12 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/symplify-kernel",
-                "reference": "d0e3188612ece932b8aa6b380cef74cebb96cd1a"
+                "reference": "fd8445d8bef83cd3d28dc6676a01e4d57706d18e"
             },
             "require": {
                 "php": ">=8.1",
                 "symfony\/console": "^6.2",
-                "symfony\/dependency-injection": "^6.2",
+                "symfony\/dependency-injection": "6.1.*",
                 "symplify\/autowire-array-parameter": "dev-main",
                 "symplify\/package-builder": "dev-main",
                 "symplify\/smart-file-system": "dev-main",

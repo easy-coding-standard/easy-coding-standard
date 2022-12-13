@@ -99,7 +99,7 @@ class ResolveInvalidReferencesPass implements CompilerPassInterface
                 $value = \array_values($value);
             }
         } elseif ($value instanceof Reference) {
-            if ($this->container->hasDefinition($id = (string) $value) ? !$this->container->getDefinition($id)->hasTag('container.excluded') : $this->container->hasAlias($id)) {
+            if ($this->container->has($id = (string) $value)) {
                 return $value;
             }
             $currentDefinition = $this->container->getDefinition($this->currentId);
