@@ -15,9 +15,7 @@ class Annotation
      * @var mixed
      */
     public $value;
-    /**
-     * @param array<string, mixed> $data Key-value for properties to be defined in this class.
-     */
+    /** @param array<string, mixed> $data Key-value for properties to be defined in this class. */
     public final function __construct(array $data)
     {
         foreach ($data as $key => $value) {

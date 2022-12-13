@@ -31,9 +31,7 @@ final class CachedReader implements Reader
     private $loadedAnnotations = [];
     /** @var int[] */
     private $loadedFilemtimes = [];
-    /**
-     * @param bool $debug
-     */
+    /** @param bool $debug */
     public function __construct(Reader $reader, Cache $cache, $debug = \false)
     {
         $this->delegate = $reader;

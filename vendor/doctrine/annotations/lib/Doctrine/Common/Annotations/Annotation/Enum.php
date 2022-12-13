@@ -30,9 +30,9 @@ final class Enum
      */
     public $literal;
     /**
-     * @throws InvalidArgumentException
-     *
      * @phpstan-param array{literal?: mixed[], value: list<scalar>} $values
+     *
+     * @throws InvalidArgumentException
      */
     public function __construct(array $values)
     {

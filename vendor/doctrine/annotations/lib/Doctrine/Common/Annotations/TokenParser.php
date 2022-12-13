@@ -41,9 +41,7 @@ class TokenParser
      * @var int
      */
     private $pointer = 0;
-    /**
-     * @param string $contents
-     */
+    /** @param string $contents */
     public function __construct($contents)
     {
         $this->tokens = token_get_all($contents);

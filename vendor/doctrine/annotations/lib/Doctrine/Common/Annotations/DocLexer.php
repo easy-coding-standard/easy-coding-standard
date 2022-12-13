@@ -13,6 +13,8 @@ use function strtolower;
 use function substr;
 /**
  * Simple lexer for docblock annotations.
+ *
+ * @template-extends AbstractLexer<DocLexer::T_*>
  */
 final class DocLexer extends AbstractLexer
 {
@@ -35,9 +37,9 @@ final class DocLexer extends AbstractLexer
     public const T_NULL = 111;
     public const T_COLON = 112;
     public const T_MINUS = 113;
-    /** @var array<string, int> */
+    /** @var array<string, self::T*> */
     protected $noCase = ['@' => self::T_AT, ',' => self::T_COMMA, '(' => self::T_OPEN_PARENTHESIS, ')' => self::T_CLOSE_PARENTHESIS, '{' => self::T_OPEN_CURLY_BRACES, '}' => self::T_CLOSE_CURLY_BRACES, '=' => self::T_EQUALS, ':' => self::T_COLON, '-' => self::T_MINUS, '\\' => self::T_NAMESPACE_SEPARATOR];
-    /** @var array<string, int> */
+    /** @var array<string, self::T*> */
     protected $withCase = ['true' => self::T_TRUE, 'false' => self::T_FALSE, 'null' => self::T_NULL];
     /**
      * Whether the next token starts immediately, or if there were
@@ -86,5 +88,14 @@ final class DocLexer extends AbstractLexer
             return strpos($value, '.') !== \false || stripos($value, 'e') !== \false ? self::T_FLOAT : self::T_INTEGER;
         }
         return $type;
+    }
+    /** @return array{value: int|string, type:self::T_*|null, position:int} */
+    public function peek() : ?\ECSPrefix202212\Doctrine\Common\Lexer\Token
+    {
+        $token = parent::peek();
+        if ($token === null) {
+            return null;
+        }
+        return (array) $token;
     }
 }

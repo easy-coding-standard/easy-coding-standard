@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit4601c3340ba6b6c0c9e82b478ea7bafb
+class ComposerStaticInit964ffbae13bbebe643e49a385613cc35
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -61,6 +61,7 @@ class ComposerStaticInit4601c3340ba6b6c0c9e82b478ea7bafb
             'ECSPrefix202212\\Psr\\Cache\\' => 26,
             'ECSPrefix202212\\Fidry\\CpuCoreCounter\\' => 37,
             'ECSPrefix202212\\Evenement\\' => 26,
+            'ECSPrefix202212\\Doctrine\\Deprecations\\' => 38,
             'ECSPrefix202212\\Doctrine\\Common\\Lexer\\' => 38,
             'ECSPrefix202212\\Doctrine\\Common\\Annotations\\' => 44,
             'ECSPrefix202212\\Composer\\XdebugHandler\\' => 39,
@@ -216,9 +217,13 @@ class ComposerStaticInit4601c3340ba6b6c0c9e82b478ea7bafb
         array (
             0 => __DIR__ . '/..' . '/evenement/evenement/src/Evenement',
         ),
+        'ECSPrefix202212\\Doctrine\\Deprecations\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/deprecations/lib/Doctrine/Deprecations',
+        ),
         'ECSPrefix202212\\Doctrine\\Common\\Lexer\\' => 
         array (
-            0 => __DIR__ . '/..' . '/doctrine/lexer/lib/Doctrine/Common/Lexer',
+            0 => __DIR__ . '/..' . '/doctrine/lexer/src',
         ),
         'ECSPrefix202212\\Doctrine\\Common\\Annotations\\' => 
         array (
@@ -297,7 +302,10 @@ class ComposerStaticInit4601c3340ba6b6c0c9e82b478ea7bafb
         'ECSPrefix202212\\Doctrine\\Common\\Annotations\\Reader' => __DIR__ . '/..' . '/doctrine/annotations/lib/Doctrine/Common/Annotations/Reader.php',
         'ECSPrefix202212\\Doctrine\\Common\\Annotations\\SimpleAnnotationReader' => __DIR__ . '/..' . '/doctrine/annotations/lib/Doctrine/Common/Annotations/SimpleAnnotationReader.php',
         'ECSPrefix202212\\Doctrine\\Common\\Annotations\\TokenParser' => __DIR__ . '/..' . '/doctrine/annotations/lib/Doctrine/Common/Annotations/TokenParser.php',
-        'ECSPrefix202212\\Doctrine\\Common\\Lexer\\AbstractLexer' => __DIR__ . '/..' . '/doctrine/lexer/lib/Doctrine/Common/Lexer/AbstractLexer.php',
+        'ECSPrefix202212\\Doctrine\\Common\\Lexer\\AbstractLexer' => __DIR__ . '/..' . '/doctrine/lexer/src/AbstractLexer.php',
+        'ECSPrefix202212\\Doctrine\\Common\\Lexer\\Token' => __DIR__ . '/..' . '/doctrine/lexer/src/Token.php',
+        'ECSPrefix202212\\Doctrine\\Deprecations\\Deprecation' => __DIR__ . '/..' . '/doctrine/deprecations/lib/Doctrine/Deprecations/Deprecation.php',
+        'ECSPrefix202212\\Doctrine\\Deprecations\\PHPUnit\\VerifyDeprecations' => __DIR__ . '/..' . '/doctrine/deprecations/lib/Doctrine/Deprecations/PHPUnit/VerifyDeprecations.php',
         'ECSPrefix202212\\Evenement\\EventEmitter' => __DIR__ . '/..' . '/evenement/evenement/src/Evenement/EventEmitter.php',
         'ECSPrefix202212\\Evenement\\EventEmitterInterface' => __DIR__ . '/..' . '/evenement/evenement/src/Evenement/EventEmitterInterface.php',
         'ECSPrefix202212\\Evenement\\EventEmitterTrait' => __DIR__ . '/..' . '/evenement/evenement/src/Evenement/EventEmitterTrait.php',
@@ -1639,9 +1647,9 @@ class ComposerStaticInit4601c3340ba6b6c0c9e82b478ea7bafb
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit4601c3340ba6b6c0c9e82b478ea7bafb::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit4601c3340ba6b6c0c9e82b478ea7bafb::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit4601c3340ba6b6c0c9e82b478ea7bafb::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit964ffbae13bbebe643e49a385613cc35::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit964ffbae13bbebe643e49a385613cc35::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit964ffbae13bbebe643e49a385613cc35::$classMap;
 
         }, null, ClassLoader::class);
     }

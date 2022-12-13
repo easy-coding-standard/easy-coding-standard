@@ -107,25 +107,20 @@ class AnnotationException extends Exception
      * @param string $annotationName
      * @param string $context
      * @param mixed  $given
+     * @phpstan-param list<string>        $available
      *
      * @return AnnotationException
-     *
-     * @phpstan-param list<string>        $available
      */
     public static function enumeratorError($attributeName, $annotationName, $context, $available, $given)
     {
         return new self(sprintf('[Enum Error] Attribute "%s" of @%s declared on %s accepts only [%s], but got %s.', $attributeName, $annotationName, $context, implode(', ', $available), is_object($given) ? get_class($given) : $given));
     }
-    /**
-     * @return AnnotationException
-     */
+    /** @return AnnotationException */
     public static function optimizerPlusSaveComments()
     {
         return new self('You have to enable opcache.save_comments=1 or zend_optimizerplus.save_comments=1.');
     }
-    /**
-     * @return AnnotationException
-     */
+    /** @return AnnotationException */
     public static function optimizerPlusLoadComments()
     {
         return new self('You have to enable opcache.load_comments=1 or zend_optimizerplus.load_comments=1.');

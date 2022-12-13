@@ -4,8 +4,9 @@ declare (strict_types=1);
 namespace ECSPrefix202212\Doctrine\Common\Lexer;
 
 use ReflectionClass;
+use UnitEnum;
+use function get_class;
 use function implode;
-use function in_array;
 use function preg_split;
 use function sprintf;
 use function substr;
@@ -15,7 +16,7 @@ use const PREG_SPLIT_OFFSET_CAPTURE;
 /**
  * Base class for writing simple lexers, i.e. for creating small DSLs.
  *
- * @psalm-type Token = array{value: int|string, type:string|int|null, position:int}
+ * @template T of UnitEnum|string|int
  */
 abstract class AbstractLexer
 {
@@ -28,14 +29,7 @@ abstract class AbstractLexer
     /**
      * Array of scanned tokens.
      *
-     * Each token is an associative array containing three items:
-     *  - 'value'    : the string value of the token in the input string
-     *  - 'type'     : the type of the token (identifier, numeric, string, input
-     *                 parameter, none)
-     *  - 'position' : the position of the token in the input string
-     *
-     * @var mixed[][]
-     * @psalm-var list<Token>
+     * @var list<Token<T>>
      */
     private $tokens = [];
     /**
@@ -54,14 +48,14 @@ abstract class AbstractLexer
      * The next token in the input.
      *
      * @var mixed[]|null
-     * @psalm-var Token|null
+     * @psalm-var Token<T>|null
      */
     public $lookahead;
     /**
      * The last matched/seen token.
      *
      * @var mixed[]|null
-     * @psalm-var Token|null
+     * @psalm-var Token<T>|null
      */
     public $token;
     /**
@@ -133,24 +127,24 @@ abstract class AbstractLexer
     /**
      * Checks whether a given token matches the current lookahead.
      *
-     * @param int|string $type
+     * @param T $type
      *
      * @return bool
      */
     public function isNextToken($type)
     {
-        return $this->lookahead !== null && $this->lookahead['type'] === $type;
+        return $this->lookahead !== null && $this->lookahead->isA($type);
     }
     /**
      * Checks whether any of the given tokens matches the current lookahead.
      *
-     * @param list<int|string> $types
+     * @param list<T> $types
      *
      * @return bool
      */
     public function isNextTokenAny(array $types)
     {
-        return $this->lookahead !== null && in_array($this->lookahead['type'], $types, \true);
+        return $this->lookahead !== null && $this->lookahead->isA(...$types);
     }
     /**
      * Moves to the next token in the input string.
@@ -167,20 +161,20 @@ abstract class AbstractLexer
     /**
      * Tells the lexer to skip input tokens until it sees a token with the given value.
      *
-     * @param string $type The token type to skip until.
+     * @param T $type The token type to skip until.
      *
      * @return void
      */
     public function skipUntil($type)
     {
-        while ($this->lookahead !== null && $this->lookahead['type'] !== $type) {
+        while ($this->lookahead !== null && !$this->lookahead->isA($type)) {
             $this->moveNext();
         }
     }
     /**
      * Checks if given value is identical to the given token.
      *
-     * @param mixed      $value
+     * @param string     $value
      * @param int|string $token
      *
      * @return bool
@@ -193,7 +187,7 @@ abstract class AbstractLexer
      * Moves the lookahead token forward.
      *
      * @return mixed[]|null The next token or NULL if there are no more tokens ahead.
-     * @psalm-return Token|null
+     * @psalm-return Token<T>|null
      */
     public function peek()
     {
@@ -206,7 +200,7 @@ abstract class AbstractLexer
      * Peeks at the next token, returns it and immediately resets the peek.
      *
      * @return mixed[]|null The next token or NULL if there are no more tokens ahead.
-     * @psalm-return Token|null
+     * @psalm-return Token<T>|null
      */
     public function glimpse()
     {
@@ -235,18 +229,21 @@ abstract class AbstractLexer
         foreach ($matches as $match) {
             // Must remain before 'value' assignment since it can change content
             $type = $this->getType($match[0]);
-            $this->tokens[] = ['value' => $match[0], 'type' => $type, 'position' => $match[1]];
+            $this->tokens[] = new Token($match[0], $type, $match[1]);
         }
     }
     /**
      * Gets the literal for a given token.
      *
-     * @param int|string $token
+     * @param T $token
      *
      * @return int|string
      */
     public function getLiteral($token)
     {
+        if ($token instanceof UnitEnum) {
+            return get_class($token) . '::' . $token->name;
+        }
         $className = static::class;
         $reflClass = new ReflectionClass($className);
         $constants = $reflClass->getConstants();
@@ -283,7 +280,7 @@ abstract class AbstractLexer
      *
      * @param string $value
      *
-     * @return int|string|null
+     * @return T|null
      */
     protected abstract function getType(&$value);
 }

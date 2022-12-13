@@ -232,10 +232,10 @@ final class DocParser
      * @param string $input   The docblock string to parse.
      * @param string $context The parsing context.
      *
+     * @phpstan-return list<object> Array of annotations. If no annotations are found, an empty array is returned.
+     *
      * @throws AnnotationException
      * @throws ReflectionException
-     *
-     * @phpstan-return list<object> Array of annotations. If no annotations are found, an empty array is returned.
      */
     public function parse($input, $context = '')
     {
@@ -290,9 +290,9 @@ final class DocParser
      * If any of them matches, this method updates the lookahead token; otherwise
      * a syntax error is raised.
      *
-     * @throws AnnotationException
-     *
      * @phpstan-param list<mixed[]> $tokens
+     *
+     * @throws AnnotationException
      */
     private function matchAny(array $tokens) : bool
     {
@@ -469,10 +469,10 @@ final class DocParser
     /**
      * Annotations ::= Annotation {[ "*" ]* [Annotation]}*
      *
+     * @phpstan-return list<object>
+     *
      * @throws AnnotationException
      * @throws ReflectionException
-     *
-     * @phpstan-return list<object>
      */
     private function Annotations() : array
     {
@@ -799,9 +799,7 @@ EXCEPTION
     {
         return $this->getClassConstantPositionInIdentifier($identifier) === strlen($identifier) - strlen('::class');
     }
-    /**
-     * @return int|false
-     */
+    /** @return int|false */
     private function getClassConstantPositionInIdentifier(string $identifier)
     {
         return stripos($identifier, '::class');
@@ -943,10 +941,10 @@ EXCEPTION
      * KeyValuePair ::= Key ("=" | ":") PlainValue | Constant
      * Key ::= string | integer | Constant
      *
+     * @phpstan-return array{mixed, mixed}
+     *
      * @throws AnnotationException
      * @throws ReflectionException
-     *
-     * @phpstan-return array{mixed, mixed}
      */
     private function ArrayEntry() : array
     {
