@@ -3139,7 +3139,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/coding-standard",
-                "reference": "6ddfb6f937ebc48072b2f0019d3c951e4052b2c7"
+                "reference": "e164313f16575baa4adb696594f32e5864d3e502"
             },
             "require": {
                 "friendsofphp\/php-cs-fixer": "^3.12",
@@ -3165,7 +3165,7 @@
             "require-dev": {
                 "cweagans\/composer-patches": "^1.7",
                 "phpunit\/phpunit": "^9.5.26",
-                "symfony\/framework-bundle": "^6.2",
+                "symfony\/framework-bundle": "6.1.*",
                 "symplify\/easy-coding-standard": "dev-main",
                 "symplify\/rule-doc-generator": "dev-main",
                 "symplify\/smart-file-system": "dev-main",
