@@ -17,6 +17,7 @@ use const PREG_SPLIT_OFFSET_CAPTURE;
  * Base class for writing simple lexers, i.e. for creating small DSLs.
  *
  * @template T of UnitEnum|string|int
+ * @template V of string|int
  */
 abstract class AbstractLexer
 {
@@ -29,7 +30,7 @@ abstract class AbstractLexer
     /**
      * Array of scanned tokens.
      *
-     * @var list<Token<T>>
+     * @var list<Token<T, V>>
      */
     private $tokens = [];
     /**
@@ -48,14 +49,14 @@ abstract class AbstractLexer
      * The next token in the input.
      *
      * @var mixed[]|null
-     * @psalm-var Token<T>|null
+     * @psalm-var Token<T, V>|null
      */
     public $lookahead;
     /**
      * The last matched/seen token.
      *
      * @var mixed[]|null
-     * @psalm-var Token<T>|null
+     * @psalm-var Token<T, V>|null
      */
     public $token;
     /**
@@ -130,6 +131,8 @@ abstract class AbstractLexer
      * @param T $type
      *
      * @return bool
+     *
+     * @psalm-assert-if-true !=null $this->lookahead
      */
     public function isNextToken($type)
     {
@@ -141,6 +144,8 @@ abstract class AbstractLexer
      * @param list<T> $types
      *
      * @return bool
+     *
+     * @psalm-assert-if-true !=null $this->lookahead
      */
     public function isNextTokenAny(array $types)
     {
@@ -150,6 +155,8 @@ abstract class AbstractLexer
      * Moves to the next token in the input string.
      *
      * @return bool
+     *
+     * @psalm-assert-if-true !null $this->lookahead
      */
     public function moveNext()
     {
@@ -187,7 +194,7 @@ abstract class AbstractLexer
      * Moves the lookahead token forward.
      *
      * @return mixed[]|null The next token or NULL if there are no more tokens ahead.
-     * @psalm-return Token<T>|null
+     * @psalm-return Token<T, V>|null
      */
     public function peek()
     {
@@ -200,7 +207,7 @@ abstract class AbstractLexer
      * Peeks at the next token, returns it and immediately resets the peek.
      *
      * @return mixed[]|null The next token or NULL if there are no more tokens ahead.
-     * @psalm-return Token<T>|null
+     * @psalm-return Token<T, V>|null
      */
     public function glimpse()
     {
@@ -228,8 +235,9 @@ abstract class AbstractLexer
         }
         foreach ($matches as $match) {
             // Must remain before 'value' assignment since it can change content
-            $type = $this->getType($match[0]);
-            $this->tokens[] = new Token($match[0], $type, $match[1]);
+            $firstMatch = $match[0];
+            $type = $this->getType($firstMatch);
+            $this->tokens[] = new Token($firstMatch, $type, $match[1]);
         }
     }
     /**
@@ -281,6 +289,8 @@ abstract class AbstractLexer
      * @param string $value
      *
      * @return T|null
+     *
+     * @param-out V $value
      */
     protected abstract function getType(&$value);
 }
