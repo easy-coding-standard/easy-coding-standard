@@ -22,14 +22,9 @@ use ECSPrefix202212\Psr\Container\ContainerInterface;
 interface ServiceProviderInterface extends ContainerInterface
 {
     /**
-     * {@inheritdoc}
-     *
      * @return T
      */
     public function get(string $id);
-    /**
-     * {@inheritdoc}
-     */
     public function has(string $id) : bool;
     /**
      * Returns an associative array of service types keyed by the identifiers provided by the current container.
