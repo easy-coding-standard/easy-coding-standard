@@ -40,7 +40,6 @@
         "symplify\/config-transformer": "<11.1.18",
         "symplify\/coding-standard": "<11.1.18",
         "symplify\/easy-parallel": "<11.1.18",
-        "symplify\/composer-json-manipulator": "<11.1.18",
         "symplify\/easy-ci": "<11.1.18",
         "symplify\/monorepo-builder": "<11.1.18",
         "symplify\/vendor-patches": "<11.1.18",
