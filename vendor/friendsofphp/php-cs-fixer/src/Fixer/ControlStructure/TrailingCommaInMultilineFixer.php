@@ -69,15 +69,6 @@ SAMPLE
     }
     /**
      * {@inheritdoc}
-     *
-     * Must run after NoMultilineWhitespaceAroundDoubleArrowFixer.
-     */
-    public function getPriority() : int
-    {
-        return 0;
-    }
-    /**
-     * {@inheritdoc}
      */
     public function isCandidate(Tokens $tokens) : bool
     {
@@ -142,6 +133,9 @@ SAMPLE
         $blockType = Tokens::detectBlockType($tokens[$startIndex]);
         $endIndex = $tokens->findBlockEnd($blockType['type'], $startIndex);
         $beforeEndIndex = $tokens->getPrevMeaningfulToken($endIndex);
+        if (!$tokens->isPartialCodeMultiline($beforeEndIndex, $endIndex)) {
+            return;
+        }
         $beforeEndToken = $tokens[$beforeEndIndex];
         // if there is some item between braces then add `,` after it
         if ($startIndex !== $beforeEndIndex && !$beforeEndToken->equals(',') && (\true === $this->configuration['after_heredoc'] || !$beforeEndToken->isGivenKind(\T_END_HEREDOC))) {
@@ -172,6 +166,9 @@ SAMPLE
             return;
         }
         $previousIndex = $tokens->getPrevMeaningfulToken($closeIndex);
+        if (!$tokens->isPartialCodeMultiline($previousIndex, $closeIndex)) {
+            return;
+        }
         if (!$tokens[$previousIndex]->equals(',')) {
             $tokens->insertAt($previousIndex + 1, new Token(','));
         }
