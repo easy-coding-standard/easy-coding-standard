@@ -90,7 +90,7 @@ final class DocLexer extends AbstractLexer
         return $type;
     }
     /** @return array{value: int|string, type:self::T_*|null, position:int} */
-    public function peek() : ?\ECSPrefix202212\Doctrine\Common\Lexer\Token
+    public function peek() : ?array
     {
         $token = parent::peek();
         if ($token === null) {
