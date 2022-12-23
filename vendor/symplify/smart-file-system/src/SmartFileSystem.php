@@ -6,9 +6,6 @@ namespace ECSPrefix202212\Symplify\SmartFileSystem;
 use ECSPrefix202212\Nette\Utils\Strings;
 use ECSPrefix202212\Symfony\Component\Filesystem\Exception\IOException;
 use ECSPrefix202212\Symfony\Component\Filesystem\Filesystem;
-/**
- * @see \Symplify\SmartFileSystem\Tests\SmartFileSystem\SmartFileSystemTest
- */
 final class SmartFileSystem extends Filesystem
 {
     /**
@@ -27,10 +24,6 @@ final class SmartFileSystem extends Filesystem
             throw new IOException($message, 0, null, $fileName);
         }
         return $source;
-    }
-    public function readFileToSmartFileInfo(string $fileName) : SmartFileInfo
-    {
-        return new SmartFileInfo($fileName);
     }
     /**
      * Converts given HTML code to plain text

@@ -44,6 +44,9 @@ final class JsonOutputFormatter implements OutputFormatterInterface
     {
         return self::NAME;
     }
+    /**
+     * @api
+     */
     public function createJsonContent(ErrorAndDiffResult $errorAndDiffResult) : string
     {
         $errorsArrayJson = $this->createBaseErrorsJson($errorAndDiffResult);

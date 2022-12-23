@@ -32,7 +32,7 @@ final class ChangedFilesDetector
         $this->cache = $cache;
     }
     /**
-     * For tests
+     * @api For tests
      */
     public function changeConfigurationFile(string $configurationFile) : void
     {

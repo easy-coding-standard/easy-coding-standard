@@ -5,6 +5,9 @@ namespace ECSPrefix202212\Symplify\EasyTesting\ValueObject;
 
 use ECSPrefix202212\Symplify\SmartFileSystem\SmartFileInfo;
 use ECSPrefix202212\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+/**
+ * @api
+ */
 final class ExpectedAndOutputFileInfoPair
 {
     /**

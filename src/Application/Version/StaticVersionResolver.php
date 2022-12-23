@@ -15,16 +15,19 @@ final class StaticVersionResolver
      * @api
      * @var string
      */
-    public const PACKAGE_VERSION = 'a163cf39ce15ac3cd8f414abef527f2ed99f7c07';
+    public const PACKAGE_VERSION = '9a17d5a378092d25a7429817c4d42e5a60849a91';
     /**
      * @api
      * @var string
      */
-    public const RELEASE_DATE = '2022-12-23 02:21:36';
+    public const RELEASE_DATE = '2022-12-23 01:59:56';
     /**
      * @var int
      */
     private const SUCCESS_CODE = 0;
+    /**
+     * @api
+     */
     public static function resolvePackageVersion() : string
     {
         // resolve current tag
@@ -45,6 +48,9 @@ final class StaticVersionResolver
         $version = \trim($commitHashExecOutput[0]);
         return \trim($version, '"');
     }
+    /**
+     * @api
+     */
     public static function resolverReleaseDateTime() : DateTime
     {
         \exec('git log -n1 --pretty=%ci HEAD', $output, $resultCode);

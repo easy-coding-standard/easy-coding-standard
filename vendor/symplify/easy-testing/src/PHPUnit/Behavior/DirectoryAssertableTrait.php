@@ -25,6 +25,7 @@ trait DirectoryAssertableTrait
         foreach ($fileInfosByRelativeFilePath as $relativeFilePath => $expectedAndOutputFileInfoPair) {
             // output file exists
             $this->assertFileExists($outputDirectory . '/' . $relativeFilePath);
+            /** @var ExpectedAndOutputFileInfoPair $expectedAndOutputFileInfoPair */
             if (!$expectedAndOutputFileInfoPair->doesOutputFileExist()) {
                 continue;
             }
