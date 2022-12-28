@@ -26,7 +26,7 @@ final class ECSConfig extends ContainerConfigurator
         $parameters->set(Option::PATHS, $paths);
     }
     /**
-     * @param mixed[] $skips
+     * @param list<string>|array<class-string<Sniff|FixerInterface>, list<string>> $skips
      */
     public function skip(array $skips) : void
     {
