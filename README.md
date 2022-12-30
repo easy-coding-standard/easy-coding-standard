@@ -187,10 +187,6 @@ vendor/bin/ecs check src --clear-cache
 
 In case you are experiencing a bug or want to request a new feature head over to the [Symplify monorepo issue tracker](https://github.com/symplify/symplify/issues)
 
-## Contribute
-
-The sources of this package are contained in the Symplify monorepo. We welcome contributions for this package on [symplify/symplify](https://github.com/symplify/symplify).
-
 ## Acknowledgment
 
 The parallel run is heavily inspired by [phpstan/phpstan-src](https://github.com/phpstan/phpstan-src) by Ondřej Mirtes. Thank you.

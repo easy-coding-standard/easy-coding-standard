@@ -1,0 +1,45 @@
+name: Downgraded Release
+
+on:
+    push:
+        tags:
+            - '*'
+
+jobs:
+    downgrade_release:
+        runs-on: ubuntu-latest
+
+        steps:
+            -   uses: "actions/checkout@v2"
+
+            -
+                uses: "shivammathur/setup-php@v2"
+                with:
+                    php-version: 8.1
+                    coverage: none
+
+            -   uses: "ramsey/composer-install@v2"
+
+            # downgrade /src to PHP 7.2
+            -   run: vendor/bin/rector process src packages --config build/rector-downgrade-php-72.php --ansi
+            -   run: bin/ecs check src packages --fix --ansi
+
+            # clear the dev files
+            -   run: rm -rf build .github tests packages-tests ecs.php phpstan.neon phpunit.xml
+
+            # copy PHP 7.2 composer + workflows
+            -   run: cp -R build/target-repository/. .
+
+            # setup git user
+            -
+                run: |
+                    git config user.email "action@github.com"
+                    git config user.name "GitHub Action"
+
+            # publish to the same repository with a new tag
+            -
+                name: "Tag Downgraded Code"
+                run: |
+                    git commit -a -m "release PHP 7.2 downgraded ${GITHUB_REF#refs/tags/}"
+                    git tag "${GITHUB_REF#refs/tags/}.72"
+                    git push origin "${GITHUB_REF#refs/tags/}.72"
