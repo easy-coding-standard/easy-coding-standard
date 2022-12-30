@@ -6,5 +6,4 @@ namespace Symplify\EasyCodingStandard\Tests\Finder\SourceFinderSource\Source;
 
 final class SomeClass
 {
-
 }

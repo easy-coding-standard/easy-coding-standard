@@ -6,5 +6,4 @@ namespace Symplify\EasyCodingStandard\Tests\Console\Output\Source;
 
 final class RandomFile
 {
-
 }

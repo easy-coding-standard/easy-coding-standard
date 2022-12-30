@@ -1,6 +1,6 @@
 {
     "name": "symplify/easy-coding-standard",
-    "description": "Prefixed scoped version of ECS package",
+    "description": "Use Coding Standard with 0-knowledge of PHP-CS-Fixer and PHP_CodeSniffer",
     "license": "MIT",
     "require": {
         "php": ">=7.2"
