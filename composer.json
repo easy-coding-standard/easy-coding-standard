@@ -75,8 +75,8 @@
         "fix-cs": "bin/ecs check --fix --ansi",
         "phpstan": "vendor/bin/phpstan analyse --ansi  --error-format symplify",
         "docs": [
-            "packages/rule-doc-generator/bin/rule-doc-generator generate packages/coding-standard --output-file packages/coding-standard/docs/rules_overview.md --ansi",
-            "packages/easy-coding-standard/bin/ecs check-markdown packages/coding-standard/docs/rules_overview.md --fix --ansi"
+            "vendor/bin/rule-doc-generator generate packages/coding-standard --output-file docs/rules_overview.md --ansi",
+            "vendor/bin/ecs check-markdown docs/rules_overview.md --fix --ansi"
         ],
         "rector": "vendor/bin/rector process --dry-run --ansi",
         "release": "vendor/bin/monorepo-builder release patch --ansi"
