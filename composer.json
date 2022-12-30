@@ -1,0 +1,84 @@
+{
+    "name": "symplify/easy-coding-standard",
+    "description": "Use Coding Standard with 0-knowledge of PHP-CS-Fixer and PHP_CodeSniffer.",
+    "license": "MIT",
+    "bin": [
+        "bin/ecs"
+    ],
+    "require": {
+        "php": ">=8.1",
+        "composer/xdebug-handler": "^3.0",
+        "friendsofphp/php-cs-fixer": "^3.12",
+        "nette/utils": "^3.2",
+        "squizlabs/php_codesniffer": "^3.7.1",
+        "symfony/config": "^6.2",
+        "symfony/console": "^6.2",
+        "symfony/dependency-injection": "6.1.*",
+        "symfony/finder": "^6.2",
+        "symplify/autowire-array-parameter": "^11.2",
+        "symplify/coding-standard": "^11.2",
+        "symplify/easy-parallel": "^11.2",
+        "symplify/easy-testing": "^11.2",
+        "symplify/package-builder": "^11.2",
+        "symplify/smart-file-system": "^11.2",
+        "symplify/symplify-kernel": "^11.2",
+        "webmozart/assert": "^1.11"
+    },
+    "require-dev": {
+        "cweagans/composer-patches": "^1.7",
+        "phpunit/phpunit": "^9.5.26"
+    },
+    "autoload": {
+        "psr-4": {
+            "Symplify\\EasyCodingStandard\\": [
+                "src",
+                "packages"
+            ]
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Symplify\\EasyCodingStandard\\Tests\\": [
+                "tests",
+                "packages-tests"
+            ]
+        }
+    },
+    "extra": {
+        "enable-patching": true,
+        "branch-alias": {
+            "dev-main": "11.2-dev"
+        },
+        "patches": {
+            "symfony/dependency-injection": [
+                "https://raw.githubusercontent.com/symplify/vendor-patch-files/main/patches/generic-php-config-loader.patch"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "platform-check": false,
+        "allow-plugins": {
+            "cweagans/composer-patches": true
+        }
+    },
+    "replace": {
+        "symfony/polyfill-ctype": "*",
+        "symfony/polyfill-intl-grapheme": "*",
+        "symfony/polyfill-mbstring": "*"
+    },
+    "conflict": {
+        "symplify/phpstan-rules": "<11.1.24",
+        "symplify/rule-doc-generator-contracts": "<11.1.24",
+        "symplify/php-config-printer": "<11.1.24",
+        "symplify/phpstan-extensions": "<11.1.24",
+        "symplify/rule-doc-generator": "<11.1.24",
+        "symplify/symfony-static-dumper": "<11.1.24",
+        "symplify/config-transformer": "<11.1.24",
+        "symplify/easy-ci": "<11.1.24",
+        "symplify/monorepo-builder": "<11.1.24",
+        "symplify/vendor-patches": "<11.1.24"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

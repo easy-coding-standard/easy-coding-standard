@@ -1,0 +1,25 @@
+{
+    "name": "symplify/easy-coding-standard",
+    "description": "Prefixed scoped version of ECS package",
+    "license": "MIT",
+    "require": {
+        "php": ">=7.2"
+    },
+    "autoload": {
+        "files": [
+            "bootstrap.php"
+        ]
+    },
+    "bin": [
+        "bin/ecs"
+    ],
+    "conflict": {
+        "squizlabs/php_codesniffer": "<3.6",
+        "friendsofphp/php-cs-fixer": "<3.0"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "10.3-dev"
+        }
+    }
+}

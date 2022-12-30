@@ -1,0 +1,61 @@
+name: Code Analysis
+
+on:
+    pull_request: null
+    push:
+        branches:
+            - main
+
+jobs:
+    code_analysis:
+        strategy:
+            fail-fast: false
+            matrix:
+                actions:
+                    -
+                        name: 'PHPStan'
+                        run: composer phpstan --ansi
+
+                    -
+                        name: 'Composer Validate'
+                        run: composer validate --ansi
+
+                    -
+                        name: 'Rector'
+                        run: composer rector --ansi
+
+                    -
+                        name: 'Coding Standard'
+                        run: composer fix-cs --ansi
+
+                    -
+                        name: 'Tests'
+                        run: vendor/bin/phpunit
+
+                    -
+                        name: 'PHP Linter'
+                        run: vendor/bin/parallel-lint src tests
+
+                    -
+                        name: 'Check Commented Code'
+                        run: vendor/bin/easy-ci check-commented-code src tests --ansi
+
+                    -
+                        name: 'Check Active Classes'
+                        run: vendor/bin/easy-ci check-active-class src --ansi
+
+        name: ${{ matrix.actions.name }}
+        runs-on: ubuntu-latest
+
+        steps:
+            -   uses: actions/checkout@v2
+            # see https://github.com/shivammathur/setup-php
+            -   uses: shivammathur/setup-php@v2
+                with:
+                    php-version: 8.1
+                    coverage: none
+
+            # composer install cache - https://github.com/ramsey/composer-install
+            -   uses: "ramsey/composer-install@v2"
+
+            -   run: ${{ matrix.actions.run }}
