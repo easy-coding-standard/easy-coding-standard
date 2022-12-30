@@ -2,12 +2,11 @@
 
 composer update --no-progress --ansi
 
-cp -r . ecs-build
-
-rm -rf ecs-build/tests ecs-build/packages-tests
+rm -rf tests packages-tests
 
 # downgrade
-vendor/bin/rector process ecs-build --config build/config/config-downgrade.php -a ecs-build/vendor/autoload.php --ansi
+vendor/bin/rector process . --config build/config/config-downgrade.php --ansi
 
 # prefix
-sh build/build-ecs-scoped.sh ecs-build ecs-prefixed-downgraded
+sh build/build-ecs-scoped.sh . .
+

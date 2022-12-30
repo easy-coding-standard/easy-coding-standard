@@ -32,11 +32,12 @@ jobs:
             # build scoped code
             -   run: sh build/build-scoped.sh . .
 
-            # get rector
-            -   run: composer create-project rector/rector rector
+            # get rector to "rector-local" directory, to avoid downgrading itself in the /vendor
+            -   run: mkdir rector-local
+            -   run: composer require rector/rector --working-dir rector-local
 
             # downgrade to PHP 7.2
-            -   run: rector/bin/rector process bin src packages vendor --config build/rector-downgrade-php-72.php --ansi
+            -   run: rector-local/vendor/bin/rector process bin src packages vendor --config build/rector-downgrade-php-72.php --ansi
 
             # fix coding standard, so code looks nice
             -   run: bin/ecs check src packages --fix --ansi
