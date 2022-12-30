@@ -45,6 +45,8 @@ jobs:
             -
                 name: "Tag Downgraded Code"
                 run: |
-                    git commit -a -m "release PHP 7.2 downgraded ${GITHUB_REF#refs/tags/}"
-                    git tag "${GITHUB_REF#refs/tags/}.72"
-                    git push origin "${GITHUB_REF#refs/tags/}.72"
+                    git commit -a -m "release PHP 7.2 downgraded"
+                    # override local tag
+                    git tag "${GITHUB_REF#refs/tags/}" --force
+                    # force push current tag
+                    git push origin "${GITHUB_REF#refs/tags/}" --force
