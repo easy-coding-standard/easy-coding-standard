@@ -21,6 +21,6 @@ final class SniffServiceRegistrationTest extends AbstractKernelTestCase
         $lineLengthSniff = $sniffFileProcessor->getCheckers()[0];
 
         $this->assertSame(15, $lineLengthSniff->lineLimit);
-        $this->assertSame(['@author'], $lineLengthSniff->absoluteLineLimit);
+        $this->assertSame(55, $lineLengthSniff->absoluteLineLimit);
     }
 }

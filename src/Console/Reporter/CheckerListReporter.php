@@ -14,7 +14,7 @@ final class CheckerListReporter
     }
 
     /**
-     * @param class-string[] $checkerClasses
+     * @param string[] $checkerClasses
      */
     public function report(array $checkerClasses, string $type): void
     {

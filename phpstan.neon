@@ -1,0 +1,36 @@
+parameters:
+    level: 8
+
+    reportUnmatchedIgnoredErrors: false
+
+    # requires exact closure types
+    checkMissingCallableSignature: true
+
+    paths:
+        - src
+        - tests
+        - packages
+        - packages-tests
+        - ecs.php
+        - rector.php
+
+    excludePaths:
+        # deprecated, to be removed
+        - packages/phpstan-rules/packages/CognitiveComplexity
+
+        - scoper.php
+
+        # tests
+        - '*/Source/*'
+        - '*/Fixture/*'
+
+    bootstrapFiles:
+        - tests/bootstrap.php
+        # load functions like service() etc.
+        - vendor/symfony/dependency-injection/Loader/Configurator/ContainerConfigurator.php
+
+    ignoreErrors:
+        # set above
+        -
+            path: packages/Parallel/Application/ParallelFileProcessor.php
+            message: '#Cannot call method (.*?)\(\) on Symplify\\EasyParallel\\ValueObject\\ProcessPool\|null#'

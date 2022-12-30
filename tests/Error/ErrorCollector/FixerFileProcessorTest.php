@@ -33,7 +33,6 @@ final class FixerFileProcessorTest extends AbstractKernelTestCase
         $errorsAndFileDiffs = $this->fixerFileProcessor->processFile($fileInfo, $configuration);
 
         $this->assertArrayNotHasKey(Bridge::CODING_STANDARD_ERRORS, $errorsAndFileDiffs);
-
         $this->assertArrayHasKey(Bridge::FILE_DIFFS, $errorsAndFileDiffs);
 
         $fileDiffs = $errorsAndFileDiffs[Bridge::FILE_DIFFS];
