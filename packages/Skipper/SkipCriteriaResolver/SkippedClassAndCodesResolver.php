@@ -6,6 +6,7 @@ namespace Symplify\EasyCodingStandard\Skipper\SkipCriteriaResolver;
 
 use Symplify\EasyCodingStandard\ValueObject\Option;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
+use Webmozart\Assert\Assert;
 
 final class SkippedClassAndCodesResolver
 {
@@ -40,6 +41,8 @@ final class SkippedClassAndCodesResolver
             if (substr_count($key, '.') !== 1) {
                 continue;
             }
+
+            Assert::string($key);
 
             $this->skippedClassAndCodes[$key] = $value;
         }

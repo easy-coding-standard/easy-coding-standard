@@ -32,7 +32,8 @@
         "phpstan/phpstan-symfony": "^1.2",
         "phpstan/phpstan-webmozart-assert": "^1.2",
         "phpunit/phpunit": "^9.5.26",
-        "rector/rector": "^0.15.2"
+        "rector/rector": "^0.15.2",
+        "symplify/phpstan-extensions": "^11.1"
     },
     "autoload": {
         "psr-4": {
@@ -72,10 +73,7 @@
     "scripts": {
         "check-cs": "bin/ecs check --ansi",
         "fix-cs": "bin/ecs check --fix --ansi",
-        "phpstan": [
-            "vendor/bin/phpstan analyse --ansi",
-            "vendor/bin/easy-ci check-config packages --ansi"
-        ],
+        "phpstan": "vendor/bin/phpstan analyse --ansi  --error-format symplify",
         "docs": [
             "packages/rule-doc-generator/bin/rule-doc-generator generate packages/coding-standard --output-file packages/coding-standard/docs/rules_overview.md --ansi",
             "packages/easy-coding-standard/bin/ecs check-markdown packages/coding-standard/docs/rules_overview.md --fix --ansi"
