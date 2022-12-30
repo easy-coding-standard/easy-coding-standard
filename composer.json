@@ -67,8 +67,7 @@
         "platform-check": false,
         "allow-plugins": {
             "cweagans/composer-patches": true,
-            "phpstan/extension-installer": true,
-            "rector/extension-installer": true
+            "phpstan/extension-installer": true
         }
     },
     "scripts": {
