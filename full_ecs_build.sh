@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 
-composer update --no-progress --ansi
+# add patches
+composer install --ansi
+
+# but skip dev dependencies
+composer update --no-dev --ansi
 
 rm -rf tests packages-tests
 
