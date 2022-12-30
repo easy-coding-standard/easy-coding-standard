@@ -14,5 +14,5 @@ composer require rector/rector --working-dir rector-local
 rector-local/vendor/bin/rector process bin src packages vendor --config build/rector-downgrade-php-72.php --ansi
 
 # prefix
-sh build/build-ecs-scoped.sh . .
+sh build-ecs-scoped.sh
 

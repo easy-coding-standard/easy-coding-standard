@@ -20,34 +20,24 @@ note()
     echo "\033[0;33m[NOTE] $MESSAGE\033[0m";
 }
 
-
-# configure here
-BUILD_DIRECTORY=$1
-RESULT_DIRECTORY=$2
-
 # ---------------------------
 
-note "Starts"
-
 # 2. scope it
-note "Running scoper with '$RESULT_DIRECTORY' output directory"
+note "Running scoper"
 # @todo upgrade to 0.18.1
 wget https://github.com/humbug/php-scoper/releases/download/0.17.5/php-scoper.phar -N --no-verbose
 
-# create directory
-mkdir "$RESULT_DIRECTORY" -p
-
 # Work around possible PHP memory limits
-php -d memory_limit=-1 php-scoper.phar add-prefix ecs.php.dist bin config src packages vendor composer.json --output-dir "../$RESULT_DIRECTORY" --config scoper.php --force --ansi --working-dir "$BUILD_DIRECTORY"
+php -d memory_limit=-1 php-scoper.phar add-prefix bin config src packages vendor composer.json --config scoper.php --force --ansi
 
-note "Show prefixed files in '$RESULT_DIRECTORY'"
-ls -l $RESULT_DIRECTORY
+note "Show prefixed files"
+ls -l .
 
 note "Dumping Composer Autoload"
-composer dump-autoload --working-dir "$RESULT_DIRECTORY" --ansi --classmap-authoritative --no-dev
+composer dump-autoload --ansi --classmap-authoritative --no-dev
 
 # make bin/ecs runnable without "php"
-chmod 777 "$RESULT_DIRECTORY/bin/ecs"
-chmod 777 "$RESULT_DIRECTORY/bin/ecs.php"
+chmod 777 "bin/ecs"
+chmod 777 "bin/ecs.php"
 
 note "Finished"

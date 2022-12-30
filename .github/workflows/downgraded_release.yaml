@@ -30,7 +30,7 @@ jobs:
             -   run: composer update --no-dev
 
             # build scoped code
-            -   run: sh build/build-scoped.sh . .
+            -   run: sh build-scoped.sh
 
             # get rector to "rector-local" directory, to avoid downgrading itself in the /vendor
             -   run: mkdir rector-local
