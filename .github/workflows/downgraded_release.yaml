@@ -30,7 +30,7 @@ jobs:
             -   run: bin/ecs check src packages --fix --ansi
 
             # clear the dev files
-            -   run: rm -rf build .github tests packages-tests ecs.php phpstan.neon phpunit.xml
+            -   run: rm -rf .github tests packages-tests ecs.php phpstan.neon phpunit.xml
 
             # copy PHP 7.2 composer + workflows
             -   run: cp -R build/target-repository/. .
