@@ -23,10 +23,16 @@ jobs:
                     php-version: 8.1
                     coverage: none
 
+            # this invokes patches as well
             -   uses: "ramsey/composer-install@v2"
 
             # downgrade /src to PHP 7.2
-            -   run: vendor/bin/rector process src packages --config build/rector-downgrade-php-72.php --ansi
+            -   run: vendor/bin/rector process bin src packages vendor --config build/rector-downgrade-php-72.php --ansi
+
+            # build scoped here
+            -   run: sh build/build-scoped.sh . .
+
+            # fix coding standard, so code looks nice
             -   run: bin/ecs check src packages --fix --ansi
 
             # clear the dev files
