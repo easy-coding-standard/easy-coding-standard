@@ -28,7 +28,7 @@ note "Running scoper"
 wget https://github.com/humbug/php-scoper/releases/download/0.17.5/php-scoper.phar -N --no-verbose
 
 # Work around possible PHP memory limits
-php -d memory_limit=-1 php-scoper.phar add-prefix bin config src packages vendor composer.json --config scoper.php --force --ansi
+php -d memory_limit=-1 php-scoper.phar add-prefix bin config src packages vendor composer.json --config scoper.php --force --ansi --output-dir .
 
 note "Show prefixed files"
 ls -l .
