@@ -1,6 +1,9 @@
 name: Along with Symfony Deprecations
 
-on: [pull_request, push]
+on:
+    push:
+        tags:
+            - '*.72'
 
 jobs:
     bare_run:
