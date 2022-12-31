@@ -1,6 +1,5 @@
 <?php
 
-
-namespace App;
+namespace Fixture;
 
 class SomeClass {}
