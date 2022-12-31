@@ -16,6 +16,7 @@ jobs:
 
         steps:
             -   uses: "actions/checkout@v2"
+                token: ${{ secrets.WORKFLOWS_TOKEN }}
 
             -
                 uses: "shivammathur/setup-php@v2"
