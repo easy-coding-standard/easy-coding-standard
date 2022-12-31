@@ -44,7 +44,7 @@ jobs:
             -   run: bin/ecs check src packages --fix --ansi
 
             # clear the dev files
-            -   run: rm -rf tests packages-tests ecs.php phpstan.neon phpunit.xml
+            -   run: rm -rf tests packages-tests ecs.php phpstan.neon phpunit.xml .gitignore
 
             # prefix and scope
             -   run: sh prefix-code.sh
