@@ -3,7 +3,7 @@ name: Bare Run on various PHP versions
 on:
     push:
         tags:
-            - '*'
+            - '*.72'
 
 jobs:
     bare_run:

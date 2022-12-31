@@ -3,7 +3,7 @@ name: Check Command Run
 on:
     push:
         tags:
-            - '*'
+            - '*.72'
 
 jobs:
     check_command_run:

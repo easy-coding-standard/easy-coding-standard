@@ -58,11 +58,10 @@ jobs:
                     git config user.name "GitHub Action"
 
             # publish to the same repository with a new tag
+            # see https://tomasvotruba.com/blog/how-to-release-php-81-and-72-package-in-the-same-repository/
             -
                 name: "Tag Downgraded Code"
                 run: |
                     git commit -a -m "release PHP 7.2 downgraded"
-                    # override local tag
-                    git tag "${GITHUB_REF#refs/tags/}" --force
-                    # force push current tag
-                    git push origin "${GITHUB_REF#refs/tags/}" --force
+                    git tag "${GITHUB_REF#refs/tags/}.72"
+                    git push origin "${GITHUB_REF#refs/tags/}.72"
