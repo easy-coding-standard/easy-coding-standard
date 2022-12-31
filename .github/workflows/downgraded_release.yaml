@@ -45,6 +45,9 @@ jobs:
             # clear the dev files
             -   run: rm -rf tests packages-tests ecs.php phpstan.neon phpunit.xml
 
+            # prefix and scope
+            -   run: sh prefix-code.sh
+
             # copy PHP 7.2 composer + workflows
             -   run: cp -R build/target-repository/. .
 
