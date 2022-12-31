@@ -6,9 +6,6 @@ jobs:
     bare_run:
         runs-on: ubuntu-latest
 
-        strategy:
-            fail-fast: false
-
         steps:
             -
                 uses: shivammathur/setup-php@v2
