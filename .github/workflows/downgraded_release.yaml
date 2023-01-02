@@ -29,9 +29,6 @@ jobs:
             # but no dev packages
             -   run: composer update --no-dev
 
-            # build scoped code
-            -   run: sh prefix-code.sh
-
             # get rector to "rector-local" directory, to avoid downgrading itself in the /vendor
             -   run: mkdir rector-local
             -   run: composer require rector/rector --working-dir rector-local
