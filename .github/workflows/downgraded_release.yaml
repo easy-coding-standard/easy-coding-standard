@@ -68,6 +68,8 @@ jobs:
             -
                 name: "Tag Downgraded Code"
                 run: |
-                    git commit -a -m "release PHP 7.2 downgraded"
+                    # separate a "git add" to add untracked (new) files too
+                    git add --all
+                    git commit -m "release PHP 7.2 downgraded"
                     git tag "${GITHUB_REF#refs/tags/}.72"
                     git push origin "${GITHUB_REF#refs/tags/}.72"
