@@ -52,6 +52,7 @@ jobs:
 
             # copy PHP 7.2 composer + workflows
             -   run: cp -R build/target-repository/. .
+            -   run: git status
 
             # setup git user
             -
