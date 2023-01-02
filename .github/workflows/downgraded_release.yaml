@@ -48,13 +48,18 @@ jobs:
             -   run: bin/ecs check src packages --fix --ansi
 
             # clear the dev files
-            -   run: rm -rf "tests" "packages-tests" "ecs.php" "phpstan.neon" "phpunit.xml" ".gitignore"
+            -   run: rm -rf tests packages-tests ecs.php phpstan.neon phpunit.xml .gitignore
+            -   run: rm .gitignore
+            -   run: rm .editorconfig
 
             # prefix and scope
             -   run: sh prefix-code.sh
 
             # copy PHP 7.2 composer + workflows
             -   run: cp -r build/target-repository/. .
+
+            # clear the dev files
+            -   run: rm -rf build prefix-code.sh monorepo-builder.php full_ecs_build.sh easy-ci.php scoper.php
 
             # setup git user
             -
