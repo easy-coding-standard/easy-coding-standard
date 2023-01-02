@@ -51,7 +51,7 @@ jobs:
             -   run: sh prefix-code.sh
 
             # copy PHP 7.2 composer + workflows
-            -   run: cp build/target-repository/. .
+            -   run: cp -r build/target-repository/. .
 
             # setup git user
             -
