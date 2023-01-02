@@ -3,8 +3,8 @@ name: Downgraded Release
 on:
     push:
         tags:
-            # avoid infinite looping
-            # skip tags that ends with ".72"
+            # avoid infinite looping, skip tags that ends with ".72"
+            # see https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#example-including-and-excluding-branches
             - '*'
             - '!**.72'
 
