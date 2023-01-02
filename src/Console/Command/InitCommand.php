@@ -21,7 +21,7 @@ final class InitCommand extends AbstractSymplifyCommand
         $rectorConfigFiles = $this->smartFileSystem->exists(getcwd() . '/ecs.php');
 
         if (! $rectorConfigFiles) {
-            $this->smartFileSystem->copy(__DIR__ . '/../../../ecs.php.dist', getcwd() . '/ecs.php');
+            $this->smartFileSystem->copy(__DIR__ . '/../../../templates/ecs.php.dist', getcwd() . '/ecs.php');
             $this->symfonyStyle->success('ecs.php config file has been generated successfully');
         } else {
             $this->symfonyStyle->warning('The "ecs.php" configuration file already exists');
