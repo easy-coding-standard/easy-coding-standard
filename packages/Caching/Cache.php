@@ -8,9 +8,14 @@ use Symplify\EasyCodingStandard\Caching\ValueObject\Storage\FileCacheStorage;
 
 final class Cache
 {
-    public function __construct(
-        private FileCacheStorage $fileCacheStorage
-    ) {
+    /**
+     * @var \Symplify\EasyCodingStandard\Caching\ValueObject\Storage\FileCacheStorage
+     */
+    private $fileCacheStorage;
+
+    public function __construct(FileCacheStorage $fileCacheStorage)
+    {
+        $this->fileCacheStorage = $fileCacheStorage;
     }
 
     /**

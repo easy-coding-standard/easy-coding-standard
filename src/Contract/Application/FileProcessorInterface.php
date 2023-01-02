@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Contract\Application;
 
+use ECSPrefix202301\Symplify\SmartFileSystem\SmartFileInfo;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 interface FileProcessorInterface
 {

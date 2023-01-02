@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Console;
 
-use Composer\XdebugHandler\XdebugHandler;
-use Symfony\Component\Console\Application;
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputDefinition;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix202301\Composer\XdebugHandler\XdebugHandler;
+use ECSPrefix202301\Symfony\Component\Console\Application;
+use ECSPrefix202301\Symfony\Component\Console\Command\Command;
+use ECSPrefix202301\Symfony\Component\Console\Input\InputDefinition;
+use ECSPrefix202301\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix202301\Symfony\Component\Console\Input\InputOption;
+use ECSPrefix202301\Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Application\Version\StaticVersionResolver;
 use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 use Symplify\EasyCodingStandard\ValueObject\Option;
@@ -23,10 +23,8 @@ final class EasyCodingStandardConsoleApplication extends Application
     public function __construct(array $commands)
     {
         parent::__construct('EasyCodingStandard', StaticVersionResolver::PACKAGE_VERSION);
-
         // @see https://tomasvotruba.com/blog/2020/10/26/the-bullet-proof-symfony-command-naming/
         $this->addCommands($commands);
-
         $this->setDefaultCommand('check');
     }
 
@@ -34,17 +32,15 @@ final class EasyCodingStandardConsoleApplication extends Application
     {
         // @fixes https://github.com/rectorphp/rector/issues/2205
         $isXdebugAllowed = $input->hasParameterOption('--xdebug');
-        if (! $isXdebugAllowed && ! defined('PHPUNIT_COMPOSER_INSTALL')) {
+        if (! $isXdebugAllowed && ! \defined('ECSPrefix202301\\PHPUNIT_COMPOSER_INSTALL')) {
             $xdebugHandler = new XdebugHandler('ecs');
             $xdebugHandler->check();
             unset($xdebugHandler);
         }
-
         // skip in this case, since generate content must be clear from meta-info
         if ($this->shouldPrintMetaInformation($input)) {
             $output->writeln($this->getLongVersion());
         }
-
         return parent::doRun($input, $output);
     }
 
@@ -52,7 +48,6 @@ final class EasyCodingStandardConsoleApplication extends Application
     {
         $inputDefinition = parent::getDefaultInputDefinition();
         $this->addExtraOptions($inputDefinition);
-
         return $inputDefinition;
     }
 
@@ -60,34 +55,23 @@ final class EasyCodingStandardConsoleApplication extends Application
     {
         $hasNoArguments = $input->getFirstArgument() === null;
         $hasVersionOption = $input->hasParameterOption('--version');
-
         if ($hasVersionOption) {
-            return false;
+            return \false;
         }
-
         if ($hasNoArguments) {
-            return false;
+            return \false;
         }
-
         $outputFormat = $input->getParameterOption('--' . Option::OUTPUT_FORMAT);
-
         return $outputFormat === ConsoleOutputFormatter::NAME;
     }
 
     private function addExtraOptions(InputDefinition $inputDefinition): void
     {
-        $inputDefinition->addOption(new InputOption(
-            Option::XDEBUG,
-            null,
-            InputOption::VALUE_NONE,
-            'Allow running xdebug'
-        ));
-
-        $inputDefinition->addOption(new InputOption(
-            Option::DEBUG,
-            null,
-            InputOption::VALUE_NONE,
-            'Run in debug mode (alias for "-vvv")'
-        ));
+        $inputDefinition->addOption(
+            new InputOption(Option::XDEBUG, null, InputOption::VALUE_NONE, 'Allow running xdebug')
+        );
+        $inputDefinition->addOption(
+            new InputOption(Option::DEBUG, null, InputOption::VALUE_NONE, 'Run in debug mode (alias for "-vvv")')
+        );
     }
 }

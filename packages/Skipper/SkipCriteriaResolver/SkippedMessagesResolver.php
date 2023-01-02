@@ -4,19 +4,24 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Skipper\SkipCriteriaResolver;
 
+use ECSPrefix202301\Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use Symplify\PackageBuilder\Parameter\ParameterProvider;
 
 final class SkippedMessagesResolver
 {
     /**
      * @var array<string, string[]|null>
      */
-    private array $skippedMessages = [];
+    private $skippedMessages = [];
 
-    public function __construct(
-        private ParameterProvider $parameterProvider
-    ) {
+    /**
+     * @var \ECSPrefix202301\Symplify\PackageBuilder\Parameter\ParameterProvider
+     */
+    private $parameterProvider;
+
+    public function __construct(ParameterProvider $parameterProvider)
+    {
+        $this->parameterProvider = $parameterProvider;
     }
 
     /**
@@ -27,27 +32,21 @@ final class SkippedMessagesResolver
         if ($this->skippedMessages !== []) {
             return $this->skippedMessages;
         }
-
         $skip = $this->parameterProvider->provideArrayParameter(Option::SKIP);
-
         foreach ($skip as $key => $value) {
             // e.g. [SomeClass::class] → shift values to [SomeClass::class => null]
-            if (is_int($key)) {
+            if (\is_int($key)) {
                 $key = $value;
                 $value = null;
             }
-
-            if (! is_string($key)) {
+            if (! \is_string($key)) {
                 continue;
             }
-
-            if (substr_count($key, ' ') === 0) {
+            if (\substr_count($key, ' ') === 0) {
                 continue;
             }
-
             $this->skippedMessages[$key] = $value;
         }
-
         return $this->skippedMessages;
     }
 }

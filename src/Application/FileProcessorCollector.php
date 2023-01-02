@@ -13,7 +13,7 @@ final class FileProcessorCollector
     /**
      * @var FileProcessorInterface[]
      */
-    private array $fileProcessors = [];
+    private $fileProcessors = [];
 
     /**
      * orders matters, so Fixer can cleanup after Sniffer

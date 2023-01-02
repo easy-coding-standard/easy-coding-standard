@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Caching;
 
-use Symplify\SmartFileSystem\SmartFileInfo;
-use Webmozart\Assert\Assert;
+use ECSPrefix202301\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix202301\Webmozart\Assert\Assert;
 
 /**
  * @see \Symplify\EasyCodingStandard\Tests\ChangedFilesDetector\ChangedFilesDetector\ChangedFilesDetectorTest
@@ -22,10 +22,22 @@ final class ChangedFilesDetector
      */
     private const FILE_HASH = 'file_hash';
 
+    /**
+     * @var \Symplify\EasyCodingStandard\Caching\FileHashComputer
+     */
+    private $fileHashComputer;
+
+    /**
+     * @var \Symplify\EasyCodingStandard\Caching\Cache
+     */
+    private $cache;
+
     public function __construct(
-        private FileHashComputer $fileHashComputer,
-        private Cache $cache
+        \Symplify\EasyCodingStandard\Caching\FileHashComputer $fileHashComputer,
+        \Symplify\EasyCodingStandard\Caching\Cache $cache
     ) {
+        $this->fileHashComputer = $fileHashComputer;
+        $this->cache = $cache;
     }
 
     /**
@@ -52,10 +64,8 @@ final class ChangedFilesDetector
     public function hasFileInfoChanged(SmartFileInfo $smartFileInfo): bool
     {
         $newFileHash = $this->fileHashComputer->compute($smartFileInfo->getRealPath());
-
         $cacheKey = $this->fileInfoToKey($smartFileInfo);
         $cachedValue = $this->cache->load($cacheKey, self::FILE_HASH);
-
         return $newFileHash !== $cachedValue;
     }
 
@@ -76,10 +86,8 @@ final class ChangedFilesDetector
         if ($configFiles === []) {
             return;
         }
-
         Assert::allString($configFiles);
         Assert::allFile($configFiles);
-
         // the first config is core to all → if it was changed, just invalidate it
         $firstConfigFile = $configFiles[0];
         $this->storeConfigurationDataHash($this->fileHashComputer->computeConfig($firstConfigFile));
@@ -93,7 +101,7 @@ final class ChangedFilesDetector
 
     private function fileInfoToKey(SmartFileInfo $smartFileInfo): string
     {
-        return sha1($smartFileInfo->getRelativeFilePathFromCwd());
+        return \sha1($smartFileInfo->getRelativeFilePathFromCwd());
     }
 
     private function invalidateCacheIfConfigurationChanged(string $configurationHash): void
@@ -102,11 +110,9 @@ final class ChangedFilesDetector
         if ($cachedValue === null) {
             return;
         }
-
         if ($configurationHash === $cachedValue) {
             return;
         }
-
         $this->clearCache();
     }
 }

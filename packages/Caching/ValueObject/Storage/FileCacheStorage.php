@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Caching\ValueObject\Storage;
 
-use Nette\Utils\Random;
+use ECSPrefix202301\Nette\Utils\Random;
+use ECSPrefix202301\Symplify\SmartFileSystem\SmartFileSystem;
 use Symplify\EasyCodingStandard\Caching\Exception\CachingException;
 use Symplify\EasyCodingStandard\Caching\ValueObject\CacheFilePaths;
 use Symplify\EasyCodingStandard\Caching\ValueObject\CacheItem;
-use Symplify\SmartFileSystem\SmartFileSystem;
 
 /**
  * Inspired by
@@ -16,29 +16,36 @@ use Symplify\SmartFileSystem\SmartFileSystem;
  */
 final class FileCacheStorage
 {
-    public function __construct(
-        private string $directory,
-        private SmartFileSystem $smartFileSystem
-    ) {
+    /**
+     * @var string
+     */
+    private $directory;
+
+    /**
+     * @var \ECSPrefix202301\Symplify\SmartFileSystem\SmartFileSystem
+     */
+    private $smartFileSystem;
+
+    public function __construct(string $directory, SmartFileSystem $smartFileSystem)
+    {
+        $this->directory = $directory;
+        $this->smartFileSystem = $smartFileSystem;
     }
 
     public function load(string $key, string $variableKey): ?string
     {
         $cacheFilePaths = $this->getCacheFilePaths($key);
         $filePath = $cacheFilePaths->getFilePath();
-        if (! is_file($filePath)) {
+        if (! \is_file($filePath)) {
             return null;
         }
-
-        $cacheItem = require $filePath;
+        $cacheItem = (require $filePath);
         if (! $cacheItem instanceof CacheItem) {
             return null;
         }
-
         if (! $cacheItem->isVariableKeyValid($variableKey)) {
             return null;
         }
-
         return $cacheItem->getData();
     }
 
@@ -47,39 +54,31 @@ final class FileCacheStorage
         $cacheFilePaths = $this->getCacheFilePaths($key);
         $this->smartFileSystem->mkdir($cacheFilePaths->getFirstDirectory());
         $this->smartFileSystem->mkdir($cacheFilePaths->getSecondDirectory());
-
-        $tmpPath = sprintf('%s/%s.tmp', $this->directory, Random::generate());
-        $errorBefore = error_get_last();
-        $exported = @var_export(new CacheItem($variableKey, $data), true);
-        $errorAfter = error_get_last();
-
+        $tmpPath = \sprintf('%s/%s.tmp', $this->directory, Random::generate());
+        $errorBefore = \error_get_last();
+        $exported = @\var_export(new CacheItem($variableKey, $data), \true);
+        $errorAfter = \error_get_last();
         if ($errorAfter !== null && $errorBefore !== $errorAfter) {
-            $errorMessage = sprintf(
+            $errorMessage = \sprintf(
                 'Error occurred while saving item "%s" ("%s") to cache: "%s"',
                 $key,
                 $variableKey,
                 $errorAfter['message']
             );
-
             throw new CachingException($errorMessage);
         }
-
-        $variableFileContent = sprintf("<?php declare(strict_types = 1);\n\nreturn %s;", $exported);
+        $variableFileContent = \sprintf("<?php declare(strict_types = 1);\n\nreturn %s;", $exported);
         $this->smartFileSystem->dumpFile($tmpPath, $variableFileContent);
-
-        $this->smartFileSystem->rename($tmpPath, $cacheFilePaths->getFilePath(), true);
+        $this->smartFileSystem->rename($tmpPath, $cacheFilePaths->getFilePath(), \true);
         $this->smartFileSystem->remove($tmpPath);
     }
 
     public function clean(string $cacheKey): void
     {
         $cacheFilePaths = $this->getCacheFilePaths($cacheKey);
-
-        $this->smartFileSystem->remove([
-            $cacheFilePaths->getFirstDirectory(),
-            $cacheFilePaths->getSecondDirectory(),
-            $cacheFilePaths->getFilePath(),
-        ]);
+        $this->smartFileSystem->remove(
+            [$cacheFilePaths->getFirstDirectory(), $cacheFilePaths->getSecondDirectory(), $cacheFilePaths->getFilePath()]
+        );
     }
 
     public function clear(): void
@@ -89,11 +88,10 @@ final class FileCacheStorage
 
     private function getCacheFilePaths(string $key): CacheFilePaths
     {
-        $keyHash = sha1($key);
-        $firstDirectory = sprintf('%s/%s', $this->directory, substr($keyHash, 0, 2));
-        $secondDirectory = sprintf('%s/%s', $firstDirectory, substr($keyHash, 2, 2));
-        $filePath = sprintf('%s/%s.php', $secondDirectory, $keyHash);
-
+        $keyHash = \sha1($key);
+        $firstDirectory = \sprintf('%s/%s', $this->directory, \substr($keyHash, 0, 2));
+        $secondDirectory = \sprintf('%s/%s', $firstDirectory, \substr($keyHash, 2, 2));
+        $filePath = \sprintf('%s/%s.php', $secondDirectory, $keyHash);
         return new CacheFilePaths($firstDirectory, $secondDirectory, $filePath);
     }
 }

@@ -4,13 +4,18 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Console\Reporter;
 
-use Symfony\Component\Console\Style\SymfonyStyle;
+use ECSPrefix202301\Symfony\Component\Console\Style\SymfonyStyle;
 
 final class CheckerListReporter
 {
-    public function __construct(
-        private SymfonyStyle $symfonyStyle
-    ) {
+    /**
+     * @var \ECSPrefix202301\Symfony\Component\Console\Style\SymfonyStyle
+     */
+    private $symfonyStyle;
+
+    public function __construct(SymfonyStyle $symfonyStyle)
+    {
+        $this->symfonyStyle = $symfonyStyle;
     }
 
     /**
@@ -21,11 +26,10 @@ final class CheckerListReporter
         if ($checkerClasses === []) {
             return;
         }
-
-        $sectionMessage = sprintf(
+        $sectionMessage = \sprintf(
             '%d checker%s from %s:',
-            count($checkerClasses),
-            count($checkerClasses) === 1 ? '' : 's',
+            \count($checkerClasses),
+            \count($checkerClasses) === 1 ? '' : 's',
             $type
         );
         $this->symfonyStyle->section($sectionMessage);

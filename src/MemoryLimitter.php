@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard;
 
-use Nette\Utils\Strings;
+use ECSPrefix202301\Nette\Utils\Strings;
 use Symplify\EasyCodingStandard\Exception\Configuration\InitializationException;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 
@@ -17,7 +17,7 @@ final class MemoryLimitter
      * @var string
      * @see https://regex101.com/r/pmiGUM/1
      */
-    private const VALID_MEMORY_LIMIT_REGEX = '#^-?\d+[kMG]?$#i';
+    private const VALID_MEMORY_LIMIT_REGEX = '#^-?\\d+[kMG]?$#i';
 
     public function adjust(Configuration $configuration): void
     {
@@ -25,13 +25,10 @@ final class MemoryLimitter
         if ($memoryLimit === null) {
             return;
         }
-
         $this->validateMemoryLimitFormat($memoryLimit);
-
-        $memorySetResult = ini_set('memory_limit', $memoryLimit);
-
-        if ($memorySetResult === false) {
-            $errorMessage = sprintf('Memory limit "%s" cannot be set.', $memoryLimit);
+        $memorySetResult = \ini_set('memory_limit', $memoryLimit);
+        if ($memorySetResult === \false) {
+            $errorMessage = \sprintf('Memory limit "%s" cannot be set.', $memoryLimit);
             throw new InitializationException($errorMessage);
         }
     }
@@ -42,8 +39,7 @@ final class MemoryLimitter
         if ($memoryLimitFormatMatch !== null) {
             return;
         }
-
-        $errorMessage = sprintf('Invalid memory limit format "%s".', $memoryLimit);
+        $errorMessage = \sprintf('Invalid memory limit format "%s".', $memoryLimit);
         throw new InitializationException($errorMessage);
     }
 }

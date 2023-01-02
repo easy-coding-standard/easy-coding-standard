@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Console\Output;
 
-use Symfony\Component\Console\Command\Command;
+use ECSPrefix202301\Symfony\Component\Console\Command\Command;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult;
 
@@ -15,11 +15,9 @@ final class ExitCodeResolver
         if ($errorAndDiffResult->getErrorCount() === 0 && $errorAndDiffResult->getFileDiffsCount() === 0) {
             return Command::SUCCESS;
         }
-
         if ($configuration->isFixer()) {
             return $errorAndDiffResult->getErrorCount() === 0 ? Command::SUCCESS : Command::FAILURE;
         }
-
         return $errorAndDiffResult->getErrorCount() !== 0 || $errorAndDiffResult->getFileDiffsCount() !== 0 ? Command::FAILURE : Command::SUCCESS;
     }
 }

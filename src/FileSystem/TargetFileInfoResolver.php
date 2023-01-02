@@ -4,14 +4,19 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\FileSystem;
 
+use ECSPrefix202301\Symplify\SmartFileSystem\SmartFileInfo;
 use Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class TargetFileInfoResolver
 {
-    public function __construct(
-        private CurrentParentFileInfoProvider $currentParentFileInfoProvider
-    ) {
+    /**
+     * @var \Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider
+     */
+    private $currentParentFileInfoProvider;
+
+    public function __construct(CurrentParentFileInfoProvider $currentParentFileInfoProvider)
+    {
+        $this->currentParentFileInfoProvider = $currentParentFileInfoProvider;
     }
 
     /**
@@ -24,7 +29,6 @@ final class TargetFileInfoResolver
         if ($currentParentFileInfo !== null) {
             return $currentParentFileInfo;
         }
-
         return $smartFileInfo;
     }
 }

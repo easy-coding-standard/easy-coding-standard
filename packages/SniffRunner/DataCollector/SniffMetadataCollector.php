@@ -12,12 +12,12 @@ final class SniffMetadataCollector
     /**
      * @var array<class-string|string>
      */
-    private array $appliedSniffs = [];
+    private $appliedSniffs = [];
 
     /**
      * @var CodingStandardError[]
      */
-    private array $codingStandardErrors = [];
+    private $codingStandardErrors = [];
 
     /**
      * @param class-string<Sniff>|string $checkerClass

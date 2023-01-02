@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Console\Command;
 
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
+use ECSPrefix202301\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix202301\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix202301\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
 
 final class InitCommand extends AbstractSymplifyCommand
 {
@@ -18,15 +18,13 @@ final class InitCommand extends AbstractSymplifyCommand
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $rectorConfigFiles = $this->smartFileSystem->exists(getcwd() . '/ecs.php');
-
+        $rectorConfigFiles = $this->smartFileSystem->exists(\getcwd() . '/ecs.php');
         if (! $rectorConfigFiles) {
-            $this->smartFileSystem->copy(__DIR__ . '/../../../templates/ecs.php.dist', getcwd() . '/ecs.php');
+            $this->smartFileSystem->copy(__DIR__ . '/../../../templates/ecs.php.dist', \getcwd() . '/ecs.php');
             $this->symfonyStyle->success('ecs.php config file has been generated successfully');
         } else {
             $this->symfonyStyle->warning('The "ecs.php" configuration file already exists');
         }
-
         return self::SUCCESS;
     }
 }

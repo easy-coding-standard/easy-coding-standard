@@ -12,7 +12,7 @@ final class OutputFormatterCollector
     /**
      * @var array<string, OutputFormatterInterface>
      */
-    private array $outputFormatters = [];
+    private $outputFormatters = [];
 
     /**
      * @param OutputFormatterInterface[] $outputFormatters
@@ -29,13 +29,11 @@ final class OutputFormatterCollector
         if (isset($this->outputFormatters[$name])) {
             return $this->outputFormatters[$name];
         }
-
-        $outputFormatterKeys = array_keys($this->outputFormatters);
-
-        $errorMessage = sprintf(
+        $outputFormatterKeys = \array_keys($this->outputFormatters);
+        $errorMessage = \sprintf(
             'Output formatter "%s" not found. Use one of: "%s".',
             $name,
-            implode('", "', $outputFormatterKeys)
+            \implode('", "', $outputFormatterKeys)
         );
         throw new OutputFormatterNotFoundException($errorMessage);
     }

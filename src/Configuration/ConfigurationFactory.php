@@ -4,18 +4,23 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Configuration;
 
-use Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix202301\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix202301\Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
 use Symplify\EasyCodingStandard\Exception\Configuration\SourceNotFoundException;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use Symplify\PackageBuilder\Parameter\ParameterProvider;
 
 final class ConfigurationFactory
 {
-    public function __construct(
-        private ParameterProvider $parameterProvider
-    ) {
+    /**
+     * @var \ECSPrefix202301\Symplify\PackageBuilder\Parameter\ParameterProvider
+     */
+    private $parameterProvider;
+
+    public function __construct(ParameterProvider $parameterProvider)
+    {
+        $this->parameterProvider = $parameterProvider;
     }
 
     /**
@@ -24,28 +29,21 @@ final class ConfigurationFactory
     public function createFromInput(InputInterface $input): Configuration
     {
         $paths = $this->resolvePaths($input);
-
         $isFixer = (bool) $input->getOption(Option::FIX);
         $shouldClearCache = (bool) $input->getOption(Option::CLEAR_CACHE);
         $showProgressBar = $this->canShowProgressBar($input);
         $showErrorTable = ! (bool) $input->getOption(Option::NO_ERROR_TABLE);
         $parallelPort = (string) $input->getOption(Option::PARALLEL_PORT);
         $parallelIdentifier = (string) $input->getOption(Option::PARALLEL_IDENTIFIER);
-
         $outputFormat = (string) $input->getOption(Option::OUTPUT_FORMAT);
-
         /** @var string|null $memoryLimit */
         $memoryLimit = $input->getOption(Option::MEMORY_LIMIT);
-
         $isParallel = $this->parameterProvider->provideBoolParameter(Option::PARALLEL);
-
         $reportSniffClassesWarnings = $this->parameterProvider->provideArrayParameter(Option::REPORT_SNIFF_WARNINGS);
-
         $config = $input->getOption(Option::CONFIG);
         if ($config !== null) {
             $config = (string) $config;
         }
-
         return new Configuration(
             $isFixer,
             $shouldClearCache,
@@ -67,14 +65,12 @@ final class ConfigurationFactory
         // --debug option shows more
         $debug = (bool) $input->getOption(Option::DEBUG);
         if ($debug) {
-            return false;
+            return \false;
         }
-
         $notJsonOutput = $input->getOption(Option::OUTPUT_FORMAT) !== JsonOutputFormatter::NAME;
         if (! $notJsonOutput) {
-            return false;
+            return \false;
         }
-
         return ! (bool) $input->getOption(Option::NO_PROGRESS_BAR);
     }
 
@@ -84,11 +80,10 @@ final class ConfigurationFactory
     private function ensurePathsExists(array $paths): void
     {
         foreach ($paths as $path) {
-            if (file_exists($path)) {
+            if (\file_exists($path)) {
                 continue;
             }
-
-            throw new SourceNotFoundException(sprintf('Source "%s" does not exist.', $path));
+            throw new SourceNotFoundException(\sprintf('Source "%s" does not exist.', $path));
         }
     }
 
@@ -103,9 +98,7 @@ final class ConfigurationFactory
             // if not paths are provided from CLI, use the config ones
             $paths = $this->parameterProvider->provideArrayParameter(Option::PATHS);
         }
-
         $this->ensurePathsExists($paths);
-
         return $this->normalizePaths($paths);
     }
 
@@ -116,9 +109,8 @@ final class ConfigurationFactory
     private function normalizePaths(array $paths): array
     {
         foreach ($paths as $key => $path) {
-            $paths[$key] = rtrim($path, DIRECTORY_SEPARATOR);
+            $paths[$key] = \rtrim($path, \DIRECTORY_SEPARATOR);
         }
-
         return $paths;
     }
 }

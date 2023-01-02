@@ -7,22 +7,38 @@ namespace Symplify\EasyCodingStandard\Skipper\SkipVoter;
 use Symplify\EasyCodingStandard\Skipper\Contract\SkipVoterInterface;
 use Symplify\EasyCodingStandard\Skipper\Matcher\FileInfoMatcher;
 use Symplify\EasyCodingStandard\Skipper\SkipCriteriaResolver\SkippedPathsResolver;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class PathSkipVoter implements SkipVoterInterface
 {
-    public function __construct(
-        private FileInfoMatcher $fileInfoMatcher,
-        private SkippedPathsResolver $skippedPathsResolver
-    ) {
-    }
+    /**
+     * @var \Symplify\EasyCodingStandard\Skipper\Matcher\FileInfoMatcher
+     */
+    private $fileInfoMatcher;
 
-    public function match(string | object $element): bool
+    /**
+     * @var \Symplify\EasyCodingStandard\Skipper\SkipCriteriaResolver\SkippedPathsResolver
+     */
+    private $skippedPathsResolver;
+
+    public function __construct(FileInfoMatcher $fileInfoMatcher, SkippedPathsResolver $skippedPathsResolver)
     {
-        return true;
+        $this->fileInfoMatcher = $fileInfoMatcher;
+        $this->skippedPathsResolver = $skippedPathsResolver;
     }
 
-    public function shouldSkip(string | object $element, SmartFileInfo | string $file): bool
+    /**
+     * @param string|object $element
+     */
+    public function match($element): bool
+    {
+        return \true;
+    }
+
+    /**
+     * @param string|object $element
+     * @param \ECSPrefix202301\Symplify\SmartFileSystem\SmartFileInfo|string $file
+     */
+    public function shouldSkip($element, $file): bool
     {
         $skippedPaths = $this->skippedPathsResolver->resolve();
         return $this->fileInfoMatcher->doesFileInfoMatchPatterns($file, $skippedPaths);

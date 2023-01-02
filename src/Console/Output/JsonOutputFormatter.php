@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Console\Output;
 
-use Nette\Utils\Json;
+use ECSPrefix202301\Nette\Utils\Json;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
@@ -25,17 +25,28 @@ final class JsonOutputFormatter implements OutputFormatterInterface
      */
     private const FILES = 'files';
 
+    /**
+     * @var \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle
+     */
+    private $easyCodingStandardStyle;
+
+    /**
+     * @var \Symplify\EasyCodingStandard\Console\Output\ExitCodeResolver
+     */
+    private $exitCodeResolver;
+
     public function __construct(
-        private EasyCodingStandardStyle $easyCodingStandardStyle,
-        private ExitCodeResolver $exitCodeResolver
+        EasyCodingStandardStyle $easyCodingStandardStyle,
+        \Symplify\EasyCodingStandard\Console\Output\ExitCodeResolver $exitCodeResolver
     ) {
+        $this->easyCodingStandardStyle = $easyCodingStandardStyle;
+        $this->exitCodeResolver = $exitCodeResolver;
     }
 
     public function report(ErrorAndDiffResult $errorAndDiffResult, Configuration $configuration): int
     {
         $json = $this->createJsonContent($errorAndDiffResult);
         $this->easyCodingStandardStyle->writeln($json);
-
         return $this->exitCodeResolver->resolve($errorAndDiffResult, $configuration);
     }
 
@@ -50,7 +61,6 @@ final class JsonOutputFormatter implements OutputFormatterInterface
     public function createJsonContent(ErrorAndDiffResult $errorAndDiffResult): string
     {
         $errorsArrayJson = $this->createBaseErrorsJson($errorAndDiffResult);
-
         $codingStandardErrors = $errorAndDiffResult->getErrors();
         foreach ($codingStandardErrors as $codingStandardError) {
             $errorsArrayJson[self::FILES][$codingStandardError->getRelativeFilePath()]['errors'][] = [
@@ -60,7 +70,6 @@ final class JsonOutputFormatter implements OutputFormatterInterface
                 'source_class' => $codingStandardError->getCheckerClass(),
             ];
         }
-
         $fileDiffs = $errorAndDiffResult->getFileDiffs();
         foreach ($fileDiffs as $fileDiff) {
             $errorsArrayJson[self::FILES][$fileDiff->getRelativeFilePath()]['diffs'][] = [
@@ -68,7 +77,6 @@ final class JsonOutputFormatter implements OutputFormatterInterface
                 'applied_checkers' => $fileDiff->getAppliedCheckers(),
             ];
         }
-
         return Json::encode($errorsArrayJson, Json::PRETTY);
     }
 

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Skipper\Skipper;
 
+use ECSPrefix202301\Symplify\SmartFileSystem\SmartFileInfo;
 use Symplify\EasyCodingStandard\Skipper\Contract\SkipVoterInterface;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 /**
  * @api
@@ -19,14 +19,22 @@ final class Skipper
     private const FILE_ELEMENT = 'file_elements';
 
     /**
+     * @var SkipVoterInterface[]
+     */
+    private $skipVoters;
+
+    /**
      * @param SkipVoterInterface[] $skipVoters
      */
-    public function __construct(
-        private array $skipVoters
-    ) {
+    public function __construct(array $skipVoters)
+    {
+        $this->skipVoters = $skipVoters;
     }
 
-    public function shouldSkipElement(string | object $element): bool
+    /**
+     * @param string|object $element
+     */
+    public function shouldSkipElement($element): bool
     {
         $fileInfo = new SmartFileInfo(__FILE__);
         return $this->shouldSkipElementAndFileInfo($element, $fileInfo);
@@ -37,20 +45,20 @@ final class Skipper
         return $this->shouldSkipElementAndFileInfo(self::FILE_ELEMENT, $smartFileInfo);
     }
 
-    public function shouldSkipElementAndFileInfo(string | object $element, SmartFileInfo $smartFileInfo): bool
+    /**
+     * @param string|object $element
+     */
+    public function shouldSkipElementAndFileInfo($element, SmartFileInfo $smartFileInfo): bool
     {
         foreach ($this->skipVoters as $skipVoter) {
             if (! $skipVoter->match($element)) {
                 continue;
             }
-
             if (! $skipVoter->shouldSkip($element, $smartFileInfo)) {
                 continue;
             }
-
-            return true;
+            return \true;
         }
-
-        return false;
+        return \false;
     }
 }

@@ -7,45 +7,59 @@ namespace Symplify\EasyCodingStandard\Skipper\SkipVoter;
 use Symplify\EasyCodingStandard\Skipper\Contract\SkipVoterInterface;
 use Symplify\EasyCodingStandard\Skipper\Matcher\FileInfoMatcher;
 use Symplify\EasyCodingStandard\Skipper\SkipCriteriaResolver\SkippedClassAndCodesResolver;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 /**
  * Matching class and code, e.g. App\Category\ArraySniff.SomeCode
  */
 final class ClassAndCodeSkipVoter implements SkipVoterInterface
 {
+    /**
+     * @var \Symplify\EasyCodingStandard\Skipper\SkipCriteriaResolver\SkippedClassAndCodesResolver
+     */
+    private $skippedClassAndCodesResolver;
+
+    /**
+     * @var \Symplify\EasyCodingStandard\Skipper\Matcher\FileInfoMatcher
+     */
+    private $fileInfoMatcher;
+
     public function __construct(
-        private SkippedClassAndCodesResolver $skippedClassAndCodesResolver,
-        private FileInfoMatcher $fileInfoMatcher
+        SkippedClassAndCodesResolver $skippedClassAndCodesResolver,
+        FileInfoMatcher $fileInfoMatcher
     ) {
+        $this->skippedClassAndCodesResolver = $skippedClassAndCodesResolver;
+        $this->fileInfoMatcher = $fileInfoMatcher;
     }
 
-    public function match(string | object $element): bool
+    /**
+     * @param string|object $element
+     */
+    public function match($element): bool
     {
-        if (! is_string($element)) {
-            return false;
+        if (! \is_string($element)) {
+            return \false;
         }
-
-        return substr_count($element, '.') === 1;
+        return \substr_count($element, '.') === 1;
     }
 
-    public function shouldSkip(string | object $element, SmartFileInfo | string $file): bool
+    /**
+     * @param string|object $element
+     * @param \ECSPrefix202301\Symplify\SmartFileSystem\SmartFileInfo|string $file
+     */
+    public function shouldSkip($element, $file): bool
     {
-        if (is_object($element)) {
-            return false;
+        if (\is_object($element)) {
+            return \false;
         }
-
         $skippedClassAndCodes = $this->skippedClassAndCodesResolver->resolve();
-        if (! array_key_exists($element, $skippedClassAndCodes)) {
-            return false;
+        if (! \array_key_exists($element, $skippedClassAndCodes)) {
+            return \false;
         }
-
         // skip regardless the path
         $skippedPaths = $skippedClassAndCodes[$element];
         if ($skippedPaths === null) {
-            return true;
+            return \true;
         }
-
         return $this->fileInfoMatcher->doesFileInfoMatchPatterns($file, $skippedPaths);
     }
 }

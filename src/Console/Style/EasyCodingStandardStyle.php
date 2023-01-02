@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Console\Style;
 
-use Symfony\Component\Console\Helper\ProgressBar;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\Console\Terminal;
+use ECSPrefix202301\Symfony\Component\Console\Helper\ProgressBar;
+use ECSPrefix202301\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix202301\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix202301\Symfony\Component\Console\Style\SymfonyStyle;
+use ECSPrefix202301\Symfony\Component\Console\Terminal;
+use ECSPrefix202301\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use ECSPrefix202301\Symplify\PackageBuilder\Reflection\PrivatesCaller;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
-use Symplify\PackageBuilder\Reflection\PrivatesAccessor;
-use Symplify\PackageBuilder\Reflection\PrivatesCaller;
 
 final class EasyCodingStandardStyle extends SymfonyStyle
 {
@@ -22,11 +22,14 @@ final class EasyCodingStandardStyle extends SymfonyStyle
      */
     private const BULGARIAN_CONSTANT = 8;
 
-    public function __construct(
-        InputInterface $input,
-        OutputInterface $output,
-        private Terminal $terminal
-    ) {
+    /**
+     * @var \ECSPrefix202301\Symfony\Component\Console\Terminal
+     */
+    private $terminal;
+
+    public function __construct(InputInterface $input, OutputInterface $output, Terminal $terminal)
+    {
+        $this->terminal = $terminal;
         parent::__construct($input, $output);
     }
 
@@ -38,16 +41,11 @@ final class EasyCodingStandardStyle extends SymfonyStyle
         /** @var CodingStandardError $codingStandardError */
         foreach ($codingStandardErrors as $codingStandardError) {
             $this->separator();
-
             $this->writeln(' ' . $codingStandardError->getFileWithLine());
-
             $this->separator();
-
             $message = $this->createMessageFromFileError($codingStandardError);
             $this->writeln(' ' . $message);
-
             $this->separator();
-
             $this->newLine();
         }
     }
@@ -56,27 +54,25 @@ final class EasyCodingStandardStyle extends SymfonyStyle
     {
         $privatesAccessor = new PrivatesAccessor();
         $progressBar = $privatesAccessor->getPrivatePropertyOfClass($this, 'progressBar', ProgressBar::class);
-
         $privatesCaller = new PrivatesCaller();
         $privatesCaller->callPrivateMethod($progressBar, 'setRealFormat', ['debug']);
     }
 
     private function separator(): void
     {
-        $separator = str_repeat('-', $this->getTerminalWidth());
+        $separator = \str_repeat('-', $this->getTerminalWidth());
         $this->writeln(' ' . $separator);
     }
 
     private function createMessageFromFileError(CodingStandardError $codingStandardError): string
     {
-        $message = sprintf(
+        $message = \sprintf(
             '%s%s Reported by: "%s"',
             $codingStandardError->getMessage(),
-            PHP_EOL . PHP_EOL,
+            \PHP_EOL . \PHP_EOL,
             $codingStandardError->getCheckerClass()
         );
         $message = $this->clearCrLfFromMessage($message);
-
         return $this->wrapMessageSoItFitsTheColumnWidth($message);
     }
 
@@ -90,11 +86,11 @@ final class EasyCodingStandardStyle extends SymfonyStyle
      */
     private function clearCrLfFromMessage(string $message): string
     {
-        return str_replace("\r", '', $message);
+        return \str_replace("\r", '', $message);
     }
 
     private function wrapMessageSoItFitsTheColumnWidth(string $message): string
     {
-        return wordwrap($message, $this->getTerminalWidth(), PHP_EOL);
+        return \wordwrap($message, $this->getTerminalWidth(), \PHP_EOL);
     }
 }

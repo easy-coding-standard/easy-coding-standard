@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Config;
 
+use ECSPrefix202301\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use ECSPrefix202301\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
+use ECSPrefix202301\Webmozart\Assert\Assert;
+use ECSPrefix202301\Webmozart\Assert\InvalidArgumentException;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\Fixer\FixerInterface;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
-use Webmozart\Assert\Assert;
-use Webmozart\Assert\InvalidArgumentException;
 
 /**
  * @api
@@ -24,7 +24,6 @@ final class ECSConfig extends ContainerConfigurator
     public function paths(array $paths): void
     {
         Assert::allString($paths);
-
         $parameters = $this->parameters();
         $parameters->set(Option::PATHS, $paths);
     }
@@ -45,7 +44,6 @@ final class ECSConfig extends ContainerConfigurator
     {
         Assert::allString($sets);
         Assert::allFileExists($sets);
-
         foreach ($sets as $set) {
             $this->import($set);
         }
@@ -57,7 +55,6 @@ final class ECSConfig extends ContainerConfigurator
     public function rule(string $checkerClass): void
     {
         $this->isCheckerClass($checkerClass);
-
         $services = $this->services();
         $services->set($checkerClass)
             ->public();
@@ -69,7 +66,6 @@ final class ECSConfig extends ContainerConfigurator
     public function rules(array $checkerClasses): void
     {
         $this->ensureCheckerClassesAreUnique($checkerClasses);
-
         foreach ($checkerClasses as $checkerClass) {
             $this->rule($checkerClass);
         }
@@ -82,20 +78,15 @@ final class ECSConfig extends ContainerConfigurator
     public function ruleWithConfiguration(string $checkerClass, array $configuration): void
     {
         $this->isCheckerClass($checkerClass);
-
         $services = $this->services();
-
         $service = $services->set($checkerClass);
-        if (is_a($checkerClass, FixerInterface::class, true)) {
+        if (\is_a($checkerClass, FixerInterface::class, \true)) {
             Assert::isAnyOf($checkerClass, [ConfigurableFixerInterface::class, ConfigurableRuleInterface::class]);
-
             $service->call('configure', [$configuration]);
         }
-
-        if (is_a($checkerClass, Sniff::class, true)) {
+        if (\is_a($checkerClass, Sniff::class, \true)) {
             foreach ($configuration as $propertyName => $value) {
                 Assert::propertyExists($checkerClass, $propertyName);
-
                 $service->property($propertyName, $value);
             }
         }
@@ -107,7 +98,6 @@ final class ECSConfig extends ContainerConfigurator
     public function rulesWithConfiguration(array $rulesWithConfiguration): void
     {
         Assert::allIsArray($rulesWithConfiguration);
-
         foreach ($rulesWithConfiguration as $checkerClass => $configuration) {
             $this->ruleWithConfiguration($checkerClass, $configuration);
         }
@@ -146,7 +136,6 @@ final class ECSConfig extends ContainerConfigurator
     public function fileExtensions(array $fileExtensions): void
     {
         Assert::allString($fileExtensions);
-
         $parameters = $this->parameters();
         $parameters->set(Option::FILE_EXTENSIONS, $fileExtensions);
     }
@@ -154,8 +143,7 @@ final class ECSConfig extends ContainerConfigurator
     public function parallel(int $seconds = 120, int $maxNumberOfProcess = 16, int $jobSize = 20): void
     {
         $parameters = $this->parameters();
-        $parameters->set(Option::PARALLEL, true);
-
+        $parameters->set(Option::PARALLEL, \true);
         $parameters->set(Option::PARALLEL_TIMEOUT_IN_SECONDS, $seconds);
         $parameters->set(Option::PARALLEL_MAX_NUMBER_OF_PROCESSES, $maxNumberOfProcess);
         $parameters->set(Option::PARALLEL_JOB_SIZE, $jobSize);
@@ -170,7 +158,6 @@ final class ECSConfig extends ContainerConfigurator
             Assert::classExists($sniffClass);
             Assert::isAnyOf($sniffClass, [Sniff::class]);
         }
-
         $parameters = $this->parameters();
         $parameters->set(Option::REPORT_SNIFF_WARNINGS, $sniffClasses);
     }
@@ -190,18 +177,17 @@ final class ECSConfig extends ContainerConfigurator
     private function ensureCheckerClassesAreUnique(array $checkerClasses): void
     {
         // ensure all rules are registered exactly once
-        $checkerClassToCount = array_count_values($checkerClasses);
-        $duplicatedCheckerClassToCount = array_filter($checkerClassToCount, static fn (int $count): bool => $count > 1);
-
+        $checkerClassToCount = \array_count_values($checkerClasses);
+        $duplicatedCheckerClassToCount = \array_filter($checkerClassToCount, static function (int $count): bool {
+            return $count > 1;
+        });
         if ($duplicatedCheckerClassToCount === []) {
             return;
         }
-
-        $duplicatedCheckerClasses = array_flip($duplicatedCheckerClassToCount);
-
-        $errorMessage = sprintf(
+        $duplicatedCheckerClasses = \array_flip($duplicatedCheckerClassToCount);
+        $errorMessage = \sprintf(
             'There are duplicated classes in $rectorConfig->rules(): "%s". Make them unique to avoid unexpected behavior.',
-            implode('", "', $duplicatedCheckerClasses)
+            \implode('", "', $duplicatedCheckerClasses)
         );
         throw new InvalidArgumentException($errorMessage);
     }

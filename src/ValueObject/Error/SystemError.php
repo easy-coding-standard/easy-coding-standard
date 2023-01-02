@@ -4,16 +4,31 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\ValueObject\Error;
 
+use ECSPrefix202301\Symplify\EasyParallel\Contract\SerializableInterface;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Name;
-use Symplify\EasyParallel\Contract\SerializableInterface;
 
 final class SystemError implements SerializableInterface
 {
-    public function __construct(
-        private int $line,
-        private string $message,
-        private string $relativeFilePath
-    ) {
+    /**
+     * @var int
+     */
+    private $line;
+
+    /**
+     * @var string
+     */
+    private $message;
+
+    /**
+     * @var string
+     */
+    private $relativeFilePath;
+
+    public function __construct(int $line, string $message, string $relativeFilePath)
+    {
+        $this->line = $line;
+        $this->message = $message;
+        $this->relativeFilePath = $relativeFilePath;
     }
 
     public function getMessage(): string
@@ -40,8 +55,9 @@ final class SystemError implements SerializableInterface
 
     /**
      * @param array{line: int, message: string, relative_file_path: string} $json
+     * @return $this
      */
-    public static function decode(array $json): self
+    public static function decode(array $json): \ECSPrefix202301\Symplify\EasyParallel\Contract\SerializableInterface
     {
         return new self($json[Name::LINE], $json[Name::MESSAGE], $json[Name::RELATIVE_FILE_PATH]);
     }

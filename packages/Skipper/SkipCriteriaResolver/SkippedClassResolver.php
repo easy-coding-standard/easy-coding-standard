@@ -4,21 +4,33 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Skipper\SkipCriteriaResolver;
 
+use ECSPrefix202301\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use ECSPrefix202301\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use Symplify\PackageBuilder\Parameter\ParameterProvider;
-use Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
 
 final class SkippedClassResolver
 {
     /**
      * @var array<string, string[]|null>
      */
-    private array $skippedClasses = [];
+    private $skippedClasses = [];
+
+    /**
+     * @var \ECSPrefix202301\Symplify\PackageBuilder\Parameter\ParameterProvider
+     */
+    private $parameterProvider;
+
+    /**
+     * @var \ECSPrefix202301\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker
+     */
+    private $classLikeExistenceChecker;
 
     public function __construct(
-        private ParameterProvider $parameterProvider,
-        private ClassLikeExistenceChecker $classLikeExistenceChecker
+        ParameterProvider $parameterProvider,
+        ClassLikeExistenceChecker $classLikeExistenceChecker
     ) {
+        $this->parameterProvider = $parameterProvider;
+        $this->classLikeExistenceChecker = $classLikeExistenceChecker;
     }
 
     /**
@@ -29,27 +41,21 @@ final class SkippedClassResolver
         if ($this->skippedClasses !== []) {
             return $this->skippedClasses;
         }
-
         $skip = $this->parameterProvider->provideArrayParameter(Option::SKIP);
-
         foreach ($skip as $key => $value) {
             // e.g. [SomeClass::class] → shift values to [SomeClass::class => null]
-            if (is_int($key)) {
+            if (\is_int($key)) {
                 $key = $value;
                 $value = null;
             }
-
-            if (! is_string($key)) {
+            if (! \is_string($key)) {
                 continue;
             }
-
             if (! $this->classLikeExistenceChecker->doesClassLikeExist($key)) {
                 continue;
             }
-
             $this->skippedClasses[$key] = $value;
         }
-
         return $this->skippedClasses;
     }
 }

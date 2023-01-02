@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\SnippetFormatter\Provider;
 
-use Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix202301\Symplify\SmartFileSystem\SmartFileInfo;
 
 final class CurrentParentFileInfoProvider
 {
-    private ?SmartFileInfo $smartFileInfo = null;
+    /**
+     * @var \ECSPrefix202301\Symplify\SmartFileSystem\SmartFileInfo|null
+     */
+    private $smartFileInfo;
 
     public function setParentFileInfo(SmartFileInfo $smartFileInfo): void
     {

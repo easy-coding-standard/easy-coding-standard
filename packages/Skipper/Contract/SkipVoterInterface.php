@@ -4,11 +4,16 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Skipper\Contract;
 
-use Symplify\SmartFileSystem\SmartFileInfo;
-
 interface SkipVoterInterface
 {
-    public function match(string | object $element): bool;
+    /**
+     * @param string|object $element
+     */
+    public function match($element): bool;
 
-    public function shouldSkip(string | object $element, SmartFileInfo | string $file): bool;
+    /**
+     * @param string|object $element
+     * @param \ECSPrefix202301\Symplify\SmartFileSystem\SmartFileInfo|string $file
+     */
+    public function shouldSkip($element, $file): bool;
 }

@@ -4,17 +4,37 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error;
 
+use ECSPrefix202301\Symplify\EasyParallel\Contract\SerializableInterface;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Name;
-use Symplify\EasyParallel\Contract\SerializableInterface;
 
 final class CodingStandardError implements SerializableInterface
 {
-    public function __construct(
-        private int $line,
-        private string $message,
-        private string $checkerClass,
-        private string $relativeFilePath
-    ) {
+    /**
+     * @var int
+     */
+    private $line;
+
+    /**
+     * @var string
+     */
+    private $message;
+
+    /**
+     * @var string
+     */
+    private $checkerClass;
+
+    /**
+     * @var string
+     */
+    private $relativeFilePath;
+
+    public function __construct(int $line, string $message, string $checkerClass, string $relativeFilePath)
+    {
+        $this->line = $line;
+        $this->message = $message;
+        $this->checkerClass = $checkerClass;
+        $this->relativeFilePath = $relativeFilePath;
     }
 
     public function getLine(): int
@@ -57,14 +77,15 @@ final class CodingStandardError implements SerializableInterface
 
     /**
      * @param array{line: int, message: string, checker_class: string, relative_file_path: string} $json
+     * @return $this
      */
-    public static function decode(array $json): self
+    public static function decode(array $json): \ECSPrefix202301\Symplify\EasyParallel\Contract\SerializableInterface
     {
         return new self(
             $json[Name::LINE],
             $json[Name::MESSAGE],
             $json[Name::CHECKER_CLASS],
-            $json[Name::RELATIVE_FILE_PATH],
+            $json[Name::RELATIVE_FILE_PATH]
         );
     }
 }

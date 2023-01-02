@@ -17,13 +17,13 @@ final class StaticVersionResolver
      * @api
      * @var string
      */
-    public const PACKAGE_VERSION = '@package_version@';
+    public const PACKAGE_VERSION = '11.1.29';
 
     /**
      * @api
      * @var string
      */
-    public const RELEASE_DATE = '@release_date@';
+    public const RELEASE_DATE = '2023-01-02 18:48:38';
 
     /**
      * @var int
@@ -36,31 +36,26 @@ final class StaticVersionResolver
     public static function resolvePackageVersion(): string
     {
         // resolve current tag
-        exec('git tag --points-at', $tagExecOutput, $tagExecResultCode);
-
+        \exec('git tag --points-at', $tagExecOutput, $tagExecResultCode);
         if ($tagExecResultCode !== self::SUCCESS_CODE) {
             throw new VersionException(
                 'Ensure to run compile from composer git repository clone and that git binary is available.'
             );
         }
-
         if ($tagExecOutput !== []) {
             $tag = $tagExecOutput[0];
             if ($tag !== '') {
                 return $tag;
             }
         }
-
-        exec('git log --pretty="%H" -n1 HEAD', $commitHashExecOutput, $commitHashResultCode);
-
+        \exec('git log --pretty="%H" -n1 HEAD', $commitHashExecOutput, $commitHashResultCode);
         if ($commitHashResultCode !== self::SUCCESS_CODE) {
             throw new VersionException(
                 'Ensure to run compile from composer git repository clone and that git binary is available.'
             );
         }
-
-        $version = trim($commitHashExecOutput[0]);
-        return trim($version, '"');
+        $version = \trim($commitHashExecOutput[0]);
+        return \trim($version, '"');
     }
 
     /**
@@ -68,13 +63,12 @@ final class StaticVersionResolver
      */
     public static function resolverReleaseDateTime(): DateTime
     {
-        exec('git log -n1 --pretty=%ci HEAD', $output, $resultCode);
+        \exec('git log -n1 --pretty=%ci HEAD', $output, $resultCode);
         if ($resultCode !== self::SUCCESS_CODE) {
             throw new VersionException(
                 'Ensure to run compile from composer git repository clone and that git binary is available.'
             );
         }
-
-        return new DateTime(trim($output[0]));
+        return new DateTime(\trim($output[0]));
     }
 }
