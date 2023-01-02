@@ -57,7 +57,7 @@ jobs:
             -   run: cp -r build/target-repository/. .
 
             # clear the dev files
-            -   run: rm -rf build prefix-code.sh monorepo-builder.php full_ecs_build.sh easy-ci.php scoper.php
+            -   run: rm -rf build prefix-code.sh monorepo-builder.php full_ecs_build.sh easy-ci.php scoper.php rector.php
 
             # setup git user
             -
