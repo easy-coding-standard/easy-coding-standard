@@ -6,5 +6,4 @@ namespace Symplify\EasyCodingStandard\Tests\Skipper\Skipper\Skip\Source;
 
 final class SomeClassToSkip
 {
-
 }

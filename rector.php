@@ -24,7 +24,9 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->paths([
         __DIR__ . '/src',
         __DIR__ . '/packages',
-    ]);
+        __DIR__ . '/tests',
+        __DIR__ . '/packages-tests',
+     ]);
 
     $rectorConfig->importNames();
 
@@ -35,6 +37,6 @@ return static function (RectorConfig $rectorConfig): void {
         '*/Source/*',
         '*/Fixture/*',
 
-        'packages/SniffRunner/ValueObject/File.php'
+        'packages/SniffRunner/ValueObject/File.php',
     ]);
 };
