@@ -4,7 +4,9 @@ on:
     push:
         tags:
             # avoid infinite looping
-            - '!*.72'
+            # skip tags that ends with ".72"
+            - '*'
+            - '!**.72'
 
 env:
     # see https://github.com/composer/composer/issues/9368#issuecomment-718112361
