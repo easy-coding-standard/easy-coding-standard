@@ -27,7 +27,6 @@ use Symplify\EasyCodingStandard\Skipper\Skipper\Skipper;
 use Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
-use Symplify\SmartFileSystem\SmartFileSystem;
 use Throwable;
 
 /**
@@ -60,7 +59,7 @@ final class FixerFileProcessor implements FileProcessorInterface
         private readonly Skipper $skipper,
         private readonly DifferInterface $differ,
         private readonly EasyCodingStandardStyle $easyCodingStandardStyle,
-        private readonly SmartFileSystem $smartFileSystem,
+        private readonly \Symfony\Component\Filesystem\Filesystem $filesystem,
         private readonly CurrentParentFileInfoProvider $currentParentFileInfoProvider,
         private readonly TargetFileInfoResolver $targetFileInfoResolver,
         private readonly FileDiffFactory $fileDiffFactory,
@@ -120,7 +119,7 @@ final class FixerFileProcessor implements FileProcessorInterface
 
         $tokenGeneratedCode = $tokens->generateCode();
         if ($configuration->isFixer()) {
-            $this->smartFileSystem->dumpFile($fileInfo->getRealPath(), $tokenGeneratedCode);
+            $this->filesystem->dumpFile($fileInfo->getRealPath(), $tokenGeneratedCode);
         }
 
         Tokens::clearCache();

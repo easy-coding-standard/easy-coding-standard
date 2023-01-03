@@ -20,7 +20,6 @@ use Symplify\EasyCodingStandard\SniffRunner\ValueObject\File;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use Symplify\PackageBuilder\Reflection\PrivatesAccessor;
-use Symplify\SmartFileSystem\SmartFileSystem;
 
 /**
  * @see \Symplify\EasyCodingStandard\Tests\Error\ErrorCollector\SniffFileProcessorTest
@@ -45,7 +44,7 @@ final class SniffFileProcessor implements FileProcessorInterface
         private readonly FileFactory $fileFactory,
         private readonly DifferInterface $differ,
         private readonly SniffMetadataCollector $sniffMetadataCollector,
-        private readonly SmartFileSystem $smartFileSystem,
+        private readonly \Symfony\Component\Filesystem\Filesystem $filesystem,
         private readonly FileDiffFactory $fileDiffFactory,
         private readonly PrivatesAccessor $privatesAccessor,
         array $sniffs
@@ -102,7 +101,7 @@ final class SniffFileProcessor implements FileProcessorInterface
         }
 
         if ($configuration->isFixer()) {
-            $this->smartFileSystem->dumpFile($file->getFilename(), $this->fixer->getContents());
+            $this->filesystem->dumpFile($file->getFilename(), $this->fixer->getContents());
         }
 
         return $errorsAndDiffs;

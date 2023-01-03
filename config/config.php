@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use PHP_CodeSniffer\Fixer;
+
 use PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\UnusedFunctionParameterSniff;
 use PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\PropertyDeclarationSniff;
@@ -13,6 +14,7 @@ use PhpCsFixer\Differ\UnifiedDiffer;
 use PhpCsFixer\WhitespacesFixerConfig;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Terminal;
+use Symfony\Component\Filesystem\Filesystem;
 use Symplify\EasyCodingStandard\Application\Version\StaticVersionResolver;
 use Symplify\EasyCodingStandard\Caching\Cache;
 use Symplify\EasyCodingStandard\Caching\CacheFactory;
@@ -25,8 +27,6 @@ use Symplify\EasyCodingStandard\ValueObject\Option;
 use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 use Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
 use Symplify\PackageBuilder\Yaml\ParametersMerger;
-use Symplify\SmartFileSystem\Normalizer\PathNormalizer;
-use Symplify\SmartFileSystem\SmartFileSystem;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 
 return static function (ECSConfig $ecsConfig): void {
@@ -82,12 +82,11 @@ return static function (ECSConfig $ecsConfig): void {
     $services->load('Symplify\EasyCodingStandard\\', __DIR__ . '/../packages')
         ->exclude([__DIR__ . '/../packages/*/ValueObject/*']);
 
+    $services->set(Filesystem::class);
     $services->set(Cache::class)
         ->factory([service(CacheFactory::class), 'create']);
 
     $services->set(Terminal::class);
-
-    $services->set(SmartFileSystem::class);
 
     $services->set(SymfonyStyleFactory::class);
     $services->set(SymfonyStyle::class)
@@ -110,5 +109,4 @@ return static function (ECSConfig $ecsConfig): void {
     $services->set(FixerFileProcessor::class);
 
     $services->set(ClassLikeExistenceChecker::class);
-    $services->set(PathNormalizer::class);
 };

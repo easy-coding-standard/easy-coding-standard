@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Tests\ChangedFilesDetector\FileHashComputer;
 
+use Symfony\Component\Filesystem\Filesystem;
 use Symplify\EasyCodingStandard\Caching\FileHashComputer;
 use Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
 use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-use Symplify\SmartFileSystem\SmartFileSystem;
 
 final class FileHashComputerTest extends AbstractKernelTestCase
 {
@@ -18,27 +18,27 @@ final class FileHashComputerTest extends AbstractKernelTestCase
 
     private FileHashComputer $fileHashComputer;
 
-    private SmartFileSystem $smartFileSystem;
+    private Filesystem $filesystem;
 
     protected function setUp(): void
     {
         $this->bootKernel(EasyCodingStandardKernel::class);
 
         $this->fileHashComputer = $this->getService(FileHashComputer::class);
-        $this->smartFileSystem = $this->getService(SmartFileSystem::class);
+        $this->filesystem = $this->getService(Filesystem::class);
     }
 
     public function testInvalidateCacheOnConfigurationChange(): void
     {
         // A. create on another one with fixer
-        $this->smartFileSystem->copy(__DIR__ . '/Source/first_config.php', self::INCLUDED_CONFIG_FILE, true);
+        $this->filesystem->copy(__DIR__ . '/Source/first_config.php', self::INCLUDED_CONFIG_FILE, true);
 
         $fileOneHash = $this->fileHashComputer->computeConfig(
             __DIR__ . '/Fixture/config-including-another-one.php'
         );
 
         // B. create on another one with no fixer
-        $this->smartFileSystem->copy(__DIR__ . '/Source/empty_config.php', self::INCLUDED_CONFIG_FILE, true);
+        $this->filesystem->copy(__DIR__ . '/Source/empty_config.php', self::INCLUDED_CONFIG_FILE, true);
 
         $fileTwoHash = $this->fileHashComputer->computeConfig(
             __DIR__ . '/Fixture/config-including-another-one.php'
@@ -46,7 +46,7 @@ final class FileHashComputerTest extends AbstractKernelTestCase
 
         $this->assertNotSame($fileOneHash, $fileTwoHash);
 
-        $this->smartFileSystem->remove(self::INCLUDED_CONFIG_FILE);
+        $this->filesystem->remove(self::INCLUDED_CONFIG_FILE);
     }
 
     public function testPhpFileHash(): void

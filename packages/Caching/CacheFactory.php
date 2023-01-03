@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Caching;
 
+use Symfony\Component\Filesystem\Filesystem;
 use Symplify\EasyCodingStandard\Caching\ValueObject\Storage\FileCacheStorage;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
-use Symplify\SmartFileSystem\SmartFileSystem;
 
 final class CacheFactory
 {
     public function __construct(
         private readonly ParameterProvider $parameterProvider,
-        private readonly SmartFileSystem $smartFileSystem
+        private readonly Filesystem $fileSystem
     ) {
     }
 
@@ -25,11 +25,11 @@ final class CacheFactory
         $cacheDirectory = $this->parameterProvider->provideStringParameter(Option::CACHE_DIRECTORY);
 
         // ensure cache directory exists
-        if (! $this->smartFileSystem->exists($cacheDirectory)) {
-            $this->smartFileSystem->mkdir($cacheDirectory);
+        if (! $this->fileSystem->exists($cacheDirectory)) {
+            $this->fileSystem->mkdir($cacheDirectory);
         }
 
-        $fileCacheStorage = new FileCacheStorage($cacheDirectory, $this->smartFileSystem);
+        $fileCacheStorage = new FileCacheStorage($cacheDirectory, $this->fileSystem);
 
         return new Cache($fileCacheStorage);
     }

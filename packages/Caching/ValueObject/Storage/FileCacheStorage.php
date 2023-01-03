@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\Caching\ValueObject\Storage;
 
 use Nette\Utils\Random;
+use Symfony\Component\Filesystem\Filesystem;
 use Symplify\EasyCodingStandard\Caching\Exception\CachingException;
 use Symplify\EasyCodingStandard\Caching\ValueObject\CacheFilePaths;
 use Symplify\EasyCodingStandard\Caching\ValueObject\CacheItem;
-use Symplify\SmartFileSystem\SmartFileSystem;
 
 /**
  * Inspired by
@@ -18,7 +18,7 @@ final class FileCacheStorage
 {
     public function __construct(
         private readonly string $directory,
-        private readonly SmartFileSystem $smartFileSystem
+        private readonly Filesystem $fileSystem
     ) {
     }
 
@@ -45,8 +45,8 @@ final class FileCacheStorage
     public function save(string $key, string $variableKey, string $data): void
     {
         $cacheFilePaths = $this->getCacheFilePaths($key);
-        $this->smartFileSystem->mkdir($cacheFilePaths->getFirstDirectory());
-        $this->smartFileSystem->mkdir($cacheFilePaths->getSecondDirectory());
+        $this->fileSystem->mkdir($cacheFilePaths->getFirstDirectory());
+        $this->fileSystem->mkdir($cacheFilePaths->getSecondDirectory());
 
         $tmpPath = sprintf('%s/%s.tmp', $this->directory, Random::generate());
         $errorBefore = error_get_last();
@@ -65,17 +65,17 @@ final class FileCacheStorage
         }
 
         $variableFileContent = sprintf("<?php declare(strict_types = 1);\n\nreturn %s;", $exported);
-        $this->smartFileSystem->dumpFile($tmpPath, $variableFileContent);
+        $this->fileSystem->dumpFile($tmpPath, $variableFileContent);
 
-        $this->smartFileSystem->rename($tmpPath, $cacheFilePaths->getFilePath(), true);
-        $this->smartFileSystem->remove($tmpPath);
+        $this->fileSystem->rename($tmpPath, $cacheFilePaths->getFilePath(), true);
+        $this->fileSystem->remove($tmpPath);
     }
 
     public function clean(string $cacheKey): void
     {
         $cacheFilePaths = $this->getCacheFilePaths($cacheKey);
 
-        $this->smartFileSystem->remove([
+        $this->fileSystem->remove([
             $cacheFilePaths->getFirstDirectory(),
             $cacheFilePaths->getSecondDirectory(),
             $cacheFilePaths->getFilePath(),
@@ -84,7 +84,7 @@ final class FileCacheStorage
 
     public function clear(): void
     {
-        $this->smartFileSystem->remove($this->directory);
+        $this->fileSystem->remove($this->directory);
     }
 
     private function getCacheFilePaths(string $key): CacheFilePaths

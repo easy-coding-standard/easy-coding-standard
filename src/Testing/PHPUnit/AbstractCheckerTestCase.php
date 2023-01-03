@@ -64,10 +64,11 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
 
         $fileContents = FileSystem::read($filePath);
 
+        // before and after case - we want to see a change
         if (\str_contains($fileContents, '-----')) {
             [$inputContents, $expectedContents] = Strings::split($fileContents, self::SPLIT_LINE_REGEX);
         } else {
-            // no change
+            // no change, part before and after are the same
             $inputContents = $fileContents;
             $expectedContents = $fileContents;
         }
@@ -165,6 +166,9 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
         return $filePaths;
     }
 
+    /**
+     * @deprecated
+     */
     private function doTestWrongToFixedFile(SplFileInfo $wrongFileInfo, string $fixedFile): void
     {
         $this->ensureSomeCheckersAreRegistered();
