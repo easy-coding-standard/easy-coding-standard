@@ -13,7 +13,6 @@ use Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoP
 use Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetPattern;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\SmartFileSystem\SmartFileInfo;
-use Symplify\SmartFileSystem\SmartFileSystem;
 use Throwable;
 
 /**
@@ -49,7 +48,7 @@ final class MarkdownSnippetFormatter
     private const CLOSING = 'closing';
 
     public function __construct(
-        private readonly SmartFileSystem $smartFileSystem,
+        private readonly \Symfony\Component\Filesystem\Filesystem $fileSystem,
         private readonly FixerFileProcessor $fixerFileProcessor,
         private readonly SniffFileProcessor $sniffFileProcessor,
         private readonly CurrentParentFileInfoProvider $currentParentFileInfoProvider
@@ -94,7 +93,7 @@ final class MarkdownSnippetFormatter
 
         $fileContent = ltrim($content, PHP_EOL);
 
-        $this->smartFileSystem->dumpFile($temporaryFilePath, $fileContent);
+        $this->fileSystem->dumpFile($temporaryFilePath, $fileContent);
         $temporaryFileInfo = new SmartFileInfo($temporaryFilePath);
 
         try {
@@ -107,7 +106,7 @@ final class MarkdownSnippetFormatter
             $changedFileContent = $fileContent;
         } finally {
             // remove temporary temporaryFile
-            $this->smartFileSystem->remove($temporaryFilePath);
+            $this->fileSystem->remove($temporaryFilePath);
         }
 
         $changedFileContent = rtrim($changedFileContent, PHP_EOL) . PHP_EOL;

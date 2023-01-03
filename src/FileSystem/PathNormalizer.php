@@ -46,7 +46,7 @@ final class PathNormalizer
             $path = $originalPath;
         }
 
-        $normalizedPath = str_replace('\\', '/', $path);
+        $normalizedPath = str_replace('\\', '/', (string) $path);
         $path = Strings::replace($normalizedPath, self::TWO_AND_MORE_SLASHES_REGEX, '/');
 
         $pathRoot = str_starts_with($path, '/') ? $directorySeparator : '';

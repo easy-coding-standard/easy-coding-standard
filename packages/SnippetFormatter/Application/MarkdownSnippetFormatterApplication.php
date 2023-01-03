@@ -18,14 +18,13 @@ use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use Symplify\PackageBuilder\Console\Formatter\ColorConsoleDiffFormatter;
 use Symplify\SmartFileSystem\SmartFileInfo;
-use Symplify\SmartFileSystem\SmartFileSystem;
 
 final class MarkdownSnippetFormatterApplication
 {
     public function __construct(
         private readonly SnippetReporter $snippetReporter,
         private readonly MarkdownSnippetFormatter $markdownSnippetFormatter,
-        private readonly SmartFileSystem $smartFileSystem,
+        private readonly \Symfony\Component\Filesystem\Filesystem $fileSystem,
         private readonly SymfonyStyle $symfonyStyle,
         private readonly ProcessedFileReporter $processedFileReporter,
         private readonly DifferInterface $differ,
@@ -81,7 +80,7 @@ final class MarkdownSnippetFormatterApplication
             return null;
         }
 
-        $this->smartFileSystem->dumpFile($phpFileInfo->getPathname(), $fixedContent);
+        $this->fileSystem->dumpFile($phpFileInfo->getPathname(), $fixedContent);
 
         $diff = $this->differ->diff($originalFileContents, $fixedContent);
         $consoleFormattedDiff = $this->colorConsoleDiffFormatter->format($diff);
