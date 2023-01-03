@@ -11,7 +11,7 @@ use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 
 final class ChangedFilesDetectorTest extends AbstractKernelTestCase
 {
-    private SplFileInfo $fileInfo;
+    private string $filePath;
 
     private ChangedFilesDetector $changedFilesDetector;
 
@@ -19,7 +19,7 @@ final class ChangedFilesDetectorTest extends AbstractKernelTestCase
     {
         $this->bootKernel(EasyCodingStandardKernel::class);
 
-        $this->fileInfo = new SplFileInfo(__DIR__ . '/Source/OneClass.php');
+        $this->filePath = __DIR__ . '/Source/OneClass.php';
 
         $this->changedFilesDetector = $this->getService(ChangedFilesDetector::class);
         $this->changedFilesDetector->changeConfigurationFile(__DIR__ . '/Source/easy-coding-standard.php');
@@ -27,34 +27,34 @@ final class ChangedFilesDetectorTest extends AbstractKernelTestCase
 
     public function testAddFile(): void
     {
-        $this->assertFileHasChanged($this->fileInfo);
-        $this->assertFileHasChanged($this->fileInfo);
+        $this->assertFileHasChanged($this->filePath);
+        $this->assertFileHasChanged($this->filePath);
     }
 
     public function testHasFileChanged(): void
     {
-        $this->changedFilesDetector->addFileInfo($this->fileInfo);
+        $this->changedFilesDetector->addFilePath($this->filePath);
 
-        $this->assertFileHasNotChanged($this->fileInfo);
+        $this->assertFileHasNotChanged($this->filePath);
     }
 
     public function testInvalidateCacheOnConfigurationChange(): void
     {
-        $this->changedFilesDetector->addFileInfo($this->fileInfo);
-        $this->assertFileHasNotChanged($this->fileInfo);
+        $this->changedFilesDetector->addFilePath($this->filePath);
+        $this->assertFileHasNotChanged($this->filePath);
 
         $this->changedFilesDetector->changeConfigurationFile(__DIR__ . '/Source/another-configuration.php');
 
-        $this->assertFileHasChanged($this->fileInfo);
+        $this->assertFileHasChanged($this->filePath);
     }
 
-    private function assertFileHasChanged(SplFileInfo $fileInfo): void
+    private function assertFileHasChanged(string $filePath): void
     {
-        $this->assertTrue($this->changedFilesDetector->hasFileInfoChanged($fileInfo));
+        $this->assertTrue($this->changedFilesDetector->hasFileChanged($filePath));
     }
 
-    private function assertFileHasNotChanged(SplFileInfo $fileInfo): void
+    private function assertFileHasNotChanged(string $filePath): void
     {
-        $this->assertFalse($this->changedFilesDetector->hasFileInfoChanged($fileInfo));
+        $this->assertFalse($this->changedFilesDetector->hasFileChanged($filePath));
     }
 }

@@ -28,9 +28,7 @@ final class SkipperTest extends AbstractKernelTestCase
      */
     public function testSkipFileInfo(string $filePath, bool $expectedSkip): void
     {
-        $smartFileInfo = new SmartFileInfo($filePath);
-
-        $resultSkip = $this->skipper->shouldSkipFileInfo($smartFileInfo);
+        $resultSkip = $this->skipper->shouldSkipFilePath($filePath);
         $this->assertSame($expectedSkip, $resultSkip);
     }
 

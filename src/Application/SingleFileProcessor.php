@@ -23,15 +23,15 @@ final class SingleFileProcessor
     /**
      * @return array{file_diffs?: FileDiff[], coding_standard_errors?: CodingStandardError[]}
      */
-    public function processFileInfo(SplFileInfo $fileInfo, Configuration $configuration): array
+    public function processFilePath(string $filePath, Configuration $configuration): array
     {
-        if ($this->skipper->shouldSkipFileInfo($fileInfo)) {
+        if ($this->skipper->shouldSkipFilePath($filePath)) {
             return [];
         }
 
         $errorsAndDiffs = [];
 
-        $this->changedFilesDetector->addFileInfo($fileInfo);
+        $this->changedFilesDetector->addFilePath($filePath);
         $fileProcessors = $this->fileProcessorCollector->getFileProcessors();
 
         foreach ($fileProcessors as $fileProcessor) {
@@ -39,7 +39,7 @@ final class SingleFileProcessor
                 continue;
             }
 
-            $currentErrorsAndFileDiffs = $fileProcessor->processFile($fileInfo, $configuration);
+            $currentErrorsAndFileDiffs = $fileProcessor->processFile($filePath, $configuration);
             if ($currentErrorsAndFileDiffs === []) {
                 continue;
             }
@@ -49,7 +49,7 @@ final class SingleFileProcessor
 
         // invalidate broken file, to analyse in next run too
         if ($errorsAndDiffs !== []) {
-            $this->changedFilesDetector->invalidateFileInfo($fileInfo);
+            $this->changedFilesDetector->invalidateFilePath($filePath);
         }
 
         return $errorsAndDiffs;

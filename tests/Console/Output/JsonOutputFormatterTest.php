@@ -6,12 +6,12 @@ namespace Symplify\EasyCodingStandard\Tests\Console\Output;
 
 use Symplify\CodingStandard\Fixer\LineLength\LineLengthFixer;
 use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
+use Symplify\EasyCodingStandard\FileSystem\StaticRelativeFilePathHelper;
 use Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use Symplify\PackageBuilder\Console\Formatter\ColorConsoleDiffFormatter;
 use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class JsonOutputFormatterTest extends AbstractKernelTestCase
 {
@@ -29,13 +29,13 @@ final class JsonOutputFormatterTest extends AbstractKernelTestCase
 
     public function test(): void
     {
-        $randomFileInfo = new SmartFileInfo(__DIR__ . '/Source/RandomFile.php');
+        $relativeFilePath = StaticRelativeFilePathHelper::resolveFromCwd(__DIR__ . '/Source/RandomFile.php');
 
         $fileDiffs = [];
 
         $diff = 'some diff';
         $fileDiffs[] = new FileDiff(
-            $randomFileInfo->getRelativeFilePathFromCwd(),
+            $relativeFilePath,
             $diff,
             $this->colorConsoleDiffFormatter->format($diff),
             [LineLengthFixer::class]
@@ -43,7 +43,7 @@ final class JsonOutputFormatterTest extends AbstractKernelTestCase
 
         $diff = 'some other diff';
         $fileDiffs[] = new FileDiff(
-            $randomFileInfo->getRelativeFilePathFromCwd(),
+            $relativeFilePath,
             $diff,
             $this->colorConsoleDiffFormatter->format($diff),
             [LineLengthFixer::class]

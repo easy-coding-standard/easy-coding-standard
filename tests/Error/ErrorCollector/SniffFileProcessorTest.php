@@ -34,8 +34,7 @@ final class SniffFileProcessorTest extends AbstractKernelTestCase
     {
         $configuration = new Configuration();
 
-        $smartFileInfo = new SmartFileInfo(__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc');
-        $errorsAndFileDiffs = $this->sniffFileProcessor->processFile($smartFileInfo, $configuration);
+        $errorsAndFileDiffs = $this->sniffFileProcessor->processFile(__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc', $configuration);
 
         /** @var FileDiff[] $fileDiffs */
         $fileDiffs = $errorsAndFileDiffs['file_diffs'] ?? [];

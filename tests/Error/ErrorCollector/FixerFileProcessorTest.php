@@ -29,8 +29,10 @@ final class FixerFileProcessorTest extends AbstractKernelTestCase
     {
         $configuration = new Configuration();
 
-        $fileInfo = new SmartFileInfo(__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc');
-        $errorsAndFileDiffs = $this->fixerFileProcessor->processFile($fileInfo, $configuration);
+        $errorsAndFileDiffs = $this->fixerFileProcessor->processFile(
+            __DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc',
+            $configuration
+        );
 
         $this->assertArrayNotHasKey(Bridge::CODING_STANDARD_ERRORS, $errorsAndFileDiffs);
         $this->assertArrayHasKey(Bridge::FILE_DIFFS, $errorsAndFileDiffs);

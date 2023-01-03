@@ -35,7 +35,7 @@ final class MarkdownSnippetFormatterTest extends AbstractKernelTestCase
         $configuration = new Configuration(true);
 
         $changedContent = $this->markdownSnippetFormatter->format(
-            $inputAndExpectedFileInfos->getInputFileInfo(),
+            $inputAndExpectedFileInfos->getInputFileInfo()->getRealPath(),
             $configuration
         );
 

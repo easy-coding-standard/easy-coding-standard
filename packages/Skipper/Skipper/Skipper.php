@@ -28,23 +28,22 @@ final class Skipper
 
     public function shouldSkipElement(string | object $element): bool
     {
-        $fileInfo = new SplFileInfo(__FILE__);
-        return $this->shouldSkipElementAndFileInfo($element, $fileInfo);
+        return $this->shouldSkipElementAndFilePath($element, __FILE__);
     }
 
-    public function shouldSkipFileInfo(SplFileInfo $fileInfo): bool
+    public function shouldSkipFilePath(string $filePath): bool
     {
-        return $this->shouldSkipElementAndFileInfo(self::FILE_ELEMENT, $fileInfo);
+        return $this->shouldSkipElementAndFilePath(self::FILE_ELEMENT, $filePath);
     }
 
-    public function shouldSkipElementAndFileInfo(string | object $element, SplFileInfo $fileInfo): bool
+    public function shouldSkipElementAndFilePath(string | object $element, string $filePath): bool
     {
         foreach ($this->skipVoters as $skipVoter) {
             if (! $skipVoter->match($element)) {
                 continue;
             }
 
-            if (! $skipVoter->shouldSkip($element, $fileInfo)) {
+            if (! $skipVoter->shouldSkip($element, $filePath)) {
                 continue;
             }
 

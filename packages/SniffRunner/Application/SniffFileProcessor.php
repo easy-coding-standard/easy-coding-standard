@@ -67,15 +67,15 @@ final class SniffFileProcessor implements FileProcessorInterface
     /**
      * @return array{file_diffs?: FileDiff[], coding_standard_errors?: CodingStandardError[]}
      */
-    public function processFile(SplFileInfo $fileInfo, Configuration $configuration): array
+    public function processFile(string $filePath, Configuration $configuration): array
     {
         $this->sniffMetadataCollector->reset();
 
         $errorsAndDiffs = [];
 
-        $file = $this->fileFactory->createFromFileInfo($fileInfo);
+        $file = $this->fileFactory->createFromFile($filePath);
         $reportSniffClassesWarnings = $configuration->getReportSniffClassesWarnings();
-        $this->fixFile($file, $this->fixer, $fileInfo, $this->tokenListeners, $reportSniffClassesWarnings);
+        $this->fixFile($file, $this->fixer, $filePath, $this->tokenListeners, $reportSniffClassesWarnings);
 
         // add coding standard errors
         $codingStandardErrors = $this->sniffMetadataCollector->getCodingStandardErrors();
@@ -83,7 +83,7 @@ final class SniffFileProcessor implements FileProcessorInterface
             $errorsAndDiffs[Bridge::CODING_STANDARD_ERRORS] = $codingStandardErrors;
         }
 
-        $fileContents = FileSystem::read($fileInfo->getRealPath());
+        $fileContents = FileSystem::read($filePath);
 
         // add diff
         if ($fileContents !== $this->fixer->getContents()) {
@@ -92,7 +92,7 @@ final class SniffFileProcessor implements FileProcessorInterface
             $appliedCheckers = $this->sniffMetadataCollector->getAppliedSniffs();
 
             $fileDiff = $this->fileDiffFactory->createFromDiffAndAppliedCheckers(
-                $fileInfo,
+                $filePath,
                 $diff,
                 $appliedCheckers
             );
@@ -110,14 +110,10 @@ final class SniffFileProcessor implements FileProcessorInterface
     /**
      * For tests or printing contenet
      */
-    public function processFileToString(SplFileInfo|string $fileInfo): string
+    public function processFileToString(string $filePath): string
     {
-        if (is_string($fileInfo)) {
-            $fileInfo = new SplFileInfo($fileInfo);
-        }
-
-        $file = $this->fileFactory->createFromFileInfo($fileInfo);
-        $this->fixFile($file, $this->fixer, $fileInfo, $this->tokenListeners, []);
+        $file = $this->fileFactory->createFromFile($filePath);
+        $this->fixFile($file, $this->fixer, $filePath, $this->tokenListeners, []);
 
         return $this->fixer->getContents();
     }
@@ -153,13 +149,13 @@ final class SniffFileProcessor implements FileProcessorInterface
      * @param array<class-string<Sniff>> $reportSniffClassesWarnings
      */
     private function fixFile(
-        File $file,
-        Fixer $fixer,
-        SplFileInfo $fileInfo,
-        array $tokenListeners,
-        array $reportSniffClassesWarnings
+        File   $file,
+        Fixer  $fixer,
+        string $filePath,
+        array  $tokenListeners,
+        array  $reportSniffClassesWarnings
     ): void {
-        $previousContent = FileSystem::read($fileInfo->getRealPath());
+        $previousContent = FileSystem::read($filePath);
 
         $this->fixer->loops = 0;
 
@@ -169,7 +165,7 @@ final class SniffFileProcessor implements FileProcessorInterface
 
             $this->privatesAccessor->setPrivateProperty($fixer, 'inConflict', false);
             $file->setContent($content);
-            $file->processWithTokenListenersAndFileInfo($tokenListeners, $fileInfo, $reportSniffClassesWarnings);
+            $file->processWithTokenListenersAndFilePath($tokenListeners, $filePath, $reportSniffClassesWarnings);
 
             // fixed content
             $previousContent = $fixer->getContents();

@@ -36,7 +36,7 @@ final class File extends BaseFile
      */
     private array $tokenListeners = [];
 
-    private ?SplFileInfo $fileInfo = null;
+    private ?string $filePath = null;
 
     /**
      * @var array<class-string<Sniff>>
@@ -80,8 +80,8 @@ final class File extends BaseFile
         $this->parse();
         $this->fixer->startFile($this);
 
-        $currentFileInfo = $this->fileInfo;
-        if (! $currentFileInfo instanceof SplFileInfo) {
+        $currentFilePath = $this->filePath;
+        if (! is_string($currentFilePath)) {
             throw new ShouldNotHappenException();
         }
 
@@ -91,7 +91,7 @@ final class File extends BaseFile
             }
 
             foreach ($this->tokenListeners[$token['code']] as $sniff) {
-                if ($this->skipper->shouldSkipElementAndFileInfo($sniff, $currentFileInfo)) {
+                if ($this->skipper->shouldSkipElementAndFilePath($sniff, $currentFilePath)) {
                     continue;
                 }
 
@@ -150,13 +150,13 @@ final class File extends BaseFile
      * @param array<class-string<Sniff>> $reportSniffClassesWarnings
      * @param array<int|string, Sniff[]> $tokenListeners
      */
-    public function processWithTokenListenersAndFileInfo(
+    public function processWithTokenListenersAndFilePath(
         array $tokenListeners,
-        SplFileInfo $fileInfo,
+        string $filePath,
         array $reportSniffClassesWarnings
     ): void {
-        $this->tokenListeners = $tokenListeners;
-        $this->fileInfo = $fileInfo;
+        $this->tokenListeners             = $tokenListeners;
+        $this->filePath                   = $filePath;
         $this->reportSniffClassesWarnings = $reportSniffClassesWarnings;
         $this->process();
     }
@@ -234,17 +234,17 @@ final class File extends BaseFile
     {
         $fullyQualifiedCode = $this->resolveFullyQualifiedCode($code);
 
-        if (! $this->fileInfo instanceof SplFileInfo) {
+        if (! is_string($this->filePath)) {
             throw new ShouldNotHappenException();
         }
 
-        if ($this->skipper->shouldSkipElementAndFileInfo($fullyQualifiedCode, $this->fileInfo)) {
+        if ($this->skipper->shouldSkipElementAndFilePath($fullyQualifiedCode, $this->filePath)) {
             return true;
         }
 
         $message = $data !== [] ? vsprintf($error, $data) : $error;
 
-        return $this->skipper->shouldSkipElementAndFileInfo($message, $this->fileInfo);
+        return $this->skipper->shouldSkipElementAndFilePath($message, $this->filePath);
     }
 
     private function shouldSkipClassWarnings(string $sniffClass): bool

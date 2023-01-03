@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\Application;
 
 use ParseError;
-use SplFileInfo;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
@@ -54,29 +53,23 @@ final class EasyCodingStandardApplication
     public function run(Configuration $configuration, InputInterface $input): array
     {
         // 1. find files in sources
-        $fileInfos = $this->sourceFinder->find($configuration->getSources());
+        $filePaths = $this->sourceFinder->find($configuration->getSources());
 
         // 2. clear cache
         if ($configuration->shouldClearCache()) {
             $this->changedFilesDetector->clearCache();
         } else {
-            $fileInfos = $this->fileFilter->filterOnlyChangedFiles($fileInfos);
+            $filePaths = $this->fileFilter->filterOnlyChangedFiles($filePaths);
         }
 
         // no files found
-        $filesCount = count($fileInfos);
+        $filesCount = count($filePaths);
 
         if ($filesCount === 0) {
             return [];
         }
 
         if ($configuration->isParallel()) {
-            // must be a string, otherwise the serialization returns empty arrays
-            $filePaths = [];
-            foreach ($fileInfos as $fileInfo) {
-                $filePaths[] = StaticRelativeFilePathHelper::resolveFromCwd($fileInfo->getRealPath());
-            }
-
             $schedule = $this->scheduleFactory->create(
                 $this->cpuCoreCountProvider->provide(),
                 $this->parameterProvider->provideIntParameter(Option::PARALLEL_JOB_SIZE),
@@ -122,38 +115,38 @@ final class EasyCodingStandardApplication
         }
 
         // process found files by each processors
-        return $this->processFoundFiles($fileInfos, $configuration);
+        return $this->processFoundFiles($filePaths, $configuration);
     }
 
     /**
-     * @param SplFileInfo[] $fileInfos
+     * @param string[] $filePaths
      * @return array{coding_standard_errors: CodingStandardError[], file_diffs: FileDiff[], system_errors: SystemError[], system_errors_count: int}
      */
-    private function processFoundFiles(array $fileInfos, Configuration $configuration): array
+    private function processFoundFiles(array $filePaths, Configuration $configuration): array
     {
-        $fileInfoCount = count($fileInfos);
+        $fileInfoCount = count($filePaths);
 
         // 3. start progress bar
         $this->outputProgressBarAndDebugInfo($fileInfoCount, $configuration);
 
         $errorsAndDiffs = [];
 
-        foreach ($fileInfos as $fileInfo) {
+        foreach ($filePaths as $filePath) {
             if ($this->easyCodingStandardStyle->isDebug()) {
-                $relativeFilePath = StaticRelativeFilePathHelper::resolveFromCwd($fileInfo->getRealPath());
+                $relativeFilePath = StaticRelativeFilePathHelper::resolveFromCwd($filePath);
 
                 $this->easyCodingStandardStyle->writeln(' [file] ' . $relativeFilePath);
             }
 
             try {
-                $currentErrorsAndDiffs = $this->singleFileProcessor->processFileInfo($fileInfo, $configuration);
+                $currentErrorsAndDiffs = $this->singleFileProcessor->processFilePath($filePath, $configuration);
                 if ($currentErrorsAndDiffs !== []) {
                     $errorsAndDiffs = $this->parametersMerger->merge($errorsAndDiffs, $currentErrorsAndDiffs);
                 }
             } catch (ParseError $parseError) {
-                $this->changedFilesDetector->invalidateFileInfo($fileInfo);
+                $this->changedFilesDetector->invalidateFilePath($filePath);
 
-                $relativeFilePath = StaticRelativeFilePathHelper::resolveFromCwd($fileInfo->getRealPath());
+                $relativeFilePath = StaticRelativeFilePathHelper::resolveFromCwd($filePath);
 
                 $errorsAndDiffs[Bridge::SYSTEM_ERRORS][] = new SystemError(
                     $parseError->getLine(),

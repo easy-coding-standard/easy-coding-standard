@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Finder;
 
-use SplFileInfo;
 use Symfony\Component\Finder\Finder;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use Webmozart\Assert\Assert;
 
 /**
  * @see \Symplify\EasyCodingStandard\Tests\Finder\SourceFinderTest
@@ -27,27 +26,27 @@ final class SourceFinder
 
     /**
      * @param string[] $source
-     * @return SplFileInfo[]
+     * @return string[]
      */
     public function find(array $source): array
     {
-        $fileInfos = [];
+        $filePaths = [];
         foreach ($source as $singleSource) {
             if (is_file($singleSource)) {
-                $fileInfos[] = new SmartFileInfo($singleSource);
+                $filePaths[] = $singleSource;
             } else {
                 $filesInDirectory = $this->processDirectory($singleSource);
-                $fileInfos = array_merge($fileInfos, $filesInDirectory);
+                $filePaths = array_merge($filePaths, $filesInDirectory);
             }
         }
 
-        ksort($fileInfos);
+        ksort($filePaths);
 
-        return $fileInfos;
+        return $filePaths;
     }
 
     /**
-     * @return SplFileInfo[]
+     * @return string[]
      */
     private function processDirectory(string $directory): array
     {
@@ -62,7 +61,10 @@ final class SourceFinder
             ->size('> 0')
             ->sortByName();
 
-        return iterator_to_array($finder);
+        $filePaths = array_keys(iterator_to_array($finder));
+        Assert::allString($filePaths);
+
+        return $filePaths;
     }
 
     /**

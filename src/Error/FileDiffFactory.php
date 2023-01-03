@@ -22,13 +22,13 @@ final class FileDiffFactory
      * @param array<class-string<FixerInterface|Sniff>|string> $appliedCheckers
      */
     public function createFromDiffAndAppliedCheckers(
-        SplFileInfo $fileInfo,
+        string $filePath,
         string $diff,
-        array $appliedCheckers
+        array  $appliedCheckers
     ): FileDiff {
         $consoleFormattedDiff = $this->colorConsoleDiffFormatter->format($diff);
 
-        $relativeFilePath = StaticRelativeFilePathHelper::resolveFromCwd($fileInfo->getRealPath());
+        $relativeFilePath = StaticRelativeFilePathHelper::resolveFromCwd($filePath);
 
         return new FileDiff($relativeFilePath, $diff, $consoleFormattedDiff, $appliedCheckers);
     }

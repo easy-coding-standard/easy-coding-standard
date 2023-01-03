@@ -42,7 +42,6 @@ parameters:
 
         - '#Method Symplify\\EasyCodingStandard\\Console\\Command\\ListCheckersCommand\:\:getObjectClasses\(\) should return array<class\-string<TObject of PHP_CodeSniffer\\Sniffs\\Sniff\|PhpCsFixer\\Fixer\\FixerInterface>> but returns array<TObject of class\-string<PHP_CodeSniffer\\Sniffs\\Sniff>\|class\-string<PhpCsFixer\\Fixer\\FixerInterface>>#'
 
-        - '#Method Symplify\\EasyCodingStandard\\Application\\SingleFileProcessor\:\:processFileInfo\(\) should return array\{file_diffs\?\: array<Symplify\\EasyCodingStandard\\ValueObject\\Error\\FileDiff>, coding_standard_errors\?\: array<Symplify\\EasyCodingStandard\\SniffRunner\\ValueObject\\Error\\CodingStandardError>\} but returns array<(.*?), array<Symplify\\EasyCodingStandard\\SniffRunner\\ValueObject\\Error\\CodingStandardError\|Symplify\\EasyCodingStandard\\ValueObject\\Error\\FileDiff>>#'
+        - '#Method Symplify\\EasyCodingStandard\\Application\\SingleFileProcessor\:\:processFilePath\(\) should return array\{file_diffs\?\: array<Symplify\\EasyCodingStandard\\ValueObject\\Error\\FileDiff>, coding_standard_errors\?\: array<Symplify\\EasyCodingStandard\\SniffRunner\\ValueObject\\Error\\CodingStandardError>\} but returns array<(.*?), array<Symplify\\EasyCodingStandard\\SniffRunner\\ValueObject\\Error\\CodingStandardError\|Symplify\\EasyCodingStandard\\ValueObject\\Error\\FileDiff>>#'
 
         - '#Method Symplify\\EasyCodingStandard\\FixerRunner\\Parser\\FileToTokensParser\:\:parseFromFilePath\(\) should return iterable<PhpCsFixer\\Tokenizer\\Token>&PhpCsFixer\\Tokenizer\\Tokens but returns PhpCsFixer\\Tokenizer\\Tokens#'
-

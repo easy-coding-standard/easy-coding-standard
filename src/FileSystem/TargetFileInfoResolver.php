@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\FileSystem;
 
-use SplFileInfo;
-use Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider;
+use Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFilePathProvider;
 
 final class TargetFileInfoResolver
 {
     public function __construct(
-        private readonly CurrentParentFileInfoProvider $currentParentFileInfoProvider
+        private readonly CurrentParentFilePathProvider $currentParentFilePathProvider
     ) {
     }
 
@@ -18,13 +17,13 @@ final class TargetFileInfoResolver
      * Useful for @see \Symplify\EasyCodingStandard\SnippetFormatter\Command\CheckMarkdownCommand Where the
      * $smartFileInfo is only temporary snippet, so original markdown file should be used
      */
-    public function resolveTargetFileInfo(SplFileInfo $fileInfo): SplFileInfo
+    public function resolveTargetFilePath(string $filePath): string
     {
-        $currentParentFileInfo = $this->currentParentFileInfoProvider->provide();
-        if ($currentParentFileInfo instanceof SplFileInfo) {
-            return $currentParentFileInfo;
+        $currentParentFilePath = $this->currentParentFilePathProvider->provide();
+        if (is_string($currentParentFilePath)) {
+            return $currentParentFilePath;
         }
 
-        return $fileInfo;
+        return $filePath;
     }
 }
