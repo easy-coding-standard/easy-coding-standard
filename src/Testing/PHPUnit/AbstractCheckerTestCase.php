@@ -12,13 +12,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Finder\Finder;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
-use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 use Symplify\EasyCodingStandard\Testing\Contract\ConfigAwareInterface;
 use Symplify\EasyCodingStandard\Testing\Exception\TestingShouldNotHappenException;
-use Symplify\EasyCodingStandard\ValueObject\Configuration;
-use Symplify\EasyTesting\StaticFixtureSplitter;
-use Symplify\SmartFileSystem\SmartFileInfo;
 use Webmozart\Assert\Assert;
 
 // needed for scoped version to load unprefixed classes; does not have any effect inside the class
@@ -91,65 +87,43 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
     /**
      * @deprecated use doTestFile() instead with \Symplify\EasyCodingStandard\Testing\PHPUnit\StaticFixtureFileFinder::yieldFiles()
      */
-    protected function doTestFileInfo(SplFileInfo $fileInfo): void
+    protected function doTestFileInfo(SplFileInfo $fileInfo): never
     {
-        $staticFixtureSplitter = new StaticFixtureSplitter();
-
-        // @deprecated, to be removed in next PR
-        $smartFileInfo = new SmartFileInfo($fileInfo->getRealPath());
-
-        $inputFileInfoAndExpectedFileInfo = $staticFixtureSplitter->splitFileInfoToLocalInputAndExpectedFileInfos(
-            $smartFileInfo
+        echo sprintf(
+            'The "%s()" method is deprecated and will be removed in ECS 12. Use "doTestFile()" or PHPStan rule/custom rule instead',
+            __METHOD__
         );
-
-        $this->doTestWrongToFixedFile(
-            $inputFileInfoAndExpectedFileInfo->getInputFileInfo(),
-            $inputFileInfoAndExpectedFileInfo->getExpectedFileInfoRealPath()
-        );
+        sleep(5);
+        exit(1);
     }
 
     /**
      * @api
      * File should stay the same and contain 0 errors
+     * @deprecated Use doTestFile() or PHPStan instead
      */
-    protected function doTestCorrectFileInfo(SplFileInfo $fileInfo): void
+    protected function doTestCorrectFileInfo(SplFileInfo $fileInfo): never
     {
-        $this->ensureSomeCheckersAreRegistered();
-
-        if ($this->fixerFileProcessor->getCheckers() !== []) {
-            // @todo separate processFile(): array with errors for parallel,
-            // and processFileToString() for tests only
-            $processedFileContent = $this->fixerFileProcessor->processFileToString($fileInfo);
-            $this->assertStringEqualsFile($fileInfo->getRealPath(), $processedFileContent);
-        }
-
-        if ($this->sniffFileProcessor->getCheckers() !== []) {
-            $processedFileContent = $this->sniffFileProcessor->processFileToString($fileInfo);
-
-            $this->assertStringEqualsFile($fileInfo->getRealPath(), $processedFileContent);
-        }
+        echo sprintf(
+            'The "%s()" method is deprecated and will be removed in ECS 12. Use "doTestFile()" or PHPStan rule/custom rule instead',
+            __METHOD__
+        );
+        sleep(5);
+        exit(1);
     }
 
     /**
      * @api
+     * @deprecated Use doTestFile() or PHPStan instead
      */
-    protected function doTestFileInfoWithErrorCountOf(SplFileInfo $wrongFileInfo, int $expectedErrorCount): void
+    protected function doTestFileInfoWithErrorCountOf(SplFileInfo $wrongFileInfo, int $expectedErrorCount): never
     {
-        $this->ensureSomeCheckersAreRegistered();
-
-        $configuration = new Configuration();
-        $errorsAndFileDiffs = $this->sniffFileProcessor->processFile($wrongFileInfo, $configuration);
-
-        $errors = $errorsAndFileDiffs[Bridge::CODING_STANDARD_ERRORS] ?? [];
-
-        $message = sprintf(
-            'There should be %d errors in "%s" file, but none found.',
-            $expectedErrorCount,
-            $wrongFileInfo->getRealPath()
+        echo sprintf(
+            'The "%s()" method is deprecated and will be removed in ECS 12. Use "doTestFile()" or PHPStan rule/custom rule instead',
+            __METHOD__
         );
-
-        $errorCount = count($errors);
-        $this->assertSame($expectedErrorCount, $errorCount, $message);
+        sleep(5);
+        exit(1);
     }
 
     /**
@@ -164,25 +138,6 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
         Assert::allString($filePaths);
 
         return $filePaths;
-    }
-
-    /**
-     * @deprecated
-     */
-    private function doTestWrongToFixedFile(SplFileInfo $wrongFileInfo, string $fixedFile): void
-    {
-        $this->ensureSomeCheckersAreRegistered();
-
-        if ($this->fixerFileProcessor->getCheckers() !== []) {
-            $processedFileContent = $this->fixerFileProcessor->processFileToString($wrongFileInfo);
-            $this->assertStringEqualsFile($fixedFile, $processedFileContent);
-        } elseif ($this->sniffFileProcessor->getCheckers() !== []) {
-            $processedFileContent = $this->sniffFileProcessor->processFileToString($wrongFileInfo);
-        } else {
-            throw new TestingShouldNotHappenException();
-        }
-
-        $this->assertStringEqualsFile($fixedFile, $processedFileContent);
     }
 
     private function autoloadCodeSniffer(): void
