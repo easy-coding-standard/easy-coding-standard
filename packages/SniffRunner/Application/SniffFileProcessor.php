@@ -111,8 +111,12 @@ final class SniffFileProcessor implements FileProcessorInterface
     /**
      * For tests or printing contenet
      */
-    public function processFileToString(SplFileInfo $fileInfo): string
+    public function processFileToString(SplFileInfo|string $fileInfo): string
     {
+        if (is_string($fileInfo)) {
+            $fileInfo = new SplFileInfo($fileInfo);
+        }
+
         $file = $this->fileFactory->createFromFileInfo($fileInfo);
         $this->fixFile($file, $this->fixer, $fileInfo, $this->tokenListeners, []);
 

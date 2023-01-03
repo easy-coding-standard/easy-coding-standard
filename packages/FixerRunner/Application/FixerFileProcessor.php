@@ -130,8 +130,13 @@ final class FixerFileProcessor implements FileProcessorInterface
         ];
     }
 
-    public function processFileToString(SplFileInfo $fileInfo): string
+    public function processFileToString(SplFileInfo | string $fileInfo): string
     {
+        // compat layer
+        if (is_string($fileInfo)) {
+            $fileInfo = new SplFileInfo($fileInfo);
+        }
+
         $tokens = $this->fileToTokensParser->parseFromFilePath($fileInfo->getRealPath());
 
         $appliedFixers = [];
