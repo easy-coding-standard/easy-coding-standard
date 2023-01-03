@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Skipper\Skipper;
 
+use SplFileInfo;
 use Symplify\EasyCodingStandard\Skipper\Matcher\FileInfoMatcher;
 
 /**
@@ -19,7 +20,7 @@ final class SkipSkipper
     /**
      * @param array<string, string[]|null> $skippedClasses
      */
-    public function doesMatchSkip(object | string $checker, \SplFileInfo | string $file, array $skippedClasses): bool
+    public function doesMatchSkip(object | string $checker, SplFileInfo | string $file, array $skippedClasses): bool
     {
         foreach ($skippedClasses as $skippedClass => $skippedFiles) {
             if (! is_a($checker, $skippedClass, true)) {

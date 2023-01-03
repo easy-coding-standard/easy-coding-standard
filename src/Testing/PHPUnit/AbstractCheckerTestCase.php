@@ -7,6 +7,7 @@ namespace Symplify\EasyCodingStandard\Testing\PHPUnit;
 use Nette\Utils\FileSystem;
 use Nette\Utils\Strings;
 use PHPUnit\Framework\TestCase;
+use SplFileInfo;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
@@ -55,7 +56,7 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
         $this->sniffFileProcessor = $container->get(SniffFileProcessor::class);
     }
 
-    protected function doTestFile(string $filePath): void
+    protected function doTestFile(string $filePath): never
     {
         $this->ensureSomeCheckersAreRegistered();
 
@@ -71,7 +72,7 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
     /**
      * @deprecated use doTestFile() instead with \Symplify\EasyCodingStandard\Testing\PHPUnit\StaticFixtureFileFinder::yieldFiles()
      */
-    protected function doTestFileInfo(\SplFileInfo $fileInfo): void
+    protected function doTestFileInfo(SplFileInfo $fileInfo): void
     {
         $staticFixtureSplitter = new StaticFixtureSplitter();
 
@@ -90,7 +91,7 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
      * @api
      * File should stay the same and contain 0 errors
      */
-    protected function doTestCorrectFileInfo(\SplFileInfo $fileInfo): void
+    protected function doTestCorrectFileInfo(SplFileInfo $fileInfo): void
     {
         $this->ensureSomeCheckersAreRegistered();
 
@@ -111,7 +112,7 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
     /**
      * @api
      */
-    protected function doTestFileInfoWithErrorCountOf(\SplFileInfo $wrongFileInfo, int $expectedErrorCount): void
+    protected function doTestFileInfoWithErrorCountOf(SplFileInfo $wrongFileInfo, int $expectedErrorCount): void
     {
         $this->ensureSomeCheckersAreRegistered();
 
@@ -131,9 +132,9 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
     }
 
     private function doTestWrongToFixedFile(
-        \SplFileInfo $wrongFileInfo,
+        SplFileInfo $wrongFileInfo,
         string $fixedFile,
-        \SplFileInfo $fixtureFileInfo
+        SplFileInfo $fixtureFileInfo
     ): void {
         $this->ensureSomeCheckersAreRegistered();
 
@@ -176,7 +177,7 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
     private function assertStringEqualsWithFileLocation(
         string $file,
         string $processedFileContent,
-        \SplFileInfo $fixtureFileInfo
+        SplFileInfo $fixtureFileInfo
     ): void {
         $filesystem = new \Symfony\Component\Filesystem\Filesystem();
         $relativeFilePathFromCwd = $filesystem->makePathRelative(

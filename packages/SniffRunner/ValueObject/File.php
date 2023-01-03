@@ -9,6 +9,7 @@ use PHP_CodeSniffer\Files\File as BaseFile;
 use PHP_CodeSniffer\Fixer;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Common;
+use SplFileInfo;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Skipper\Skipper\Skipper;
 use Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector;
@@ -36,7 +37,7 @@ final class File extends BaseFile
      */
     private array $tokenListeners = [];
 
-    private ?\SplFileInfo $fileInfo = null;
+    private ?SplFileInfo $fileInfo = null;
 
     /**
      * @var array<class-string<Sniff>>
@@ -152,7 +153,7 @@ final class File extends BaseFile
      */
     public function processWithTokenListenersAndFileInfo(
         array $tokenListeners,
-        \SplFileInfo $fileInfo,
+        SplFileInfo $fileInfo,
         array $reportSniffClassesWarnings
     ): void {
         $this->tokenListeners = $tokenListeners;

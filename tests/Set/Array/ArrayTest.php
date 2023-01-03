@@ -13,7 +13,7 @@ final class ArrayTest extends AbstractCheckerTestCase
     /**
      * @dataProvider provideData()
      */
-    public function test(string $filePath): void
+    public function test(string $filePath): never
     {
         $this->doTestFile($filePath);
     }
