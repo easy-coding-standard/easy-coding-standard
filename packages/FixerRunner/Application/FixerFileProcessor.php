@@ -233,7 +233,7 @@ final class FixerFileProcessor implements FileProcessorInterface
     }
 
     /**
-     * Is markdown/herenow doc checker → skip useless rules
+     * Is markdown doc checker → skip useless rules
      */
     private function shouldSkipForMarkdownHeredocCheck(FixerInterface $fixer): bool
     {
