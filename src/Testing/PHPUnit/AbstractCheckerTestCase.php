@@ -65,7 +65,7 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
         $fileContents = FileSystem::read($filePath);
         [$inputContents, $expectedContents] = Strings::split($fileContents, self::SPLIT_LINE_REGEX);
 
-        $inputFilePath = sys_get_temp_dir() . '/ecs_tests/' . md5($inputContents) . '.php';
+        $inputFilePath = sys_get_temp_dir() . '/ecs_tests/' . md5((string) $inputContents) . '.php';
         FileSystem::write($inputFilePath, $inputContents);
 
         if ($this->fixerFileProcessor->getCheckers() !== []) {
@@ -96,8 +96,7 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
 
         $this->doTestWrongToFixedFile(
             $inputFileInfoAndExpectedFileInfo->getInputFileInfo(),
-            $inputFileInfoAndExpectedFileInfo->getExpectedFileInfoRealPath(),
-            $fileInfo
+            $inputFileInfoAndExpectedFileInfo->getExpectedFileInfoRealPath()
         );
     }
 
@@ -159,11 +158,8 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
         return $filePaths;
     }
 
-    private function doTestWrongToFixedFile(
-        SplFileInfo $wrongFileInfo,
-        string $fixedFile,
-        SplFileInfo $fixtureFileInfo
-    ): void {
+    private function doTestWrongToFixedFile(SplFileInfo $wrongFileInfo, string $fixedFile): void
+    {
         $this->ensureSomeCheckersAreRegistered();
 
         if ($this->fixerFileProcessor->getCheckers() !== []) {
