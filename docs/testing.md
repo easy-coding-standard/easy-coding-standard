@@ -24,28 +24,28 @@ final class YourFixerTest extends AbstractCheckerTestCase
     /**
      * @dataProvider provideData()
      */
-    public function test(SmartFileInfo $fileInfo): void
+    public function test(string $filePath): void
     {
-        $this->doTestFileInfo($fileInfo);
+        $this->doTestFile($filePath);
     }
 
     public function provideData(): Iterator
     {
-        return StaticFixtureFinder::yieldDirectory(__DIR__ . '/Fixture');
+        yield self::yieldFiles(__DIR__ . '/Fixture');
     }
 
     /**
      * @dataProvider provideDataWithFileErrors()
      */
-    public function testFileErrors(SmartFileInfo $fileInfo, int $expectedErrorCount): void
+    public function testFileErrors(string $filePath, int $expectedErrorCount): void
     {
-        $this->doTestFileInfoWithErrorCountOf($fileInfo, $expectedErrorCount);
+        $this->doTestFileInfoWithErrorCountOf($filePath, $expectedErrorCount);
     }
 
     public function provideDataWithFileErrors(): Iterator
     {
-        yield [new SmartFileInfo(__DIR__ . '/Fixture/wrong.php.inc'), 1];
-        yield [new SmartFileInfo(__DIR__ . '/Fixture/correct.php.inc'), 0];
+        yield [__DIR__ . '/Fixture/wrong.php.inc', 1];
+        yield [__DIR__ . '/Fixture/correct.php.inc', 0];
     }
 
     protected function getCheckerClass(): string
