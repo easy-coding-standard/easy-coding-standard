@@ -13,7 +13,7 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class FileDiffFactory
 {
     public function __construct(
-        private ColorConsoleDiffFormatter $colorConsoleDiffFormatter
+        private readonly ColorConsoleDiffFormatter $colorConsoleDiffFormatter
     ) {
     }
 

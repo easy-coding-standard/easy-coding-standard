@@ -10,8 +10,8 @@ use Symplify\EasyCodingStandard\Application\FileProcessorCollector;
 final class LoadedCheckersGuard
 {
     public function __construct(
-        private FileProcessorCollector $fileProcessorCollector,
-        private SymfonyStyle $symfonyStyle,
+        private readonly FileProcessorCollector $fileProcessorCollector,
+        private readonly SymfonyStyle $symfonyStyle,
     ) {
     }
 

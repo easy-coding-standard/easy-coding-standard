@@ -15,7 +15,7 @@ final class SkippedMessagesResolver
     private array $skippedMessages = [];
 
     public function __construct(
-        private ParameterProvider $parameterProvider
+        private readonly ParameterProvider $parameterProvider
     ) {
     }
 

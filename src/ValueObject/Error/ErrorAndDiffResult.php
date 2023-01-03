@@ -26,7 +26,7 @@ final class ErrorAndDiffResult
     public function __construct(
         array $codingStandardErrors,
         array $fileDiffs,
-        private array $systemErrors
+        private readonly array $systemErrors
     ) {
         $this->codingStandardErrors = $this->sortByFileAndLine($codingStandardErrors);
         $this->fileDiffs = $this->sortByFilePath($fileDiffs);

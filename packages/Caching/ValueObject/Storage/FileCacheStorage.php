@@ -17,8 +17,8 @@ use Symplify\SmartFileSystem\SmartFileSystem;
 final class FileCacheStorage
 {
     public function __construct(
-        private string $directory,
-        private SmartFileSystem $smartFileSystem
+        private readonly string $directory,
+        private readonly SmartFileSystem $smartFileSystem
     ) {
     }
 

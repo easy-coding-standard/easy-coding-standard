@@ -12,8 +12,8 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class PathSkipVoter implements SkipVoterInterface
 {
     public function __construct(
-        private FileInfoMatcher $fileInfoMatcher,
-        private SkippedPathsResolver $skippedPathsResolver
+        private readonly FileInfoMatcher $fileInfoMatcher,
+        private readonly SkippedPathsResolver $skippedPathsResolver
     ) {
     }
 

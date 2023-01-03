@@ -14,7 +14,7 @@ use Symplify\PackageBuilder\Parameter\ParameterProvider;
 final class ConfigurationFactory
 {
     public function __construct(
-        private ParameterProvider $parameterProvider
+        private readonly ParameterProvider $parameterProvider
     ) {
     }
 

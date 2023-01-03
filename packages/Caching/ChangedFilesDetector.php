@@ -23,8 +23,8 @@ final class ChangedFilesDetector
     private const FILE_HASH = 'file_hash';
 
     public function __construct(
-        private FileHashComputer $fileHashComputer,
-        private Cache $cache
+        private readonly FileHashComputer $fileHashComputer,
+        private readonly Cache $cache
     ) {
     }
 

@@ -10,7 +10,7 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class TargetFileInfoResolver
 {
     public function __construct(
-        private CurrentParentFileInfoProvider $currentParentFileInfoProvider
+        private readonly CurrentParentFileInfoProvider $currentParentFileInfoProvider
     ) {
     }
 

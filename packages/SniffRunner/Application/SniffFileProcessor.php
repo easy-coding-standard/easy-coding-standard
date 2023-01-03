@@ -40,13 +40,13 @@ final class SniffFileProcessor implements FileProcessorInterface
      * @param Sniff[] $sniffs
      */
     public function __construct(
-        private Fixer $fixer,
-        private FileFactory $fileFactory,
-        private DifferInterface $differ,
-        private SniffMetadataCollector $sniffMetadataCollector,
-        private SmartFileSystem $smartFileSystem,
-        private FileDiffFactory $fileDiffFactory,
-        private PrivatesAccessor $privatesAccessor,
+        private readonly Fixer $fixer,
+        private readonly FileFactory $fileFactory,
+        private readonly DifferInterface $differ,
+        private readonly SniffMetadataCollector $sniffMetadataCollector,
+        private readonly SmartFileSystem $smartFileSystem,
+        private readonly FileDiffFactory $fileDiffFactory,
+        private readonly PrivatesAccessor $privatesAccessor,
         array $sniffs
     ) {
         $this->addCompatibilityLayer();

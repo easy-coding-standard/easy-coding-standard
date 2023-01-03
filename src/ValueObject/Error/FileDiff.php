@@ -15,9 +15,9 @@ final class FileDiff implements SerializableInterface
      * @param array<class-string<Sniff|FixerInterface>|string> $appliedCheckers
      */
     public function __construct(
-        private string $relativeFilePath,
-        private string $diff,
-        private string $consoleFormattedDiff,
+        private readonly string $relativeFilePath,
+        private readonly string $diff,
+        private readonly string $consoleFormattedDiff,
         private array $appliedCheckers
     ) {
     }

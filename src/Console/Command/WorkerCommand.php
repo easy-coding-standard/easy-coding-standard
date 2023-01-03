@@ -26,8 +26,8 @@ use Symplify\EasyParallel\Enum\ReactCommand;
 final class WorkerCommand extends AbstractCheckCommand
 {
     public function __construct(
-        private WorkerRunner $workerRunner,
-        private MemoryLimitter $memoryLimitter,
+        private readonly WorkerRunner $workerRunner,
+        private readonly MemoryLimitter $memoryLimitter,
     ) {
         parent::__construct();
     }

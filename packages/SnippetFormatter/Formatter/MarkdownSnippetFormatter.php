@@ -47,10 +47,10 @@ final class MarkdownSnippetFormatter
     private const CLOSING = 'closing';
 
     public function __construct(
-        private SmartFileSystem $smartFileSystem,
-        private FixerFileProcessor $fixerFileProcessor,
-        private SniffFileProcessor $sniffFileProcessor,
-        private CurrentParentFileInfoProvider $currentParentFileInfoProvider
+        private readonly SmartFileSystem $smartFileSystem,
+        private readonly FixerFileProcessor $fixerFileProcessor,
+        private readonly SniffFileProcessor $sniffFileProcessor,
+        private readonly CurrentParentFileInfoProvider $currentParentFileInfoProvider
     ) {
     }
 
@@ -61,7 +61,7 @@ final class MarkdownSnippetFormatter
         return Strings::replace($fileInfo->getContents(), SnippetPattern::MARKDOWN_PHP_SNIPPET_REGEX, function ($match) use (
             $configuration
         ): string {
-            if (\str_contains($match[self::CONTENT], '-----')) {
+            if (\str_contains((string) $match[self::CONTENT], '-----')) {
                 // do nothing
                 return $match[self::OPENING] . $match[self::CONTENT] . $match[self::CLOSING];
             }

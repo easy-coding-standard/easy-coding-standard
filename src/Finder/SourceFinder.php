@@ -21,7 +21,7 @@ final class SourceFinder
     private array $fileExtensions = [];
 
     public function __construct(
-        private FinderSanitizer $finderSanitizer,
+        private readonly FinderSanitizer $finderSanitizer,
         ParameterProvider $parameterProvider,
     ) {
         $this->fileExtensions = $parameterProvider->provideArrayParameter(Option::FILE_EXTENSIONS);

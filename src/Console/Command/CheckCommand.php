@@ -12,8 +12,8 @@ use Symplify\EasyCodingStandard\Reporter\ProcessedFileReporter;
 final class CheckCommand extends AbstractCheckCommand
 {
     public function __construct(
-        private ProcessedFileReporter $processedFileReporter,
-        private MemoryLimitter $memoryLimitter,
+        private readonly ProcessedFileReporter $processedFileReporter,
+        private readonly MemoryLimitter $memoryLimitter,
     ) {
         parent::__construct();
     }

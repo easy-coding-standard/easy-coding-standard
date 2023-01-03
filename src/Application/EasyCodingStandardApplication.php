@@ -34,18 +34,18 @@ final class EasyCodingStandardApplication
     private const ARGV = 'argv';
 
     public function __construct(
-        private EasyCodingStandardStyle $easyCodingStandardStyle,
-        private SourceFinder $sourceFinder,
-        private ChangedFilesDetector $changedFilesDetector,
-        private FileFilter $fileFilter,
-        private SingleFileProcessor $singleFileProcessor,
-        private ScheduleFactory $scheduleFactory,
-        private ParallelFileProcessor $parallelFileProcessor,
-        private CpuCoreCountProvider $cpuCoreCountProvider,
-        private SymfonyStyle $symfonyStyle,
-        private FilePathNormalizer $filePathNormalizer,
-        private ParameterProvider $parameterProvider,
-        private ParametersMerger $parametersMerger
+        private readonly EasyCodingStandardStyle $easyCodingStandardStyle,
+        private readonly SourceFinder $sourceFinder,
+        private readonly ChangedFilesDetector $changedFilesDetector,
+        private readonly FileFilter $fileFilter,
+        private readonly SingleFileProcessor $singleFileProcessor,
+        private readonly ScheduleFactory $scheduleFactory,
+        private readonly ParallelFileProcessor $parallelFileProcessor,
+        private readonly CpuCoreCountProvider $cpuCoreCountProvider,
+        private readonly SymfonyStyle $symfonyStyle,
+        private readonly FilePathNormalizer $filePathNormalizer,
+        private readonly ParameterProvider $parameterProvider,
+        private readonly ParametersMerger $parametersMerger
     ) {
     }
 

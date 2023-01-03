@@ -17,10 +17,10 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class FileFactory
 {
     public function __construct(
-        private Fixer $fixer,
-        private Skipper $skipper,
-        private SniffMetadataCollector $sniffMetadataCollector,
-        private EasyCodingStandardStyle $easyCodingStandardStyle
+        private readonly Fixer $fixer,
+        private readonly Skipper $skipper,
+        private readonly SniffMetadataCollector $sniffMetadataCollector,
+        private readonly EasyCodingStandardStyle $easyCodingStandardStyle
     ) {
     }
 

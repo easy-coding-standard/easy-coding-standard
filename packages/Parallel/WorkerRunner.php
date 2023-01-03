@@ -21,8 +21,8 @@ use Throwable;
 final class WorkerRunner
 {
     public function __construct(
-        private SingleFileProcessor $singleFileProcessor,
-        private ParametersMerger $parametersMerger
+        private readonly SingleFileProcessor $singleFileProcessor,
+        private readonly ParametersMerger $parametersMerger
     ) {
     }
 

@@ -22,7 +22,7 @@ final class Skipper
      * @param SkipVoterInterface[] $skipVoters
      */
     public function __construct(
-        private array $skipVoters
+        private readonly array $skipVoters
     ) {
     }
 

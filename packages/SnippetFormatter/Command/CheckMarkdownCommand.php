@@ -12,7 +12,7 @@ use Symplify\EasyCodingStandard\SnippetFormatter\Application\MarkdownSnippetForm
 final class CheckMarkdownCommand extends AbstractCheckCommand
 {
     public function __construct(
-        private MarkdownSnippetFormatterApplication $markdownSnippetFormatterApplication
+        private readonly MarkdownSnippetFormatterApplication $markdownSnippetFormatterApplication
     ) {
         parent::__construct();
     }

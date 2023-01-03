@@ -11,8 +11,8 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class FileInfoMatcher
 {
     public function __construct(
-        private FnMatchPathNormalizer $fnMatchPathNormalizer,
-        private Fnmatcher $fnmatcher
+        private readonly FnMatchPathNormalizer $fnMatchPathNormalizer,
+        private readonly Fnmatcher $fnmatcher
     ) {
     }
 

@@ -14,9 +14,9 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class SingleFileProcessor
 {
     public function __construct(
-        private Skipper $skipper,
-        private ChangedFilesDetector $changedFilesDetector,
-        private FileProcessorCollector $fileProcessorCollector
+        private readonly Skipper $skipper,
+        private readonly ChangedFilesDetector $changedFilesDetector,
+        private readonly FileProcessorCollector $fileProcessorCollector
     ) {
     }
 

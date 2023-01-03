@@ -9,7 +9,7 @@ use Symplify\EasyCodingStandard\Caching\ValueObject\Storage\FileCacheStorage;
 final class Cache
 {
     public function __construct(
-        private FileCacheStorage $fileCacheStorage
+        private readonly FileCacheStorage $fileCacheStorage
     ) {
     }
 

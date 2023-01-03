@@ -19,8 +19,8 @@ final class SkippedPathsResolver
     private array $skippedPaths = [];
 
     public function __construct(
-        private ParameterProvider $parameterProvider,
-        private PathNormalizer $pathNormalizer
+        private readonly ParameterProvider $parameterProvider,
+        private readonly PathNormalizer $pathNormalizer
     ) {
     }
 
@@ -45,7 +45,7 @@ final class SkippedPathsResolver
                 continue;
             }
 
-            if (\str_contains($value, '*')) {
+            if (\str_contains((string) $value, '*')) {
                 $this->skippedPaths[] = $this->pathNormalizer->normalizePath($value);
                 continue;
             }

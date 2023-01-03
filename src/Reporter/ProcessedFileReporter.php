@@ -15,7 +15,7 @@ use Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
 final class ProcessedFileReporter
 {
     public function __construct(
-        private OutputFormatterCollector $outputFormatterCollector,
+        private readonly OutputFormatterCollector $outputFormatterCollector,
     ) {
     }
 
