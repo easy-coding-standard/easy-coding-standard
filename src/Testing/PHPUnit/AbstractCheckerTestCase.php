@@ -10,7 +10,6 @@ use PHPUnit\Framework\TestCase;
 use SplFileInfo;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Finder\Finder;
-use Symplify\EasyCodingStandard\FileSystem\StaticRelativeFilePathHelper;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
@@ -59,17 +58,26 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
         $this->sniffFileProcessor = $container->get(SniffFileProcessor::class);
     }
 
-    protected function doTestFile(string $filePath): never
+    protected function doTestFile(string $filePath): void
     {
         $this->ensureSomeCheckersAreRegistered();
 
         $fileContents = FileSystem::read($filePath);
-
         [$inputContents, $expectedContents] = Strings::split($fileContents, self::SPLIT_LINE_REGEX);
 
-        dump($inputContents);
-        dump($expectedContents);
-        die;
+        $inputFilePath = sys_get_temp_dir() . '/ecs_tests/' . md5($inputContents) . '.php';
+        FileSystem::write($inputFilePath, $inputContents);
+
+        if ($this->fixerFileProcessor->getCheckers() !== []) {
+            $processedFileContent = $this->fixerFileProcessor->processFileToString($inputFilePath);
+            $this->assertEquals($expectedContents, $processedFileContent);
+        } elseif ($this->sniffFileProcessor->getCheckers() !== []) {
+            $processedFileContent = $this->sniffFileProcessor->processFileToString($inputFilePath);
+        } else {
+            throw new TestingShouldNotHappenException();
+        }
+
+        $this->assertEquals($expectedContents, $processedFileContent);
     }
 
     /**
@@ -105,13 +113,13 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
             // @todo separate processFile(): array with errors for parallel,
             // and processFileToString() for tests only
             $processedFileContent = $this->fixerFileProcessor->processFileToString($fileInfo);
-            $this->assertStringEqualsWithFileLocation($fileInfo->getRealPath(), $processedFileContent, $fileInfo);
+            $this->assertStringEqualsFile($fileInfo->getRealPath(), $processedFileContent);
         }
 
         if ($this->sniffFileProcessor->getCheckers() !== []) {
             $processedFileContent = $this->sniffFileProcessor->processFileToString($fileInfo);
 
-            $this->assertStringEqualsWithFileLocation($fileInfo->getRealPath(), $processedFileContent, $fileInfo);
+            $this->assertStringEqualsFile($fileInfo->getRealPath(), $processedFileContent);
         }
     }
 
@@ -160,14 +168,14 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
 
         if ($this->fixerFileProcessor->getCheckers() !== []) {
             $processedFileContent = $this->fixerFileProcessor->processFileToString($wrongFileInfo);
-            $this->assertStringEqualsWithFileLocation($fixedFile, $processedFileContent, $fixtureFileInfo);
+            $this->assertStringEqualsFile($fixedFile, $processedFileContent);
         } elseif ($this->sniffFileProcessor->getCheckers() !== []) {
             $processedFileContent = $this->sniffFileProcessor->processFileToString($wrongFileInfo);
         } else {
             throw new TestingShouldNotHappenException();
         }
 
-        $this->assertStringEqualsWithFileLocation($fixedFile, $processedFileContent, $fixtureFileInfo);
+        $this->assertStringEqualsFile($fixedFile, $processedFileContent);
     }
 
     private function autoloadCodeSniffer(): void
@@ -192,16 +200,6 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
         }
 
         throw new TestingShouldNotHappenException('No fixers nor sniffers were found. Registers them in your config.');
-    }
-
-    private function assertStringEqualsWithFileLocation(
-        string $file,
-        string $processedFileContent,
-        SplFileInfo $fixtureFileInfo
-    ): void {
-        $relativeFilePath = StaticRelativeFilePathHelper::resolveFromCwd($fixtureFileInfo->getRealPath());
-
-        $this->assertStringEqualsFile($file, $processedFileContent, $relativeFilePath);
     }
 
     /**
