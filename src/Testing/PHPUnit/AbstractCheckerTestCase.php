@@ -93,6 +93,13 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
      */
     protected function doTestFileInfo(SplFileInfo $fileInfo): void
     {
+        echo sprintf(
+            'The "%s()" method is deprecated and will be removed in ECS 12. Use "doTestFile()" or PHPStan rule/custom rule instead',
+            __METHOD__
+        );
+        sleep(5);
+        exit(1);
+
         $staticFixtureSplitter = new StaticFixtureSplitter();
 
         // @deprecated, to be removed in next PR
@@ -111,9 +118,17 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
     /**
      * @api
      * File should stay the same and contain 0 errors
+     * @deprecated Use doTestFile() or PHPStan instead
      */
     protected function doTestCorrectFileInfo(SplFileInfo $fileInfo): void
     {
+        echo sprintf(
+            'The "%s()" method is deprecated and will be removed in ECS 12. Use "doTestFile()" or PHPStan rule/custom rule instead',
+            __METHOD__
+        );
+        sleep(5);
+        exit(1);
+
         $this->ensureSomeCheckersAreRegistered();
 
         if ($this->fixerFileProcessor->getCheckers() !== []) {
@@ -132,9 +147,17 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
 
     /**
      * @api
+     * @deprecated Use doTestFile() or PHPStan instead
      */
     protected function doTestFileInfoWithErrorCountOf(SplFileInfo $wrongFileInfo, int $expectedErrorCount): void
     {
+        echo sprintf(
+            'The "%s()" method is deprecated and will be removed in ECS 12. Use "doTestFile()" or PHPStan rule/custom rule instead',
+            __METHOD__
+        );
+        sleep(5);
+        exit(1);
+
         $this->ensureSomeCheckersAreRegistered();
 
         $configuration = new Configuration();
