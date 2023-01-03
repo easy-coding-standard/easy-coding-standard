@@ -16,7 +16,7 @@ use Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 use Symplify\EasyCodingStandard\Testing\Contract\ConfigAwareInterface;
-use Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException;
+use Symplify\EasyCodingStandard\Testing\Exception\TestingShouldNotHappenException;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyTesting\StaticFixtureSplitter;
 use Symplify\SmartFileSystem\SmartFileInfo;
@@ -164,7 +164,7 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
         } elseif ($this->sniffFileProcessor->getCheckers() !== []) {
             $processedFileContent = $this->sniffFileProcessor->processFileToString($wrongFileInfo);
         } else {
-            throw new ShouldNotHappenException();
+            throw new TestingShouldNotHappenException();
         }
 
         $this->assertStringEqualsWithFileLocation($fixedFile, $processedFileContent, $fixtureFileInfo);
@@ -191,7 +191,7 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
             return;
         }
 
-        throw new ShouldNotHappenException('No fixers nor sniffers were found. Registers them in your config.');
+        throw new TestingShouldNotHappenException('No fixers nor sniffers were found. Registers them in your config.');
     }
 
     private function assertStringEqualsWithFileLocation(

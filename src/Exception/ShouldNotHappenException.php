@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Symplify\EasyCodingStandard\Testing\Exception;
+namespace Symplify\EasyCodingStandard\Exception;
 
 use Exception;
 
