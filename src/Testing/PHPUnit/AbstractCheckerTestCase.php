@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Testing\PHPUnit;
 
+use Nette\Utils\FileSystem;
+use Nette\Utils\Strings;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
@@ -14,8 +16,6 @@ use Symplify\EasyCodingStandard\Testing\Contract\ConfigAwareInterface;
 use Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyTesting\StaticFixtureSplitter;
-use Symplify\SmartFileSystem\FileSystemGuard;
-use Symplify\SmartFileSystem\SmartFileInfo;
 use Webmozart\Assert\Assert;
 
 // needed for scoped version to load unprefixed classes; does not have any effect inside the class
@@ -26,6 +26,11 @@ if (file_exists($scoperAutoloadFilepath)) {
 
 abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareInterface
 {
+    /**
+     * @var string
+     */
+    private const SPLIT_LINE_REGEX = "#\-\-\-\-\-\r?\n#";
+
     /**
      * @var string[]
      */
@@ -50,7 +55,23 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
         $this->sniffFileProcessor = $container->get(SniffFileProcessor::class);
     }
 
-    protected function doTestFileInfo(SmartFileInfo $fileInfo): void
+    protected function doTestFile(string $filePath): void
+    {
+        $this->ensureSomeCheckersAreRegistered();
+
+        $fileContents = FileSystem::read($filePath);
+
+        [$inputContents, $expectedContents] = Strings::split($fileContents, self::SPLIT_LINE_REGEX);
+
+        dump($inputContents);
+        dump($expectedContents);
+        die;
+    }
+
+    /**
+     * @deprecated use doTestFile() instead with \Symplify\EasyCodingStandard\Testing\PHPUnit\StaticFixtureFileFinder::yieldFiles()
+     */
+    protected function doTestFileInfo(\SplFileInfo $fileInfo): void
     {
         $staticFixtureSplitter = new StaticFixtureSplitter();
 
@@ -66,9 +87,10 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
     }
 
     /**
+     * @api
      * File should stay the same and contain 0 errors
      */
-    protected function doTestCorrectFileInfo(SmartFileInfo $fileInfo): void
+    protected function doTestCorrectFileInfo(\SplFileInfo $fileInfo): void
     {
         $this->ensureSomeCheckersAreRegistered();
 
@@ -86,7 +108,10 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
         }
     }
 
-    protected function doTestFileInfoWithErrorCountOf(SmartFileInfo $wrongFileInfo, int $expectedErrorCount): void
+    /**
+     * @api
+     */
+    protected function doTestFileInfoWithErrorCountOf(\SplFileInfo $wrongFileInfo, int $expectedErrorCount): void
     {
         $this->ensureSomeCheckersAreRegistered();
 
@@ -106,9 +131,9 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
     }
 
     private function doTestWrongToFixedFile(
-        SmartFileInfo $wrongFileInfo,
+        \SplFileInfo $wrongFileInfo,
         string $fixedFile,
-        SmartFileInfo $fixtureFileInfo
+        \SplFileInfo $fixtureFileInfo
     ): void {
         $this->ensureSomeCheckersAreRegistered();
 
@@ -145,15 +170,22 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
             return;
         }
 
-        throw new ShouldNotHappenException('No checkers were found. Registers them in your config.');
+        throw new ShouldNotHappenException('No fixers nor sniffers were found. Registers them in your config.');
     }
 
     private function assertStringEqualsWithFileLocation(
         string $file,
         string $processedFileContent,
-        SmartFileInfo $fixtureFileInfo
+        \SplFileInfo $fixtureFileInfo
     ): void {
-        $relativeFilePathFromCwd = $fixtureFileInfo->getRelativeFilePathFromCwd();
+        $filesystem = new \Symfony\Component\Filesystem\Filesystem();
+        $relativeFilePathFromCwd = $filesystem->makePathRelative(
+            getcwd(),
+            (string) \realpath($fixtureFileInfo->getRealPath())
+        );
+
+        // $relativeFilePathFromCwd = $fixtureFileInfo->getRelativeFilePathFromCwd();
+
         $this->assertStringEqualsFile($file, $processedFileContent, $relativeFilePathFromCwd);
     }
 
@@ -163,8 +195,7 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
     private function getValidatedConfigs(): array
     {
         $config = $this->provideConfig();
-        $fileSystemGuard = new FileSystemGuard();
-        $fileSystemGuard->ensureFileExists($config, static::class);
+        Assert::fileExists($config);
 
         return [$config];
     }

@@ -8,7 +8,6 @@ use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\FixerInterface;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use Symplify\PackageBuilder\Console\Formatter\ColorConsoleDiffFormatter;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class FileDiffFactory
 {
@@ -21,7 +20,7 @@ final class FileDiffFactory
      * @param array<class-string<FixerInterface|Sniff>|string> $appliedCheckers
      */
     public function createFromDiffAndAppliedCheckers(
-        SmartFileInfo $smartFileInfo,
+        \SplFileInfo $smartFileInfo,
         string $diff,
         array $appliedCheckers
     ): FileDiff {

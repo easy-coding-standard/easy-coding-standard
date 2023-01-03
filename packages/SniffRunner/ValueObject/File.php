@@ -36,7 +36,7 @@ final class File extends BaseFile
      */
     private array $tokenListeners = [];
 
-    private ?SmartFileInfo $fileInfo = null;
+    private ?\SplFileInfo $fileInfo = null;
 
     /**
      * @var array<class-string<Sniff>>
@@ -152,7 +152,7 @@ final class File extends BaseFile
      */
     public function processWithTokenListenersAndFileInfo(
         array $tokenListeners,
-        SmartFileInfo $fileInfo,
+        \SplFileInfo $fileInfo,
         array $reportSniffClassesWarnings
     ): void {
         $this->tokenListeners = $tokenListeners;

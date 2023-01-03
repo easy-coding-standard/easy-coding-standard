@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\SniffRunner\File;
 
+use Nette\Utils\FileSystem;
 use PHP_CodeSniffer\Fixer;
+use SplFileInfo;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Skipper\Skipper\Skipper;
 use Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\File;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 /**
  * @see \Symplify\EasyCodingStandard\Tests\SniffRunner\File\FileFactoryTest
@@ -24,11 +25,13 @@ final class FileFactory
     ) {
     }
 
-    public function createFromFileInfo(SmartFileInfo $smartFileInfo): File
+    public function createFromFileInfo(SplFileInfo $fileInfo): File
     {
+        $fileContents = FileSystem::read($fileInfo->getRealPath());
+
         return new File(
-            $smartFileInfo->getRelativeFilePath(),
-            $smartFileInfo->getContents(),
+            $fileInfo->getRelativeFilePath(),
+            $fileContents,
             $this->fixer,
             $this->skipper,
             $this->sniffMetadataCollector,

@@ -37,14 +37,14 @@ final class Skipper
         return $this->shouldSkipElementAndFileInfo(self::FILE_ELEMENT, $smartFileInfo);
     }
 
-    public function shouldSkipElementAndFileInfo(string | object $element, SmartFileInfo $smartFileInfo): bool
+    public function shouldSkipElementAndFileInfo(string | object $element, \SplFileInfo $fileInfo): bool
     {
         foreach ($this->skipVoters as $skipVoter) {
             if (! $skipVoter->match($element)) {
                 continue;
             }
 
-            if (! $skipVoter->shouldSkip($element, $smartFileInfo)) {
+            if (! $skipVoter->shouldSkip($element, $fileInfo)) {
                 continue;
             }
 
