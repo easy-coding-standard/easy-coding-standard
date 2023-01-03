@@ -1,21 +1,20 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\SnippetFormatter\Provider;
 
 use SplFileInfo;
-
 final class CurrentParentFileInfoProvider
 {
-    private ?SplFileInfo $fileInfo = null;
-
-    public function setParentFileInfo(SplFileInfo $fileInfo): void
+    /**
+     * @var \SplFileInfo|null
+     */
+    private $fileInfo;
+    public function setParentFileInfo(SplFileInfo $fileInfo) : void
     {
         $this->fileInfo = $fileInfo;
     }
-
-    public function provide(): ?SplFileInfo
+    public function provide() : ?SplFileInfo
     {
         return $this->fileInfo;
     }

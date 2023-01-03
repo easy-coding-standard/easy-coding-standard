@@ -1,25 +1,21 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Contract\Application;
 
 use SplFileInfo;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
-
 interface FileProcessorInterface
 {
-    public function processFileToString(SplFileInfo $fileInfo): string;
-
+    public function processFileToString(SplFileInfo $fileInfo) : string;
     /**
      * @return array{file_diffs?: FileDiff[], coding_standard_errors?: CodingStandardError[]}
      */
-    public function processFile(SplFileInfo $splFileInfo, Configuration $configuration): array;
-
+    public function processFile(SplFileInfo $splFileInfo, Configuration $configuration) : array;
     /**
      * @return object[]
      */
-    public function getCheckers(): array;
+    public function getCheckers() : array;
 }
