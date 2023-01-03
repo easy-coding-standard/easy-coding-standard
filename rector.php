@@ -9,10 +9,9 @@ use Rector\Set\ValueObject\SetList;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->sets([
+        LevelSetList::UP_TO_PHP_81,
         SetList::CODE_QUALITY,
         SetList::DEAD_CODE,
-        // @todo bump to PHP 8.1
-        LevelSetList::UP_TO_PHP_80,
         SetList::CODING_STYLE,
         SetList::TYPE_DECLARATION,
         SetList::NAMING,
@@ -22,6 +21,9 @@ return static function (RectorConfig $rectorConfig): void {
     ]);
 
     $rectorConfig->paths([
+        __DIR__ . '/ecs.php',
+        __DIR__ . '/rector.php',
+        __DIR__ . '/config',
         __DIR__ . '/src',
         __DIR__ . '/packages',
         __DIR__ . '/tests',
@@ -32,11 +34,5 @@ return static function (RectorConfig $rectorConfig): void {
 
     $rectorConfig->bootstrapFiles([__DIR__ . '/tests/bootstrap.php']);
 
-    $rectorConfig->skip([
-        '*/scoper.php',
-        '*/Source/*',
-        '*/Fixture/*',
-
-        'packages/SniffRunner/ValueObject/File.php',
-    ]);
+    $rectorConfig->skip(['*/Source/*', '*/Fixture/*', 'packages/SniffRunner/ValueObject/File.php']);
 };

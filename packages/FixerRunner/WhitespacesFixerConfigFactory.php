@@ -17,7 +17,7 @@ final class WhitespacesFixerConfigFactory
     private const ALLOWED_VALUES = ['tab', 'spaces', Spacing::TWO_SPACES, Spacing::FOUR_SPACES, Spacing::ONE_TAB];
 
     public function __construct(
-        private ParameterProvider $parameterProvider
+        private readonly ParameterProvider $parameterProvider
     ) {
     }
 

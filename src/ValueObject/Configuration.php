@@ -14,18 +14,18 @@ final class Configuration
      * @param array<class-string<Sniff>> $reportSniffClassesWarnings
      */
     public function __construct(
-        private bool $isFixer = false,
-        private bool $shouldClearCache = false,
-        private bool $showProgressBar = true,
-        private bool $showErrorTable = true,
-        private array $sources = [],
-        private string $outputFormat = ConsoleOutputFormatter::NAME,
-        private bool $isParallel = false,
-        private array $reportSniffClassesWarnings = [],
-        private ?string $config = null,
-        private string | null $parallelPort = null,
-        private string | null $parallelIdentifier = null,
-        private string | null $memoryLimit = null
+        private readonly bool $isFixer = false,
+        private readonly bool $shouldClearCache = false,
+        private readonly bool $showProgressBar = true,
+        private readonly bool $showErrorTable = true,
+        private readonly array $sources = [],
+        private readonly string $outputFormat = ConsoleOutputFormatter::NAME,
+        private readonly bool $isParallel = false,
+        private readonly array $reportSniffClassesWarnings = [],
+        private readonly ?string $config = null,
+        private readonly string | null $parallelPort = null,
+        private readonly string | null $parallelIdentifier = null,
+        private readonly string | null $memoryLimit = null
     ) {
     }
 

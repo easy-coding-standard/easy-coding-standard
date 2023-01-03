@@ -20,13 +20,13 @@ use Symplify\SmartFileSystem\SmartFileSystem;
 final class MarkdownSnippetFormatterApplication
 {
     public function __construct(
-        private SnippetReporter $snippetReporter,
-        private MarkdownSnippetFormatter $markdownSnippetFormatter,
-        private SmartFileSystem $smartFileSystem,
-        private SymfonyStyle $symfonyStyle,
-        private ProcessedFileReporter $processedFileReporter,
-        private DifferInterface $differ,
-        private ColorConsoleDiffFormatter $colorConsoleDiffFormatter
+        private readonly SnippetReporter $snippetReporter,
+        private readonly MarkdownSnippetFormatter $markdownSnippetFormatter,
+        private readonly SmartFileSystem $smartFileSystem,
+        private readonly SymfonyStyle $symfonyStyle,
+        private readonly ProcessedFileReporter $processedFileReporter,
+        private readonly DifferInterface $differ,
+        private readonly ColorConsoleDiffFormatter $colorConsoleDiffFormatter
     ) {
     }
 

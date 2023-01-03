@@ -13,9 +13,9 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class ClassSkipVoter implements SkipVoterInterface
 {
     public function __construct(
-        private ClassLikeExistenceChecker $classLikeExistenceChecker,
-        private SkipSkipper $skipSkipper,
-        private SkippedClassResolver $skippedClassResolver
+        private readonly ClassLikeExistenceChecker $classLikeExistenceChecker,
+        private readonly SkipSkipper $skipSkipper,
+        private readonly SkippedClassResolver $skippedClassResolver
     ) {
     }
 

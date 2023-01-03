@@ -23,11 +23,11 @@ use Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
 final class ListCheckersCommand extends AbstractSymplifyCommand
 {
     public function __construct(
-        private SniffFileProcessor $sniffFileProcessor,
-        private FixerFileProcessor $fixerFileProcessor,
-        private CheckerListReporter $checkerListReporter,
-        private LoadedCheckersGuard $loadedCheckersGuard,
-        private SkippedClassResolver $skippedClassResolver
+        private readonly SniffFileProcessor $sniffFileProcessor,
+        private readonly FixerFileProcessor $fixerFileProcessor,
+        private readonly CheckerListReporter $checkerListReporter,
+        private readonly LoadedCheckersGuard $loadedCheckersGuard,
+        private readonly SkippedClassResolver $skippedClassResolver
     ) {
         parent::__construct();
     }

@@ -12,8 +12,8 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class MessageSkipVoter implements SkipVoterInterface
 {
     public function __construct(
-        private SkippedMessagesResolver $skippedMessagesResolver,
-        private FileInfoMatcher $fileInfoMatcher
+        private readonly SkippedMessagesResolver $skippedMessagesResolver,
+        private readonly FileInfoMatcher $fileInfoMatcher
     ) {
     }
 

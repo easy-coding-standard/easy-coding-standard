@@ -26,8 +26,8 @@ final class JsonOutputFormatter implements OutputFormatterInterface
     private const FILES = 'files';
 
     public function __construct(
-        private EasyCodingStandardStyle $easyCodingStandardStyle,
-        private ExitCodeResolver $exitCodeResolver
+        private readonly EasyCodingStandardStyle $easyCodingStandardStyle,
+        private readonly ExitCodeResolver $exitCodeResolver
     ) {
     }
 

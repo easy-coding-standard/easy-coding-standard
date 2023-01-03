@@ -11,7 +11,7 @@ use Symplify\SmartFileSystem\SmartFileSystem;
 final class FileToTokensParser
 {
     public function __construct(
-        private SmartFileSystem $smartFileSystem
+        private readonly SmartFileSystem $smartFileSystem
     ) {
     }
 

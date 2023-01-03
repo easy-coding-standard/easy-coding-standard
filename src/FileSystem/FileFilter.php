@@ -10,7 +10,7 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class FileFilter
 {
     public function __construct(
-        private ChangedFilesDetector $changedFilesDetector
+        private readonly ChangedFilesDetector $changedFilesDetector
     ) {
     }
 

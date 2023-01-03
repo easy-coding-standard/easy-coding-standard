@@ -16,8 +16,8 @@ final class SkippedClassResolver
     private array $skippedClasses = [];
 
     public function __construct(
-        private ParameterProvider $parameterProvider,
-        private ClassLikeExistenceChecker $classLikeExistenceChecker
+        private readonly ParameterProvider $parameterProvider,
+        private readonly ClassLikeExistenceChecker $classLikeExistenceChecker
     ) {
     }
 

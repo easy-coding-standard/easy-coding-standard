@@ -19,8 +19,8 @@ final class ConsoleOutputFormatter implements OutputFormatterInterface
     public const NAME = 'console';
 
     public function __construct(
-        private EasyCodingStandardStyle $easyCodingStandardStyle,
-        private ExitCodeResolver $exitCodeResolver
+        private readonly EasyCodingStandardStyle $easyCodingStandardStyle,
+        private readonly ExitCodeResolver $exitCodeResolver
     ) {
     }
 

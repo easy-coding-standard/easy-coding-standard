@@ -10,10 +10,10 @@ use Symplify\EasyParallel\Contract\SerializableInterface;
 final class CodingStandardError implements SerializableInterface
 {
     public function __construct(
-        private int $line,
-        private string $message,
-        private string $checkerClass,
-        private string $relativeFilePath
+        private readonly int $line,
+        private readonly string $message,
+        private readonly string $checkerClass,
+        private readonly string $relativeFilePath
     ) {
     }
 

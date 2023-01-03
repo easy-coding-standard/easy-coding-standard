@@ -45,8 +45,8 @@ final class ParallelFileProcessor
     private ProcessPool|null $processPool = null;
 
     public function __construct(
-        private WorkerCommandLineFactory $workerCommandLineFactory,
-        private ParameterProvider $parameterProvider
+        private readonly WorkerCommandLineFactory $workerCommandLineFactory,
+        private readonly ParameterProvider $parameterProvider
     ) {
     }
 

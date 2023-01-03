@@ -16,7 +16,7 @@ final class SkippedClassAndCodesResolver
     private array $skippedClassAndCodes = [];
 
     public function __construct(
-        private ParameterProvider $parameterProvider
+        private readonly ParameterProvider $parameterProvider
     ) {
     }
 
@@ -38,7 +38,7 @@ final class SkippedClassAndCodesResolver
                 $value = null;
             }
 
-            if (substr_count($key, '.') !== 1) {
+            if (substr_count((string) $key, '.') !== 1) {
                 continue;
             }
 

@@ -11,8 +11,8 @@ namespace Symplify\EasyCodingStandard\Caching\ValueObject;
 final class CacheItem
 {
     public function __construct(
-        private string $variableKey,
-        private mixed $data
+        private readonly string $variableKey,
+        private readonly mixed $data
     ) {
     }
 

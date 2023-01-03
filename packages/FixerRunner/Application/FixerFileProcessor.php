@@ -55,14 +55,14 @@ final class FixerFileProcessor implements FileProcessorInterface
      * @param FixerInterface[] $fixers
      */
     public function __construct(
-        private FileToTokensParser $fileToTokensParser,
-        private Skipper $skipper,
-        private DifferInterface $differ,
-        private EasyCodingStandardStyle $easyCodingStandardStyle,
-        private SmartFileSystem $smartFileSystem,
-        private CurrentParentFileInfoProvider $currentParentFileInfoProvider,
-        private TargetFileInfoResolver $targetFileInfoResolver,
-        private FileDiffFactory $fileDiffFactory,
+        private readonly FileToTokensParser $fileToTokensParser,
+        private readonly Skipper $skipper,
+        private readonly DifferInterface $differ,
+        private readonly EasyCodingStandardStyle $easyCodingStandardStyle,
+        private readonly SmartFileSystem $smartFileSystem,
+        private readonly CurrentParentFileInfoProvider $currentParentFileInfoProvider,
+        private readonly TargetFileInfoResolver $targetFileInfoResolver,
+        private readonly FileDiffFactory $fileDiffFactory,
         array $fixers
     ) {
         $this->fixers = $this->sortFixers($fixers);

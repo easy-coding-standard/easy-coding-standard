@@ -13,7 +13,7 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class SkipSkipper
 {
     public function __construct(
-        private FileInfoMatcher $fileInfoMatcher
+        private readonly FileInfoMatcher $fileInfoMatcher
     ) {
     }
 
