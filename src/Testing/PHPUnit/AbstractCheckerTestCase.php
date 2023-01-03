@@ -9,6 +9,8 @@ use Nette\Utils\Strings;
 use PHPUnit\Framework\TestCase;
 use SplFileInfo;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Finder\Finder;
+use Symplify\EasyCodingStandard\FileSystem\StaticRelativeFilePathHelper;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
@@ -17,6 +19,7 @@ use Symplify\EasyCodingStandard\Testing\Contract\ConfigAwareInterface;
 use Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyTesting\StaticFixtureSplitter;
+use Symplify\SmartFileSystem\SmartFileInfo;
 use Webmozart\Assert\Assert;
 
 // needed for scoped version to load unprefixed classes; does not have any effect inside the class
@@ -76,8 +79,11 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
     {
         $staticFixtureSplitter = new StaticFixtureSplitter();
 
+        // @deprecated, to be removed in next PR
+        $smartFileInfo = new SmartFileInfo($fileInfo->getRealPath());
+
         $inputFileInfoAndExpectedFileInfo = $staticFixtureSplitter->splitFileInfoToLocalInputAndExpectedFileInfos(
-            $fileInfo
+            $smartFileInfo
         );
 
         $this->doTestWrongToFixedFile(
@@ -131,6 +137,20 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
         $this->assertSame($expectedErrorCount, $errorCount, $message);
     }
 
+    /**
+     * @return string[]
+     */
+    protected static function yieldFiles(string $directory, string $suffix = '*.php.inc'): array
+    {
+        $finder = Finder::create()->in($directory)->files()->name($suffix);
+        $fileInfos = iterator_to_array($finder);
+
+        $filePaths = array_keys($fileInfos);
+        Assert::allString($filePaths);
+
+        return $filePaths;
+    }
+
     private function doTestWrongToFixedFile(
         SplFileInfo $wrongFileInfo,
         string $fixedFile,
@@ -179,15 +199,9 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
         string $processedFileContent,
         SplFileInfo $fixtureFileInfo
     ): void {
-        $filesystem = new \Symfony\Component\Filesystem\Filesystem();
-        $relativeFilePathFromCwd = $filesystem->makePathRelative(
-            getcwd(),
-            (string) \realpath($fixtureFileInfo->getRealPath())
-        );
+        $relativeFilePath = StaticRelativeFilePathHelper::resolveFromCwd($fixtureFileInfo->getRealPath());
 
-        // $relativeFilePathFromCwd = $fixtureFileInfo->getRelativeFilePathFromCwd();
-
-        $this->assertStringEqualsFile($file, $processedFileContent, $relativeFilePathFromCwd);
+        $this->assertStringEqualsFile($file, $processedFileContent, $relativeFilePath);
     }
 
     /**

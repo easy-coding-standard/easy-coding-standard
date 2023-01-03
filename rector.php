@@ -12,10 +12,6 @@ return static function (RectorConfig $rectorConfig): void {
         LevelSetList::UP_TO_PHP_81,
         SetList::CODE_QUALITY,
         SetList::DEAD_CODE,
-<<<<<<< HEAD
-=======
-        LevelSetList::UP_TO_PHP_81,
->>>>>>> 4f7a8d78c2 (cs)
         SetList::CODING_STYLE,
         SetList::TYPE_DECLARATION,
         SetList::NAMING,

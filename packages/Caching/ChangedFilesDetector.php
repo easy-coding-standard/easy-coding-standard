@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Caching;
 
-use Symplify\SmartFileSystem\SmartFileInfo;
+use SplFileInfo;
+use Symplify\EasyCodingStandard\FileSystem\StaticRelativeFilePathHelper;
 use Webmozart\Assert\Assert;
 
 /**
@@ -36,24 +37,24 @@ final class ChangedFilesDetector
         $this->storeConfigurationDataHash($this->fileHashComputer->computeConfig($configurationFile));
     }
 
-    public function addFileInfo(SmartFileInfo $smartFileInfo): void
+    public function addFileInfo(SplFileInfo $fileInfo): void
     {
-        $cacheKey = $this->fileInfoToKey($smartFileInfo);
-        $currentValue = $this->fileHashComputer->compute($smartFileInfo->getRealPath());
+        $cacheKey = $this->fileInfoToKey($fileInfo);
+        $currentValue = $this->fileHashComputer->compute($fileInfo->getRealPath());
         $this->cache->save($cacheKey, self::FILE_HASH, $currentValue);
     }
 
-    public function invalidateFileInfo(SmartFileInfo $smartFileInfo): void
+    public function invalidateFileInfo(SplFileInfo $fileInfo): void
     {
-        $cacheKey = $this->fileInfoToKey($smartFileInfo);
+        $cacheKey = $this->fileInfoToKey($fileInfo);
         $this->cache->clean($cacheKey);
     }
 
-    public function hasFileInfoChanged(SmartFileInfo $smartFileInfo): bool
+    public function hasFileInfoChanged(SplFileInfo $fileInfo): bool
     {
-        $newFileHash = $this->fileHashComputer->compute($smartFileInfo->getRealPath());
+        $newFileHash = $this->fileHashComputer->compute($fileInfo->getRealPath());
 
-        $cacheKey = $this->fileInfoToKey($smartFileInfo);
+        $cacheKey = $this->fileInfoToKey($fileInfo);
         $cachedValue = $this->cache->load($cacheKey, self::FILE_HASH);
 
         return $newFileHash !== $cachedValue;
@@ -91,9 +92,11 @@ final class ChangedFilesDetector
         $this->cache->save(self::CONFIGURATION_HASH_KEY, self::FILE_HASH, $configurationHash);
     }
 
-    private function fileInfoToKey(SmartFileInfo $smartFileInfo): string
+    private function fileInfoToKey(SplFileInfo $fileInfo): string
     {
-        return sha1($smartFileInfo->getRelativeFilePathFromCwd());
+        $relativeFilePath = StaticRelativeFilePathHelper::resolveFromCwd($fileInfo->getRealPath());
+
+        return sha1($relativeFilePath);
     }
 
     private function invalidateCacheIfConfigurationChanged(string $configurationHash): void

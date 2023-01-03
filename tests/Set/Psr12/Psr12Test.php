@@ -6,6 +6,7 @@ namespace Symplify\EasyCodingStandard\Tests\Set\Psr12;
 
 use Iterator;
 use Symplify\EasyCodingStandard\Testing\PHPUnit\AbstractCheckerTestCase;
+use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
 use Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
@@ -19,9 +20,6 @@ final class Psr12Test extends AbstractCheckerTestCase
         $this->doTestFileInfo($fileInfo);
     }
 
-    /**
-     * @return Iterator<mixed, SmartFileInfo[]>
-     */
     public function provideData(): Iterator
     {
         return StaticFixtureFinder::yieldDirectory(__DIR__ . '/Fixture');
@@ -29,6 +27,6 @@ final class Psr12Test extends AbstractCheckerTestCase
 
     public function provideConfig(): string
     {
-        return __DIR__ . '/../../../config/set/psr12.php';
+        return SetList::PSR_12;
     }
 }

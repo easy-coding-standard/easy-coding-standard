@@ -27,7 +27,6 @@ use Symplify\EasyCodingStandard\Skipper\Skipper\Skipper;
 use Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
-use Symplify\SmartFileSystem\SmartFileInfo;
 use Symplify\SmartFileSystem\SmartFileSystem;
 use Throwable;
 
@@ -81,9 +80,9 @@ final class FixerFileProcessor implements FileProcessorInterface
     /**
      * @return array{file_diffs?: FileDiff[]}
      */
-    public function processFile(SmartFileInfo $smartFileInfo, Configuration $configuration): array
+    public function processFile(SplFileInfo $fileInfo, Configuration $configuration): array
     {
-        $tokens = $this->fileToTokensParser->parseFromFilePath($smartFileInfo->getRealPath());
+        $tokens = $this->fileToTokensParser->parseFromFilePath($fileInfo->getRealPath());
 
         $appliedFixers = [];
 
@@ -92,7 +91,7 @@ final class FixerFileProcessor implements FileProcessorInterface
                 continue;
             }
 
-            if ($this->processTokensByFixer($smartFileInfo, $tokens, $fixer)) {
+            if ($this->processTokensByFixer($fileInfo, $tokens, $fixer)) {
                 $appliedFixers[] = $fixer::class;
             }
         }
@@ -101,8 +100,8 @@ final class FixerFileProcessor implements FileProcessorInterface
             return [];
         }
 
-        $contents = $smartFileInfo->getContents();
-        $diff = $this->differ->diff($contents, $tokens->generateCode());
+        $fileContents = FileSystem::read($fileInfo->getRealPath());
+        $diff = $this->differ->diff($fileContents, $tokens->generateCode());
 
         // some fixer with feature overlap can null each other
         if ($diff === '') {
@@ -112,7 +111,7 @@ final class FixerFileProcessor implements FileProcessorInterface
         $fileDiffs = [];
 
         // file has changed
-        $targetFileInfo = $this->targetFileInfoResolver->resolveTargetFileInfo($smartFileInfo);
+        $targetFileInfo = $this->targetFileInfoResolver->resolveTargetFileInfo($fileInfo);
         $fileDiffs[] = $this->fileDiffFactory->createFromDiffAndAppliedCheckers(
             $targetFileInfo,
             $diff,
@@ -121,7 +120,7 @@ final class FixerFileProcessor implements FileProcessorInterface
 
         $tokenGeneratedCode = $tokens->generateCode();
         if ($configuration->isFixer()) {
-            $this->smartFileSystem->dumpFile($smartFileInfo->getRealPath(), $tokenGeneratedCode);
+            $this->smartFileSystem->dumpFile($fileInfo->getRealPath(), $tokenGeneratedCode);
         }
 
         Tokens::clearCache();

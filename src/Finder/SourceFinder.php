@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Finder;
 
+use SplFileInfo;
 use Symfony\Component\Finder\Finder;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
-use Symplify\SmartFileSystem\Finder\FinderSanitizer;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 /**
@@ -20,16 +20,14 @@ final class SourceFinder
      */
     private array $fileExtensions = [];
 
-    public function __construct(
-        private readonly FinderSanitizer $finderSanitizer,
-        ParameterProvider $parameterProvider,
-    ) {
+    public function __construct(ParameterProvider $parameterProvider)
+    {
         $this->fileExtensions = $parameterProvider->provideArrayParameter(Option::FILE_EXTENSIONS);
     }
 
     /**
      * @param string[] $source
-     * @return SmartFileInfo[]
+     * @return SplFileInfo[]
      */
     public function find(array $source): array
     {
@@ -49,7 +47,7 @@ final class SourceFinder
     }
 
     /**
-     * @return SmartFileInfo[]
+     * @return SplFileInfo[]
      */
     private function processDirectory(string $directory): array
     {
@@ -64,7 +62,7 @@ final class SourceFinder
             ->size('> 0')
             ->sortByName();
 
-        return $this->finderSanitizer->sanitize($finder);
+        return iterator_to_array($finder);
     }
 
     /**

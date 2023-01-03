@@ -8,6 +8,7 @@ use Nette\Utils\FileSystem;
 use PHP_CodeSniffer\Fixer;
 use SplFileInfo;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
+use Symplify\EasyCodingStandard\FileSystem\StaticRelativeFilePathHelper;
 use Symplify\EasyCodingStandard\Skipper\Skipper\Skipper;
 use Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\File;
@@ -28,9 +29,10 @@ final class FileFactory
     public function createFromFileInfo(SplFileInfo $fileInfo): File
     {
         $fileContents = FileSystem::read($fileInfo->getRealPath());
+        $relativeFilePath = StaticRelativeFilePathHelper::resolveFromCwd($fileInfo->getRealPath());
 
         return new File(
-            $fileInfo->getRelativeFilePath(),
+            $relativeFilePath,
             $fileContents,
             $this->fixer,
             $this->skipper,

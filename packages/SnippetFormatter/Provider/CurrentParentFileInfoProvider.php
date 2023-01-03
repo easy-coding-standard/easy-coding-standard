@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\SnippetFormatter\Provider;
 
-use Symplify\SmartFileSystem\SmartFileInfo;
+use SplFileInfo;
 
 final class CurrentParentFileInfoProvider
 {
-    private ?SmartFileInfo $smartFileInfo = null;
+    private ?SplFileInfo $fileInfo = null;
 
-    public function setParentFileInfo(SmartFileInfo $smartFileInfo): void
+    public function setParentFileInfo(SplFileInfo $fileInfo): void
     {
-        $this->smartFileInfo = $smartFileInfo;
+        $this->fileInfo = $fileInfo;
     }
 
-    public function provide(): ?SmartFileInfo
+    public function provide(): ?SplFileInfo
     {
-        return $this->smartFileInfo;
+        return $this->fileInfo;
     }
 }

@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\Application;
 
 use ParseError;
+use SplFileInfo;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\FileSystem\FileFilter;
+use Symplify\EasyCodingStandard\FileSystem\StaticRelativeFilePathHelper;
 use Symplify\EasyCodingStandard\Finder\SourceFinder;
 use Symplify\EasyCodingStandard\Parallel\Application\ParallelFileProcessor;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
@@ -20,11 +22,9 @@ use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 use Symplify\EasyParallel\CpuCoreCountProvider;
-use Symplify\EasyParallel\FileSystem\FilePathNormalizer;
 use Symplify\EasyParallel\ScheduleFactory;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\PackageBuilder\Yaml\ParametersMerger;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class EasyCodingStandardApplication
 {
@@ -43,7 +43,6 @@ final class EasyCodingStandardApplication
         private readonly ParallelFileProcessor $parallelFileProcessor,
         private readonly CpuCoreCountProvider $cpuCoreCountProvider,
         private readonly SymfonyStyle $symfonyStyle,
-        private readonly FilePathNormalizer $filePathNormalizer,
         private readonly ParameterProvider $parameterProvider,
         private readonly ParametersMerger $parametersMerger
     ) {
@@ -73,7 +72,10 @@ final class EasyCodingStandardApplication
 
         if ($configuration->isParallel()) {
             // must be a string, otherwise the serialization returns empty arrays
-            $filePaths = $this->filePathNormalizer->resolveFilePathsFromFileInfos($fileInfos);
+            $filePaths = [];
+            foreach ($fileInfos as $fileInfo) {
+                $filePaths[] = StaticRelativeFilePathHelper::resolveFromCwd($fileInfo->getRealPath());
+            }
 
             $schedule = $this->scheduleFactory->create(
                 $this->cpuCoreCountProvider->provide(),
@@ -124,7 +126,7 @@ final class EasyCodingStandardApplication
     }
 
     /**
-     * @param SmartFileInfo[] $fileInfos
+     * @param SplFileInfo[] $fileInfos
      * @return array{coding_standard_errors: CodingStandardError[], file_diffs: FileDiff[], system_errors: SystemError[], system_errors_count: int}
      */
     private function processFoundFiles(array $fileInfos, Configuration $configuration): array
@@ -138,7 +140,9 @@ final class EasyCodingStandardApplication
 
         foreach ($fileInfos as $fileInfo) {
             if ($this->easyCodingStandardStyle->isDebug()) {
-                $this->easyCodingStandardStyle->writeln(' [file] ' . $fileInfo->getRelativeFilePathFromCwd());
+                $relativeFilePath = StaticRelativeFilePathHelper::resolveFromCwd($fileInfo->getRealPath());
+
+                $this->easyCodingStandardStyle->writeln(' [file] ' . $relativeFilePath);
             }
 
             try {
@@ -148,10 +152,13 @@ final class EasyCodingStandardApplication
                 }
             } catch (ParseError $parseError) {
                 $this->changedFilesDetector->invalidateFileInfo($fileInfo);
+
+                $relativeFilePath = StaticRelativeFilePathHelper::resolveFromCwd($fileInfo->getRealPath());
+
                 $errorsAndDiffs[Bridge::SYSTEM_ERRORS][] = new SystemError(
                     $parseError->getLine(),
                     $parseError->getMessage(),
-                    $fileInfo->getRelativeFilePathFromCwd()
+                    $relativeFilePath
                 );
             }
 

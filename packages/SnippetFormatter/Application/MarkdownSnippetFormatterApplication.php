@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\SnippetFormatter\Application;
 
+use Nette\Utils\FileSystem;
 use PhpCsFixer\Differ\DifferInterface;
+use SplFileInfo;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symplify\EasyCodingStandard\FileSystem\StaticRelativeFilePathHelper;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
 use Symplify\EasyCodingStandard\Reporter\ProcessedFileReporter;
 use Symplify\EasyCodingStandard\SnippetFormatter\Formatter\MarkdownSnippetFormatter;
@@ -61,13 +64,15 @@ final class MarkdownSnippetFormatterApplication
     }
 
     private function processFileInfoWithPattern(
-        SmartFileInfo $phpFileInfo,
+        SplFileInfo $phpFileInfo,
         Configuration $configuration
     ): ?FileDiff {
         $fixedContent = $this->markdownSnippetFormatter->format($phpFileInfo, $configuration);
 
-        $originalContent = $phpFileInfo->getContents();
-        if ($phpFileInfo->getContents() === $fixedContent) {
+        $originalFileContents = FileSystem::read($phpFileInfo->getPathname());
+
+        //$originalContent = $originalFileContents;
+        if ($originalFileContents === $fixedContent) {
             // nothing has changed
             return null;
         }
@@ -78,11 +83,13 @@ final class MarkdownSnippetFormatterApplication
 
         $this->smartFileSystem->dumpFile($phpFileInfo->getPathname(), $fixedContent);
 
-        $diff = $this->differ->diff($originalContent, $fixedContent);
+        $diff = $this->differ->diff($originalFileContents, $fixedContent);
         $consoleFormattedDiff = $this->colorConsoleDiffFormatter->format($diff);
 
+        $relativeFilePath = StaticRelativeFilePathHelper::resolveFromCwd($phpFileInfo->getRealPath());
+
         return new FileDiff(
-            $phpFileInfo->getRelativeFilePathFromCwd(),
+            $relativeFilePath,
             $diff,
             $consoleFormattedDiff,
             // @todo

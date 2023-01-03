@@ -47,7 +47,6 @@ final class SkippedPathsResolver
 
             if (\str_contains((string) $value, '*')) {
                 $this->skippedPaths[] = $this->pathNormalizer->normalizePath($value);
-                continue;
             }
         }
 

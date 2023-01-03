@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Contract\Application;
 
+use SplFileInfo;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 interface FileProcessorInterface
 {
-    public function processFileToString(SmartFileInfo $smartFileInfo): string;
+    public function processFileToString(SplFileInfo $fileInfo): string;
 
     /**
      * @return array{file_diffs?: FileDiff[], coding_standard_errors?: CodingStandardError[]}
      */
-    public function processFile(SmartFileInfo $smartFileInfo, Configuration $configuration): array;
+    public function processFile(SplFileInfo $splFileInfo, Configuration $configuration): array;
 
     /**
      * @return object[]
