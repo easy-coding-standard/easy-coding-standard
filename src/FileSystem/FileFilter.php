@@ -1,28 +1,28 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\FileSystem;
 
 use Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
-use Symplify\SmartFileSystem\SmartFileInfo;
-
+use ECSPrefix202301\Symplify\SmartFileSystem\SmartFileInfo;
 final class FileFilter
 {
-    public function __construct(
-        private ChangedFilesDetector $changedFilesDetector
-    ) {
+    /**
+     * @var \Symplify\EasyCodingStandard\Caching\ChangedFilesDetector
+     */
+    private $changedFilesDetector;
+    public function __construct(ChangedFilesDetector $changedFilesDetector)
+    {
+        $this->changedFilesDetector = $changedFilesDetector;
     }
-
     /**
      * @param SmartFileInfo[] $fileInfos
      * @return SmartFileInfo[]
      */
-    public function filterOnlyChangedFiles(array $fileInfos): array
+    public function filterOnlyChangedFiles(array $fileInfos) : array
     {
-        return array_filter(
-            $fileInfos,
-            fn (SmartFileInfo $smartFileInfo): bool => $this->changedFilesDetector->hasFileInfoChanged($smartFileInfo)
-        );
+        return \array_filter($fileInfos, function (SmartFileInfo $smartFileInfo) : bool {
+            return $this->changedFilesDetector->hasFileInfoChanged($smartFileInfo);
+        });
     }
 }

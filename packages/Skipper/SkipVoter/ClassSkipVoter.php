@@ -1,34 +1,47 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Skipper\SkipVoter;
 
 use Symplify\EasyCodingStandard\Skipper\Contract\SkipVoterInterface;
 use Symplify\EasyCodingStandard\Skipper\SkipCriteriaResolver\SkippedClassResolver;
 use Symplify\EasyCodingStandard\Skipper\Skipper\SkipSkipper;
-use Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
-use Symplify\SmartFileSystem\SmartFileInfo;
-
+use ECSPrefix202301\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
 final class ClassSkipVoter implements SkipVoterInterface
 {
-    public function __construct(
-        private ClassLikeExistenceChecker $classLikeExistenceChecker,
-        private SkipSkipper $skipSkipper,
-        private SkippedClassResolver $skippedClassResolver
-    ) {
-    }
-
-    public function match(string | object $element): bool
+    /**
+     * @var \Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker
+     */
+    private $classLikeExistenceChecker;
+    /**
+     * @var \Symplify\EasyCodingStandard\Skipper\Skipper\SkipSkipper
+     */
+    private $skipSkipper;
+    /**
+     * @var \Symplify\EasyCodingStandard\Skipper\SkipCriteriaResolver\SkippedClassResolver
+     */
+    private $skippedClassResolver;
+    public function __construct(ClassLikeExistenceChecker $classLikeExistenceChecker, SkipSkipper $skipSkipper, SkippedClassResolver $skippedClassResolver)
     {
-        if (is_object($element)) {
-            return true;
+        $this->classLikeExistenceChecker = $classLikeExistenceChecker;
+        $this->skipSkipper = $skipSkipper;
+        $this->skippedClassResolver = $skippedClassResolver;
+    }
+    /**
+     * @param string|object $element
+     */
+    public function match($element) : bool
+    {
+        if (\is_object($element)) {
+            return \true;
         }
-
         return $this->classLikeExistenceChecker->doesClassLikeExist($element);
     }
-
-    public function shouldSkip(string | object $element, SmartFileInfo | string $file): bool
+    /**
+     * @param string|object $element
+     * @param \Symplify\SmartFileSystem\SmartFileInfo|string $file
+     */
+    public function shouldSkip($element, $file) : bool
     {
         $skippedClasses = $this->skippedClassResolver->resolve();
         return $this->skipSkipper->doesMatchSkip($element, $file, $skippedClasses);

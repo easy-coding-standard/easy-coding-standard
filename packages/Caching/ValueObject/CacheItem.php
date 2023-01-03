@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Caching\ValueObject;
 
 /**
@@ -10,26 +9,37 @@ namespace Symplify\EasyCodingStandard\Caching\ValueObject;
  */
 final class CacheItem
 {
-    public function __construct(
-        private string $variableKey,
-        private mixed $data
-    ) {
+    /**
+     * @var string
+     */
+    private $variableKey;
+    /**
+     * @var mixed
+     */
+    private $data;
+    /**
+     * @param mixed $data
+     */
+    public function __construct(string $variableKey, $data)
+    {
+        $this->variableKey = $variableKey;
+        $this->data = $data;
     }
-
     /**
      * @param mixed[] $properties
      */
-    public static function __set_state(array $properties): self
+    public static function __set_state(array $properties) : self
     {
         return new self($properties['variableKey'], $properties['data']);
     }
-
-    public function isVariableKeyValid(string $variableKey): bool
+    public function isVariableKeyValid(string $variableKey) : bool
     {
         return $this->variableKey === $variableKey;
     }
-
-    public function getData(): mixed
+    /**
+     * @return mixed
+     */
+    public function getData()
     {
         return $this->data;
     }

@@ -1,55 +1,53 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Skipper\SkipCriteriaResolver;
 
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use Symplify\PackageBuilder\Parameter\ParameterProvider;
-use Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
-
+use ECSPrefix202301\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use ECSPrefix202301\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
 final class SkippedClassResolver
 {
     /**
      * @var array<string, string[]|null>
      */
-    private array $skippedClasses = [];
-
-    public function __construct(
-        private ParameterProvider $parameterProvider,
-        private ClassLikeExistenceChecker $classLikeExistenceChecker
-    ) {
+    private $skippedClasses = [];
+    /**
+     * @var \Symplify\PackageBuilder\Parameter\ParameterProvider
+     */
+    private $parameterProvider;
+    /**
+     * @var \Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker
+     */
+    private $classLikeExistenceChecker;
+    public function __construct(ParameterProvider $parameterProvider, ClassLikeExistenceChecker $classLikeExistenceChecker)
+    {
+        $this->parameterProvider = $parameterProvider;
+        $this->classLikeExistenceChecker = $classLikeExistenceChecker;
     }
-
     /**
      * @return array<string, string[]|null>
      */
-    public function resolve(): array
+    public function resolve() : array
     {
         if ($this->skippedClasses !== []) {
             return $this->skippedClasses;
         }
-
         $skip = $this->parameterProvider->provideArrayParameter(Option::SKIP);
-
         foreach ($skip as $key => $value) {
             // e.g. [SomeClass::class] → shift values to [SomeClass::class => null]
-            if (is_int($key)) {
+            if (\is_int($key)) {
                 $key = $value;
                 $value = null;
             }
-
-            if (! is_string($key)) {
+            if (!\is_string($key)) {
                 continue;
             }
-
-            if (! $this->classLikeExistenceChecker->doesClassLikeExist($key)) {
+            if (!$this->classLikeExistenceChecker->doesClassLikeExist($key)) {
                 continue;
             }
-
             $this->skippedClasses[$key] = $value;
         }
-
         return $this->skippedClasses;
     }
 }
