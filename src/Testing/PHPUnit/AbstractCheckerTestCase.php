@@ -64,7 +64,7 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
 
         $fileContents = FileSystem::read($filePath);
 
-        if (Strings::contains($fileContents, '-----')) {
+        if (\str_contains($fileContents, '-----')) {
             [$inputContents, $expectedContents] = Strings::split($fileContents, self::SPLIT_LINE_REGEX);
         } else {
             // no change
