@@ -63,7 +63,14 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
         $this->ensureSomeCheckersAreRegistered();
 
         $fileContents = FileSystem::read($filePath);
-        [$inputContents, $expectedContents] = Strings::split($fileContents, self::SPLIT_LINE_REGEX);
+
+        if (Strings::contains($fileContents, '-----')) {
+            [$inputContents, $expectedContents] = Strings::split($fileContents, self::SPLIT_LINE_REGEX);
+        } else {
+            // no change
+            $inputContents = $fileContents;
+            $expectedContents = $fileContents;
+        }
 
         $inputFilePath = sys_get_temp_dir() . '/ecs_tests/' . md5((string) $inputContents) . '.php';
         FileSystem::write($inputFilePath, $inputContents);
