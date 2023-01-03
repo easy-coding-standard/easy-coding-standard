@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Tests\ChangedFilesDetector\ChangedFilesDetector;
 
+use SplFileInfo;
 use Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
 use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 
 final class ChangedFilesDetectorTest extends AbstractKernelTestCase
 {
-    private \SplFileInfo $fileInfo;
+    private SplFileInfo $fileInfo;
 
     private ChangedFilesDetector $changedFilesDetector;
 
@@ -18,7 +19,7 @@ final class ChangedFilesDetectorTest extends AbstractKernelTestCase
     {
         $this->bootKernel(EasyCodingStandardKernel::class);
 
-        $this->fileInfo = new \SplFileInfo(__DIR__ . '/Source/OneClass.php');
+        $this->fileInfo = new SplFileInfo(__DIR__ . '/Source/OneClass.php');
 
         $this->changedFilesDetector = $this->getService(ChangedFilesDetector::class);
         $this->changedFilesDetector->changeConfigurationFile(__DIR__ . '/Source/easy-coding-standard.php');
@@ -47,16 +48,12 @@ final class ChangedFilesDetectorTest extends AbstractKernelTestCase
         $this->assertFileHasChanged($this->fileInfo);
     }
 
-    private function assertFileHasChanged(\SplFileInfo $fileInfo): void
+    private function assertFileHasChanged(SplFileInfo $fileInfo): void
     {
-        $failedAssertMessage = sprintf(
-            'Failed asserting that file "%s" has changed.',
-            $fileInfo->getRelativeFilePath()
-        );
-        $this->assertTrue($this->changedFilesDetector->hasFileInfoChanged($fileInfo), $failedAssertMessage);
+        $this->assertTrue($this->changedFilesDetector->hasFileInfoChanged($fileInfo));
     }
 
-    private function assertFileHasNotChanged(\SplFileInfo $fileInfo): void
+    private function assertFileHasNotChanged(SplFileInfo $fileInfo): void
     {
         $this->assertFalse($this->changedFilesDetector->hasFileInfoChanged($fileInfo));
     }
