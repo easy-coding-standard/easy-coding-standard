@@ -26,10 +26,10 @@ final class FileFactory
     ) {
     }
 
-    public function createFromFileInfo(SplFileInfo $fileInfo): File
+    public function createFromFile(string $filePath): File
     {
-        $fileContents = FileSystem::read($fileInfo->getRealPath());
-        $relativeFilePath = StaticRelativeFilePathHelper::resolveFromCwd($fileInfo->getRealPath());
+        $fileContents = FileSystem::read($filePath);
+        $relativeFilePath = StaticRelativeFilePathHelper::resolveFromCwd($filePath);
 
         return new File(
             $relativeFilePath,

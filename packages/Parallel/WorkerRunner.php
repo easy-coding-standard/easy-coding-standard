@@ -62,9 +62,8 @@ final class WorkerRunner
 
             foreach ($filePaths as $filePath) {
                 try {
-                    $fileInfo = new SplFileInfo($filePath);
-                    $currentErrorsAndFileDiffs = $this->singleFileProcessor->processFileInfo(
-                        $fileInfo,
+                    $currentErrorsAndFileDiffs = $this->singleFileProcessor->processFilePath(
+                        $filePath,
                         $configuration
                     );
 

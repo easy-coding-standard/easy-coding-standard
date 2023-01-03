@@ -24,8 +24,8 @@ final class FileFactoryTest extends AbstractKernelTestCase
 
     public function test(): void
     {
-        $fileInfo = new SmartFileInfo(__DIR__ . '/FileFactorySource/SomeFile.php');
-        $file = $this->fileFactory->createFromFileInfo($fileInfo);
+        $file = $this->fileFactory->createFromFile(__DIR__ . '/FileFactorySource/SomeFile.php');
+
         $this->assertInstanceOf(File::class, $file);
         $this->assertInstanceOf(PhpCodeSnifferFile::class, $file);
         $this->assertInstanceOf(Fixer::class, $file->fixer);

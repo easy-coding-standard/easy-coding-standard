@@ -11,7 +11,6 @@ use Symplify\EasyCodingStandard\Tests\Skipper\Skipper\Skip\Source\AnotherClassTo
 use Symplify\EasyCodingStandard\Tests\Skipper\Skipper\Skip\Source\NotSkippedClass;
 use Symplify\EasyCodingStandard\Tests\Skipper\Skipper\Skip\Source\SomeClassToSkip;
 use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class SkipSkipperTest extends AbstractKernelTestCase
 {
@@ -31,7 +30,7 @@ final class SkipSkipperTest extends AbstractKernelTestCase
      */
     public function test(string $element, string $filePath, bool $expectedSkip): void
     {
-        $resolvedSkip = $this->skipper->shouldSkipElementAndFileInfo($element, new SmartFileInfo($filePath));
+        $resolvedSkip = $this->skipper->shouldSkipElementAndFilePath($element, $filePath);
         $this->assertSame($expectedSkip, $resolvedSkip);
     }
 

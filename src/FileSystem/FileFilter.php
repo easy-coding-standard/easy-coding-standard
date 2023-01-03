@@ -15,14 +15,14 @@ final class FileFilter
     }
 
     /**
-     * @param SplFileInfo[] $fileInfos
-     * @return SplFileInfo[]
+     * @param string[] $filePaths
+     * @return string[]
      */
-    public function filterOnlyChangedFiles(array $fileInfos): array
+    public function filterOnlyChangedFiles(array $filePaths): array
     {
         return array_filter(
-            $fileInfos,
-            fn (SplFileInfo $fileInfo): bool => $this->changedFilesDetector->hasFileInfoChanged($fileInfo)
+            $filePaths,
+            fn (string $filePath): bool => $this->changedFilesDetector->hasFileChanged($filePath)
         );
     }
 }

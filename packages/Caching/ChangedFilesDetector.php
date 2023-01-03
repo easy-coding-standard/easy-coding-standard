@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Caching;
 
-use SplFileInfo;
 use Symplify\EasyCodingStandard\FileSystem\StaticRelativeFilePathHelper;
 use Webmozart\Assert\Assert;
 
@@ -37,24 +36,24 @@ final class ChangedFilesDetector
         $this->storeConfigurationDataHash($this->fileHashComputer->computeConfig($configurationFile));
     }
 
-    public function addFileInfo(SplFileInfo $fileInfo): void
+    public function addFilePath(string $filePath): void
     {
-        $cacheKey = $this->fileInfoToKey($fileInfo);
-        $currentValue = $this->fileHashComputer->compute($fileInfo->getRealPath());
+        $cacheKey = $this->filePathToKey($filePath);
+        $currentValue = $this->fileHashComputer->compute($filePath);
         $this->cache->save($cacheKey, self::FILE_HASH, $currentValue);
     }
 
-    public function invalidateFileInfo(SplFileInfo $fileInfo): void
+    public function invalidateFilePath(string $filePath): void
     {
-        $cacheKey = $this->fileInfoToKey($fileInfo);
+        $cacheKey = $this->filePathToKey($filePath);
         $this->cache->clean($cacheKey);
     }
 
-    public function hasFileInfoChanged(SplFileInfo $fileInfo): bool
+    public function hasFileChanged(string $filePath): bool
     {
-        $newFileHash = $this->fileHashComputer->compute($fileInfo->getRealPath());
+        $newFileHash = $this->fileHashComputer->compute($filePath);
 
-        $cacheKey = $this->fileInfoToKey($fileInfo);
+        $cacheKey = $this->filePathToKey($filePath);
         $cachedValue = $this->cache->load($cacheKey, self::FILE_HASH);
 
         return $newFileHash !== $cachedValue;
@@ -92,9 +91,9 @@ final class ChangedFilesDetector
         $this->cache->save(self::CONFIGURATION_HASH_KEY, self::FILE_HASH, $configurationHash);
     }
 
-    private function fileInfoToKey(SplFileInfo $fileInfo): string
+    private function filePathToKey(string $filePath): string
     {
-        $relativeFilePath = StaticRelativeFilePathHelper::resolveFromCwd($fileInfo->getRealPath());
+        $relativeFilePath = StaticRelativeFilePathHelper::resolveFromCwd($filePath);
 
         return sha1($relativeFilePath);
     }

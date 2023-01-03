@@ -19,9 +19,8 @@ final class FileTest extends AbstractKernelTestCase
         $this->bootKernel(EasyCodingStandardKernel::class);
 
         $fileFactory = $this->getService(FileFactory::class);
-        $fileInfo = new SplFileInfo(__DIR__ . '/FileSource/SomeFile.php');
 
-        $file = $fileFactory->createFromFileInfo($fileInfo);
-        $file->processWithTokenListenersAndFileInfo([], $fileInfo, []);
+        $file = $fileFactory->createFromFile(__DIR__ . '/FileSource/SomeFile.php');
+        $file->processWithTokenListenersAndFilePath([], __DIR__ . '/FileSource/SomeFile.php', []);
     }
 }

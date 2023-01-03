@@ -33,13 +33,13 @@ final class MarkdownSnippetFormatterApplication
     }
 
     /**
-     * @param SmartFileInfo[] $fileInfos
+     * @param string[] $filePaths
      */
-    public function processFileInfosWithSnippetPattern(Configuration $configuration, array $fileInfos): int
+    public function processFileInfosWithSnippetPattern(Configuration $configuration, array $filePaths): int
     {
         $sources = $configuration->getSources();
 
-        $fileCount = count($fileInfos);
+        $fileCount = count($filePaths);
         if ($fileCount === 0) {
             $this->snippetReporter->reportNoFilesFound($sources);
             return Command::SUCCESS;
@@ -49,8 +49,8 @@ final class MarkdownSnippetFormatterApplication
 
         $errorsAndDiffs = [];
 
-        foreach ($fileInfos as $fileInfo) {
-            $fileDiff = $this->processFileInfoWithPattern($fileInfo, $configuration);
+        foreach ($filePaths as $filePath) {
+            $fileDiff = $this->processFilePathWithPattern($filePath, $configuration);
 
             if ($fileDiff instanceof FileDiff) {
                 $errorsAndDiffs[Bridge::FILE_DIFFS][] = $fileDiff;
@@ -62,13 +62,13 @@ final class MarkdownSnippetFormatterApplication
         return $this->processedFileReporter->report($errorsAndDiffs, $configuration);
     }
 
-    private function processFileInfoWithPattern(
-        SplFileInfo $phpFileInfo,
+    private function processFilePathWithPattern(
+        string        $filePath,
         Configuration $configuration
     ): ?FileDiff {
-        $fixedContent = $this->markdownSnippetFormatter->format($phpFileInfo, $configuration);
+        $fixedContent = $this->markdownSnippetFormatter->format($filePath, $configuration);
 
-        $originalFileContents = FileSystem::read($phpFileInfo->getPathname());
+        $originalFileContents = FileSystem::read($filePath);
 
         //$originalContent = $originalFileContents;
         if ($originalFileContents === $fixedContent) {
@@ -80,12 +80,12 @@ final class MarkdownSnippetFormatterApplication
             return null;
         }
 
-        $this->fileSystem->dumpFile($phpFileInfo->getPathname(), $fixedContent);
+        $this->fileSystem->dumpFile($filePath, $fixedContent);
 
         $diff = $this->differ->diff($originalFileContents, $fixedContent);
         $consoleFormattedDiff = $this->colorConsoleDiffFormatter->format($diff);
 
-        $relativeFilePath = StaticRelativeFilePathHelper::resolveFromCwd($phpFileInfo->getRealPath());
+        $relativeFilePath = StaticRelativeFilePathHelper::resolveFromCwd($filePath);
 
         return new FileDiff(
             $relativeFilePath,

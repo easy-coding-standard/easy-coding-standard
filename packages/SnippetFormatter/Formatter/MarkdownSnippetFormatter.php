@@ -6,13 +6,11 @@ namespace Symplify\EasyCodingStandard\SnippetFormatter\Formatter;
 
 use Nette\Utils\FileSystem;
 use Nette\Utils\Strings;
-use SplFileInfo;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
-use Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider;
+use Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFilePathProvider;
 use Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetPattern;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
-use Symplify\SmartFileSystem\SmartFileInfo;
 use Throwable;
 
 /**
@@ -51,15 +49,15 @@ final class MarkdownSnippetFormatter
         private readonly \Symfony\Component\Filesystem\Filesystem $fileSystem,
         private readonly FixerFileProcessor $fixerFileProcessor,
         private readonly SniffFileProcessor $sniffFileProcessor,
-        private readonly CurrentParentFileInfoProvider $currentParentFileInfoProvider
+        private readonly CurrentParentFilePathProvider $currentParentFilePathProvider
     ) {
     }
 
-    public function format(SplFileInfo $fileInfo, Configuration $configuration): string
+    public function format(string $filePath, Configuration $configuration): string
     {
-        $this->currentParentFileInfoProvider->setParentFileInfo($fileInfo);
+        $this->currentParentFilePathProvider->setParentFilePath($filePath);
 
-        $fileContents = FileSystem::read($fileInfo->getRealPath());
+        $fileContents = FileSystem::read($filePath);
 
         return Strings::replace($fileContents, SnippetPattern::MARKDOWN_PHP_SNIPPET_REGEX, function ($match) use (
             $configuration
@@ -92,15 +90,13 @@ final class MarkdownSnippetFormatter
         }
 
         $fileContent = ltrim($content, PHP_EOL);
-
         $this->fileSystem->dumpFile($temporaryFilePath, $fileContent);
-        $temporaryFileInfo = new SmartFileInfo($temporaryFilePath);
 
         try {
-            $this->fixerFileProcessor->processFile($temporaryFileInfo, $configuration);
-            $this->sniffFileProcessor->processFile($temporaryFileInfo, $configuration);
+            $this->fixerFileProcessor->processFile($temporaryFilePath, $configuration);
+            $this->sniffFileProcessor->processFile($temporaryFilePath, $configuration);
 
-            $changedFileContent = $temporaryFileInfo->getContents();
+            $changedFileContent = FileSystem::read($temporaryFilePath);
         } catch (Throwable) {
             // Skipped parsed error when processing php temporaryFile
             $changedFileContent = $fileContent;
