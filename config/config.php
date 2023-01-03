@@ -25,7 +25,6 @@ use Symplify\EasyCodingStandard\ValueObject\Option;
 use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 use Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
 use Symplify\PackageBuilder\Yaml\ParametersMerger;
-use Symplify\SmartFileSystem\FileSystemFilter;
 use Symplify\SmartFileSystem\Normalizer\PathNormalizer;
 use Symplify\SmartFileSystem\SmartFileSystem;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
@@ -89,7 +88,6 @@ return static function (ECSConfig $ecsConfig): void {
     $services->set(Terminal::class);
 
     $services->set(SmartFileSystem::class);
-    $services->set(FileSystemFilter::class);
 
     $services->set(SymfonyStyleFactory::class);
     $services->set(SymfonyStyle::class)
