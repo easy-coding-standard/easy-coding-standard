@@ -6,6 +6,7 @@ namespace Symplify\EasyCodingStandard\Parallel;
 
 use Clue\React\NDJson\Decoder;
 use Clue\React\NDJson\Encoder;
+use SplFileInfo;
 use Symplify\EasyCodingStandard\Application\SingleFileProcessor;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
@@ -15,7 +16,6 @@ use Symplify\EasyParallel\Enum\Content;
 use Symplify\EasyParallel\Enum\ReactCommand;
 use Symplify\EasyParallel\Enum\ReactEvent;
 use Symplify\PackageBuilder\Yaml\ParametersMerger;
-use Symplify\SmartFileSystem\SmartFileInfo;
 use Throwable;
 
 final class WorkerRunner
@@ -62,9 +62,9 @@ final class WorkerRunner
 
             foreach ($filePaths as $filePath) {
                 try {
-                    $smartFileInfo = new SmartFileInfo($filePath);
+                    $fileInfo = new SplFileInfo($filePath);
                     $currentErrorsAndFileDiffs = $this->singleFileProcessor->processFileInfo(
-                        $smartFileInfo,
+                        $fileInfo,
                         $configuration
                     );
 

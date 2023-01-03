@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Skipper\Skipper;
 
+use SplFileInfo;
 use Symplify\EasyCodingStandard\Skipper\Contract\SkipVoterInterface;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 /**
  * @api
@@ -28,23 +28,23 @@ final class Skipper
 
     public function shouldSkipElement(string | object $element): bool
     {
-        $fileInfo = new SmartFileInfo(__FILE__);
+        $fileInfo = new SplFileInfo(__FILE__);
         return $this->shouldSkipElementAndFileInfo($element, $fileInfo);
     }
 
-    public function shouldSkipFileInfo(SmartFileInfo $smartFileInfo): bool
+    public function shouldSkipFileInfo(SplFileInfo $fileInfo): bool
     {
-        return $this->shouldSkipElementAndFileInfo(self::FILE_ELEMENT, $smartFileInfo);
+        return $this->shouldSkipElementAndFileInfo(self::FILE_ELEMENT, $fileInfo);
     }
 
-    public function shouldSkipElementAndFileInfo(string | object $element, SmartFileInfo $smartFileInfo): bool
+    public function shouldSkipElementAndFileInfo(string | object $element, SplFileInfo $fileInfo): bool
     {
         foreach ($this->skipVoters as $skipVoter) {
             if (! $skipVoter->match($element)) {
                 continue;
             }
 
-            if (! $skipVoter->shouldSkip($element, $smartFileInfo)) {
+            if (! $skipVoter->shouldSkip($element, $fileInfo)) {
                 continue;
             }
 

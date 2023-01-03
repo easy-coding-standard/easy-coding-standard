@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\SnippetFormatter\Formatter;
 
+use Nette\Utils\FileSystem;
 use Nette\Utils\Strings;
+use SplFileInfo;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 use Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider;
@@ -54,11 +56,13 @@ final class MarkdownSnippetFormatter
     ) {
     }
 
-    public function format(SmartFileInfo $fileInfo, Configuration $configuration): string
+    public function format(SplFileInfo $fileInfo, Configuration $configuration): string
     {
         $this->currentParentFileInfoProvider->setParentFileInfo($fileInfo);
 
-        return Strings::replace($fileInfo->getContents(), SnippetPattern::MARKDOWN_PHP_SNIPPET_REGEX, function ($match) use (
+        $fileContents = FileSystem::read($fileInfo->getRealPath());
+
+        return Strings::replace($fileContents, SnippetPattern::MARKDOWN_PHP_SNIPPET_REGEX, function ($match) use (
             $configuration
         ): string {
             if (\str_contains((string) $match[self::CONTENT], '-----')) {

@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\SniffRunner\Application;
 
+use Nette\Utils\FileSystem;
 use PHP_CodeSniffer\Fixer;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
 use PhpCsFixer\Differ\DifferInterface;
+use SplFileInfo;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Error\FileDiffFactory;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
@@ -18,7 +20,6 @@ use Symplify\EasyCodingStandard\SniffRunner\ValueObject\File;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use Symplify\PackageBuilder\Reflection\PrivatesAccessor;
-use Symplify\SmartFileSystem\SmartFileInfo;
 use Symplify\SmartFileSystem\SmartFileSystem;
 
 /**
@@ -67,15 +68,15 @@ final class SniffFileProcessor implements FileProcessorInterface
     /**
      * @return array{file_diffs?: FileDiff[], coding_standard_errors?: CodingStandardError[]}
      */
-    public function processFile(SmartFileInfo $smartFileInfo, Configuration $configuration): array
+    public function processFile(SplFileInfo $fileInfo, Configuration $configuration): array
     {
         $this->sniffMetadataCollector->reset();
 
         $errorsAndDiffs = [];
 
-        $file = $this->fileFactory->createFromFileInfo($smartFileInfo);
+        $file = $this->fileFactory->createFromFileInfo($fileInfo);
         $reportSniffClassesWarnings = $configuration->getReportSniffClassesWarnings();
-        $this->fixFile($file, $this->fixer, $smartFileInfo, $this->tokenListeners, $reportSniffClassesWarnings);
+        $this->fixFile($file, $this->fixer, $fileInfo, $this->tokenListeners, $reportSniffClassesWarnings);
 
         // add coding standard errors
         $codingStandardErrors = $this->sniffMetadataCollector->getCodingStandardErrors();
@@ -83,14 +84,16 @@ final class SniffFileProcessor implements FileProcessorInterface
             $errorsAndDiffs[Bridge::CODING_STANDARD_ERRORS] = $codingStandardErrors;
         }
 
+        $fileContents = FileSystem::read($fileInfo->getRealPath());
+
         // add diff
-        if ($smartFileInfo->getContents() !== $this->fixer->getContents()) {
-            $diff = $this->differ->diff($smartFileInfo->getContents(), $this->fixer->getContents());
+        if ($fileContents !== $this->fixer->getContents()) {
+            $diff = $this->differ->diff($fileContents, $this->fixer->getContents());
 
             $appliedCheckers = $this->sniffMetadataCollector->getAppliedSniffs();
 
             $fileDiff = $this->fileDiffFactory->createFromDiffAndAppliedCheckers(
-                $smartFileInfo,
+                $fileInfo,
                 $diff,
                 $appliedCheckers
             );
@@ -108,10 +111,10 @@ final class SniffFileProcessor implements FileProcessorInterface
     /**
      * For tests or printing contenet
      */
-    public function processFileToString(SmartFileInfo $smartFileInfo): string
+    public function processFileToString(SplFileInfo $fileInfo): string
     {
-        $file = $this->fileFactory->createFromFileInfo($smartFileInfo);
-        $this->fixFile($file, $this->fixer, $smartFileInfo, $this->tokenListeners, []);
+        $file = $this->fileFactory->createFromFileInfo($fileInfo);
+        $this->fixFile($file, $this->fixer, $fileInfo, $this->tokenListeners, []);
 
         return $this->fixer->getContents();
     }
@@ -149,11 +152,12 @@ final class SniffFileProcessor implements FileProcessorInterface
     private function fixFile(
         File $file,
         Fixer $fixer,
-        SmartFileInfo $smartFileInfo,
+        SplFileInfo $fileInfo,
         array $tokenListeners,
         array $reportSniffClassesWarnings
     ): void {
-        $previousContent = $smartFileInfo->getContents();
+        $previousContent = FileSystem::read($fileInfo->getRealPath());
+
         $this->fixer->loops = 0;
 
         do {
@@ -162,7 +166,7 @@ final class SniffFileProcessor implements FileProcessorInterface
 
             $this->privatesAccessor->setPrivateProperty($fixer, 'inConflict', false);
             $file->setContent($content);
-            $file->processWithTokenListenersAndFileInfo($tokenListeners, $smartFileInfo, $reportSniffClassesWarnings);
+            $file->processWithTokenListenersAndFileInfo($tokenListeners, $fileInfo, $reportSniffClassesWarnings);
 
             // fixed content
             $previousContent = $fixer->getContents();

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Application;
 
+use SplFileInfo;
 use Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Skipper\Skipper\Skipper;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class SingleFileProcessor
 {
@@ -23,15 +23,15 @@ final class SingleFileProcessor
     /**
      * @return array{file_diffs?: FileDiff[], coding_standard_errors?: CodingStandardError[]}
      */
-    public function processFileInfo(SmartFileInfo $smartFileInfo, Configuration $configuration): array
+    public function processFileInfo(SplFileInfo $fileInfo, Configuration $configuration): array
     {
-        if ($this->skipper->shouldSkipFileInfo($smartFileInfo)) {
+        if ($this->skipper->shouldSkipFileInfo($fileInfo)) {
             return [];
         }
 
         $errorsAndDiffs = [];
 
-        $this->changedFilesDetector->addFileInfo($smartFileInfo);
+        $this->changedFilesDetector->addFileInfo($fileInfo);
         $fileProcessors = $this->fileProcessorCollector->getFileProcessors();
 
         foreach ($fileProcessors as $fileProcessor) {
@@ -39,7 +39,7 @@ final class SingleFileProcessor
                 continue;
             }
 
-            $currentErrorsAndFileDiffs = $fileProcessor->processFile($smartFileInfo, $configuration);
+            $currentErrorsAndFileDiffs = $fileProcessor->processFile($fileInfo, $configuration);
             if ($currentErrorsAndFileDiffs === []) {
                 continue;
             }
@@ -49,7 +49,7 @@ final class SingleFileProcessor
 
         // invalidate broken file, to analyse in next run too
         if ($errorsAndDiffs !== []) {
-            $this->changedFilesDetector->invalidateFileInfo($smartFileInfo);
+            $this->changedFilesDetector->invalidateFileInfo($fileInfo);
         }
 
         return $errorsAndDiffs;

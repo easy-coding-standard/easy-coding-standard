@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Skipper\SkipVoter;
 
+use SplFileInfo;
 use Symplify\EasyCodingStandard\Skipper\Contract\SkipVoterInterface;
 use Symplify\EasyCodingStandard\Skipper\SkipCriteriaResolver\SkippedClassResolver;
 use Symplify\EasyCodingStandard\Skipper\Skipper\SkipSkipper;
 use Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class ClassSkipVoter implements SkipVoterInterface
 {
@@ -28,7 +28,7 @@ final class ClassSkipVoter implements SkipVoterInterface
         return $this->classLikeExistenceChecker->doesClassLikeExist($element);
     }
 
-    public function shouldSkip(string | object $element, SmartFileInfo | string $file): bool
+    public function shouldSkip(string | object $element, SplFileInfo | string $file): bool
     {
         $skippedClasses = $this->skippedClassResolver->resolve();
         return $this->skipSkipper->doesMatchSkip($element, $file, $skippedClasses);

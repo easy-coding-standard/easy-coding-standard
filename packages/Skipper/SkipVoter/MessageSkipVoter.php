@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Skipper\SkipVoter;
 
+use SplFileInfo;
 use Symplify\EasyCodingStandard\Skipper\Contract\SkipVoterInterface;
 use Symplify\EasyCodingStandard\Skipper\Matcher\FileInfoMatcher;
 use Symplify\EasyCodingStandard\Skipper\SkipCriteriaResolver\SkippedMessagesResolver;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class MessageSkipVoter implements SkipVoterInterface
 {
@@ -26,7 +26,7 @@ final class MessageSkipVoter implements SkipVoterInterface
         return substr_count($element, ' ') > 0;
     }
 
-    public function shouldSkip(string | object $element, SmartFileInfo | string $file): bool
+    public function shouldSkip(string | object $element, SplFileInfo | string $file): bool
     {
         if (is_object($element)) {
             return false;

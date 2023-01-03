@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\FixerRunner\Application;
 
+use Nette\Utils\FileSystem;
 use PhpCsFixer\Differ\DifferInterface;
 use PhpCsFixer\Fixer\ClassNotation\ProtectedToPrivateFixer;
 use PhpCsFixer\Fixer\FixerInterface;
@@ -14,6 +15,7 @@ use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
 use PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
+use SplFileInfo;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Error\FileDiffFactory;
@@ -25,7 +27,6 @@ use Symplify\EasyCodingStandard\Skipper\Skipper\Skipper;
 use Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
-use Symplify\SmartFileSystem\SmartFileInfo;
 use Symplify\SmartFileSystem\SmartFileSystem;
 use Throwable;
 
@@ -79,9 +80,9 @@ final class FixerFileProcessor implements FileProcessorInterface
     /**
      * @return array{file_diffs?: FileDiff[]}
      */
-    public function processFile(SmartFileInfo $smartFileInfo, Configuration $configuration): array
+    public function processFile(SplFileInfo $fileInfo, Configuration $configuration): array
     {
-        $tokens = $this->fileToTokensParser->parseFromFilePath($smartFileInfo->getRealPath());
+        $tokens = $this->fileToTokensParser->parseFromFilePath($fileInfo->getRealPath());
 
         $appliedFixers = [];
 
@@ -90,7 +91,7 @@ final class FixerFileProcessor implements FileProcessorInterface
                 continue;
             }
 
-            if ($this->processTokensByFixer($smartFileInfo, $tokens, $fixer)) {
+            if ($this->processTokensByFixer($fileInfo, $tokens, $fixer)) {
                 $appliedFixers[] = $fixer::class;
             }
         }
@@ -99,8 +100,8 @@ final class FixerFileProcessor implements FileProcessorInterface
             return [];
         }
 
-        $contents = $smartFileInfo->getContents();
-        $diff = $this->differ->diff($contents, $tokens->generateCode());
+        $fileContents = FileSystem::read($fileInfo->getRealPath());
+        $diff = $this->differ->diff($fileContents, $tokens->generateCode());
 
         // some fixer with feature overlap can null each other
         if ($diff === '') {
@@ -110,7 +111,7 @@ final class FixerFileProcessor implements FileProcessorInterface
         $fileDiffs = [];
 
         // file has changed
-        $targetFileInfo = $this->targetFileInfoResolver->resolveTargetFileInfo($smartFileInfo);
+        $targetFileInfo = $this->targetFileInfoResolver->resolveTargetFileInfo($fileInfo);
         $fileDiffs[] = $this->fileDiffFactory->createFromDiffAndAppliedCheckers(
             $targetFileInfo,
             $diff,
@@ -119,7 +120,7 @@ final class FixerFileProcessor implements FileProcessorInterface
 
         $tokenGeneratedCode = $tokens->generateCode();
         if ($configuration->isFixer()) {
-            $this->smartFileSystem->dumpFile($smartFileInfo->getRealPath(), $tokenGeneratedCode);
+            $this->smartFileSystem->dumpFile($fileInfo->getRealPath(), $tokenGeneratedCode);
         }
 
         Tokens::clearCache();
@@ -129,9 +130,9 @@ final class FixerFileProcessor implements FileProcessorInterface
         ];
     }
 
-    public function processFileToString(SmartFileInfo $smartFileInfo): string
+    public function processFileToString(SplFileInfo $fileInfo): string
     {
-        $tokens = $this->fileToTokensParser->parseFromFilePath($smartFileInfo->getRealPath());
+        $tokens = $this->fileToTokensParser->parseFromFilePath($fileInfo->getRealPath());
 
         $appliedFixers = [];
         foreach ($this->fixers as $fixer) {
@@ -139,12 +140,12 @@ final class FixerFileProcessor implements FileProcessorInterface
                 continue;
             }
 
-            if ($this->processTokensByFixer($smartFileInfo, $tokens, $fixer)) {
+            if ($this->processTokensByFixer($fileInfo, $tokens, $fixer)) {
                 $appliedFixers[] = $fixer::class;
             }
         }
 
-        $contents = $smartFileInfo->getContents();
+        $contents = FileSystem::read($fileInfo->getRealPath());
         if ($appliedFixers === []) {
             return $contents;
         }
@@ -176,9 +177,9 @@ final class FixerFileProcessor implements FileProcessorInterface
      * @param Tokens<Token> $tokens
      * @return bool If fixer applied
      */
-    private function processTokensByFixer(SmartFileInfo $smartFileInfo, Tokens $tokens, FixerInterface $fixer): bool
+    private function processTokensByFixer(SplFileInfo $fileInfo, Tokens $tokens, FixerInterface $fixer): bool
     {
-        if ($this->shouldSkip($smartFileInfo, $fixer, $tokens)) {
+        if ($this->shouldSkip($fileInfo, $fixer, $tokens)) {
             return false;
         }
 
@@ -188,11 +189,11 @@ final class FixerFileProcessor implements FileProcessorInterface
         }
 
         try {
-            $fixer->fix($smartFileInfo, $tokens);
+            $fixer->fix($fileInfo, $tokens);
         } catch (Throwable $throwable) {
             throw new FixerFailedException(sprintf(
                 'Fixing of "%s" file by "%s" failed: %s in file %s on line %d',
-                $smartFileInfo->getRelativeFilePath(),
+                $fileInfo->getRealPath(),
                 $fixer::class,
                 $throwable->getMessage(),
                 $throwable->getFile(),
@@ -213,13 +214,13 @@ final class FixerFileProcessor implements FileProcessorInterface
     /**
      * @param Tokens<Token> $tokens
      */
-    private function shouldSkip(SmartFileInfo $smartFileInfo, FixerInterface $fixer, Tokens $tokens): bool
+    private function shouldSkip(SplFileInfo $fileInfo, FixerInterface $fixer, Tokens $tokens): bool
     {
-        if ($this->skipper->shouldSkipElementAndFileInfo($fixer, $smartFileInfo)) {
+        if ($this->skipper->shouldSkipElementAndFileInfo($fixer, $fileInfo)) {
             return true;
         }
 
-        if (! $fixer->supports($smartFileInfo)) {
+        if (! $fixer->supports($fileInfo)) {
             return true;
         }
 

@@ -5,27 +5,30 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\Tests\Set\Array;
 
 use Iterator;
+use SplFileInfo;
 use Symplify\EasyCodingStandard\Testing\PHPUnit\AbstractCheckerTestCase;
+use Symplify\EasyCodingStandard\Testing\PHPUnit\StaticFixtureFileFinder;
 use Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class ArrayTest extends AbstractCheckerTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(SmartFileInfo $fileInfo): void
+    public function test(SplFileInfo $fileInfo): void
     {
         $this->doTestFileInfo($fileInfo);
     }
 
-    /**
-     * @return Iterator<mixed, SmartFileInfo[]>
-     */
     public function provideData(): Iterator
     {
         return StaticFixtureFinder::yieldDirectory(__DIR__ . '/Fixture');
     }
+
+    //public function provideData(): Iterator
+    //{
+    //    yield StaticFixtureFileFinder::yieldFiles(__DIR__ . '/Fixture');
+    //}
 
     public function provideConfig(): string
     {

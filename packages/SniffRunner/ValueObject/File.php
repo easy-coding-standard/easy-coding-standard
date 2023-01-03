@@ -9,12 +9,12 @@ use PHP_CodeSniffer\Files\File as BaseFile;
 use PHP_CodeSniffer\Fixer;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Common;
+use SplFileInfo;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Skipper\Skipper\Skipper;
 use Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
 use Symplify\EasyCodingStandard\Testing\Exception\ShouldNotHappenException;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 /**
  * @api
@@ -36,7 +36,7 @@ final class File extends BaseFile
      */
     private array $tokenListeners = [];
 
-    private ?SmartFileInfo $fileInfo = null;
+    private ?SplFileInfo $fileInfo = null;
 
     /**
      * @var array<class-string<Sniff>>
@@ -81,7 +81,7 @@ final class File extends BaseFile
         $this->fixer->startFile($this);
 
         $currentFileInfo = $this->fileInfo;
-        if (! $currentFileInfo instanceof SmartFileInfo) {
+        if (! $currentFileInfo instanceof SplFileInfo) {
             throw new ShouldNotHappenException();
         }
 
@@ -152,7 +152,7 @@ final class File extends BaseFile
      */
     public function processWithTokenListenersAndFileInfo(
         array $tokenListeners,
-        SmartFileInfo $fileInfo,
+        SplFileInfo $fileInfo,
         array $reportSniffClassesWarnings
     ): void {
         $this->tokenListeners = $tokenListeners;
