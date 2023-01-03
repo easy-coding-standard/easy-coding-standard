@@ -64,12 +64,12 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
 
         $fileContents = FileSystem::read($filePath);
 
+        // before and after case - we want to see a change
         if (\str_contains($fileContents, '-----')) {
             [$inputContents, $expectedContents] = Strings::split($fileContents, self::SPLIT_LINE_REGEX);
         } else {
-            // no change
-            $inputContents = $fileContents;
-            $expectedContents = $fileContents;
+            // no change, part before and after are the same
+            [$inputContents, $expectedContents] = [$fileContents, $fileContents];
         }
 
         $inputFilePath = sys_get_temp_dir() . '/ecs_tests/' . md5((string) $inputContents) . '.php';

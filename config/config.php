@@ -25,8 +25,6 @@ use Symplify\EasyCodingStandard\ValueObject\Option;
 use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 use Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
 use Symplify\PackageBuilder\Yaml\ParametersMerger;
-use Symplify\SmartFileSystem\Normalizer\PathNormalizer;
-use Symplify\SmartFileSystem\SmartFileSystem;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 
 return static function (ECSConfig $ecsConfig): void {
@@ -87,8 +85,6 @@ return static function (ECSConfig $ecsConfig): void {
 
     $services->set(Terminal::class);
 
-    $services->set(SmartFileSystem::class);
-
     $services->set(SymfonyStyleFactory::class);
     $services->set(SymfonyStyle::class)
         ->factory([service(SymfonyStyleFactory::class), 'create']);
@@ -110,5 +106,4 @@ return static function (ECSConfig $ecsConfig): void {
     $services->set(FixerFileProcessor::class);
 
     $services->set(ClassLikeExistenceChecker::class);
-    $services->set(PathNormalizer::class);
 };

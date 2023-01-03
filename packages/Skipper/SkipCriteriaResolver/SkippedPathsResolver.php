@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Skipper\SkipCriteriaResolver;
 
+use Symplify\EasyCodingStandard\FileSystem\PathNormalizer;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
-use Symplify\SmartFileSystem\Normalizer\PathNormalizer;
 
 /**
  * @see \Symplify\EasyCodingStandard\Tests\Skipper\SkipCriteriaResolver\SkippedPathsResolver\SkippedPathsResolverTest
