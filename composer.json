@@ -18,7 +18,6 @@
         "symplify/autowire-array-parameter": "^11.1",
         "symplify/coding-standard": "^11.1",
         "symplify/easy-parallel": "^11.1",
-        "symplify/easy-testing": "^11.1",
         "symplify/package-builder": "^11.1",
         "symplify/symplify-kernel": "^11.1",
         "webmozart/assert": "^1.11"
