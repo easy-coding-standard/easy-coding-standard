@@ -9,7 +9,6 @@ use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Terminal;
-use Symplify\EasyTesting\PHPUnit\StaticPHPUnitEnvironment;
 use Symplify\PackageBuilder\Reflection\PrivatesCaller;
 
 final class EasyCodingStandardStyleFactory
@@ -39,7 +38,7 @@ final class EasyCodingStandardStyleFactory
         }
 
         // disable output for tests
-        if (StaticPHPUnitEnvironment::isPHPUnitRun()) {
+        if (defined('PHPUNIT_COMPOSER_INSTALL')) {
             $consoleOutput->setVerbosity(OutputInterface::VERBOSITY_QUIET);
         }
 
