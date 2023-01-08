@@ -16,7 +16,7 @@
         "symfony/dependency-injection": "6.1.*",
         "symfony/finder": "^6.2",
         "symplify/autowire-array-parameter": "^11.1",
-        "symplify/coding-standard": "^11.1",
+        "symplify/coding-standard": "^11.1.32",
         "symplify/easy-parallel": "^11.1",
         "symplify/package-builder": "^11.1",
         "symplify/symplify-kernel": "^11.1",
@@ -79,5 +79,7 @@
         ],
         "rector": "vendor/bin/rector process --dry-run --ansi",
         "release": "vendor/bin/monorepo-builder release patch --ansi"
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
