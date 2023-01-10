@@ -6,7 +6,6 @@ namespace Symplify\EasyCodingStandard\SniffRunner\File;
 
 use Nette\Utils\FileSystem;
 use PHP_CodeSniffer\Fixer;
-use SplFileInfo;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\FileSystem\StaticRelativeFilePathHelper;
 use Symplify\EasyCodingStandard\Skipper\Skipper\Skipper;

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\FileSystem;
 
-use SplFileInfo;
 use Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
 
 final class FileFilter

@@ -9,7 +9,6 @@ use PHP_CodeSniffer\Fixer;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
 use PhpCsFixer\Differ\DifferInterface;
-use SplFileInfo;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Error\FileDiffFactory;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
@@ -149,11 +148,11 @@ final class SniffFileProcessor implements FileProcessorInterface
      * @param array<class-string<Sniff>> $reportSniffClassesWarnings
      */
     private function fixFile(
-        File   $file,
-        Fixer  $fixer,
+        File $file,
+        Fixer $fixer,
         string $filePath,
-        array  $tokenListeners,
-        array  $reportSniffClassesWarnings
+        array $tokenListeners,
+        array $reportSniffClassesWarnings
     ): void {
         $previousContent = FileSystem::read($filePath);
 

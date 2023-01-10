@@ -11,7 +11,6 @@ use Symplify\EasyCodingStandard\Tests\Skipper\Skipper\Skipper\Fixture\Element\Fi
 use Symplify\EasyCodingStandard\Tests\Skipper\Skipper\Skipper\Fixture\Element\SixthSense;
 use Symplify\EasyCodingStandard\Tests\Skipper\Skipper\Skipper\Fixture\Element\ThreeMan;
 use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class SkipperTest extends AbstractKernelTestCase
 {

@@ -6,7 +6,6 @@ namespace Symplify\EasyCodingStandard\SnippetFormatter\Application;
 
 use Nette\Utils\FileSystem;
 use PhpCsFixer\Differ\DifferInterface;
-use SplFileInfo;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\EasyCodingStandard\FileSystem\StaticRelativeFilePathHelper;
@@ -17,7 +16,6 @@ use Symplify\EasyCodingStandard\SnippetFormatter\Reporter\SnippetReporter;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use Symplify\PackageBuilder\Console\Formatter\ColorConsoleDiffFormatter;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class MarkdownSnippetFormatterApplication
 {
@@ -62,10 +60,8 @@ final class MarkdownSnippetFormatterApplication
         return $this->processedFileReporter->report($errorsAndDiffs, $configuration);
     }
 
-    private function processFilePathWithPattern(
-        string        $filePath,
-        Configuration $configuration
-    ): ?FileDiff {
+    private function processFilePathWithPattern(string $filePath, Configuration $configuration): ?FileDiff
+    {
         $fixedContent = $this->markdownSnippetFormatter->format($filePath, $configuration);
 
         $originalFileContents = FileSystem::read($filePath);

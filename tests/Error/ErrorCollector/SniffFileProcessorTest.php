@@ -11,7 +11,6 @@ use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardErro
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class SniffFileProcessorTest extends AbstractKernelTestCase
 {
@@ -34,7 +33,10 @@ final class SniffFileProcessorTest extends AbstractKernelTestCase
     {
         $configuration = new Configuration();
 
-        $errorsAndFileDiffs = $this->sniffFileProcessor->processFile(__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc', $configuration);
+        $errorsAndFileDiffs = $this->sniffFileProcessor->processFile(
+            __DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc',
+            $configuration
+        );
 
         /** @var FileDiff[] $fileDiffs */
         $fileDiffs = $errorsAndFileDiffs['file_diffs'] ?? [];

@@ -9,7 +9,6 @@ use PHP_CodeSniffer\Files\File as BaseFile;
 use PHP_CodeSniffer\Fixer;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Common;
-use SplFileInfo;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Exception\ShouldNotHappenException;
 use Symplify\EasyCodingStandard\Skipper\Skipper\Skipper;
@@ -155,8 +154,8 @@ final class File extends BaseFile
         string $filePath,
         array $reportSniffClassesWarnings
     ): void {
-        $this->tokenListeners             = $tokenListeners;
-        $this->filePath                   = $filePath;
+        $this->tokenListeners = $tokenListeners;
+        $this->filePath = $filePath;
         $this->reportSniffClassesWarnings = $reportSniffClassesWarnings;
         $this->process();
     }
