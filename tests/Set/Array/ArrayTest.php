@@ -19,7 +19,7 @@ final class ArrayTest extends AbstractCheckerTestCase
 
     public function provideData(): Iterator
     {
-        yield self::yieldFiles(__DIR__ . '/Fixture');
+        return self::yieldFiles(__DIR__ . '/Fixture');
     }
 
     public function provideConfig(): string
