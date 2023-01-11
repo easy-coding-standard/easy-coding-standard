@@ -236,7 +236,7 @@ final class FixerFileProcessor implements FileProcessorInterface
         }
 
         foreach (self::MARKDOWN_EXCLUDED_FIXERS as $markdownExcludedFixer) {
-            if (is_a($fixer, $markdownExcludedFixer, true)) {
+            if ($fixer instanceof $markdownExcludedFixer) {
                 return true;
             }
         }
