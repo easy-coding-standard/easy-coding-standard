@@ -28,9 +28,11 @@ Are you already using another tool?
 composer require symplify/easy-coding-standard --dev
 ```
 
+<br>
+
 ## Usage
 
-### 1. Create Configuration and Setup Checkers
+### 1. Create Configuration
 
 - Create an `ecs.php` in your root directory
 
@@ -38,11 +40,11 @@ composer require symplify/easy-coding-standard --dev
 vendor/bin/ecs init
 ```
 
-- Add [Sniffs](https://github.com/squizlabs/PHP_CodeSniffer)
-- ...or [Fixers](https://github.com/FriendsOfPHP/PHP-CS-Fixer) you'd love to use
+### 2. Setup Sets and Chekcers
+
+- Add [Sniffs](https://github.com/squizlabs/PHP_CodeSniffer) or [Fixers](https://github.com/FriendsOfPHP/PHP-CS-Fixer) you'd love to use
 
 ```php
-// ecs.php
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
@@ -58,12 +60,14 @@ return static function (ECSConfig $ecsConfig): void {
 };
 ```
 
-### 2. Run in CLI
+### 3. Run in CLI
 
 ```bash
 # dry run
 vendor/bin/ecs check src
+```
 
+```bash
 # fix
 vendor/bin/ecs check src --fix
 ```
