@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Testing\PHPUnit;
 
+use Iterator;
 use Nette\Utils\FileSystem;
 use Nette\Utils\Strings;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Finder\Finder;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
@@ -71,30 +71,20 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
         $inputFilePath = sys_get_temp_dir() . '/ecs_tests/' . md5((string) $inputContents) . '.php';
         FileSystem::write($inputFilePath, $inputContents);
 
+        // 1. process php-cs-fixer
         if ($this->fixerFileProcessor->getCheckers() !== []) {
             $processedFileContent = $this->fixerFileProcessor->processFileToString($inputFilePath);
             $this->assertEquals($expectedContents, $processedFileContent);
+        // 2. process php coce sniffer
         } elseif ($this->sniffFileProcessor->getCheckers() !== []) {
             $processedFileContent = $this->sniffFileProcessor->processFileToString($inputFilePath);
-        } else {
-            throw new TestingShouldNotHappenException();
+            $this->assertEquals($expectedContents, $processedFileContent);
         }
-
-        $this->assertEquals($expectedContents, $processedFileContent);
     }
 
-    /**
-     * @return string[]
-     */
-    protected static function yieldFiles(string $directory, string $suffix = '*.php.inc'): array
+    protected static function yieldFiles(string $directory, string $suffix = '*.php.inc'): Iterator
     {
-        $finder = Finder::create()->in($directory)->files()->name($suffix);
-        $fileInfos = iterator_to_array($finder);
-
-        $filePaths = array_keys($fileInfos);
-        Assert::allString($filePaths);
-
-        return $filePaths;
+        return FixtureFinder::yieldDataProviderFiles($directory, $suffix);
     }
 
     private function autoloadCodeSniffer(): void
