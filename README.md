@@ -181,9 +181,7 @@ vendor/bin/ecs check src --clear-cache
 vendor/bin/ecs check src --config another-config.php
 ```
 
-## Report Issues
-
-In case you are experiencing a bug or want to request a new feature head over to the [Symplify monorepo issue tracker](https://github.com/symplify/symplify/issues)
+<br>
 
 ## Acknowledgment
 
