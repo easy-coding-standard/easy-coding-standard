@@ -6,17 +6,21 @@
 
 ## Features
 
-- **Blazing fast [Parallel run](#parallel-run)**
+- **Blazing fast [parallel run](#parallel-run)**
 - Use [PHP_CodeSniffer || PHP-CS-Fixer](https://tomasvotruba.com/blog/2017/05/03/combine-power-of-php-code-sniffer-and-php-cs-fixer-in-3-lines/) - anything you like
 - **2nd run under few seconds** with un-changed file cache
 - Skipping files for specific checkers
-- **Prepared sets** - PSR12, Symfony, arrays, use statements, spaces and more... - see `SetList` class for all
-- **Prefixed version** by default to allow install without conflicts
+- **Prepared sets** - PSR-12, arrays, use statements, spaces and more... - see `SetList` class for all
+- **Prefixed version** by default to allow install without conflicts on any PHP 7.2+ project
+
+<br>
 
 Are you already using another tool?
 
-- [How to Migrate From PHP_CodeSniffer to EasyCodingStandard in 7 Steps](https://www.tomasvotruba.com/blog/2018/06/04/how-to-migrate-from-php-code-sniffer-to-easy-coding-standard/#comment-4086561141)
-- [How to Migrate From PHP CS Fixer to EasyCodingStandard in 6 Steps](https://www.tomasvotruba.com/blog/2018/06/07/how-to-migrate-from-php-cs-fixer-to-easy-coding-standard/)
+- [How to Migrate from PHP_CodeSniffer](https://www.tomasvotruba.com/blog/2018/06/04/how-to-migrate-from-php-code-sniffer-to-easy-coding-standard/#comment-4086561141)
+- [How to Migrate from PHP CS Fixer](https://www.tomasvotruba.com/blog/2018/06/07/how-to-migrate-from-php-cs-fixer-to-easy-coding-standard/)
+
+<br>
 
 ## Install
 
@@ -29,6 +33,11 @@ composer require symplify/easy-coding-standard --dev
 ### 1. Create Configuration and Setup Checkers
 
 - Create an `ecs.php` in your root directory
+
+```bash
+vendor/bin/ecs init
+```
+
 - Add [Sniffs](https://github.com/squizlabs/PHP_CodeSniffer)
 - ...or [Fixers](https://github.com/FriendsOfPHP/PHP-CS-Fixer) you'd love to use
 
@@ -49,28 +58,14 @@ return static function (ECSConfig $ecsConfig): void {
 };
 ```
 
-#### Full Sets before Standalone Rules
-
-It is highly recommended to import sets (A) first, then add standalone rules (B).
-
-The reason for this is that some settings are configured in the full sets too, and will therefore overwrite your standalone rules, if not configured first.
-
 ### 2. Run in CLI
 
 ```bash
-# dry
+# dry run
 vendor/bin/ecs check src
 
 # fix
 vendor/bin/ecs check src --fix
-```
-
-## Features
-
-How to load own config?
-
-```bash
-vendor/bin/ecs check src --config another-config.php
 ```
 
 <br>
@@ -137,40 +132,33 @@ return static function (ECSConfig $ecsConfig): void {
 
 ## Parallel Run
 
-Do you have multi-core CPUs? ECS can run in *X* parallel threads, where *X* is number of your threads. E.g. with laptop with [AMD Ryzen 4750U](https://en.wikipedia.org/wiki/Ryzen) it is 16.
+ECS runs in *X* parallel threads, where *X* is number of your threads.
 
-That means 1600 % faster run with same amount of analysed files. Did you code base took 16 minutes to fix? Now it's 1 minute.
+Do you have 16 threads? That will speed up the process from 2,5 minutes to 10 seconds.
 
-How to enable it?
+<br>
+
+This process is enabled by default. To disable it, use `disableParallel()` method:
 
 ```php
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 
 return static function (ECSConfig $ecsConfig): void {
-    $ecsConfig->parallel();
+    $ecsConfig->disableParallel();
 };
 ```
 
-## Coding Standards in Markdown
-
-![ECS-Run](docs/check_markdown.gif)
-
 <br>
+
+## Coding Standards in Markdown
 
 How to correct PHP snippets in Markdown files?
 
 ```bash
-vendor/bin/ecs check-markdown README.md
 vendor/bin/ecs check-markdown README.md docs/rules.md
 
 # to fix them, add --fix
 vendor/bin/ecs check-markdown README.md docs/rules.md --fix
-```
-
-Do you have already paths defined in `ecs.php` config? Drop them from CLI and let ECS use those:
-
-```bash
-vendor/bin/ecs check-markdown --fix
 ```
 
 <br>
@@ -181,6 +169,12 @@ vendor/bin/ecs check-markdown --fix
 
 ```bash
 vendor/bin/ecs check src --clear-cache
+```
+
+### How to load Custom Config?
+
+```bash
+vendor/bin/ecs check src --config another-config.php
 ```
 
 ## Report Issues
