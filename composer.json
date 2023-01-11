@@ -16,7 +16,7 @@
         "symfony/dependency-injection": "6.1.*",
         "symfony/finder": "^6.2",
         "symplify/autowire-array-parameter": "^11.1",
-        "symplify/coding-standard": "^11.1.32",
+        "symplify/coding-standard": "^11.2",
         "symplify/easy-parallel": "^11.1",
         "symplify/package-builder": "^11.1",
         "symplify/symplify-kernel": "^11.1",
@@ -72,10 +72,6 @@
         "check-cs": "bin/ecs check --ansi",
         "fix-cs": "bin/ecs check --fix --ansi",
         "phpstan": "vendor/bin/phpstan analyse --ansi  --error-format symplify",
-        "docs": [
-            "vendor/bin/rule-doc-generator generate packages/coding-standard --output-file docs/rules_overview.md --ansi",
-            "bin/ecs check-markdown docs/rules_overview.md --fix --ansi"
-        ],
         "rector": "vendor/bin/rector process --dry-run --ansi",
         "release": "vendor/bin/monorepo-builder release patch --ansi"
     },

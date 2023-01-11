@@ -31,7 +31,7 @@ final class YourFixerTest extends AbstractCheckerTestCase
 
     public function provideData(): Iterator
     {
-        yield self::yieldFiles(__DIR__ . '/Fixture');
+        return self::yieldFiles(__DIR__ . '/Fixture');
     }
 
     /**
@@ -55,7 +55,9 @@ final class YourFixerTest extends AbstractCheckerTestCase
 }
 ```
 
-Instead of `[__DIR__ . '/wrong/wrong.php.inc', __DIR__ . '/fixed/fixed.php.inc']` you can use single file: `__DIR__ . '/fixture/fixture.php.inc'` in this format:
+<br>
+
+The `/Fixture` directory with diffs, should be a `*.php.inc` file with this content:
 
 ```php
 <?php
@@ -78,13 +80,3 @@ before
 ------
 after
 ```
-
-<br>
-
-## Report Issues
-
-In case you are experiencing a bug or want to request a new feature head over to the [Symplify monorepo issue tracker](https://github.com/symplify/symplify/issues)
-
-## Contribute
-
-The sources of this package are contained in the Symplify monorepo. We welcome contributions for this package on [symplify/symplify](https://github.com/symplify/symplify).
