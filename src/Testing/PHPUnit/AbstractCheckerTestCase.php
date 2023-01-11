@@ -7,7 +7,6 @@ namespace Symplify\EasyCodingStandard\Testing\PHPUnit;
 use Nette\Utils\FileSystem;
 use Nette\Utils\Strings;
 use PHPUnit\Framework\TestCase;
-use SplFileInfo;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Finder\Finder;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
@@ -82,48 +81,6 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
         }
 
         $this->assertEquals($expectedContents, $processedFileContent);
-    }
-
-    /**
-     * @deprecated use doTestFile() instead with \Symplify\EasyCodingStandard\Testing\PHPUnit\StaticFixtureFileFinder::yieldFiles()
-     */
-    protected function doTestFileInfo(SplFileInfo $fileInfo): never
-    {
-        echo sprintf(
-            'The "%s()" method is deprecated and will be removed in ECS 12. Use "doTestFile()" or PHPStan rule/custom rule instead',
-            __METHOD__
-        );
-        sleep(5);
-        exit(1);
-    }
-
-    /**
-     * @api
-     * File should stay the same and contain 0 errors
-     * @deprecated Use doTestFile() or PHPStan instead
-     */
-    protected function doTestCorrectFileInfo(SplFileInfo $fileInfo): never
-    {
-        echo sprintf(
-            'The "%s()" method is deprecated and will be removed in ECS 12. Use "doTestFile()" or PHPStan rule/custom rule instead',
-            __METHOD__
-        );
-        sleep(5);
-        exit(1);
-    }
-
-    /**
-     * @api
-     * @deprecated Use doTestFile() or PHPStan instead
-     */
-    protected function doTestFileInfoWithErrorCountOf(SplFileInfo $wrongFileInfo, int $expectedErrorCount): never
-    {
-        echo sprintf(
-            'The "%s()" method is deprecated and will be removed in ECS 12. Use "doTestFile()" or PHPStan rule/custom rule instead',
-            __METHOD__
-        );
-        sleep(5);
-        exit(1);
     }
 
     /**
