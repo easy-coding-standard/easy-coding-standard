@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Console\Output;
 
+use Symplify\EasyCodingStandard\Console\ExitCode;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
@@ -24,6 +25,9 @@ final class ConsoleOutputFormatter implements OutputFormatterInterface
     ) {
     }
 
+    /**
+     * @return ExitCode::*
+     */
     public function report(ErrorAndDiffResult $errorAndDiffResult, Configuration $configuration): int
     {
         $this->reportFileDiffs($errorAndDiffResult->getFileDiffs());
