@@ -1,4 +1,4 @@
-/vendor
+# we need the vendor
 composer.lock
 
 .phpunit.result.cache
