@@ -33,6 +33,7 @@
         "phpunit/phpunit": "^9.5.27",
         "rector/rector": "^0.15.2",
         "symplify/easy-ci": "^11.1",
+        "symplify/monorepo-builder": "11.1.30.72",
         "symplify/phpstan-extensions": "^11.1",
         "tracy/tracy": "^2.9"
     },
