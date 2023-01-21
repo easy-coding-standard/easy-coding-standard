@@ -8,8 +8,5 @@ use Symplify\MonorepoBuilder\Release\ReleaseWorker\TagVersionReleaseWorker;
 
 return static function (MBConfig $mbConfig): void {
     // @see https://github.com/symplify/monorepo-builder#6-release-flow
-    $mbConfig->workers([
-                           TagVersionReleaseWorker::class,
-                           PushTagReleaseWorker::class,
-                       ]);
+    $mbConfig->workers([TagVersionReleaseWorker::class, PushTagReleaseWorker::class]);
 };
