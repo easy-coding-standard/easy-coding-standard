@@ -15,11 +15,7 @@
         "symfony/console": "^6.2",
         "symfony/dependency-injection": "^6.2",
         "symfony/finder": "^6.2",
-        "symplify/autowire-array-parameter": "^11.1",
-        "symplify/coding-standard": "^11.2.2",
-        "symplify/easy-parallel": "^11.1",
-        "symplify/package-builder": "^11.1",
-        "symplify/symplify-kernel": "^11.1",
+        "symplify/symplify": "*",
         "webmozart/assert": "^1.11"
     },
     "require-dev": {
@@ -32,9 +28,9 @@
         "phpstan/phpstan-webmozart-assert": "^1.2",
         "phpunit/phpunit": "^9.5.27",
         "rector/rector": "^0.15.2",
-        "symplify/easy-ci": "^11.1",
-        "symplify/monorepo-builder": "11.1.30.72",
-        "symplify/phpstan-extensions": "^11.1",
+        "symplify/easy-ci": "*",
+        "symplify/monorepo-builder": "*",
+        "symplify/phpstan-extensions": "*",
         "tracy/tracy": "^2.9"
     },
     "autoload": {
