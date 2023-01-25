@@ -6,7 +6,6 @@ on:
             # avoid infinite looping, skip tags that ends with ".72"
             # see https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#example-including-and-excluding-branches
             - '*'
-            - '!**.72'
 
 jobs:
     downgrade_release:
@@ -65,5 +64,7 @@ jobs:
                     # separate a "git add" to add untracked (new) files too
                     git add --all
                     git commit -m "release PHP 7.2 downgraded"
-                    git tag "${GITHUB_REF#refs/tags/}.72"
-                    git push origin "${GITHUB_REF#refs/tags/}.72"
+
+                    # force push tag, so there is only 1 version
+                    git tag "${GITHUB_REF#refs/tags/}" --force
+                    git push origin "${GITHUB_REF#refs/tags/}" --force
