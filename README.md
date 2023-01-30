@@ -32,15 +32,17 @@ composer require symplify/easy-coding-standard --dev
 
 ## Usage
 
-### 1. Create Configuration
+### 1. First Run
 
-- Create an `ecs.php` in your root directory
+To start using ECS, just run it:
 
 ```bash
-vendor/bin/ecs init
+vendor/bin/ecs
 ```
 
-### 2. Setup Sets and Chekcers
+It will instantly offer to create the `ecs.php` with your directories from your project.
+
+### 2. Setup Sets and Checkers
 
 - Add [Sniffs](https://github.com/squizlabs/PHP_CodeSniffer) or [Fixers](https://github.com/FriendsOfPHP/PHP-CS-Fixer) you'd love to use
 
@@ -60,15 +62,15 @@ return static function (ECSConfig $ecsConfig): void {
 };
 ```
 
-### 3. Run in CLI
+### 3. Run Again
 
 ```bash
-# dry run
 vendor/bin/ecs check src
 ```
 
+The runs above are *dry runs*, so you can check the code diffs, before they get applied. If you're sure, go for a fix command:
+
 ```bash
-# fix
 vendor/bin/ecs check src --fix
 ```
 
