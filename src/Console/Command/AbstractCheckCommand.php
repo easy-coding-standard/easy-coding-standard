@@ -7,7 +7,6 @@ namespace Symplify\EasyCodingStandard\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Contracts\Service\Attribute\Required;
-use Symplify\EasyCodingStandard\Application\EasyCodingStandardApplication;
 use Symplify\EasyCodingStandard\Configuration\ConfigurationFactory;
 use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
@@ -18,18 +17,14 @@ abstract class AbstractCheckCommand extends AbstractSymplifyCommand
 {
     protected EasyCodingStandardStyle $easyCodingStandardStyle;
 
-    protected EasyCodingStandardApplication $easyCodingStandardApplication;
-
     protected ConfigurationFactory $configurationFactory;
 
     #[Required]
     public function autowireAbstractCheckCommand(
         ConfigurationFactory $configurationFactory,
-        EasyCodingStandardApplication $easyCodingStandardApplication,
         EasyCodingStandardStyle $easyCodingStandardStyle,
     ): void {
         $this->configurationFactory = $configurationFactory;
-        $this->easyCodingStandardApplication = $easyCodingStandardApplication;
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
     }
 
