@@ -7,14 +7,12 @@ namespace Symplify\EasyCodingStandard\Console\Command;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\Filesystem\Filesystem;
+use Symplify\EasyCodingStandard\Configuration\ConfigInitializer;
 
 final class InitCommand extends Command
 {
     public function __construct(
-        private readonly Filesystem $filesystem,
-        private readonly SymfonyStyle $symfonyStyle,
+        private readonly ConfigInitializer $configInitializer,
     ) {
         parent::__construct();
     }
@@ -27,16 +25,12 @@ final class InitCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $doesConfigExists = $this->filesystem->exists(getcwd() . '/ecs.php');
-
-        // @todo figure out a better versoin
-        if (! $doesConfigExists) {
-            $this->filesystem->copy(__DIR__ . '/../../../templates/ecs.php.dist', getcwd() . '/ecs.php');
-            $this->symfonyStyle->success('ecs.php config file has been generated successfully');
-        } else {
-            $this->symfonyStyle->warning('The "ecs.php" configuration file already exists');
+        // found some rules, we don't need more
+        if ($this->configInitializer->areSomeCheckersRegistered()) {
+            return self::SUCCESS;
         }
 
+        $this->configInitializer->createConfig(getcwd());
         return self::SUCCESS;
     }
 }
