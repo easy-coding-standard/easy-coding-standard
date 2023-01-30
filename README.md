@@ -17,8 +17,8 @@
 
 Are you already using another tool?
 
-- [How to Migrate from PHP_CodeSniffer](https://www.tomasvotruba.com/blog/2018/06/04/how-to-migrate-from-php-code-sniffer-to-easy-coding-standard/#comment-4086561141)
-- [How to Migrate from PHP CS Fixer](https://www.tomasvotruba.com/blog/2018/06/07/how-to-migrate-from-php-cs-fixer-to-easy-coding-standard/)
+- [How to Migrate from PHP_CodeSniffer](https://tomasvotruba.com/blog/2018/06/04/how-to-migrate-from-php-code-sniffer-to-easy-coding-standard/#comment-4086561141)
+- [How to Migrate from PHP CS Fixer](https://tomasvotruba.com/blog/2018/06/07/how-to-migrate-from-php-cs-fixer-to-easy-coding-standard/)
 
 <br>
 
@@ -83,28 +83,23 @@ use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 
 return static function (ECSConfig $ecsConfig): void {
-    // alternative to CLI arguments, easier to maintain and extend
     $ecsConfig->paths([__DIR__ . '/src', __DIR__ . '/tests']);
 
-    // bear in mind that this will override SetList skips if one was previously imported
-    // this is result of design decision in symfony https://github.com/symfony/symfony/issues/26713
     $ecsConfig->skip([
-        // skip paths with legacy code
+        // skip whole rule
+        ArraySyntaxFixer::class,
+
+        // skip directory by absolute
+        __DIR__ . '/packages/Migrations',
+
+        // skip directories by mask
         __DIR__ . '/packages/*/src/Legacy',
 
-        ArraySyntaxFixer::class => [
-            // path to file (you can copy this from error report)
+        // skip single rule in particular paths
+        LineLenghtFixer::class => [
             __DIR__ . '/packages/EasyCodingStandard/packages/SniffRunner/src/File/File.php',
-
-            // or multiple files by path to match against "fnmatch()"
-            __DIR__ . '/packages/*/src/Command',
-
-            // generics paths
             '*Sniff.php',
         ],
-
-        // skip rule completely
-        ArraySyntaxFixer::class,
     ]);
 
     // file extensions to scan [default: [php]]
@@ -140,7 +135,7 @@ This process is enabled by default. To disable it, use `disableParallel()` metho
 ```php
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 
-return static function (ECSConfig $ecsConfig): void {
+return function (ECSConfig $ecsConfig): void {
     $ecsConfig->disableParallel();
 };
 ```
