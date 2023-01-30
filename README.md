@@ -105,15 +105,9 @@ return static function (ECSConfig $ecsConfig): void {
 
         // skip rule completely
         ArraySyntaxFixer::class,
-
-        // just single one part of the rule?
-        ArraySyntaxFixer::class . '.SomeSingleOption',
-
-        // ignore specific error message
-        'Cognitive complexity for method "addAction" is 13 but has to be less than or equal to 8.',
     ]);
 
-    // scan other file extensions; [default: [php]]
+    // file extensions to scan [default: [php]]
     $ecsConfig->fileExtensions(['php', 'phpt']);
 
     // configure cache paths & namespace - useful for Gitlab CI caching, where getcwd() produces always different path
@@ -123,11 +117,10 @@ return static function (ECSConfig $ecsConfig): void {
     // [default: \Nette\Utils\Strings::webalize(getcwd())']
     $ecsConfig->cacheNamespace('my_project_namespace');
 
-    // indent and tabs/spaces
-    // [default: spaces]
+    // indent and tabs/spaces [default: spaces]
     $ecsConfig->indentation('tab');
 
-    // [default: PHP_EOL]; other options: "\n"
+    // end of line [default: PHP_EOL]; other options: "\n"
     $ecsConfig->lineEnding("\r\n");
 };
 ```
