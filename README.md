@@ -142,19 +142,6 @@ return function (ECSConfig $ecsConfig): void {
 
 <br>
 
-## Coding Standards in Markdown
-
-How to correct PHP snippets in Markdown files?
-
-```bash
-vendor/bin/ecs check-markdown README.md docs/rules.md
-
-# to fix them, add --fix
-vendor/bin/ecs check-markdown README.md docs/rules.md --fix
-```
-
-<br>
-
 ## FAQ
 
 ### How do I clear cache?
