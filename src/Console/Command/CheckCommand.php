@@ -6,6 +6,7 @@ namespace Symplify\EasyCodingStandard\Console\Command;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symplify\EasyCodingStandard\Configuration\ConfigInitializer;
 use Symplify\EasyCodingStandard\MemoryLimitter;
 use Symplify\EasyCodingStandard\Reporter\ProcessedFileReporter;
 
@@ -14,6 +15,7 @@ final class CheckCommand extends AbstractCheckCommand
     public function __construct(
         private readonly ProcessedFileReporter $processedFileReporter,
         private readonly MemoryLimitter $memoryLimitter,
+        private readonly ConfigInitializer $configInitializer,
     ) {
         parent::__construct();
     }
@@ -27,9 +29,9 @@ final class CheckCommand extends AbstractCheckCommand
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        if (! $this->loadedCheckersGuard->areSomeCheckersRegistered()) {
-            $this->loadedCheckersGuard->report();
-            return self::FAILURE;
+        if (! $this->configInitializer->areSomeCheckersRegistered()) {
+            $this->configInitializer->createConfig(getcwd());
+            return self::SUCCESS;
         }
 
         $configuration = $this->configurationFactory->createFromInput($input);

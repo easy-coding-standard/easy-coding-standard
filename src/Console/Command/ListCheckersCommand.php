@@ -14,7 +14,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 use Symplify\EasyCodingStandard\Console\Reporter\CheckerListReporter;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
-use Symplify\EasyCodingStandard\Guard\LoadedCheckersGuard;
 use Symplify\EasyCodingStandard\Skipper\SkipCriteriaResolver\SkippedClassResolver;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 use Symplify\EasyCodingStandard\ValueObject\Option;
@@ -26,7 +25,6 @@ final class ListCheckersCommand extends AbstractSymplifyCommand
         private readonly SniffFileProcessor $sniffFileProcessor,
         private readonly FixerFileProcessor $fixerFileProcessor,
         private readonly CheckerListReporter $checkerListReporter,
-        private readonly LoadedCheckersGuard $loadedCheckersGuard,
         private readonly SkippedClassResolver $skippedClassResolver
     ) {
         parent::__construct();
@@ -48,10 +46,6 @@ final class ListCheckersCommand extends AbstractSymplifyCommand
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        if (! $this->loadedCheckersGuard->areSomeCheckersRegistered()) {
-            return self::SUCCESS;
-        }
-
         $outputFormat = $input->getOption(Option::OUTPUT_FORMAT);
 
         // include skipped rules to avoid adding those too
