@@ -1,6 +1,7 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace ECSPrefix202301;
 
 use PhpCsFixer\Fixer\ArrayNotation\NoWhitespaceBeforeCommaInArrayFixer;
 use PhpCsFixer\Fixer\ArrayNotation\WhitespaceAfterCommaInArrayFixer;
@@ -51,87 +52,16 @@ use PhpCsFixer\Fixer\Whitespace\NoTrailingWhitespaceFixer;
 use PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer;
 use PhpCsFixer\Fixer\Whitespace\StatementIndentationFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
-
-return static function (ECSConfig $ecsConfig): void {
-    $ecsConfig->ruleWithConfiguration(OrderedImportsFixer::class, [
-        'imports_order' => ['class', 'function', 'const'],
-    ]);
-
-    $ecsConfig->ruleWithConfiguration(DeclareEqualNormalizeFixer::class, [
-        'space' => 'none',
-    ]);
-
-    $ecsConfig->ruleWithConfiguration(BracesFixer::class, [
-        'allow_single_line_closure' => false,
-        'position_after_functions_and_oop_constructs' => 'next',
-        'position_after_control_structures' => 'same',
-        'position_after_anonymous_constructs' => 'same',
-    ]);
-
+return static function (ECSConfig $ecsConfig) : void {
+    $ecsConfig->ruleWithConfiguration(OrderedImportsFixer::class, ['imports_order' => ['class', 'function', 'const']]);
+    $ecsConfig->ruleWithConfiguration(DeclareEqualNormalizeFixer::class, ['space' => 'none']);
+    $ecsConfig->ruleWithConfiguration(BracesFixer::class, ['allow_single_line_closure' => \false, 'position_after_functions_and_oop_constructs' => 'next', 'position_after_control_structures' => 'same', 'position_after_anonymous_constructs' => 'same']);
     // split of BracesFixer in PHP CS Fixer 3.10 - https://github.com/FriendsOfPHP/PHP-CS-Fixer/pull/4884
-    $ecsConfig->rules([
-        ControlStructureBracesFixer::class,
-        CurlyBracesPositionFixer::class,
-        NoMultipleStatementsPerLineFixer::class,
-        DeclareParenthesesFixer::class,
-        ControlStructureContinuationPositionFixer::class,
-        StatementIndentationFixer::class,
-        SingleSpaceAfterConstructFixer::class,
-    ]);
-
-    $ecsConfig->ruleWithConfiguration(VisibilityRequiredFixer::class, [
-        'elements' => ['const', 'method', 'property'],
-    ]);
-
-    $ecsConfig->rules([
-        BinaryOperatorSpacesFixer::class,
-        BlankLineAfterNamespaceFixer::class,
-        BlankLineAfterOpeningTagFixer::class,
-        ClassDefinitionFixer::class,
-        ConstantCaseFixer::class,
-        ElseifFixer::class,
-        EncodingFixer::class,
-        FullOpeningTagFixer::class,
-        FunctionDeclarationFixer::class,
-        IndentationTypeFixer::class,
-        LineEndingFixer::class,
-        LowercaseCastFixer::class,
-        LowercaseKeywordsFixer::class,
-        NewWithBracesFixer::class,
-        NoBlankLinesAfterClassOpeningFixer::class,
-        NoBreakCommentFixer::class,
-        NoClosingTagFixer::class,
-        NoLeadingImportSlashFixer::class,
-        NoSinglelineWhitespaceBeforeSemicolonsFixer::class,
-        NoSpacesAfterFunctionNameFixer::class,
-        NoSpacesInsideParenthesisFixer::class,
-        NoTrailingWhitespaceFixer::class,
-        NoTrailingWhitespaceInCommentFixer::class,
-        NoWhitespaceBeforeCommaInArrayFixer::class,
-        ReturnTypeDeclarationFixer::class,
-        ShortScalarCastFixer::class,
-        SingleBlankLineAtEofFixer::class,
-        SingleImportPerStatementFixer::class,
-        SingleLineAfterImportsFixer::class,
-        SwitchCaseSemicolonToColonFixer::class,
-        SwitchCaseSpaceFixer::class,
-        TernaryOperatorSpacesFixer::class,
-        UnaryOperatorSpacesFixer::class,
-        VisibilityRequiredFixer::class,
-        WhitespaceAfterCommaInArrayFixer::class,
-    ]);
-
-    $ecsConfig->ruleWithConfiguration(MethodArgumentSpaceFixer::class, [
-        'on_multiline' => 'ensure_fully_multiline',
-    ]);
-
-    $ecsConfig->ruleWithConfiguration(SingleClassElementPerStatementFixer::class, [
-        'elements' => ['property'],
-    ]);
-
-    $ecsConfig->ruleWithConfiguration(ConcatSpaceFixer::class, [
-        'spacing' => 'one',
-    ]);
-
+    $ecsConfig->rules([ControlStructureBracesFixer::class, CurlyBracesPositionFixer::class, NoMultipleStatementsPerLineFixer::class, DeclareParenthesesFixer::class, ControlStructureContinuationPositionFixer::class, StatementIndentationFixer::class, SingleSpaceAfterConstructFixer::class]);
+    $ecsConfig->ruleWithConfiguration(VisibilityRequiredFixer::class, ['elements' => ['const', 'method', 'property']]);
+    $ecsConfig->rules([BinaryOperatorSpacesFixer::class, BlankLineAfterNamespaceFixer::class, BlankLineAfterOpeningTagFixer::class, ClassDefinitionFixer::class, ConstantCaseFixer::class, ElseifFixer::class, EncodingFixer::class, FullOpeningTagFixer::class, FunctionDeclarationFixer::class, IndentationTypeFixer::class, LineEndingFixer::class, LowercaseCastFixer::class, LowercaseKeywordsFixer::class, NewWithBracesFixer::class, NoBlankLinesAfterClassOpeningFixer::class, NoBreakCommentFixer::class, NoClosingTagFixer::class, NoLeadingImportSlashFixer::class, NoSinglelineWhitespaceBeforeSemicolonsFixer::class, NoSpacesAfterFunctionNameFixer::class, NoSpacesInsideParenthesisFixer::class, NoTrailingWhitespaceFixer::class, NoTrailingWhitespaceInCommentFixer::class, NoWhitespaceBeforeCommaInArrayFixer::class, ReturnTypeDeclarationFixer::class, ShortScalarCastFixer::class, SingleBlankLineAtEofFixer::class, SingleImportPerStatementFixer::class, SingleLineAfterImportsFixer::class, SwitchCaseSemicolonToColonFixer::class, SwitchCaseSpaceFixer::class, TernaryOperatorSpacesFixer::class, UnaryOperatorSpacesFixer::class, VisibilityRequiredFixer::class, WhitespaceAfterCommaInArrayFixer::class]);
+    $ecsConfig->ruleWithConfiguration(MethodArgumentSpaceFixer::class, ['on_multiline' => 'ensure_fully_multiline']);
+    $ecsConfig->ruleWithConfiguration(SingleClassElementPerStatementFixer::class, ['elements' => ['property']]);
+    $ecsConfig->ruleWithConfiguration(ConcatSpaceFixer::class, ['spacing' => 'one']);
     $ecsConfig->skip([SingleImportPerStatementFixer::class]);
 };
