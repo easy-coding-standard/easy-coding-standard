@@ -18,7 +18,7 @@ final class InitPathsResolver
             ->directories()
             ->depth(0)
              // system files
-            ->notPath('#(vendor|var|stubs|temp|templates|tmp|e2e|bin|build)#')
+            ->notPath('#(vendor|var|stubs|temp|templates|tmp|e2e|bin|build|database|storage|migrations)#')
             ->in($projectDirectory)
             ->sortByName();
 
