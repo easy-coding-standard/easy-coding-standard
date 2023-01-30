@@ -6,25 +6,17 @@ namespace Symplify\EasyCodingStandard\FixerRunner\Application;
 
 use Nette\Utils\FileSystem;
 use PhpCsFixer\Differ\DifferInterface;
-use PhpCsFixer\Fixer\ClassNotation\ProtectedToPrivateFixer;
 use PhpCsFixer\Fixer\FixerInterface;
-use PhpCsFixer\Fixer\FunctionNotation\VoidReturnFixer;
-use PhpCsFixer\Fixer\NamespaceNotation\SingleBlankLineBeforeNamespaceFixer;
-use PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer;
-use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
-use PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Error\FileDiffFactory;
-use Symplify\EasyCodingStandard\FileSystem\TargetFileInfoResolver;
 use Symplify\EasyCodingStandard\FixerRunner\Exception\Application\FixerFailedException;
 use Symplify\EasyCodingStandard\FixerRunner\Parser\FileToTokensParser;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
 use Symplify\EasyCodingStandard\Skipper\Skipper\Skipper;
-use Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFilePathProvider;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use Throwable;
@@ -34,18 +26,6 @@ use Throwable;
  */
 final class FixerFileProcessor implements FileProcessorInterface
 {
-    /**
-     * @var array<class-string<FixerInterface>>
-     */
-    private const MARKDOWN_EXCLUDED_FIXERS = [
-        VoidReturnFixer::class,
-        DeclareStrictTypesFixer::class,
-        SingleBlankLineBeforeNamespaceFixer::class,
-        BlankLineAfterOpeningTagFixer::class,
-        SingleBlankLineAtEofFixer::class,
-        ProtectedToPrivateFixer::class,
-    ];
-
     /**
      * @var FixerInterface[]
      */
@@ -60,8 +40,6 @@ final class FixerFileProcessor implements FileProcessorInterface
         private readonly DifferInterface $differ,
         private readonly EasyCodingStandardStyle $easyCodingStandardStyle,
         private readonly \Symfony\Component\Filesystem\Filesystem $filesystem,
-        private readonly CurrentParentFilePathProvider $currentParentFilePathProvider,
-        private readonly TargetFileInfoResolver $targetFileInfoResolver,
         private readonly FileDiffFactory $fileDiffFactory,
         array $fixers
     ) {
@@ -86,10 +64,6 @@ final class FixerFileProcessor implements FileProcessorInterface
         $appliedFixers = [];
 
         foreach ($this->fixers as $fixer) {
-            if ($this->shouldSkipForMarkdownHeredocCheck($fixer)) {
-                continue;
-            }
-
             if ($this->processTokensByFixer($filePath, $tokens, $fixer)) {
                 $appliedFixers[] = $fixer::class;
             }
@@ -110,12 +84,7 @@ final class FixerFileProcessor implements FileProcessorInterface
         $fileDiffs = [];
 
         // file has changed
-        $targetFilePath = $this->targetFileInfoResolver->resolveTargetFilePath($filePath);
-        $fileDiffs[] = $this->fileDiffFactory->createFromDiffAndAppliedCheckers(
-            $targetFilePath,
-            $diff,
-            $appliedFixers
-        );
+        $fileDiffs[] = $this->fileDiffFactory->createFromDiffAndAppliedCheckers($filePath, $diff, $appliedFixers);
 
         $tokenGeneratedCode = $tokens->generateCode();
         if ($configuration->isFixer()) {
@@ -135,10 +104,6 @@ final class FixerFileProcessor implements FileProcessorInterface
 
         $appliedFixers = [];
         foreach ($this->fixers as $fixer) {
-            if ($this->shouldSkipForMarkdownHeredocCheck($fixer)) {
-                continue;
-            }
-
             if ($this->processTokensByFixer($filePath, $tokens, $fixer)) {
                 $appliedFixers[] = $fixer::class;
             }
@@ -224,23 +189,5 @@ final class FixerFileProcessor implements FileProcessorInterface
         }
 
         return ! $fixer->isCandidate($tokens);
-    }
-
-    /**
-     * Is markdown doc checker → skip useless rules
-     */
-    private function shouldSkipForMarkdownHeredocCheck(FixerInterface $fixer): bool
-    {
-        if ($this->currentParentFilePathProvider->provide() === null) {
-            return false;
-        }
-
-        foreach (self::MARKDOWN_EXCLUDED_FIXERS as $markdownExcludedFixer) {
-            if ($fixer instanceof $markdownExcludedFixer) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }
