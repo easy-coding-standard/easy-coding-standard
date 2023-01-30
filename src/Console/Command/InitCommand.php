@@ -9,6 +9,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Configuration\ConfigInitializer;
 
+/**
+ * @deprecated Built-in the check command itself to easy the process.
+ */
 final class InitCommand extends Command
 {
     public function __construct(
@@ -20,16 +23,11 @@ final class InitCommand extends Command
     protected function configure(): void
     {
         $this->setName('init');
-        $this->setDescription('Generate ecs.php configuration file');
+        $this->setDescription('[DEPRECATED] Generate ecs.php configuration file');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        // found some rules, we don't need more
-        if ($this->configInitializer->areSomeCheckersRegistered()) {
-            return self::SUCCESS;
-        }
-
         $this->configInitializer->createConfig(getcwd());
         return self::SUCCESS;
     }

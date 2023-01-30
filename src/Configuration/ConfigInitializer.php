@@ -36,7 +36,7 @@ final class ConfigInitializer
 
         // config already exists, nothing to add
         if ($doesConfigExist) {
-            $this->symfonyStyle->warning('Register rules or sets in your "ecs.php" config');
+            $this->symfonyStyle->warning('The "ecs.php" config already exists. Register rules or sets there to make it change the code.');
             return;
         }
 
