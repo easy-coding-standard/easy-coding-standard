@@ -16,8 +16,6 @@ parameters:
 
     excludePaths:
         # deprecated, to be removed
-        - packages/phpstan-rules/packages/CognitiveComplexity
-
         - scoper.php
 
         # tests
