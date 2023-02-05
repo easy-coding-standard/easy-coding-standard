@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\Tests\FileSystem;
 
 use Iterator;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\FileSystem\PathNormalizer;
 
@@ -17,9 +18,7 @@ final class PathNormalizerTest extends TestCase
         $this->pathNormalizer = new PathNormalizer();
     }
 
-    /**
-     * @dataProvider provideData()
-     */
+    #[DataProvider('provideData')]
     public function test(string $inputPath, string $expectedNormalizedPath): void
     {
         $normalizedPath = $this->pathNormalizer->normalizePath($inputPath);
@@ -29,7 +28,7 @@ final class PathNormalizerTest extends TestCase
     /**
      * @return Iterator<string[]>
      */
-    public function provideData(): Iterator
+    public static function provideData(): Iterator
     {
         // based on Linux
         yield ['/any/path', '/any/path'];

@@ -23,7 +23,6 @@ use PhpCsFixer\Fixer\Semicolon\SpaceAfterSemicolonFixer;
 use PhpCsFixer\Fixer\Whitespace\MethodChainingIndentationFixer;
 use PhpCsFixer\Fixer\Whitespace\NoSpacesAroundOffsetFixer;
 use PhpCsFixer\Fixer\Whitespace\NoWhitespaceInBlankLineFixer;
-use Symplify\CodingStandard\Fixer\Spacing\NewlineServiceDefinitionConfigFixer;
 use Symplify\CodingStandard\Fixer\Spacing\StandaloneLinePromotedPropertyFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 
@@ -31,7 +30,6 @@ return static function (ECSConfig $ecsConfig): void {
     $ecsConfig->rules([
         StandaloneLinePromotedPropertyFixer::class,
         BlankLineAfterOpeningTagFixer::class,
-        NewlineServiceDefinitionConfigFixer::class,
         MethodChainingIndentationFixer::class,
         NotOperatorWithSuccessorSpaceFixer::class,
         CastSpacesFixer::class,

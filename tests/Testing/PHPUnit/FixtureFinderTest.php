@@ -12,6 +12,6 @@ final class FixtureFinderTest extends TestCase
     public function test(): void
     {
         $iterator = FixtureFinder::yieldDataProviderFiles(__DIR__ . '/Fixture');
-        $this->assertCount(2, $iterator);
+        $this->assertCount(2, iterator_to_array($iterator));
     }
 }

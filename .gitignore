@@ -1,7 +1,7 @@
 /vendor
 composer.lock
 
-.phpunit.result.cache
+/.phpunit.cache
 
 
 # to keep local rector outside git repository
