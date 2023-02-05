@@ -10,7 +10,6 @@ return static function (ECSConfig $ecsConfig): void {
     $ecsConfig->paths([
         __DIR__ . '/ecs.php',
         __DIR__ . '/rector.php',
-        __DIR__ . '/monorepo-builder.php',
         __DIR__ . '/config',
         __DIR__ . '/src',
         __DIR__ . '/packages',
