@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\Tests\Skipper\Skipper\Skip;
 
 use Iterator;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\Skipper\Skipper\Skipper;
 use Symplify\EasyCodingStandard\Tests\Skipper\Skipper\Skip\Source\AnotherClassToSkip;
@@ -22,12 +23,10 @@ final class SkipSkipperTest extends AbstractKernelTestCase
         $this->skipper = $this->getService(Skipper::class);
     }
 
-    /**
-     * @dataProvider provideCheckerAndFile()
-     * @dataProvider provideCodeAndFile()
-     * @dataProvider provideMessageAndFile()
-     * @dataProvider provideAnythingAndFilePath()
-     */
+    #[DataProvider('provideCheckerAndFile')]
+    #[DataProvider('provideCodeAndFile')]
+    #[DataProvider('provideMessageAndFile')]
+    #[DataProvider('provideAnythingAndFilePath')]
     public function test(string $element, string $filePath, bool $expectedSkip): void
     {
         $resolvedSkip = $this->skipper->shouldSkipElementAndFilePath($element, $filePath);
@@ -37,7 +36,7 @@ final class SkipSkipperTest extends AbstractKernelTestCase
     /**
      * @return Iterator<string[]|bool[]|class-string<AnotherClassToSkip>[]|class-string<NotSkippedClass>[]|class-string<SomeClassToSkip>[]>
      */
-    public function provideCheckerAndFile(): Iterator
+    public static function provideCheckerAndFile(): Iterator
     {
         yield [SomeClassToSkip::class, __DIR__ . '/Fixture', true];
 
@@ -52,7 +51,7 @@ final class SkipSkipperTest extends AbstractKernelTestCase
     /**
      * @return Iterator<string[]|bool[]>
      */
-    public function provideCodeAndFile(): Iterator
+    public static function provideCodeAndFile(): Iterator
     {
         yield [AnotherClassToSkip::class . '.someCode', __DIR__ . '/Fixture/someFile', true];
         yield [AnotherClassToSkip::class . '.someOtherCode', __DIR__ . '/Fixture/someDirectory/someFile', true];
@@ -65,7 +64,7 @@ final class SkipSkipperTest extends AbstractKernelTestCase
     /**
      * @return Iterator<string[]|bool[]>
      */
-    public function provideMessageAndFile(): Iterator
+    public static function provideMessageAndFile(): Iterator
     {
         yield ['some fishy code at line 5!', __DIR__ . '/Fixture/someFile', true];
         yield ['some another fishy code at line 5!', __DIR__ . '/Fixture/someDirectory/someFile.php', true];
@@ -85,7 +84,7 @@ final class SkipSkipperTest extends AbstractKernelTestCase
     /**
      * @return Iterator<string[]|bool[]>
      */
-    public function provideAnythingAndFilePath(): Iterator
+    public static function provideAnythingAndFilePath(): Iterator
     {
         yield ['anything', __DIR__ . '/Fixture/AlwaysSkippedPath/some_file.txt', true];
         yield ['anything', __DIR__ . '/Fixture/PathSkippedWithMask/another_file.txt', true];

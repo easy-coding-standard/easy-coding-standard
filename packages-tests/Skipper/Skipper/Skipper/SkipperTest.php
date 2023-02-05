@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\Tests\Skipper\Skipper\Skipper;
 
 use Iterator;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\Skipper\Skipper\Skipper;
 use Symplify\EasyCodingStandard\Tests\Skipper\Skipper\Skipper\Fixture\Element\FifthElement;
@@ -22,9 +23,7 @@ final class SkipperTest extends AbstractKernelTestCase
         $this->skipper = $this->getService(Skipper::class);
     }
 
-    /**
-     * @dataProvider provideDataShouldSkipFileInfo()
-     */
+    #[DataProvider('provideDataShouldSkipFileInfo')]
     public function testSkipFileInfo(string $filePath, bool $expectedSkip): void
     {
         $resultSkip = $this->skipper->shouldSkipFilePath($filePath);
@@ -34,7 +33,7 @@ final class SkipperTest extends AbstractKernelTestCase
     /**
      * @return Iterator<string[]|bool[]>
      */
-    public function provideDataShouldSkipFileInfo(): Iterator
+    public static function provideDataShouldSkipFileInfo(): Iterator
     {
         yield [__DIR__ . '/Fixture/SomeRandom/file.txt', false];
         yield [__DIR__ . '/Fixture/SomeSkipped/any.txt', true];
@@ -54,8 +53,8 @@ final class SkipperTest extends AbstractKernelTestCase
 
     /**
      * @param object|class-string $element
-     * @dataProvider provideDataShouldSkipElement()
      */
+    #[DataProvider('provideDataShouldSkipElement')]
     public function testSkipElement(string|object $element, bool $expectedSkip): void
     {
         $resultSkip = $this->skipper->shouldSkipElement($element);
@@ -65,7 +64,7 @@ final class SkipperTest extends AbstractKernelTestCase
     /**
      * @return Iterator<bool[]|class-string<SixthSense>[]|class-string<ThreeMan>[]|FifthElement[]>
      */
-    public function provideDataShouldSkipElement(): Iterator
+    public static function provideDataShouldSkipElement(): Iterator
     {
         yield [ThreeMan::class, false];
         yield [SixthSense::class, true];
