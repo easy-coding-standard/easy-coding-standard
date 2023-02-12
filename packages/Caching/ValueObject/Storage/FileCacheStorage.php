@@ -75,11 +75,7 @@ final class FileCacheStorage
     {
         $cacheFilePaths = $this->getCacheFilePaths($cacheKey);
 
-        $this->fileSystem->remove([
-            $cacheFilePaths->getFirstDirectory(),
-            $cacheFilePaths->getSecondDirectory(),
-            $cacheFilePaths->getFilePath(),
-        ]);
+        $this->fileSystem->remove($cacheFilePaths->getFilePath());
     }
 
     public function clear(): void
