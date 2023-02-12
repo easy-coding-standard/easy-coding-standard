@@ -103,6 +103,8 @@ final class ConsoleOutputFormatter implements OutputFormatterInterface
             return;
         }
 
+        $this->printSystemErrors($errorAndDiffResult);
+
         $this->printErrorMessageFromErrorCounts(
             $errorAndDiffResult->getCodingStandardErrorCount(),
             $errorAndDiffResult->getFileDiffsCount(),
@@ -120,6 +122,17 @@ final class ConsoleOutputFormatter implements OutputFormatterInterface
             }
         }
 
+        $this->printSystemErrors($errorAndDiffResult);
+
+        $this->printErrorMessageFromErrorCounts(
+            $errorAndDiffResult->getCodingStandardErrorCount(),
+            $errorAndDiffResult->getFileDiffsCount(),
+            $configuration
+        );
+    }
+
+    private function printSystemErrors(ErrorAndDiffResult $errorAndDiffResult): void
+    {
         $systemErrors = $errorAndDiffResult->getSystemErrors();
         foreach ($systemErrors as $systemError) {
             $this->easyCodingStandardStyle->newLine();
@@ -132,12 +145,6 @@ final class ConsoleOutputFormatter implements OutputFormatterInterface
                 $this->easyCodingStandardStyle->error($systemError);
             }
         }
-
-        $this->printErrorMessageFromErrorCounts(
-            $errorAndDiffResult->getCodingStandardErrorCount(),
-            $errorAndDiffResult->getFileDiffsCount(),
-            $configuration
-        );
     }
 
     private function printErrorMessageFromErrorCounts(
