@@ -7,8 +7,11 @@ namespace Symplify\EasyCodingStandard\Config;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\Fixer\FixerInterface;
+use PhpCsFixer\FixerFactory;
+use PhpCsFixer\RuleSet\RuleSet;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\EasyCodingStandard\ValueObject\Option;
+use Symplify\EasyCodingStandard\ValueObject\Set\PHPCSFixerDynamicSetList;
 use Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
 use Webmozart\Assert\Assert;
 use Webmozart\Assert\InvalidArgumentException;
@@ -179,6 +182,29 @@ final class ECSConfig extends ContainerConfigurator
 
         $parameters = $this->parameters();
         $parameters->set(Option::REPORT_SNIFF_WARNINGS, $sniffClasses);
+    }
+
+    /**
+     * @param array<PHPCSFixerDynamicSetList::*> $setNames
+     */
+    public function dynamicSets(array $setNames): void
+    {
+        $fixerFactory = new FixerFactory();
+        $fixerFactory->registerBuiltInFixers();
+
+        $ruleSet = new RuleSet(array_fill_keys($setNames, true));
+        $fixerFactory->useRuleSet($ruleSet);
+
+        /** @var FixerInterface $fixer */
+        foreach ($fixerFactory->getFixers() as $fixer) {
+            $ruleConfiguration = $ruleSet->getRuleConfiguration($fixer->getName());
+
+            if ($ruleConfiguration === null) {
+                $this->rule($fixer::class);
+            } else {
+                $this->ruleWithConfiguration($fixer::class, $ruleConfiguration);
+            }
+        }
     }
 
     /**
