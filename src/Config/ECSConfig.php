@@ -11,7 +11,6 @@ use PhpCsFixer\FixerFactory;
 use PhpCsFixer\RuleSet\RuleSet;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use Symplify\EasyCodingStandard\ValueObject\Set\PHPCSFixerDynamicSetList;
 use Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
 use Webmozart\Assert\Assert;
 use Webmozart\Assert\InvalidArgumentException;
