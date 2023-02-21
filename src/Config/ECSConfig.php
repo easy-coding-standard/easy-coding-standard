@@ -185,7 +185,8 @@ final class ECSConfig extends ContainerConfigurator
     }
 
     /**
-     * @param array<PHPCSFixerDynamicSetList::*> $setNames
+     * @link https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/blob/master/doc/ruleSets/index.rst
+     * @param list<string> $setNames
      */
     public function dynamicSets(array $setNames): void
     {
