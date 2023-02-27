@@ -33,12 +33,8 @@ jobs:
                         run: vendor/bin/phpunit
 
                     -
-                        name: 'PHP 7.2 Linter'
-                        run: vendor/bin/parallel-lint build/
-
-                    -
                         name: 'PHP Linter'
-                        run: vendor/bin/parallel-lint build/ src/ config/ tests/
+                        run: vendor/bin/parallel-lint src tests
 
                     -
                         name: 'Check Commented Code'
@@ -53,15 +49,8 @@ jobs:
 
         steps:
             -   uses: actions/checkout@v3
-
             # see https://github.com/shivammathur/setup-php
             -   uses: shivammathur/setup-php@v2
-                if: ${{ matrix.actions.name == 'PHP 7.2 Linter' }}
-                with:
-                    php-version: 7.2
-                    coverage: none
-            -   uses: shivammathur/setup-php@v2
-                if: ${{ matrix.actions.name != 'PHP 7.2 Linter' }}
                 with:
                     php-version: 8.1
                     coverage: none
