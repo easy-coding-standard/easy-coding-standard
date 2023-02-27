@@ -44,6 +44,7 @@ jobs:
 
             -   run: vendor/bin/parallel-lint src packages vendor
 
+            # restore build php version
             -
                 uses: "shivammathur/setup-php@v2"
                 with:
