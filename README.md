@@ -1,6 +1,12 @@
-# The Easiest Way to Use Any Coding Standard
+# The Easiest way to use coding standard
 
 [![Downloads total](https://img.shields.io/packagist/dt/symplify/easy-coding-standard.svg?style=flat-square)](https://packagist.org/packages/symplify/easy-coding-standard/stats)
+
+<br>
+
+<img src="https://avatars.githubusercontent.com/u/123805080?s=200&v=4" style="width: 5em; height: 5em">
+
+<br>
 
 ![ECS-Run](docs/run-and-fix.gif)
 
