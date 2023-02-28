@@ -10,10 +10,6 @@
 
 </div>
 
-<br>
-
-![ECS-Run](docs/run-and-fix.gif)
-
 ## Features
 
 - **Blazing fast [parallel run](#parallel-run)**
@@ -23,12 +19,10 @@
 - **Prepared sets** - PSR-12, arrays, use statements, spaces and more... - see `SetList` class for all
 - **Prefixed version** by default to allow install without conflicts on any PHP 7.2+ project
 
-<br>
-
 Are you already using another tool?
 
-- [How to Migrate from PHP_CodeSniffer](https://tomasvotruba.com/blog/2018/06/04/how-to-migrate-from-php-code-sniffer-to-easy-coding-standard)
-- [How to Migrate from PHP CS Fixer](https://tomasvotruba.com/blog/2018/06/07/how-to-migrate-from-php-cs-fixer-to-easy-coding-standard)
+- [Migrate from PHP_CodeSniffer](https://tomasvotruba.com/blog/2018/06/04/how-to-migrate-from-php-code-sniffer-to-easy-coding-standard)
+- [Migrate from PHP CS Fixer](https://tomasvotruba.com/blog/2018/06/07/how-to-migrate-from-php-cs-fixer-to-easy-coding-standard)
 
 <br>
 
