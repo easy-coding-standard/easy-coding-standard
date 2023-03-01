@@ -9,6 +9,7 @@ use PHP_CodeSniffer\Fixer;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
 use PhpCsFixer\Differ\DifferInterface;
+use RuntimeException;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Error\FileDiffFactory;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
@@ -25,6 +26,11 @@ use Symplify\PackageBuilder\Reflection\PrivatesAccessor;
  */
 final class SniffFileProcessor implements FileProcessorInterface
 {
+    /**
+     * @var int
+     */
+    private const MAX_FIXER_LOOPS = 100;
+
     /**
      * @var Sniff[]
      */
@@ -169,6 +175,24 @@ final class SniffFileProcessor implements FileProcessorInterface
             // fixed content
             $previousContent = $fixer->getContents();
             ++$this->fixer->loops;
+
+            if ($previousContent !== $content && $this->fixer->loops >= self::MAX_FIXER_LOOPS) {
+                $diff = $this->differ->diff($previousContent, $content);
+                $appliedCheckers = $this->sniffMetadataCollector->getAppliedSniffs();
+
+                throw new RuntimeException(sprintf(
+                    "Contents of file \"%s\" did not stabilize after %d fix iterations.\n" .
+                    "Last diff was:\n" .
+                    "%s\n" .
+                    "There are probably checkers that cancel changes of each other. Try to reconfigure the checkers.\n" .
+                    "Applied checkers:\n" .
+                    "- %s\n",
+                    $filePath,
+                    $this->fixer->loops,
+                    $diff,
+                    implode("\n- ", array_unique($appliedCheckers))
+                ));
+            }
         } while ($previousContent !== $content);
     }
 }
