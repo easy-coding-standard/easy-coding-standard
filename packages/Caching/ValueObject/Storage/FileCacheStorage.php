@@ -48,7 +48,6 @@ final class FileCacheStorage
         $this->fileSystem->mkdir($cacheFilePaths->getFirstDirectory());
         $this->fileSystem->mkdir($cacheFilePaths->getSecondDirectory());
 
-        $tmpPath = sprintf('%s/%s.tmp', $this->directory, Random::generate());
         $errorBefore = error_get_last();
         $exported = @var_export(new CacheItem($variableKey, $data), true);
         $errorAfter = error_get_last();
@@ -65,10 +64,7 @@ final class FileCacheStorage
         }
 
         $variableFileContent = sprintf("<?php declare(strict_types = 1);\n\nreturn %s;", $exported);
-        $this->fileSystem->dumpFile($tmpPath, $variableFileContent);
-
-        $this->fileSystem->rename($tmpPath, $cacheFilePaths->getFilePath(), true);
-        $this->fileSystem->remove($tmpPath);
+        $this->fileSystem->dumpFile($cacheFilePaths->getFilePath(), $variableFileContent);
     }
 
     public function clean(string $cacheKey): void
