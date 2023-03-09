@@ -19,7 +19,6 @@ return static function (RectorConfig $rectorConfig): void {
     ]);
 
     $rectorConfig->skip([
-        '*/tests/*',
         '*/Tests/*',
         '*/tests/*',
         # missing "optional" dependency and never used here
