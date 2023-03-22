@@ -1,9 +1,9 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace ECSPrefix202303;
 
 use Symplify\EasyCodingStandard\Config\ECSConfig;
-
-return static function (ECSConfig $ecsConfig): void {
+return static function (ECSConfig $ecsConfig) : void {
     $ecsConfig->import(__DIR__ . '/common/*.php');
 };
