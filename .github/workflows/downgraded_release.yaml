@@ -42,7 +42,8 @@ jobs:
                     php-version: 7.2
                     coverage: none
 
-            -   run: vendor/bin/parallel-lint src packages vendor
+            -   run: composer global require php-parallel-lint/php-parallel-lint --ansi
+            -   run: /home/runner/.composer/vendor/bin/parallel-lint src packages vendor
 
             # restore build php version
             -
