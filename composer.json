@@ -8,6 +8,7 @@
     ],
     "require": {
         "php": ">=8.1",
+        "codedruids/php-coding-standards": "^0.1.1",
         "composer/xdebug-handler": "^3.0",
         "friendsofphp/php-cs-fixer": "^3.12",
         "nette/utils": "^3.2",

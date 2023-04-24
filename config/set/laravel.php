@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Laravel\CodingStandards\Fixers\LaravelPhpdocAlignmentFixer;
 use PhpCsFixer\Fixer\Alias\NoAliasFunctionsFixer;
 use PhpCsFixer\Fixer\Alias\NoAliasLanguageConstructCallFixer;
 use PhpCsFixer\Fixer\Alias\NoMixedEchoPrintFixer;
@@ -349,8 +350,8 @@ return static function (ECSConfig $ecsConfig): void {
     ]);
     $ecsConfig->rule(WhitespaceAfterCommaInArrayFixer::class);
 
-    // Laravel custom fixer - @todo create package to be able to import it
-    // 'Laravel/laravel_phpdoc_alignment' => true,
+    // Laravel custom fixer
+    $ecsConfig->rule(LaravelPhpdocAlignmentFixer::class);
 
     // any rules marked as 'false' are skipped
     $ecsConfig->skip([
