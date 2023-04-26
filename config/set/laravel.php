@@ -371,7 +371,4 @@ return static function (ECSConfig $ecsConfig): void {
         __DIR__ . 'node_modules',
         __DIR__ . 'storage',
     ]);
-
-    // @todo deal with default path configuration & any other default configs for the set?
-    // $ecsConfig->skip([SingleImportPerStatementFixer::class]);
 };
