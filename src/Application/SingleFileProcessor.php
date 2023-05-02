@@ -43,7 +43,7 @@ final class SingleFileProcessor
                 continue;
             }
 
-            $errorsAndDiffs = array_merge($errorsAndDiffs, $currentErrorsAndFileDiffs);
+            $errorsAndDiffs = [...$errorsAndDiffs, ...$currentErrorsAndFileDiffs];
         }
 
         // invalidate broken file, to analyse in next run too

@@ -12,7 +12,7 @@
         "friendsofphp/php-cs-fixer": "^3.12",
         "nette/utils": "^3.2",
         "squizlabs/php_codesniffer": "^3.7.1",
-        "sebastian/diff": "5.0 as 4.0.4",
+        "sebastian/diff": "^5.0",
         "symfony/config": "^6.2",
         "symfony/console": "^6.2",
         "symfony/dependency-injection": "6.1.*",
