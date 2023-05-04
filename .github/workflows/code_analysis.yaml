@@ -34,7 +34,7 @@ jobs:
 
                     -
                         name: 'PHP Linter'
-                        run: vendor/bin/parallel-lint src tests
+                        run: vendor/bin/parallel-lint src tests --checkstyle | cs2pr
 
                     -
                         name: 'Check Commented Code'
@@ -54,6 +54,7 @@ jobs:
                 with:
                     php-version: 8.1
                     coverage: none
+                    tools: cs2pr
 
             # composer install cache - https://github.com/ramsey/composer-install
             -   uses: "ramsey/composer-install@v2"
