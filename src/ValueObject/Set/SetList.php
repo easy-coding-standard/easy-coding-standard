@@ -83,4 +83,10 @@ final class SetList
      * @api
      */
     public const DOCTRINE_ANNOTATIONS = __DIR__ . '/../../../config/set/doctrine-annotations.php';
+
+    /**
+     * @var string
+     * @api
+     */
+    public const LARAVEL = __DIR__ . '/../../../config/set/laravel.php';
 }
