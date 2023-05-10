@@ -1,36 +1,40 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Caching;
 
-use Symfony\Component\Filesystem\Filesystem;
+use ECSPrefix202305\Symfony\Component\Filesystem\Filesystem;
 use Symplify\EasyCodingStandard\Caching\ValueObject\Storage\FileCacheStorage;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use Symplify\PackageBuilder\Parameter\ParameterProvider;
-
+use ECSPrefix202305\Symplify\PackageBuilder\Parameter\ParameterProvider;
 final class CacheFactory
 {
-    public function __construct(
-        private readonly ParameterProvider $parameterProvider,
-        private readonly Filesystem $fileSystem
-    ) {
+    /**
+     * @readonly
+     * @var \Symplify\PackageBuilder\Parameter\ParameterProvider
+     */
+    private $parameterProvider;
+    /**
+     * @readonly
+     * @var \Symfony\Component\Filesystem\Filesystem
+     */
+    private $fileSystem;
+    public function __construct(ParameterProvider $parameterProvider, Filesystem $fileSystem)
+    {
+        $this->parameterProvider = $parameterProvider;
+        $this->fileSystem = $fileSystem;
     }
-
     /**
      * @api
      */
-    public function create(): Cache
+    public function create() : \Symplify\EasyCodingStandard\Caching\Cache
     {
         $cacheDirectory = $this->parameterProvider->provideStringParameter(Option::CACHE_DIRECTORY);
-
         // ensure cache directory exists
-        if (! $this->fileSystem->exists($cacheDirectory)) {
+        if (!$this->fileSystem->exists($cacheDirectory)) {
             $this->fileSystem->mkdir($cacheDirectory);
         }
-
         $fileCacheStorage = new FileCacheStorage($cacheDirectory, $this->fileSystem);
-
-        return new Cache($fileCacheStorage);
+        return new \Symplify\EasyCodingStandard\Caching\Cache($fileCacheStorage);
     }
 }
