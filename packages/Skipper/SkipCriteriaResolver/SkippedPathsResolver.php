@@ -47,7 +47,7 @@ final class SkippedPathsResolver
 
             if (file_exists($value)) {
                 $this->skippedPaths[] = $this->pathNormalizer->normalizePath($value);
-           }
+            }
         }
 
         return $this->skippedPaths;

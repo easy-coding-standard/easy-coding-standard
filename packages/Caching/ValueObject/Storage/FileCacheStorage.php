@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Caching\ValueObject\Storage;
 
-use Nette\Utils\Random;
 use Symfony\Component\Filesystem\Filesystem;
 use Symplify\EasyCodingStandard\Caching\Exception\CachingException;
 use Symplify\EasyCodingStandard\Caching\ValueObject\CacheFilePaths;

@@ -135,13 +135,14 @@ use Symplify\EasyCodingStandard\Config\ECSConfig;
 return static function (ECSConfig $ecsConfig): void {
     $ecsConfig->rule(ArrayIndentationFixer::class);
     $ecsConfig->rulesWithConfiguration([
-        ArraySyntaxFixer::class => ['syntax' => 'short'],
-        BinaryOperatorSpacesFixer::class => ['default' => 'single_space'],
+        ArraySyntaxFixer::class => [
+            'syntax' => 'short',
+        ],
+        BinaryOperatorSpacesFixer::class => [
+            'default' => 'single_space',
+        ],
     ]);
-    $ecsConfig->rules([
-        BlankLineAfterNamespaceFixer::class,
-        BlankLineAfterOpeningTagFixer::class,
-    ]);
+    $ecsConfig->rules([BlankLineAfterNamespaceFixer::class, BlankLineAfterOpeningTagFixer::class]);
     $ecsConfig->ruleWithConfiguration(BlankLineBeforeStatementFixer::class, [
         'statements' => ['continue', 'return'],
     ]);
@@ -161,17 +162,20 @@ return static function (ECSConfig $ecsConfig): void {
             'single_line' => true,
         ],
     ]);
-    $ecsConfig->rules([
-        CleanNamespaceFixer::class,
-        CompactNullableTypehintFixer::class,
-    ]);
+    $ecsConfig->rules([CleanNamespaceFixer::class, CompactNullableTypehintFixer::class]);
     $ecsConfig->rulesWithConfiguration([
-        ConcatSpaceFixer::class => ['spacing' => 'none'],
-        ConstantCaseFixer::class => ['case' => 'lower'],
+        ConcatSpaceFixer::class => [
+            'spacing' => 'none',
+        ],
+        ConstantCaseFixer::class => [
+            'case' => 'lower',
+        ],
     ]);
     $ecsConfig->rule(ControlStructureBracesFixer::class);
     $ecsConfig->rulesWithConfiguration([
-        ControlStructureContinuationPositionFixer::class => ['position' => 'same_line'],
+        ControlStructureContinuationPositionFixer::class => [
+            'position' => 'same_line',
+        ],
         CurlyBracesPositionFixer::class => [
             'control_structures_opening_brace' => 'same_line',
             'functions_opening_brace' => 'next_line_unless_newline_at_signature_end',
@@ -229,15 +233,12 @@ return static function (ECSConfig $ecsConfig): void {
         NoBlankLinesAfterPhpdocFixer::class,
         NoClosingTagFixer::class,
         NoEmptyPhpdocFixer::class,
-        NoEmptyStatementFixer::class
+        NoEmptyStatementFixer::class,
     ]);
     $ecsConfig->ruleWithConfiguration(NoExtraBlankLinesFixer::class, [
         'tokens' => ['extra', 'throw', 'use'],
     ]);
-    $ecsConfig->rules([
-        NoLeadingImportSlashFixer::class,
-        NoLeadingNamespaceWhitespaceFixer::class,
-    ]);
+    $ecsConfig->rules([NoLeadingImportSlashFixer::class, NoLeadingNamespaceWhitespaceFixer::class]);
     $ecsConfig->ruleWithConfiguration(NoMixedEchoPrintFixer::class, [
         'use' => 'echo',
     ]);
@@ -302,15 +303,13 @@ return static function (ECSConfig $ecsConfig): void {
     ]);
     $ecsConfig->rule(PhpdocSingleLineVarSpacingFixer::class);
     $ecsConfig->ruleWithConfiguration(PhpdocTagTypeFixer::class, [
-        'tags' => ['inheritdoc' => 'inline'],
+        'tags' => [
+            'inheritdoc' => 'inline',
+        ],
     ]);
-    $ecsConfig->rules([
-        PhpdocTrimFixer::class,
-        PhpdocTypesFixer::class,
-        PhpdocVarWithoutNameFixer::class,
-    ]);
+    $ecsConfig->rules([PhpdocTrimFixer::class, PhpdocTypesFixer::class, PhpdocVarWithoutNameFixer::class]);
     $ecsConfig->ruleWithConfiguration(ReturnTypeDeclarationFixer::class, [
-        'space_before' => 'none'
+        'space_before' => 'none',
     ]);
     $ecsConfig->rules([
         SelfStaticAccessorFixer::class,
@@ -321,10 +320,7 @@ return static function (ECSConfig $ecsConfig): void {
     $ecsConfig->ruleWithConfiguration(SingleClassElementPerStatementFixer::class, [
         'elements' => ['const', 'property'],
     ]);
-    $ecsConfig->rules([
-        SingleImportPerStatementFixer::class,
-        SingleLineAfterImportsFixer::class,
-    ]);
+    $ecsConfig->rules([SingleImportPerStatementFixer::class, SingleLineAfterImportsFixer::class]);
     $ecsConfig->ruleWithConfiguration(SingleLineCommentStyleFixer::class, [
         'comment_types' => ['hash'],
     ]);
@@ -340,11 +336,7 @@ return static function (ECSConfig $ecsConfig): void {
     $ecsConfig->ruleWithConfiguration(TrailingCommaInMultilineFixer::class, [
         'elements' => ['arrays'],
     ]);
-    $ecsConfig->rules([
-        TrimArraySpacesFixer::class,
-        TypesSpacesFixer::class,
-        UnaryOperatorSpacesFixer::class,
-    ]);
+    $ecsConfig->rules([TrimArraySpacesFixer::class, TypesSpacesFixer::class, UnaryOperatorSpacesFixer::class]);
     $ecsConfig->ruleWithConfiguration(VisibilityRequiredFixer::class, [
         'elements' => ['method', 'property'],
     ]);
