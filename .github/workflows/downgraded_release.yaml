@@ -28,6 +28,11 @@ jobs:
             # but no dev packages
             -   run: composer update --no-dev
 
+            # remove code-sniffer tests
+            -   run: |
+                    rm -rf vendor/squizlabs/php_codesniffer/tests/
+                    rm -rf vendor/squizlabs/php_codesniffer/src/Standards/*/Tests/
+
             # get rector to "rector-local" directory, to avoid downgrading itself in the /vendor
             -   run: mkdir rector-local
             -   run: composer require rector/rector --working-dir rector-local
