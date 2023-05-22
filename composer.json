@@ -10,7 +10,7 @@
         "php": ">=8.1",
         "composer/xdebug-handler": "^3.0",
         "friendsofphp/php-cs-fixer": "^3.12",
-        "nette/utils": "^3.2",
+        "nette/utils": "^3.2 || ^4.0",
         "squizlabs/php_codesniffer": "^3.7.1",
         "sebastian/diff": "^5.0",
         "symfony/config": "^6.2",
