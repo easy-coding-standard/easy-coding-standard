@@ -1,0 +1,15 @@
+parameters:
+    level: 8
+
+    paths:
+        - src
+        - tests
+
+    excludePaths:
+        - '*/tests/**/Source/*'
+        - '*/tests/**/Fixture/*'
+
+    unused_public:
+        methods: true
+        properties: true
+        constants: true
