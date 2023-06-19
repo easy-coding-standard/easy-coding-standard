@@ -87,18 +87,18 @@ final class ECSConfig extends ContainerConfigurator
 
         $services = $this->services();
 
-        $service = $services->set($checkerClass);
+        $serviceConfigurator = $services->set($checkerClass);
         if (is_a($checkerClass, FixerInterface::class, true)) {
             Assert::isAnyOf($checkerClass, [ConfigurableFixerInterface::class, ConfigurableRuleInterface::class]);
 
-            $service->call('configure', [$configuration]);
+            $serviceConfigurator->call('configure', [$configuration]);
         }
 
         if (is_a($checkerClass, Sniff::class, true)) {
             foreach ($configuration as $propertyName => $value) {
                 Assert::propertyExists($checkerClass, $propertyName);
 
-                $service->property($propertyName, $value);
+                $serviceConfigurator->property($propertyName, $value);
             }
         }
     }
