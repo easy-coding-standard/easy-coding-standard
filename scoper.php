@@ -64,8 +64,6 @@ return [
     // expose
     'expose-classes' => [
         'Normalizer',
-        // part of public interface of configs.php
-        'Symplify\SmartFileSystem\SmartFileInfo',
     ],
 
     'patchers' => [
