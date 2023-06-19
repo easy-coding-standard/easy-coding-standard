@@ -12,20 +12,24 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Application\Version\StaticVersionResolver;
+use Symplify\EasyCodingStandard\Console\Command\CheckCommand;
+use Symplify\EasyCodingStandard\Console\Command\ListCheckersCommand;
+use Symplify\EasyCodingStandard\Console\Command\WorkerCommand;
 use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 
 final class EasyCodingStandardConsoleApplication extends Application
 {
-    /**
-     * @param Command[] $commands
-     */
-    public function __construct(array $commands)
-    {
+    public function __construct(
+        CheckCommand $checkCommand,
+        WorkerCommand $workerCommand,
+        ListCheckersCommand $listCheckersCommand
+    ) {
         parent::__construct('EasyCodingStandard', StaticVersionResolver::PACKAGE_VERSION);
 
-        // @see https://tomasvotruba.com/blog/2020/10/26/the-bullet-proof-symfony-command-naming/
-        $this->addCommands($commands);
+        $this->add($checkCommand);
+        $this->add($workerCommand);
+        $this->add($listCheckersCommand);
 
         $this->setDefaultCommand('check');
     }
