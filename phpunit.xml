@@ -1,7 +1,13 @@
 <?xml version="1.0"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.0/phpunit.xsd" bootstrap="tests/bootstrap.php" colors="true" cacheDirectory=".phpunit.cache">
-  <testsuite name="all">
-    <directory>tests</directory>
-    <directory>packages/*/tests</directory>
-  </testsuite>
+<phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.0/phpunit.xsd"
+    bootstrap="tests/bootstrap.php"
+    colors="true"
+    cacheDirectory=".phpunit.cache"
+>
+    <testsuite name="all">
+        <directory>tests</directory>
+        <directory>packages-tests</directory>
+    </testsuite>
 </phpunit>
