@@ -8,6 +8,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Application\EasyCodingStandardApplication;
 use Symplify\EasyCodingStandard\Configuration\ConfigInitializer;
+use Symplify\EasyCodingStandard\Configuration\ConfigurationFactory;
 use Symplify\EasyCodingStandard\MemoryLimitter;
 use Symplify\EasyCodingStandard\Reporter\ProcessedFileReporter;
 
@@ -18,6 +19,7 @@ final class CheckCommand extends AbstractCheckCommand
         private readonly MemoryLimitter $memoryLimitter,
         private readonly ConfigInitializer $configInitializer,
         private readonly EasyCodingStandardApplication $easyCodingStandardApplication,
+        private readonly ConfigurationFactory $configurationFactory,
     ) {
         parent::__construct();
     }
