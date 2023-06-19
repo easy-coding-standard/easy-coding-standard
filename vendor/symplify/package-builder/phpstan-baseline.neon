@@ -1,0 +1,46 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Parameter \\#1 \\$path of function dirname expects string, string\\|false given\\.$#"
+			count: 1
+			path: src/Composer/VendorDirProvider.php
+
+		-
+			message: "#^Call to an undefined method Symfony\\\\Component\\\\DependencyInjection\\\\ContainerInterface\\:\\:getParameterBag\\(\\)\\.$#"
+			count: 1
+			path: src/Parameter/ParameterProvider.php
+
+		-
+			message: "#^Parameter \\#1 \\$objectOrClass of class ReflectionClass constructor expects class\\-string\\<T of object\\>\\|T of object, string given\\.$#"
+			count: 1
+			path: src/Reflection/ClassLikeExistenceChecker.php
+
+		-
+			message: "#^Parameter \\#1 \\$objectOrClass of class ReflectionClass constructor expects class\\-string\\<T of object\\>\\|T of object, string given\\.$#"
+			count: 2
+			path: src/Reflection/PrivatesCaller.php
+
+		-
+			message: "#^Call to method setConfigs\\(\\) on an unknown class Symplify\\\\PackageBuilder\\\\Contract\\\\HttpKernel\\\\ExtraConfigAwareKernelInterface\\.$#"
+			count: 1
+			path: src/Testing/AbstractKernelTestCase.php
+
+		-
+			message: "#^Class Symplify\\\\PackageBuilder\\\\Contract\\\\HttpKernel\\\\ExtraConfigAwareKernelInterface not found\\.$#"
+			count: 2
+			path: src/Testing/AbstractKernelTestCase.php
+
+		-
+			message: "#^PHPDoc tag @var for variable \\$kernel contains unknown class Symplify\\\\PackageBuilder\\\\Contract\\\\HttpKernel\\\\ExtraConfigAwareKernelInterface\\.$#"
+			count: 1
+			path: src/Testing/AbstractKernelTestCase.php
+
+		-
+			message: "#^Parameter \\#1 \\$kernel of method Symplify\\\\PackageBuilder\\\\Testing\\\\AbstractKernelTestCase\\:\\:bootAndReturnKernel\\(\\) expects Symfony\\\\Component\\\\HttpKernel\\\\KernelInterface, Symplify\\\\PackageBuilder\\\\Contract\\\\HttpKernel\\\\ExtraConfigAwareKernelInterface given\\.$#"
+			count: 1
+			path: src/Testing/AbstractKernelTestCase.php
+
+		-
+			message: "#^Static property Symplify\\\\PackageBuilder\\\\Testing\\\\AbstractKernelTestCase\\:\\:\\$container \\(Symfony\\\\Component\\\\DependencyInjection\\\\ContainerInterface\\|null\\) does not accept Psr\\\\Container\\\\ContainerInterface\\.$#"
+			count: 2
+			path: src/Testing/AbstractKernelTestCase.php
