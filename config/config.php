@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use PHP_CodeSniffer\Fixer;
-
+use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\UnusedFunctionParameterSniff;
 use PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\PropertyDeclarationSniff;
@@ -11,6 +11,7 @@ use PHP_CodeSniffer\Standards\PSR2\Sniffs\Methods\MethodDeclarationSniff;
 use PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\CommentedOutCodeSniff;
 use PhpCsFixer\Differ\DifferInterface;
 use PhpCsFixer\Differ\UnifiedDiffer;
+use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\WhitespacesFixerConfig;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Terminal;
@@ -27,6 +28,7 @@ use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyleFactory;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\FixerRunner\WhitespacesFixerConfigFactory;
+use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 use Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
@@ -48,7 +50,6 @@ return static function (ECSConfig $ecsConfig): void {
     $cacheNamespace = str_replace(DIRECTORY_SEPARATOR, '_', getcwd());
     $ecsConfig->cacheNamespace($cacheNamespace);
 
-    // parallel
     $ecsConfig->parallel();
 
     // ECS only knows about errors, these are the classes allowed to promote warnings to errors
@@ -121,7 +122,12 @@ return static function (ECSConfig $ecsConfig): void {
     // fixer
     $services->set(UnifiedDiffer::class);
     $services->alias(DifferInterface::class, UnifiedDiffer::class);
-    $services->set(FixerFileProcessor::class);
+
+    $services->set(FixerFileProcessor::class)
+        ->arg('$fixers', tagged_iterator(FixerInterface::class));
+
+    $services->set(SniffFileProcessor::class)
+        ->arg('$sniffs', tagged_iterator(Sniff::class));
 
     $services->set(ClassLikeExistenceChecker::class);
 };

@@ -9,6 +9,7 @@ use PHP_CodeSniffer\Fixer;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
 use PhpCsFixer\Differ\DifferInterface;
+use Symfony\Component\DependencyInjection\Argument\RewindableGenerator;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Error\FileDiffFactory;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
@@ -36,7 +37,7 @@ final class SniffFileProcessor implements FileProcessorInterface
     private array $tokenListeners = [];
 
     /**
-     * @param Sniff[] $sniffs
+     * @param RewindableGenerator<Sniff> $sniffs
      */
     public function __construct(
         private readonly Fixer $fixer,
@@ -46,9 +47,11 @@ final class SniffFileProcessor implements FileProcessorInterface
         private readonly \Symfony\Component\Filesystem\Filesystem $filesystem,
         private readonly FileDiffFactory $fileDiffFactory,
         private readonly PrivatesAccessor $privatesAccessor,
-        array $sniffs
+        iterable $sniffs
     ) {
         $this->addCompatibilityLayer();
+
+        $sniffs = iterator_to_array($sniffs->getIterator());
 
         foreach ($sniffs as $sniff) {
             $this->addSniff($sniff);
