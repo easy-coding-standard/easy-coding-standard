@@ -1,0 +1,58 @@
+{
+    "name": "symplify\/coding-standard",
+    "description": "Set of Symplify rules for PHP_CodeSniffer and PHP CS Fixer.",
+    "license": "MIT",
+    "require": {
+        "php": ">=8.1",
+        "nette\/utils": "^3.2",
+        "friendsofphp\/php-cs-fixer": "^3.18",
+        "symplify\/rule-doc-generator-contracts": "^11.1"
+    },
+    "require-dev": {
+        "symplify\/easy-coding-standard": "^11.4",
+        "squizlabs\/php_codesniffer": "^3.7.1",
+        "phpunit\/phpunit": "^10.2",
+        "symplify\/rule-doc-generator": "^11.1",
+        "cweagans\/composer-patches": "^1.7",
+        "php-parallel-lint\/php-parallel-lint": "^1.3",
+        "phpstan\/extension-installer": "^1.3",
+        "phpstan\/phpstan": "^1.10.19",
+        "rector\/rector": "^0.17.1",
+        "symplify\/easy-ci": "^11.2",
+        "symplify\/phpstan-extensions": "^11.2",
+        "tomasvotruba\/unused-public": "^0.1.12",
+        "tomasvotruba\/type-coverage": "^0.2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Symplify\\CodingStandard\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Symplify\\CodingStandard\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "enable-patching": true,
+        "patches": {
+            "symfony\/dependency-injection": [
+                "https:\/\/raw.githubusercontent.com\/symplify\/vendor-patch-files\/main\/patches\/generic-php-config-loader.patch"
+            ]
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "cweagans\/composer-patches": true,
+            "phpstan\/extension-installer": true
+        }
+    },
+    "scripts": {
+        "check-cs": "vendor\/bin\/ecs check --ansi",
+        "fix-cs": "vendor\/bin\/ecs check --fix --ansi",
+        "phpstan": "vendor\/bin\/phpstan analyse --ansi  --error-format symplify",
+        "rector": "vendor\/bin\/rector process --dry-run --ansi",
+        "release": "vendor\/bin\/monorepo-builder release patch --ansi",
+        "docs": "vendor\/bin\/rule-doc-generator generate src --output-file docs\/rules_overview.md --ansi"
+    }
+}
