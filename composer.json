@@ -17,7 +17,6 @@
         "symfony/console": "^6.2",
         "symfony/dependency-injection": "6.1.*",
         "symfony/finder": "^6.2",
-        "symplify/autowire-array-parameter": "^11.1",
         "symplify/coding-standard": "^11.3",
         "symplify/easy-parallel": "^11.1",
         "symplify/symplify-kernel": "^11.1",

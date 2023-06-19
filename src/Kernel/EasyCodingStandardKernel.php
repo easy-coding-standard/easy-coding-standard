@@ -8,7 +8,6 @@ use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\FixerInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
 use Symplify\CodingStandard\ValueObject\CodingStandardConfig;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\ConflictingCheckersCompilerPass;
@@ -57,7 +56,6 @@ final class EasyCodingStandardKernel extends AbstractSymplifyKernel
                 OutputFormatterInterface::class,
             ]),
             new FixerWhitespaceConfigCompilerPass(),
-            new AutowireArrayParameterCompilerPass(),
         ];
     }
 }
