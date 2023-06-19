@@ -19,8 +19,12 @@ use Symplify\EasyCodingStandard\Application\Version\StaticVersionResolver;
 use Symplify\EasyCodingStandard\Caching\Cache;
 use Symplify\EasyCodingStandard\Caching\CacheFactory;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
+use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
+use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
+use Symplify\EasyCodingStandard\Console\Output\OutputFormatterCollector;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyleFactory;
+use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\FixerRunner\WhitespacesFixerConfigFactory;
 use Symplify\EasyCodingStandard\ValueObject\Option;
@@ -28,6 +32,7 @@ use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 use Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
 use Symplify\PackageBuilder\Yaml\ParametersMerger;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
+use function Symfony\Component\DependencyInjection\Loader\Configurator\tagged_iterator;
 
 return static function (ECSConfig $ecsConfig): void {
     $ecsConfig->indentation(Option::INDENTATION_SPACES);
@@ -78,6 +83,16 @@ return static function (ECSConfig $ecsConfig): void {
             // for 3rd party tests
             __DIR__ . '/../src/Testing',
         ]);
+
+    // output formatters
+    $services->set(ConsoleOutputFormatter::class)
+        ->tag(OutputFormatterInterface::class);
+
+    $services->set(JsonOutputFormatter::class)
+        ->tag(OutputFormatterInterface::class);
+
+    $services->set(OutputFormatterCollector::class)
+        ->arg('$outputFormatters', tagged_iterator(OutputFormatterInterface::class));
 
     $services->load('Symplify\EasyCodingStandard\\', __DIR__ . '/../packages')
         ->exclude([__DIR__ . '/../packages/*/ValueObject/*']);
