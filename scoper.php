@@ -70,6 +70,29 @@ return [
         static function (string $filePath, string $prefix, string $content): string {
             if (! \str_ends_with(
                 $filePath,
+                'vendor/friendsofphp/php-cs-fixer/src/Fixer/ClassNotation/FinalInternalClassFixer.php',
+            )) {
+                return $content;
+            }
+
+            // php-cs-fixer uses partial namespaces, that are only strings - should be kept untouched
+            // ref.: https://github.com/easy-coding-standard/easy-coding-standard/issues/91
+            return str_replace([
+                $prefix . '\\ORM\\Entity',
+                $prefix . '\\ORM\\Mapping\\Entity',
+                $prefix . '\\Mapping\\Entity',
+                $prefix . '\\ODM\\Document',
+            ], [
+                'ORM\\Entity',
+                'ORM\\Mapping\\Entity',
+                'Mapping\\Entity',
+                'ODM\\Document',
+            ], $content);
+        },
+
+        static function (string $filePath, string $prefix, string $content): string {
+            if (! \str_ends_with(
+                $filePath,
                 'vendor/friendsofphp/php-cs-fixer/src/Fixer/Operator/OperatorLinebreakFixer.php'
             )) {
                 return $content;
