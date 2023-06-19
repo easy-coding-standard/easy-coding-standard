@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\Skipper\Skipper;
 
 use Symplify\EasyCodingStandard\Skipper\Contract\SkipVoterInterface;
+use Symplify\EasyCodingStandard\Skipper\SkipVoter\ClassAndCodeSkipVoter;
+use Symplify\EasyCodingStandard\Skipper\SkipVoter\ClassSkipVoter;
+use Symplify\EasyCodingStandard\Skipper\SkipVoter\MessageSkipVoter;
+use Symplify\EasyCodingStandard\Skipper\SkipVoter\PathSkipVoter;
 
 /**
  * @api
@@ -18,11 +22,17 @@ final class Skipper
     private const FILE_ELEMENT = 'file_elements';
 
     /**
-     * @param SkipVoterInterface[] $skipVoters
+     * @var SkipVoterInterface[]
      */
+    private array $skipVoters = [];
+
     public function __construct(
-        private readonly array $skipVoters
+        ClassAndCodeSkipVoter $classAndCodeSkipVoter,
+        ClassSkipVoter $classSkipVoter,
+        MessageSkipVoter $messageSkipVoter,
+        PathSkipVoter $pathSkipVoter,
     ) {
+        $this->skipVoters = [$classAndCodeSkipVoter, $classSkipVoter, $messageSkipVoter, $pathSkipVoter];
     }
 
     public function shouldSkipElement(string | object $element): bool
