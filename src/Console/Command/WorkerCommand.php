@@ -11,6 +11,7 @@ use React\Socket\ConnectionInterface;
 use React\Socket\TcpConnector;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symplify\EasyCodingStandard\Configuration\ConfigurationFactory;
 use Symplify\EasyCodingStandard\MemoryLimitter;
 use Symplify\EasyCodingStandard\Parallel\WorkerRunner;
 use Symplify\EasyParallel\Enum\Action;
@@ -28,6 +29,7 @@ final class WorkerCommand extends AbstractCheckCommand
     public function __construct(
         private readonly WorkerRunner $workerRunner,
         private readonly MemoryLimitter $memoryLimitter,
+        private readonly ConfigurationFactory $configurationFactory,
     ) {
         parent::__construct();
     }
