@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
+
+use Rector\Naming\Rector\ClassMethod\RenameParamToMatchTypeRector;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
@@ -36,5 +38,12 @@ return static function (RectorConfig $rectorConfig): void {
 
     $rectorConfig->bootstrapFiles([__DIR__ . '/tests/bootstrap.php']);
 
-    $rectorConfig->skip(['*/Source/*', '*/Fixture/*', 'packages/SniffRunner/ValueObject/File.php']);
+    $rectorConfig->skip([
+        '*/Source/*',
+        '*/Fixture/*',
+        'packages/SniffRunner/ValueObject/File.php',
+        RenameParamToMatchTypeRector::class => [
+            __DIR__ . '/packages/FixerRunner/Application/FixerFileProcessor.php',
+        ],
+    ]);
 };

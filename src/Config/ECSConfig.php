@@ -58,11 +58,17 @@ final class ECSConfig extends ContainerConfigurator
      */
     public function rule(string $checkerClass): void
     {
-        $this->isCheckerClass($checkerClass);
+        $this->assertCheckerClass($checkerClass);
 
-        $services = $this->services();
-        $services->set($checkerClass)
-            ->public();
+        // tag for autowiring of tagged_iterator()
+        $interfaceTag = is_a($checkerClass, Sniff::class, true) ? Sniff::class : FixerInterface::class;
+
+        $servicesConfigurator = $this->services();
+
+        $servicesConfigurator->set($checkerClass)
+            ->public()
+            ->autowire()
+            ->tag($interfaceTag);
     }
 
     /**
@@ -83,14 +89,19 @@ final class ECSConfig extends ContainerConfigurator
      */
     public function ruleWithConfiguration(string $checkerClass, array $configuration): void
     {
-        $this->isCheckerClass($checkerClass);
+        $this->assertCheckerClass($checkerClass);
 
         $services = $this->services();
 
-        $serviceConfigurator = $services->set($checkerClass);
+        $serviceConfigurator = $services->set($checkerClass)
+            ->autowire();
+
+        // tag for autowiring of tagged_iterator()
+        $interfaceTag = is_a($checkerClass, Sniff::class, true) ? Sniff::class : FixerInterface::class;
+        $serviceConfigurator->tag($interfaceTag);
+
         if (is_a($checkerClass, FixerInterface::class, true)) {
             Assert::isAnyOf($checkerClass, [ConfigurableFixerInterface::class, ConfigurableRuleInterface::class]);
-
             $serviceConfigurator->call('configure', [$configuration]);
         }
 
@@ -210,7 +221,7 @@ final class ECSConfig extends ContainerConfigurator
     /**
      * @param class-string $checkerClass
      */
-    private function isCheckerClass(string $checkerClass): void
+    private function assertCheckerClass(string $checkerClass): void
     {
         Assert::classExists($checkerClass);
         Assert::isAnyOf($checkerClass, [Sniff::class, FixerInterface::class]);

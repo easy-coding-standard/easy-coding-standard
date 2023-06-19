@@ -4,25 +4,26 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Kernel;
 
-use PHP_CodeSniffer\Sniffs\Sniff;
-use PhpCsFixer\Fixer\FixerInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
 use Symplify\CodingStandard\ValueObject\CodingStandardConfig;
-use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\ConflictingCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\FixerWhitespaceConfigCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveExcludedCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualCheckersCompilerPass;
 use Symplify\EasyCodingStandard\ValueObject\EasyCodingStandardConfig;
 use Symplify\EasyParallel\ValueObject\EasyParallelConfig;
-use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireInterfacesCompilerPass;
 use Symplify\PackageBuilder\ValueObject\ConsoleColorDiffConfig;
-use Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
+use Symplify\SymplifyKernel\Config\Loader\ParameterMergingLoaderFactory;
+use Symplify\SymplifyKernel\Contract\LightKernelInterface;
+use Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use Symplify\SymplifyKernel\ValueObject\SymplifyKernelConfig;
 
-final class EasyCodingStandardKernel extends AbstractSymplifyKernel
+final class EasyCodingStandardKernel implements LightKernelInterface
 {
+    private ?Container $container = null;
+
     /**
      * @param string[] $configFiles
      */
@@ -37,7 +38,34 @@ final class EasyCodingStandardKernel extends AbstractSymplifyKernel
         $configFiles[] = EasyCodingStandardConfig::FILE_PATH;
         $configFiles[] = EasyParallelConfig::FILE_PATH;
 
-        return $this->create($configFiles, $compilerPasses, []);
+        return $this->create($configFiles, $compilerPasses);
+    }
+
+    /**
+     * @param string[] $configFiles
+     * @param CompilerPassInterface[] $compilerPasses
+     */
+    public function create(array $configFiles, array $compilerPasses = []): ContainerInterface
+    {
+        $containerBuilderFactory = new ContainerBuilderFactory(new ParameterMergingLoaderFactory());
+
+        $configFiles[] = SymplifyKernelConfig::FILE_PATH;
+
+        $containerBuilder = $containerBuilderFactory->create($configFiles, $compilerPasses);
+        $containerBuilder->compile();
+
+        $this->container = $containerBuilder;
+
+        return $containerBuilder;
+    }
+
+    public function getContainer(): ContainerInterface
+    {
+        if (! $this->container instanceof Container) {
+            throw new ShouldNotHappenException();
+        }
+
+        return $this->container;
     }
 
     /**
@@ -51,13 +79,7 @@ final class EasyCodingStandardKernel extends AbstractSymplifyKernel
             new RemoveMutualCheckersCompilerPass(),
             new ConflictingCheckersCompilerPass(),
             // autowire
-            new AutowireInterfacesCompilerPass([
-                FixerInterface::class,
-                Sniff::class,
-                OutputFormatterInterface::class,
-            ]),
             new FixerWhitespaceConfigCompilerPass(),
-            new AutowireArrayParameterCompilerPass(),
         ];
     }
 }
