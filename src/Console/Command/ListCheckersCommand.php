@@ -41,6 +41,8 @@ final class ListCheckersCommand extends Command
             'Select output format',
             ConsoleOutputFormatter::NAME
         );
+
+        $this->addOption(Option::CONFIG, 'c', InputOption::VALUE_REQUIRED, 'Path to config file');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

@@ -23,6 +23,8 @@ abstract class AbstractCheckCommand extends Command
 
         $this->addOption(Option::FIX, null, null, 'Fix found violations.');
 
+        $this->addOption(Option::CONFIG, 'c', InputOption::VALUE_REQUIRED, 'Path to config file');
+
         $this->addOption(Option::CLEAR_CACHE, null, null, 'Clear cache for already checked files.');
 
         $this->addOption(
