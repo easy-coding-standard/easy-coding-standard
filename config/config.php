@@ -40,7 +40,7 @@ return static function (ECSConfig $ecsConfig): void {
     $ecsConfig->indentation(Option::INDENTATION_SPACES);
     $ecsConfig->lineEnding(PHP_EOL);
 
-    $cacheDirectory = sys_get_temp_dir() . '/changed_files_detector%env(TEST_SUFFIX)%';
+    $cacheDirectory = sys_get_temp_dir() . '/changed_files_detector';
     if (StaticVersionResolver::PACKAGE_VERSION !== '@package_version@') {
         $cacheDirectory .= '_' . StaticVersionResolver::PACKAGE_VERSION;
     }
@@ -64,9 +64,6 @@ return static function (ECSConfig $ecsConfig): void {
     $ecsConfig->paths([]);
     $ecsConfig->skip([]);
     $ecsConfig->fileExtensions(['php']);
-
-    $parameters = $ecsConfig->parameters();
-    $parameters->set('env(TEST_SUFFIX)', '');
 
     $services = $ecsConfig->services();
     $services->defaults()
