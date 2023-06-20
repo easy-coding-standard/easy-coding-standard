@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Console\Command;
 
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
 
-abstract class AbstractCheckCommand extends AbstractSymplifyCommand
+abstract class AbstractCheckCommand extends Command
 {
     protected function configure(): void
     {
@@ -49,6 +49,7 @@ abstract class AbstractCheckCommand extends AbstractSymplifyCommand
 
         $this->addOption(Option::MEMORY_LIMIT, null, InputOption::VALUE_REQUIRED, 'Memory limit for check');
 
+        // for parallel run
         $this->addOption(Option::PARALLEL_PORT, null, InputOption::VALUE_REQUIRED);
         $this->addOption(Option::PARALLEL_IDENTIFIER, null, InputOption::VALUE_REQUIRED);
     }
