@@ -12,7 +12,6 @@ use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\ConflictingChec
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\FixerWhitespaceConfigCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveExcludedCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualCheckersCompilerPass;
-use Symplify\EasyCodingStandard\ValueObject\EasyCodingStandardConfig;
 use Symplify\EasyParallel\ValueObject\EasyParallelConfig;
 use Symplify\PackageBuilder\ValueObject\ConsoleColorDiffConfig;
 use Symplify\SymplifyKernel\Contract\LightKernelInterface;
@@ -37,7 +36,6 @@ final class EasyCodingStandardKernel implements LightKernelInterface
 
         $configFiles[] = ConsoleColorDiffConfig::FILE_PATH;
         $configFiles[] = CodingStandardConfig::FILE_PATH;
-        // $configFiles[] = EasyCodingStandardConfig::FILE_PATH;
         $configFiles[] = EasyParallelConfig::FILE_PATH;
 
         return $this->create($configFiles, $compilerPasses);
