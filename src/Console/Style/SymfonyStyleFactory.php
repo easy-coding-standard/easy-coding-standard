@@ -11,6 +11,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\PackageBuilder\Reflection\PrivatesCaller;
 
+/**
+ * @api
+ */
 final class SymfonyStyleFactory
 {
     private readonly PrivatesCaller $privatesCaller;
@@ -20,9 +23,6 @@ final class SymfonyStyleFactory
         $this->privatesCaller = new PrivatesCaller();
     }
 
-    /**
-     * @api
-     */
     public function create(): SymfonyStyle
     {
         // to prevent missing argv indexes
