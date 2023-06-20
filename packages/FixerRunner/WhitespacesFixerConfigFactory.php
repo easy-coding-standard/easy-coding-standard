@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\FixerRunner;
 
 use PhpCsFixer\WhitespacesFixerConfig;
+use Symplify\EasyCodingStandard\DependencyInjection\SimpleParameterProvider;
 use Symplify\EasyCodingStandard\Exception\Configuration\WhitespaceConfigurationException;
 use Symplify\EasyCodingStandard\FixerRunner\ValueObject\Spacing;
-use Symplify\PackageBuilder\Parameter\ParameterProvider;
+use Symplify\EasyCodingStandard\ValueObject\Option;
 
 final class WhitespacesFixerConfigFactory
 {
@@ -16,17 +17,12 @@ final class WhitespacesFixerConfigFactory
      */
     private const ALLOWED_VALUES = ['tab', 'spaces', Spacing::TWO_SPACES, Spacing::FOUR_SPACES, Spacing::ONE_TAB];
 
-    public function __construct(
-        private readonly ParameterProvider $parameterProvider
-    ) {
-    }
-
     /**
      * @api
      */
     public function create(): WhitespacesFixerConfig
     {
-        $lineEnding = $this->parameterProvider->provideParameter('line_ending');
+        $lineEnding = SimpleParameterProvider::getStringParameter(Option::LINE_ENDING);
 
         if ($lineEnding === '\n') {
             $lineEnding = "\n";
@@ -37,7 +33,7 @@ final class WhitespacesFixerConfigFactory
 
     private function resolveIndentation(): string
     {
-        $indentation = $this->parameterProvider->provideStringParameter('indentation');
+        $indentation = SimpleParameterProvider::getStringParameter(Option::INDENTATION);
         if ($this->isOneTab($indentation)) {
             return Spacing::ONE_TAB;
         }

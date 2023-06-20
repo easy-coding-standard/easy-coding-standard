@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\Finder;
 
 use Symfony\Component\Finder\Finder;
+use Symplify\EasyCodingStandard\DependencyInjection\SimpleParameterProvider;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Webmozart\Assert\Assert;
 
 /**
@@ -19,9 +19,9 @@ final class SourceFinder
      */
     private array $fileExtensions = [];
 
-    public function __construct(ParameterProvider $parameterProvider)
+    public function __construct()
     {
-        $this->fileExtensions = $parameterProvider->provideArrayParameter(Option::FILE_EXTENSIONS);
+        $this->fileExtensions = SimpleParameterProvider::getArrayParameter(Option::FILE_EXTENSIONS);
     }
 
     /**

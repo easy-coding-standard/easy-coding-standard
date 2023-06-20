@@ -4,18 +4,17 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Kernel;
 
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Config\Loader\DelegatingLoader;
+use Symfony\Component\Config\Loader\GlobFileLoader;
+use Symfony\Component\Config\Loader\LoaderResolver;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symplify\SymplifyKernel\Contract\Config\LoaderFactoryInterface;
+use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Webmozart\Assert\Assert;
 
 final class ContainerBuilderFactory
 {
-    public function __construct(
-        private readonly LoaderFactoryInterface $loaderFactory
-    ) {
-    }
-
     /**
      * @param string[] $configFiles
      * @param CompilerPassInterface[] $compilerPasses
@@ -26,8 +25,9 @@ final class ContainerBuilderFactory
         Assert::allFile($configFiles);
 
         $containerBuilder = new ContainerBuilder();
+        $loaderResolver = $this->createLoaderResolver($containerBuilder);
 
-        $delegatingLoader = $this->loaderFactory->create($containerBuilder, getcwd());
+        $delegatingLoader = new DelegatingLoader($loaderResolver);
         foreach ($configFiles as $configFile) {
             $delegatingLoader->load($configFile);
         }
@@ -37,5 +37,14 @@ final class ContainerBuilderFactory
         }
 
         return $containerBuilder;
+    }
+
+    private function createLoaderResolver(ContainerBuilder $containerBuilder): LoaderResolver
+    {
+        $fileLocator = new FileLocator([getcwd()]);
+
+        $loaders = [new GlobFileLoader($fileLocator), new PhpFileLoader($containerBuilder, $fileLocator)];
+
+        return new LoaderResolver($loaders);
     }
 }

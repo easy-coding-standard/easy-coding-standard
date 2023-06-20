@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Skipper\SkipCriteriaResolver;
 
+use Symplify\EasyCodingStandard\DependencyInjection\SimpleParameterProvider;
 use Symplify\EasyCodingStandard\FileSystem\PathNormalizer;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use Symplify\PackageBuilder\Parameter\ParameterProvider;
 
 /**
  * @see \Symplify\EasyCodingStandard\Tests\Skipper\SkipCriteriaResolver\SkippedPathsResolver\SkippedPathsResolverTest
@@ -19,7 +19,6 @@ final class SkippedPathsResolver
     private array $skippedPaths = [];
 
     public function __construct(
-        private readonly ParameterProvider $parameterProvider,
         private readonly PathNormalizer $pathNormalizer
     ) {
     }
@@ -33,8 +32,7 @@ final class SkippedPathsResolver
             return $this->skippedPaths;
         }
 
-        $skip = $this->parameterProvider->provideArrayParameter(Option::SKIP);
-
+        $skip = SimpleParameterProvider::getArrayParameter(Option::SKIP);
         foreach ($skip as $key => $value) {
             if (! is_int($key)) {
                 continue;

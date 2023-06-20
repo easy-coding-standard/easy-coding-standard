@@ -13,16 +13,16 @@ use PHP_CodeSniffer\Standards\PSR2\Sniffs\Methods\MethodDeclarationSniff;
 use PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\CommentedOutCodeSniff;
 use PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\EvalSniff;
 use PHP_CodeSniffer\Standards\Squiz\Sniffs\Scope\StaticThisUsageSniff;
+use Symplify\EasyCodingStandard\DependencyInjection\SimpleParameterProvider;
 use Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 
 final class ReportSniffClassesWarningsTest extends AbstractKernelTestCase
 {
     public function testDefault(): void
     {
-        $this->bootKernelWithConfigs(EasyCodingStandardKernel::class, []);
+        $this->bootKernel(EasyCodingStandardKernel::class);
 
         $expectedClasses = [
             AssignmentInConditionSniff::class,
@@ -32,9 +32,7 @@ final class ReportSniffClassesWarningsTest extends AbstractKernelTestCase
             UnusedFunctionParameterSniff::class,
         ];
 
-        $parameterProvider = $this->getService(ParameterProvider::class);
-        $providerClasses = $parameterProvider->provideArrayParameter(Option::REPORT_SNIFF_WARNINGS);
-
+        $providerClasses = SimpleParameterProvider::getArrayParameter(Option::REPORT_SNIFF_WARNINGS);
         $this->assertSame($expectedClasses, $providerClasses);
     }
 
@@ -57,9 +55,7 @@ final class ReportSniffClassesWarningsTest extends AbstractKernelTestCase
             StaticThisUsageSniff::class,
         ];
 
-        $parameterProvider = $this->getService(ParameterProvider::class);
-        $providerClasses = $parameterProvider->provideArrayParameter(Option::REPORT_SNIFF_WARNINGS);
-
-        $this->assertSame($expectedClasses, $providerClasses);
+        $newProviderClasses = SimpleParameterProvider::getArrayParameter(Option::REPORT_SNIFF_WARNINGS);
+        $this->assertSame($expectedClasses, $newProviderClasses);
     }
 }

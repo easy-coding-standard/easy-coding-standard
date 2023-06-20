@@ -26,12 +26,12 @@ use Symplify\EasyCodingStandard\Console\Output\OutputFormatterCollector;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyleFactory;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
+use Symplify\EasyCodingStandard\DependencyInjection\SimpleParameterProvider;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\FixerRunner\WhitespacesFixerConfigFactory;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
-use Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
 use Symplify\PackageBuilder\Yaml\ParametersMerger;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\tagged_iterator;
@@ -109,6 +109,7 @@ return static function (ECSConfig $ecsConfig): void {
         ->factory([service(SymfonyStyleFactory::class), 'create']);
 
     $services->set(ParametersMerger::class);
+    $services->set(SimpleParameterProvider::class);
 
     $services->set(EasyCodingStandardStyle::class)
         ->factory([service(EasyCodingStandardStyleFactory::class), 'create']);
@@ -116,18 +117,15 @@ return static function (ECSConfig $ecsConfig): void {
     $services->set(WhitespacesFixerConfig::class)
         ->factory([service(WhitespacesFixerConfigFactory::class), 'create']);
 
-    // code sniffer
+    // php code sniffer
     $services->set(Fixer::class);
-
-    // fixer
-    $services->set(UnifiedDiffer::class);
-    $services->alias(DifferInterface::class, UnifiedDiffer::class);
-
-    $services->set(FixerFileProcessor::class)
-        ->arg('$fixers', tagged_iterator(FixerInterface::class));
-
     $services->set(SniffFileProcessor::class)
         ->arg('$sniffs', tagged_iterator(Sniff::class));
 
-    $services->set(ClassLikeExistenceChecker::class);
+    // php-cs-fixer
+    $services->set(FixerFileProcessor::class)
+        ->arg('$fixers', tagged_iterator(FixerInterface::class));
+
+    $services->set(UnifiedDiffer::class);
+    $services->alias(DifferInterface::class, UnifiedDiffer::class);
 };

@@ -13,6 +13,7 @@ use React\Socket\TcpServer;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symplify\EasyCodingStandard\Console\Command\CheckCommand;
+use Symplify\EasyCodingStandard\DependencyInjection\SimpleParameterProvider;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
@@ -26,7 +27,6 @@ use Symplify\EasyParallel\Enum\ReactEvent;
 use Symplify\EasyParallel\ValueObject\ParallelProcess;
 use Symplify\EasyParallel\ValueObject\ProcessPool;
 use Symplify\EasyParallel\ValueObject\Schedule;
-use Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Throwable;
 
 /**
@@ -46,7 +46,6 @@ final class ParallelFileProcessor
 
     public function __construct(
         private readonly WorkerCommandLineFactory $workerCommandLineFactory,
-        private readonly ParameterProvider $parameterProvider
     ) {
     }
 
@@ -126,7 +125,7 @@ final class ParallelFileProcessor
             $this->processPool->quitAll();
         };
 
-        $timeoutInSeconds = $this->parameterProvider->provideIntParameter(Option::PARALLEL_TIMEOUT_IN_SECONDS);
+        $timeoutInSeconds = SimpleParameterProvider::getIntParameter(Option::PARALLEL_TIMEOUT_IN_SECONDS);
 
         for ($i = 0; $i < $numberOfProcesses; ++$i) {
             // nothing else to process, stop now

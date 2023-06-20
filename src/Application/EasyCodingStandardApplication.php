@@ -9,6 +9,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
+use Symplify\EasyCodingStandard\DependencyInjection\SimpleParameterProvider;
 use Symplify\EasyCodingStandard\Exception\ShouldNotHappenException;
 use Symplify\EasyCodingStandard\FileSystem\FileFilter;
 use Symplify\EasyCodingStandard\FileSystem\StaticRelativeFilePathHelper;
@@ -22,7 +23,6 @@ use Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 use Symplify\EasyParallel\CpuCoreCountProvider;
 use Symplify\EasyParallel\ScheduleFactory;
-use Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\PackageBuilder\Yaml\ParametersMerger;
 
 final class EasyCodingStandardApplication
@@ -42,7 +42,6 @@ final class EasyCodingStandardApplication
         private readonly ParallelFileProcessor $parallelFileProcessor,
         private readonly CpuCoreCountProvider $cpuCoreCountProvider,
         private readonly SymfonyStyle $symfonyStyle,
-        private readonly ParameterProvider $parameterProvider,
         private readonly ParametersMerger $parametersMerger
     ) {
     }
@@ -72,8 +71,8 @@ final class EasyCodingStandardApplication
         if ($configuration->isParallel()) {
             $schedule = $this->scheduleFactory->create(
                 $this->cpuCoreCountProvider->provide(),
-                $this->parameterProvider->provideIntParameter(Option::PARALLEL_JOB_SIZE),
-                $this->parameterProvider->provideIntParameter(Option::PARALLEL_MAX_NUMBER_OF_PROCESSES),
+                SimpleParameterProvider::getIntParameter(Option::PARALLEL_JOB_SIZE),
+                SimpleParameterProvider::getIntParameter(Option::PARALLEL_MAX_NUMBER_OF_PROCESSES),
                 $filePaths
             );
 

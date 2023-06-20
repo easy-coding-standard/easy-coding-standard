@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Skipper\SkipCriteriaResolver;
 
+use Symplify\EasyCodingStandard\DependencyInjection\SimpleParameterProvider;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use Symplify\PackageBuilder\Parameter\ParameterProvider;
 
 final class SkippedMessagesResolver
 {
@@ -13,11 +13,6 @@ final class SkippedMessagesResolver
      * @var array<string, string[]|null>
      */
     private array $skippedMessages = [];
-
-    public function __construct(
-        private readonly ParameterProvider $parameterProvider
-    ) {
-    }
 
     /**
      * @return array<string, string[]|null>
@@ -28,7 +23,7 @@ final class SkippedMessagesResolver
             return $this->skippedMessages;
         }
 
-        $skip = $this->parameterProvider->provideArrayParameter(Option::SKIP);
+        $skip = SimpleParameterProvider::getArrayParameter(Option::SKIP);
 
         foreach ($skip as $key => $value) {
             // e.g. [SomeClass::class] → shift values to [SomeClass::class => null]

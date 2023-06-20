@@ -10,6 +10,7 @@ use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\FixerFactory;
 use PhpCsFixer\RuleSet\RuleSet;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symplify\EasyCodingStandard\DependencyInjection\SimpleParameterProvider;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 use Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
 use Webmozart\Assert\Assert;
@@ -27,8 +28,7 @@ final class ECSConfig extends ContainerConfigurator
     {
         Assert::allString($paths);
 
-        $parameters = $this->parameters();
-        $parameters->set(Option::PATHS, $paths);
+        SimpleParameterProvider::setParameter(Option::PATHS, $paths);
     }
 
     /**
@@ -36,8 +36,7 @@ final class ECSConfig extends ContainerConfigurator
      */
     public function skip(array $skips): void
     {
-        $parameters = $this->parameters();
-        $parameters->set(Option::SKIP, $skips);
+        SimpleParameterProvider::addParameter(Option::SKIP, $skips);
     }
 
     /**
@@ -131,26 +130,22 @@ final class ECSConfig extends ContainerConfigurator
      */
     public function indentation(string $indentation): void
     {
-        $parameters = $this->parameters();
-        $parameters->set(Option::INDENTATION, $indentation);
+        SimpleParameterProvider::setParameter(Option::INDENTATION, $indentation);
     }
 
     public function lineEnding(string $lineEnding): void
     {
-        $parameters = $this->parameters();
-        $parameters->set(Option::LINE_ENDING, $lineEnding);
+        SimpleParameterProvider::setParameter(Option::LINE_ENDING, $lineEnding);
     }
 
     public function cacheDirectory(string $cacheDirectory): void
     {
-        $parameters = $this->parameters();
-        $parameters->set(Option::CACHE_DIRECTORY, $cacheDirectory);
+        SimpleParameterProvider::setParameter(Option::CACHE_DIRECTORY, $cacheDirectory);
     }
 
     public function cacheNamespace(string $cacheNamespace): void
     {
-        $parameters = $this->parameters();
-        $parameters->set(Option::CACHE_NAMESPACE, $cacheNamespace);
+        SimpleParameterProvider::setParameter(Option::CACHE_NAMESPACE, $cacheNamespace);
     }
 
     /**
@@ -160,24 +155,26 @@ final class ECSConfig extends ContainerConfigurator
     {
         Assert::allString($fileExtensions);
 
-        $parameters = $this->parameters();
-        $parameters->set(Option::FILE_EXTENSIONS, $fileExtensions);
+        SimpleParameterProvider::addParameter(Option::FILE_EXTENSIONS, $fileExtensions);
     }
 
     public function parallel(int $seconds = 120, int $maxNumberOfProcess = 16, int $jobSize = 20): void
     {
-        $parameters = $this->parameters();
-        $parameters->set(Option::PARALLEL, true);
+        SimpleParameterProvider::setParameter(Option::PARALLEL, true);
 
-        $parameters->set(Option::PARALLEL_TIMEOUT_IN_SECONDS, $seconds);
-        $parameters->set(Option::PARALLEL_MAX_NUMBER_OF_PROCESSES, $maxNumberOfProcess);
-        $parameters->set(Option::PARALLEL_JOB_SIZE, $jobSize);
+        SimpleParameterProvider::setParameter(Option::PARALLEL_TIMEOUT_IN_SECONDS, $seconds);
+
+        SimpleParameterProvider::setParameter(Option::PARALLEL_MAX_NUMBER_OF_PROCESSES, $maxNumberOfProcess);
+
+        SimpleParameterProvider::setParameter(Option::PARALLEL_JOB_SIZE, $jobSize);
     }
 
+    /**
+     * @api
+     */
     public function disableParallel(): void
     {
-        $parameters = $this->parameters();
-        $parameters->set(Option::PARALLEL, false);
+        SimpleParameterProvider::setParameter(Option::PARALLEL, false);
     }
 
     /**
@@ -190,8 +187,7 @@ final class ECSConfig extends ContainerConfigurator
             Assert::isAnyOf($sniffClass, [Sniff::class]);
         }
 
-        $parameters = $this->parameters();
-        $parameters->set(Option::REPORT_SNIFF_WARNINGS, $sniffClasses);
+        SimpleParameterProvider::addParameter(Option::REPORT_SNIFF_WARNINGS, $sniffClasses);
     }
 
     /**

@@ -12,10 +12,8 @@ use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\ConflictingChec
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\FixerWhitespaceConfigCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveExcludedCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualCheckersCompilerPass;
-use Symplify\EasyCodingStandard\ValueObject\EasyCodingStandardConfig;
 use Symplify\EasyParallel\ValueObject\EasyParallelConfig;
 use Symplify\PackageBuilder\ValueObject\ConsoleColorDiffConfig;
-use Symplify\SymplifyKernel\Config\Loader\ParameterMergingLoaderFactory;
 use Symplify\SymplifyKernel\Contract\LightKernelInterface;
 use Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 use Symplify\SymplifyKernel\ValueObject\SymplifyKernelConfig;
@@ -29,13 +27,15 @@ final class EasyCodingStandardKernel implements LightKernelInterface
      */
     public function createFromConfigs(array $configFiles): ContainerInterface
     {
-        $configFiles[] = __DIR__ . '/../../config/config.php';
+        $defaultConfig = __DIR__ . '/../../config/config.php';
+
+        // default config must be merged as first, to allow custom configs to override parameters
+        $configFiles = array_merge([$defaultConfig], $configFiles);
 
         $compilerPasses = $this->createCompilerPasses();
 
         $configFiles[] = ConsoleColorDiffConfig::FILE_PATH;
         $configFiles[] = CodingStandardConfig::FILE_PATH;
-        $configFiles[] = EasyCodingStandardConfig::FILE_PATH;
         $configFiles[] = EasyParallelConfig::FILE_PATH;
 
         return $this->create($configFiles, $compilerPasses);
@@ -47,7 +47,7 @@ final class EasyCodingStandardKernel implements LightKernelInterface
      */
     public function create(array $configFiles, array $compilerPasses = []): ContainerInterface
     {
-        $containerBuilderFactory = new ContainerBuilderFactory(new ParameterMergingLoaderFactory());
+        $containerBuilderFactory = new ContainerBuilderFactory();
 
         $configFiles[] = SymplifyKernelConfig::FILE_PATH;
 
