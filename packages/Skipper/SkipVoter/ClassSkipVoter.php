@@ -8,7 +8,6 @@ use SplFileInfo;
 use Symplify\EasyCodingStandard\Skipper\Contract\SkipVoterInterface;
 use Symplify\EasyCodingStandard\Skipper\SkipCriteriaResolver\SkippedClassResolver;
 use Symplify\EasyCodingStandard\Skipper\Skipper\SkipSkipper;
-use Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
 
 final class ClassSkipVoter implements SkipVoterInterface
 {

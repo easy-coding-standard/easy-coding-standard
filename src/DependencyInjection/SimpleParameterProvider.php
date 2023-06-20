@@ -11,26 +11,51 @@ final class SimpleParameterProvider
     /**
      * @var array<string, mixed>
      */
-    private array $parameters = [];
+    private static array $parameters = [];
 
-    public function addParameter(string $key, mixed $value): void
+    public static function addParameter(string $key, mixed $value): void
     {
-        $this->parameters[$key] = $value;
+        if (is_array($value)) {
+            $mergedParameters = array_merge(self::$parameters[$key] ?? [], $value);
+            self::$parameters[$key] = $mergedParameters;
+        } else {
+            self::$parameters[$key][] = $value;
+        }
     }
 
-    public function getStringParameter(string $key): string
+    public static function setParameter(string $key, mixed $value): void
     {
-        return $this->parameters[$key] ?? '';
+        self::$parameters[$key] = $value;
     }
 
     /**
-     * @return string[]
+     * @return mixed[]
      */
-    public function getArrayParameter(string $key): array
+    public static function getArrayParameter(string $key): array
     {
-        $parameter = $this->parameters[$key] ?? [];
-        Assert::allString($parameter);
+        $parameter = self::$parameters[$key] ?? [];
+        Assert::isArray($parameter);
+
+        if (array_is_list($parameter)) {
+            // remove duplicates
+            return array_values(array_unique($parameter));
+        }
 
         return $parameter;
+    }
+
+    public static function getStringParameter(string $key): string
+    {
+        return self::$parameters[$key];
+    }
+
+    public static function getIntParameter(string $key): int
+    {
+        return self::$parameters[$key];
+    }
+
+    public static function getBoolParameter(string $key): bool
+    {
+        return self::$parameters[$key];
     }
 }

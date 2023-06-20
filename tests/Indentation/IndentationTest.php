@@ -28,16 +28,17 @@ final class IndentationTest extends AbstractKernelTestCase
         );
 
         $indentationTypeFixer = $this->getService(IndentationTypeFixer::class);
-
         $this->assertInstanceOf(WhitespacesAwareFixerInterface::class, $indentationTypeFixer);
-        $whitespacesFixerConfig = new WhitespacesFixerConfig('    ', "\n");
 
-        $fixerWhitespaceConfig = $this->privatesAccessor->getPrivatePropertyOfClass(
+        /** @var WhitespacesFixerConfig $whitespacesFixerConfig */
+        $whitespacesFixerConfig = $this->privatesAccessor->getPrivatePropertyOfClass(
             $indentationTypeFixer,
             'whitespacesConfig',
             WhitespacesFixerConfig::class
         );
-        $this->assertEquals($whitespacesFixerConfig, $fixerWhitespaceConfig);
+
+        $this->assertSame('    ', $whitespacesFixerConfig->getIndent());
+        $this->assertSame("\n", $whitespacesFixerConfig->getLineEnding());
     }
 
     public function testTabs(): void
@@ -48,15 +49,16 @@ final class IndentationTest extends AbstractKernelTestCase
         );
 
         $indentationTypeFixer = $this->getService(IndentationTypeFixer::class);
-
         $this->assertInstanceOf(WhitespacesAwareFixerInterface::class, $indentationTypeFixer);
-        $whitespacesFixerConfig = new WhitespacesFixerConfig('	', "\n");
 
-        $fixerWhitespaceConfig = $this->privatesAccessor->getPrivatePropertyOfClass(
+        /** @var WhitespacesFixerConfig $whitespacesFixerConfig */
+        $whitespacesFixerConfig = $this->privatesAccessor->getPrivatePropertyOfClass(
             $indentationTypeFixer,
             'whitespacesConfig',
             WhitespacesFixerConfig::class
         );
-        $this->assertEquals($whitespacesFixerConfig, $fixerWhitespaceConfig);
+
+        $this->assertSame('	', $whitespacesFixerConfig->getIndent());
+        $this->assertSame("\n", $whitespacesFixerConfig->getLineEnding());
     }
 }

@@ -43,3 +43,5 @@ parameters:
         - '#Method Symplify\\EasyCodingStandard\\Application\\SingleFileProcessor\:\:processFilePath\(\) should return array\{file_diffs\?\: array<Symplify\\EasyCodingStandard\\ValueObject\\Error\\FileDiff>, coding_standard_errors\?\: array<Symplify\\EasyCodingStandard\\SniffRunner\\ValueObject\\Error\\CodingStandardError>\} but returns array<(.*?), array<Symplify\\EasyCodingStandard\\SniffRunner\\ValueObject\\Error\\CodingStandardError\|Symplify\\EasyCodingStandard\\ValueObject\\Error\\FileDiff>>#'
 
         - '#Method Symplify\\EasyCodingStandard\\FixerRunner\\Parser\\FileToTokensParser\:\:parseFromFilePath\(\) should return iterable<PhpCsFixer\\Tokenizer\\Token>&PhpCsFixer\\Tokenizer\\Tokens but returns PhpCsFixer\\Tokenizer\\Tokens#'
+
+        - '#Parameter \#1 \$skips of method Symplify\\EasyCodingStandard\\Config\\ECSConfig\:\:skip\(\) expects array<class\-string<PHP_CodeSniffer\\Sniffs\\Sniff\|PhpCsFixer\\Fixer\\FixerInterface>\|int, array<int, string>\|string\|null>, array<int\|string, array<int, string>\|string\|null> given#'

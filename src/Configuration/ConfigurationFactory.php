@@ -4,20 +4,16 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Configuration;
 
+use PHP_CodeSniffer\Sniffs\Sniff;
 use Symfony\Component\Console\Input\InputInterface;
 use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
+use Symplify\EasyCodingStandard\DependencyInjection\SimpleParameterProvider;
 use Symplify\EasyCodingStandard\Exception\Configuration\SourceNotFoundException;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use Symplify\PackageBuilder\Parameter\ParameterProvider;
 
 final class ConfigurationFactory
 {
-    public function __construct(
-        private readonly ParameterProvider $parameterProvider
-    ) {
-    }
-
     /**
      * Needs to run in the start of the life cycle, since the rest of workflow uses it.
      */
@@ -37,9 +33,10 @@ final class ConfigurationFactory
         /** @var string|null $memoryLimit */
         $memoryLimit = $input->getOption(Option::MEMORY_LIMIT);
 
-        $isParallel = $this->parameterProvider->provideBoolParameter(Option::PARALLEL);
+        $isParallel = SimpleParameterProvider::getBoolParameter(Option::PARALLEL);
 
-        $reportSniffClassesWarnings = $this->parameterProvider->provideArrayParameter(Option::REPORT_SNIFF_WARNINGS);
+        /** @var array<class-string<Sniff>> $reportSniffClassesWarnings */
+        $reportSniffClassesWarnings = SimpleParameterProvider::getArrayParameter(Option::REPORT_SNIFF_WARNINGS);
 
         $config = $input->getOption(Option::CONFIG);
         if ($config !== null) {
@@ -101,7 +98,7 @@ final class ConfigurationFactory
         $paths = (array) $input->getArgument(Option::PATHS);
         if ($paths === []) {
             // if not paths are provided from CLI, use the config ones
-            $paths = $this->parameterProvider->provideArrayParameter(Option::PATHS);
+            $paths = SimpleParameterProvider::getArrayParameter(Option::PATHS);
         }
 
         $this->ensurePathsExists($paths);

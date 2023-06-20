@@ -11,8 +11,6 @@ use Symfony\Component\Config\Loader\LoaderResolver;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-use Symplify\PackageBuilder\DependencyInjection\FileLoader\ParameterMergingPhpFileLoader;
-use Symplify\SymplifyKernel\Contract\Config\LoaderFactoryInterface;
 use Webmozart\Assert\Assert;
 
 final class ContainerBuilderFactory
@@ -45,10 +43,7 @@ final class ContainerBuilderFactory
     {
         $fileLocator = new FileLocator([getcwd()]);
 
-        $loaders = [
-            new GlobFileLoader($fileLocator),
-            new PhpFileLoader($containerBuilder, $fileLocator),
-        ];
+        $loaders = [new GlobFileLoader($fileLocator), new PhpFileLoader($containerBuilder, $fileLocator)];
 
         return new LoaderResolver($loaders);
     }
