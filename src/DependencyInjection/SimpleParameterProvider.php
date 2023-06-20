@@ -58,4 +58,12 @@ final class SimpleParameterProvider
     {
         return self::$parameters[$key];
     }
+
+    /**
+     * For cache invalidation
+     */
+    public static function hash(): string
+    {
+        return sha1(serialize(self::$parameters));
+    }
 }

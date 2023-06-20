@@ -9,6 +9,7 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\LoaderResolver;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\GlobFileLoader;
+use Symplify\EasyCodingStandard\DependencyInjection\SimpleParameterProvider;
 use Symplify\EasyCodingStandard\Exception\Configuration\FileNotFoundException;
 use Symplify\EasyCodingStandard\Exception\ShouldNotHappenException;
 use Symplify\PackageBuilder\DependencyInjection\FileLoader\ParameterMergingPhpFileLoader;
@@ -25,8 +26,7 @@ final class FileHashComputer
         $loader = $this->createLoader($filePath, $containerBuilder);
         $loader->load($filePath);
 
-        $parameterBag = $containerBuilder->getParameterBag();
-        return $this->arrayToHash($containerBuilder->getServiceIds()) . $this->arrayToHash($parameterBag->all());
+        return $this->arrayToHash($containerBuilder->getServiceIds()) . SimpleParameterProvider::hash();
     }
 
     public function compute(string $filePath): string
