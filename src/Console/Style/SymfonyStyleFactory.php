@@ -54,4 +54,3 @@ final class SymfonyStyleFactory
         return defined('PHPUNIT_COMPOSER_INSTALL') || defined('__PHPUNIT_PHAR__');
     }
 }
-
