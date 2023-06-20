@@ -13,7 +13,6 @@ use Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
 final class ClassSkipVoter implements SkipVoterInterface
 {
     public function __construct(
-        private readonly ClassLikeExistenceChecker $classLikeExistenceChecker,
         private readonly SkipSkipper $skipSkipper,
         private readonly SkippedClassResolver $skippedClassResolver
     ) {
@@ -25,7 +24,7 @@ final class ClassSkipVoter implements SkipVoterInterface
             return true;
         }
 
-        return $this->classLikeExistenceChecker->doesClassLikeExist($element);
+        return class_exists($element) || interface_exists($element);
     }
 
     public function shouldSkip(string | object $element, SplFileInfo | string $file): bool

@@ -174,6 +174,9 @@ final class ECSConfig extends ContainerConfigurator
         $parameters->set(Option::PARALLEL_JOB_SIZE, $jobSize);
     }
 
+    /**
+     * @api
+     */
     public function disableParallel(): void
     {
         $parameters = $this->parameters();

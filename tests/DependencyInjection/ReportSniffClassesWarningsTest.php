@@ -22,7 +22,7 @@ final class ReportSniffClassesWarningsTest extends AbstractKernelTestCase
 {
     public function testDefault(): void
     {
-        $this->bootKernelWithConfigs(EasyCodingStandardKernel::class, []);
+        $this->bootKernel(EasyCodingStandardKernel::class);
 
         $expectedClasses = [
             AssignmentInConditionSniff::class,

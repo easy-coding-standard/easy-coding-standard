@@ -6,7 +6,6 @@ namespace Symplify\EasyCodingStandard\Skipper\SkipCriteriaResolver;
 
 use Symplify\EasyCodingStandard\ValueObject\Option;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
-use Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
 
 final class SkippedClassResolver
 {
@@ -17,7 +16,6 @@ final class SkippedClassResolver
 
     public function __construct(
         private readonly ParameterProvider $parameterProvider,
-        private readonly ClassLikeExistenceChecker $classLikeExistenceChecker
     ) {
     }
 
@@ -43,7 +41,7 @@ final class SkippedClassResolver
                 continue;
             }
 
-            if (! $this->classLikeExistenceChecker->doesClassLikeExist($key)) {
+            if (! class_exists($key) || ! interface_exists($key)) {
                 continue;
             }
 

@@ -47,7 +47,7 @@ final class EasyCodingStandardKernel implements LightKernelInterface
      */
     public function create(array $configFiles, array $compilerPasses = []): ContainerInterface
     {
-        $containerBuilderFactory = new ContainerBuilderFactory(new ParameterMergingLoaderFactory());
+        $containerBuilderFactory = new ContainerBuilderFactory();
 
         $configFiles[] = SymplifyKernelConfig::FILE_PATH;
 
