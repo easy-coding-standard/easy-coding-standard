@@ -20,6 +20,9 @@ final class SymfonyStyleFactory
         $this->privatesCaller = new PrivatesCaller();
     }
 
+    /**
+     * @api
+     */
     public function create(): SymfonyStyle
     {
         // to prevent missing argv indexes
