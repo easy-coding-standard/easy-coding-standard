@@ -8,8 +8,8 @@ use PHP_CodeSniffer\Util\Tokens;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symplify\EasyCodingStandard\Console\EasyCodingStandardConsoleApplication;
+use Symplify\EasyCodingStandard\Console\Style\SymfonyStyleFactory;
 use Symplify\EasyCodingStandard\DependencyInjection\EasyCodingStandardContainerFactory;
-use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 
 // performance boost
 gc_disable();
@@ -145,6 +145,7 @@ try {
 } catch (Throwable $throwable) {
     $symfonyStyleFactory = new SymfonyStyleFactory();
     $symfonyStyle = $symfonyStyleFactory->create();
+
     $symfonyStyle->error($throwable->getMessage());
     $symfonyStyle->writeln($throwable->getTraceAsString());
     exit(Command::FAILURE);
