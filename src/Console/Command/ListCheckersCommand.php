@@ -17,9 +17,8 @@ use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\Skipper\SkipCriteriaResolver\SkippedClassResolver;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
 
-final class ListCheckersCommand extends AbstractSymplifyCommand
+final class ListCheckersCommand extends Command
 {
     public function __construct(
         private readonly SniffFileProcessor $sniffFileProcessor,
