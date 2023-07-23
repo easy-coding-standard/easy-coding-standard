@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\ValueObject\Set;
 
+/**
+ * @api
+ */
 final class SetList
 {
     /**

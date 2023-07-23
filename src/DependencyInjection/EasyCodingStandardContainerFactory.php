@@ -10,6 +10,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
 
+/**
+ * @api
+ */
 final class EasyCodingStandardContainerFactory
 {
     public function createFromFromInput(ArgvInput $argvInput): ContainerInterface

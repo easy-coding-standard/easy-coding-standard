@@ -4,21 +4,19 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Console\Style;
 
-use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Terminal;
-use Symplify\PackageBuilder\Reflection\PrivatesCaller;
 
+/**
+ * @api
+ */
 final class EasyCodingStandardStyleFactory
 {
-    private readonly PrivatesCaller $privatesCaller;
-
     public function __construct(
         private readonly Terminal $terminal
     ) {
-        $this->privatesCaller = new PrivatesCaller();
     }
 
     /**
@@ -28,9 +26,6 @@ final class EasyCodingStandardStyleFactory
     {
         $argvInput = new ArgvInput();
         $consoleOutput = new ConsoleOutput();
-
-        // to configure all -v, -vv, -vvv options without memory-lock to Application run() arguments
-        $this->privatesCaller->callPrivateMethod(new Application(), 'configureIO', [$argvInput, $consoleOutput]);
 
         // --debug is called
         if ($argvInput->hasParameterOption('--debug')) {

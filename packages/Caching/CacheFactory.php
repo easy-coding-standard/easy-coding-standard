@@ -9,6 +9,9 @@ use Symplify\EasyCodingStandard\Caching\ValueObject\Storage\FileCacheStorage;
 use Symplify\EasyCodingStandard\DependencyInjection\SimpleParameterProvider;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 
+/**
+ * @api
+ */
 final class CacheFactory
 {
     public function __construct(
