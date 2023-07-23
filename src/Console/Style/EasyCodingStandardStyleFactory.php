@@ -9,6 +9,9 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Terminal;
 
+/**
+ * @api
+ */
 final class EasyCodingStandardStyleFactory
 {
     public function __construct(
