@@ -4,17 +4,18 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Tests\Finder;
 
+use Symplify\EasyCodingStandard\DependencyInjection\SimpleParameterProvider;
 use Symplify\EasyCodingStandard\Finder\SourceFinder;
-use Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
-use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use Symplify\EasyCodingStandard\Tests\Testing\AbstractTestCase;
+use Symplify\EasyCodingStandard\ValueObject\Option;
 
-final class SourceFinderTest extends AbstractKernelTestCase
+final class SourceFinderTest extends AbstractTestCase
 {
     public function test(): void
     {
-        $this->bootKernel(EasyCodingStandardKernel::class);
+        SimpleParameterProvider::setParameter(Option::FILE_EXTENSIONS, ['php']);
 
-        $sourceFinder = $this->getService(SourceFinder::class);
+        $sourceFinder = $this->make(SourceFinder::class);
         $foundFiles = $sourceFinder->find([__DIR__ . '/SourceFinderSource/Source']);
         $this->assertCount(1, $foundFiles);
 
