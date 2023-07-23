@@ -21,7 +21,6 @@ final class Configuration
         private readonly array $sources = [],
         private readonly string $outputFormat = ConsoleOutputFormatter::NAME,
         private readonly bool $isParallel = false,
-        private readonly array $reportSniffClassesWarnings = [],
         private readonly ?string $config = null,
         private readonly string | null $parallelPort = null,
         private readonly string | null $parallelIdentifier = null,

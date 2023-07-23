@@ -7,6 +7,11 @@ namespace Symplify\EasyCodingStandard\SniffRunner\Application;
 use Nette\Utils\FileSystem;
 use PHP_CodeSniffer\Fixer;
 use PHP_CodeSniffer\Sniffs\Sniff;
+use PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff;
+use PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\UnusedFunctionParameterSniff;
+use PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\PropertyDeclarationSniff;
+use PHP_CodeSniffer\Standards\PSR2\Sniffs\Methods\MethodDeclarationSniff;
+use PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\CommentedOutCodeSniff;
 use PHP_CodeSniffer\Util\Tokens;
 use PhpCsFixer\Differ\DifferInterface;
 use Symfony\Component\DependencyInjection\Argument\RewindableGenerator;
@@ -30,6 +35,17 @@ final class SniffFileProcessor implements FileProcessorInterface
      * @var Sniff[]
      */
     private array $sniffs = [];
+
+    /**
+     * @var array<class-string>
+     */
+    private const ESCALATE_WARNINGS_SNIFF = [
+        AssignmentInConditionSniff::class,
+        PropertyDeclarationSniff::class,
+        MethodDeclarationSniff::class,
+        CommentedOutCodeSniff::class,
+        UnusedFunctionParameterSniff::class,
+    ];
 
     /**
      * @var array<int|string, Sniff[]>
@@ -76,8 +92,7 @@ final class SniffFileProcessor implements FileProcessorInterface
         $errorsAndDiffs = [];
 
         $file = $this->fileFactory->createFromFile($filePath);
-        $reportSniffClassesWarnings = $configuration->getReportSniffClassesWarnings();
-        $this->fixFile($file, $this->fixer, $filePath, $this->tokenListeners, $reportSniffClassesWarnings);
+        $this->fixFile($file, $this->fixer, $filePath, $this->tokenListeners, self::ESCALATE_WARNINGS_SNIFF);
 
         // add coding standard errors
         $codingStandardErrors = $this->sniffMetadataCollector->getCodingStandardErrors();
