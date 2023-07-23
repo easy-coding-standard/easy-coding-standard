@@ -32,11 +32,6 @@ use Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 final class SniffFileProcessor implements FileProcessorInterface
 {
     /**
-     * @var Sniff[]
-     */
-    private array $sniffs = [];
-
-    /**
      * @var array<class-string>
      */
     private const ESCALATE_WARNINGS_SNIFF = [
@@ -46,6 +41,11 @@ final class SniffFileProcessor implements FileProcessorInterface
         CommentedOutCodeSniff::class,
         UnusedFunctionParameterSniff::class,
     ];
+
+    /**
+     * @var Sniff[]
+     */
+    private array $sniffs = [];
 
     /**
      * @var array<int|string, Sniff[]>

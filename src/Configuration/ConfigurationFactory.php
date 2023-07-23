@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Configuration;
 
-use PHP_CodeSniffer\Sniffs\Sniff;
 use Symfony\Component\Console\Input\InputInterface;
 use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
 use Symplify\EasyCodingStandard\DependencyInjection\SimpleParameterProvider;
@@ -35,9 +34,6 @@ final class ConfigurationFactory
 
         $isParallel = SimpleParameterProvider::getBoolParameter(Option::PARALLEL);
 
-        /** @var array<class-string<Sniff>> $reportSniffClassesWarnings */
-        $reportSniffClassesWarnings = SimpleParameterProvider::getArrayParameter(Option::REPORT_SNIFF_WARNINGS);
-
         $config = $input->getOption(Option::CONFIG);
         if ($config !== null) {
             $config = (string) $config;
@@ -51,7 +47,6 @@ final class ConfigurationFactory
             $paths,
             $outputFormat,
             $isParallel,
-            $reportSniffClassesWarnings,
             $config,
             $parallelPort,
             $parallelIdentifier,

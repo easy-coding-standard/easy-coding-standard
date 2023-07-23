@@ -178,16 +178,15 @@ final class ECSConfig extends ContainerConfigurator
     }
 
     /**
+     * @deprecated
      * @param array<class-string<Sniff>> $sniffClasses
      */
     public function reportSniffClassWarnings(array $sniffClasses): void
     {
-        foreach ($sniffClasses as $sniffClass) {
-            Assert::classExists($sniffClass);
-            Assert::isAnyOf($sniffClass, [Sniff::class]);
-        }
-
-        SimpleParameterProvider::addParameter(Option::REPORT_SNIFF_WARNINGS, $sniffClasses);
+        echo sprintf(
+            'The "%s()" is deprecated. Use default sniff class setup instead or add classes to ECS core to make them available for everyone',
+            __METHOD__
+        );
     }
 
     /**

@@ -4,11 +4,6 @@ declare(strict_types=1);
 
 use PHP_CodeSniffer\Fixer;
 use PHP_CodeSniffer\Sniffs\Sniff;
-use PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff;
-use PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\UnusedFunctionParameterSniff;
-use PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\PropertyDeclarationSniff;
-use PHP_CodeSniffer\Standards\PSR2\Sniffs\Methods\MethodDeclarationSniff;
-use PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\CommentedOutCodeSniff;
 use PhpCsFixer\Differ\DifferInterface;
 use PhpCsFixer\Differ\UnifiedDiffer;
 use PhpCsFixer\Fixer\FixerInterface;
@@ -51,15 +46,6 @@ return static function (ECSConfig $ecsConfig): void {
     $ecsConfig->cacheNamespace($cacheNamespace);
 
     $ecsConfig->parallel();
-
-    // ECS only knows about errors, these are the classes allowed to promote warnings to errors
-    $ecsConfig->reportSniffClassWarnings([
-        AssignmentInConditionSniff::class,
-        PropertyDeclarationSniff::class,
-        MethodDeclarationSniff::class,
-        CommentedOutCodeSniff::class,
-        UnusedFunctionParameterSniff::class,
-    ]);
 
     $ecsConfig->paths([]);
     $ecsConfig->skip([]);
