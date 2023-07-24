@@ -91,8 +91,7 @@ final class NewContainerFactory
         });
 
         $ecsContainer->singleton(FixerFileProcessor::class, function (Container $container) {
-            /** @var RewindableGenerator<int, FixerInterface> $fixerRewindableGenerator */
-            $fixerRewindableGenerator = $container->tagged(FixerInterface::class);
+            $fixers = $this->getTaggedServicesArray($container, FixerInterface::class);
 
             return new FixerFileProcessor(
                 $container->make(FileToTokensParser::class),
@@ -101,13 +100,12 @@ final class NewContainerFactory
                 $container->make(EasyCodingStandardStyle::class),
                 $container->make(Filesystem::class),
                 $container->make(FileDiffFactory::class),
-                iterator_to_array($fixerRewindableGenerator->getIterator())
+                $fixers
             );
         });
 
         $ecsContainer->singleton(SniffFileProcessor::class, function (Container $container) {
-            /** @var RewindableGenerator<Sniff> $sniffRewindableGenerator */
-            $sniffRewindableGenerator = $container->tagged(Sniff::class);
+            $sniffs = $this->getTaggedServicesArray($container, Sniff::class);
 
             return new SniffFileProcessor(
                 $container->make(Fixer::class),
@@ -116,14 +114,9 @@ final class NewContainerFactory
                 $container->make(SniffMetadataCollector::class),
                 $container->make(Filesystem::class),
                 $container->make(FileDiffFactory::class),
-                iterator_to_array($sniffRewindableGenerator->getIterator())
+                $sniffs,
             );
         });
-//
-//    // php-cs-fixer
-//    $services->set(FixerFileProcessor::class)
-//        ->arg('$fixers', tagged_iterator(FixerInterface::class));
-
 
         // load default config first
         $configFiles = array_merge([__DIR__ . '/../../config/config.php'], $configFiles);
@@ -152,5 +145,24 @@ final class NewContainerFactory
             define('PHP_CODESNIFFER_VERBOSITY', 0);
             new Tokens();
         }
+    }
+
+    /**
+     * @template TType of object
+     * @param class-string<TType> $type
+     * @return TType[]
+     */
+    private function getTaggedServicesArray(Container $container, string $type): array
+    {
+        /** @var RewindableGenerator<TType>|TType[] $rewindableGenerator */
+        $rewindableGenerator = $container->tagged($type);
+
+        // turn generator to array
+        if (! is_array($rewindableGenerator)) {
+            return iterator_to_array($rewindableGenerator->getIterator());
+        }
+
+        // return array
+        return $rewindableGenerator;
     }
 }

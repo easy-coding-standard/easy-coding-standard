@@ -53,7 +53,7 @@ final class SniffFileProcessor implements FileProcessorInterface
     private array $tokenListeners = [];
 
     /**
-     * @param iterable<int, Sniff> $sniffs
+     * @param Sniff[] $sniffs
      */
     public function __construct(
         private readonly Fixer $fixer,
@@ -62,7 +62,7 @@ final class SniffFileProcessor implements FileProcessorInterface
         private readonly SniffMetadataCollector $sniffMetadataCollector,
         private readonly \Symfony\Component\Filesystem\Filesystem $filesystem,
         private readonly FileDiffFactory $fileDiffFactory,
-        iterable $sniffs
+        array $sniffs
     ) {
         foreach ($sniffs as $sniff) {
             $this->addSniff($sniff);
@@ -138,19 +138,6 @@ final class SniffFileProcessor implements FileProcessorInterface
             $this->tokenListeners[$token][] = $sniff;
         }
     }
-
-//    private function addCompatibilityLayer(): void
-//    {
-////        if (! defined('PHP_CODESNIFFER_VERBOSITY')) {
-////            // initalize token with INT type, otherwise php-cs-fixer and php-parser breaks
-////            if (! defined('T_MATCH')) {
-////                define('T_MATCH', 5000);
-////            }
-////
-////            define('PHP_CODESNIFFER_VERBOSITY', 0);
-////            new Tokens();
-////        }
-//    }
 
     /**
      * Mimics @see \PHP_CodeSniffer\Files\File::process()
