@@ -4,14 +4,17 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Config;
 
+use Illuminate\Container\Container;
 use PHP_CodeSniffer\Sniffs\Sniff;
-use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\Fixer\FixerInterface;
+use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
 use PhpCsFixer\FixerFactory;
 use PhpCsFixer\RuleSet\RuleSet;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use PhpCsFixer\WhitespacesFixerConfig;
 use Symplify\EasyCodingStandard\DependencyInjection\SimpleParameterProvider;
+use Symplify\EasyCodingStandard\FixerRunner\WhitespacesFixerConfigFactory;
 use Symplify\EasyCodingStandard\ValueObject\Option;
+use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
 use Webmozart\Assert\Assert;
 use Webmozart\Assert\InvalidArgumentException;
@@ -19,7 +22,7 @@ use Webmozart\Assert\InvalidArgumentException;
 /**
  * @api
  */
-final class ECSConfig extends ContainerConfigurator
+final class ECSConfig extends Container
 {
     /**
      * @param string[] $paths
@@ -62,12 +65,21 @@ final class ECSConfig extends ContainerConfigurator
         // tag for autowiring of tagged_iterator()
         $interfaceTag = is_a($checkerClass, Sniff::class, true) ? Sniff::class : FixerInterface::class;
 
-        $servicesConfigurator = $this->services();
+        $this->singleton($checkerClass);
+        $this->tag($checkerClass, $interfaceTag);
 
-        $servicesConfigurator->set($checkerClass)
-            ->public()
-            ->autowire()
-            ->tag($interfaceTag);
+        // decorate whitespace fixer with WhitespacesFixerConfig
+        if (is_a($checkerClass, WhitespacesAwareFixerInterface::class, true)) {
+            $this->extend($checkerClass, function (object $instance, Container $container) {
+                /** @var WhitespacesAwareFixerInterface $instance */
+                dump(2);
+
+                $whitespacesFixerConfig = $container->make(WhitespacesFixerConfig::class);
+                $instance->setWhitespacesConfig($whitespacesFixerConfig);
+
+                return $instance;
+            });
+        }
     }
 
     /**
@@ -90,27 +102,24 @@ final class ECSConfig extends ContainerConfigurator
     {
         $this->assertCheckerClass($checkerClass);
 
-        $services = $this->services();
-
-        $serviceConfigurator = $services->set($checkerClass)
-            ->autowire();
+        $this->singleton($checkerClass);
 
         // tag for autowiring of tagged_iterator()
         $interfaceTag = is_a($checkerClass, Sniff::class, true) ? Sniff::class : FixerInterface::class;
-        $serviceConfigurator->tag($interfaceTag);
+        $this->tag($checkerClass, $interfaceTag);
 
-        if (is_a($checkerClass, FixerInterface::class, true)) {
-            Assert::isAnyOf($checkerClass, [ConfigurableFixerInterface::class, ConfigurableRuleInterface::class]);
-            $serviceConfigurator->call('configure', [$configuration]);
-        }
+//        if (is_a($checkerClass, FixerInterface::class, true)) {
+//            Assert::isAnyOf($checkerClass, [ConfigurableFixerInterface::class, ConfigurableRuleInterface::class]);
+//            $serviceConfigurator->call('configure', [$configuration]);
+//        }
 
-        if (is_a($checkerClass, Sniff::class, true)) {
-            foreach ($configuration as $propertyName => $value) {
-                Assert::propertyExists($checkerClass, $propertyName);
-
-                $serviceConfigurator->property($propertyName, $value);
-            }
-        }
+//        if (is_a($checkerClass, Sniff::class, true)) {
+//            foreach ($configuration as $propertyName => $value) {
+//                Assert::propertyExists($checkerClass, $propertyName);
+//
+//                $serviceConfigurator->property($propertyName, $value);
+//            }
+//        }
     }
 
     /**
@@ -163,9 +172,7 @@ final class ECSConfig extends ContainerConfigurator
         SimpleParameterProvider::setParameter(Option::PARALLEL, true);
 
         SimpleParameterProvider::setParameter(Option::PARALLEL_TIMEOUT_IN_SECONDS, $seconds);
-
         SimpleParameterProvider::setParameter(Option::PARALLEL_MAX_NUMBER_OF_PROCESSES, $maxNumberOfProcess);
-
         SimpleParameterProvider::setParameter(Option::PARALLEL_JOB_SIZE, $jobSize);
     }
 
@@ -242,5 +249,12 @@ final class ECSConfig extends ContainerConfigurator
             implode('", "', $duplicatedCheckerClasses)
         );
         throw new InvalidArgumentException($errorMessage);
+    }
+
+    public function import(string $setFilePath): void
+    {
+        dump('todo make import() include the file');
+
+        // todo
     }
 }

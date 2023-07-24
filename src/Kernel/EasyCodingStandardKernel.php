@@ -14,11 +14,8 @@ use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveExcludedC
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualCheckersCompilerPass;
 use Symplify\EasyParallel\ValueObject\EasyParallelConfig;
 use Symplify\PackageBuilder\ValueObject\ConsoleColorDiffConfig;
-use Symplify\SymplifyKernel\Contract\LightKernelInterface;
-use Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
-use Symplify\SymplifyKernel\ValueObject\SymplifyKernelConfig;
 
-final class EasyCodingStandardKernel implements LightKernelInterface
+final class EasyCodingStandardKernel
 {
     private ?Container $container = null;
 
@@ -49,7 +46,8 @@ final class EasyCodingStandardKernel implements LightKernelInterface
     {
         $containerBuilderFactory = new ContainerBuilderFactory();
 
-        $configFiles[] = SymplifyKernelConfig::FILE_PATH;
+        // @todo
+        // $configFiles[] = SymplifyKernelConfig::FILE_PATH;
 
         $containerBuilder = $containerBuilderFactory->create($configFiles, $compilerPasses);
         $containerBuilder->compile();
@@ -57,15 +55,6 @@ final class EasyCodingStandardKernel implements LightKernelInterface
         $this->container = $containerBuilder;
 
         return $containerBuilder;
-    }
-
-    public function getContainer(): ContainerInterface
-    {
-        if (! $this->container instanceof Container) {
-            throw new ShouldNotHappenException();
-        }
-
-        return $this->container;
     }
 
     /**

@@ -7,11 +7,10 @@ namespace Symplify\EasyCodingStandard\Tests\Indentation;
 use PhpCsFixer\Fixer\Whitespace\IndentationTypeFixer;
 use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
 use PhpCsFixer\WhitespacesFixerConfig;
-use Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
+use Symplify\EasyCodingStandard\Tests\Testing\AbstractTestCase;
 use Symplify\PackageBuilder\Reflection\PrivatesAccessor;
-use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 
-final class IndentationTest extends AbstractKernelTestCase
+final class IndentationTest extends AbstractTestCase
 {
     private PrivatesAccessor $privatesAccessor;
 
@@ -22,12 +21,9 @@ final class IndentationTest extends AbstractKernelTestCase
 
     public function testSpaces(): void
     {
-        $this->bootKernelWithConfigs(
-            EasyCodingStandardKernel::class,
-            [__DIR__ . '/IndentationSource/config-with-spaces-indentation.php']
-        );
+        $this->createContainerWithConfigs([__DIR__ . '/Source/config-with-spaces-indentation.php']);
 
-        $indentationTypeFixer = $this->getService(IndentationTypeFixer::class);
+        $indentationTypeFixer = $this->make(IndentationTypeFixer::class);
         $this->assertInstanceOf(WhitespacesAwareFixerInterface::class, $indentationTypeFixer);
 
         /** @var WhitespacesFixerConfig $whitespacesFixerConfig */
@@ -43,12 +39,9 @@ final class IndentationTest extends AbstractKernelTestCase
 
     public function testTabs(): void
     {
-        $this->bootKernelWithConfigs(
-            EasyCodingStandardKernel::class,
-            [__DIR__ . '/IndentationSource/config-with-tabs-indentation.php']
-        );
+        $this->createContainerWithConfigs([__DIR__ . '/Source/config-with-tabs-indentation.php']);
 
-        $indentationTypeFixer = $this->getService(IndentationTypeFixer::class);
+        $indentationTypeFixer = $this->make(IndentationTypeFixer::class);
         $this->assertInstanceOf(WhitespacesAwareFixerInterface::class, $indentationTypeFixer);
 
         /** @var WhitespacesFixerConfig $whitespacesFixerConfig */

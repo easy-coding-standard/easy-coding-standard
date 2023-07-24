@@ -6,6 +6,7 @@ namespace Symplify\EasyCodingStandard\Tests\Testing;
 
 use Illuminate\Container\Container;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symplify\EasyCodingStandard\DependencyInjection\NewContainerFactory;
 use Webmozart\Assert\Assert;
 
@@ -15,8 +16,21 @@ abstract class AbstractTestCase extends TestCase
 
     protected function setUp(): void
     {
+        // @todo cache somehow
         $newContainerFactory = new NewContainerFactory();
         $this->container = $newContainerFactory->create();
+    }
+
+    /**
+     * @param string[] $configs
+     */
+    protected function createContainerWithConfigs(array $configs): void
+    {
+        Assert::allString($configs);
+        Assert::allFile($configs);
+
+        $newContainerFactory = new NewContainerFactory();
+        $this->container = $newContainerFactory->create($configs);
     }
 
     /**

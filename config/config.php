@@ -51,64 +51,58 @@ return static function (ECSConfig $ecsConfig): void {
     $ecsConfig->skip([]);
     $ecsConfig->fileExtensions(['php']);
 
-    $services = $ecsConfig->services();
-    $services->defaults()
-        ->public()
-        ->autowire();
+//    $services = $ecsConfig->services();
+//    $services->defaults()
+//        ->public()
+//        ->autowire();
 
-    $services->load('Symplify\EasyCodingStandard\\', __DIR__ . '/../src')
-        ->exclude([
-            // only for "bin/ecs" file, where container does not exist yet
-            __DIR__ . '/../src/Config/ECSConfig.php',
-            __DIR__ . '/../src/DependencyInjection',
-            __DIR__ . '/../src/Kernel',
-            __DIR__ . '/../src/Exception',
-            __DIR__ . '/../src/ValueObject',
-            // for 3rd party tests
-            __DIR__ . '/../src/Testing',
-        ]);
+//    $services->load('Symplify\EasyCodingStandard\\', __DIR__ . '/../src')
+//        ->exclude([
+//            // only for "bin/ecs" file, where container does not exist yet
+//            __DIR__ . '/../src/Config/ECSConfig.php',
+//            __DIR__ . '/../src/DependencyInjection',
+//            __DIR__ . '/../src/Kernel',
+//            __DIR__ . '/../src/Exception',
+//            __DIR__ . '/../src/ValueObject',
+//            // for 3rd party tests
+//            __DIR__ . '/../src/Testing',
+//        ]);
 
     // output formatters
-    $services->set(ConsoleOutputFormatter::class)
-        ->tag(OutputFormatterInterface::class);
+    $ecsConfig->singleton(ConsoleOutputFormatter::class);
+    $ecsConfig->tag(ConsoleOutputFormatter::class,OutputFormatterInterface::class);
 
-    $services->set(JsonOutputFormatter::class)
-        ->tag(OutputFormatterInterface::class);
-
-    $services->set(OutputFormatterCollector::class)
-        ->arg('$outputFormatters', tagged_iterator(OutputFormatterInterface::class));
-
-    $services->load('Symplify\EasyCodingStandard\\', __DIR__ . '/../packages')
-        ->exclude([__DIR__ . '/../packages/*/ValueObject/*']);
-
-    $services->set(Filesystem::class);
-    $services->set(Cache::class)
-        ->factory([service(CacheFactory::class), 'create']);
-
-    $services->set(Terminal::class);
-
-    $services->set(SymfonyStyleFactory::class);
-    $services->set(SymfonyStyle::class)
-        ->factory([service(SymfonyStyleFactory::class), 'create']);
-
-    $services->set(ParametersMerger::class);
-    $services->set(SimpleParameterProvider::class);
-
-    $services->set(EasyCodingStandardStyle::class)
-        ->factory([service(EasyCodingStandardStyleFactory::class), 'create']);
-
-    $services->set(WhitespacesFixerConfig::class)
-        ->factory([service(WhitespacesFixerConfigFactory::class), 'create']);
-
-    // php code sniffer
-    $services->set(Fixer::class);
-    $services->set(SniffFileProcessor::class)
-        ->arg('$sniffs', tagged_iterator(Sniff::class));
-
-    // php-cs-fixer
-    $services->set(FixerFileProcessor::class)
-        ->arg('$fixers', tagged_iterator(FixerInterface::class));
-
-    $services->set(UnifiedDiffer::class);
-    $services->alias(DifferInterface::class, UnifiedDiffer::class);
+//    $services->set(JsonOutputFormatter::class)
+//        ->tag(OutputFormatterInterface::class);
+//
+//    $services->set(OutputFormatterCollector::class)
+//        ->arg('$outputFormatters', tagged_iterator(OutputFormatterInterface::class));
+//
+//    $services->load('Symplify\EasyCodingStandard\\', __DIR__ . '/../packages')
+//        ->exclude([__DIR__ . '/../packages/*/ValueObject/*']);
+//
+//    $services->set(Cache::class)
+//        ->factory([service(CacheFactory::class), 'create']);
+//
+//    $services->set(SymfonyStyleFactory::class);
+//    $services->set(SymfonyStyle::class)
+//        ->factory([service(SymfonyStyleFactory::class), 'create']);
+//
+//    $services->set(EasyCodingStandardStyle::class)
+//        ->factory([service(EasyCodingStandardStyleFactory::class), 'create']);
+//
+//    $services->set(WhitespacesFixerConfig::class)
+//        ->factory([service(WhitespacesFixerConfigFactory::class), 'create']);
+//
+//    // php code sniffer
+//    $services->set(Fixer::class);
+//    $services->set(SniffFileProcessor::class)
+//        ->arg('$sniffs', tagged_iterator(Sniff::class));
+//
+//    // php-cs-fixer
+//    $services->set(FixerFileProcessor::class)
+//        ->arg('$fixers', tagged_iterator(FixerInterface::class));
+//
+//    $services->set(UnifiedDiffer::class);
+//    $services->alias(DifferInterface::class, UnifiedDiffer::class);
 };
