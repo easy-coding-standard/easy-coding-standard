@@ -17,20 +17,15 @@ use Symplify\PackageBuilder\ValueObject\ConsoleColorDiffConfig;
 
 final class EasyCodingStandardKernel
 {
-    private ?Container $container = null;
-
     /**
      * @param string[] $configFiles
      */
     public function createFromConfigs(array $configFiles): ContainerInterface
     {
-        $defaultConfig = __DIR__ . '/../../config/config.php';
-
-        // default config must be merged as first, to allow custom configs to override parameters
-        $configFiles = array_merge([$defaultConfig], $configFiles);
-
+        // @todo move
         $compilerPasses = $this->createCompilerPasses();
 
+        // @todo move
         $configFiles[] = ConsoleColorDiffConfig::FILE_PATH;
         $configFiles[] = CodingStandardConfig::FILE_PATH;
         $configFiles[] = EasyParallelConfig::FILE_PATH;
@@ -45,9 +40,6 @@ final class EasyCodingStandardKernel
     public function create(array $configFiles, array $compilerPasses = []): ContainerInterface
     {
         $containerBuilderFactory = new ContainerBuilderFactory();
-
-        // @todo
-        // $configFiles[] = SymplifyKernelConfig::FILE_PATH;
 
         $containerBuilder = $containerBuilderFactory->create($configFiles, $compilerPasses);
         $containerBuilder->compile();
