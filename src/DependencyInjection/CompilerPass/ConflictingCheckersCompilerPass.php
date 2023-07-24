@@ -4,21 +4,22 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\DependencyInjection\CompilerPass;
 
+use Illuminate\Container\Container;
+use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\LowerCaseConstantSniff;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\UpperCaseConstantSniff;
 use PHP_CodeSniffer\Standards\PSR12\Sniffs\Files\FileHeaderSniff;
 use PhpCsFixer\Fixer\Casing\ConstantCaseFixer;
 use PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer;
+use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\Fixer\LanguageConstruct\DeclareEqualNormalizeFixer;
 use PhpCsFixer\Fixer\Phpdoc\NoBlankLinesAfterPhpdocFixer;
 use PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer;
-use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symplify\CodingStandard\Fixer\Spacing\StandaloneLineConstructorParamFixer;
 use Symplify\CodingStandard\Fixer\Spacing\StandaloneLinePromotedPropertyFixer;
 use Symplify\EasyCodingStandard\Exception\Configuration\ConflictingCheckersLoadedException;
 
-final class ConflictingCheckersCompilerPass implements CompilerPassInterface
+final class ConflictingCheckersCompilerPass
 {
     /**
      * These groups do the opposite of each other, e.g. Yoda vs NoYoda.
@@ -35,15 +36,24 @@ final class ConflictingCheckersCompilerPass implements CompilerPassInterface
         [FileHeaderSniff::class, NoBlankLinesAfterPhpdocFixer::class],
     ];
 
-    public function process(ContainerBuilder $containerBuilder): void
+    public function process(Container $container): void
     {
-        $checkers = $containerBuilder->getServiceIds();
-        if ($checkers === []) {
+        $serviceTypes = array_keys($container->getBindings());
+
+        $checkerTypes = array_filter($serviceTypes, function (string $serviceType) {
+            if (is_a($serviceType, FixerInterface::class, true)) {
+                return true;
+            }
+
+            return is_a($serviceType, Sniff::class, true);
+        });
+
+        if ($checkerTypes === []) {
             return;
         }
 
         foreach (self::CONFLICTING_CHECKER_GROUPS as $viceVersaMatchingCheckerGroup) {
-            if (! $this->isMatch($checkers, $viceVersaMatchingCheckerGroup)) {
+            if (! $this->isMatch($checkerTypes, $viceVersaMatchingCheckerGroup)) {
                 continue;
             }
 
