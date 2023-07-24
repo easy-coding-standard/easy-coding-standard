@@ -258,7 +258,7 @@ final class ECSConfig extends Container
     {
         $self = $this;
 
-        $closureFilePath = include $setFilePath;
+        $closureFilePath = require $setFilePath;
         Assert::isCallable($closureFilePath);
 
         $closureFilePath($self);

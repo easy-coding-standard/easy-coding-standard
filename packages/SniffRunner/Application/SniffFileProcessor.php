@@ -65,8 +65,6 @@ final class SniffFileProcessor implements FileProcessorInterface
         private readonly PrivatesAccessor $privatesAccessor,
         iterable $sniffs
     ) {
-        $this->addCompatibilityLayer();
-
         foreach ($sniffs as $sniff) {
             $this->addSniff($sniff);
         }
@@ -142,18 +140,18 @@ final class SniffFileProcessor implements FileProcessorInterface
         }
     }
 
-    private function addCompatibilityLayer(): void
-    {
-        if (! defined('PHP_CODESNIFFER_VERBOSITY')) {
-            // initalize token with INT type, otherwise php-cs-fixer and php-parser breaks
-            if (! defined('T_MATCH')) {
-                define('T_MATCH', 5000);
-            }
-
-            define('PHP_CODESNIFFER_VERBOSITY', 0);
-            new Tokens();
-        }
-    }
+//    private function addCompatibilityLayer(): void
+//    {
+////        if (! defined('PHP_CODESNIFFER_VERBOSITY')) {
+////            // initalize token with INT type, otherwise php-cs-fixer and php-parser breaks
+////            if (! defined('T_MATCH')) {
+////                define('T_MATCH', 5000);
+////            }
+////
+////            define('PHP_CODESNIFFER_VERBOSITY', 0);
+////            new Tokens();
+////        }
+//    }
 
     /**
      * Mimics @see \PHP_CodeSniffer\Files\File::process()

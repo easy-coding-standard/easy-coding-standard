@@ -7,6 +7,7 @@ namespace Symplify\EasyCodingStandard\DependencyInjection;
 use Illuminate\Container\Container;
 use Illuminate\Container\RewindableGenerator;
 use PHP_CodeSniffer\Fixer;
+use PHP_CodeSniffer\Util\Tokens;
 use PhpCsFixer\Differ\DifferInterface;
 use PhpCsFixer\Differ\UnifiedDiffer;
 use PhpCsFixer\Fixer\FixerInterface;
@@ -45,6 +46,8 @@ final class NewContainerFactory
      */
     public function create(array $configFiles = []): Container
     {
+        $this->loadPHPCodeSnifferConstants();
+
         $ecsContainer = new ECSConfig();
 
         // console
@@ -135,5 +138,21 @@ final class NewContainerFactory
         }
 
         return $ecsContainer;
+    }
+
+    /**
+     * These are require for PHP_CodeSniffer to run
+     */
+    private function loadPHPCodeSnifferConstants(): void
+    {
+        if (! defined('PHP_CODESNIFFER_VERBOSITY')) {
+            // initalize token with INT type, otherwise php-cs-fixer and php-parser breaks
+            if (! defined('T_MATCH')) {
+                define('T_MATCH', 5000);
+            }
+
+            define('PHP_CODESNIFFER_VERBOSITY', 0);
+            new Tokens();
+        }
     }
 }

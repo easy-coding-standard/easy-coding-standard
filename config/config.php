@@ -17,6 +17,7 @@ return static function (ECSConfig $ecsConfig): void {
 
     $ecsConfig->cacheDirectory($cacheDirectory);
 
+    // make cache individual per project
     $cacheNamespace = str_replace(DIRECTORY_SEPARATOR, '_', getcwd());
     $ecsConfig->cacheNamespace($cacheNamespace);
 
