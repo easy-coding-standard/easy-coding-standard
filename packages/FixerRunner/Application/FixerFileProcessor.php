@@ -10,7 +10,6 @@ use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
-use Symfony\Component\DependencyInjection\Argument\RewindableGenerator;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Error\FileDiffFactory;
@@ -33,7 +32,7 @@ final class FixerFileProcessor implements FileProcessorInterface
     private array $fixers = [];
 
     /**
-     * @param RewindableGenerator<FixerInterface> $fixers
+     * @param FixerInterface[] $fixers
      */
     public function __construct(
         private readonly FileToTokensParser $fileToTokensParser,
@@ -42,9 +41,8 @@ final class FixerFileProcessor implements FileProcessorInterface
         private readonly EasyCodingStandardStyle $easyCodingStandardStyle,
         private readonly \Symfony\Component\Filesystem\Filesystem $filesystem,
         private readonly FileDiffFactory $fileDiffFactory,
-        RewindableGenerator $fixers
+        array $fixers
     ) {
-        $fixers = iterator_to_array($fixers->getIterator());
         $this->fixers = $this->sortFixers($fixers);
     }
 

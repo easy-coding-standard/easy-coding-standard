@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Config;
 
+use Illuminate\Container\Container;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\Fixer\FixerInterface;
+use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
 use PhpCsFixer\FixerFactory;
 use PhpCsFixer\RuleSet\RuleSet;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use PhpCsFixer\WhitespacesFixerConfig;
 use Symplify\EasyCodingStandard\DependencyInjection\SimpleParameterProvider;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 use Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
@@ -19,7 +21,7 @@ use Webmozart\Assert\InvalidArgumentException;
 /**
  * @api
  */
-final class ECSConfig extends ContainerConfigurator
+final class ECSConfig extends Container
 {
     /**
      * @param string[] $paths
@@ -62,12 +64,9 @@ final class ECSConfig extends ContainerConfigurator
         // tag for autowiring of tagged_iterator()
         $interfaceTag = is_a($checkerClass, Sniff::class, true) ? Sniff::class : FixerInterface::class;
 
-        $servicesConfigurator = $this->services();
-
-        $servicesConfigurator->set($checkerClass)
-            ->public()
-            ->autowire()
-            ->tag($interfaceTag);
+        $this->singleton($checkerClass);
+        $this->tag($checkerClass, $interfaceTag);
+        $this->autowireWhitespaceAwareFixer($checkerClass);
     }
 
     /**
@@ -90,26 +89,31 @@ final class ECSConfig extends ContainerConfigurator
     {
         $this->assertCheckerClass($checkerClass);
 
-        $services = $this->services();
-
-        $serviceConfigurator = $services->set($checkerClass)
-            ->autowire();
+        $this->singleton($checkerClass);
 
         // tag for autowiring of tagged_iterator()
         $interfaceTag = is_a($checkerClass, Sniff::class, true) ? Sniff::class : FixerInterface::class;
-        $serviceConfigurator->tag($interfaceTag);
+        $this->tag($checkerClass, $interfaceTag);
 
         if (is_a($checkerClass, FixerInterface::class, true)) {
             Assert::isAnyOf($checkerClass, [ConfigurableFixerInterface::class, ConfigurableRuleInterface::class]);
-            $serviceConfigurator->call('configure', [$configuration]);
+            $this->extend($checkerClass, static function (ConfigurableFixerInterface $configurableFixer) use (
+                $configuration
+            ): ConfigurableFixerInterface {
+                $configurableFixer->configure($configuration);
+                return $configurableFixer;
+            });
         }
 
         if (is_a($checkerClass, Sniff::class, true)) {
-            foreach ($configuration as $propertyName => $value) {
-                Assert::propertyExists($checkerClass, $propertyName);
+            $this->extend($checkerClass, static function (Sniff $sniff) use ($configuration): Sniff {
+                foreach ($configuration as $propertyName => $value) {
+                    Assert::propertyExists($sniff, $propertyName);
+                    $sniff->{$propertyName} = $value;
+                }
 
-                $serviceConfigurator->property($propertyName, $value);
-            }
+                return $sniff;
+            });
         }
     }
 
@@ -163,9 +167,7 @@ final class ECSConfig extends ContainerConfigurator
         SimpleParameterProvider::setParameter(Option::PARALLEL, true);
 
         SimpleParameterProvider::setParameter(Option::PARALLEL_TIMEOUT_IN_SECONDS, $seconds);
-
         SimpleParameterProvider::setParameter(Option::PARALLEL_MAX_NUMBER_OF_PROCESSES, $maxNumberOfProcess);
-
         SimpleParameterProvider::setParameter(Option::PARALLEL_JOB_SIZE, $jobSize);
     }
 
@@ -213,6 +215,16 @@ final class ECSConfig extends ContainerConfigurator
         }
     }
 
+    public function import(string $setFilePath): void
+    {
+        $self = $this;
+
+        $closureFilePath = require $setFilePath;
+        Assert::isCallable($closureFilePath);
+
+        $closureFilePath($self);
+    }
+
     /**
      * @param class-string $checkerClass
      */
@@ -242,5 +254,28 @@ final class ECSConfig extends ContainerConfigurator
             implode('", "', $duplicatedCheckerClasses)
         );
         throw new InvalidArgumentException($errorMessage);
+    }
+
+    /**
+     * @param class-string<FixerInterface|Sniff> $checkerClass
+     */
+    private function autowireWhitespaceAwareFixer(string $checkerClass): void
+    {
+        if (! is_a($checkerClass, WhitespacesAwareFixerInterface::class, true)) {
+            return;
+        }
+
+        $this->extend(
+            $checkerClass,
+            static function (
+                WhitespacesAwareFixerInterface $whitespacesAwareFixer,
+                Container $container
+            ): WhitespacesAwareFixerInterface {
+                $whitespacesFixerConfig = $container->make(WhitespacesFixerConfig::class);
+                $whitespacesAwareFixer->setWhitespacesConfig($whitespacesFixerConfig);
+
+                return $whitespacesAwareFixer;
+            }
+        );
     }
 }

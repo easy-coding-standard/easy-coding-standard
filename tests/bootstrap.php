@@ -5,9 +5,7 @@ declare(strict_types=1);
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../vendor/squizlabs/php_codesniffer/autoload.php';
 
-
-// initalize token with INT type, otherwise php-cs-fixer and php-parser breaks
-// initalize token with INT type, otherwise php-cs-fixer and php-parser breaks
+// initalize tokens with INT type, otherwise php-cs-fixer and php-parser breaks with type error
 if (! defined('T_MATCH')) {
     define('T_MATCH', 5005);
 }

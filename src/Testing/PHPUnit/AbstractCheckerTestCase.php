@@ -7,13 +7,11 @@ namespace Symplify\EasyCodingStandard\Testing\PHPUnit;
 use Iterator;
 use Nette\Utils\FileSystem;
 use Nette\Utils\Strings;
-use PHPUnit\Framework\TestCase;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
-use Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 use Symplify\EasyCodingStandard\Testing\Contract\ConfigAwareInterface;
 use Symplify\EasyCodingStandard\Testing\Exception\TestingShouldNotHappenException;
+use Symplify\EasyCodingStandard\Tests\Testing\AbstractTestCase;
 use Webmozart\Assert\Assert;
 
 // needed for scoped version to load unprefixed classes; does not have any effect inside the class
@@ -22,7 +20,7 @@ if (file_exists($scoperAutoloadFilepath)) {
     require_once $scoperAutoloadFilepath;
 }
 
-abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareInterface
+abstract class AbstractCheckerTestCase extends AbstractTestCase implements ConfigAwareInterface
 {
     /**
      * @var string
@@ -47,10 +45,10 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
         $this->autoloadCodeSniffer();
 
         $configs = $this->getValidatedConfigs();
-        $container = $this->bootContainerWithConfigs($configs);
+        $this->createContainerWithConfigs($configs);
 
-        $this->fixerFileProcessor = $container->get(FixerFileProcessor::class);
-        $this->sniffFileProcessor = $container->get(SniffFileProcessor::class);
+        $this->fixerFileProcessor = $this->make(FixerFileProcessor::class);
+        $this->sniffFileProcessor = $this->make(SniffFileProcessor::class);
     }
 
     protected function doTestFile(string $filePath): void
@@ -120,17 +118,5 @@ abstract class AbstractCheckerTestCase extends TestCase implements ConfigAwareIn
         Assert::fileExists($config);
 
         return [$config];
-    }
-
-    /**
-     * @param string[] $configs
-     */
-    private function bootContainerWithConfigs(array $configs): ContainerInterface
-    {
-        Assert::allString($configs);
-        Assert::allFile($configs);
-
-        $easyCodingStandardKernel = new EasyCodingStandardKernel();
-        return $easyCodingStandardKernel->createFromConfigs($configs);
     }
 }

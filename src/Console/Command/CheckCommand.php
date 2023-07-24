@@ -42,7 +42,6 @@ final class CheckCommand extends AbstractCheckCommand
         $this->memoryLimitter->adjust($configuration);
 
         $errorsAndDiffs = $this->easyCodingStandardApplication->run($configuration, $input);
-
         return $this->processedFileReporter->report($errorsAndDiffs, $configuration);
     }
 }

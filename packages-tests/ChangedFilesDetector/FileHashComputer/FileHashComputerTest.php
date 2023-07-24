@@ -6,10 +6,9 @@ namespace Symplify\EasyCodingStandard\Tests\ChangedFilesDetector\FileHashCompute
 
 use Symfony\Component\Filesystem\Filesystem;
 use Symplify\EasyCodingStandard\Caching\FileHashComputer;
-use Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
-use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use Symplify\EasyCodingStandard\Tests\Testing\AbstractTestCase;
 
-final class FileHashComputerTest extends AbstractKernelTestCase
+final class FileHashComputerTest extends AbstractTestCase
 {
     /**
      * @var string
@@ -22,10 +21,10 @@ final class FileHashComputerTest extends AbstractKernelTestCase
 
     protected function setUp(): void
     {
-        $this->bootKernel(EasyCodingStandardKernel::class);
+        parent::setUp();
 
-        $this->fileHashComputer = $this->getService(FileHashComputer::class);
-        $this->filesystem = $this->getService(Filesystem::class);
+        $this->fileHashComputer = $this->make(FileHashComputer::class);
+        $this->filesystem = $this->make(Filesystem::class);
     }
 
     public function testInvalidateCacheOnConfigurationChange(): void

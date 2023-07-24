@@ -14,14 +14,10 @@
         "nette/utils": "^3.2",
         "sebastian/diff": "^5.0",
         "squizlabs/php_codesniffer": "^3.7.2",
-        "symfony/config": "^6.2",
-        "symfony/console": "^6.2",
-        "symfony/dependency-injection": "6.1.*",
-        "symfony/finder": "^6.2",
-        "symplify/coding-standard": "^11.4.1",
+        "symfony/console": "^6.3",
+        "symfony/finder": "^6.3",
+        "symplify/coding-standard": "^11.4",
         "symplify/easy-parallel": "^11.1",
-        "symplify/package-builder": "^11.3",
-        "symplify/symplify-kernel": "^11.1",
         "webmozart/assert": "^1.11"
     },
     "require-dev": {
@@ -53,15 +49,10 @@
                 "tests",
                 "packages-tests"
             ]
-        }
-    },
-    "extra": {
-        "enable-patching": true,
-        "patches": {
-            "symfony/dependency-injection": [
-                "https://raw.githubusercontent.com/symplify/vendor-patch-files/main/patches/generic-php-config-loader.patch"
-            ]
-        }
+        },
+        "files": [
+            "tests/functions.php"
+        ]
     },
     "config": {
         "sort-packages": true,
@@ -76,6 +67,11 @@
         "fix-cs": "bin/ecs check --fix --ansi",
         "phpstan": "vendor/bin/phpstan analyse --ansi  --error-format symplify",
         "rector": "vendor/bin/rector process --dry-run --ansi"
+    },
+    "replace": {
+        "symfony/polyfill-intl-grapheme": "*",
+        "symfony/polyfill-intl-normalizer": "*",
+        "symfony/polyfill-ctype": "*"
     },
     "minimum-stability": "dev",
     "prefer-stable": true

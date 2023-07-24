@@ -20,6 +20,18 @@ abstract class AbstractTestCase extends TestCase
     }
 
     /**
+     * @param string[] $configs
+     */
+    protected function createContainerWithConfigs(array $configs): void
+    {
+        Assert::allString($configs);
+        Assert::allFile($configs);
+
+        $newContainerFactory = new NewContainerFactory();
+        $this->container = $newContainerFactory->create($configs);
+    }
+
+    /**
      * @template TObject as object
      *
      * @param class-string<TObject> $class

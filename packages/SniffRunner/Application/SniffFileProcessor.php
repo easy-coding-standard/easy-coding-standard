@@ -12,9 +12,7 @@ use PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\UnusedFunctionParamete
 use PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\PropertyDeclarationSniff;
 use PHP_CodeSniffer\Standards\PSR2\Sniffs\Methods\MethodDeclarationSniff;
 use PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\CommentedOutCodeSniff;
-use PHP_CodeSniffer\Util\Tokens;
 use PhpCsFixer\Differ\DifferInterface;
-use Symfony\Component\DependencyInjection\Argument\RewindableGenerator;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Error\FileDiffFactory;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
@@ -22,9 +20,9 @@ use Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\File;
+use Symplify\EasyCodingStandard\Utils\PrivatesAccessorHelper;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
-use Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 
 /**
  * @see \Symplify\EasyCodingStandard\Tests\Error\ErrorCollector\SniffFileProcessorTest
@@ -53,7 +51,7 @@ final class SniffFileProcessor implements FileProcessorInterface
     private array $tokenListeners = [];
 
     /**
-     * @param RewindableGenerator<Sniff> $sniffs
+     * @param Sniff[] $sniffs
      */
     public function __construct(
         private readonly Fixer $fixer,
@@ -62,13 +60,8 @@ final class SniffFileProcessor implements FileProcessorInterface
         private readonly SniffMetadataCollector $sniffMetadataCollector,
         private readonly \Symfony\Component\Filesystem\Filesystem $filesystem,
         private readonly FileDiffFactory $fileDiffFactory,
-        private readonly PrivatesAccessor $privatesAccessor,
-        iterable $sniffs
+        array $sniffs
     ) {
-        $this->addCompatibilityLayer();
-
-        $sniffs = iterator_to_array($sniffs->getIterator());
-
         foreach ($sniffs as $sniff) {
             $this->addSniff($sniff);
         }
@@ -144,19 +137,6 @@ final class SniffFileProcessor implements FileProcessorInterface
         }
     }
 
-    private function addCompatibilityLayer(): void
-    {
-        if (! defined('PHP_CODESNIFFER_VERBOSITY')) {
-            // initalize token with INT type, otherwise php-cs-fixer and php-parser breaks
-            if (! defined('T_MATCH')) {
-                define('T_MATCH', 5000);
-            }
-
-            define('PHP_CODESNIFFER_VERBOSITY', 0);
-            new Tokens();
-        }
-    }
-
     /**
      * Mimics @see \PHP_CodeSniffer\Files\File::process()
      *
@@ -180,7 +160,9 @@ final class SniffFileProcessor implements FileProcessorInterface
             // Only needed once file content has changed.
             $content = $previousContent;
 
-            $this->privatesAccessor->setPrivateProperty($fixer, 'inConflict', false);
+            // set property value
+            PrivatesAccessorHelper::setPropertyValue($fixer, 'inConflict', false);
+
             $file->setContent($content);
             $file->processWithTokenListenersAndFilePath($tokenListeners, $filePath, $reportSniffClassesWarnings);
 

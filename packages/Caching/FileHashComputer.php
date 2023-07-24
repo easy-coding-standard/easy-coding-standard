@@ -4,15 +4,11 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Caching;
 
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\Config\Loader\LoaderInterface;
-use Symfony\Component\Config\Loader\LoaderResolver;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Loader\GlobFileLoader;
+use Nette\Utils\Json;
+use Symplify\EasyCodingStandard\Config\ECSConfig;
 use Symplify\EasyCodingStandard\DependencyInjection\SimpleParameterProvider;
 use Symplify\EasyCodingStandard\Exception\Configuration\FileNotFoundException;
-use Symplify\EasyCodingStandard\Exception\ShouldNotHappenException;
-use Symplify\PackageBuilder\DependencyInjection\FileLoader\ParameterMergingPhpFileLoader;
+use Webmozart\Assert\Assert;
 
 /**
  * @see \Symplify\EasyCodingStandard\Tests\ChangedFilesDetector\FileHashComputer\FileHashComputerTest
@@ -21,12 +17,16 @@ final class FileHashComputer
 {
     public function computeConfig(string $filePath): string
     {
-        $containerBuilder = new ContainerBuilder();
+        $callable = require $filePath;
+        Assert::isCallable($callable);
 
-        $loader = $this->createLoader($filePath, $containerBuilder);
-        $loader->load($filePath);
+        $ecsConfig = new ECSConfig();
+        $callable($ecsConfig);
 
-        return $this->arrayToHash($containerBuilder->getServiceIds()) . SimpleParameterProvider::hash();
+        // hash the container setup
+        $fileHash = sha1(Json::encode($ecsConfig->getBindings()));
+
+        return $fileHash . SimpleParameterProvider::hash();
     }
 
     public function compute(string $filePath): string
@@ -37,31 +37,5 @@ final class FileHashComputer
         }
 
         return $fileHash;
-    }
-
-    /**
-     * @param mixed[] $array
-     */
-    private function arrayToHash(array $array): string
-    {
-        $serializedArray = serialize($array);
-        return md5($serializedArray);
-    }
-
-    private function createLoader(string $filePath, ContainerBuilder $containerBuilder): LoaderInterface
-    {
-        $fileLocator = new FileLocator([dirname($filePath)]);
-        $loaders = [
-            new GlobFileLoader($containerBuilder, $fileLocator),
-            new ParameterMergingPhpFileLoader($containerBuilder, $fileLocator),
-        ];
-        $loaderResolver = new LoaderResolver($loaders);
-
-        $loader = $loaderResolver->resolve($filePath);
-        if (! $loader) {
-            throw new ShouldNotHappenException();
-        }
-
-        return $loader;
     }
 }

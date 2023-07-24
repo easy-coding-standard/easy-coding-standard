@@ -5,37 +5,26 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\Tests\Error\ErrorCollector;
 
 use Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
-use Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
+use Symplify\EasyCodingStandard\Tests\Testing\AbstractTestCase;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
-use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 
-final class SniffFileProcessorTest extends AbstractKernelTestCase
+final class SniffFileProcessorTest extends AbstractTestCase
 {
-    private SniffFileProcessor $sniffFileProcessor;
-
-    protected function setUp(): void
-    {
-        $this->bootKernelWithConfigs(
-            EasyCodingStandardKernel::class,
-            [__DIR__ . '/SniffRunnerSource/easy-coding-standard.php']
-        );
-
-        $this->sniffFileProcessor = $this->getService(SniffFileProcessor::class);
-
-        $changedFilesDetector = $this->getService(ChangedFilesDetector::class);
-        $changedFilesDetector->clearCache();
-    }
-
     public function test(): void
     {
-        $configuration = new Configuration();
+        $this->createContainerWithConfigs([__DIR__ . '/SniffRunnerSource/easy-coding-standard.php']);
 
-        $errorsAndFileDiffs = $this->sniffFileProcessor->processFile(
+        $sniffFileProcessor = $this->make(SniffFileProcessor::class);
+
+        $changedFilesDetector = $this->make(ChangedFilesDetector::class);
+        $changedFilesDetector->clearCache();
+
+        $errorsAndFileDiffs = $sniffFileProcessor->processFile(
             __DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc',
-            $configuration
+            new Configuration(),
         );
 
         /** @var FileDiff[] $fileDiffs */

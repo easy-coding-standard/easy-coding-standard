@@ -24,8 +24,6 @@ parameters:
 
     bootstrapFiles:
         - tests/bootstrap.php
-        # load functions like service() etc.
-        - vendor/symfony/dependency-injection/Loader/Configurator/ContainerConfigurator.php
 
     ignoreErrors:
         # set above
@@ -45,3 +43,13 @@ parameters:
         - '#Method Symplify\\EasyCodingStandard\\FixerRunner\\Parser\\FileToTokensParser\:\:parseFromFilePath\(\) should return iterable<PhpCsFixer\\Tokenizer\\Token>&PhpCsFixer\\Tokenizer\\Tokens but returns PhpCsFixer\\Tokenizer\\Tokens#'
 
         - '#Parameter \#1 \$skips of method Symplify\\EasyCodingStandard\\Config\\ECSConfig\:\:skip\(\) expects array<class\-string<PHP_CodeSniffer\\Sniffs\\Sniff\|PhpCsFixer\\Fixer\\FixerInterface>\|int, array<int, string>\|string\|null>, array<int\|string, array<int, string>\|string\|null> given#'
+
+        # false positive on custom config tets
+        -
+            message: '#Missing call to parent\:\:setUp\(\) method#'
+            paths:
+                 - packages-tests/Skipper/Skipper/Skipper/SkipperTest.php
+                 - packages-tests/Skipper/Skipper/Skip/SkipSkipperTest.php
+                 - packages-tests/Skipper/SkipCriteriaResolver/SkippedPathsResolver/SkippedPathsResolverTest.php
+                 - packages-tests/FixerRunner/Application/FileProcessorTest.ph
+                 - src/Testing/PHPUnit/AbstractCheckerTestCase.php

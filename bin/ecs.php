@@ -63,7 +63,7 @@ final class AutoloadIncluder
     public function includeDependencyOrRepositoryVendorAutoloadIfExists(): void
     {
         // ECS' vendor is already loaded
-        if (class_exists('\Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel')) {
+        if (class_exists('Symplify\EasyCodingStandard\DependencyInjection\NewContainerFactory')) {
             return;
         }
 
@@ -151,5 +151,8 @@ try {
     exit(Command::FAILURE);
 }
 
+/** @var EasyCodingStandardConsoleApplication $application */
 $application = $container->get(EasyCodingStandardConsoleApplication::class);
-exit($application->run());
+
+$statusCode = $application->run();
+exit($statusCode);

@@ -4,24 +4,23 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\DependencyInjection\CompilerPass;
 
-use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Illuminate\Container\Container;
 use Symplify\EasyCodingStandard\DependencyInjection\SimpleParameterProvider;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 
-final class RemoveExcludedCheckersCompilerPass implements CompilerPassInterface
+final class RemoveExcludedCheckersCompilerPass
 {
-    public function process(ContainerBuilder $containerBuilder): void
+    public function process(Container $container): void
     {
         $excludedCheckers = $this->getExcludedCheckersFromSkipParameter();
 
-        $definitions = $containerBuilder->getDefinitions();
-        foreach ($definitions as $id => $definition) {
-            if (! in_array($definition->getClass(), $excludedCheckers, true)) {
+        foreach (array_keys($container->getBindings()) as $classType) {
+            if (! in_array($classType, $excludedCheckers, true)) {
                 continue;
             }
 
-            $containerBuilder->removeDefinition($id);
+            // remove service from container completely
+            CompilerPassHelper::removeCheckerFromContainer($container, $classType);
         }
     }
 
@@ -33,6 +32,7 @@ final class RemoveExcludedCheckersCompilerPass implements CompilerPassInterface
         $excludedCheckers = [];
 
         $skip = SimpleParameterProvider::getArrayParameter(Option::SKIP);
+
         foreach ($skip as $key => $value) {
             $excludedChecker = $this->matchFullClassSkip($key, $value);
             if ($excludedChecker === null) {

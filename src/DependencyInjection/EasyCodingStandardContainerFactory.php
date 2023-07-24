@@ -4,20 +4,19 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\DependencyInjection;
 
+use Illuminate\Container\Container;
 use Symfony\Component\Console\Input\ArgvInput;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
-use Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
 
 /**
  * @api
  */
 final class EasyCodingStandardContainerFactory
 {
-    public function createFromFromInput(ArgvInput $argvInput): ContainerInterface
+    public function createFromFromInput(ArgvInput $argvInput): Container
     {
-        $easyCodingStandardKernel = new EasyCodingStandardKernel();
+        // $easyCodingStandardKernel = new EasyCodingStandardKernel();
+        $newContainerFactory = new NewContainerFactory();
 
         $inputConfigFiles = [];
         $rootECSConfig = getcwd() . DIRECTORY_SEPARATOR . 'ecs.php';
@@ -32,13 +31,12 @@ final class EasyCodingStandardContainerFactory
             $inputConfigFiles[] = $rootECSConfig;
         }
 
-        /** @var ContainerBuilder $container */
-        $container = $easyCodingStandardKernel->createFromConfigs($inputConfigFiles);
+        $container = $newContainerFactory->create($inputConfigFiles);
 
         if ($inputConfigFiles !== []) {
             // for cache invalidation on config change
             /** @var ChangedFilesDetector $changedFilesDetector */
-            $changedFilesDetector = $container->get(ChangedFilesDetector::class);
+            $changedFilesDetector = $container->make(ChangedFilesDetector::class);
             $changedFilesDetector->setUsedConfigs($inputConfigFiles);
         }
 

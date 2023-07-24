@@ -6,18 +6,18 @@ namespace Symplify\EasyCodingStandard\Tests\Skipper\FileSystem;
 
 use Iterator;
 use PHPUnit\Framework\Attributes\DataProvider;
-use Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\Skipper\FileSystem\FnMatchPathNormalizer;
-use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use Symplify\EasyCodingStandard\Tests\Testing\AbstractTestCase;
 
-final class FnMatchPathNormalizerTest extends AbstractKernelTestCase
+final class FnMatchPathNormalizerTest extends AbstractTestCase
 {
     private FnMatchPathNormalizer $fnMatchPathNormalizer;
 
     protected function setUp(): void
     {
-        $this->bootKernel(EasyCodingStandardKernel::class);
-        $this->fnMatchPathNormalizer = $this->getService(FnMatchPathNormalizer::class);
+        parent::setUp();
+
+        $this->fnMatchPathNormalizer = $this->make(FnMatchPathNormalizer::class);
     }
 
     #[DataProvider('providePaths')]
