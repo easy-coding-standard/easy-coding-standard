@@ -14,8 +14,6 @@ final class FixerServiceRegistrationTest extends AbstractTestCase
 {
     public function test(): void
     {
-        $privatesAccessor = new PrivatesAccessor();
-
         $this->createContainerWithConfigs([__DIR__ . '/config/easy-coding-standard.php']);
         $fixerFileProcessor = $this->make(FixerFileProcessor::class);
 
@@ -26,18 +24,20 @@ final class FixerServiceRegistrationTest extends AbstractTestCase
         $arraySyntaxFixer = $checkers[1];
         $this->assertInstanceOf(ArraySyntaxFixer::class, $arraySyntaxFixer);
 
-        $configuration = $privatesAccessor->getPrivateProperty($arraySyntaxFixer, 'configuration');
+        $arraySyntaxConfigurationReflectionProperty = new \ReflectionProperty($arraySyntaxFixer, 'configuration');
         $this->assertSame([
             'syntax' => 'short',
-        ], $configuration);
+        ], $arraySyntaxConfigurationReflectionProperty->getValue($arraySyntaxFixer));
 
         /** @var VisibilityRequiredFixer $visibilityRequiredFixer */
         $visibilityRequiredFixer = $checkers[0];
         $this->assertInstanceOf(VisibilityRequiredFixer::class, $visibilityRequiredFixer);
 
-        $configuration = $privatesAccessor->getPrivateProperty($visibilityRequiredFixer, 'configuration');
+        $visibilityRequiredFixerReflectionProperty = new \ReflectionProperty($visibilityRequiredFixer, 'configuration');
+        $visibilityRequiredConfiguration = $visibilityRequiredFixerReflectionProperty->getValue($visibilityRequiredFixer);
+
         $this->assertSame([
             'elements' => ['property'],
-        ], $configuration);
+        ], $visibilityRequiredConfiguration);
     }
 }
