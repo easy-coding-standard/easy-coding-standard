@@ -6,9 +6,7 @@ namespace Symplify\EasyCodingStandard\Tests\ChangedFilesDetector\FileHashCompute
 
 use Symfony\Component\Filesystem\Filesystem;
 use Symplify\EasyCodingStandard\Caching\FileHashComputer;
-use Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\Tests\Testing\AbstractTestCase;
-use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 
 final class FileHashComputerTest extends AbstractTestCase
 {

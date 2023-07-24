@@ -7,10 +7,8 @@ namespace Symplify\EasyCodingStandard\Tests\FixerRunner\DependencyInjection;
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
-use Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\Tests\Testing\AbstractTestCase;
 use Symplify\PackageBuilder\Reflection\PrivatesAccessor;
-use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 
 final class FixerServiceRegistrationTest extends AbstractTestCase
 {

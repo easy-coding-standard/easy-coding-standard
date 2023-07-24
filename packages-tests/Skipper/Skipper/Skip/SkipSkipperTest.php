@@ -6,13 +6,11 @@ namespace Symplify\EasyCodingStandard\Tests\Skipper\Skipper\Skip;
 
 use Iterator;
 use PHPUnit\Framework\Attributes\DataProvider;
-use Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\Skipper\Skipper\Skipper;
 use Symplify\EasyCodingStandard\Tests\Skipper\Skipper\Skip\Source\AnotherClassToSkip;
 use Symplify\EasyCodingStandard\Tests\Skipper\Skipper\Skip\Source\NotSkippedClass;
 use Symplify\EasyCodingStandard\Tests\Skipper\Skipper\Skip\Source\SomeClassToSkip;
 use Symplify\EasyCodingStandard\Tests\Testing\AbstractTestCase;
-use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 
 final class SkipSkipperTest extends AbstractTestCase
 {

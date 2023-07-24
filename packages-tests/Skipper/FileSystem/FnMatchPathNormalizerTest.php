@@ -6,10 +6,8 @@ namespace Symplify\EasyCodingStandard\Tests\Skipper\FileSystem;
 
 use Iterator;
 use PHPUnit\Framework\Attributes\DataProvider;
-use Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\Skipper\FileSystem\FnMatchPathNormalizer;
 use Symplify\EasyCodingStandard\Tests\Testing\AbstractTestCase;
-use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 
 final class FnMatchPathNormalizerTest extends AbstractTestCase
 {

@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\Tests\ChangedFilesDetector\ChangedFilesDetector;
 
 use Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
-use Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
+use Symplify\EasyCodingStandard\Tests\Testing\AbstractTestCase;
 use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 
-final class ChangedFilesDetectorTest extends AbstractKernelTestCase
+final class ChangedFilesDetectorTest extends AbstractTestCase
 {
     private string $filePath;
 
@@ -16,11 +16,11 @@ final class ChangedFilesDetectorTest extends AbstractKernelTestCase
 
     protected function setUp(): void
     {
-        $this->bootKernel(EasyCodingStandardKernel::class);
+        parent::setUp();
 
         $this->filePath = __DIR__ . '/Source/OneClass.php';
 
-        $this->changedFilesDetector = $this->getService(ChangedFilesDetector::class);
+        $this->changedFilesDetector = $this->make(ChangedFilesDetector::class);
         $this->changedFilesDetector->changeConfigurationFile(__DIR__ . '/Source/easy-coding-standard.php');
     }
 

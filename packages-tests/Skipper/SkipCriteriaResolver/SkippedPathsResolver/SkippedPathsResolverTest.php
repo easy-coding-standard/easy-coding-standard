@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Tests\Skipper\SkipCriteriaResolver\SkippedPathsResolver;
 
-use Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\Skipper\SkipCriteriaResolver\SkippedPathsResolver;
 use Symplify\EasyCodingStandard\Tests\Testing\AbstractTestCase;
-use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 
 final class SkippedPathsResolverTest extends AbstractTestCase
 {
