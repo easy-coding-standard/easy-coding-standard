@@ -13,7 +13,6 @@ use PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\PropertyDeclarationSniff;
 use PHP_CodeSniffer\Standards\PSR2\Sniffs\Methods\MethodDeclarationSniff;
 use PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\CommentedOutCodeSniff;
 use PhpCsFixer\Differ\DifferInterface;
-use ReflectionProperty;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Error\FileDiffFactory;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
@@ -21,6 +20,7 @@ use Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\File;
+use Symplify\EasyCodingStandard\Utils\PrivatesAccessorHelper;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 
@@ -161,8 +161,7 @@ final class SniffFileProcessor implements FileProcessorInterface
             $content = $previousContent;
 
             // set property value
-            $reflectionProperty = new ReflectionProperty($fixer, 'inConflict');
-            $reflectionProperty->setValue($fixer, false);
+            PrivatesAccessorHelper::setPropertyValue($fixer, 'inConflict', false);
 
             $file->setContent($content);
             $file->processWithTokenListenersAndFilePath($tokenListeners, $filePath, $reportSniffClassesWarnings);

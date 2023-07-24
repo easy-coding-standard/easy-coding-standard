@@ -7,6 +7,7 @@ namespace Symplify\EasyCodingStandard\DependencyInjection\CompilerPass;
 use Illuminate\Container\Container;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\FixerInterface;
+use Symplify\EasyCodingStandard\Utils\PrivatesAccessorHelper;
 
 final class CompilerPassHelper
 {
@@ -17,15 +18,13 @@ final class CompilerPassHelper
     {
         $serviceTypes = array_keys($container->getBindings());
 
-        $checkerTypes = array_filter($serviceTypes, function (string $serviceType) {
+        return array_filter($serviceTypes, static function (string $serviceType): bool {
             if (is_a($serviceType, FixerInterface::class, true)) {
                 return true;
             }
 
             return is_a($serviceType, Sniff::class, true);
         });
-
-        return $checkerTypes;
     }
 
     public static function removeCheckerFromContainer(COntainer $container, string $checkerClass): void
@@ -33,8 +32,7 @@ final class CompilerPassHelper
         // remove instance
         $container->offsetUnset($checkerClass);
 
-        $tagsReflectionProperty = new \ReflectionProperty($container, 'tags');
-        $tags = $tagsReflectionProperty->getValue($container);
+        $tags = PrivatesAccessorHelper::getPropertyValue($container, 'tags');
 
         // nothing to remove
         if ($tags === []) {
@@ -55,6 +53,6 @@ final class CompilerPassHelper
         }
 
         // update value
-        $tagsReflectionProperty->setValue($container, $tags);
+        PrivatesAccessorHelper::setPropertyValue($container, 'tags', $tags);
     }
 }

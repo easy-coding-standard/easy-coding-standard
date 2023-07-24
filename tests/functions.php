@@ -9,6 +9,7 @@ if (! function_exists('dd')) {
         foreach ($args as $arg) {
             dump($arg);
         }
+
         die;
     }
 }

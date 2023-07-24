@@ -45,53 +45,57 @@ final class NewContainerFactory
      */
     public function create(array $configFiles = []): Container
     {
+        $ecsContainer = null;
         $this->loadPHPCodeSnifferConstants();
 
-        $ecsContainer = new ECSConfig();
+        $ecsConfig = new ECSConfig();
 
         // console
-        $ecsContainer->singleton(EasyCodingStandardStyle::class, static function (Container $container) {
+        $ecsConfig->singleton(EasyCodingStandardStyle::class, static function (Container $container) {
             $easyCodingStandardStyleFactory = $container->make(EasyCodingStandardStyleFactory::class);
             return $easyCodingStandardStyleFactory->create();
         });
 
-        $ecsContainer->singleton(SymfonyStyle::class, static function (Container $container) {
+        $ecsConfig->singleton(SymfonyStyle::class, static function (Container $container) {
             $symfonyStyleFactory = $container->make(SymfonyStyleFactory::class);
             return $symfonyStyleFactory->create();
         });
 
-        $ecsContainer->singleton(Fixer::class);
+        $ecsConfig->singleton(Fixer::class);
 
         // whitespace
-        $ecsContainer->singleton(WhitespacesFixerConfig::class, function () {
+        $ecsConfig->singleton(WhitespacesFixerConfig::class, static function (): WhitespacesFixerConfig {
             $whitespacesFixerConfigFactory = new WhitespacesFixerConfigFactory();
             return $whitespacesFixerConfigFactory->create();
         });
 
         // caching
-        $ecsContainer->singleton(Cache::class, function (Container $container) {
+        $ecsConfig->singleton(Cache::class, static function (Container $container) {
             $cacheFactory = $container->make(CacheFactory::class);
             return $cacheFactory->create();
         });
 
         // output
-        $ecsContainer->singleton(ConsoleOutputFormatter::class);
-        $ecsContainer->tag(ConsoleOutputFormatter::class, OutputFormatterInterface::class);
+        $ecsConfig->singleton(ConsoleOutputFormatter::class);
+        $ecsConfig->tag(ConsoleOutputFormatter::class, OutputFormatterInterface::class);
 
-        $ecsContainer->singleton(JsonOutputFormatter::class);
-        $ecsContainer->tag(JsonOutputFormatter::class, OutputFormatterInterface::class);
+        $ecsConfig->singleton(JsonOutputFormatter::class);
+        $ecsConfig->tag(JsonOutputFormatter::class, OutputFormatterInterface::class);
 
-        $ecsContainer->singleton(OutputFormatterCollector::class, function (Container $container) {
-            /** @var RewindableGenerator<int, OutputFormatterInterface> $outputFormattersRewindableGenerator */
-            $outputFormattersRewindableGenerator = $container->tagged(OutputFormatterInterface::class);
-            return new OutputFormatterCollector(iterator_to_array($outputFormattersRewindableGenerator->getIterator()));
-        });
+        $ecsConfig->singleton(
+            OutputFormatterCollector::class,
+            static function (Container $container): OutputFormatterCollector {
+                /** @var RewindableGenerator<int, OutputFormatterInterface> $outputFormattersRewindableGenerator */
+                $outputFormattersRewindableGenerator = $container->tagged(OutputFormatterInterface::class);
+                return new OutputFormatterCollector(iterator_to_array(
+                    $outputFormattersRewindableGenerator->getIterator()
+                ));
+            }
+        );
 
-        $ecsContainer->singleton(DifferInterface::class, function (): DifferInterface {
-            return new UnifiedDiffer();
-        });
+        $ecsConfig->singleton(DifferInterface::class, static fn (): DifferInterface => new UnifiedDiffer());
 
-        $ecsContainer->singleton(FixerFileProcessor::class, function (Container $container) {
+        $ecsConfig->singleton(FixerFileProcessor::class, function (Container $container): FixerFileProcessor {
             $fixers = $this->getTaggedServicesArray($container, FixerInterface::class);
 
             return new FixerFileProcessor(
@@ -105,7 +109,7 @@ final class NewContainerFactory
             );
         });
 
-        $ecsContainer->singleton(SniffFileProcessor::class, function (Container $container) {
+        $ecsConfig->singleton(SniffFileProcessor::class, function (Container $container): SniffFileProcessor {
             $sniffs = $this->getTaggedServicesArray($container, Sniff::class);
 
             return new SniffFileProcessor(
@@ -126,36 +130,36 @@ final class NewContainerFactory
             $configClosure = require $configFile;
             Assert::isCallable($configClosure);
 
-            $configClosure($ecsContainer);
+            $configClosure($ecsConfig);
         }
 
         // compiler passes-like
-        $ecsContainer->beforeResolving(
+        $ecsConfig->beforeResolving(
             FixerFileProcessor::class,
-            function ($object, $misc, ECSConfig $ecsContainer): void {
+            static function ($object, $misc, ECSConfig $ecsConfig): void {
                 $removeExcludedCheckersCompilerPass = new RemoveExcludedCheckersCompilerPass();
-                $removeExcludedCheckersCompilerPass->process($ecsContainer);
+                $removeExcludedCheckersCompilerPass->process($ecsConfig);
             }
         );
 
         $hasRunAfterResolving = false;
 
-        $ecsContainer->afterResolving(function ($object, ECSConfig $ecsContainer) use (&$hasRunAfterResolving): void {
+        $ecsConfig->afterResolving(static function ($object, ECSConfig $ecsConfig) use (&$hasRunAfterResolving): void {
             // run just once
             if ($hasRunAfterResolving) {
                 return;
             }
 
             $removeMutualCheckersCompilerPass = new RemoveMutualCheckersCompilerPass();
-            $removeMutualCheckersCompilerPass->process($ecsContainer);
+            $removeMutualCheckersCompilerPass->process($ecsConfig);
 
             $conflictingCheckersCompilerPass = new ConflictingCheckersCompilerPass();
-            $conflictingCheckersCompilerPass->process($ecsContainer);
+            $conflictingCheckersCompilerPass->process($ecsConfig);
 
             $hasRunAfterResolving = true;
         });
 
-        return $ecsContainer;
+        return $ecsConfig;
     }
 
     /**

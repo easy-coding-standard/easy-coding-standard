@@ -14,7 +14,7 @@ final class RemoveExcludedCheckersCompilerPass
     {
         $excludedCheckers = $this->getExcludedCheckersFromSkipParameter();
 
-        foreach ($container->getBindings() as $classType => $closure) {
+        foreach (array_keys($container->getBindings()) as $classType) {
             if (! in_array($classType, $excludedCheckers, true)) {
                 continue;
             }

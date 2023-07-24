@@ -123,7 +123,7 @@ final class RemoveMutualCheckersCompilerPass
             return;
         }
 
-        foreach ($container->getBindings() as $type => $closure) {
+        foreach (array_keys($container->getBindings()) as $type) {
             if (! in_array($type, $checkersToRemove, true)) {
                 continue;
             }

@@ -20,7 +20,7 @@ final class IndentationTest extends AbstractTestCase
         $this->assertInstanceOf(WhitespacesAwareFixerInterface::class, $indentationTypeFixer);
 
         /** @var WhitespacesFixerConfig $whitespacesFixerConfig */
-        $whitespacesFixerConfig = \Symplify\EasyCodingStandard\Utils\PrivatesAccessorHelper::getPropertyValue(
+        $whitespacesFixerConfig = PrivatesAccessorHelper::getPropertyValue(
             $indentationTypeFixer,
             'whitespacesConfig'
         );

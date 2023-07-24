@@ -66,17 +66,7 @@ final class ECSConfig extends Container
 
         $this->singleton($checkerClass);
         $this->tag($checkerClass, $interfaceTag);
-
-        // decorate whitespace fixer with WhitespacesFixerConfig
-        if (is_a($checkerClass, WhitespacesAwareFixerInterface::class, true)) {
-            $this->extend($checkerClass, function (object $instance, Container $container) {
-                /** @var WhitespacesAwareFixerInterface $instance */
-                $whitespacesFixerConfig = $container->make(WhitespacesFixerConfig::class);
-                $instance->setWhitespacesConfig($whitespacesFixerConfig);
-
-                return $instance;
-            });
-        }
+        $this->autowireWhitespaceAwareFixer($checkerClass);
     }
 
     /**
@@ -107,14 +97,16 @@ final class ECSConfig extends Container
 
         if (is_a($checkerClass, FixerInterface::class, true)) {
             Assert::isAnyOf($checkerClass, [ConfigurableFixerInterface::class, ConfigurableRuleInterface::class]);
-            $this->extend($checkerClass, function (ConfigurableFixerInterface $configurableFixer) use ($configuration) {
+            $this->extend($checkerClass, static function (ConfigurableFixerInterface $configurableFixer) use (
+                $configuration
+            ): ConfigurableFixerInterface {
                 $configurableFixer->configure($configuration);
                 return $configurableFixer;
             });
         }
 
         if (is_a($checkerClass, Sniff::class, true)) {
-            $this->extend($checkerClass, function (Sniff $sniff) use ($configuration) {
+            $this->extend($checkerClass, static function (Sniff $sniff) use ($configuration): Sniff {
                 foreach ($configuration as $propertyName => $value) {
                     Assert::propertyExists($sniff, $propertyName);
                     $sniff->{$propertyName} = $value;
@@ -262,5 +254,28 @@ final class ECSConfig extends Container
             implode('", "', $duplicatedCheckerClasses)
         );
         throw new InvalidArgumentException($errorMessage);
+    }
+
+    /**
+     * @param class-string<FixerInterface|Sniff> $checkerClass
+     */
+    private function autowireWhitespaceAwareFixer(string $checkerClass): void
+    {
+        if (! is_a($checkerClass, WhitespacesAwareFixerInterface::class, true)) {
+            return;
+        }
+
+        $this->extend(
+            $checkerClass,
+            static function (
+                WhitespacesAwareFixerInterface $whitespacesAwareFixer,
+                Container $container
+            ): WhitespacesAwareFixerInterface {
+                $whitespacesFixerConfig = $container->make(WhitespacesFixerConfig::class);
+                $whitespacesAwareFixer->setWhitespacesConfig($whitespacesFixerConfig);
+
+                return $whitespacesAwareFixer;
+            }
+        );
     }
 }
