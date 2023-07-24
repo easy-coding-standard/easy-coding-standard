@@ -69,9 +69,7 @@
         "rector": "vendor/bin/rector process --dry-run --ansi"
     },
     "replace": {
-        "symfony/polyfill-intl-grapheme": "*",
-        "symfony/polyfill-intl-normalizer": "*",
-        "symfony/polyfill-ctype": "*"
+        "symfony/polyfill-intl-normalizer": "*"
     },
     "minimum-stability": "dev",
     "prefer-stable": true
