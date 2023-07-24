@@ -8,7 +8,7 @@ use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\Tests\Testing\AbstractTestCase;
-use Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use Symplify\EasyCodingStandard\Utils\PrivatesAccessorHelper;
 
 final class FixerServiceRegistrationTest extends AbstractTestCase
 {
@@ -24,17 +24,16 @@ final class FixerServiceRegistrationTest extends AbstractTestCase
         $arraySyntaxFixer = $checkers[1];
         $this->assertInstanceOf(ArraySyntaxFixer::class, $arraySyntaxFixer);
 
-        $arraySyntaxConfigurationReflectionProperty = new \ReflectionProperty($arraySyntaxFixer, 'configuration');
+        $arraySyntaxConfiguration = PrivatesAccessorHelper::getPropertyValue($arraySyntaxFixer, 'configuration');
         $this->assertSame([
             'syntax' => 'short',
-        ], $arraySyntaxConfigurationReflectionProperty->getValue($arraySyntaxFixer));
+        ], $arraySyntaxConfiguration);
 
         /** @var VisibilityRequiredFixer $visibilityRequiredFixer */
         $visibilityRequiredFixer = $checkers[0];
         $this->assertInstanceOf(VisibilityRequiredFixer::class, $visibilityRequiredFixer);
 
-        $visibilityRequiredFixerReflectionProperty = new \ReflectionProperty($visibilityRequiredFixer, 'configuration');
-        $visibilityRequiredConfiguration = $visibilityRequiredFixerReflectionProperty->getValue($visibilityRequiredFixer);
+        $visibilityRequiredConfiguration = PrivatesAccessorHelper::getPropertyValue($visibilityRequiredFixer, 'configuration');
 
         $this->assertSame([
             'elements' => ['property'],

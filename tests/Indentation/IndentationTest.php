@@ -8,19 +8,10 @@ use PhpCsFixer\Fixer\Whitespace\IndentationTypeFixer;
 use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
 use PhpCsFixer\WhitespacesFixerConfig;
 use Symplify\EasyCodingStandard\Tests\Testing\AbstractTestCase;
-use Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use Symplify\EasyCodingStandard\Utils\PrivatesAccessorHelper;
 
 final class IndentationTest extends AbstractTestCase
 {
-    private PrivatesAccessor $privatesAccessor;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->privatesAccessor = new PrivatesAccessor();
-    }
-
     public function testSpaces(): void
     {
         $this->createContainerWithConfigs([__DIR__ . '/Source/config-with-spaces-indentation.php']);
@@ -29,11 +20,9 @@ final class IndentationTest extends AbstractTestCase
         $this->assertInstanceOf(WhitespacesAwareFixerInterface::class, $indentationTypeFixer);
 
         /** @var WhitespacesFixerConfig $whitespacesFixerConfig */
-        $whitespacesFixerConfig = $this->privatesAccessor->getPrivatePropertyOfClass(
+        $whitespacesFixerConfig = \Symplify\EasyCodingStandard\Utils\PrivatesAccessorHelper::getPropertyValue(
             $indentationTypeFixer,
-            'whitespacesConfig',
-            WhitespacesFixerConfig::class
-        );
+            'whitespacesConfig');
 
         $this->assertSame('    ', $whitespacesFixerConfig->getIndent());
         $this->assertSame("\n", $whitespacesFixerConfig->getLineEnding());
@@ -47,10 +36,9 @@ final class IndentationTest extends AbstractTestCase
         $this->assertInstanceOf(WhitespacesAwareFixerInterface::class, $indentationTypeFixer);
 
         /** @var WhitespacesFixerConfig $whitespacesFixerConfig */
-        $whitespacesFixerConfig = $this->privatesAccessor->getPrivatePropertyOfClass(
+        $whitespacesFixerConfig = PrivatesAccessorHelper::getPropertyValue(
             $indentationTypeFixer,
             'whitespacesConfig',
-            WhitespacesFixerConfig::class
         );
 
         $this->assertSame('	', $whitespacesFixerConfig->getIndent());
