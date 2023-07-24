@@ -18,7 +18,6 @@
         "symfony/finder": "^6.3",
         "symplify/coding-standard": "^11.4",
         "symplify/easy-parallel": "^11.1",
-        "symplify/package-builder": "^11.3",
         "webmozart/assert": "^1.11"
     },
     "require-dev": {
