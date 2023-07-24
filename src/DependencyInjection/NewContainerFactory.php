@@ -32,7 +32,6 @@ use Symplify\EasyCodingStandard\Skipper\Skipper\Skipper;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 use Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
-use Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 use Webmozart\Assert\Assert;
 use PHP_CodeSniffer\Sniffs\Sniff;
 
@@ -117,7 +116,6 @@ final class NewContainerFactory
                 $container->make(SniffMetadataCollector::class),
                 $container->make(Filesystem::class),
                 $container->make(FileDiffFactory::class),
-                $container->make(PrivatesAccessor::class),
                 iterator_to_array($sniffRewindableGenerator->getIterator())
             );
         });

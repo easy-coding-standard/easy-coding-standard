@@ -15,6 +15,7 @@ use PHP_CodeSniffer\Standards\PSR2\Sniffs\Methods\MethodDeclarationSniff;
 use PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\CommentedOutCodeSniff;
 use PHP_CodeSniffer\Util\Tokens;
 use PhpCsFixer\Differ\DifferInterface;
+use ReflectionProperty;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Error\FileDiffFactory;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
@@ -24,7 +25,6 @@ use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardErro
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\File;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
-use Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 
 /**
  * @see \Symplify\EasyCodingStandard\Tests\Error\ErrorCollector\SniffFileProcessorTest
@@ -62,7 +62,6 @@ final class SniffFileProcessor implements FileProcessorInterface
         private readonly SniffMetadataCollector $sniffMetadataCollector,
         private readonly \Symfony\Component\Filesystem\Filesystem $filesystem,
         private readonly FileDiffFactory $fileDiffFactory,
-        private readonly PrivatesAccessor $privatesAccessor,
         iterable $sniffs
     ) {
         foreach ($sniffs as $sniff) {
@@ -176,7 +175,10 @@ final class SniffFileProcessor implements FileProcessorInterface
             // Only needed once file content has changed.
             $content = $previousContent;
 
-            $this->privatesAccessor->setPrivateProperty($fixer, 'inConflict', false);
+            // set property value
+            $reflectionProperty = new ReflectionProperty($fixer, 'inConflict');
+            $reflectionProperty->setValue($fixer, false);
+
             $file->setContent($content);
             $file->processWithTokenListenersAndFilePath($tokenListeners, $filePath, $reportSniffClassesWarnings);
 
