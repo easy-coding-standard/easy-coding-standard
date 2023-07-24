@@ -7,13 +7,12 @@ namespace Symplify\EasyCodingStandard\Tests\Console\Output;
 use Symplify\CodingStandard\Fixer\LineLength\LineLengthFixer;
 use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
 use Symplify\EasyCodingStandard\FileSystem\StaticRelativeFilePathHelper;
-use Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
+use Symplify\EasyCodingStandard\Tests\Testing\AbstractTestCase;
 use Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use Symplify\PackageBuilder\Console\Formatter\ColorConsoleDiffFormatter;
-use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 
-final class JsonOutputFormatterTest extends AbstractKernelTestCase
+final class JsonOutputFormatterTest extends AbstractTestCase
 {
     private JsonOutputFormatter $jsonOutputFormatter;
 
@@ -21,10 +20,10 @@ final class JsonOutputFormatterTest extends AbstractKernelTestCase
 
     protected function setUp(): void
     {
-        $this->bootKernel(EasyCodingStandardKernel::class);
+        parent::setUp();
 
-        $this->jsonOutputFormatter = $this->getService(JsonOutputFormatter::class);
-        $this->colorConsoleDiffFormatter = $this->getService(ColorConsoleDiffFormatter::class);
+        $this->jsonOutputFormatter = $this->make(JsonOutputFormatter::class);
+        $this->colorConsoleDiffFormatter = $this->make(ColorConsoleDiffFormatter::class);
     }
 
     public function test(): void
