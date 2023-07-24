@@ -33,7 +33,7 @@ final class FixerFileProcessor implements FileProcessorInterface
     private array $fixers = [];
 
     /**
-     * @param iterable<FixerInterface> $fixers
+     * @param FixerInterface[] $fixers
      */
     public function __construct(
         private readonly FileToTokensParser $fileToTokensParser,
@@ -42,9 +42,8 @@ final class FixerFileProcessor implements FileProcessorInterface
         private readonly EasyCodingStandardStyle $easyCodingStandardStyle,
         private readonly \Symfony\Component\Filesystem\Filesystem $filesystem,
         private readonly FileDiffFactory $fileDiffFactory,
-        iterable $fixers
+        array $fixers
     ) {
-        $fixers = iterator_to_array($fixers->getIterator());
         $this->fixers = $this->sortFixers($fixers);
     }
 

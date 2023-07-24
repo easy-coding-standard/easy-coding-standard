@@ -16,6 +16,8 @@ abstract class AbstractTestCase extends TestCase
 
     protected function setUp(): void
     {
+        // load tokens
+
         // @todo cache somehow
         $newContainerFactory = new NewContainerFactory();
         $this->container = $newContainerFactory->create();

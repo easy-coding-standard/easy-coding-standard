@@ -8,9 +8,10 @@ use PHP_CodeSniffer\Fixer;
 use Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\File;
+use Symplify\EasyCodingStandard\Tests\Testing\AbstractTestCase;
 use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 
-final class FixerTest extends AbstractKernelTestCase
+final class FixerTest extends AbstractTestCase
 {
     private Fixer $fixer;
 
@@ -18,12 +19,12 @@ final class FixerTest extends AbstractKernelTestCase
 
     protected function setUp(): void
     {
-        $this->bootKernel(EasyCodingStandardKernel::class);
+        parent::setUp();
 
-        $fileFactory = $this->getService(FileFactory::class);
+        $fileFactory = $this->make(FileFactory::class);
 
         $this->file = $fileFactory->createFromFile(__DIR__ . '/FixerSource/SomeFile.php');
-        $this->fixer = $this->getService(Fixer::class);
+        $this->fixer = $this->make(Fixer::class);
     }
 
     public function testStartFile(): void

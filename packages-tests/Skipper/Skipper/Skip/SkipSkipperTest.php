@@ -11,16 +11,17 @@ use Symplify\EasyCodingStandard\Skipper\Skipper\Skipper;
 use Symplify\EasyCodingStandard\Tests\Skipper\Skipper\Skip\Source\AnotherClassToSkip;
 use Symplify\EasyCodingStandard\Tests\Skipper\Skipper\Skip\Source\NotSkippedClass;
 use Symplify\EasyCodingStandard\Tests\Skipper\Skipper\Skip\Source\SomeClassToSkip;
+use Symplify\EasyCodingStandard\Tests\Testing\AbstractTestCase;
 use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 
-final class SkipSkipperTest extends AbstractKernelTestCase
+final class SkipSkipperTest extends AbstractTestCase
 {
     private Skipper $skipper;
 
     protected function setUp(): void
     {
-        $this->bootKernelWithConfigs(EasyCodingStandardKernel::class, [__DIR__ . '/config/config.php']);
-        $this->skipper = $this->getService(Skipper::class);
+        $this->createContainerWithConfigs([__DIR__ . '/config/config.php']);
+        $this->skipper = $this->make(Skipper::class);
     }
 
     #[DataProvider('provideCheckerAndFile')]

@@ -63,7 +63,7 @@ final class AutoloadIncluder
     public function includeDependencyOrRepositoryVendorAutoloadIfExists(): void
     {
         // ECS' vendor is already loaded
-        if (class_exists('\Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel')) {
+        if (class_exists('Symplify\EasyCodingStandard\DependencyInjection\NewContainerFactory')) {
             return;
         }
 

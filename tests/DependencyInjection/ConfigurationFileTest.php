@@ -7,7 +7,6 @@ namespace Symplify\EasyCodingStandard\Tests\DependencyInjection;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 use Symplify\EasyCodingStandard\Tests\Testing\AbstractTestCase;
-use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 
 final class ConfigurationFileTest extends AbstractTestCase
 {

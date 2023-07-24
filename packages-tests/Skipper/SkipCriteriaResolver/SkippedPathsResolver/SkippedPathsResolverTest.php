@@ -6,16 +6,17 @@ namespace Symplify\EasyCodingStandard\Tests\Skipper\SkipCriteriaResolver\Skipped
 
 use Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\Skipper\SkipCriteriaResolver\SkippedPathsResolver;
+use Symplify\EasyCodingStandard\Tests\Testing\AbstractTestCase;
 use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 
-final class SkippedPathsResolverTest extends AbstractKernelTestCase
+final class SkippedPathsResolverTest extends AbstractTestCase
 {
     private SkippedPathsResolver $skippedPathsResolver;
 
     protected function setUp(): void
     {
-        $this->bootKernelWithConfigs(EasyCodingStandardKernel::class, [__DIR__ . '/config/config.php']);
-        $this->skippedPathsResolver = $this->getService(SkippedPathsResolver::class);
+        $this->createContainerWithConfigs([__DIR__ . '/config/config.php']);
+        $this->skippedPathsResolver = $this->make(SkippedPathsResolver::class);
     }
 
     public function test(): void

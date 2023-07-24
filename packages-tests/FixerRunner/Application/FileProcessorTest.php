@@ -8,21 +8,16 @@ use PhpCsFixer\Fixer\ArrayNotation\NoTrailingCommaInSinglelineArrayFixer;
 use PhpCsFixer\Fixer\Basic\EncodingFixer;
 use PhpCsFixer\Fixer\PhpTag\FullOpeningTagFixer;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
-use Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
-use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use Symplify\EasyCodingStandard\Tests\Testing\AbstractTestCase;
 
-final class FileProcessorTest extends AbstractKernelTestCase
+final class FileProcessorTest extends AbstractTestCase
 {
     private FixerFileProcessor $fixerFileProcessor;
 
     protected function setUp(): void
     {
-        $this->bootKernelWithConfigs(
-            EasyCodingStandardKernel::class,
-            [__DIR__ . '/FileProcessorSource/easy-coding-standard.php']
-        );
-
-        $this->fixerFileProcessor = $this->getService(FixerFileProcessor::class);
+        $this->createContainerWithConfigs([__DIR__ . '/FileProcessorSource/easy-coding-standard.php']);
+        $this->fixerFileProcessor = $this->make(FixerFileProcessor::class);
     }
 
     public function testGetSortedCheckers(): void

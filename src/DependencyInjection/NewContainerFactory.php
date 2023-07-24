@@ -5,18 +5,16 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\DependencyInjection;
 
 use Illuminate\Container\Container;
+use Illuminate\Container\RewindableGenerator;
 use PHP_CodeSniffer\Fixer;
 use PhpCsFixer\Differ\DifferInterface;
 use PhpCsFixer\Differ\UnifiedDiffer;
 use PhpCsFixer\Fixer\FixerInterface;
-use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
 use PhpCsFixer\WhitespacesFixerConfig;
-use Rector\Caching\Contract\ValueObject\Storage\CacheStorageInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Filesystem\Filesystem;
 use Symplify\EasyCodingStandard\Caching\Cache;
 use Symplify\EasyCodingStandard\Caching\CacheFactory;
-use Symplify\EasyCodingStandard\Caching\ValueObject\Storage\FileCacheStorage;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
@@ -81,8 +79,9 @@ final class NewContainerFactory
         $ecsContainer->tag(JsonOutputFormatter::class, OutputFormatterInterface::class);
 
         $ecsContainer->singleton(OutputFormatterCollector::class, function (Container $container) {
-            $outputFormatters = $container->tagged(OutputFormatterInterface::class);
-            return new OutputFormatterCollector($outputFormatters);
+            /** @var RewindableGenerator<int, OutputFormatterInterface> $outputFormattersRewindableGenerator */
+            $outputFormattersRewindableGenerator = $container->tagged(OutputFormatterInterface::class);
+            return new OutputFormatterCollector(iterator_to_array($outputFormattersRewindableGenerator->getIterator()));
         });
 
         $ecsContainer->singleton(DifferInterface::class, function (): DifferInterface {
@@ -90,6 +89,9 @@ final class NewContainerFactory
         });
 
         $ecsContainer->singleton(FixerFileProcessor::class, function (Container $container) {
+            /** @var RewindableGenerator<int, FixerInterface> $fixerRewindableGenerator */
+            $fixerRewindableGenerator = $container->tagged(FixerInterface::class);
+
             return new FixerFileProcessor(
                 $container->make(FileToTokensParser::class),
                 $container->make(Skipper::class),
@@ -97,11 +99,14 @@ final class NewContainerFactory
                 $container->make(EasyCodingStandardStyle::class),
                 $container->make(Filesystem::class),
                 $container->make(FileDiffFactory::class),
-                $container->tagged(FixerInterface::class)
+                iterator_to_array($fixerRewindableGenerator->getIterator())
             );
         });
 
         $ecsContainer->singleton(SniffFileProcessor::class, function (Container $container) {
+            /** @var RewindableGenerator<Sniff> $sniffRewindableGenerator */
+            $sniffRewindableGenerator = $container->tagged(Sniff::class);
+
             return new SniffFileProcessor(
                 $container->make(Fixer::class),
                 $container->make(FileFactory::class),
@@ -110,7 +115,7 @@ final class NewContainerFactory
                 $container->make(Filesystem::class),
                 $container->make(FileDiffFactory::class),
                 $container->make(PrivatesAccessor::class),
-                $container->tagged(Sniff::class)
+                iterator_to_array($sniffRewindableGenerator->getIterator())
             );
         });
 //

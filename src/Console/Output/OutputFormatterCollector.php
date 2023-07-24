@@ -16,9 +16,9 @@ final class OutputFormatterCollector
     private array $outputFormatters = [];
 
     /**
-     * @param RewindableGenerator<int, OutputFormatterInterface> $outputFormatters
+     * @param OutputFormatterInterface[] $outputFormatters
      */
-    public function __construct(iterable $outputFormatters)
+    public function __construct(array $outputFormatters)
     {
         foreach ($outputFormatters as $outputFormatter) {
             $this->outputFormatters[$outputFormatter->getName()] = $outputFormatter;
