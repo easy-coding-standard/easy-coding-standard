@@ -49,7 +49,10 @@
                 "tests",
                 "packages-tests"
             ]
-        }
+        },
+        "files": [
+            "tests/functions.php"
+        ]
     },
     "config": {
         "sort-packages": true,

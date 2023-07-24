@@ -4,24 +4,26 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\DependencyInjection\CompilerPass;
 
-use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Illuminate\Container\Container;
+use PHP_CodeSniffer\Sniffs\Sniff;
+use PhpCsFixer\Fixer\FixerInterface;
+use ReflectionProperty;
 use Symplify\EasyCodingStandard\DependencyInjection\SimpleParameterProvider;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 
-final class RemoveExcludedCheckersCompilerPass implements CompilerPassInterface
+final class RemoveExcludedCheckersCompilerPass
 {
-    public function process(ContainerBuilder $containerBuilder): void
+    public function process(Container $container): void
     {
         $excludedCheckers = $this->getExcludedCheckersFromSkipParameter();
 
-        $definitions = $containerBuilder->getDefinitions();
-        foreach ($definitions as $id => $definition) {
-            if (! in_array($definition->getClass(), $excludedCheckers, true)) {
+        foreach ($container->getBindings() as $classType => $closure) {
+            if (! in_array($classType, $excludedCheckers, true)) {
                 continue;
             }
 
-            $containerBuilder->removeDefinition($id);
+            // remove service from container completely
+            $this->removeServiceFromContainerInclusingTagged($container, $classType);
         }
     }
 
@@ -33,6 +35,7 @@ final class RemoveExcludedCheckersCompilerPass implements CompilerPassInterface
         $excludedCheckers = [];
 
         $skip = SimpleParameterProvider::getArrayParameter(Option::SKIP);
+
         foreach ($skip as $key => $value) {
             $excludedChecker = $this->matchFullClassSkip($key, $value);
             if ($excludedChecker === null) {
@@ -69,5 +72,29 @@ final class RemoveExcludedCheckersCompilerPass implements CompilerPassInterface
         }
 
         return $value;
+    }
+
+    private function removeServiceFromContainerInclusingTagged(Container $container, mixed $classType): void
+    {
+        // remove instance
+        $container->offsetUnset($classType);
+
+        $tagsReflectionProperty = new ReflectionProperty($container, 'tags');
+        $tags = $tagsReflectionProperty->getValue($container);
+
+        // remove from tags
+        $checkerTagClasses = [FixerInterface::class, Sniff::class];
+        foreach ($checkerTagClasses as $checkerTagClass) {
+            foreach ($tags[$checkerTagClass] ?? [] as $key => $class) {
+                if ($class !== $classType) {
+                    continue;
+                }
+
+                unset($tags[$checkerTagClass][$key]);
+            }
+        }
+
+        // update value
+        $tagsReflectionProperty->setValue($container, $tags);
     }
 }

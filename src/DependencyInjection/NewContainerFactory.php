@@ -24,6 +24,7 @@ use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyleFactory;
 use Symplify\EasyCodingStandard\Console\Style\SymfonyStyleFactory;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
+use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveExcludedCheckersCompilerPass;
 use Symplify\EasyCodingStandard\Error\FileDiffFactory;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\FixerRunner\Parser\FileToTokensParser;
@@ -127,6 +128,14 @@ final class NewContainerFactory
 
             $configClosure($ecsContainer);
         }
+
+        // compiler passes-like
+        $ecsContainer->beforeResolving(FixerFileProcessor::class,
+            function ($object, $misc, ECSConfig $ecsConfig): void {
+                $removeExcludedCheckersCompilerPass = new RemoveExcludedCheckersCompilerPass();
+                $removeExcludedCheckersCompilerPass->process($ecsConfig);
+            }
+        );
 
         return $ecsContainer;
     }
