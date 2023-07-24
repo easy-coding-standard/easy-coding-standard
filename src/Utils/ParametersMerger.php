@@ -62,6 +62,7 @@ final class ParametersMerger
     /**
      * @param array<int|string, mixed> $left
      * @param array<int|string, mixed> $right
+     * @param callable(mixed $first, mixed $seccond): mixed[] $mergeCallback
      * @return mixed[]
      */
     private function mergeLeftToRightWithCallable(array $left, array $right, callable $mergeCallback): array
