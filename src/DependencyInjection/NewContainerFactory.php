@@ -26,6 +26,7 @@ use Symplify\EasyCodingStandard\Console\Style\SymfonyStyleFactory;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\ConflictingCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveExcludedCheckersCompilerPass;
+use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualCheckersCompilerPass;
 use Symplify\EasyCodingStandard\Error\FileDiffFactory;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\FixerRunner\Parser\FileToTokensParser;
@@ -138,10 +139,22 @@ final class NewContainerFactory
             }
         );
 
+        $hasRunAfterResolving = false;
 
-        $ecsContainer->afterResolving(function ($object, ECSConfig $ecsContainer): void {
+        $ecsContainer->afterResolving(function ($object, ECSConfig $ecsContainer) use (&$hasRunAfterResolving): void {
+            // run just once
+            if ($hasRunAfterResolving) {
+                return;
+            }
+
+            $removeMutualCheckersCompilerPass = new RemoveMutualCheckersCompilerPass();
+            $removeMutualCheckersCompilerPass->process($ecsContainer);
+
             $conflictingCheckersCompilerPass = new ConflictingCheckersCompilerPass();
             $conflictingCheckersCompilerPass->process($ecsContainer);
+
+
+            $hasRunAfterResolving = true;
         });
 
         return $ecsContainer;

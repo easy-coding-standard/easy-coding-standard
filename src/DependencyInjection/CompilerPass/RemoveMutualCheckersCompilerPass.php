@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\DependencyInjection\CompilerPass;
 
+use Illuminate\Container\Container;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\Arrays\DisallowLongArraySyntaxSniff;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\Arrays\DisallowShortArraySyntaxSniff;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff;
@@ -52,10 +53,8 @@ use PhpCsFixer\Fixer\Whitespace\IndentationTypeFixer;
 use PhpCsFixer\Fixer\Whitespace\LineEndingFixer;
 use PhpCsFixer\Fixer\Whitespace\NoExtraBlankLinesFixer;
 use PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer;
-use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-final class RemoveMutualCheckersCompilerPass implements CompilerPassInterface
+final class RemoveMutualCheckersCompilerPass
 {
     /**
      * List of checkers with the same functionality. If found, only the first one is used.
@@ -112,15 +111,24 @@ final class RemoveMutualCheckersCompilerPass implements CompilerPassInterface
         [SingleClassElementPerStatementFixer::class, PropertyDeclarationSniff::class],
     ];
 
-    public function process(ContainerBuilder $containerBuilder): void
+    public function process(Container $container): void
     {
-        $checkersToRemove = $this->resolveCheckersToRemove($containerBuilder->getServiceIds());
+        $checkerTypes = CompilerPassHelper::resolveCheckerClasses($container);
+        if ($checkerTypes === []) {
+            return;
+        }
 
-        $definitions = $containerBuilder->getDefinitions();
-        foreach ($definitions as $id => $definition) {
-            if (in_array($definition->getClass(), $checkersToRemove, true)) {
-                $containerBuilder->removeDefinition($id);
+        $checkersToRemove = $this->resolveCheckersToRemove($checkerTypes);
+        if ($checkersToRemove === []) {
+            return;
+        }
+
+        foreach ($container->getBindings() as $type => $closure) {
+            if (! in_array($type, $checkersToRemove, true)) {
+                continue;
             }
+
+            CompilerPassHelper::removeCheckerFromContainer($container, $type);
         }
     }
 

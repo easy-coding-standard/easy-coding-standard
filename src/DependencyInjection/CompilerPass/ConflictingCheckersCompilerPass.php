@@ -38,16 +38,7 @@ final class ConflictingCheckersCompilerPass
 
     public function process(Container $container): void
     {
-        $serviceTypes = array_keys($container->getBindings());
-
-        $checkerTypes = array_filter($serviceTypes, function (string $serviceType) {
-            if (is_a($serviceType, FixerInterface::class, true)) {
-                return true;
-            }
-
-            return is_a($serviceType, Sniff::class, true);
-        });
-
+        $checkerTypes = CompilerPassHelper::resolveCheckerClasses($container);
         if ($checkerTypes === []) {
             return;
         }

@@ -18,12 +18,12 @@ final class RemoveExcludedCheckersCompilerPass
         $excludedCheckers = $this->getExcludedCheckersFromSkipParameter();
 
         foreach ($container->getBindings() as $classType => $closure) {
-            if (! in_array($classType, $excludedCheckers, true)) {
+            if (!in_array($classType, $excludedCheckers, true)) {
                 continue;
             }
 
             // remove service from container completely
-            $this->removeServiceFromContainerInclusingTagged($container, $classType);
+            CompilerPassHelper::removeCheckerFromContainer($container, $classType);
         }
     }
 
@@ -59,42 +59,18 @@ final class RemoveExcludedCheckersCompilerPass
         }
 
         // "SomeClass::class"
-        if (! is_int($key)) {
+        if (!is_int($key)) {
             return null;
         }
 
-        if (! is_string($value)) {
+        if (!is_string($value)) {
             return null;
         }
 
-        if (! class_exists($value)) {
+        if (!class_exists($value)) {
             return null;
         }
 
         return $value;
-    }
-
-    private function removeServiceFromContainerInclusingTagged(Container $container, mixed $classType): void
-    {
-        // remove instance
-        $container->offsetUnset($classType);
-
-        $tagsReflectionProperty = new ReflectionProperty($container, 'tags');
-        $tags = $tagsReflectionProperty->getValue($container);
-
-        // remove from tags
-        $checkerTagClasses = [FixerInterface::class, Sniff::class];
-        foreach ($checkerTagClasses as $checkerTagClass) {
-            foreach ($tags[$checkerTagClass] ?? [] as $key => $class) {
-                if ($class !== $classType) {
-                    continue;
-                }
-
-                unset($tags[$checkerTagClass][$key]);
-            }
-        }
-
-        // update value
-        $tagsReflectionProperty->setValue($container, $tags);
     }
 }
