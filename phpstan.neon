@@ -31,11 +31,6 @@ parameters:
             path: packages/Parallel/Application/ParallelFileProcessor.php
             message: '#Cannot call method (.*?)\(\) on Symplify\\EasyParallel\\ValueObject\\ProcessPool\|null#'
 
-        # false positives
-        -
-            path: src/Testing/PHPUnit/AbstractCheckerTestCase.php
-            message: '#Property Symplify\\EasyCodingStandard\\Testing\\PHPUnit\\AbstractCheckerTestCase\:\:\$(.*?)FileProcessor \(Symplify\\EasyCodingStandard\\(.*?)\\Application\\(.*?)\) does not accept object\|null#'
-
         - '#Method Symplify\\EasyCodingStandard\\Console\\Command\\ListCheckersCommand\:\:getObjectClasses\(\) should return array<class\-string<TObject of PHP_CodeSniffer\\Sniffs\\Sniff\|PhpCsFixer\\Fixer\\FixerInterface>> but returns array<TObject of class\-string<PHP_CodeSniffer\\Sniffs\\Sniff>\|class\-string<PhpCsFixer\\Fixer\\FixerInterface>>#'
 
         - '#Method Symplify\\EasyCodingStandard\\Application\\SingleFileProcessor\:\:processFilePath\(\) should return array\{file_diffs\?\: array<Symplify\\EasyCodingStandard\\ValueObject\\Error\\FileDiff>, coding_standard_errors\?\: array<Symplify\\EasyCodingStandard\\SniffRunner\\ValueObject\\Error\\CodingStandardError>\} but returns array<(.*?), array<Symplify\\EasyCodingStandard\\SniffRunner\\ValueObject\\Error\\CodingStandardError\|Symplify\\EasyCodingStandard\\ValueObject\\Error\\FileDiff>>#'
