@@ -12,7 +12,6 @@ use PhpCsFixer\FixerFactory;
 use PhpCsFixer\RuleSet\RuleSet;
 use PhpCsFixer\WhitespacesFixerConfig;
 use Symplify\EasyCodingStandard\DependencyInjection\SimpleParameterProvider;
-use Symplify\EasyCodingStandard\FixerRunner\WhitespacesFixerConfigFactory;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
@@ -72,8 +71,6 @@ final class ECSConfig extends Container
         if (is_a($checkerClass, WhitespacesAwareFixerInterface::class, true)) {
             $this->extend($checkerClass, function (object $instance, Container $container) {
                 /** @var WhitespacesAwareFixerInterface $instance */
-                dump(2);
-
                 $whitespacesFixerConfig = $container->make(WhitespacesFixerConfig::class);
                 $instance->setWhitespacesConfig($whitespacesFixerConfig);
 
@@ -108,18 +105,24 @@ final class ECSConfig extends Container
         $interfaceTag = is_a($checkerClass, Sniff::class, true) ? Sniff::class : FixerInterface::class;
         $this->tag($checkerClass, $interfaceTag);
 
-//        if (is_a($checkerClass, FixerInterface::class, true)) {
-//            Assert::isAnyOf($checkerClass, [ConfigurableFixerInterface::class, ConfigurableRuleInterface::class]);
-//            $serviceConfigurator->call('configure', [$configuration]);
-//        }
+        if (is_a($checkerClass, FixerInterface::class, true)) {
+            Assert::isAnyOf($checkerClass, [ConfigurableFixerInterface::class, ConfigurableRuleInterface::class]);
+            $this->extend($checkerClass, function (ConfigurableFixerInterface $configurableFixer) use ($configuration) {
+                $configurableFixer->configure($configuration);
+                return $configurableFixer;
+            });
+        }
 
-//        if (is_a($checkerClass, Sniff::class, true)) {
-//            foreach ($configuration as $propertyName => $value) {
-//                Assert::propertyExists($checkerClass, $propertyName);
-//
-//                $serviceConfigurator->property($propertyName, $value);
-//            }
-//        }
+        if (is_a($checkerClass, Sniff::class, true)) {
+            $this->extend($checkerClass, function (Sniff $sniff) use ($configuration) {
+                foreach ($configuration as $propertyName => $value) {
+                    Assert::propertyExists($sniff, $propertyName);
+                    $sniff->{$propertyName} = $value;
+                }
+
+                return $sniff;
+            });
+        }
     }
 
     /**
@@ -253,8 +256,11 @@ final class ECSConfig extends Container
 
     public function import(string $setFilePath): void
     {
-        dump('todo make import() include the file');
+        $self = $this;
 
-        // todo
+        $closureFilePath = include $setFilePath;
+        Assert::isCallable($closureFilePath);
+
+        $closureFilePath($self);
     }
 }

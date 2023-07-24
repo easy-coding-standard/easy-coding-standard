@@ -44,11 +44,13 @@ abstract class AbstractCheckerTestCase extends AbstractTestCase implements Confi
 
     protected function setUp(): void
     {
+        parent::setUp();
+
         // autoload php code sniffer before Kernel boot
         $this->autoloadCodeSniffer();
 
         $configs = $this->getValidatedConfigs();
-        $this->bootContainerWithConfigs($configs);
+        $this->createContainerWithConfigs($configs);
 
         $this->fixerFileProcessor = $this->make(FixerFileProcessor::class);
         $this->sniffFileProcessor = $this->make(SniffFileProcessor::class);

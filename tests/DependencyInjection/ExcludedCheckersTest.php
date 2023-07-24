@@ -5,19 +5,15 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\Tests\DependencyInjection;
 
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
-use Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
-use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use Symplify\EasyCodingStandard\Tests\Testing\AbstractTestCase;
 
-final class ExcludedCheckersTest extends AbstractKernelTestCase
+final class ExcludedCheckersTest extends AbstractTestCase
 {
-    protected function setUp(): void
-    {
-        $this->bootKernelWithConfigs(EasyCodingStandardKernel::class, [__DIR__ . '/ExcludedCheckersSource/config.php']);
-    }
-
     public function test(): void
     {
-        $fixerFileProcessor = $this->getService(FixerFileProcessor::class);
+        $this->createContainerWithConfigs([__DIR__ . '/ExcludedCheckersSource/config.php']);
+
+        $fixerFileProcessor = $this->make(FixerFileProcessor::class);
         $this->assertCount(0, $fixerFileProcessor->getCheckers());
     }
 }

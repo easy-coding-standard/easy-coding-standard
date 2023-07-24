@@ -5,30 +5,23 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\Tests\Error\ErrorCollector;
 
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
-use Symplify\EasyCodingStandard\Kernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
+use Symplify\EasyCodingStandard\Tests\Testing\AbstractTestCase;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
-use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 
-final class FixerFileProcessorTest extends AbstractKernelTestCase
+final class FixerFileProcessorTest extends AbstractTestCase
 {
-    private FixerFileProcessor $fixerFileProcessor;
-
-    protected function setUp(): void
+    public function test(): void
     {
-        $this->bootKernelWithConfigs(
-            EasyCodingStandardKernel::class,
+        $this->createContainerWithConfigs(
             [__DIR__ . '/FixerRunnerSource/phpunit-fixer-config.php']
         );
 
-        $this->fixerFileProcessor = $this->getService(FixerFileProcessor::class);
-    }
+        $fixerFileProcessor = $this->make(FixerFileProcessor::class);
 
-    public function test(): void
-    {
         $configuration = new Configuration();
 
-        $errorsAndFileDiffs = $this->fixerFileProcessor->processFile(
+        $errorsAndFileDiffs = $fixerFileProcessor->processFile(
             __DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc',
             $configuration
         );

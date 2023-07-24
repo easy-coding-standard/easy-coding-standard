@@ -16,6 +16,8 @@ final class IndentationTest extends AbstractTestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
+
         $this->privatesAccessor = new PrivatesAccessor();
     }
 
