@@ -14,7 +14,6 @@
         "nette/utils": "^3.2",
         "sebastian/diff": "^5.0",
         "squizlabs/php_codesniffer": "^3.7.2",
-        "symfony/config": "^6.2",
         "symfony/console": "^6.2",
         "symfony/dependency-injection": "6.1.*",
         "symfony/finder": "^6.2",
