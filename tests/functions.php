@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
-function dd(mixed $var): void
-{
-    dump($var);
-    die;
+if (! function_exists('dd')) {
+    function dd(mixed $var): void
+    {
+        dump($var);
+        die;
+    }
 }
