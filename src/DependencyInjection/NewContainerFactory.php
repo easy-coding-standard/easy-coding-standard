@@ -38,9 +38,6 @@ use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 use Webmozart\Assert\Assert;
 use PHP_CodeSniffer\Sniffs\Sniff;
 
-/**
- * @api will be used in new DI
- */
 final class NewContainerFactory
 {
     /**
@@ -63,6 +60,7 @@ final class NewContainerFactory
             return $symfonyStyleFactory->create();
         });
 
+        $ecsContainer->singleton(Fixer::class);
 
         // whitespace
         $ecsContainer->singleton(WhitespacesFixerConfig::class, function () {

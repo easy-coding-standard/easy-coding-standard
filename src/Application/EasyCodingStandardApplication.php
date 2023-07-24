@@ -123,17 +123,16 @@ final class EasyCodingStandardApplication
      */
     private function processFoundFiles(array $filePaths, Configuration $configuration): array
     {
-        $fileInfoCount = count($filePaths);
+        $fileCount = count($filePaths);
 
         // 3. start progress bar
-        $this->outputProgressBarAndDebugInfo($fileInfoCount, $configuration);
+        $this->outputProgressBarAndDebugInfo($fileCount, $configuration);
 
         $errorsAndDiffs = [];
 
         foreach ($filePaths as $filePath) {
             if ($this->easyCodingStandardStyle->isDebug()) {
                 $relativeFilePath = StaticRelativeFilePathHelper::resolveFromCwd($filePath);
-
                 $this->easyCodingStandardStyle->writeln(' [file] ' . $relativeFilePath);
             }
 

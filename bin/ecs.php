@@ -151,5 +151,8 @@ try {
     exit(Command::FAILURE);
 }
 
+/** @var EasyCodingStandardConsoleApplication $application */
 $application = $container->get(EasyCodingStandardConsoleApplication::class);
-exit($application->run());
+
+$statusCode = $application->run();
+exit($statusCode);
