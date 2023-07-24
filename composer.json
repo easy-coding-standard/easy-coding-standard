@@ -68,6 +68,11 @@
         "phpstan": "vendor/bin/phpstan analyse --ansi  --error-format symplify",
         "rector": "vendor/bin/rector process --dry-run --ansi"
     },
+    "replace": {
+        "symfony/polyfill-intl-grapheme": "*",
+        "symfony/polyfill-intl-normalizer": "*",
+        "symfony/polyfill-ctype": "*"
+    },
     "minimum-stability": "dev",
     "prefer-stable": true
 }
