@@ -6,6 +6,7 @@ namespace Symplify\EasyCodingStandard\Config;
 
 use Illuminate\Container\Container;
 use PHP_CodeSniffer\Sniffs\Sniff;
+use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
 use PhpCsFixer\FixerFactory;
@@ -13,7 +14,6 @@ use PhpCsFixer\RuleSet\RuleSet;
 use PhpCsFixer\WhitespacesFixerConfig;
 use Symplify\EasyCodingStandard\DependencyInjection\SimpleParameterProvider;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
 use Webmozart\Assert\Assert;
 use Webmozart\Assert\InvalidArgumentException;
@@ -223,6 +223,16 @@ final class ECSConfig extends Container
         }
     }
 
+    public function import(string $setFilePath): void
+    {
+        $self = $this;
+
+        $closureFilePath = require $setFilePath;
+        Assert::isCallable($closureFilePath);
+
+        $closureFilePath($self);
+    }
+
     /**
      * @param class-string $checkerClass
      */
@@ -252,15 +262,5 @@ final class ECSConfig extends Container
             implode('", "', $duplicatedCheckerClasses)
         );
         throw new InvalidArgumentException($errorMessage);
-    }
-
-    public function import(string $setFilePath): void
-    {
-        $self = $this;
-
-        $closureFilePath = require $setFilePath;
-        Assert::isCallable($closureFilePath);
-
-        $closureFilePath($self);
     }
 }

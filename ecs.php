@@ -7,8 +7,6 @@ use Symplify\EasyCodingStandard\Config\ECSConfig;
 use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
 
 return static function (ECSConfig $ecsConfig): void {
-    $ecsConfig->disableParallel();
-
     $ecsConfig->paths([
         __DIR__ . '/ecs.php',
         __DIR__ . '/rector.php',

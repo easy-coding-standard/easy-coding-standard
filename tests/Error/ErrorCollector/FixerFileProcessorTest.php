@@ -13,9 +13,7 @@ final class FixerFileProcessorTest extends AbstractTestCase
 {
     public function test(): void
     {
-        $this->createContainerWithConfigs(
-            [__DIR__ . '/FixerRunnerSource/phpunit-fixer-config.php']
-        );
+        $this->createContainerWithConfigs([__DIR__ . '/FixerRunnerSource/phpunit-fixer-config.php']);
 
         $fixerFileProcessor = $this->make(FixerFileProcessor::class);
 

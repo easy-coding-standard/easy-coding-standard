@@ -22,7 +22,8 @@ final class IndentationTest extends AbstractTestCase
         /** @var WhitespacesFixerConfig $whitespacesFixerConfig */
         $whitespacesFixerConfig = \Symplify\EasyCodingStandard\Utils\PrivatesAccessorHelper::getPropertyValue(
             $indentationTypeFixer,
-            'whitespacesConfig');
+            'whitespacesConfig'
+        );
 
         $this->assertSame('    ', $whitespacesFixerConfig->getIndent());
         $this->assertSame("\n", $whitespacesFixerConfig->getLineEnding());

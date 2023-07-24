@@ -5,9 +5,6 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\DependencyInjection\CompilerPass;
 
 use Illuminate\Container\Container;
-use PHP_CodeSniffer\Sniffs\Sniff;
-use PhpCsFixer\Fixer\FixerInterface;
-use ReflectionProperty;
 use Symplify\EasyCodingStandard\DependencyInjection\SimpleParameterProvider;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 
@@ -18,7 +15,7 @@ final class RemoveExcludedCheckersCompilerPass
         $excludedCheckers = $this->getExcludedCheckersFromSkipParameter();
 
         foreach ($container->getBindings() as $classType => $closure) {
-            if (!in_array($classType, $excludedCheckers, true)) {
+            if (! in_array($classType, $excludedCheckers, true)) {
                 continue;
             }
 
@@ -59,15 +56,15 @@ final class RemoveExcludedCheckersCompilerPass
         }
 
         // "SomeClass::class"
-        if (!is_int($key)) {
+        if (! is_int($key)) {
             return null;
         }
 
-        if (!is_string($value)) {
+        if (! is_string($value)) {
             return null;
         }
 
-        if (!class_exists($value)) {
+        if (! class_exists($value)) {
             return null;
         }
 

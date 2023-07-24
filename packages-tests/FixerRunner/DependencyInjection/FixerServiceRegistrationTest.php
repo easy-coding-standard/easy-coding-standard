@@ -33,7 +33,10 @@ final class FixerServiceRegistrationTest extends AbstractTestCase
         $visibilityRequiredFixer = $checkers[0];
         $this->assertInstanceOf(VisibilityRequiredFixer::class, $visibilityRequiredFixer);
 
-        $visibilityRequiredConfiguration = PrivatesAccessorHelper::getPropertyValue($visibilityRequiredFixer, 'configuration');
+        $visibilityRequiredConfiguration = PrivatesAccessorHelper::getPropertyValue(
+            $visibilityRequiredFixer,
+            'configuration'
+        );
 
         $this->assertSame([
             'elements' => ['property'],

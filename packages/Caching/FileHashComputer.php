@@ -17,7 +17,6 @@ final class FileHashComputer
 {
     public function computeConfig(string $filePath): string
     {
-
         $callable = require $filePath;
         Assert::isCallable($callable);
 

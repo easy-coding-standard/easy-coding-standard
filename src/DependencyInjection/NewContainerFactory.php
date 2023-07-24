@@ -7,6 +7,7 @@ namespace Symplify\EasyCodingStandard\DependencyInjection;
 use Illuminate\Container\Container;
 use Illuminate\Container\RewindableGenerator;
 use PHP_CodeSniffer\Fixer;
+use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
 use PhpCsFixer\Differ\DifferInterface;
 use PhpCsFixer\Differ\UnifiedDiffer;
@@ -36,7 +37,6 @@ use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 use Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 use Webmozart\Assert\Assert;
-use PHP_CodeSniffer\Sniffs\Sniff;
 
 final class NewContainerFactory
 {
@@ -130,7 +130,8 @@ final class NewContainerFactory
         }
 
         // compiler passes-like
-        $ecsContainer->beforeResolving(FixerFileProcessor::class,
+        $ecsContainer->beforeResolving(
+            FixerFileProcessor::class,
             function ($object, $misc, ECSConfig $ecsContainer): void {
                 $removeExcludedCheckersCompilerPass = new RemoveExcludedCheckersCompilerPass();
                 $removeExcludedCheckersCompilerPass->process($ecsContainer);
@@ -150,7 +151,6 @@ final class NewContainerFactory
 
             $conflictingCheckersCompilerPass = new ConflictingCheckersCompilerPass();
             $conflictingCheckersCompilerPass->process($ecsContainer);
-
 
             $hasRunAfterResolving = true;
         });

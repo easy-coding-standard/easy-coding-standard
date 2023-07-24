@@ -17,4 +17,3 @@ if (! defined('T_READONLY')) {
 if (! defined('T_ENUM')) {
     define('T_ENUM', 5015);
 }
-

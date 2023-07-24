@@ -12,9 +12,7 @@ final class ConfigurationFileTest extends AbstractTestCase
 {
     public function testEmptyConfig(): void
     {
-        $this->createContainerWithConfigs(
-            [__DIR__ . '/ConfigurationFileSource/empty-config.php']
-        );
+        $this->createContainerWithConfigs([__DIR__ . '/ConfigurationFileSource/empty-config.php']);
 
         $fixerFileProcessor = $this->make(FixerFileProcessor::class);
         $this->assertCount(0, $fixerFileProcessor->getCheckers());
@@ -25,9 +23,7 @@ final class ConfigurationFileTest extends AbstractTestCase
 
     public function testIncludeConfig(): void
     {
-        $this->createContainerWithConfigs(
-            [__DIR__ . '/ConfigurationFileSource/include-another-config.php']
-        );
+        $this->createContainerWithConfigs([__DIR__ . '/ConfigurationFileSource/include-another-config.php']);
 
         $fixerFileProcessor = $this->make(FixerFileProcessor::class);
         $this->assertCount(1, $fixerFileProcessor->getCheckers());

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Symplify\EasyCodingStandard\DependencyInjection\CompilerPass;
 
 use Illuminate\Container\Container;
