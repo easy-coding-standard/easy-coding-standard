@@ -13,7 +13,6 @@ use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\FixerWhitespace
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveExcludedCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualCheckersCompilerPass;
 use Symplify\EasyParallel\ValueObject\EasyParallelConfig;
-use Symplify\PackageBuilder\ValueObject\ConsoleColorDiffConfig;
 
 final class EasyCodingStandardKernel
 {
@@ -33,7 +32,6 @@ final class EasyCodingStandardKernel
         ];
 
         // @todo move
-        $configFiles[] = ConsoleColorDiffConfig::FILE_PATH;
         $configFiles[] = CodingStandardConfig::FILE_PATH;
         $configFiles[] = EasyParallelConfig::FILE_PATH;
     }

@@ -8,13 +8,13 @@ use Clue\React\NDJson\Decoder;
 use Clue\React\NDJson\Encoder;
 use Symplify\EasyCodingStandard\Application\SingleFileProcessor;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
+use Symplify\EasyCodingStandard\Utils\ParametersMerger;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
 use Symplify\EasyParallel\Enum\Action;
 use Symplify\EasyParallel\Enum\Content;
 use Symplify\EasyParallel\Enum\ReactCommand;
 use Symplify\EasyParallel\Enum\ReactEvent;
-use Symplify\PackageBuilder\Yaml\ParametersMerger;
 use Throwable;
 
 final class WorkerRunner
