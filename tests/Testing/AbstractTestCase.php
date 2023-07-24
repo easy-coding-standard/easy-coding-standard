@@ -6,7 +6,6 @@ namespace Symplify\EasyCodingStandard\Tests\Testing;
 
 use Illuminate\Container\Container;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symplify\EasyCodingStandard\DependencyInjection\NewContainerFactory;
 use Webmozart\Assert\Assert;
 
