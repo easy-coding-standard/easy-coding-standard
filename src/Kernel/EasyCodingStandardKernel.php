@@ -23,38 +23,7 @@ final class EasyCodingStandardKernel
     public function createFromConfigs(array $configFiles): ContainerInterface
     {
         // @todo move
-        $compilerPasses = $this->createCompilerPasses();
-
-        // @todo move
-        $configFiles[] = ConsoleColorDiffConfig::FILE_PATH;
-        $configFiles[] = CodingStandardConfig::FILE_PATH;
-        $configFiles[] = EasyParallelConfig::FILE_PATH;
-
-        return $this->create($configFiles, $compilerPasses);
-    }
-
-    /**
-     * @param string[] $configFiles
-     * @param CompilerPassInterface[] $compilerPasses
-     */
-    public function create(array $configFiles, array $compilerPasses = []): ContainerInterface
-    {
-        $containerBuilderFactory = new ContainerBuilderFactory();
-
-        $containerBuilder = $containerBuilderFactory->create($configFiles, $compilerPasses);
-        $containerBuilder->compile();
-
-        $this->container = $containerBuilder;
-
-        return $containerBuilder;
-    }
-
-    /**
-     * @return CompilerPassInterface[]
-     */
-    private function createCompilerPasses(): array
-    {
-        return [
+        $compilerPasses = [
             // cleanup
             new RemoveExcludedCheckersCompilerPass(),
             new RemoveMutualCheckersCompilerPass(),
@@ -62,5 +31,10 @@ final class EasyCodingStandardKernel
             // autowire
             new FixerWhitespaceConfigCompilerPass(),
         ];
+
+        // @todo move
+        $configFiles[] = ConsoleColorDiffConfig::FILE_PATH;
+        $configFiles[] = CodingStandardConfig::FILE_PATH;
+        $configFiles[] = EasyParallelConfig::FILE_PATH;
     }
 }

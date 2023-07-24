@@ -53,7 +53,7 @@ final class SniffFileProcessor implements FileProcessorInterface
     private array $tokenListeners = [];
 
     /**
-     * @param RewindableGenerator<int, Sniff> $sniffs
+     * @param iterable<int, Sniff> $sniffs
      */
     public function __construct(
         private readonly Fixer $fixer,

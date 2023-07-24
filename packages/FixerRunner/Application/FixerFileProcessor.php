@@ -33,7 +33,7 @@ final class FixerFileProcessor implements FileProcessorInterface
     private array $fixers = [];
 
     /**
-     * @param RewindableGenerator<int, FixerInterface> $fixers
+     * @param iterable<FixerInterface> $fixers
      */
     public function __construct(
         private readonly FileToTokensParser $fileToTokensParser,
