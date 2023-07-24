@@ -24,8 +24,6 @@ parameters:
 
     bootstrapFiles:
         - tests/bootstrap.php
-        # load functions like service() etc.
-        - vendor/symfony/dependency-injection/Loader/Configurator/ContainerConfigurator.php
 
     ignoreErrors:
         # set above
