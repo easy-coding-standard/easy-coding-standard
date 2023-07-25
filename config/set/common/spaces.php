@@ -8,7 +8,6 @@ use PhpCsFixer\Fixer\CastNotation\CastSpacesFixer;
 use PhpCsFixer\Fixer\ClassNotation\ClassAttributesSeparationFixer;
 use PhpCsFixer\Fixer\ClassNotation\NoBlankLinesAfterClassOpeningFixer;
 use PhpCsFixer\Fixer\ClassNotation\SingleTraitInsertPerStatementFixer;
-use PhpCsFixer\Fixer\FunctionNotation\FunctionTypehintSpaceFixer;
 use PhpCsFixer\Fixer\FunctionNotation\MethodArgumentSpaceFixer;
 use PhpCsFixer\Fixer\FunctionNotation\ReturnTypeDeclarationFixer;
 use PhpCsFixer\Fixer\NamespaceNotation\NoLeadingNamespaceWhitespaceFixer;
@@ -35,7 +34,6 @@ return static function (ECSConfig $ecsConfig): void {
         CastSpacesFixer::class,
         ClassAttributesSeparationFixer::class,
         SingleTraitInsertPerStatementFixer::class,
-        FunctionTypehintSpaceFixer::class,
         NoBlankLinesAfterClassOpeningFixer::class,
         NoSinglelineWhitespaceBeforeSemicolonsFixer::class,
         PhpdocSingleLineVarSpacingFixer::class,
