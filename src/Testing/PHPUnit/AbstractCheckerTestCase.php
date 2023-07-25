@@ -7,10 +7,10 @@ namespace Symplify\EasyCodingStandard\Testing\PHPUnit;
 use Iterator;
 use Nette\Utils\FileSystem;
 use Nette\Utils\Strings;
+use Symplify\EasyCodingStandard\Exception\ShouldNotHappenException;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 use Symplify\EasyCodingStandard\Testing\Contract\ConfigAwareInterface;
-use Symplify\EasyCodingStandard\Testing\Exception\TestingShouldNotHappenException;
 use Symplify\EasyCodingStandard\Tests\Testing\AbstractTestCase;
 use Webmozart\Assert\Assert;
 
@@ -106,7 +106,7 @@ abstract class AbstractCheckerTestCase extends AbstractTestCase implements Confi
             return;
         }
 
-        throw new TestingShouldNotHappenException('No fixers nor sniffers were found. Registers them in your config.');
+        throw new ShouldNotHappenException('No fixers nor sniffers were found. Registers them in your config.');
     }
 
     /**

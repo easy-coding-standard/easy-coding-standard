@@ -27,7 +27,7 @@ $autoloadIncluder->includeCwdVendorAutoloadIfExists();
 $autoloadIncluder->loadIfNotLoadedYet(__DIR__ . '/../vendor/scoper-autoload.php');
 $autoloadIncluder->autoloadProjectAutoloaderFile('/../../autoload.php');
 $autoloadIncluder->includeDependencyOrRepositoryVendorAutoloadIfExists();
-$autoloadIncluder->includePhpCodeSnifferAutoloadIfNotInPharAndInitliazeTokens();
+$autoloadIncluder->includePhpCodeSnifferAutoload();
 
 /**
  * Inspired by https://github.com/rectorphp/rector/pull/2373/files#diff-0fc04a2bb7928cac4ae339d5a8bf67f3
@@ -84,11 +84,9 @@ final class AutoloadIncluder
         $this->loadIfNotLoadedYet($path);
     }
 
-    public function includePhpCodeSnifferAutoloadIfNotInPharAndInitliazeTokens(): void
+    public function includePhpCodeSnifferAutoload(): void
     {
-        // file is autoloaded with classmap in PHAR
-        // without phar, we still need to autoload it
-        # 1. autoload
+        // 1. autoload
         foreach (self::POSSIBLE_AUTOLOAD_PATHS as $possibleAutoloadPath) {
             $possiblePhpCodeSnifferAutoloadPath = $possibleAutoloadPath . '/squizlabs/php_codesniffer/autoload.php';
             if (! is_file($possiblePhpCodeSnifferAutoloadPath)) {

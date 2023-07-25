@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\Caching\ValueObject\Storage;
 
 use Symfony\Component\Filesystem\Filesystem;
-use Symplify\EasyCodingStandard\Caching\Exception\CachingException;
 use Symplify\EasyCodingStandard\Caching\ValueObject\CacheFilePaths;
 use Symplify\EasyCodingStandard\Caching\ValueObject\CacheItem;
+use Symplify\EasyCodingStandard\Exception\ShouldNotHappenException;
 
 /**
  * Inspired by
@@ -59,7 +59,7 @@ final class FileCacheStorage
                 $errorAfter['message']
             );
 
-            throw new CachingException($errorMessage);
+            throw new ShouldNotHappenException($errorMessage);
         }
 
         $variableFileContent = sprintf("<?php declare(strict_types = 1);\n\nreturn %s;", $exported);
