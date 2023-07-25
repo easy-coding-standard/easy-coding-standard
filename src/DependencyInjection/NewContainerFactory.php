@@ -14,7 +14,6 @@ use PhpCsFixer\Differ\UnifiedDiffer;
 use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\WhitespacesFixerConfig;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\Filesystem\Filesystem;
 use Symplify\EasyCodingStandard\Application\SingleFileProcessor;
 use Symplify\EasyCodingStandard\Caching\Cache;
 use Symplify\EasyCodingStandard\Caching\CacheFactory;
@@ -30,16 +29,13 @@ use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\ConflictingCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveExcludedCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualCheckersCompilerPass;
-use Symplify\EasyCodingStandard\Error\FileDiffFactory;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
-use Symplify\EasyCodingStandard\FixerRunner\Parser\FileToTokensParser;
 use Symplify\EasyCodingStandard\FixerRunner\WhitespacesFixerConfigFactory;
 use Symplify\EasyCodingStandard\Parallel\Application\ParallelFileProcessor;
 use Symplify\EasyCodingStandard\Skipper\Skipper\Skipper;
 use Symplify\EasyCodingStandard\Skipper\Skipper\SkipSkipper;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 use Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector;
-use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 use Webmozart\Assert\Assert;
 
 final class NewContainerFactory
@@ -107,33 +103,16 @@ final class NewContainerFactory
 
         $ecsConfig->singleton(DifferInterface::class, static fn (): DifferInterface => new UnifiedDiffer());
 
-        $ecsConfig->singleton(FixerFileProcessor::class, function (Container $container): FixerFileProcessor {
-            $fixers = $this->getTaggedServicesArray($container, FixerInterface::class);
+        // @see https://gist.github.com/pionl/01c40225ceeed8b136306fdd96b5dabd
+        $ecsConfig->singleton(FixerFileProcessor::class, FixerFileProcessor::class);
+        $ecsConfig->when(FixerFileProcessor::class)
+            ->needs('$fixers')
+            ->giveTagged(FixerInterface::class);
 
-            return new FixerFileProcessor(
-                $container->make(FileToTokensParser::class),
-                $container->make(Skipper::class),
-                $container->make(DifferInterface::class),
-                $container->make(EasyCodingStandardStyle::class),
-                $container->make(Filesystem::class),
-                $container->make(FileDiffFactory::class),
-                $fixers
-            );
-        });
-
-        $ecsConfig->singleton(SniffFileProcessor::class, function (Container $container): SniffFileProcessor {
-            $sniffs = $this->getTaggedServicesArray($container, Sniff::class);
-
-            return new SniffFileProcessor(
-                $container->make(Fixer::class),
-                $container->make(FileFactory::class),
-                $container->make(DifferInterface::class),
-                $container->make(SniffMetadataCollector::class),
-                $container->make(Filesystem::class),
-                $container->make(FileDiffFactory::class),
-                $sniffs,
-            );
-        });
+        $ecsConfig->singleton(SniffFileProcessor::class, SniffFileProcessor::class);
+        $ecsConfig->when(SniffFileProcessor::class)
+            ->needs('$sniffs')
+            ->giveTagged(Sniff::class);
 
         // load default config first
         $configFiles = array_merge([__DIR__ . '/../../config/config.php'], $configFiles);
@@ -199,24 +178,5 @@ final class NewContainerFactory
 
             new Tokens();
         }
-    }
-
-    /**
-     * @template TType of object
-     * @param class-string<TType> $type
-     * @return TType[]
-     */
-    private function getTaggedServicesArray(Container $container, string $type): array
-    {
-        /** @var RewindableGenerator<TType>|TType[] $rewindableGenerator */
-        $rewindableGenerator = $container->tagged($type);
-
-        // turn generator to array
-        if (! is_array($rewindableGenerator)) {
-            return iterator_to_array($rewindableGenerator->getIterator());
-        }
-
-        // return array
-        return $rewindableGenerator;
     }
 }
