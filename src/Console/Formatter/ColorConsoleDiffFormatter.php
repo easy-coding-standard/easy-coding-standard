@@ -10,6 +10,8 @@ use Symfony\Component\Console\Formatter\OutputFormatter;
 /**
  * Inspired by @see https://github.com/FriendsOfPHP/PHP-CS-Fixer/blob/master/src/Differ/DiffConsoleFormatter.php to be
  * used as standalone class, without need to require whole package by Dariusz Rumiński <dariusz.ruminski@gmail.com>
+ *
+ * @see \Symplify\EasyCodingStandard\Tests\Console\Formatter\ColorConsoleDiffFormatterTest
  */
 final class ColorConsoleDiffFormatter
 {
