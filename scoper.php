@@ -116,7 +116,10 @@ return [
 
         // fixes https://github.com/symplify/symplify/issues/3205
         function (string $filePath, string $prefix, string $content): string {
-            if (! str_ends_with($filePath, 'src/Testing/PHPUnit/AbstractCheckerTestCase.php')) {
+            if (
+                ! str_ends_with($filePath, 'src/Testing/PHPUnit/AbstractCheckerTestCase.php') &&
+                ! str_ends_with($filePath, 'src/Testing/PHPUnit/AbstractTestCase.php')
+            ) {
                 return $content;
             }
 
