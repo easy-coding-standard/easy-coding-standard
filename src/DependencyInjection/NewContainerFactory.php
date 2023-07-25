@@ -15,8 +15,10 @@ use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\WhitespacesFixerConfig;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Filesystem\Filesystem;
+use Symplify\EasyCodingStandard\Application\SingleFileProcessor;
 use Symplify\EasyCodingStandard\Caching\Cache;
 use Symplify\EasyCodingStandard\Caching\CacheFactory;
+use Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
@@ -49,6 +51,10 @@ final class NewContainerFactory
         $this->loadPHPCodeSnifferConstants();
 
         $ecsConfig = new ECSConfig();
+
+        // make sure these services have shared instance created just once, as use setters throughout the project
+        $ecsConfig->singleton(ChangedFilesDetector::class);
+        $ecsConfig->singleton(SingleFileProcessor::class);
 
         // console
         $ecsConfig->singleton(EasyCodingStandardStyle::class, static function (Container $container) {
