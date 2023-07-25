@@ -7,10 +7,10 @@ namespace Symplify\EasyCodingStandard\Tests\Skipper\Skipper\Skipper;
 use Iterator;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symplify\EasyCodingStandard\Skipper\Skipper\Skipper;
+use Symplify\EasyCodingStandard\Testing\PHPUnit\AbstractTestCase;
 use Symplify\EasyCodingStandard\Tests\Skipper\Skipper\Skipper\Fixture\Element\FifthElement;
 use Symplify\EasyCodingStandard\Tests\Skipper\Skipper\Skipper\Fixture\Element\SixthSense;
 use Symplify\EasyCodingStandard\Tests\Skipper\Skipper\Skipper\Fixture\Element\ThreeMan;
-use Symplify\EasyCodingStandard\Testing\PHPUnit\AbstractTestCase;
 
 final class SkipperTest extends AbstractTestCase
 {
