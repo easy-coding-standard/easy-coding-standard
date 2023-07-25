@@ -6,7 +6,7 @@ namespace Symplify\EasyCodingStandard\Tests\DependencyInjection\ConflictingCheck
 
 use Symplify\EasyCodingStandard\Exception\Configuration\ConflictingCheckersLoadedException;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
-use Symplify\EasyCodingStandard\Tests\Testing\AbstractTestCase;
+use Symplify\EasyCodingStandard\Testing\PHPUnit\AbstractTestCase;
 
 final class ConflictingCheckersTest extends AbstractTestCase
 {

@@ -6,7 +6,7 @@ namespace Symplify\EasyCodingStandard\Tests\DependencyInjection\MutualExcludedCh
 
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
-use Symplify\EasyCodingStandard\Tests\Testing\AbstractTestCase;
+use Symplify\EasyCodingStandard\Testing\PHPUnit\AbstractTestCase;
 
 final class MutualExcludedCheckersTest extends AbstractTestCase
 {

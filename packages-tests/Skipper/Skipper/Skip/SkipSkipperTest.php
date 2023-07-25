@@ -10,7 +10,7 @@ use Symplify\EasyCodingStandard\Skipper\Skipper\Skipper;
 use Symplify\EasyCodingStandard\Tests\Skipper\Skipper\Skip\Source\AnotherClassToSkip;
 use Symplify\EasyCodingStandard\Tests\Skipper\Skipper\Skip\Source\NotSkippedClass;
 use Symplify\EasyCodingStandard\Tests\Skipper\Skipper\Skip\Source\SomeClassToSkip;
-use Symplify\EasyCodingStandard\Tests\Testing\AbstractTestCase;
+use Symplify\EasyCodingStandard\Testing\PHPUnit\AbstractTestCase;
 
 final class SkipSkipperTest extends AbstractTestCase
 {

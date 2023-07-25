@@ -6,7 +6,7 @@ namespace Symplify\EasyCodingStandard\Tests\Finder;
 
 use Symplify\EasyCodingStandard\DependencyInjection\SimpleParameterProvider;
 use Symplify\EasyCodingStandard\Finder\SourceFinder;
-use Symplify\EasyCodingStandard\Tests\Testing\AbstractTestCase;
+use Symplify\EasyCodingStandard\Testing\PHPUnit\AbstractTestCase;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 
 final class SourceFinderTest extends AbstractTestCase

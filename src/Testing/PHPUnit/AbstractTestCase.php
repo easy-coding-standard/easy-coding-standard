@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Symplify\EasyCodingStandard\Tests\Testing;
+namespace Symplify\EasyCodingStandard\Testing\PHPUnit;
 
 use Illuminate\Container\Container;
 use PHPUnit\Framework\TestCase;

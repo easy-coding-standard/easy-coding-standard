@@ -11,7 +11,6 @@ use Symplify\EasyCodingStandard\Exception\ShouldNotHappenException;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 use Symplify\EasyCodingStandard\Testing\Contract\ConfigAwareInterface;
-use Symplify\EasyCodingStandard\Tests\Testing\AbstractTestCase;
 use Webmozart\Assert\Assert;
 
 // needed for scoped version to load unprefixed classes; does not have any effect inside the class

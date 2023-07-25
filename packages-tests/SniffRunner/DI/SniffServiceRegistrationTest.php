@@ -6,7 +6,7 @@ namespace Symplify\EasyCodingStandard\Tests\SniffRunner\DI;
 
 use PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineLengthSniff;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
-use Symplify\EasyCodingStandard\Tests\Testing\AbstractTestCase;
+use Symplify\EasyCodingStandard\Testing\PHPUnit\AbstractTestCase;
 
 final class SniffServiceRegistrationTest extends AbstractTestCase
 {

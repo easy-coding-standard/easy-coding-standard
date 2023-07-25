@@ -7,7 +7,7 @@ namespace Symplify\EasyCodingStandard\Tests\Indentation;
 use PhpCsFixer\Fixer\Whitespace\IndentationTypeFixer;
 use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
 use PhpCsFixer\WhitespacesFixerConfig;
-use Symplify\EasyCodingStandard\Tests\Testing\AbstractTestCase;
+use Symplify\EasyCodingStandard\Testing\PHPUnit\AbstractTestCase;
 use Symplify\EasyCodingStandard\Utils\PrivatesAccessorHelper;
 
 final class IndentationTest extends AbstractTestCase

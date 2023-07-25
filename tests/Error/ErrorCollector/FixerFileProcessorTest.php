@@ -6,7 +6,7 @@ namespace Symplify\EasyCodingStandard\Tests\Error\ErrorCollector;
 
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
-use Symplify\EasyCodingStandard\Tests\Testing\AbstractTestCase;
+use Symplify\EasyCodingStandard\Testing\PHPUnit\AbstractTestCase;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 
 final class FixerFileProcessorTest extends AbstractTestCase

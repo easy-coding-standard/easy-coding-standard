@@ -8,7 +8,7 @@ use PHP_CodeSniffer\Files\File as PhpCodeSnifferFile;
 use PHP_CodeSniffer\Fixer;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\File;
-use Symplify\EasyCodingStandard\Tests\Testing\AbstractTestCase;
+use Symplify\EasyCodingStandard\Testing\PHPUnit\AbstractTestCase;
 
 final class FileFactoryTest extends AbstractTestCase
 {

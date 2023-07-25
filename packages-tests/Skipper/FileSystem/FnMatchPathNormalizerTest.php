@@ -7,7 +7,7 @@ namespace Symplify\EasyCodingStandard\Tests\Skipper\FileSystem;
 use Iterator;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symplify\EasyCodingStandard\Skipper\FileSystem\FnMatchPathNormalizer;
-use Symplify\EasyCodingStandard\Tests\Testing\AbstractTestCase;
+use Symplify\EasyCodingStandard\Testing\PHPUnit\AbstractTestCase;
 
 final class FnMatchPathNormalizerTest extends AbstractTestCase
 {

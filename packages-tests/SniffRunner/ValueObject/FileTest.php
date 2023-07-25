@@ -6,7 +6,7 @@ namespace Symplify\EasyCodingStandard\Tests\SniffRunner\ValueObject;
 
 use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
-use Symplify\EasyCodingStandard\Tests\Testing\AbstractTestCase;
+use Symplify\EasyCodingStandard\Testing\PHPUnit\AbstractTestCase;
 
 final class FileTest extends AbstractTestCase
 {
