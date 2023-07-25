@@ -16,7 +16,7 @@
         "squizlabs/php_codesniffer": "^3.7.2",
         "symfony/console": "^6.3",
         "symfony/finder": "^6.3",
-        "symplify/coding-standard": "^11.4",
+        "symplify/coding-standard": "dev-main",
         "symplify/easy-parallel": "^11.1",
         "webmozart/assert": "^1.11"
     },
