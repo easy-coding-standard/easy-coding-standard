@@ -34,7 +34,9 @@ use Symplify\EasyCodingStandard\Error\FileDiffFactory;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\FixerRunner\Parser\FileToTokensParser;
 use Symplify\EasyCodingStandard\FixerRunner\WhitespacesFixerConfigFactory;
+use Symplify\EasyCodingStandard\Parallel\Application\ParallelFileProcessor;
 use Symplify\EasyCodingStandard\Skipper\Skipper\Skipper;
+use Symplify\EasyCodingStandard\Skipper\Skipper\SkipSkipper;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 use Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
@@ -55,6 +57,9 @@ final class NewContainerFactory
         // make sure these services have shared instance created just once, as use setters throughout the project
         $ecsConfig->singleton(ChangedFilesDetector::class);
         $ecsConfig->singleton(SingleFileProcessor::class);
+        $ecsConfig->singleton(ParallelFileProcessor::class);
+        $ecsConfig->singleton(Skipper::class);
+        $ecsConfig->singleton(SkipSkipper::class);
 
         // console
         $ecsConfig->singleton(EasyCodingStandardStyle::class, static function (Container $container) {
