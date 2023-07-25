@@ -1,0 +1,10 @@
+--- /dev/null
++++ ../Helper/Helper.php
+@@ -46,6 +46,7 @@
+     public static function width(?string $string): int
+     {
+         $string ??= '';
++        return strlen($string);
+ 
+         if (preg_match('//u', $string)) {
+             return (new UnicodeString($string))->width(false);

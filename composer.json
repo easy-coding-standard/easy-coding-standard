@@ -2,7 +2,12 @@
     "name": "symplify/easy-coding-standard",
     "description": "Use Coding Standard with 0-knowledge of PHP-CS-Fixer and PHP_CodeSniffer.",
     "license": "MIT",
-    "keywords": ["static analysis", "code style", "automation", "fixer"],
+    "keywords": [
+        "static analysis",
+        "code style",
+        "automation",
+        "fixer"
+    ],
     "bin": [
         "bin/ecs"
     ],
@@ -32,6 +37,7 @@
         "rector/rector": "^0.17.1",
         "symplify/easy-ci": "^11.1",
         "symplify/phpstan-extensions": "^11.2",
+        "symplify/vendor-patches": "^11.2",
         "tomasvotruba/class-leak": "0.0.22.72",
         "tracy/tracy": "^2.9"
     },
@@ -74,8 +80,16 @@
         "symfony/polyfill-intl-normalizer": "*",
         "symfony/event-dispatcher": "6.*",
         "symfony/process": "6.*",
-        "symfony/stopwatch": "6.*"
+        "symfony/stopwatch": "6.*",
+        "symfony/string": "6.*"
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "extra": {
+        "patches": {
+            "symfony/console": [
+                "patches/symfony-console-helper-helper-php.patch"
+            ]
+        }
+    }
 }
