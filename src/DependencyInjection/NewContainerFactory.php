@@ -161,6 +161,8 @@ final class NewContainerFactory
                 return;
             }
 
+
+
             $removeMutualCheckersCompilerPass = new RemoveMutualCheckersCompilerPass();
             $removeMutualCheckersCompilerPass->process($ecsConfig);
 
