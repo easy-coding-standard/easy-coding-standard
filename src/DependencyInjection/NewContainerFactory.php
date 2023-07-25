@@ -173,7 +173,18 @@ final class NewContainerFactory
                 define('T_MATCH', 5000);
             }
 
+            if (! defined('T_READONLY')) {
+                define('T_READONLY', 5010);
+            }
+
+            if (! defined('T_ENUM')) {
+                define('T_ENUM', 5015);
+            }
+
+            // for PHP_CodeSniffer
+            define('PHP_CODESNIFFER_CBF', false);
             define('PHP_CODESNIFFER_VERBOSITY', 0);
+
             new Tokens();
         }
     }
