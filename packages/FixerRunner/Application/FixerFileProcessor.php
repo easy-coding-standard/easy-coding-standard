@@ -13,7 +13,7 @@ use SplFileInfo;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Error\FileDiffFactory;
-use Symplify\EasyCodingStandard\FixerRunner\Exception\Application\FixerFailedException;
+use Symplify\EasyCodingStandard\Exception\ShouldNotHappenException;
 use Symplify\EasyCodingStandard\FixerRunner\Parser\FileToTokensParser;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
 use Symplify\EasyCodingStandard\Skipper\Skipper\Skipper;
@@ -155,7 +155,7 @@ final class FixerFileProcessor implements FileProcessorInterface
         try {
             $fixer->fix(new SplFileInfo($filePath), $tokens);
         } catch (Throwable $throwable) {
-            throw new FixerFailedException(sprintf(
+            throw new ShouldNotHappenException(sprintf(
                 'Fixing of "%s" file by "%s" failed: %s in file %s on line %d',
                 $filePath,
                 $fixer::class,
