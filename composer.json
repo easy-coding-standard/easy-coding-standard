@@ -71,7 +71,6 @@
     "replace": {
         "symfony/polyfill-intl-normalizer": "*",
         "symfony/event-dispatcher": "6.*",
-        "symfony/options-resolver": "6.*",
         "symfony/process": "6.*",
         "symfony/stopwatch": "6.*"
     },
