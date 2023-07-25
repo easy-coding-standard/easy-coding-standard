@@ -56,6 +56,7 @@ final class NewContainerFactory
 
         // make sure these services have shared instance created just once, as use setters throughout the project
         $ecsConfig->singleton(ChangedFilesDetector::class);
+        $ecsConfig->singleton(SniffMetadataCollector::class);
         $ecsConfig->singleton(SingleFileProcessor::class);
         $ecsConfig->singleton(ParallelFileProcessor::class);
         $ecsConfig->singleton(Skipper::class);
@@ -160,8 +161,6 @@ final class NewContainerFactory
             if ($hasRunAfterResolving) {
                 return;
             }
-
-
 
             $removeMutualCheckersCompilerPass = new RemoveMutualCheckersCompilerPass();
             $removeMutualCheckersCompilerPass->process($ecsConfig);
