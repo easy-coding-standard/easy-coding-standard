@@ -69,7 +69,11 @@
         "rector": "vendor/bin/rector process --dry-run --ansi"
     },
     "replace": {
-        "symfony/polyfill-intl-normalizer": "*"
+        "symfony/polyfill-intl-normalizer": "*",
+        "symfony/event-dispatcher": "6.*",
+        "symfony/options-resolver": "6.*",
+        "symfony/process": "6.*",
+        "symfony/stopwatch": "6.*"
     },
     "minimum-stability": "dev",
     "prefer-stable": true
