@@ -90,16 +90,10 @@ final class NewContainerFactory
         $ecsConfig->singleton(JsonOutputFormatter::class);
         $ecsConfig->tag(JsonOutputFormatter::class, OutputFormatterInterface::class);
 
-        $ecsConfig->singleton(
-            OutputFormatterCollector::class,
-            static function (Container $container): OutputFormatterCollector {
-                /** @var RewindableGenerator<int, OutputFormatterInterface> $outputFormattersRewindableGenerator */
-                $outputFormattersRewindableGenerator = $container->tagged(OutputFormatterInterface::class);
-                return new OutputFormatterCollector(iterator_to_array(
-                    $outputFormattersRewindableGenerator->getIterator()
-                ));
-            }
-        );
+        $ecsConfig->singleton(OutputFormatterCollector::class, OutputFormatterCollector::class);
+        $ecsConfig->when(OutputFormatterCollector::class)
+            ->needs('$outputFormatters')
+            ->giveTagged(OutputFormatterInterface::class);
 
         $ecsConfig->singleton(DifferInterface::class, static fn (): DifferInterface => new UnifiedDiffer());
 
