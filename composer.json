@@ -87,6 +87,9 @@
     "prefer-stable": true,
     "extra": {
         "patches": {
+            "illuminate/container": [
+                "patches/illuminate-container-container-php.patch"
+            ],
             "symfony/console": [
                 "patches/symfony-console-helper-helper-php.patch"
             ]
