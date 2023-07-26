@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\DependencyInjection;
 
 use Illuminate\Container\Container;
-use Illuminate\Container\RewindableGenerator;
 use PHP_CodeSniffer\Fixer;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
