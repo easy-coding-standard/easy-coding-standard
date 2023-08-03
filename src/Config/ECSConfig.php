@@ -82,7 +82,7 @@ final class ECSConfig extends Container
     }
 
     /**
-     * @param class-string $checkerClass
+     * @param class-string<Sniff|FixerInterface> $checkerClass
      * @param mixed[] $configuration
      */
     public function ruleWithConfiguration(string $checkerClass, array $configuration): void
@@ -94,6 +94,7 @@ final class ECSConfig extends Container
         // tag for autowiring of tagged_iterator()
         $interfaceTag = is_a($checkerClass, Sniff::class, true) ? Sniff::class : FixerInterface::class;
         $this->tag($checkerClass, $interfaceTag);
+        $this->autowireWhitespaceAwareFixer($checkerClass);
 
         if (is_a($checkerClass, FixerInterface::class, true)) {
             Assert::isAnyOf($checkerClass, [ConfigurableFixerInterface::class, ConfigurableRuleInterface::class]);
