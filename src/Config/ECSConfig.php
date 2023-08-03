@@ -82,7 +82,7 @@ final class ECSConfig extends Container
     }
 
     /**
-     * @param class-string $checkerClass
+     * @param class-string<Sniff|FixerInterface> $checkerClass
      * @param mixed[] $configuration
      */
     public function ruleWithConfiguration(string $checkerClass, array $configuration): void
