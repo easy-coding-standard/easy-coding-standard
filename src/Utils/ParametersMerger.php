@@ -18,7 +18,7 @@ final class ParametersMerger
             return $this->mergeLeftToRightWithCallable(
                 $left,
                 $right,
-                fn ($leftValue, $rightValue) => $this->merge($leftValue, $rightValue)
+                fn ($leftValue, $rightValue): mixed => $this->merge($leftValue, $rightValue)
             );
         }
 
@@ -44,7 +44,7 @@ final class ParametersMerger
             return $this->mergeLeftToRightWithCallable(
                 $left,
                 $right,
-                fn ($leftValue, $rightValue) => $this->mergeWithCombine($leftValue, $rightValue)
+                fn ($leftValue, $rightValue): mixed => $this->mergeWithCombine($leftValue, $rightValue)
             );
         }
 
