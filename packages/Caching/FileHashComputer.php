@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\Caching;
 
 use Nette\Utils\Json;
+use Symplify\EasyCodingStandard\Application\Version\StaticVersionResolver;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 use Symplify\EasyCodingStandard\DependencyInjection\SimpleParameterProvider;
 use Symplify\EasyCodingStandard\Exception\Configuration\FileNotFoundException;
@@ -26,7 +27,7 @@ final class FileHashComputer
         // hash the container setup
         $fileHash = sha1(Json::encode($ecsConfig->getBindings()));
 
-        return $fileHash . SimpleParameterProvider::hash();
+        return sha1($fileHash . SimpleParameterProvider::hash() . StaticVersionResolver::PACKAGE_VERSION) ;
     }
 
     public function compute(string $filePath): string
