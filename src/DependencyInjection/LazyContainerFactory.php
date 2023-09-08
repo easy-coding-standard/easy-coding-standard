@@ -25,9 +25,6 @@ use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyleFactory;
 use Symplify\EasyCodingStandard\Console\Style\SymfonyStyleFactory;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
-use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\ConflictingCheckersCompilerPass;
-use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveExcludedCheckersCompilerPass;
-use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualCheckersCompilerPass;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\FixerRunner\WhitespacesFixerConfigFactory;
 use Symplify\EasyCodingStandard\Parallel\Application\ParallelFileProcessor;
@@ -42,9 +39,8 @@ final class LazyContainerFactory
     /**
      * @param string[] $configFiles
      */
-    public function create(array $configFiles = []): Container
+    public function create(array $configFiles = []): ECSConfig
     {
-        $ecsContainer = null;
         $this->loadPHPCodeSnifferConstants();
 
         $ecsConfig = new ECSConfig();
@@ -116,32 +112,6 @@ final class LazyContainerFactory
 
             $configClosure($ecsConfig);
         }
-
-        // compiler passes-like
-        $ecsConfig->beforeResolving(
-            FixerFileProcessor::class,
-            static function ($object, $misc, ECSConfig $ecsConfig): void {
-                $removeExcludedCheckersCompilerPass = new RemoveExcludedCheckersCompilerPass();
-                $removeExcludedCheckersCompilerPass->process($ecsConfig);
-            }
-        );
-
-        $hasRunAfterResolving = false;
-
-        $ecsConfig->afterResolving(static function ($object, ECSConfig $ecsConfig) use (&$hasRunAfterResolving): void {
-            // run just once
-            if ($hasRunAfterResolving) {
-                return;
-            }
-
-            $removeMutualCheckersCompilerPass = new RemoveMutualCheckersCompilerPass();
-            $removeMutualCheckersCompilerPass->process($ecsConfig);
-
-            $conflictingCheckersCompilerPass = new ConflictingCheckersCompilerPass();
-            $conflictingCheckersCompilerPass->process($ecsConfig);
-
-            $hasRunAfterResolving = true;
-        });
 
         return $ecsConfig;
     }

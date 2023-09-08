@@ -15,8 +15,10 @@ abstract class AbstractTestCase extends TestCase
 
     protected function setUp(): void
     {
-        $newContainerFactory = new LazyContainerFactory();
-        $this->container = $newContainerFactory->create();
+        $lazyContainerFactory = new LazyContainerFactory();
+
+        $this->container = $lazyContainerFactory->create();
+        $this->container->boot();
     }
 
     /**
@@ -27,8 +29,10 @@ abstract class AbstractTestCase extends TestCase
         Assert::allString($configs);
         Assert::allFile($configs);
 
-        $newContainerFactory = new LazyContainerFactory();
-        $this->container = $newContainerFactory->create($configs);
+        $lazyContainerFactory = new LazyContainerFactory();
+        $this->container = $lazyContainerFactory->create($configs);
+
+        $this->container->boot();
     }
 
     /**
