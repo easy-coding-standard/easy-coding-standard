@@ -16,7 +16,7 @@ final class EasyCodingStandardContainerFactory
     public function createFromFromInput(ArgvInput $argvInput): Container
     {
         // $easyCodingStandardKernel = new EasyCodingStandardKernel();
-        $newContainerFactory = new NewContainerFactory();
+        $lazyContainerFactory = new LazyContainerFactory();
 
         $inputConfigFiles = [];
         $rootECSConfig = getcwd() . DIRECTORY_SEPARATOR . 'ecs.php';
@@ -31,7 +31,8 @@ final class EasyCodingStandardContainerFactory
             $inputConfigFiles[] = $rootECSConfig;
         }
 
-        $container = $newContainerFactory->create($inputConfigFiles);
+        $container = $lazyContainerFactory->create($inputConfigFiles);
+        $container->boot();
 
         if ($inputConfigFiles !== []) {
             // for cache invalidation on config change

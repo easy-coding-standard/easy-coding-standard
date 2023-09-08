@@ -12,6 +12,9 @@ use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
 use PhpCsFixer\FixerFactory;
 use PhpCsFixer\RuleSet\RuleSet;
 use PhpCsFixer\WhitespacesFixerConfig;
+use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\ConflictingCheckersCompilerPass;
+use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveExcludedCheckersCompilerPass;
+use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\SimpleParameterProvider;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 use Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
@@ -224,6 +227,18 @@ final class ECSConfig extends Container
         Assert::isCallable($closureFilePath);
 
         $closureFilePath($self);
+    }
+
+    public function boot(): void
+    {
+        $removeExcludedCheckersCompilerPass = new RemoveExcludedCheckersCompilerPass();
+        $removeExcludedCheckersCompilerPass->process($this);
+
+        $removeMutualCheckersCompilerPass = new RemoveMutualCheckersCompilerPass();
+        $removeMutualCheckersCompilerPass->process($this);
+
+        $conflictingCheckersCompilerPass = new ConflictingCheckersCompilerPass();
+        $conflictingCheckersCompilerPass->process($this);
     }
 
     /**
