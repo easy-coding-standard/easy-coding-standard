@@ -13,6 +13,7 @@ use Symfony\Component\Finder\Finder;
 final class FixtureFinder
 {
     /**
+     * @api used in tests
      * @return Iterator<array<string>>
      */
     public static function yieldDataProviderFiles(string $directory, string $suffix = '*.php.inc'): Iterator

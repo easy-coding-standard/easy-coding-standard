@@ -27,7 +27,7 @@ final class FileHashComputer
         // hash the container setup
         $fileHash = sha1(Json::encode($ecsConfig->getBindings()));
 
-        return sha1($fileHash . SimpleParameterProvider::hash() . StaticVersionResolver::PACKAGE_VERSION) ;
+        return sha1($fileHash . SimpleParameterProvider::hash() . StaticVersionResolver::PACKAGE_VERSION);
     }
 
     public function compute(string $filePath): string
