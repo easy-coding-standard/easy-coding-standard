@@ -85,6 +85,7 @@ final class Option
     public const FILE_EXTENSIONS = 'file_extensions';
 
     /**
+     * @api
      * @var string
      */
     public const INDENTATION_SPACES = 'spaces';

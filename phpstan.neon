@@ -39,6 +39,10 @@ parameters:
 
         - '#Parameter \#1 \$skips of method Symplify\\EasyCodingStandard\\Config\\ECSConfig\:\:skip\(\) expects array<class\-string<PHP_CodeSniffer\\Sniffs\\Sniff\|PhpCsFixer\\Fixer\\FixerInterface>\|int, array<int, string>\|string\|null>, array<int\|string, array<int, string>\|string\|null> given#'
 
+        # complex cases
+        - '#Cognitive complexity for "Symplify\\EasyCodingStandard\\Parallel\\Application\\ParallelFileProcessor\:\:check\(\)" is 21, keep it under 9#'
+        - '#Cognitive complexity for "Symplify\\EasyCodingStandard\\Utils\\ParametersMerger\:\:mergeLeftToRightWithCallable\(\)" is 10, keep it under 9#'
+
         # false positive on custom config tets
         -
             message: '#Missing call to parent\:\:setUp\(\) method#'
