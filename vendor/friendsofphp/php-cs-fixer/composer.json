@@ -1,0 +1,146 @@
+{
+    "name": "friendsofphp\/php-cs-fixer",
+    "description": "A tool to automatically fix PHP code style",
+    "license": "MIT",
+    "type": "application",
+    "keywords": [
+        "fixer",
+        "standards",
+        "static analysis",
+        "static code analysis"
+    ],
+    "authors": [
+        {
+            "name": "Fabien Potencier",
+            "email": "fabien@symfony.com"
+        },
+        {
+            "name": "Dariusz Rumi\u0144ski",
+            "email": "dariusz.ruminski@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.4 || ^8.0",
+        "ext-json": "*",
+        "ext-tokenizer": "*",
+        "composer\/semver": "^3.3",
+        "composer\/xdebug-handler": "^3.0.3",
+        "sebastian\/diff": "^4.0 || ^5.0",
+        "symfony\/console": "^5.4 || ^6.0",
+        "symfony\/event-dispatcher": "^5.4 || ^6.0",
+        "symfony\/filesystem": "^5.4 || ^6.0",
+        "symfony\/finder": "^5.4 || ^6.0",
+        "symfony\/options-resolver": "^5.4 || ^6.0",
+        "symfony\/polyfill-mbstring": "^1.27",
+        "symfony\/polyfill-php80": "^1.27",
+        "symfony\/polyfill-php81": "^1.27",
+        "symfony\/process": "^5.4 || ^6.0",
+        "symfony\/stopwatch": "^5.4 || ^6.0"
+    },
+    "require-dev": {
+        "facile-it\/paraunit": "^1.3 || ^2.0",
+        "justinrainbow\/json-schema": "^5.2",
+        "keradus\/cli-executor": "^2.0",
+        "mikey179\/vfsstream": "^1.6.11",
+        "php-coveralls\/php-coveralls": "^2.5.3",
+        "php-cs-fixer\/accessible-object": "^1.1",
+        "php-cs-fixer\/phpunit-constraint-isidenticalstring": "^1.2",
+        "php-cs-fixer\/phpunit-constraint-xmlmatchesxsd": "^1.2.1",
+        "phpspec\/prophecy": "^1.16",
+        "phpspec\/prophecy-phpunit": "^2.0",
+        "phpunit\/phpunit": "^9.5",
+        "phpunitgoodpractices\/polyfill": "^1.6",
+        "phpunitgoodpractices\/traits": "^1.9.2",
+        "symfony\/phpunit-bridge": "^6.2.3",
+        "symfony\/yaml": "^5.4 || ^6.0"
+    },
+    "suggest": {
+        "ext-dom": "For handling output formats in XML",
+        "ext-mbstring": "For handling non-UTF8 characters."
+    },
+    "autoload": {
+        "psr-4": {
+            "PhpCsFixer\\": "src\/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "PhpCsFixer\\Tests\\": "tests\/"
+        }
+    },
+    "bin": [
+        "php-cs-fixer"
+    ],
+    "config": {
+        "allow-plugins": {
+            "ergebnis\/composer-normalize": true
+        },
+        "sort-packages": true
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "@install-tools"
+        ],
+        "cs:check": "@php php-cs-fixer fix --dry-run --diff",
+        "cs:fix": "@php php-cs-fixer fix",
+        "docs": "@php dev-tools\/doc.php",
+        "install-tools": "@composer --working-dir=dev-tools install",
+        "mess-detector": "@php dev-tools\/vendor\/bin\/phpmd . ansi dev-tools\/mess-detector\/phpmd.xml --exclude vendor\/*,dev-tools\/vendor\/*,dev-tools\/phpstan\/*,tests\/Fixtures\/*",
+        "normalize": [
+            "@composer normalize --working-dir=dev-tools --dry-run ..\/composer.json",
+            "@composer normalize --working-dir=dev-tools --dry-run composer.json"
+        ],
+        "phpstan": "@php -d memory_limit=512M dev-tools\/vendor\/bin\/phpstan analyse",
+        "phpstan:baseline": "@php -d memory_limit=512M dev-tools\/vendor\/bin\/phpstan analyse --generate-baseline=.\/dev-tools\/phpstan\/baseline.php",
+        "qa": "@quality-assurance",
+        "quality-assurance": [
+            "Composer\\Config::disableProcessTimeout",
+            "@install-tools --quiet",
+            "@self-check",
+            "@sa",
+            "@test"
+        ],
+        "require-checker": "@php dev-tools\/vendor\/bin\/composer-require-checker check composer.json --config-file .composer-require-checker.json",
+        "sa": "@static-analysis",
+        "self-check": [
+            ".\/dev-tools\/check_file_permissions.sh",
+            ".\/dev-tools\/check_trailing_spaces.sh",
+            "@normalize",
+            "@require-checker"
+        ],
+        "static-analysis": [
+            "@cs:check",
+            "@phpstan",
+            "@mess-detector"
+        ],
+        "test": "@test:all",
+        "test:all": [
+            "Composer\\Config::disableProcessTimeout",
+            "paraunit run --testsuite all"
+        ],
+        "test:coverage": [
+            "Composer\\Config::disableProcessTimeout",
+            "paraunit run --testsuite coverage"
+        ]
+    },
+    "scripts-descriptions": {
+        "cs:check": "Check coding standards",
+        "cs:fix": "Fix coding standards",
+        "docs": "Regenerate docs",
+        "install-tools": "Install DEV tools",
+        "mess-detector": "Analyse code with Mess Detector",
+        "normalize": "Run normalization for composer.json files",
+        "phpstan": "Run PHPStan analysis",
+        "phpstan:baseline": "Dump PHPStan baseline file - use only for updating, do not add new errors when possible",
+        "post-autoload-dump": "Run additional tasks after installing\/updating main dependencies",
+        "qa": "Alias for 'quality-assurance'",
+        "quality-assurance": "Run QA suite",
+        "require-checker": "Verifies if codebase does not contain soft dependencies",
+        "sa": "Alias for 'static-analysis'",
+        "self-check": "Run set of self-checks ensuring repository's validity",
+        "static-analysis": "Run static analysis",
+        "test": "Alias for 'test:all'",
+        "test:all": "Run all tests",
+        "test:coverage": "Run tool-related tests"
+    }
+}

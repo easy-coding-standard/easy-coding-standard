@@ -1,16 +1,12 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace ECSPrefix202309;
 
 use PhpCsFixer\Fixer\Import\NoUnusedImportsFixer;
 use PhpCsFixer\Fixer\Import\OrderedImportsFixer;
 use PhpCsFixer\Fixer\NamespaceNotation\SingleBlankLineBeforeNamespaceFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
-
-return static function (ECSConfig $ecsConfig): void {
-    $ecsConfig->rules([
-        NoUnusedImportsFixer::class,
-        OrderedImportsFixer::class,
-        SingleBlankLineBeforeNamespaceFixer::class,
-    ]);
+return static function (ECSConfig $ecsConfig) : void {
+    $ecsConfig->rules([NoUnusedImportsFixer::class, OrderedImportsFixer::class, SingleBlankLineBeforeNamespaceFixer::class]);
 };
