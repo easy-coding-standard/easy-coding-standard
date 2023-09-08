@@ -6,7 +6,7 @@ namespace Symplify\EasyCodingStandard\Testing\PHPUnit;
 
 use Illuminate\Container\Container;
 use PHPUnit\Framework\TestCase;
-use Symplify\EasyCodingStandard\DependencyInjection\NewContainerFactory;
+use Symplify\EasyCodingStandard\DependencyInjection\LazyContainerFactory;
 use Webmozart\Assert\Assert;
 
 abstract class AbstractTestCase extends TestCase
@@ -15,7 +15,7 @@ abstract class AbstractTestCase extends TestCase
 
     protected function setUp(): void
     {
-        $newContainerFactory = new NewContainerFactory();
+        $newContainerFactory = new LazyContainerFactory();
         $this->container = $newContainerFactory->create();
     }
 
@@ -27,7 +27,7 @@ abstract class AbstractTestCase extends TestCase
         Assert::allString($configs);
         Assert::allFile($configs);
 
-        $newContainerFactory = new NewContainerFactory();
+        $newContainerFactory = new LazyContainerFactory();
         $this->container = $newContainerFactory->create($configs);
     }
 

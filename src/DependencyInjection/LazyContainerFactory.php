@@ -37,7 +37,7 @@ use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 use Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector;
 use Webmozart\Assert\Assert;
 
-final class NewContainerFactory
+final class LazyContainerFactory
 {
     /**
      * @param string[] $configFiles

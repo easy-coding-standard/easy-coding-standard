@@ -16,7 +16,7 @@ final class EasyCodingStandardContainerFactory
     public function createFromFromInput(ArgvInput $argvInput): Container
     {
         // $easyCodingStandardKernel = new EasyCodingStandardKernel();
-        $newContainerFactory = new NewContainerFactory();
+        $newContainerFactory = new LazyContainerFactory();
 
         $inputConfigFiles = [];
         $rootECSConfig = getcwd() . DIRECTORY_SEPARATOR . 'ecs.php';
