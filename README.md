@@ -17,7 +17,7 @@
 - **2nd run under few seconds** with un-changed file cache
 - Skipping files for specific checkers
 - **Prepared sets** - PSR-12, arrays, use statements, spaces and more... - see `SetList` class for all
-- **Dynamic sets** - Symfony - see `PHPCSFixerDynamicSetList` class
+- **Dynamic sets** - @Symfony - see https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/blob/master/doc/ruleSets/index.rst
 - **Prefixed version** by default to allow install without conflicts on any PHP 7.2+ project
 
 Are you already using another tool?
@@ -54,7 +54,6 @@ It will instantly offer to create the `ecs.php` with your directories from your 
 ```php
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
-use Symplify\EasyCodingStandard\ValueObject\Set\PHPCSFixerDynamicSetList;
 use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
 
 return static function (ECSConfig $ecsConfig): void {
@@ -67,7 +66,7 @@ return static function (ECSConfig $ecsConfig): void {
     ]);
 
     // C. dynamics sets
-    $ecsConfig->dynamicSets([PHPCSFixerDynamicSetList::SYMFONY]);
+    $ecsConfig->dynamicSets(['@Symfony']);
 };
 ```
 
