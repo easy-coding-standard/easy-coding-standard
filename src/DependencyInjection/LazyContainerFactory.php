@@ -104,7 +104,7 @@ final class LazyContainerFactory
             ->giveTagged(Sniff::class);
 
         // load default config first
-        $configFiles = array_merge([__DIR__ . '/../../config/config.php'], $configFiles);
+        $configFiles = [__DIR__ . '/../../config/config.php', ...$configFiles];
 
         foreach ($configFiles as $configFile) {
             $configClosure = require $configFile;
