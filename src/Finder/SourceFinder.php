@@ -36,7 +36,7 @@ final class SourceFinder
                 $filePaths[] = $singleSource;
             } else {
                 $filesInDirectory = $this->processDirectory($singleSource);
-                $filePaths = array_merge($filePaths, $filesInDirectory);
+                $filePaths = [...$filePaths, ...$filesInDirectory];
             }
         }
 
