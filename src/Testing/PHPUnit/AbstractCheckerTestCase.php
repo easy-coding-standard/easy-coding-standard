@@ -19,6 +19,9 @@ if (file_exists($scoperAutoloadFilepath)) {
     require_once $scoperAutoloadFilepath;
 }
 
+/**
+ * @api used for external testing
+ */
 abstract class AbstractCheckerTestCase extends AbstractTestCase implements ConfigAwareInterface
 {
     /**
