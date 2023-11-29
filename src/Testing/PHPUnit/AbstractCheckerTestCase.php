@@ -19,6 +19,9 @@ if (file_exists($scoperAutoloadFilepath)) {
     require_once $scoperAutoloadFilepath;
 }
 
+/**
+ * @api used for external testing
+ */
 abstract class AbstractCheckerTestCase extends AbstractTestCase implements ConfigAwareInterface
 {
     /**
@@ -72,7 +75,7 @@ abstract class AbstractCheckerTestCase extends AbstractTestCase implements Confi
         if ($this->fixerFileProcessor->getCheckers() !== []) {
             $processedFileContent = $this->fixerFileProcessor->processFileToString($inputFilePath);
             $this->assertEquals($expectedContents, $processedFileContent);
-            // 2. process php coce sniffer
+        // 2. process php coce sniffer
         } elseif ($this->sniffFileProcessor->getCheckers() !== []) {
             $processedFileContent = $this->sniffFileProcessor->processFileToString($inputFilePath);
             $this->assertEquals($expectedContents, $processedFileContent);
