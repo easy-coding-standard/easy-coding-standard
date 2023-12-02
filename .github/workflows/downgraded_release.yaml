@@ -30,8 +30,8 @@ jobs:
 
             # remove code-sniffer tests
             -   run: |
-                    rm -rf vendor/squizlabs/php_codesniffer/tests/
-                    rm -rf vendor/squizlabs/php_codesniffer/src/Standards/*/Tests/
+                    rm -rf vendor/phpcsstandards/php_codesniffer/tests/
+                    rm -rf vendor/phpcsstandards/php_codesniffer/src/Standards/*/Tests/
 
             # get rector to "rector-local" directory, to avoid downgrading itself in the /vendor
             -   run: mkdir rector-local

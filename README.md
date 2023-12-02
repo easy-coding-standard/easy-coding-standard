@@ -49,7 +49,7 @@ It will instantly offer to create the `ecs.php` with your directories from your 
 
 ### 2. Setup Sets and Checkers
 
-- Add [Sniffs](https://github.com/squizlabs/PHP_CodeSniffer) or [Fixers](https://github.com/FriendsOfPHP/PHP-CS-Fixer) you'd love to use
+- Add [Sniffs](https://github.com/phpcsstandards/PHP_CodeSniffer) or [Fixers](https://github.com/FriendsOfPHP/PHP-CS-Fixer) you'd love to use
 
 ```php
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
