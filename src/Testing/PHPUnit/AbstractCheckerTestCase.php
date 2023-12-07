@@ -33,8 +33,8 @@ abstract class AbstractCheckerTestCase extends AbstractTestCase implements Confi
      * @var string[]
      */
     private const POSSIBLE_CODE_SNIFFER_AUTOLOAD_PATHS = [
-        __DIR__ . '/../../../../../vendor/phpcsstandards/php_codesniffer/autoload.php',
-        __DIR__ . '/../../../../vendor/phpcsstandards/php_codesniffer/autoload.php',
+        __DIR__ . '/../../../../../vendor/squizlabs/php_codesniffer/autoload.php',
+        __DIR__ . '/../../../../vendor/squizlabs/php_codesniffer/autoload.php',
     ];
 
     private FixerFileProcessor $fixerFileProcessor;

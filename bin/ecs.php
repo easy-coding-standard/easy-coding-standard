@@ -88,7 +88,7 @@ final class AutoloadIncluder
     {
         // 1. autoload
         foreach (self::POSSIBLE_AUTOLOAD_PATHS as $possibleAutoloadPath) {
-            $possiblePhpCodeSnifferAutoloadPath = $possibleAutoloadPath . '/phpcsstandards/php_codesniffer/autoload.php';
+            $possiblePhpCodeSnifferAutoloadPath = $possibleAutoloadPath . '/squizlabs/php_codesniffer/autoload.php';
             if (! is_file($possiblePhpCodeSnifferAutoloadPath)) {
                 continue;
             }

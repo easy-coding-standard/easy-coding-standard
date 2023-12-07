@@ -51,7 +51,7 @@ return [
     'exclude-constants' => [
         // Symfony global constants
         '#^SYMFONY\_[\p{L}_]+$#',
-        // TOKENS from code sniffer - https://github.com/symplify/easy-coding-standard/blob/main/vendor/phpcsstandards/php_codesniffer/src/Util/Tokens.php
+        // TOKENS from code sniffer - https://github.com/symplify/easy-coding-standard/blob/main/vendor/squizlabs/php_codesniffer/src/Util/Tokens.php
         '#^T_(.*?)#',
         'PHP_CODESNIFFER_CBF',
         'PHP_CODESNIFFER_VERBOSITY',
