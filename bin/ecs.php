@@ -96,7 +96,7 @@ final class AutoloadIncluder
             require_once $possiblePhpCodeSnifferAutoloadPath;
         }
 
-        // initalize token with INT type, otherwise php-cs-fixer and php-parser breaks
+        // initialize token with INT type, otherwise php-cs-fixer and php-parser breaks
         if (! defined('T_MATCH')) {
             define('T_MATCH', 5000);
         }
@@ -107,6 +107,10 @@ final class AutoloadIncluder
 
         if (! defined('T_ENUM')) {
             define('T_ENUM', 5015);
+        }
+
+        if (! defined('T_NULLSAFE_OBJECT_OPERATOR')) {
+            define('T_NULLSAFE_OBJECT_OPERATOR', 5020);
         }
 
         // for PHP_CodeSniffer
