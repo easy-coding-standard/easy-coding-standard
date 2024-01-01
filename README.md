@@ -74,7 +74,7 @@ return static function (ECSConfig $ecsConfig): void {
         'syntax' => 'short',
     ]);
 
-    // C. dynamics sets
+    // C. dynamics sets from PHP-CS-Fixer
     $ecsConfig->dynamicSets(['@Symfony']);
 };
 ```
@@ -150,7 +150,7 @@ return static function (ECSConfig $ecsConfig): void {
 vendor/bin/ecs check src --clear-cache
 ```
 
-### How to load Custom Config?
+### How to load custom Config?
 
 ```bash
 vendor/bin/ecs check src --config another-config.php
@@ -160,4 +160,4 @@ vendor/bin/ecs check src --config another-config.php
 
 ## Acknowledgment
 
-The parallel run is heavily inspired by [phpstan/phpstan-src](https://github.com/phpstan/phpstan-src) by Ondřej Mirtes. Thank you.
+The parallel run is heavily inspired by [phpstan/phpstan-src](https://github.com/phpstan/phpstan-src).
