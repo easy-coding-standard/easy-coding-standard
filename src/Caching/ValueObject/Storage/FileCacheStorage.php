@@ -13,11 +13,11 @@ use Symplify\EasyCodingStandard\Exception\ShouldNotHappenException;
  * Inspired by
  * https://github.com/phpstan/phpstan-src/commit/4df7342f3a0aaef4bcd85456dd20ca88d38dd90d#diff-6dc14f6222bf150e6840ca44a7126653052a1cedc6a149b4e5c1e1a2c80eacdc
  */
-final class FileCacheStorage
+final readonly class FileCacheStorage
 {
     public function __construct(
-        private readonly string $directory,
-        private readonly Filesystem $fileSystem
+        private string $directory,
+        private Filesystem $fileSystem
     ) {
     }
 

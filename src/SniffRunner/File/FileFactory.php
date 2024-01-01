@@ -15,13 +15,13 @@ use Symplify\EasyCodingStandard\SniffRunner\ValueObject\File;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\SniffRunner\File\FileFactoryTest
  */
-final class FileFactory
+final readonly class FileFactory
 {
     public function __construct(
-        private readonly Fixer $fixer,
-        private readonly Skipper $skipper,
-        private readonly SniffMetadataCollector $sniffMetadataCollector,
-        private readonly EasyCodingStandardStyle $easyCodingStandardStyle
+        private Fixer $fixer,
+        private Skipper $skipper,
+        private SniffMetadataCollector $sniffMetadataCollector,
+        private EasyCodingStandardStyle $easyCodingStandardStyle
     ) {
     }
 

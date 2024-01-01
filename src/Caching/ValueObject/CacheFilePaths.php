@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Caching\ValueObject;
 
-final class CacheFilePaths
+final readonly class CacheFilePaths
 {
     public function __construct(
-        private readonly string $firstDirectory,
-        private readonly string $secondDirectory,
-        private readonly string $filePath
+        private string $firstDirectory,
+        private string $secondDirectory,
+        private string $filePath
     ) {
     }
 

@@ -10,7 +10,7 @@ use Webmozart\Assert\Assert;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\ChangedFilesDetector\ChangedFilesDetector\ChangedFilesDetectorTest
  */
-final class ChangedFilesDetector
+final readonly class ChangedFilesDetector
 {
     /**
      * @var string
@@ -23,8 +23,8 @@ final class ChangedFilesDetector
     private const FILE_HASH = 'file_hash';
 
     public function __construct(
-        private readonly FileHashComputer $fileHashComputer,
-        private readonly Cache $cache
+        private FileHashComputer $fileHashComputer,
+        private Cache $cache
     ) {
     }
 

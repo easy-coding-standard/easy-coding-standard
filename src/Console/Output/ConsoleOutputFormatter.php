@@ -12,7 +12,7 @@ use Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
 
-final class ConsoleOutputFormatter implements OutputFormatterInterface
+final readonly class ConsoleOutputFormatter implements OutputFormatterInterface
 {
     /**
      * @var string
@@ -20,8 +20,8 @@ final class ConsoleOutputFormatter implements OutputFormatterInterface
     public const NAME = 'console';
 
     public function __construct(
-        private readonly EasyCodingStandardStyle $easyCodingStandardStyle,
-        private readonly ExitCodeResolver $exitCodeResolver
+        private EasyCodingStandardStyle $easyCodingStandardStyle,
+        private ExitCodeResolver $exitCodeResolver
     ) {
     }
 

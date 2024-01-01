@@ -9,11 +9,11 @@ use Symplify\EasyCodingStandard\Skipper\Contract\SkipVoterInterface;
 use Symplify\EasyCodingStandard\Skipper\SkipCriteriaResolver\SkippedClassResolver;
 use Symplify\EasyCodingStandard\Skipper\Skipper\SkipSkipper;
 
-final class ClassSkipVoter implements SkipVoterInterface
+final readonly class ClassSkipVoter implements SkipVoterInterface
 {
     public function __construct(
-        private readonly SkipSkipper $skipSkipper,
-        private readonly SkippedClassResolver $skippedClassResolver
+        private SkipSkipper $skipSkipper,
+        private SkippedClassResolver $skippedClassResolver
     ) {
     }
 

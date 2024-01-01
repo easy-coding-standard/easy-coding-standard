@@ -12,11 +12,11 @@ use Symplify\EasyCodingStandard\Skipper\SkipCriteriaResolver\SkippedClassAndCode
 /**
  * Matching class and code, e.g. App\Category\ArraySniff.SomeCode
  */
-final class ClassAndCodeSkipVoter implements SkipVoterInterface
+final readonly class ClassAndCodeSkipVoter implements SkipVoterInterface
 {
     public function __construct(
-        private readonly SkippedClassAndCodesResolver $skippedClassAndCodesResolver,
-        private readonly FileInfoMatcher $fileInfoMatcher
+        private SkippedClassAndCodesResolver $skippedClassAndCodesResolver,
+        private FileInfoMatcher $fileInfoMatcher
     ) {
     }
 

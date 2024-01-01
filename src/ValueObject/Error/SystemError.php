@@ -7,12 +7,12 @@ namespace Symplify\EasyCodingStandard\ValueObject\Error;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Name;
 use Symplify\EasyParallel\Contract\SerializableInterface;
 
-final class SystemError implements SerializableInterface
+final readonly class SystemError implements SerializableInterface
 {
     public function __construct(
-        private readonly int $line,
-        private readonly string $message,
-        private readonly string $relativeFilePath
+        private int $line,
+        private string $message,
+        private string $relativeFilePath
     ) {
     }
 

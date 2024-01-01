@@ -9,11 +9,11 @@ use Symplify\EasyCodingStandard\Skipper\Contract\SkipVoterInterface;
 use Symplify\EasyCodingStandard\Skipper\Matcher\FileInfoMatcher;
 use Symplify\EasyCodingStandard\Skipper\SkipCriteriaResolver\SkippedPathsResolver;
 
-final class PathSkipVoter implements SkipVoterInterface
+final readonly class PathSkipVoter implements SkipVoterInterface
 {
     public function __construct(
-        private readonly FileInfoMatcher $fileInfoMatcher,
-        private readonly SkippedPathsResolver $skippedPathsResolver
+        private FileInfoMatcher $fileInfoMatcher,
+        private SkippedPathsResolver $skippedPathsResolver
     ) {
     }
 

@@ -6,10 +6,10 @@ namespace Symplify\EasyCodingStandard\Console\Reporter;
 
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-final class CheckerListReporter
+final readonly class CheckerListReporter
 {
     public function __construct(
-        private readonly SymfonyStyle $symfonyStyle
+        private SymfonyStyle $symfonyStyle
     ) {
     }
 

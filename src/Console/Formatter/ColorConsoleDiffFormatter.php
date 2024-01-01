@@ -13,7 +13,7 @@ use Symfony\Component\Console\Formatter\OutputFormatter;
  *
  * @see \Symplify\EasyCodingStandard\Tests\Console\Formatter\ColorConsoleDiffFormatterTest
  */
-final class ColorConsoleDiffFormatter
+final readonly class ColorConsoleDiffFormatter
 {
     /**
      * @var string
@@ -39,7 +39,7 @@ final class ColorConsoleDiffFormatter
      */
     private const NEWLINES_REGEX = "#\n\r|\n#";
 
-    private readonly string $template;
+    private string $template;
 
     public function __construct()
     {

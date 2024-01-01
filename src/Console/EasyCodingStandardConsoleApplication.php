@@ -26,9 +26,19 @@ final class EasyCodingStandardConsoleApplication extends Application
     ) {
         parent::__construct('EasyCodingStandard', StaticVersionResolver::PACKAGE_VERSION);
 
+        // used only internally, not needed to be public
+        $workerCommand->setHidden();
+
         $this->add($checkCommand);
         $this->add($workerCommand);
         $this->add($listCheckersCommand);
+
+        $this->get('completion')
+            ->setHidden();
+        $this->get('help')
+            ->setHidden();
+        $this->get('list')
+            ->setHidden();
 
         $this->setDefaultCommand('check');
     }

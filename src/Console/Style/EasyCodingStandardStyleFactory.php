@@ -12,10 +12,10 @@ use Symfony\Component\Console\Terminal;
 /**
  * @api
  */
-final class EasyCodingStandardStyleFactory
+final readonly class EasyCodingStandardStyleFactory
 {
     public function __construct(
-        private readonly Terminal $terminal
+        private Terminal $terminal
     ) {
     }
 

@@ -10,10 +10,10 @@ use Symplify\EasyCodingStandard\Skipper\Matcher\FileInfoMatcher;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\Skipper\Skipper\Skip\SkipSkipperTest
  */
-final class SkipSkipper
+final readonly class SkipSkipper
 {
     public function __construct(
-        private readonly FileInfoMatcher $fileInfoMatcher
+        private FileInfoMatcher $fileInfoMatcher
     ) {
     }
 

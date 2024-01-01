@@ -7,13 +7,13 @@ namespace Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Name;
 use Symplify\EasyParallel\Contract\SerializableInterface;
 
-final class CodingStandardError implements SerializableInterface
+final readonly class CodingStandardError implements SerializableInterface
 {
     public function __construct(
-        private readonly int $line,
-        private readonly string $message,
-        private readonly string $checkerClass,
-        private readonly string $relativeFilePath
+        private int $line,
+        private string $message,
+        private string $checkerClass,
+        private string $relativeFilePath
     ) {
     }
 
