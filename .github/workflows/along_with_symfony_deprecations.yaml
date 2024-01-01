@@ -3,7 +3,7 @@ name: Along with Symfony Deprecations
 on:
     push:
         tags:
-            - '*.72'
+            - '*'
 
 jobs:
     bare_run:
