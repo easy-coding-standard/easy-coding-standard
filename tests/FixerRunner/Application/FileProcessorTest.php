@@ -16,7 +16,7 @@ final class FileProcessorTest extends AbstractTestCase
 
     protected function setUp(): void
     {
-        $this->createContainerWithConfigs([__DIR__ . '/FileProcessorSource/easy-coding-standard.php']);
+        $this->createContainerWithConfigs([__DIR__ . '/Source/easy-coding-standard.php']);
         $this->fixerFileProcessor = $this->make(FixerFileProcessor::class);
     }
 

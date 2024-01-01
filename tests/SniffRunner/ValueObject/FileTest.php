@@ -15,7 +15,7 @@ final class FileTest extends AbstractTestCase
     {
         $fileFactory = $this->make(FileFactory::class);
 
-        $file = $fileFactory->createFromFile(__DIR__ . '/FileSource/SomeFile.php');
+        $file = $fileFactory->createFromFile(__DIR__ . '/Source/SomeFile.php');
         $file->processWithTokenListenersAndFilePath([], __DIR__ . '/FileSource/SomeFile.php', []);
     }
 }
