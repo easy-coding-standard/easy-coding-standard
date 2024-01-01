@@ -37,12 +37,8 @@ jobs:
                         run: vendor/bin/parallel-lint src tests --checkstyle | cs2pr
 
                     -
-                        name: 'Check Commented Code'
-                        run: vendor/bin/easy-ci check-commented-code src tests --ansi
-
-                    -
                         name: 'Check Active Classes'
-                        run: vendor/bin/class-leak check bin src packages --ansi
+                        run: vendor/bin/class-leak check bin src --ansi
 
         name: ${{ matrix.actions.name }}
         runs-on: ubuntu-latest

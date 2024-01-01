@@ -41,18 +41,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Symplify\\EasyCodingStandard\\": [
-                "src",
-                "packages"
-            ]
+            "Symplify\\EasyCodingStandard\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Symplify\\EasyCodingStandard\\Tests\\": [
-                "tests",
-                "packages-tests"
-            ]
+            "Symplify\\EasyCodingStandard\\Tests\\": "tests"
         },
         "files": [
             "tests/functions.php"
