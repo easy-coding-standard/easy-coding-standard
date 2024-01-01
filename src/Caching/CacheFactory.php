@@ -12,10 +12,10 @@ use Symplify\EasyCodingStandard\ValueObject\Option;
 /**
  * @api
  */
-final class CacheFactory
+final readonly class CacheFactory
 {
     public function __construct(
-        private readonly Filesystem $fileSystem
+        private Filesystem $fileSystem
     ) {
     }
 

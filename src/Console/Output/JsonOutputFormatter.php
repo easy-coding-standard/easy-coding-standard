@@ -14,7 +14,7 @@ use Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\Console\Output\JsonOutputFormatterTest
  */
-final class JsonOutputFormatter implements OutputFormatterInterface
+final readonly class JsonOutputFormatter implements OutputFormatterInterface
 {
     /**
      * @var string
@@ -27,8 +27,8 @@ final class JsonOutputFormatter implements OutputFormatterInterface
     private const FILES = 'files';
 
     public function __construct(
-        private readonly EasyCodingStandardStyle $easyCodingStandardStyle,
-        private readonly ExitCodeResolver $exitCodeResolver
+        private EasyCodingStandardStyle $easyCodingStandardStyle,
+        private ExitCodeResolver $exitCodeResolver
     ) {
     }
 

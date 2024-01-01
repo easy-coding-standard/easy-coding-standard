@@ -8,11 +8,11 @@ use SplFileInfo;
 use Symplify\EasyCodingStandard\Skipper\FileSystem\FnMatchPathNormalizer;
 use Symplify\EasyCodingStandard\Skipper\Fnmatcher;
 
-final class FileInfoMatcher
+final readonly class FileInfoMatcher
 {
     public function __construct(
-        private readonly FnMatchPathNormalizer $fnMatchPathNormalizer,
-        private readonly Fnmatcher $fnmatcher
+        private FnMatchPathNormalizer $fnMatchPathNormalizer,
+        private Fnmatcher $fnmatcher
     ) {
     }
 

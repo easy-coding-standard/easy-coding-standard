@@ -12,7 +12,7 @@
         "bin/ecs"
     ],
     "require": {
-        "php": ">=8.1",
+        "php": ">=8.2",
         "composer/xdebug-handler": "^3.0",
         "friendsofphp/php-cs-fixer": "^3.45",
         "illuminate/container": "^10.39",

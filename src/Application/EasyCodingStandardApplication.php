@@ -25,7 +25,7 @@ use Symplify\EasyCodingStandard\ValueObject\Option;
 use Symplify\EasyParallel\CpuCoreCountProvider;
 use Symplify\EasyParallel\ScheduleFactory;
 
-final class EasyCodingStandardApplication
+final readonly class EasyCodingStandardApplication
 {
     /**
      * @var string
@@ -33,16 +33,16 @@ final class EasyCodingStandardApplication
     private const ARGV = 'argv';
 
     public function __construct(
-        private readonly EasyCodingStandardStyle $easyCodingStandardStyle,
-        private readonly SourceFinder $sourceFinder,
-        private readonly ChangedFilesDetector $changedFilesDetector,
-        private readonly FileFilter $fileFilter,
-        private readonly SingleFileProcessor $singleFileProcessor,
-        private readonly ScheduleFactory $scheduleFactory,
-        private readonly ParallelFileProcessor $parallelFileProcessor,
-        private readonly CpuCoreCountProvider $cpuCoreCountProvider,
-        private readonly SymfonyStyle $symfonyStyle,
-        private readonly ParametersMerger $parametersMerger
+        private EasyCodingStandardStyle $easyCodingStandardStyle,
+        private SourceFinder $sourceFinder,
+        private ChangedFilesDetector $changedFilesDetector,
+        private FileFilter $fileFilter,
+        private SingleFileProcessor $singleFileProcessor,
+        private ScheduleFactory $scheduleFactory,
+        private ParallelFileProcessor $parallelFileProcessor,
+        private CpuCoreCountProvider $cpuCoreCountProvider,
+        private SymfonyStyle $symfonyStyle,
+        private ParametersMerger $parametersMerger
     ) {
     }
 

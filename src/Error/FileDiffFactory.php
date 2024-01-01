@@ -10,10 +10,10 @@ use Symplify\EasyCodingStandard\Console\Formatter\ColorConsoleDiffFormatter;
 use Symplify\EasyCodingStandard\FileSystem\StaticRelativeFilePathHelper;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 
-final class FileDiffFactory
+final readonly class FileDiffFactory
 {
     public function __construct(
-        private readonly ColorConsoleDiffFormatter $colorConsoleDiffFormatter
+        private ColorConsoleDiffFormatter $colorConsoleDiffFormatter
     ) {
     }
 

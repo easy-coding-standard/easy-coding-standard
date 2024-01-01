@@ -10,12 +10,12 @@ use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardErro
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 
-final class SingleFileProcessor
+final readonly class SingleFileProcessor
 {
     public function __construct(
-        private readonly Skipper $skipper,
-        private readonly ChangedFilesDetector $changedFilesDetector,
-        private readonly FileProcessorCollector $fileProcessorCollector
+        private Skipper $skipper,
+        private ChangedFilesDetector $changedFilesDetector,
+        private FileProcessorCollector $fileProcessorCollector
     ) {
     }
 

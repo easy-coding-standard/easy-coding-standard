@@ -8,13 +8,13 @@ use Nette\Utils\FileSystem;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\EasyCodingStandard\Application\FileProcessorCollector;
 
-final class ConfigInitializer
+final readonly class ConfigInitializer
 {
     public function __construct(
-        private readonly FileProcessorCollector $fileProcessorCollector,
-        private readonly SymfonyStyle $symfonyStyle,
-        private readonly InitPathsResolver $initPathsResolver,
-        private readonly \Symfony\Component\Filesystem\Filesystem $filesystem,
+        private FileProcessorCollector $fileProcessorCollector,
+        private SymfonyStyle $symfonyStyle,
+        private InitPathsResolver $initPathsResolver,
+        private \Symfony\Component\Filesystem\Filesystem $filesystem,
     ) {
     }
 

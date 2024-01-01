@@ -13,10 +13,10 @@ use Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
 
-final class ProcessedFileReporter
+final readonly class ProcessedFileReporter
 {
     public function __construct(
-        private readonly OutputFormatterCollector $outputFormatterCollector,
+        private OutputFormatterCollector $outputFormatterCollector,
     ) {
     }
 

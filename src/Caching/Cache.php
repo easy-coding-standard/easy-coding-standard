@@ -6,10 +6,10 @@ namespace Symplify\EasyCodingStandard\Caching;
 
 use Symplify\EasyCodingStandard\Caching\ValueObject\Storage\FileCacheStorage;
 
-final class Cache
+final readonly class Cache
 {
     public function __construct(
-        private readonly FileCacheStorage $fileCacheStorage
+        private FileCacheStorage $fileCacheStorage
     ) {
     }
 

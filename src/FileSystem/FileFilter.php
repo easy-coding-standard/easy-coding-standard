@@ -6,10 +6,10 @@ namespace Symplify\EasyCodingStandard\FileSystem;
 
 use Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
 
-final class FileFilter
+final readonly class FileFilter
 {
     public function __construct(
-        private readonly ChangedFilesDetector $changedFilesDetector
+        private ChangedFilesDetector $changedFilesDetector
     ) {
     }
 

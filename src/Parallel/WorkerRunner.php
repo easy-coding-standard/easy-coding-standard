@@ -17,11 +17,11 @@ use Symplify\EasyParallel\Enum\ReactCommand;
 use Symplify\EasyParallel\Enum\ReactEvent;
 use Throwable;
 
-final class WorkerRunner
+final readonly class WorkerRunner
 {
     public function __construct(
-        private readonly SingleFileProcessor $singleFileProcessor,
-        private readonly ParametersMerger $parametersMerger
+        private SingleFileProcessor $singleFileProcessor,
+        private ParametersMerger $parametersMerger
     ) {
     }
 
