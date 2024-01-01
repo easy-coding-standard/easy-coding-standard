@@ -11,9 +11,7 @@ return static function (ECSConfig $ecsConfig): void {
         __DIR__ . '/rector.php',
         __DIR__ . '/config',
         __DIR__ . '/src',
-        __DIR__ . '/packages',
         __DIR__ . '/tests',
-        __DIR__ . '/packages-tests',
     ]);
 
     $ecsConfig->sets([SetList::SYMPLIFY, SetList::COMMON, SetList::PSR_12]);

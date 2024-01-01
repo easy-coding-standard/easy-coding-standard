@@ -28,10 +28,8 @@ return static function (RectorConfig $rectorConfig): void {
         __DIR__ . '/rector.php',
         __DIR__ . '/config',
         __DIR__ . '/src',
-        __DIR__ . '/packages',
         __DIR__ . '/config',
         __DIR__ . '/tests',
-        __DIR__ . '/packages-tests',
     ]);
 
     $rectorConfig->importNames();
@@ -41,9 +39,8 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->skip([
         '*/Source/*',
         '*/Fixture/*',
-        'packages/SniffRunner/ValueObject/File.php',
-        RenameParamToMatchTypeRector::class => [
-            __DIR__ . '/packages/FixerRunner/Application/FixerFileProcessor.php',
-        ],
+        __DIR__ . '/src/SniffRunner/ValueObject/File.php',
+
+        RenameParamToMatchTypeRector::class => [__DIR__ . '/src/FixerRunner/Application/FixerFileProcessor.php'],
     ]);
 };

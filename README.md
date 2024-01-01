@@ -100,14 +100,14 @@ return static function (ECSConfig $ecsConfig): void {
         ArraySyntaxFixer::class,
 
         // skip directory by absolute
-        __DIR__ . '/packages/Migrations',
+        __DIR__ . '/src/Migrations',
 
         // skip directories by mask
-        __DIR__ . '/packages/*/src/Legacy',
+        __DIR__ . '/src/*/Legacy',
 
         // skip single rule in particular paths
         LineLenghtFixer::class => [
-            __DIR__ . '/packages/EasyCodingStandard/packages/SniffRunner/src/File/File.php',
+            __DIR__ . '/src/ValueObject/File.php',
             '*Sniff.php',
         ],
     ]);

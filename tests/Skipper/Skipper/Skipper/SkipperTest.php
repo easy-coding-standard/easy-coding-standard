@@ -39,14 +39,11 @@ final class SkipperTest extends AbstractTestCase
 
         $basenameCwd = basename(getcwd());
         if ($basenameCwd === 'easy-coding-standard') {
-            // split test inside packages/easy-coding-standard
-            yield ['packages-tests/Skipper/Skipper/Skipper/Fixture/SomeSkipped/any.txt', true];
+            // split test inside src/easy-coding-standard
+            yield ['tests/Skipper/Skipper/Skipper/Fixture/SomeSkipped/any.txt', true];
         } else {
             // from root symplify
-            yield [
-                'packages/easy-coding-standard/packages-tests/Skipper/Skipper/Skipper/Fixture/SomeSkipped/any.txt',
-                true,
-            ];
+            yield ['src/easy-coding-standard/tests/Skipper/Skipper/Skipper/Fixture/SomeSkipped/any.txt', true];
         }
     }
 
