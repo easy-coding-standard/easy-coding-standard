@@ -15,5 +15,6 @@ return static function (ECSConfig $ecsConfig): void {
         SetList::PHPUNIT,
         SetList::SPACES,
         SetList::STRICT,
+        SetList::CLEAN_CODE,
     ]);
 };
