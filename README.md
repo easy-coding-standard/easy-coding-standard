@@ -13,12 +13,19 @@
 ## Features
 
 - **Blazing fast [parallel run](#parallel-run)**
-- Use [PHP_CodeSniffer || PHP-CS-Fixer](https://tomasvotruba.com/blog/2017/05/03/combine-power-of-php-code-sniffer-and-php-cs-fixer-in-3-lines/) - anything you like
-- **2nd run under few seconds** with un-changed file cache
+- Use [PHP_CodeSniffer or PHP-CS-Fixer](https://tomasvotruba.com/blog/2017/05/03/combine-power-of-php-code-sniffer-and-php-cs-fixer-in-3-lines/) - anything you like
+- **2nd run under few seconds** with unchanged file cache
 - Skipping files for specific checkers
 - **Prepared sets** - PSR-12, arrays, use statements, spaces and more... - see `SetList` class for all
 - **Dynamic sets** - @Symfony - see https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/blob/master/doc/ruleSets/index.rst
-- **Prefixed version** by default to allow install without conflicts on any PHP 7.2+ project
+
+```php
+
+```
+
+- **Prefixed version** by default to allow install without conflicts on **any PHP 7.2+** project
+
+<br>
 
 Are you already using another tool?
 
@@ -47,6 +54,8 @@ vendor/bin/ecs
 
 It will instantly offer to create the `ecs.php` with your directories from your project.
 
+<br>
+
 ### 2. Setup Sets and Checkers
 
 - Add [Sniffs](https://github.com/phpcsstandards/PHP_CodeSniffer) or [Fixers](https://github.com/FriendsOfPHP/PHP-CS-Fixer) you'd love to use
@@ -70,13 +79,15 @@ return static function (ECSConfig $ecsConfig): void {
 };
 ```
 
+<br>
+
 ### 3. Run Again
 
 ```bash
 vendor/bin/ecs check src
 ```
 
-The runs above are *dry runs*, so you can check the code diffs, before they get applied. If you're sure, go for a fix command:
+This will run ECS in *dry run* - it will show you the diff before they get applied. To fix code style, run this command:
 
 ```bash
 vendor/bin/ecs check src --fix
@@ -108,7 +119,6 @@ return static function (ECSConfig $ecsConfig): void {
         // skip single rule in particular paths
         LineLenghtFixer::class => [
             __DIR__ . '/src/ValueObject/File.php',
-            '*Sniff.php',
         ],
     ]);
 
@@ -127,26 +137,6 @@ return static function (ECSConfig $ecsConfig): void {
 
     // end of line [default: PHP_EOL]; other options: "\n"
     $ecsConfig->lineEnding("\r\n");
-};
-```
-
-<br>
-
-## Parallel Run
-
-ECS runs in *X* parallel threads, where *X* is number of your threads.
-
-Do you have 16 threads? That will speed up the process from 2,5 minutes to 10 seconds.
-
-<br>
-
-This process is enabled by default. To disable it, use `disableParallel()` method:
-
-```php
-use Symplify\EasyCodingStandard\Config\ECSConfig;
-
-return function (ECSConfig $ecsConfig): void {
-    $ecsConfig->disableParallel();
 };
 ```
 
