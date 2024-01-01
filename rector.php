@@ -41,8 +41,6 @@ return static function (RectorConfig $rectorConfig): void {
         '*/Fixture/*',
         __DIR__ . '/src/SniffRunner/ValueObject/File.php',
 
-        RenameParamToMatchTypeRector::class => [
-            __DIR__ . '/src/FixerRunner/Application/FixerFileProcessor.php',
-        ],
+        RenameParamToMatchTypeRector::class => [__DIR__ . '/src/FixerRunner/Application/FixerFileProcessor.php'],
     ]);
 };

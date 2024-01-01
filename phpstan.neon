@@ -9,8 +9,6 @@ parameters:
     paths:
         - src
         - tests
-        - packages
-        - packages-tests
         - ecs.php
         - rector.php
 
@@ -28,7 +26,7 @@ parameters:
     ignoreErrors:
         # set above
         -
-            path: packages/Parallel/Application/ParallelFileProcessor.php
+            path: src/Parallel/Application/ParallelFileProcessor.php
             message: '#Cannot call method (.*?)\(\) on Symplify\\EasyParallel\\ValueObject\\ProcessPool\|null#'
 
         - '#Method Symplify\\EasyCodingStandard\\Console\\Command\\ListCheckersCommand\:\:getObjectClasses\(\) should return array<class\-string<TObject of PHP_CodeSniffer\\Sniffs\\Sniff\|PhpCsFixer\\Fixer\\FixerInterface>> but returns array<TObject of class\-string<PHP_CodeSniffer\\Sniffs\\Sniff>\|class\-string<PhpCsFixer\\Fixer\\FixerInterface>>#'
@@ -39,16 +37,12 @@ parameters:
 
         - '#Parameter \#1 \$skips of method Symplify\\EasyCodingStandard\\Config\\ECSConfig\:\:skip\(\) expects array<class\-string<PHP_CodeSniffer\\Sniffs\\Sniff\|PhpCsFixer\\Fixer\\FixerInterface>\|int, array<int, string>\|string\|null>, array<int\|string, array<int, string>\|string\|null> given#'
 
-        # complex cases
-        - '#Cognitive complexity for "Symplify\\EasyCodingStandard\\Parallel\\Application\\ParallelFileProcessor\:\:check\(\)" is 21, keep it under 9#'
-        - '#Cognitive complexity for "Symplify\\EasyCodingStandard\\Utils\\ParametersMerger\:\:mergeLeftToRightWithCallable\(\)" is 10, keep it under 9#'
-
         # false positive on custom config tets
         -
             message: '#Missing call to parent\:\:setUp\(\) method#'
             paths:
-                 - packages-tests/Skipper/Skipper/Skipper/SkipperTest.php
-                 - packages-tests/Skipper/Skipper/Skip/SkipSkipperTest.php
-                 - packages-tests/Skipper/SkipCriteriaResolver/SkippedPathsResolver/SkippedPathsResolverTest.php
-                 - packages-tests/FixerRunner/Application/FileProcessorTest.ph
+                 - tests/Skipper/Skipper/Skipper/SkipperTest.php
+                 - tests/Skipper/Skipper/Skip/SkipSkipperTest.php
+                 - tests/Skipper/SkipCriteriaResolver/SkippedPathsResolver/SkippedPathsResolverTest.php
+                 - tests/FixerRunner/Application/FileProcessorTest.ph
                  - src/Testing/PHPUnit/AbstractCheckerTestCase.php
