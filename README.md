@@ -11,16 +11,16 @@
 ## Killer Features
 
 - Install without conflicts on **any PHP 7.2+** project
-- **Blazing fast [parallel run](#parallel-run)**
+- Blazing fast parallel run out of the box
 - Use [PHP_CodeSniffer or PHP-CS-Fixer](https://tomasvotruba.com/blog/2017/05/03/combine-power-of-php-code-sniffer-and-php-cs-fixer-in-3-lines/) - anything you like
-- 2nd run in few seconds with smart cache
-- **Prepared sets** - PSR-12, arrays, use statements, spaces and more
+
+- Use **prepared sets** to save time - PSR-12, arrays, use statements, spaces and more
 
 ```php
 $ecsConfig->sets([SetList::PSR_12]);
 ```
 
-- **Dynamic sets** from php-cs-fixer - https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/blob/master/doc/ruleSets/index.rst
+- Use **php-cs-fixer sets** from [like you're used to](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/blob/master/doc/ruleSets/index.rst)
 
 ```php
 $ecsConfig->dynamicSets(['@Symfony']);
