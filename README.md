@@ -1,36 +1,39 @@
-# The Easiest way to use coding standard
+# The Easiest way to use Coding Standard
 
 [![Downloads total](https://img.shields.io/packagist/dt/symplify/easy-coding-standard.svg?style=flat-square)](https://packagist.org/packages/symplify/easy-coding-standard/stats)
 
-<br>
-
 <div class="text-align: center">
-
 <img src="https://avatars.githubusercontent.com/u/123805080?s=200&v=4" style="width: 15em; height: 15em">
-
 </div>
 
-## Features
+<br>
 
+## Killer Features
+
+- Install without conflicts on **any PHP 7.2+** project
 - **Blazing fast [parallel run](#parallel-run)**
 - Use [PHP_CodeSniffer or PHP-CS-Fixer](https://tomasvotruba.com/blog/2017/05/03/combine-power-of-php-code-sniffer-and-php-cs-fixer-in-3-lines/) - anything you like
-- **2nd run under few seconds** with unchanged file cache
-- Skipping files for specific checkers
-- **Prepared sets** - PSR-12, arrays, use statements, spaces and more... - see `SetList` class for all
-- **Dynamic sets** - @Symfony - see https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/blob/master/doc/ruleSets/index.rst
+- 2nd run in few seconds with smart cache
+- **Prepared sets** - PSR-12, arrays, use statements, spaces and more
 
 ```php
-
+$ecsConfig->sets([SetList::PSR_12]);
 ```
 
-- **Prefixed version** by default to allow install without conflicts on **any PHP 7.2+** project
+- **Dynamic sets** from php-cs-fixer - https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/blob/master/doc/ruleSets/index.rst
+
+```php
+$ecsConfig->dynamicSets(['@Symfony']);
+```
+
+- Skipping files for specific checkers
 
 <br>
 
-Are you already using another tool?
+Are you already using another tool? We got you covered:
 
-- [Migrate from PHP_CodeSniffer](https://tomasvotruba.com/blog/2018/06/04/how-to-migrate-from-php-code-sniffer-to-easy-coding-standard)
-- [Migrate from PHP CS Fixer](https://tomasvotruba.com/blog/2018/06/07/how-to-migrate-from-php-cs-fixer-to-easy-coding-standard)
+* See how to migrate from [PHP_CodeSniffer](https://tomasvotruba.com/blog/2018/06/04/how-to-migrate-from-php-code-sniffer-to-easy-coding-standard)
+or [PHP CS Fixer](https://tomasvotruba.com/blog/2018/06/07/how-to-migrate-from-php-cs-fixer-to-easy-coding-standard)
 
 <br>
 
@@ -52,45 +55,20 @@ To start using ECS, just run it:
 vendor/bin/ecs
 ```
 
-It will instantly offer to create the `ecs.php` with your directories from your project.
+ECS will create `ecs.php` config with directories in your project and first rule to kick off.
 
 <br>
 
-### 2. Setup Sets and Checkers
-
-- Add [Sniffs](https://github.com/phpcsstandards/PHP_CodeSniffer) or [Fixers](https://github.com/FriendsOfPHP/PHP-CS-Fixer) you'd love to use
-
-```php
-use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
-use Symplify\EasyCodingStandard\Config\ECSConfig;
-use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
-
-return static function (ECSConfig $ecsConfig): void {
-    // A. full sets
-    $ecsConfig->sets([SetList::PSR_12]);
-
-    // B. standalone rule
-    $ecsConfig->ruleWithConfiguration(ArraySyntaxFixer::class, [
-        'syntax' => 'short',
-    ]);
-
-    // C. dynamics sets from PHP-CS-Fixer
-    $ecsConfig->dynamicSets(['@Symfony']);
-};
-```
-
-<br>
-
-### 3. Run Again
+### 2. Run Again
 
 ```bash
-vendor/bin/ecs check src
+vendor/bin/ecs
 ```
 
 This will run ECS in *dry run* - it will show you the diff before they get applied. To fix code style, run this command:
 
 ```bash
-vendor/bin/ecs check src --fix
+vendor/bin/ecs --fix
 ```
 
 <br>
