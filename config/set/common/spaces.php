@@ -20,6 +20,7 @@ use PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer;
 use PhpCsFixer\Fixer\Semicolon\NoSinglelineWhitespaceBeforeSemicolonsFixer;
 use PhpCsFixer\Fixer\Semicolon\SpaceAfterSemicolonFixer;
 use PhpCsFixer\Fixer\Whitespace\MethodChainingIndentationFixer;
+use PhpCsFixer\Fixer\Whitespace\NoExtraBlankLinesFixer;
 use PhpCsFixer\Fixer\Whitespace\NoSpacesAroundOffsetFixer;
 use PhpCsFixer\Fixer\Whitespace\NoWhitespaceInBlankLineFixer;
 use PhpCsFixer\Fixer\Whitespace\TypeDeclarationSpacesFixer;
@@ -55,6 +56,10 @@ return static function (ECSConfig $ecsConfig): void {
             'property' => 'one',
             'method' => 'one',
         ],
+    ]);
+
+    $ecsConfig->ruleWithConfiguration(NoExtraBlankLinesFixer::class, [
+        'tokens' => ['extra', 'throw', 'use'],
     ]);
 
     $ecsConfig->ruleWithConfiguration(ConcatSpaceFixer::class, [
