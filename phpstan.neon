@@ -46,3 +46,8 @@ parameters:
                  - tests/Skipper/SkipCriteriaResolver/SkippedPathsResolver/SkippedPathsResolverTest.php
                  - tests/FixerRunner/Application/FileProcessorTest.ph
                  - src/Testing/PHPUnit/AbstractCheckerTestCase.php
+
+        # optional
+        -
+            message: '#Method Symplify\\EasyCodingStandard\\Config\\ECSConfig\:\:singleton\(\) has parameter \$concrete with no signature specified for Closure#'
+            path: src/Config/ECSConfig.php

@@ -12,6 +12,7 @@ use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
 use PhpCsFixer\FixerFactory;
 use PhpCsFixer\RuleSet\RuleSet;
 use PhpCsFixer\WhitespacesFixerConfig;
+use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\ConflictingCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveExcludedCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualCheckersCompilerPass;
@@ -26,6 +27,11 @@ use Webmozart\Assert\InvalidArgumentException;
  */
 final class ECSConfig extends Container
 {
+    /**
+     * @var string[]
+     */
+    private array $autotagInterfaces = [Sniff::class, FixerInterface::class, OutputFormatterInterface::class];
+
     /**
      * @param string[] $paths
      */
@@ -64,11 +70,7 @@ final class ECSConfig extends Container
     {
         $this->assertCheckerClass($checkerClass);
 
-        // tag for autowiring of tagged_iterator()
-        $interfaceTag = is_a($checkerClass, Sniff::class, true) ? Sniff::class : FixerInterface::class;
-
         $this->singleton($checkerClass);
-        $this->tag($checkerClass, $interfaceTag);
         $this->autowireWhitespaceAwareFixer($checkerClass);
     }
 
@@ -95,8 +97,6 @@ final class ECSConfig extends Container
         $this->singleton($checkerClass);
 
         // tag for autowiring of tagged_iterator()
-        $interfaceTag = is_a($checkerClass, Sniff::class, true) ? Sniff::class : FixerInterface::class;
-        $this->tag($checkerClass, $interfaceTag);
         $this->autowireWhitespaceAwareFixer($checkerClass);
 
         if (is_a($checkerClass, FixerInterface::class, true)) {
@@ -239,6 +239,30 @@ final class ECSConfig extends Container
 
         $conflictingCheckersCompilerPass = new ConflictingCheckersCompilerPass();
         $conflictingCheckersCompilerPass->process($this);
+    }
+
+    /**
+     * @internal Use to add tag on service registrations
+     */
+    public function autotagInterface(string $interface): void
+    {
+        $this->autotagInterfaces[] = $interface;
+    }
+
+    /**
+     * @param string $abstract
+     */
+    public function singleton($abstract, mixed $concrete = null): void
+    {
+        parent::singleton($abstract, $concrete);
+
+        foreach ($this->autotagInterfaces as $autotagInterface) {
+            if (! is_a($abstract, $autotagInterface, true)) {
+                continue;
+            }
+
+            $this->tag($abstract, $autotagInterface);
+        }
     }
 
     /**
