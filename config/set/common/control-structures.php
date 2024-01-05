@@ -11,6 +11,7 @@ use PhpCsFixer\Fixer\ControlStructure\NoUselessElseFixer;
 use PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer;
 use PhpCsFixer\Fixer\LanguageConstruct\ExplicitIndirectVariableFixer;
 use PhpCsFixer\Fixer\LanguageConstruct\FunctionToConstantFixer;
+use PhpCsFixer\Fixer\LanguageConstruct\IsNullFixer;
 use PhpCsFixer\Fixer\Operator\NewWithBracesFixer;
 use PhpCsFixer\Fixer\Operator\StandardizeIncrementFixer;
 use PhpCsFixer\Fixer\PhpUnit\PhpUnitMethodCasingFixer;
@@ -31,6 +32,7 @@ return static function (ECSConfig $ecsConfig): void {
         NoUselessElseFixer::class,
         SingleQuoteFixer::class,
         OrderedClassElementsFixer::class,
+        IsNullFixer::class,
     ]);
 
     $ecsConfig->ruleWithConfiguration(SingleClassElementPerStatementFixer::class, [
