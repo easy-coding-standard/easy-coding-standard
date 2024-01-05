@@ -76,7 +76,6 @@ final class ECSConfig extends Container
     {
         $this->assertCheckerClass($checkerClass);
 
-        // tag for autowiring of tagged_iterator()
         $this->singleton($checkerClass);
         $this->autowireWhitespaceAwareFixer($checkerClass);
     }

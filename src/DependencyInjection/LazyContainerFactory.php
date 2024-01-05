@@ -44,7 +44,6 @@ final class LazyContainerFactory
         $this->loadPHPCodeSnifferConstants();
 
         $ecsConfig = new ECSConfig();
-        $ecsConfig->autotagInterface(OutputFormatterInterface::class);
 
         // make sure these services have shared instance created just once, as use setters throughout the project
         $ecsConfig->singleton(ChangedFilesDetector::class);
