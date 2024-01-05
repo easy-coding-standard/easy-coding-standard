@@ -30,7 +30,7 @@ final class ECSConfig extends Container
     /**
      * @var string[]
      */
-    private array $autotagInterfaces = [Sniff::class, FixerInterface::class, OutputFormatterInterface::class];
+    private const AUTOTAG_INTERFACES = [Sniff::class, FixerInterface::class, OutputFormatterInterface::class];
 
     /**
      * @param string[] $paths
@@ -166,7 +166,7 @@ final class ECSConfig extends Container
         SimpleParameterProvider::addParameter(Option::FILE_EXTENSIONS, $fileExtensions);
     }
 
-    public function parallel(int $seconds = 120, int $maxNumberOfProcess = 16, int $jobSize = 20): void
+    public function parallel(int $seconds = 120, int $maxNumberOfProcess = 32, int $jobSize = 20): void
     {
         SimpleParameterProvider::setParameter(Option::PARALLEL, true);
 
@@ -181,18 +181,6 @@ final class ECSConfig extends Container
     public function disableParallel(): void
     {
         SimpleParameterProvider::setParameter(Option::PARALLEL, false);
-    }
-
-    /**
-     * @deprecated
-     * @param array<class-string<Sniff>> $sniffClasses
-     */
-    public function reportSniffClassWarnings(array $sniffClasses): void
-    {
-        echo sprintf(
-            'The "%s()" is deprecated. Use default sniff class setup instead or add classes to ECS core to make them available for everyone',
-            __METHOD__
-        );
     }
 
     /**
@@ -242,21 +230,13 @@ final class ECSConfig extends Container
     }
 
     /**
-     * @internal Use to add tag on service registrations
-     */
-    public function autotagInterface(string $interface): void
-    {
-        $this->autotagInterfaces[] = $interface;
-    }
-
-    /**
      * @param string $abstract
      */
     public function singleton($abstract, mixed $concrete = null): void
     {
         parent::singleton($abstract, $concrete);
 
-        foreach ($this->autotagInterfaces as $autotagInterface) {
+        foreach (self::AUTOTAG_INTERFACES as $autotagInterface) {
             if (! is_a($abstract, $autotagInterface, true)) {
                 continue;
             }
