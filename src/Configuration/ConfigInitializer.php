@@ -57,10 +57,10 @@ final readonly class ConfigInitializer
 
         $templateFileContents = str_replace('__PATHS__', $projectPhpDirectoriesContents, $templateFileContents);
 
-        // write the contents :)
+        // create the ecs.php file
         FileSystem::write(getcwd() . '/ecs.php', $templateFileContents);
 
-        $this->symfonyStyle->success('The config file was generated! Now re-run the command to make your code tidy');
+        $this->symfonyStyle->success('The ecs.php config was generated! Re-run the command to tidy your code');
     }
 
     /**
