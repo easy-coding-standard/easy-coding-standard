@@ -184,18 +184,6 @@ final class ECSConfig extends Container
     }
 
     /**
-     * @deprecated
-     * @param array<class-string<Sniff>> $sniffClasses
-     */
-    public function reportSniffClassWarnings(array $sniffClasses): void
-    {
-        echo sprintf(
-            'The "%s()" is deprecated. Use default sniff class setup instead or add classes to ECS core to make them available for everyone',
-            __METHOD__
-        );
-    }
-
-    /**
      * @link https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/blob/master/doc/ruleSets/index.rst
      * @param list<string> $setNames
      */
