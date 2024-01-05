@@ -90,12 +90,12 @@ final class LazyContainerFactory
         $ecsConfig->singleton(DifferInterface::class, static fn (): DifferInterface => new UnifiedDiffer());
 
         // @see https://gist.github.com/pionl/01c40225ceeed8b136306fdd96b5dabd
-        $ecsConfig->singleton(FixerFileProcessor::class, FixerFileProcessor::class);
+        $ecsConfig->singleton(FixerFileProcessor::class);
         $ecsConfig->when(FixerFileProcessor::class)
             ->needs('$fixers')
             ->giveTagged(FixerInterface::class);
 
-        $ecsConfig->singleton(SniffFileProcessor::class, SniffFileProcessor::class);
+        $ecsConfig->singleton(SniffFileProcessor::class);
         $ecsConfig->when(SniffFileProcessor::class)
             ->needs('$sniffs')
             ->giveTagged(Sniff::class);
