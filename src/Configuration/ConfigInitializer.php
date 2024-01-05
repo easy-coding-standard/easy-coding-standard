@@ -37,13 +37,15 @@ final readonly class ConfigInitializer
         // config already exists, nothing to add
         if ($doesConfigExist) {
             $this->symfonyStyle->warning(
-                'The "ecs.php" config already exists. Register rules or sets there to make it change the code.'
+                'We found ecs.php config, but with no rules in it. Register some rules or sets there first'
             );
             return;
         }
 
-        $response = $this->symfonyStyle->ask('No "ecs.php" config found. Should we generate it for you?', 'yes');
-        if ($response !== 'yes') {
+        $response = $this->symfonyStyle->ask('No ecs.php config found. Should we generate it for you?', 'yes');
+
+        // be tolerant about input
+        if (! in_array($response, ['yes', 'YES', 'y', 'Y'], true)) {
             // okay, nothing we can do
             return;
         }
@@ -55,10 +57,10 @@ final readonly class ConfigInitializer
 
         $templateFileContents = str_replace('__PATHS__', $projectPhpDirectoriesContents, $templateFileContents);
 
-        // write the contents :)
+        // create the ecs.php file
         FileSystem::write(getcwd() . '/ecs.php', $templateFileContents);
 
-        $this->symfonyStyle->success('The config file was generated! Now re-run the command to make your code tidy');
+        $this->symfonyStyle->success('The ecs.php config was generated! Re-run the command to tidy your code');
     }
 
     /**
