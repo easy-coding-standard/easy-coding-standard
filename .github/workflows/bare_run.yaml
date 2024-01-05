@@ -2,8 +2,9 @@ name: Bare Run on various PHP versions
 
 on:
     push:
-        tags:
-            - '*'
+        branches:
+            - main
+    pull_request: null
 
 jobs:
     bare_run:
@@ -23,6 +24,10 @@ jobs:
                     php-version: ${{ matrix.php_version }}
                     coverage: none
 
-            -   run: php bin/ecs list --ansi --debug
+            -   run: mkdir nested-dir
 
-            -   run: php bin/ecs init --ansi --debug
+            -   run: composer require symplify/easy-coding-standard --dev
+                working-directory: nested-dir
+
+            -   run: vendor/bin/ecs list --ansi
+                working-directory: nested-dir
