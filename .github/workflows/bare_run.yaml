@@ -4,7 +4,6 @@ on:
     push:
         branches:
             - main
-    pull_request: null
 
 jobs:
     bare_run:
@@ -26,7 +25,7 @@ jobs:
 
             -   run: mkdir nested-dir
 
-            -   run: composer require symplify/easy-coding-standard --dev
+            -   run: composer require symplify/easy-coding-standard --dev --ansi
                 working-directory: nested-dir
 
             -   run: vendor/bin/ecs list --ansi

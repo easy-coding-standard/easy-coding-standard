@@ -16,8 +16,7 @@ jobs:
                     php-version: 8.2
                     coverage: none
 
-            -   run: composer require symplify/easy-coding-standard
-
-            -   run: composer require symfony/deprecation-contracts
+            -   run: composer require symplify/easy-coding-standard --ansi
+            -   run: composer require symfony/deprecation-contracts --ansi
 
             -   run: vendor/bin/ecs init --ansi --debug
