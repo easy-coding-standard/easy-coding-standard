@@ -80,10 +80,7 @@ final class LazyContainerFactory
 
         // output
         $ecsConfig->singleton(ConsoleOutputFormatter::class);
-        $ecsConfig->tag(ConsoleOutputFormatter::class, OutputFormatterInterface::class);
-
         $ecsConfig->singleton(JsonOutputFormatter::class);
-        $ecsConfig->tag(JsonOutputFormatter::class, OutputFormatterInterface::class);
 
         $ecsConfig->singleton(OutputFormatterCollector::class, OutputFormatterCollector::class);
         $ecsConfig->when(OutputFormatterCollector::class)
