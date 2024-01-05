@@ -30,7 +30,7 @@ final class ECSConfig extends Container
     /**
      * @var string[]
      */
-    private array $autotagInterfaces = [Sniff::class, FixerInterface::class, OutputFormatterInterface::class];
+    private const AUTOTAG_INTERFACES = [Sniff::class, FixerInterface::class, OutputFormatterInterface::class];
 
     /**
      * @param string[] $paths
@@ -242,21 +242,13 @@ final class ECSConfig extends Container
     }
 
     /**
-     * @internal Use to add tag on service registrations
-     */
-    public function autotagInterface(string $interface): void
-    {
-        $this->autotagInterfaces[] = $interface;
-    }
-
-    /**
      * @param string $abstract
      */
     public function singleton($abstract, mixed $concrete = null): void
     {
         parent::singleton($abstract, $concrete);
 
-        foreach ($this->autotagInterfaces as $autotagInterface) {
+        foreach (self::AUTOTAG_INTERFACES as $autotagInterface) {
             if (! is_a($abstract, $autotagInterface, true)) {
                 continue;
             }
