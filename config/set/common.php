@@ -14,7 +14,6 @@ return static function (ECSConfig $ecsConfig): void {
         SetList::NAMESPACES,
         SetList::PHPUNIT,
         SetList::SPACES,
-        SetList::STRICT,
         SetList::CLEAN_CODE,
     ]);
 };
