@@ -23,7 +23,7 @@ final readonly class CheckerListReporter
         }
 
         $sectionMessage = sprintf(
-            '%d checker%s from %s:',
+            '%d checker%s %s:',
             count($checkerClasses),
             count($checkerClasses) === 1 ? '' : 's',
             $type

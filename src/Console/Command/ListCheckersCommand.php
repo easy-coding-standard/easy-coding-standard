@@ -64,9 +64,9 @@ final class ListCheckersCommand extends Command
             return Command::SUCCESS;
         }
 
-        $this->checkerListReporter->report($this->getSniffClasses(), 'PHP_CodeSniffer');
-        $this->checkerListReporter->report($this->getFixerClasses(), 'PHP-CS-Fixer');
-        $this->checkerListReporter->report($skippedCheckers, 'Skipped Checkers');
+        $this->checkerListReporter->report($this->getSniffClasses(), 'from PHP_CodeSniffer');
+        $this->checkerListReporter->report($this->getFixerClasses(), 'from PHP-CS-Fixer');
+        $this->checkerListReporter->report($skippedCheckers, 'are skipped');
 
         return self::SUCCESS;
     }
