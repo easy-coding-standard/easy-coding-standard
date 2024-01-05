@@ -166,7 +166,7 @@ final class ECSConfig extends Container
         SimpleParameterProvider::addParameter(Option::FILE_EXTENSIONS, $fileExtensions);
     }
 
-    public function parallel(int $seconds = 120, int $maxNumberOfProcess = 16, int $jobSize = 20): void
+    public function parallel(int $seconds = 120, int $maxNumberOfProcess = 32, int $jobSize = 20): void
     {
         SimpleParameterProvider::setParameter(Option::PARALLEL, true);
 
