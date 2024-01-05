@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff;
 use PhpCsFixer\Fixer\Casing\MagicConstantCasingFixer;
 use PhpCsFixer\Fixer\ClassNotation\ClassDefinitionFixer;
 use PhpCsFixer\Fixer\ClassNotation\OrderedClassElementsFixer;
@@ -29,7 +28,6 @@ return static function (ECSConfig $ecsConfig): void {
         StandardizeIncrementFixer::class,
         SelfAccessorFixer::class,
         MagicConstantCasingFixer::class,
-        AssignmentInConditionSniff::class,
         NoUselessElseFixer::class,
         SingleQuoteFixer::class,
         OrderedClassElementsFixer::class,
