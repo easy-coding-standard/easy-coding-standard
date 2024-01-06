@@ -17,7 +17,7 @@ final class SourceFinderTest extends AbstractTestCase
 
         $sourceFinder = $this->make(SourceFinder::class);
         $foundFiles = $sourceFinder->find([__DIR__ . '/SourceFinderSource/Source']);
-        $this->assertCount(1, $foundFiles);
+        $this->assertCount(2, $foundFiles);
 
         $foundFiles = $sourceFinder->find([__DIR__ . '/SourceFinderSource/Source/SomeClass.php.inc']);
         $this->assertCount(1, $foundFiles);
