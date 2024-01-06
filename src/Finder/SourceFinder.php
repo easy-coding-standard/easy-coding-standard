@@ -54,6 +54,7 @@ final class SourceFinder
 
         $finder = Finder::create()
             ->files()
+            ->ignoreDotFiles(false)
             ->name($normalizedFileExtensions)
             ->in($directory)
             ->exclude('vendor')
@@ -77,6 +78,7 @@ final class SourceFinder
 
         foreach ($fileExtensions as $fileExtension) {
             $normalizedFileExtensions[] = '*.' . $fileExtension;
+            $normalizedFileExtensions[] = '.*.' . $fileExtension;
         }
 
         return $normalizedFileExtensions;
