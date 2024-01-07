@@ -12,6 +12,7 @@ use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
 use PhpCsFixer\FixerFactory;
 use PhpCsFixer\RuleSet\RuleSet;
 use PhpCsFixer\WhitespacesFixerConfig;
+use Symplify\EasyCodingStandard\Configuration\ECSConfigBuilder;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\ConflictingCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveExcludedCheckersCompilerPass;
@@ -31,6 +32,11 @@ final class ECSConfig extends Container
      * @var string[]
      */
     private const AUTOTAG_INTERFACES = [Sniff::class, FixerInterface::class, OutputFormatterInterface::class];
+
+    public static function configure(): ECSConfigBuilder
+    {
+        return new ECSConfigBuilder();
+    }
 
     /**
      * @param string[] $paths
@@ -96,7 +102,6 @@ final class ECSConfig extends Container
 
         $this->singleton($checkerClass);
 
-        // tag for autowiring of tagged_iterator()
         $this->autowireWhitespaceAwareFixer($checkerClass);
 
         if (is_a($checkerClass, FixerInterface::class, true)) {

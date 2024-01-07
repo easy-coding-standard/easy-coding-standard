@@ -18,6 +18,7 @@ final class FixerServiceRegistrationTest extends AbstractTestCase
         $fixerFileProcessor = $this->make(FixerFileProcessor::class);
 
         $checkers = $fixerFileProcessor->getCheckers();
+
         $this->assertCount(2, $checkers);
 
         /** @var ArraySyntaxFixer $arraySyntaxFixer */

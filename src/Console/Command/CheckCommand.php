@@ -28,11 +28,13 @@ final class CheckCommand extends AbstractCheckCommand
     {
         $this->setName('check');
         $this->setDescription('Check coding standard in one or more directories.');
+
         parent::configure();
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        // create ecs.php config file if does not exist yet
         if (! $this->configInitializer->areSomeCheckersRegistered()) {
             $this->configInitializer->createConfig(getcwd());
             return self::SUCCESS;

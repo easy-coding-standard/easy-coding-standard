@@ -42,7 +42,7 @@ final readonly class ConfigInitializer
             return;
         }
 
-        $response = $this->symfonyStyle->ask('No ecs.php config found. Should we generate it for you?', 'yes');
+        $response = $this->symfonyStyle->ask('No "ecs.php" config found. Should we generate it for you?', 'yes');
 
         // be tolerant about input
         if (! in_array($response, ['yes', 'YES', 'y', 'Y'], true)) {
