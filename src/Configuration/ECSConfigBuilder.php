@@ -24,10 +24,16 @@ final class ECSConfigBuilder
      */
     private array $sets = [];
 
+    /**
+     * @var array<mixed>
+     */
+    private array $skip = [];
+
     public function __invoke(ECSConfig $ecsConfig): void
     {
         $ecsConfig->sets($this->sets);
         $ecsConfig->paths($this->paths);
+        $ecsConfig->skip($this->skip);
     }
 
     /**
@@ -36,6 +42,16 @@ final class ECSConfigBuilder
     public function withPaths(array $paths): self
     {
         $this->paths = $paths;
+
+        return $this;
+    }
+
+    /**
+     * @param array<mixed> $skip
+     */
+    public function withSkip(array $skip): self
+    {
+        $this->skip = $skip;
 
         return $this;
     }
