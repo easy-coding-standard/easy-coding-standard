@@ -75,17 +75,28 @@ final class ECSConfigBuilder
     }
 
     public function withPreparedSets(
+        /** @see SetList::PSR_12 */
         bool $psr12 = false,
+        /** @see SetList::COMMON */
         bool $common = false,
+        /** @see SetList::SYMPLIFY */
         bool $symplify = false,
         // common sets
+        /** @see SetList::ARRAY */
         bool $arrays = false,
+        /** @see SetList::COMMENTS */
         bool $comments = false,
+        /** @see SetList::DOCBLOCK */
         bool $docblocks = false,
+        /** @see SetList::SPACES */
         bool $spaces = false,
+        /** @see SetList::NAMESPACES */
         bool $namespaces = false,
+        /** @see SetList::CONTROL_STRUCTURES */
         bool $controlStructures = false,
+        /** @see SetList::PHPUNIT */
         bool $phpunit = false,
+        /** @see SetList::STRICT */
         bool $strict = false,
     ): self {
         if ($psr12) {
