@@ -74,8 +74,7 @@ use Symplify\EasyCodingStandard\Config\ECSConfig;
 
 return ECSConfig::configure()
     ->withPaths([__DIR__ . '/src', __DIR__ . '/tests'])
-    ->withRootFiles()
-    ->withPreparedSets(psr12: true);
+    ->withRootFiles();
 ```
 
 <br>
@@ -152,9 +151,3 @@ Do you use another tool and want to migrate? It's pretty straightforward - here 
 
 * for [PHP_CodeSniffer](https://tomasvotruba.com/blog/2018/06/04/how-to-migrate-from-php-code-sniffer-to-easy-coding-standard)
 * and [PHP CS Fixer](https://tomasvotruba.com/blog/2018/06/07/how-to-migrate-from-php-cs-fixer-to-easy-coding-standard).
-
-<br>
-
-## Acknowledgment
-
-The parallel run is heavily inspired by [phpstan/phpstan-src](https://github.com/phpstan/phpstan-src).
