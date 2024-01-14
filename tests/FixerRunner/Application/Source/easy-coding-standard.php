@@ -8,15 +8,16 @@ use PhpCsFixer\Fixer\Basic\EncodingFixer;
 use PhpCsFixer\Fixer\PhpTag\FullOpeningTagFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 
-return static function (ECSConfig $ecsConfig): void {
-    // priority 0 - lower last
-    $ecsConfig->rule(NoTrailingCommaInSinglelineArrayFixer::class);
+return ECSConfig::configure()
+    ->withRules([
+        // priority 0 - lower last
+        NoTrailingCommaInSinglelineArrayFixer::class,
 
-    $ecsConfig->rule(ArrayDeclarationSniff::class);
+        ArrayDeclarationSniff::class,
 
-    // priority 100 - higher first
-    $ecsConfig->rule(EncodingFixer::class);
+        // priority 100 - higher first
+        EncodingFixer::class,
 
-    // priority 98
-    $ecsConfig->rule(FullOpeningTagFixer::class);
-};
+        // priority 98
+        FullOpeningTagFixer::class,
+    ]);

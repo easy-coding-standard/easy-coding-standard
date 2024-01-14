@@ -6,7 +6,5 @@ use PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\LowerCaseConstantSniff;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\UpperCaseConstantSniff;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 
-return static function (ECSConfig $ecsConfig): void {
-    $ecsConfig->rule(LowerCaseConstantSniff::class);
-    $ecsConfig->rule(UpperCaseConstantSniff::class);
-};
+return ECSConfig::configure()
+    ->withRules([LowerCaseConstantSniff::class, UpperCaseConstantSniff::class]);
