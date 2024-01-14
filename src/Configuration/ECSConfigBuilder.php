@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Configuration;
 
+use PHP_CodeSniffer\Sniffs\Sniff;
+use PhpCsFixer\Fixer\FixerInterface;
 use Symfony\Component\Finder\Finder;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 use Symplify\EasyCodingStandard\Exception\Configuration\SuperfluousConfigurationException;
@@ -34,11 +36,23 @@ final class ECSConfigBuilder
      */
     private array $skip = [];
 
+    /**
+     * @var array<class-string<Sniff|FixerInterface>>
+     */
+    private array $rules = [];
+
+    /**
+     * @var array<class-string<(FixerInterface | Sniff)>, mixed>
+     */
+    private array $rulesWithConfiguration = [];
+
     public function __invoke(ECSConfig $ecsConfig): void
     {
         $ecsConfig->sets($this->sets);
         $ecsConfig->paths($this->paths);
         $ecsConfig->skip($this->skip);
+        $ecsConfig->rules($this->rules);
+        $ecsConfig->rulesWithConfiguration($this->rulesWithConfiguration);
 
         $ecsConfig->dynamicSets($this->dynamicSets);
     }
@@ -115,7 +129,9 @@ final class ECSConfigBuilder
             $this->sets[] = SetList::COMMON;
 
             if ($arrays || $spaces || $namespaces || $docblocks || $controlStructures || $phpunit || $strict || $comments) {
-                throw new SuperfluousConfigurationException('This set is already included in the "common" set. You can remove it');
+                throw new SuperfluousConfigurationException(
+                    'This set is already included in the "common" set. You can remove it'
+                );
             }
         } else {
             if ($arrays) {
@@ -158,8 +174,54 @@ final class ECSConfigBuilder
         return $this;
     }
 
-    public function withPreparedPhpCsFixerSets(bool $doctrineAnnotation = false, bool $per = false, bool $perCS = false, bool $perCS10 = false, bool $perCS10Risky = false, bool $perCS20 = false, bool $perCS20Risky = false, bool $perCSRisky = false, bool $perRisky = false, bool $php54Migration = false, bool $php56MigrationRisky = false, bool $php70Migration = false, bool $php70MigrationRisky = false, bool $php71Migration = false, bool $php71MigrationRisky = false, bool $php73Migration = false, bool $php74Migration = false, bool $php74MigrationRisky = false, bool $php80Migration = false, bool $php80MigrationRisky = false, bool $php81Migration = false, bool $php82Migration = false, bool $php83Migration = false, bool $phpunit30MigrationRisky = false, bool $phpunit32MigrationRisky = false, bool $phpunit35MigrationRisky = false, bool $phpunit43MigrationRisky = false, bool $phpunit48MigrationRisky = false, bool $phpunit50MigrationRisky = false, bool $phpunit52MigrationRisky = false, bool $phpunit54MigrationRisky = false, bool $phpunit55MigrationRisky = false, bool $phpunit56MigrationRisky = false, bool $phpunit57MigrationRisky = false, bool $phpunit60MigrationRisky = false, bool $phpunit75MigrationRisky = false, bool $phpunit84MigrationRisky = false, bool $phpunit100MigrationRisky = false, bool $psr1 = false, bool $psr2 = false, bool $psr12 = false, bool $psr12Risky = false, bool $phpCsFixer = false, bool $phpCsFixerRisky = false, bool $symfony = false, bool $symfonyRisky = false): self
-    {
+    public function withPreparedPhpCsFixerSets(
+        bool $doctrineAnnotation = false,
+        bool $per = false,
+        bool $perCS = false,
+        bool $perCS10 = false,
+        bool $perCS10Risky = false,
+        bool $perCS20 = false,
+        bool $perCS20Risky = false,
+        bool $perCSRisky = false,
+        bool $perRisky = false,
+        bool $php54Migration = false,
+        bool $php56MigrationRisky = false,
+        bool $php70Migration = false,
+        bool $php70MigrationRisky = false,
+        bool $php71Migration = false,
+        bool $php71MigrationRisky = false,
+        bool $php73Migration = false,
+        bool $php74Migration = false,
+        bool $php74MigrationRisky = false,
+        bool $php80Migration = false,
+        bool $php80MigrationRisky = false,
+        bool $php81Migration = false,
+        bool $php82Migration = false,
+        bool $php83Migration = false,
+        bool $phpunit30MigrationRisky = false,
+        bool $phpunit32MigrationRisky = false,
+        bool $phpunit35MigrationRisky = false,
+        bool $phpunit43MigrationRisky = false,
+        bool $phpunit48MigrationRisky = false,
+        bool $phpunit50MigrationRisky = false,
+        bool $phpunit52MigrationRisky = false,
+        bool $phpunit54MigrationRisky = false,
+        bool $phpunit55MigrationRisky = false,
+        bool $phpunit56MigrationRisky = false,
+        bool $phpunit57MigrationRisky = false,
+        bool $phpunit60MigrationRisky = false,
+        bool $phpunit75MigrationRisky = false,
+        bool $phpunit84MigrationRisky = false,
+        bool $phpunit100MigrationRisky = false,
+        bool $psr1 = false,
+        bool $psr2 = false,
+        bool $psr12 = false,
+        bool $psr12Risky = false,
+        bool $phpCsFixer = false,
+        bool $phpCsFixerRisky = false,
+        bool $symfony = false,
+        bool $symfonyRisky = false
+    ): self {
         if ($doctrineAnnotation) {
             $this->dynamicSets[] = '@DoctrineAnnotation';
         }
@@ -353,6 +415,26 @@ final class ECSConfigBuilder
     public function withSets(array $sets): self
     {
         $this->sets = [...$this->sets, ...$sets];
+
+        return $this;
+    }
+
+    /**
+     * @param array<class-string<Sniff|FixerInterface>> $rules
+     */
+    public function withRules(array $rules): self
+    {
+        $this->rules = $rules;
+
+        return $this;
+    }
+
+    /**
+     * @param array<class-string<(FixerInterface | Sniff)>, mixed> $configuredRules
+     */
+    public function withConfiguredRules(array $configuredRules): self
+    {
+        $this->rulesWithConfiguration = $configuredRules;
 
         return $this;
     }

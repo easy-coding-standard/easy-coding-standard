@@ -62,9 +62,7 @@ return [
     'exclude-files' => [...$polyfillsBootstraps, ...$polyfillsStubs],
 
     // expose
-    'expose-classes' => [
-        'Normalizer',
-    ],
+    'expose-classes' => ['Normalizer'],
 
     'patchers' => [
         static function (string $filePath, string $prefix, string $content): string {
@@ -82,12 +80,7 @@ return [
                 $prefix . '\\\\ORM\\\\Mapping\\\\Entity',
                 $prefix . '\\\\Mapping\\\\Entity',
                 $prefix . '\\\\ODM\\\\Document',
-            ], [
-                'ORM\\Entity',
-                'ORM\\Mapping\\Entity',
-                'Mapping\\Entity',
-                'ODM\\Document',
-            ], $content);
+            ], ['ORM\\Entity', 'ORM\\Mapping\\Entity', 'Mapping\\Entity', 'ODM\\Document'], $content);
         },
 
         static function (string $filePath, string $prefix, string $content): string {
