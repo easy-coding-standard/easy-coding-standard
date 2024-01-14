@@ -61,10 +61,10 @@
         }
     },
     "scripts": {
-        "check-cs": "bin/ecs check --ansi",
-        "fix-cs": "bin/ecs check --fix --ansi",
         "phpstan": "vendor/bin/phpstan analyse --ansi  --error-format symplify",
-        "rector": "vendor/bin/rector process --dry-run --ansi"
+        "rector": "vendor/bin/rector process --dry-run --ansi",
+        "check-cs": "bin/ecs check --ansi",
+        "fix-cs": "bin/ecs check --fix --ansi"
     },
     "replace": {
         "symfony/polyfill-intl-grapheme": "*",

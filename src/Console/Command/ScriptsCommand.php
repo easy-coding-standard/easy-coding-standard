@@ -12,7 +12,7 @@ use Symplify\EasyCodingStandard\FileSystem\JsonFileSystem;
 final class ScriptsCommand extends AbstractCheckCommand
 {
     public function __construct(
-        private SymfonyStyle $symfonyStyle,
+        private readonly SymfonyStyle $symfonyStyle,
     ) {
         parent::__construct();
     }
@@ -37,7 +37,7 @@ final class ScriptsCommand extends AbstractCheckCommand
         $composerJson = JsonFileSystem::readFilePath($composerJsonFilePath);
 
         if (isset($composerJson['scripts']['check-cs']) && isset($composerJson['scripts']['fix-cs'])) {
-            $this->symfonyStyle->success('The scripts are already added');
+            $this->symfonyStyle->warning('The scripts were already added. You can run them:');
 
             $this->symfonyStyle->listing(['composer check-cs', 'composer fix-cs']);
 
@@ -50,7 +50,6 @@ final class ScriptsCommand extends AbstractCheckCommand
         JsonFileSystem::writeFilePath($composerJsonFilePath, $composerJson);
 
         $this->symfonyStyle->success('Your composer.json is now extended with 2 handy scripts:');
-
         $this->symfonyStyle->listing(['composer check-cs', 'composer fix-cs']);
 
         return self::SUCCESS;
