@@ -10,6 +10,7 @@ use PhpCsFixer\Fixer\FixerInterface;
 use Symfony\Component\Finder\Finder;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 use Symplify\EasyCodingStandard\Exception\Configuration\SuperfluousConfigurationException;
+use Symplify\EasyCodingStandard\ValueObject\Option;
 use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
 
 /**
@@ -56,6 +57,9 @@ use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
 
     private ?string $cacheNamespace = null;
 
+    /**
+     * @var Option::INDENTATION_*
+     */
     private ?string $indentation = null;
 
     private ?string $lineEnding = null;
@@ -145,6 +149,7 @@ use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
         bool $common = false,
         /** @see SetList::SYMPLIFY */
         bool $symplify = false,
+
         // common sets
         /** @see SetList::ARRAY */
         bool $arrays = false,
@@ -490,10 +495,24 @@ use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
         return $this;
     }
 
+    /**
+     * @param Option::INDENTATION_*|null $indentation
+     */
     public function withSpacing(?string $indentation = null, ?string $lineEnding = null): self
     {
         $this->indentation = $indentation;
         $this->lineEnding = $lineEnding;
+
+        return $this;
+    }
+
+    /**
+     * @param class-string<(FixerInterface | Sniff)> $checkerClass
+     * @param mixed[] $configuration
+     */
+    public function withConfiguredRule(string $checkerClass, array $configuration): self
+    {
+        $this->rulesWithConfiguration[$checkerClass] = $configuration;
 
         return $this;
     }
