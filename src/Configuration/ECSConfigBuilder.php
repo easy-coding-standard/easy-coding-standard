@@ -68,6 +68,12 @@ final class ECSConfigBuilder
      */
     private bool $parallel = true;
 
+    private int $parallelTimeoutSeconds = 120;
+
+    private int $parallelMaxNumberOfProcess = 32;
+
+    private int $parallelJobSize = 20;
+
     public function __invoke(ECSConfig $ecsConfig): void
     {
         $ecsConfig->sets($this->sets);
@@ -99,7 +105,11 @@ final class ECSConfigBuilder
         $ecsConfig->dynamicSets($this->dynamicSets);
 
         if ($this->parallel) {
-            $ecsConfig->parallel();
+            $ecsConfig->parallel(
+                seconds: $this->parallelTimeoutSeconds,
+                maxNumberOfProcess: $this->parallelMaxNumberOfProcess,
+                jobSize: $this->parallelJobSize
+            );
         }
     }
 
@@ -516,9 +526,24 @@ final class ECSConfigBuilder
         return $this;
     }
 
-    public function withParallel(): self
-    {
+    public function withParallel(
+        ?int $timeoutSeconds = null,
+        ?int $maxNumberOfProcess = null,
+        ?int $jobSize = null
+    ): self {
         $this->parallel = true;
+
+        if (is_int($timeoutSeconds)) {
+            $this->parallelTimeoutSeconds = $timeoutSeconds;
+        }
+
+        if (is_int($maxNumberOfProcess)) {
+            $this->parallelMaxNumberOfProcess = $maxNumberOfProcess;
+        }
+
+        if (is_int($jobSize)) {
+            $this->parallelJobSize = $jobSize;
+        }
 
         return $this;
     }

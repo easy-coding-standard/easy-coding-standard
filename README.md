@@ -107,7 +107,7 @@ return ECSConfig::configure()
 
 <br>
 
-### Less Commonly Used Options
+### Less Common Options
 
 You probably won't use these, but they can give you more control over the internal process:
 
@@ -126,7 +126,10 @@ return ECSConfig::configure()
     )
 
     // print contents with specific indent rules
-    ->withSpacing(indentation: Option::INDENTATION_SPACES, lineEnding: PHP_EOL);
+    ->withSpacing(indentation: Option::INDENTATION_SPACES, lineEnding: PHP_EOL)
+
+    // modify parallel run
+    ->withParallel(timeoutSeconds: 120, maxNumberOfProcess: 32, jobSize: 20);
 ```
 
 Mentioned values are default ones.
