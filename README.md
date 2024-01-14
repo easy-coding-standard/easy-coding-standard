@@ -75,6 +75,20 @@ return ECSConfig::configure()
 
 <br>
 
+Do you want to include one of 44 sets from [php-cs-fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/blob/master/doc/ruleSets/index.rst)?
+
+You can:
+
+```php
+use Symplify\EasyCodingStandard\Config\ECSConfig;
+
+return ECSConfig::configure()
+    ->withPaths([__DIR__ . '/src', __DIR__ . '/tests'])
+    ->withPhpCsFixerSets(perCS20: true, doctrineAnnotation: true);
+```
+
+<br>
+
 ### How to Skip Files/Rules?
 
 Love the sets of rules, but want to skip single rule or some files?
