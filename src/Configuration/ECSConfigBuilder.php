@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Configuration;
 
-use AllowDynamicProperties;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\FixerInterface;
 use Symfony\Component\Finder\Finder;
@@ -16,7 +15,7 @@ use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
 /**
  * @api
  */
-#[AllowDynamicProperties] final class ECSConfigBuilder
+final class ECSConfigBuilder
 {
     /**
      * @var string[]
@@ -513,16 +512,6 @@ use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
     public function withConfiguredRule(string $checkerClass, array $configuration): self
     {
         $this->rulesWithConfiguration[$checkerClass] = $configuration;
-
-        return $this;
-    }
-
-    /**
-     * @param array<class-string<(FixerInterface | Sniff)>, mixed> $configuredRules
-     */
-    public function withConfiguredRules(array $configuredRules): self
-    {
-        $this->rulesWithConfiguration = array_merge($this->rulesWithConfiguration, $configuredRules);
 
         return $this;
     }
