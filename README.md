@@ -143,6 +143,18 @@ Mentioned values are default ones.
 vendor/bin/ecs --clear-cache
 ```
 
+### How can I see all used rules?
+
+```bash
+vendor/bin/ecs list-checkers
+```
+
+Do you look for json format?
+
+```bash
+vendor/bin/ecs list-checkers --output-format json
+```
+
 <br>
 
 ## How to Migrate from another coding standard tool?
