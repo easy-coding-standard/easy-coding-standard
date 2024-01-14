@@ -16,7 +16,13 @@ jobs:
                     php-version: 8.2
                     coverage: none
 
+            -   run: mkdir nested-dir
+
             -   run: composer require symplify/easy-coding-standard --ansi
+                working-directory: nested-dir
+
             -   run: composer require symfony/deprecation-contracts --ansi
+                working-directory: nested-dir
 
             -   run: vendor/bin/ecs init --ansi --debug
+                working-directory: nested-dir
