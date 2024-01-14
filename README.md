@@ -79,6 +79,8 @@ return ECSConfig::configure()
     ]);
 ```
 
+## @todo add `withRootFiles()`
+
 <br>
 
 ### Skip specific files
@@ -114,6 +116,7 @@ You probably won't use these, but they can give you more control over the intern
 
 ```php
 use Symplify\EasyCodingStandard\Config\ECSConfig;
+use Symplify\EasyCodingStandard\ValueObject\Option;
 
 return ECSConfig::configure()
     // file extensions to scan
@@ -122,11 +125,11 @@ return ECSConfig::configure()
     // configure cache paths and namespace - useful e.g. Gitlab CI caching, where getcwd() produces always different path
     ->withCache(
         directory: sys_get_temp_dir() . '/_changed_files_detector_tests',
-        namespace: \Nette\Utils\Strings::webalize(getcwd())
+        namespace: getcwd() // normalized to directory separator
     )
 
     // print contents with specific indent rules
-    ->withSpacing(indentation: 'space', lineEnding: PHP_EOL);
+    ->withSpacing(indentation: Option::INDENTATION_SPACES, lineEnding: PHP_EOL);
 ```
 
 Mentioned values are default ones.

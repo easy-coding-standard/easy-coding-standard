@@ -60,6 +60,11 @@ use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
 
     private ?string $lineEnding = null;
 
+    /**
+     * Enabled by default
+     */
+    private bool $parallel = true;
+
     public function __invoke(ECSConfig $ecsConfig): void
     {
         $ecsConfig->sets($this->sets);
@@ -89,6 +94,10 @@ use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
         }
 
         $ecsConfig->dynamicSets($this->dynamicSets);
+
+        if ($this->parallel) {
+            $ecsConfig->parallel();
+        }
     }
 
     /**
@@ -494,7 +503,21 @@ use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
      */
     public function withConfiguredRules(array $configuredRules): self
     {
-        $this->rulesWithConfiguration = $configuredRules;
+        $this->rulesWithConfiguration = array_merge($this->rulesWithConfiguration, $configuredRules);
+
+        return $this;
+    }
+
+    public function withParallel(): self
+    {
+        $this->parallel = true;
+
+        return $this;
+    }
+
+    public function withoutParallel(): self
+    {
+        $this->parallel = false;
 
         return $this;
     }
