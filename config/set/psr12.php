@@ -52,24 +52,34 @@ use PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer;
 use PhpCsFixer\Fixer\Whitespace\StatementIndentationFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 
-return static function (ECSConfig $ecsConfig): void {
-    $ecsConfig->ruleWithConfiguration(OrderedImportsFixer::class, [
+return ECSConfig::configure()
+    ->withSkip([SingleImportPerStatementFixer::class])
+    ->withConfiguredRule(OrderedImportsFixer::class, [
         'imports_order' => ['class', 'function', 'const'],
-    ]);
-
-    $ecsConfig->ruleWithConfiguration(DeclareEqualNormalizeFixer::class, [
+    ])
+    ->withConfiguredRule(DeclareEqualNormalizeFixer::class, [
         'space' => 'none',
-    ]);
-
-    $ecsConfig->ruleWithConfiguration(BracesFixer::class, [
+    ])
+    ->withConfiguredRule(BracesFixer::class, [
         'allow_single_line_closure' => false,
         'position_after_functions_and_oop_constructs' => 'next',
         'position_after_control_structures' => 'same',
         'position_after_anonymous_constructs' => 'same',
-    ]);
-
-    // split of BracesFixer in PHP CS Fixer 3.10 - https://github.com/FriendsOfPHP/PHP-CS-Fixer/pull/4884
-    $ecsConfig->rules([
+    ])
+    ->withConfiguredRule(VisibilityRequiredFixer::class, [
+        'elements' => ['const', 'method', 'property'],
+    ])
+    ->withConfiguredRule(MethodArgumentSpaceFixer::class, [
+        'on_multiline' => 'ensure_fully_multiline',
+    ])
+    ->withConfiguredRule(SingleClassElementPerStatementFixer::class, [
+        'elements' => ['property'],
+    ])
+    ->withConfiguredRule(ConcatSpaceFixer::class, [
+        'spacing' => 'one',
+    ])
+    ->withRules([
+        // split of BracesFixer in PHP CS Fixer 3.10 - https://github.com/FriendsOfPHP/PHP-CS-Fixer/pull/4884
         ControlStructureBracesFixer::class,
         CurlyBracesPositionFixer::class,
         NoMultipleStatementsPerLineFixer::class,
@@ -77,13 +87,6 @@ return static function (ECSConfig $ecsConfig): void {
         ControlStructureContinuationPositionFixer::class,
         StatementIndentationFixer::class,
         SingleSpaceAfterConstructFixer::class,
-    ]);
-
-    $ecsConfig->ruleWithConfiguration(VisibilityRequiredFixer::class, [
-        'elements' => ['const', 'method', 'property'],
-    ]);
-
-    $ecsConfig->rules([
         BinaryOperatorSpacesFixer::class,
         BlankLineAfterNamespaceFixer::class,
         BlankLineAfterOpeningTagFixer::class,
@@ -120,18 +123,3 @@ return static function (ECSConfig $ecsConfig): void {
         VisibilityRequiredFixer::class,
         WhitespaceAfterCommaInArrayFixer::class,
     ]);
-
-    $ecsConfig->ruleWithConfiguration(MethodArgumentSpaceFixer::class, [
-        'on_multiline' => 'ensure_fully_multiline',
-    ]);
-
-    $ecsConfig->ruleWithConfiguration(SingleClassElementPerStatementFixer::class, [
-        'elements' => ['property'],
-    ]);
-
-    $ecsConfig->ruleWithConfiguration(ConcatSpaceFixer::class, [
-        'spacing' => 'one',
-    ]);
-
-    $ecsConfig->skip([SingleImportPerStatementFixer::class]);
-};

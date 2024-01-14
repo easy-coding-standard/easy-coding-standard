@@ -5,6 +5,5 @@ declare(strict_types=1);
 use PHP_CodeSniffer\Standards\Generic\Sniffs\VersionControl\GitMergeConflictSniff;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 
-return static function (ECSConfig $ecsConfig): void {
-    $ecsConfig->rule(GitMergeConflictSniff::class);
-};
+return ECSConfig::configure()
+    ->withRules([GitMergeConflictSniff::class]);

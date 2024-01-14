@@ -19,8 +19,8 @@ use PhpCsFixer\Fixer\StringNotation\ExplicitStringVariableFixer;
 use PhpCsFixer\Fixer\StringNotation\SingleQuoteFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 
-return static function (ECSConfig $ecsConfig): void {
-    $ecsConfig->rules([
+return ECSConfig::configure()
+    ->withRules([
         PhpUnitMethodCasingFixer::class,
         FunctionToConstantFixer::class,
         ExplicitStringVariableFixer::class,
@@ -33,19 +33,15 @@ return static function (ECSConfig $ecsConfig): void {
         SingleQuoteFixer::class,
         OrderedClassElementsFixer::class,
         IsNullFixer::class,
-    ]);
-
-    $ecsConfig->ruleWithConfiguration(SingleClassElementPerStatementFixer::class, [
+    ])
+    ->withConfiguredRule(SingleClassElementPerStatementFixer::class, [
         'elements' => ['const', 'property'],
-    ]);
-
-    $ecsConfig->ruleWithConfiguration(ClassDefinitionFixer::class, [
+    ])
+    ->withConfiguredRule(ClassDefinitionFixer::class, [
         'single_line' => true,
-    ]);
-
-    $ecsConfig->ruleWithConfiguration(YodaStyleFixer::class, [
+    ])
+    ->withConfiguredRule(YodaStyleFixer::class, [
         'equal' => false,
         'identical' => false,
         'less_and_greater' => false,
     ]);
-};

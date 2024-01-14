@@ -15,8 +15,8 @@ use Symplify\CodingStandard\Fixer\Spacing\StandaloneLinePromotedPropertyFixer;
 use Symplify\CodingStandard\Fixer\Strict\BlankLineAfterStrictTypesFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 
-return static function (ECSConfig $ecsConfig): void {
-    $ecsConfig->rules([
+return ECSConfig::configure()
+    ->withRules([
         // docblocks and comments
         RemovePHPStormAnnotationFixer::class,
         ParamReturnAndVarTagMalformsFixer::class,
@@ -32,11 +32,8 @@ return static function (ECSConfig $ecsConfig): void {
         SpaceAfterCommaHereNowDocFixer::class,
         BlankLineAfterStrictTypesFixer::class,
 
-        // line length
         LineLengthFixer::class,
-    ]);
-
-    $ecsConfig->ruleWithConfiguration(GeneralPhpdocAnnotationRemoveFixer::class, [
+    ])
+    ->withConfiguredRule(GeneralPhpdocAnnotationRemoveFixer::class, [
         'annotations' => ['throws', 'author', 'package', 'group', 'covers', 'category'],
     ]);
-};

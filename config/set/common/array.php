@@ -14,8 +14,8 @@ use Symplify\CodingStandard\Fixer\ArrayNotation\ArrayOpenerAndCloserNewlineFixer
 use Symplify\CodingStandard\Fixer\ArrayNotation\StandaloneLineInMultilineArrayFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 
-return static function (ECSConfig $ecsConfig): void {
-    $ecsConfig->rules([
+return ECSConfig::configure()
+    ->withRules([
         NoWhitespaceBeforeCommaInArrayFixer::class,
         ArrayOpenerAndCloserNewlineFixer::class,
         ArrayIndentationFixer::class,
@@ -23,18 +23,15 @@ return static function (ECSConfig $ecsConfig): void {
         WhitespaceAfterCommaInArrayFixer::class,
         ArrayListItemNewlineFixer::class,
         StandaloneLineInMultilineArrayFixer::class,
-    ]);
+    ])
 
     // commas
-    $ecsConfig->ruleWithConfiguration(NoTrailingCommaInSinglelineFixer::class, [
+    ->withConfiguredRule(NoTrailingCommaInSinglelineFixer::class, [
         'elements' => ['arguments', 'array_destructuring', 'array', 'group_import'],
-    ]);
-
-    $ecsConfig->ruleWithConfiguration(TrailingCommaInMultilineFixer::class, [
+    ])
+    ->withConfiguredRule(TrailingCommaInMultilineFixer::class, [
         'elements' => [TrailingCommaInMultilineFixer::ELEMENTS_ARRAYS],
-    ]);
-
-    $ecsConfig->ruleWithConfiguration(ArraySyntaxFixer::class, [
+    ])
+    ->withConfiguredRule(ArraySyntaxFixer::class, [
         'syntax' => 'short',
     ]);
-};
