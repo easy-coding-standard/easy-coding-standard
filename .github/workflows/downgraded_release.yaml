@@ -38,7 +38,7 @@ jobs:
             -   run: composer require rector/rector --working-dir rector-local
 
             # downgrade to PHP 7.2
-            -   run: rector-local/vendor/bin/rector process bin src vendor --config build/rector-downgrade-php-72.php --ansi
+            -   run: rector-local/vendor/bin/rector process bin config/config.php src vendor --config build/rector-downgrade-php-72.php --ansi
 
             # verify PHP 7.2 compat
             -
