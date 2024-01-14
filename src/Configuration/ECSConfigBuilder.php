@@ -25,6 +25,11 @@ final class ECSConfigBuilder
     private array $sets = [];
 
     /**
+     * @var string[]
+     */
+    private array $dynamicSets = [];
+
+    /**
      * @var array<mixed>
      */
     private array $skip = [];
@@ -34,6 +39,8 @@ final class ECSConfigBuilder
         $ecsConfig->sets($this->sets);
         $ecsConfig->paths($this->paths);
         $ecsConfig->skip($this->skip);
+
+        $ecsConfig->dynamicSets($this->dynamicSets);
     }
 
     /**
@@ -146,6 +153,195 @@ final class ECSConfigBuilder
 
         if ($symplify) {
             $this->sets[] = SetList::SYMPLIFY;
+        }
+
+        return $this;
+    }
+
+    public function withPreparedPhpCsFixerSets(bool $doctrineAnnotation = false, bool $per = false, bool $perCS = false, bool $perCS10 = false, bool $perCS10Risky = false, bool $perCS20 = false, bool $perCS20Risky = false, bool $perCSRisky = false, bool $perRisky = false, bool $php54Migration = false, bool $php56MigrationRisky = false, bool $php70Migration = false, bool $php70MigrationRisky = false, bool $php71Migration = false, bool $php71MigrationRisky = false, bool $php73Migration = false, bool $php74Migration = false, bool $php74MigrationRisky = false, bool $php80Migration = false, bool $php80MigrationRisky = false, bool $php81Migration = false, bool $php82Migration = false, bool $php83Migration = false, bool $phpunit30MigrationRisky = false, bool $phpunit32MigrationRisky = false, bool $phpunit35MigrationRisky = false, bool $phpunit43MigrationRisky = false, bool $phpunit48MigrationRisky = false, bool $phpunit50MigrationRisky = false, bool $phpunit52MigrationRisky = false, bool $phpunit54MigrationRisky = false, bool $phpunit55MigrationRisky = false, bool $phpunit56MigrationRisky = false, bool $phpunit57MigrationRisky = false, bool $phpunit60MigrationRisky = false, bool $phpunit75MigrationRisky = false, bool $phpunit84MigrationRisky = false, bool $phpunit100MigrationRisky = false, bool $psr1 = false, bool $psr2 = false, bool $psr12 = false, bool $psr12Risky = false, bool $phpCsFixer = false, bool $phpCsFixerRisky = false, bool $symfony = false, bool $symfonyRisky = false): self
+    {
+        if ($doctrineAnnotation) {
+            $this->dynamicSets[] = '@DoctrineAnnotation';
+        }
+
+        if ($per) {
+            $this->dynamicSets[] = '@PER';
+        }
+
+        if ($perCS) {
+            $this->dynamicSets[] = '@PER-CS';
+        }
+
+        if ($perCS10) {
+            $this->dynamicSets[] = '@PER-CS1.0';
+        }
+
+        if ($perCS10Risky) {
+            $this->dynamicSets[] = '@PER-CS1.0:risky';
+        }
+
+        if ($perCS20) {
+            $this->dynamicSets[] = '@PER-CS2.0';
+        }
+
+        if ($perCS20Risky) {
+            $this->dynamicSets[] = '@PER-CS2.0:risky';
+        }
+
+        if ($perCSRisky) {
+            $this->dynamicSets[] = '@PER-CS:risky';
+        }
+
+        if ($perRisky) {
+            $this->dynamicSets[] = '@PER:risky';
+        }
+
+        if ($php54Migration) {
+            $this->dynamicSets[] = '@PHP54Migration';
+        }
+
+        if ($php56MigrationRisky) {
+            $this->dynamicSets[] = '@PHP56Migration:risky';
+        }
+
+        if ($php70Migration) {
+            $this->dynamicSets[] = '@PHP70Migration';
+        }
+
+        if ($php70MigrationRisky) {
+            $this->dynamicSets[] = '@PHP70Migration:risky';
+        }
+
+        if ($php71Migration) {
+            $this->dynamicSets[] = '@PHP71Migration';
+        }
+
+        if ($php71MigrationRisky) {
+            $this->dynamicSets[] = '@PHP71Migration:risky';
+        }
+
+        if ($php73Migration) {
+            $this->dynamicSets[] = '@PHP73Migration';
+        }
+
+        if ($php74Migration) {
+            $this->dynamicSets[] = '@PHP74Migration';
+        }
+
+        if ($php74MigrationRisky) {
+            $this->dynamicSets[] = '@PHP74Migration:risky';
+        }
+
+        if ($php80Migration) {
+            $this->dynamicSets[] = '@PHP80Migration';
+        }
+
+        if ($php80MigrationRisky) {
+            $this->dynamicSets[] = '@PHP80Migration:risky';
+        }
+
+        if ($php81Migration) {
+            $this->dynamicSets[] = '@PHP81Migration';
+        }
+
+        if ($php82Migration) {
+            $this->dynamicSets[] = '@PHP82Migration';
+        }
+
+        if ($php83Migration) {
+            $this->dynamicSets[] = '@PHP83Migration';
+        }
+
+        if ($phpunit30MigrationRisky) {
+            $this->dynamicSets[] = '@PHPUnit30Migration:risky';
+        }
+
+        if ($phpunit32MigrationRisky) {
+            $this->dynamicSets[] = '@PHPUnit32Migration:risky';
+        }
+
+        if ($phpunit35MigrationRisky) {
+            $this->dynamicSets[] = '@PHPUnit35Migration:risky';
+        }
+
+        if ($phpunit43MigrationRisky) {
+            $this->dynamicSets[] = '@PHPUnit43Migration:risky';
+        }
+
+        if ($phpunit48MigrationRisky) {
+            $this->dynamicSets[] = '@PHPUnit48Migration:risky';
+        }
+
+        if ($phpunit50MigrationRisky) {
+            $this->dynamicSets[] = '@PHPUnit50Migration:risky';
+        }
+
+        if ($phpunit52MigrationRisky) {
+            $this->dynamicSets[] = '@PHPUnit52Migration:risky';
+        }
+
+        if ($phpunit54MigrationRisky) {
+            $this->dynamicSets[] = '@PHPUnit54Migration:risky';
+        }
+
+        if ($phpunit55MigrationRisky) {
+            $this->dynamicSets[] = '@PHPUnit55Migration:risky';
+        }
+
+        if ($phpunit56MigrationRisky) {
+            $this->dynamicSets[] = '@PHPUnit56Migration:risky';
+        }
+
+        if ($phpunit57MigrationRisky) {
+            $this->dynamicSets[] = '@PHPUnit57Migration:risky';
+        }
+
+        if ($phpunit60MigrationRisky) {
+            $this->dynamicSets[] = '@PHPUnit60Migration:risky';
+        }
+
+        if ($phpunit75MigrationRisky) {
+            $this->dynamicSets[] = '@PHPUnit75Migration:risky';
+        }
+
+        if ($phpunit84MigrationRisky) {
+            $this->dynamicSets[] = '@PHPUnit84Migration:risky';
+        }
+
+        if ($phpunit100MigrationRisky) {
+            $this->dynamicSets[] = '@PHPUnit100Migration:risky';
+        }
+
+        if ($psr1) {
+            $this->dynamicSets[] = '@PSR1';
+        }
+
+        if ($psr2) {
+            $this->dynamicSets[] = '@PSR2';
+        }
+
+        if ($psr12) {
+            $this->dynamicSets[] = '@PSR12';
+        }
+
+        if ($psr12Risky) {
+            $this->dynamicSets[] = '@PSR12:risky';
+        }
+
+        if ($phpCsFixer) {
+            $this->dynamicSets[] = '@PhpCsFixer';
+        }
+
+        if ($phpCsFixerRisky) {
+            $this->dynamicSets[] = '@PhpCsFixer:risky';
+        }
+
+        if ($symfony) {
+            $this->dynamicSets[] = '@Symfony';
+        }
+
+        if ($symfonyRisky) {
+            $this->dynamicSets[] = '@Symfony:risky';
         }
 
         return $this;
