@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use PhpCsFixer\RuleSet\RuleSets;
 
-// this helper script generates the withPreparedPhpCsFixerSets() method for ECSConfigBuilder class
+// this helper script generates the withPhpCsFixerSets() method for ECSConfigBuilder class
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -17,8 +17,8 @@ foreach ($setDefinitions as $setDefinition) {
     $setNames[] = $setDefinition->getName();
 }
 
-// create withPreparedPhpCsFixerSets() method here
-$classMethod = new \PhpParser\Node\Stmt\ClassMethod('withPreparedPhpCsFixerSets');
+// create withPhpCsFixerSets() method here
+$classMethod = new \PhpParser\Node\Stmt\ClassMethod('withPhpCsFixerSets');
 $classMethod->flags = \PhpParser\Node\Stmt\Class_::MODIFIER_PUBLIC;
 $classMethod->returnType = new \PhpParser\Node\Name('self');
 

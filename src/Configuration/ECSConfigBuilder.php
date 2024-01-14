@@ -231,7 +231,7 @@ final class ECSConfigBuilder
         return $this;
     }
 
-    public function withPreparedPhpCsFixerSets(
+    public function withPhpCsFixerSets(
         bool $doctrineAnnotation = false,
         bool $per = false,
         bool $perCS = false,
