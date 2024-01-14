@@ -9,6 +9,7 @@ use PhpCsFixer\Fixer\FixerInterface;
 use Symfony\Component\Finder\Finder;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 use Symplify\EasyCodingStandard\Exception\Configuration\SuperfluousConfigurationException;
+use Symplify\EasyCodingStandard\ValueObject\Option;
 use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
 
 /**
@@ -46,6 +47,33 @@ final class ECSConfigBuilder
      */
     private array $rulesWithConfiguration = [];
 
+    /**
+     * @var string[]
+     */
+    private array $fileExtensions = [];
+
+    private ?string $cacheDirectory = null;
+
+    private ?string $cacheNamespace = null;
+
+    /**
+     * @var Option::INDENTATION_*
+     */
+    private ?string $indentation = null;
+
+    private ?string $lineEnding = null;
+
+    /**
+     * Enabled by default
+     */
+    private bool $parallel = true;
+
+    private int $parallelTimeoutSeconds = 120;
+
+    private int $parallelMaxNumberOfProcess = 32;
+
+    private int $parallelJobSize = 20;
+
     public function __invoke(ECSConfig $ecsConfig): void
     {
         $ecsConfig->sets($this->sets);
@@ -54,7 +82,35 @@ final class ECSConfigBuilder
         $ecsConfig->rules($this->rules);
         $ecsConfig->rulesWithConfiguration($this->rulesWithConfiguration);
 
+        if ($this->fileExtensions !== []) {
+            $ecsConfig->fileExtensions($this->fileExtensions);
+        }
+
+        if ($this->cacheDirectory !== null) {
+            $ecsConfig->cacheDirectory($this->cacheDirectory);
+        }
+
+        if ($this->cacheNamespace !== null) {
+            $ecsConfig->cacheNamespace($this->cacheNamespace);
+        }
+
+        if ($this->indentation !== null) {
+            $ecsConfig->indentation($this->indentation);
+        }
+
+        if ($this->lineEnding !== null) {
+            $ecsConfig->lineEnding($this->lineEnding);
+        }
+
         $ecsConfig->dynamicSets($this->dynamicSets);
+
+        if ($this->parallel) {
+            $ecsConfig->parallel(
+                seconds: $this->parallelTimeoutSeconds,
+                maxNumberOfProcess: $this->parallelMaxNumberOfProcess,
+                jobSize: $this->parallelJobSize
+            );
+        }
     }
 
     /**
@@ -102,6 +158,7 @@ final class ECSConfigBuilder
         bool $common = false,
         /** @see SetList::SYMPLIFY */
         bool $symplify = false,
+
         // common sets
         /** @see SetList::ARRAY */
         bool $arrays = false,
@@ -430,11 +487,70 @@ final class ECSConfigBuilder
     }
 
     /**
-     * @param array<class-string<(FixerInterface | Sniff)>, mixed> $configuredRules
+     * @param string[] $fileExtensions
      */
-    public function withConfiguredRules(array $configuredRules): self
+    public function withFileExtensions(array $fileExtensions): self
     {
-        $this->rulesWithConfiguration = $configuredRules;
+        $this->fileExtensions = $fileExtensions;
+
+        return $this;
+    }
+
+    public function withCache(?string $directory = null, ?string $namespace = null): self
+    {
+        $this->cacheDirectory = $directory;
+        $this->cacheNamespace = $namespace;
+
+        return $this;
+    }
+
+    /**
+     * @param Option::INDENTATION_*|null $indentation
+     */
+    public function withSpacing(?string $indentation = null, ?string $lineEnding = null): self
+    {
+        $this->indentation = $indentation;
+        $this->lineEnding = $lineEnding;
+
+        return $this;
+    }
+
+    /**
+     * @param class-string<(FixerInterface | Sniff)> $checkerClass
+     * @param mixed[] $configuration
+     */
+    public function withConfiguredRule(string $checkerClass, array $configuration): self
+    {
+        $this->rulesWithConfiguration[$checkerClass] = $configuration;
+
+        return $this;
+    }
+
+    public function withParallel(
+        ?int $timeoutSeconds = null,
+        ?int $maxNumberOfProcess = null,
+        ?int $jobSize = null
+    ): self {
+        $this->parallel = true;
+
+        if (is_int($timeoutSeconds)) {
+            $this->parallelTimeoutSeconds = $timeoutSeconds;
+        }
+
+        if (is_int($maxNumberOfProcess)) {
+            $this->parallelMaxNumberOfProcess = $maxNumberOfProcess;
+        }
+
+        if (is_int($jobSize)) {
+            $this->parallelJobSize = $jobSize;
+        }
+
+        return $this;
+    }
+
+    public function withoutParallel(): self
+    {
+        $this->parallel = false;
 
         return $this;
     }

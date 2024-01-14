@@ -7,10 +7,5 @@ use PhpCsFixer\Fixer\Import\OrderedImportsFixer;
 use PhpCsFixer\Fixer\NamespaceNotation\SingleBlankLineBeforeNamespaceFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 
-return static function (ECSConfig $ecsConfig): void {
-    $ecsConfig->rules([
-        NoUnusedImportsFixer::class,
-        OrderedImportsFixer::class,
-        SingleBlankLineBeforeNamespaceFixer::class,
-    ]);
-};
+return ECSConfig::configure()
+    ->withRules([NoUnusedImportsFixer::class, OrderedImportsFixer::class, SingleBlankLineBeforeNamespaceFixer::class]);

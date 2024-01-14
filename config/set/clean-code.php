@@ -12,12 +12,11 @@ use PhpCsFixer\Fixer\Semicolon\NoEmptyStatementFixer;
 use Symplify\CodingStandard\Fixer\Commenting\ParamReturnAndVarTagMalformsFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 
-return static function (ECSConfig $ecsConfig): void {
-    $ecsConfig->ruleWithConfiguration(ArraySyntaxFixer::class, [
+return ECSConfig::configure()
+    ->withConfiguredRule(ArraySyntaxFixer::class, [
         'syntax' => 'short',
-    ]);
-
-    $ecsConfig->rules([
+    ])
+    ->withRules([
         ParamReturnAndVarTagMalformsFixer::class,
         NoUnusedImportsFixer::class,
         OrderedImportsFixer::class,
@@ -26,4 +25,3 @@ return static function (ECSConfig $ecsConfig): void {
         NoUnneededControlParenthesesFixer::class,
         NoUnneededCurlyBracesFixer::class,
     ]);
-};

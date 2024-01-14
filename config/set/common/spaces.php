@@ -27,8 +27,8 @@ use PhpCsFixer\Fixer\Whitespace\TypeDeclarationSpacesFixer;
 use Symplify\CodingStandard\Fixer\Spacing\StandaloneLinePromotedPropertyFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 
-return static function (ECSConfig $ecsConfig): void {
-    $ecsConfig->rules([
+return ECSConfig::configure()
+    ->withRules([
         TypeDeclarationSpacesFixer::class,
         StandaloneLinePromotedPropertyFixer::class,
         BlankLineAfterOpeningTagFixer::class,
@@ -48,32 +48,26 @@ return static function (ECSConfig $ecsConfig): void {
         TernaryOperatorSpacesFixer::class,
         MethodArgumentSpaceFixer::class,
         LanguageConstructSpacingSniff::class,
-    ]);
-
-    $ecsConfig->ruleWithConfiguration(ClassAttributesSeparationFixer::class, [
+    ])
+    ->withConfiguredRule(ClassAttributesSeparationFixer::class, [
         'elements' => [
             'const' => 'one',
             'property' => 'one',
             'method' => 'one',
         ],
-    ]);
-
-    $ecsConfig->ruleWithConfiguration(NoExtraBlankLinesFixer::class, [
+    ])
+    ->withConfiguredRule(NoExtraBlankLinesFixer::class, [
         'tokens' => ['extra', 'throw', 'use'],
-    ]);
-
-    $ecsConfig->ruleWithConfiguration(ConcatSpaceFixer::class, [
+    ])
+    ->withConfiguredRule(ConcatSpaceFixer::class, [
         'spacing' => 'one',
-    ]);
-
-    $ecsConfig->ruleWithConfiguration(SuperfluousWhitespaceSniff::class, [
+    ])
+    ->withConfiguredRule(SuperfluousWhitespaceSniff::class, [
         'ignoreBlankLines' => false,
-    ]);
-
-    $ecsConfig->ruleWithConfiguration(BinaryOperatorSpacesFixer::class, [
+    ])
+    ->withConfiguredRule(BinaryOperatorSpacesFixer::class, [
         'operators' => [
             '=>' => 'single_space',
             '=' => 'single_space',
         ],
     ]);
-};

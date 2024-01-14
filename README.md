@@ -10,30 +10,10 @@
 
 ## Killer Features
 
-- Install without conflicts on **any PHP 7.2+** project
-- Blazing fast parallel run out of the box
+- Install without on **any PHP 7.2-PHP 8.3** project with any dependencies
+- Blazing fast with parallel run out of the box
 - Use [PHP_CodeSniffer or PHP-CS-Fixer](https://tomasvotruba.com/blog/2017/05/03/combine-power-of-php-code-sniffer-and-php-cs-fixer-in-3-lines/) - anything you like
-
-- Use **prepared sets** to save time - PSR-12, arrays, use statements, spaces and more
-
-```php
-$ecsConfig->sets([SetList::PSR_12]);
-```
-
-- Use **php-cs-fixer sets** from [like you're used to](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/blob/master/doc/ruleSets/index.rst)
-
-```php
-$ecsConfig->dynamicSets(['@Symfony']);
-```
-
-- Skipping files for specific checkers
-
-<br>
-
-Are you already using another tool? We got you covered:
-
-* See how to migrate from [PHP_CodeSniffer](https://tomasvotruba.com/blog/2018/06/04/how-to-migrate-from-php-code-sniffer-to-easy-coding-standard)
-or [PHP CS Fixer](https://tomasvotruba.com/blog/2018/06/07/how-to-migrate-from-php-cs-fixer-to-easy-coding-standard)
+- Use **prepared sets** and [PHP CS Fixer sets](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/blob/master/doc/ruleSets/index.rst) to save time
 
 <br>
 
@@ -47,76 +27,111 @@ composer require symplify/easy-coding-standard --dev
 
 ## Usage
 
-### 1. First Run
+```bash
+vendor/bin/ecs
+```
 
-To start using ECS, just run it:
+On the first run, ECS creates `ecs.php` config file with directories and first rule to kick off.
+
+Then you can run again to see the suggested diffs:
 
 ```bash
 vendor/bin/ecs
 ```
 
-ECS will create `ecs.php` config with directories in your project and first rule to kick off.
-
-<br>
-
-### 2. Run Again
-
-```bash
-vendor/bin/ecs
-```
-
-This will run ECS in *dry run* - it will show you the diff before they get applied. To fix code style, run this command:
+To actually **fix your code**, add `--fix`:
 
 ```bash
 vendor/bin/ecs --fix
 ```
 
+That's it!
+
 <br>
 
-## Configuration
+## Configure
 
-Configuration can be extended with many options. Here is list of them with example values and little description what are they for:
+Most of the time, you'll be happy with the default configuration. The most relevant part is configuring paths, checkers and sets:
 
 ```php
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 
-return static function (ECSConfig $ecsConfig): void {
-    $ecsConfig->paths([__DIR__ . '/src', __DIR__ . '/tests']);
+return ECSConfig::configure()
+    ->withPaths([__DIR__ . '/src', __DIR__ . '/tests'])
+    ->withRules([
+        ArraySyntaxFixer::class,
+    ])
+    ->withPreparedSets(psr12: true);
+```
 
-    $ecsConfig->skip([
-        // skip whole rule
+<br>
+
+Do you want to check all `*.php` files in your root (`ecs.php`, `rector.php` etc.)? Instead of listing them one by one, use `->withRootFiles()` method:
+
+```php
+use Symplify\EasyCodingStandard\Config\ECSConfig;
+
+return ECSConfig::configure()
+    ->withPaths([__DIR__ . '/src', __DIR__ . '/tests'])
+    ->withRootFiles();
+```
+
+<br>
+
+### How to Skip Files/Rules?
+
+Love the sets of rules, but want to skip single rule or some files?
+
+```php
+use Symplify\EasyCodingStandard\Config\ECSConfig;
+
+return ECSConfig::configure()
+    ->withSkip([
+        // skip single rule
         ArraySyntaxFixer::class,
 
-        // skip directory by absolute
+        // skip single rule in specific paths
+        ArraySyntaxFixer::class => [
+            __DIR__ . '/src/ValueObject/',
+        ],
+
+        // skip directory by absolute or * mask
         __DIR__ . '/src/Migrations',
 
         // skip directories by mask
         __DIR__ . '/src/*/Legacy',
-
-        // skip single rule in particular paths
-        LineLenghtFixer::class => [
-            __DIR__ . '/src/ValueObject/File.php',
-        ],
     ]);
-
-    // file extensions to scan [default: [php]]
-    $ecsConfig->fileExtensions(['php', 'phpt']);
-
-    // configure cache paths & namespace - useful for Gitlab CI caching, where getcwd() produces always different path
-    // [default: sys_get_temp_dir() . '/_changed_files_detector_tests']
-    $ecsConfig->cacheDirectory('.ecs_cache');
-
-    // [default: \Nette\Utils\Strings::webalize(getcwd())']
-    $ecsConfig->cacheNamespace('my_project_namespace');
-
-    // indent and tabs/spaces [default: spaces]
-    $ecsConfig->indentation('tab');
-
-    // end of line [default: PHP_EOL]; other options: "\n"
-    $ecsConfig->lineEnding("\r\n");
-};
 ```
+
+<br>
+
+### Less Common Options
+
+You probably won't use these, but they can give you more control over the internal process:
+
+```php
+use Symplify\EasyCodingStandard\Config\ECSConfig;
+use Symplify\EasyCodingStandard\ValueObject\Option;
+
+return ECSConfig::configure()
+    // file extensions to scan
+    ->withFileExtensions(['php'])
+
+    // configure cache paths and namespace - useful e.g. Gitlab CI caching, where getcwd() produces always different path
+    ->withCache(
+        directory: sys_get_temp_dir() . '/_changed_files_detector_tests',
+        namespace: getcwd() // normalized to directory separator
+    )
+
+    // print contents with specific indent rules
+    ->withSpacing(indentation: Option::INDENTATION_SPACES, lineEnding: PHP_EOL)
+
+    // modify parallel run
+    ->withParallel(timeoutSeconds: 120, maxNumberOfProcess: 32, jobSize: 20);
+```
+
+Mentioned values are default ones.
 
 <br>
 
@@ -125,17 +140,14 @@ return static function (ECSConfig $ecsConfig): void {
 ### How do I clear cache?
 
 ```bash
-vendor/bin/ecs check src --clear-cache
-```
-
-### How to load custom Config?
-
-```bash
-vendor/bin/ecs check src --config another-config.php
+vendor/bin/ecs --clear-cache
 ```
 
 <br>
 
-## Acknowledgment
+## How to Migrate from another coding standard tool?
 
-The parallel run is heavily inspired by [phpstan/phpstan-src](https://github.com/phpstan/phpstan-src).
+Do you use another tool and want to migrate? It's pretty straightforward - here is "how to":
+
+* for [PHP_CodeSniffer](https://tomasvotruba.com/blog/2018/06/04/how-to-migrate-from-php-code-sniffer-to-easy-coding-standard)
+* and [PHP CS Fixer](https://tomasvotruba.com/blog/2018/06/07/how-to-migrate-from-php-cs-fixer-to-easy-coding-standard).

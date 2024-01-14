@@ -16,8 +16,8 @@ use PhpCsFixer\Fixer\Phpdoc\PhpdocVarWithoutNameFixer;
 use Symplify\CodingStandard\Fixer\Commenting\RemoveUselessDefaultCommentFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 
-return static function (ECSConfig $ecsConfig): void {
-    $ecsConfig->rules([
+return ECSConfig::configure()
+    ->withRules([
         PhpdocLineSpanFixer::class,
         NoTrailingWhitespaceInCommentFixer::class,
         PhpdocTrimConsecutiveBlankLineSeparationFixer::class,
@@ -29,10 +29,8 @@ return static function (ECSConfig $ecsConfig): void {
         PhpdocReturnSelfReferenceFixer::class,
         PhpdocVarWithoutNameFixer::class,
         RemoveUselessDefaultCommentFixer::class,
-    ]);
-
-    $ecsConfig->ruleWithConfiguration(NoSuperfluousPhpdocTagsFixer::class, [
+    ])
+    ->withConfiguredRule(NoSuperfluousPhpdocTagsFixer::class, [
         'remove_inheritdoc' => true,
         'allow_mixed' => true,
     ]);
-};

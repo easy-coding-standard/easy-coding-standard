@@ -7,6 +7,5 @@ use PhpCsFixer\Fixer\Strict\StrictComparisonFixer;
 use PhpCsFixer\Fixer\Strict\StrictParamFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 
-return static function (ECSConfig $ecsConfig): void {
-    $ecsConfig->rules([StrictComparisonFixer::class, StrictParamFixer::class, DeclareStrictTypesFixer::class]);
-};
+return ECSConfig::configure()
+    ->withRules([StrictComparisonFixer::class, StrictParamFixer::class, DeclareStrictTypesFixer::class]);
