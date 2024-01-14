@@ -13,22 +13,7 @@
 - Install without on **any PHP 7.2-PHP 8.3** project with any dependencies
 - Blazing fast with parallel run out of the box
 - Use [PHP_CodeSniffer or PHP-CS-Fixer](https://tomasvotruba.com/blog/2017/05/03/combine-power-of-php-code-sniffer-and-php-cs-fixer-in-3-lines/) - anything you like
-
-- Use **prepared sets** to save time:
-
-```php
-$ecsConfig->sets([SetList::PSR_12]);
-```
-
-- Use **php-cs-fixer sets** from [like you're used to](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/blob/master/doc/ruleSets/index.rst)
-
-```php
-$ecsConfig->dynamicSets(['@Symfony']);
-```
-
-<br>
-
-Do you use another tool and want to migrate? Here is "how to" for [PHP_CodeSniffer](https://tomasvotruba.com/blog/2018/06/04/how-to-migrate-from-php-code-sniffer-to-easy-coding-standard) and [PHP CS Fixer](https://tomasvotruba.com/blog/2018/06/07/how-to-migrate-from-php-cs-fixer-to-easy-coding-standard).
+- Use **prepared sets** and [PHP CS Fixer sets](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/blob/master/doc/ruleSets/index.rst) to save time
 
 <br>
 
@@ -42,19 +27,19 @@ composer require symplify/easy-coding-standard --dev
 
 ## Usage
 
-### 1. First Run
+```bash
+vendor/bin/ecs
+```
+
+On the first run, ECS creates `ecs.php` config file with directories and first rule to kick off.
+
+Then you can run again to see the suggested diffs:
 
 ```bash
 vendor/bin/ecs
 ```
 
-On first run, ECS will create `ecs.php` config file with directories in your project and first rule to kick off. Run again to see the diff:
-
-```bash
-vendor/bin/ecs
-```
-
-To actually fix your code style, add `--fix`:
+To actually **fix your code**, add `--fix`:
 
 ```bash
 vendor/bin/ecs --fix
@@ -66,7 +51,7 @@ That's it!
 
 ## Configure
 
-Most of the time, you'll be happy with the default configuration. The most improtant part is setting up paths, checkers and in case you go for saint defaults -sets:
+Most of the time, you'll be happy with the default configuration. The most relevant part is configuring paths, checkers and sets:
 
 ```php
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
@@ -76,14 +61,26 @@ return ECSConfig::configure()
     ->withPaths([__DIR__ . '/src', __DIR__ . '/tests'])
     ->withRules([
         ArraySyntaxFixer::class,
-    ]);
+    ])
+    ->withPreparedSets(psr12: true);
 ```
-
-## @todo add `withRootFiles()`
 
 <br>
 
-### Skip specific files
+Do you want to check all `*.php` files in your root (`ecs.php`, `rector.php` etc.)? Instead of listing them one by one, use `->withRootFiles()` method:
+
+```php
+use Symplify\EasyCodingStandard\Config\ECSConfig;
+
+return ECSConfig::configure()
+    ->withPaths([__DIR__ . '/src', __DIR__ . '/tests'])
+    ->withRootFiles()
+    ->withPreparedSets(psr12: true);
+```
+
+<br>
+
+### How to Skip Files/Rules?
 
 Love the sets of rules, but want to skip single rule or some files?
 
