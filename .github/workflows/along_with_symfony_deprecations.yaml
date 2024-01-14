@@ -24,5 +24,5 @@ jobs:
             -   run: composer require symfony/deprecation-contracts --ansi
                 working-directory: nested-dir
 
-            -   run: vendor/bin/ecs init --ansi --debug
+            -   run: vendor/bin/ecs list --ansi --debug
                 working-directory: nested-dir
