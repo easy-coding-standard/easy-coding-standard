@@ -55,13 +55,13 @@ final class LazyContainerFactory
 
         // console
         $ecsConfig->singleton(EasyCodingStandardStyle::class, static function (Container $container) {
+            /** @var EasyCodingStandardStyleFactory $easyCodingStandardStyleFactory */
             $easyCodingStandardStyleFactory = $container->make(EasyCodingStandardStyleFactory::class);
             return $easyCodingStandardStyleFactory->create();
         });
 
-        $ecsConfig->singleton(SymfonyStyle::class, static function (Container $container) {
-            $symfonyStyleFactory = $container->make(SymfonyStyleFactory::class);
-            return $symfonyStyleFactory->create();
+        $ecsConfig->singleton(SymfonyStyle::class, static function () {
+            return SymfonyStyleFactory::create();
         });
 
         $ecsConfig->singleton(Fixer::class);
@@ -74,6 +74,7 @@ final class LazyContainerFactory
 
         // caching
         $ecsConfig->singleton(Cache::class, static function (Container $container) {
+            /** @var CacheFactory $cacheFactory */
             $cacheFactory = $container->make(CacheFactory::class);
             return $cacheFactory->create();
         });
