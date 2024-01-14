@@ -8,11 +8,12 @@ use PhpCsFixer\Fixer\ControlStructure\IncludeFixer;
 use PhpCsFixer\Fixer\Whitespace\IndentationTypeFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 
-return static function (ECSConfig $ecsConfig): void {
-    $ecsConfig->rule(IndentationTypeFixer::class);
-    $ecsConfig->rule(DisallowTabIndentSniff::class);
+return ECSConfig::configure()
+    ->withRules([
+        IndentationTypeFixer::class,
+        DisallowTabIndentSniff::class,
 
-    // See https://github.com/symplify/symplify/issues/1702
-    $ecsConfig->rule(IncludeFixer::class);
-    $ecsConfig->rule(LanguageConstructSpacingSniff::class);
-};
+        // See https://github.com/symplify/symplify/issues/1702
+        IncludeFixer::class,
+        LanguageConstructSpacingSniff::class,
+    ]);
