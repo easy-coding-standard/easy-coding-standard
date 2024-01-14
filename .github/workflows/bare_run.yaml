@@ -28,5 +28,9 @@ jobs:
             -   run: composer require symplify/easy-coding-standard --dev --ansi
                 working-directory: nested-dir
 
+            # avoid loading PHP 8.0 config
+            -   run: rm ecs.php
+                working-directory: nested-dir
+
             -   run: vendor/bin/ecs list --ansi
                 working-directory: nested-dir
