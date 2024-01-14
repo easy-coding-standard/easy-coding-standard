@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Configuration;
 
+use AllowDynamicProperties;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\FixerInterface;
 use Symfony\Component\Finder\Finder;
@@ -14,7 +15,7 @@ use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
 /**
  * @api
  */
-final class ECSConfigBuilder
+#[AllowDynamicProperties] final class ECSConfigBuilder
 {
     /**
      * @var string[]
@@ -46,6 +47,19 @@ final class ECSConfigBuilder
      */
     private array $rulesWithConfiguration = [];
 
+    /**
+     * @var string[]
+     */
+    private array $fileExtensions = [];
+
+    private ?string $cacheDirectory = null;
+
+    private ?string $cacheNamespace = null;
+
+    private ?string $indentation = null;
+
+    private ?string $lineEnding = null;
+
     public function __invoke(ECSConfig $ecsConfig): void
     {
         $ecsConfig->sets($this->sets);
@@ -53,6 +67,26 @@ final class ECSConfigBuilder
         $ecsConfig->skip($this->skip);
         $ecsConfig->rules($this->rules);
         $ecsConfig->rulesWithConfiguration($this->rulesWithConfiguration);
+
+        if ($this->fileExtensions !== []) {
+            $ecsConfig->fileExtensions($this->fileExtensions);
+        }
+
+        if ($this->cacheDirectory !== null) {
+            $ecsConfig->cacheDirectory($this->cacheDirectory);
+        }
+
+        if ($this->cacheNamespace !== null) {
+            $ecsConfig->cacheNamespace($this->cacheNamespace);
+        }
+
+        if ($this->indentation !== null) {
+            $ecsConfig->indentation($this->indentation);
+        }
+
+        if ($this->lineEnding !== null) {
+            $ecsConfig->lineEnding($this->lineEnding);
+        }
 
         $ecsConfig->dynamicSets($this->dynamicSets);
     }
@@ -425,6 +459,32 @@ final class ECSConfigBuilder
     public function withRules(array $rules): self
     {
         $this->rules = $rules;
+
+        return $this;
+    }
+
+    /**
+     * @param string[] $fileExtensions
+     */
+    public function withFileExtensions(array $fileExtensions): self
+    {
+        $this->fileExtensions = $fileExtensions;
+
+        return $this;
+    }
+
+    public function withCache(?string $directory = null, ?string $namespace = null): self
+    {
+        $this->cacheDirectory = $directory;
+        $this->cacheNamespace = $namespace;
+
+        return $this;
+    }
+
+    public function withSpacing(?string $indentation = null, ?string $lineEnding = null): self
+    {
+        $this->indentation = $indentation;
+        $this->lineEnding = $lineEnding;
 
         return $this;
     }
