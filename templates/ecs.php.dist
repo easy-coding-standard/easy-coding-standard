@@ -13,13 +13,13 @@ __PATHS__
     // add a single rule
     ->withRules([
         NoUnusedImportsFixer::class,
-    ]);
+    ])
 
     // add sets - group of rules
     ->withPreparedSets(
         arrays: true,
         // namespaces: true,
         // spaces: true,
-        // docBlocks: true,
+        // docblocks: true,
         // comments: true,
     );
