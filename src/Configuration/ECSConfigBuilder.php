@@ -158,6 +158,8 @@ final class ECSConfigBuilder
         bool $common = false,
         /** @see SetList::SYMPLIFY */
         bool $symplify = false,
+        /** @see SetList::CLEAN_CODE */
+        bool $cleanCode = false,
 
         // common sets
         /** @see SetList::ARRAY */
@@ -215,13 +217,17 @@ final class ECSConfigBuilder
                 $this->sets[] = SetList::PHPUNIT;
             }
 
-            if ($strict) {
-                $this->sets[] = SetList::STRICT;
-            }
-
             if ($comments) {
                 $this->sets[] = SetList::COMMENTS;
             }
+        }
+
+        if ($strict) {
+            $this->sets[] = SetList::STRICT;
+        }
+
+        if ($cleanCode) {
+            $this->sets[] = SetList::CLEAN_CODE;
         }
 
         if ($symplify) {
