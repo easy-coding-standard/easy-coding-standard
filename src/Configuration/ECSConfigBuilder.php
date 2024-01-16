@@ -158,8 +158,6 @@ final class ECSConfigBuilder
         bool $common = false,
         /** @see SetList::SYMPLIFY */
         bool $symplify = false,
-        /** @see SetList::CLEAN_CODE */
-        bool $cleanCode = false,
 
         // common sets
         /** @see SetList::ARRAY */
@@ -178,6 +176,8 @@ final class ECSConfigBuilder
         bool $phpunit = false,
         /** @see SetList::STRICT */
         bool $strict = false,
+        /** @see SetList::CLEAN_CODE */
+        bool $cleanCode = false,
     ): self {
         if ($psr12) {
             $this->sets[] = SetList::PSR_12;
