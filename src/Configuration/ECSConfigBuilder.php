@@ -176,6 +176,8 @@ final class ECSConfigBuilder
         bool $phpunit = false,
         /** @see SetList::STRICT */
         bool $strict = false,
+        /** @see SetList::CLEAN_CODE */
+        bool $cleanCode = false,
     ): self {
         if ($psr12) {
             $this->sets[] = SetList::PSR_12;
@@ -215,13 +217,17 @@ final class ECSConfigBuilder
                 $this->sets[] = SetList::PHPUNIT;
             }
 
-            if ($strict) {
-                $this->sets[] = SetList::STRICT;
-            }
-
             if ($comments) {
                 $this->sets[] = SetList::COMMENTS;
             }
+        }
+
+        if ($strict) {
+            $this->sets[] = SetList::STRICT;
+        }
+
+        if ($cleanCode) {
+            $this->sets[] = SetList::CLEAN_CODE;
         }
 
         if ($symplify) {
