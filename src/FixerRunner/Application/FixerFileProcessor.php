@@ -169,8 +169,8 @@ final class FixerFileProcessor implements FileProcessorInterface
             return false;
         }
 
-        $tokens->clearChanged();
         $tokens->clearEmptyTokens();
+        $tokens->clearChanged();
 
         return true;
     }
