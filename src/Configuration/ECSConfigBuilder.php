@@ -110,6 +110,8 @@ final class ECSConfigBuilder
                 maxNumberOfProcess: $this->parallelMaxNumberOfProcess,
                 jobSize: $this->parallelJobSize
             );
+        } else {
+            $ecsConfig->disableParallel();
         }
     }
 
