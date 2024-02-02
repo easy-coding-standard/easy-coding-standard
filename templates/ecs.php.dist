@@ -16,10 +16,12 @@ __PATHS__
     ])
 
     // add sets - group of rules
-    ->withPreparedSets(
-        arrays: true,
+   // ->withPreparedSets(
+        // arrays: true,
         // namespaces: true,
         // spaces: true,
         // docblocks: true,
         // comments: true,
-    );
+    // )
+     
+     ;
