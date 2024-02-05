@@ -77,7 +77,11 @@ final class ECSConfigBuilder
     public function __invoke(ECSConfig $ecsConfig): void
     {
         $ecsConfig->sets($this->sets);
-        $ecsConfig->paths($this->paths);
+
+        if ($this->paths !== []) {
+            $ecsConfig->paths($this->paths);
+        }
+        
         $ecsConfig->skip($this->skip);
         $ecsConfig->rules($this->rules);
         $ecsConfig->rulesWithConfiguration($this->rulesWithConfiguration);
