@@ -81,7 +81,7 @@ final class ECSConfigBuilder
         if ($this->paths !== []) {
             $ecsConfig->paths($this->paths);
         }
-        
+
         $ecsConfig->skip($this->skip);
         $ecsConfig->rules($this->rules);
         $ecsConfig->rulesWithConfiguration($this->rulesWithConfiguration);
