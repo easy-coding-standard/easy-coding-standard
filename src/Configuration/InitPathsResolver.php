@@ -17,7 +17,7 @@ final class InitPathsResolver
         $rootDirectoryFinder = Finder::create()
             ->directories()
             ->depth(0)
-             // system files
+            // system files
             ->notPath('#(vendor|var|stubs|temp|templates|tmp|e2e|bin|build|database|storage|migrations)#')
             ->in($projectDirectory)
             ->sortByName();
