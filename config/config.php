@@ -17,6 +17,7 @@ if (StaticVersionResolver::PACKAGE_VERSION !== '@package_version@') {
 $cacheNamespace = str_replace(DIRECTORY_SEPARATOR, '_', getcwd());
 
 return ECSConfig::configure()
+    ->withParallel()
     ->withSpacing(indentation: Option::INDENTATION_SPACES, lineEnding: PHP_EOL)
     ->withCache(directory: $cacheDirectory, namespace: $cacheNamespace)
     ->withFileExtensions(['php'])

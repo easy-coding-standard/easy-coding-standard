@@ -63,10 +63,7 @@ final class ECSConfigBuilder
 
     private ?string $lineEnding = null;
 
-    /**
-     * Enabled by default
-     */
-    private bool $parallel = true;
+    private ?bool $parallel = null;
 
     private int $parallelTimeoutSeconds = 120;
 
@@ -108,14 +105,16 @@ final class ECSConfigBuilder
 
         $ecsConfig->dynamicSets($this->dynamicSets);
 
-        if ($this->parallel) {
-            $ecsConfig->parallel(
-                seconds: $this->parallelTimeoutSeconds,
-                maxNumberOfProcess: $this->parallelMaxNumberOfProcess,
-                jobSize: $this->parallelJobSize
-            );
-        } else {
-            $ecsConfig->disableParallel();
+        if ($this->parallel !== null) {
+            if ($this->parallel) {
+                $ecsConfig->parallel(
+                    seconds: $this->parallelTimeoutSeconds,
+                    maxNumberOfProcess: $this->parallelMaxNumberOfProcess,
+                    jobSize: $this->parallelJobSize
+                );
+            } else {
+                $ecsConfig->disableParallel();
+            }
         }
     }
 
