@@ -18,6 +18,7 @@ use Symplify\EasyCodingStandard\Caching\Cache;
 use Symplify\EasyCodingStandard\Caching\CacheFactory;
 use Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
+use Symplify\EasyCodingStandard\Configuration\ECSConfigBuilder;
 use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
 use Symplify\EasyCodingStandard\Console\Output\OutputFormatterCollector;
@@ -106,10 +107,11 @@ final class LazyContainerFactory
         $configFiles = [__DIR__ . '/../../config/config.php', ...$configFiles];
 
         foreach ($configFiles as $configFile) {
-            $configClosure = require $configFile;
-            Assert::isCallable($configClosure);
+            $configBuilder = require $configFile;
+            Assert::isCallable($configBuilder);
+            Assert::isInstanceOf($configBuilder, ECSConfigBuilder::class, "Invalid configuration: {$configFile}");
 
-            $configClosure($ecsConfig);
+            $configBuilder($ecsConfig);
         }
 
         return $ecsConfig;
