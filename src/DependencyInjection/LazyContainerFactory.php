@@ -109,7 +109,11 @@ final class LazyContainerFactory
         foreach ($configFiles as $configFile) {
             $configBuilder = require $configFile;
             Assert::isCallable($configBuilder);
-            Assert::isInstanceOf($configBuilder, ECSConfigBuilder::class, "Invalid configuration: {$configFile}");
+            Assert::isInstanceOf(
+                $configBuilder,
+                ECSConfigBuilder::class,
+                "Invalid configuration (use ECSConfig::configure()): {$configFile}"
+            );
 
             $configBuilder($ecsConfig);
         }
