@@ -73,15 +73,25 @@ final class ECSConfigBuilder
 
     public function __invoke(ECSConfig $ecsConfig): void
     {
-        $ecsConfig->sets($this->sets);
+        if ($this->sets !== []) {
+            $ecsConfig->sets($this->sets);
+        }
 
         if ($this->paths !== []) {
             $ecsConfig->paths($this->paths);
         }
 
-        $ecsConfig->skip($this->skip);
-        $ecsConfig->rules($this->rules);
-        $ecsConfig->rulesWithConfiguration($this->rulesWithConfiguration);
+        if ($this->skip !== []) {
+            $ecsConfig->skip($this->skip);
+        }
+
+        if ($this->rules !== []) {
+            $ecsConfig->rules($this->rules);
+        }
+
+        if ($this->rulesWithConfiguration !== []) {
+            $ecsConfig->rulesWithConfiguration($this->rulesWithConfiguration);
+        }
 
         if ($this->fileExtensions !== []) {
             $ecsConfig->fileExtensions($this->fileExtensions);
@@ -103,7 +113,9 @@ final class ECSConfigBuilder
             $ecsConfig->lineEnding($this->lineEnding);
         }
 
-        $ecsConfig->dynamicSets($this->dynamicSets);
+        if ($this->dynamicSets !== []) {
+            $ecsConfig->dynamicSets($this->dynamicSets);
+        }
 
         if ($this->parallel !== null) {
             if ($this->parallel) {
