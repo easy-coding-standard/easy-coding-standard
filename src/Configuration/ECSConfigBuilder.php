@@ -77,6 +77,10 @@ final class ECSConfigBuilder
             $ecsConfig->sets($this->sets);
         }
 
+        if ($this->dynamicSets !== []) {
+            $ecsConfig->dynamicSets($this->dynamicSets);
+        }
+
         if ($this->paths !== []) {
             $ecsConfig->paths($this->paths);
         }
@@ -111,10 +115,6 @@ final class ECSConfigBuilder
 
         if ($this->lineEnding !== null) {
             $ecsConfig->lineEnding($this->lineEnding);
-        }
-
-        if ($this->dynamicSets !== []) {
-            $ecsConfig->dynamicSets($this->dynamicSets);
         }
 
         if ($this->parallel !== null) {
