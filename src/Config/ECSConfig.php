@@ -44,13 +44,16 @@ final class ECSConfig extends Container
     public function paths(array $paths): void
     {
         Assert::allString($paths);
+
         // ensure paths exist
         foreach ($paths as $path) {
-            if (\strpos($path, '*') !== \false) {
+            if (str_contains($path, '*')) {
                 continue;
             }
+
             Assert::fileExists($path);
         }
+
         SimpleParameterProvider::setParameter(Option::PATHS, $paths);
     }
 
