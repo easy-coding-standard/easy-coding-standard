@@ -7,7 +7,6 @@ namespace Symplify\EasyCodingStandard\Configuration;
 use Symfony\Component\Console\Input\InputInterface;
 use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
 use Symplify\EasyCodingStandard\DependencyInjection\SimpleParameterProvider;
-use Symplify\EasyCodingStandard\Exception\Configuration\SourceNotFoundException;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 
@@ -71,20 +70,6 @@ final class ConfigurationFactory
     }
 
     /**
-     * @param string[] $paths
-     */
-    private function ensurePathsExists(array $paths): void
-    {
-        foreach ($paths as $path) {
-            if (file_exists($path)) {
-                continue;
-            }
-
-            throw new SourceNotFoundException(sprintf('Source "%s" does not exist.', $path));
-        }
-    }
-
-    /**
      * @return string[]
      */
     private function resolvePaths(InputInterface $input): array
@@ -95,8 +80,6 @@ final class ConfigurationFactory
             // if not paths are provided from CLI, use the config ones
             $paths = SimpleParameterProvider::getArrayParameter(Option::PATHS);
         }
-
-        $this->ensurePathsExists($paths);
 
         return $this->normalizePaths($paths);
     }
