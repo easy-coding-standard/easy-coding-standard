@@ -11,34 +11,16 @@ use Nette\Utils\Strings;
  */
 final class FnMatchPathNormalizer
 {
-    /**
-     * @var string
-     * @see https://regex101.com/r/ZB2dFV/2
-     */
-    private const ONLY_ENDS_WITH_ASTERISK_REGEX = '#^[^*](.*?)\*$#';
-
-    /**
-     * @var string
-     * @see https://regex101.com/r/aVUDjM/2
-     */
-    private const ONLY_STARTS_WITH_ASTERISK_REGEX = '#^\*(.*?)[^*]$#';
-
     public function normalizeForFnmatch(string $path): string
     {
-        // ends with *
-        if (Strings::match($path, self::ONLY_ENDS_WITH_ASTERISK_REGEX)) {
-            return '*' . $path;
-        }
-
-        // starts with *
-        if (Strings::match($path, self::ONLY_STARTS_WITH_ASTERISK_REGEX)) {
-            return $path . '*';
+        if (str_ends_with($path, '*') || str_starts_with($path, '*')) {
+            return '*' . trim($path, '*') . '*';
         }
 
         if (\str_contains($path, '..')) {
-            /** @var string|false $path */
-            $path = realpath($path);
-            if ($path === false) {
+            /** @var string|false $realPath */
+            $realPath = realpath($path);
+            if ($realPath === false) {
                 return '';
             }
         }
