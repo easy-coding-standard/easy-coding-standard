@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Skipper\FileSystem;
 
-use Nette\Utils\Strings;
-
 /**
  * @see \Symplify\EasyCodingStandard\Tests\Skipper\FileSystem\FnMatchPathNormalizerTest
  */
