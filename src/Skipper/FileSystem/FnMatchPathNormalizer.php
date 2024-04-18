@@ -23,6 +23,7 @@ final class FnMatchPathNormalizer
             if ($realPath === false) {
                 return '';
             }
+            return $realPath;
         }
 
         return $path;
