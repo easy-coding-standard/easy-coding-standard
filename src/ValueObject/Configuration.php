@@ -22,7 +22,8 @@ final readonly class Configuration
         private ?string $config = null,
         private string | null $parallelPort = null,
         private string | null $parallelIdentifier = null,
-        private string | null $memoryLimit = null
+        private string | null $memoryLimit = null,
+        private bool $showDiffs = true
     ) {
     }
 
@@ -44,6 +45,11 @@ final readonly class Configuration
     public function shouldShowErrorTable(): bool
     {
         return $this->showErrorTable;
+    }
+
+    public function shouldShowDiffs(): bool
+    {
+        return $this->showDiffs;
     }
 
     /**

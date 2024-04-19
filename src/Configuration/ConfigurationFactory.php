@@ -24,6 +24,7 @@ final class ConfigurationFactory
         $shouldClearCache = (bool) $input->getOption(Option::CLEAR_CACHE);
         $showProgressBar = $this->canShowProgressBar($input);
         $showErrorTable = ! (bool) $input->getOption(Option::NO_ERROR_TABLE);
+        $showDiffs = ! (bool) $input->getOption(Option::NO_DIFFS);
         $parallelPort = (string) $input->getOption(Option::PARALLEL_PORT);
         $parallelIdentifier = (string) $input->getOption(Option::PARALLEL_IDENTIFIER);
 
@@ -50,7 +51,8 @@ final class ConfigurationFactory
             $config,
             $parallelPort,
             $parallelIdentifier,
-            $memoryLimit
+            $memoryLimit,
+            $showDiffs
         );
     }
 
