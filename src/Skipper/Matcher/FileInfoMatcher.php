@@ -61,6 +61,11 @@ final readonly class FileInfoMatcher
             return true;
         }
 
+        // realpathMatcher cannot resolve wildcards -> return early to prevent unnecessary IO
+        if (str_contains($ignoredPath, '*')) {
+            return false;
+        }
+
         return $this->realpathMatcher->match($ignoredPath, $filePath);
     }
 }
