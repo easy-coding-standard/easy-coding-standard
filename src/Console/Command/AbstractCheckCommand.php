@@ -40,6 +40,12 @@ abstract class AbstractCheckCommand extends Command
             InputOption::VALUE_NONE,
             'Hide error table. Useful e.g. for fast check of error count.'
         );
+        $this->addOption(
+            Option::NO_DIFFS,
+            null,
+            InputOption::VALUE_NONE,
+            'Hide diffs of changed files. Useful e.g. for nicer CI output.'
+        );
 
         $this->addOption(
             Option::OUTPUT_FORMAT,
