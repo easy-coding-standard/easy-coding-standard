@@ -31,6 +31,8 @@ final class FixerFileProcessor implements FileProcessorInterface
      */
     private array $fixers = [];
 
+    private readonly bool $isDebug;
+
     /**
      * @param FixerInterface[] $fixers
      */
@@ -44,6 +46,7 @@ final class FixerFileProcessor implements FileProcessorInterface
         array $fixers
     ) {
         $this->fixers = $this->sortFixers($fixers);
+        $this->isDebug = $easyCodingStandardStyle->isDebug();
     }
 
     /**
@@ -148,7 +151,7 @@ final class FixerFileProcessor implements FileProcessorInterface
         }
 
         // show current fixer in --debug / -vvv
-        if ($this->easyCodingStandardStyle->isDebug()) {
+        if ($this->isDebug) {
             $this->easyCodingStandardStyle->writeln('     [fixer] ' . $fixer::class);
         }
 
