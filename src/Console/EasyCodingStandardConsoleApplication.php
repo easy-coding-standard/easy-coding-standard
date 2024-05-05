@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\Console;
 
 use Composer\XdebugHandler\XdebugHandler;
+use PHP_CodeSniffer\Config as PHP_CodeSniffer;
+use PhpCsFixer\Console\Application as PhpCsFixer;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
@@ -54,6 +56,14 @@ final class EasyCodingStandardConsoleApplication extends Application
             $xdebugHandler = new XdebugHandler('ecs');
             $xdebugHandler->check();
             unset($xdebugHandler);
+        }
+
+        if ($input->hasParameterOption(['--version', '-V'], true)) {
+            $output->writeln($this->getLongVersion());
+            $output->writeln(sprintf('- %s <info>%s</info>', 'PHP_CodeSniffer', PHP_CodeSniffer::VERSION));
+            $output->writeln(sprintf('- %s <info>%s</info>', 'PHP-CS-Fixer', PhpCsFixer::VERSION));
+
+            return 0;
         }
 
         // skip in this case, since generate content must be clear from meta-info
