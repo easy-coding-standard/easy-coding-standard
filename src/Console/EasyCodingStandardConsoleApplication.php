@@ -85,11 +85,6 @@ final class EasyCodingStandardConsoleApplication extends Application
     private function shouldPrintMetaInformation(InputInterface $input): bool
     {
         $hasNoArguments = $input->getFirstArgument() === null;
-        $hasVersionOption = $input->hasParameterOption('--version');
-
-        if ($hasVersionOption) {
-            return false;
-        }
 
         if ($hasNoArguments) {
             return false;
