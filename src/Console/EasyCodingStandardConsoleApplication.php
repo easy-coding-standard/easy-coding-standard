@@ -58,20 +58,20 @@ final class EasyCodingStandardConsoleApplication extends Application
             unset($xdebugHandler);
         }
 
-        if ($input->hasParameterOption(['--version', '-V'], true)) {
-            $output->writeln($this->getLongVersion());
-            $output->writeln(sprintf('+ %s <info>%s</info>', 'PHP_CodeSniffer', PHP_CodeSniffer::VERSION));
-            $output->writeln(sprintf('+ %s <info>%s</info>', 'PHP-CS-Fixer', PhpCsFixer::VERSION));
-
-            return 0;
-        }
-
         // skip in this case, since generate content must be clear from meta-info
         if ($this->shouldPrintMetaInformation($input)) {
             $output->writeln($this->getLongVersion());
         }
 
-        return parent::doRun($input, $output);
+        $exitCode = parent::doRun($input, $output);
+
+        // Append to the output of --version
+        if ($exitCode === 0 && $input->hasParameterOption(['--version', '-V'], true)) {
+            $output->writeln(sprintf('+ %s <info>%s</info>', 'PHP_CodeSniffer', PHP_CodeSniffer::VERSION));
+            $output->writeln(sprintf('+ %s <info>%s</info>', 'PHP-CS-Fixer', PhpCsFixer::VERSION));
+        }
+
+        return $exitCode;
     }
 
     protected function getDefaultInputDefinition(): InputDefinition
