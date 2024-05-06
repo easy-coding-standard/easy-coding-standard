@@ -60,8 +60,8 @@ final class EasyCodingStandardConsoleApplication extends Application
 
         if ($input->hasParameterOption(['--version', '-V'], true)) {
             $output->writeln($this->getLongVersion());
-            $output->writeln(sprintf('- %s <info>%s</info>', 'PHP_CodeSniffer', PHP_CodeSniffer::VERSION));
-            $output->writeln(sprintf('- %s <info>%s</info>', 'PHP-CS-Fixer', PhpCsFixer::VERSION));
+            $output->writeln(sprintf('+ %s <info>%s</info>', 'PHP_CodeSniffer', PHP_CodeSniffer::VERSION));
+            $output->writeln(sprintf('+ %s <info>%s</info>', 'PHP-CS-Fixer', PhpCsFixer::VERSION));
 
             return 0;
         }
