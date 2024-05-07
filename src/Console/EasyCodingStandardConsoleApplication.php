@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\Console;
 
 use Composer\XdebugHandler\XdebugHandler;
+use PHP_CodeSniffer\Config as PHP_CodeSniffer;
+use PhpCsFixer\Console\Application as PhpCsFixer;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
@@ -61,7 +63,15 @@ final class EasyCodingStandardConsoleApplication extends Application
             $output->writeln($this->getLongVersion());
         }
 
-        return parent::doRun($input, $output);
+        $exitCode = parent::doRun($input, $output);
+
+        // Append to the output of --version
+        if ($exitCode === 0 && $input->hasParameterOption(['--version', '-V'], true)) {
+            $output->writeln(sprintf('+ %s <info>%s</info>', 'PHP_CodeSniffer', PHP_CodeSniffer::VERSION));
+            $output->writeln(sprintf('+ %s <info>%s</info>', 'PHP-CS-Fixer', PhpCsFixer::VERSION));
+        }
+
+        return $exitCode;
     }
 
     protected function getDefaultInputDefinition(): InputDefinition
@@ -75,11 +85,6 @@ final class EasyCodingStandardConsoleApplication extends Application
     private function shouldPrintMetaInformation(InputInterface $input): bool
     {
         $hasNoArguments = $input->getFirstArgument() === null;
-        $hasVersionOption = $input->hasParameterOption('--version');
-
-        if ($hasVersionOption) {
-            return false;
-        }
 
         if ($hasNoArguments) {
             return false;
