@@ -32,7 +32,7 @@ use PhpCsFixer\Fixer\Import\SingleImportPerStatementFixer;
 use PhpCsFixer\Fixer\Import\SingleLineAfterImportsFixer;
 use PhpCsFixer\Fixer\LanguageConstruct\DeclareEqualNormalizeFixer;
 use PhpCsFixer\Fixer\LanguageConstruct\DeclareParenthesesFixer;
-use PhpCsFixer\Fixer\LanguageConstruct\SingleSpaceAfterConstructFixer;
+use PhpCsFixer\Fixer\LanguageConstruct\SingleSpaceAroundConstructFixer;
 use PhpCsFixer\Fixer\NamespaceNotation\BlankLineAfterNamespaceFixer;
 use PhpCsFixer\Fixer\Operator\BinaryOperatorSpacesFixer;
 use PhpCsFixer\Fixer\Operator\ConcatSpaceFixer;
@@ -84,7 +84,7 @@ return ECSConfig::configure()
         DeclareParenthesesFixer::class,
         ControlStructureContinuationPositionFixer::class,
         StatementIndentationFixer::class,
-        SingleSpaceAfterConstructFixer::class,
+        SingleSpaceAroundConstructFixer::class,
         BinaryOperatorSpacesFixer::class,
         BlankLineAfterNamespaceFixer::class,
         BlankLineAfterOpeningTagFixer::class,
