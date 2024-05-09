@@ -46,9 +46,9 @@ use PhpCsFixer\Fixer\PhpTag\NoClosingTagFixer;
 use PhpCsFixer\Fixer\Semicolon\NoSinglelineWhitespaceBeforeSemicolonsFixer;
 use PhpCsFixer\Fixer\Whitespace\IndentationTypeFixer;
 use PhpCsFixer\Fixer\Whitespace\LineEndingFixer;
-use PhpCsFixer\Fixer\Whitespace\NoSpacesInsideParenthesisFixer;
 use PhpCsFixer\Fixer\Whitespace\NoTrailingWhitespaceFixer;
 use PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer;
+use PhpCsFixer\Fixer\Whitespace\SpacesInsideParenthesesFixer;
 use PhpCsFixer\Fixer\Whitespace\StatementIndentationFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 
@@ -107,7 +107,6 @@ return ECSConfig::configure()
         NoLeadingImportSlashFixer::class,
         NoSinglelineWhitespaceBeforeSemicolonsFixer::class,
         NoSpacesAfterFunctionNameFixer::class,
-        NoSpacesInsideParenthesisFixer::class,
         NoTrailingWhitespaceFixer::class,
         NoTrailingWhitespaceInCommentFixer::class,
         NoWhitespaceBeforeCommaInArrayFixer::class,
@@ -116,6 +115,7 @@ return ECSConfig::configure()
         SingleBlankLineAtEofFixer::class,
         SingleImportPerStatementFixer::class,
         SingleLineAfterImportsFixer::class,
+        SpacesInsideParenthesesFixer::class,
         SwitchCaseSemicolonToColonFixer::class,
         SwitchCaseSpaceFixer::class,
         TernaryOperatorSpacesFixer::class,
