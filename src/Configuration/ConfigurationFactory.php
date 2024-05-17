@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\Configuration;
 
 use Symfony\Component\Console\Input\InputInterface;
+use Symplify\EasyCodingStandard\Console\Output\CheckstyleOutputFormatter;
 use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
 use Symplify\EasyCodingStandard\DependencyInjection\SimpleParameterProvider;
 use Symplify\EasyCodingStandard\Exception\Configuration\SourceNotFoundException;
@@ -61,6 +62,11 @@ final class ConfigurationFactory
         // --debug option shows more
         $debug = (bool) $input->getOption(Option::DEBUG);
         if ($debug) {
+            return false;
+        }
+
+        $notCheckstyleOutput = $input->getOption(Option::OUTPUT_FORMAT) !== CheckstyleOutputFormatter::NAME;
+        if (! $notCheckstyleOutput) {
             return false;
         }
 

@@ -18,6 +18,7 @@ use Symplify\EasyCodingStandard\Caching\Cache;
 use Symplify\EasyCodingStandard\Caching\CacheFactory;
 use Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
+use Symplify\EasyCodingStandard\Console\Output\CheckstyleOutputFormatter;
 use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
 use Symplify\EasyCodingStandard\Console\Output\OutputFormatterCollector;
@@ -81,6 +82,7 @@ final class LazyContainerFactory
         });
 
         // output
+        $ecsConfig->singleton(CheckstyleOutputFormatter::class);
         $ecsConfig->singleton(ConsoleOutputFormatter::class);
         $ecsConfig->singleton(JsonOutputFormatter::class);
         $ecsConfig->singleton(OutputFormatterCollector::class);
