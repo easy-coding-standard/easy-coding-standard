@@ -115,6 +115,7 @@ return [
             ) {
                 return $content;
             }
+
             return Strings::replace(
                 $content,
                 '#' . $prefix . '\\\\PHPUnit\\\\Framework\\\\TestCase#',
@@ -127,6 +128,7 @@ return [
             if (! str_ends_with($filePath, 'src/Application/Version/StaticVersionResolver.php')) {
                 return $content;
             }
+
             $releaseDateTime = StaticVersionResolver::resolverReleaseDateTime();
             return strtr($content, [
                 '@package_version@' => StaticVersionResolver::resolvePackageVersion(),
