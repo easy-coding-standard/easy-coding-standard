@@ -24,6 +24,7 @@ return RectorConfig::configure()
         '*/Source/*',
         '*/Fixture/*',
         __DIR__ . '/src/SniffRunner/ValueObject/File.php',
+        __DIR__ . '/scoper.php',
 
         RenameParamToMatchTypeRector::class => [__DIR__ . '/src/FixerRunner/Application/FixerFileProcessor.php'],
     ]);
