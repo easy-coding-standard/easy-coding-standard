@@ -1,9 +1,9 @@
 <?php
 
 declare(strict_types=1);
-
 use Isolated\Symfony\Component\Finder\Finder;
 use Nette\Utils\Strings;
+use PHPUnit\Framework\TestCase;
 
 require __DIR__ . '/vendor/autoload.php';
 
@@ -108,29 +108,26 @@ return [
         },
 
         // fixes https://github.com/symplify/symplify/issues/3205
-        function (string $filePath, string $prefix, string $content): string {
+        static function (string $filePath, string $prefix, string $content): string {
             if (
                 ! str_ends_with($filePath, 'src/Testing/PHPUnit/AbstractCheckerTestCase.php') &&
                 ! str_ends_with($filePath, 'src/Testing/PHPUnit/AbstractTestCase.php')
             ) {
                 return $content;
             }
-
             return Strings::replace(
                 $content,
                 '#' . $prefix . '\\\\PHPUnit\\\\Framework\\\\TestCase#',
-                'PHPUnit\Framework\TestCase'
+                TestCase::class
             );
         },
 
         // add static versions constant values
-        function (string $filePath, string $prefix, string $content): string {
+        static function (string $filePath, string $prefix, string $content): string {
             if (! str_ends_with($filePath, 'src/Application/Version/StaticVersionResolver.php')) {
                 return $content;
             }
-
             $releaseDateTime = StaticVersionResolver::resolverReleaseDateTime();
-
             return strtr($content, [
                 '@package_version@' => StaticVersionResolver::resolvePackageVersion(),
                 '@release_date@' => $releaseDateTime->format('Y-m-d H:i:s'),
