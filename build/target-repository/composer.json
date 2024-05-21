@@ -18,5 +18,8 @@
         "symplify/coding-standard": "<12.1",
         "phpcsstandards/php_codesniffer": "<3.8",
         "friendsofphp/php-cs-fixer": "<3.46"
+    },
+    "suggest": {
+        "ext-dom": "Needed to support checkstyle output format in class CheckstyleOutputFormatter"
     }
 }
