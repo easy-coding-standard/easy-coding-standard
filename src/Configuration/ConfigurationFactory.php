@@ -65,13 +65,9 @@ final class ConfigurationFactory
             return false;
         }
 
-        $notCheckstyleOutput = $input->getOption(Option::OUTPUT_FORMAT) !== CheckstyleOutputFormatter::NAME;
-        if (! $notCheckstyleOutput) {
-            return false;
-        }
-
-        $notJsonOutput = $input->getOption(Option::OUTPUT_FORMAT) !== JsonOutputFormatter::NAME;
-        if (! $notJsonOutput) {
+        $outputFormat = $input->getOption(Option::OUTPUT_FORMAT);
+        $formatsWithoutProgressBar = [CheckstyleOutputFormatter::NAME, JsonOutputFormatter::NAME];
+        if (in_array($outputFormat, $formatsWithoutProgressBar, true)) {
             return false;
         }
 
