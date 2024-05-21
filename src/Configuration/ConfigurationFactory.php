@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\Configuration;
 
 use Symfony\Component\Console\Input\InputInterface;
+use Symplify\EasyCodingStandard\Console\Output\CheckstyleOutputFormatter;
 use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
 use Symplify\EasyCodingStandard\DependencyInjection\SimpleParameterProvider;
 use Symplify\EasyCodingStandard\Exception\Configuration\SourceNotFoundException;
@@ -64,8 +65,9 @@ final class ConfigurationFactory
             return false;
         }
 
-        $notJsonOutput = $input->getOption(Option::OUTPUT_FORMAT) !== JsonOutputFormatter::NAME;
-        if (! $notJsonOutput) {
+        $outputFormat = $input->getOption(Option::OUTPUT_FORMAT);
+        $formatsWithoutProgressBar = [CheckstyleOutputFormatter::NAME, JsonOutputFormatter::NAME];
+        if (in_array($outputFormat, $formatsWithoutProgressBar, true)) {
             return false;
         }
 
