@@ -3,13 +3,13 @@
         "type": "issue",
         "description": "This is a test",
         "check_name": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\Files\\LineLengthSniff",
-        "fingerprint": "059d56cd9cfe7bced6fabd5d211e84ec",
+        "fingerprint": "3a2b7d4273d6f644730e17c73cef9295",
         "severity": "minor",
         "categories": [
             "Style"
         ],
         "location": {
-            "path": "/workspaces/easy-coding-standard-with-gitlab-output/tests/Console/Output/Source/RandomFile.php",
+            "path": "tests/Console/Output/Source/RandomFile.php",
             "lines": {
                 "begin": 3,
                 "end": 3
@@ -20,13 +20,13 @@
         "type": "issue",
         "description": "This is another test",
         "check_name": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\Files\\LineLengthSniff",
-        "fingerprint": "efdcf6305557fb153186ce6776029ae7",
+        "fingerprint": "84089637032031fa43547c8d854d4ab5",
         "severity": "minor",
         "categories": [
             "Style"
         ],
         "location": {
-            "path": "/workspaces/easy-coding-standard-with-gitlab-output/tests/Console/Output/Source/RandomFile.php",
+            "path": "tests/Console/Output/Source/RandomFile.php",
             "lines": {
                 "begin": 5,
                 "end": 5
