@@ -82,19 +82,19 @@ final readonly class GitlabOutputFormatter implements OutputFormatterInterface
     /**
      * @return ExitCode::*
      */
-    public function report(ErrorAndDiffResult $results, Configuration $config): int
+    public function report(ErrorAndDiffResult $errorAndDiffResult, Configuration $configuration): int
     {
-        $reportedQualityIssues = (! $config->isFixer() && $config->shouldShowDiffs())
+        $reportedQualityIssues = (! $configuration->isFixer() && $configuration->shouldShowDiffs())
             ? merge(
-                $this->generateIssuesForErrors($results->getErrors()),
-                $this->generateIssuesForFixes($results->getFileDiffs()),
+                $this->generateIssuesForErrors($errorAndDiffResult->getErrors()),
+                $this->generateIssuesForFixes($errorAndDiffResult->getFileDiffs()),
             )
-            : $this->generateIssuesForErrors($results->getErrors());
+            : $this->generateIssuesForErrors($errorAndDiffResult->getErrors());
 
         $output = $this->encode($reportedQualityIssues);
 
         $this->easyCodingStandardStyle->writeln($output);
-        return $this->exitCodeResolver->resolve($results, $config);
+        return $this->exitCodeResolver->resolve($errorAndDiffResult, $configuration);
     }
 
     /**
@@ -104,22 +104,22 @@ final readonly class GitlabOutputFormatter implements OutputFormatterInterface
     private function generateIssuesForErrors(array $errors): array
     {
         return map(
-            fn (CodingStandardError $error) => [
+            fn (CodingStandardError $codingStandardError): array => [
                 'type' => 'issue',
-                'description' => $error->getMessage(),
-                'check_name' => $error->getCheckerClass(),
+                'description' => $codingStandardError->getMessage(),
+                'check_name' => $codingStandardError->getCheckerClass(),
                 'fingerprint' => $this->generateFingerprint(
-                    $error->getCheckerClass(),
-                    $error->getMessage(),
-                    $error->getRelativeFilePath(),
+                    $codingStandardError->getCheckerClass(),
+                    $codingStandardError->getMessage(),
+                    $codingStandardError->getRelativeFilePath(),
                 ),
                 'severity' => 'blocker',
                 'categories' => ['Style'],
                 'location' => [
-                    'path' => $error->getRelativeFilePath(),
+                    'path' => $codingStandardError->getRelativeFilePath(),
                     'lines' => [
-                        'begin' => $error->getLine(),
-                        'end' => $error->getLine(),
+                        'begin' => $codingStandardError->getLine(),
+                        'end' => $codingStandardError->getLine(),
                     ],
                 ],
             ],
@@ -137,9 +137,9 @@ final readonly class GitlabOutputFormatter implements OutputFormatterInterface
     {
         return merge(
             ...map(
-                fn (FileDiff $diff) => map(
-                    fn (Chunk $chunk) => $this->generateIssueForChunk($diff, $chunk),
-                    $this->diffParser->parse($diff->getDiff())[0]->chunks(),
+                fn (FileDiff $fileDiff): array => map(
+                    fn (Chunk $chunk): array => $this->generateIssueForChunk($fileDiff, $chunk),
+                    $this->diffParser->parse($fileDiff->getDiff())[0]->chunks(),
                 ),
                 $diffs,
             ),
@@ -149,15 +149,15 @@ final readonly class GitlabOutputFormatter implements OutputFormatterInterface
     /**
      * @return GitlabIssue
      */
-    private function generateIssueForChunk(FileDiff $diff, Chunk $chunk): array
+    private function generateIssueForChunk(FileDiff $fileDiff, Chunk $chunk): array
     {
-        $checkersAsFqcns = implode(',', $diff->getAppliedCheckers());
+        $checkersAsFqcns = implode(',', $fileDiff->getAppliedCheckers());
         $checkersAsClasses = implode(', ', map(
-            fn (string $checker) => preg_replace('/.*\\\/', '', $checker),
-            $diff->getAppliedCheckers(),
+            static fn (string $checker): string => preg_replace('/.*\\\/', '', $checker) ?? $checker,
+            $fileDiff->getAppliedCheckers(),
         ));
 
-        $message = "Chunk has fixable errors: {$checkersAsClasses}";
+        $message = 'Chunk has fixable errors: ' . $checkersAsClasses;
         $lineStart = $chunk->start();
         $lineEnd = $lineStart + $chunk->startRange() - 1;
 
@@ -168,14 +168,21 @@ final readonly class GitlabOutputFormatter implements OutputFormatterInterface
             'fingerprint' => $this->generateFingerprint(
                 $checkersAsFqcns,
                 $message,
-                $diff->getRelativeFilePath(),
-                implode('\n', map(fn (Line $line) => "{$line->type()}:{$line->content()}", $chunk->lines())),
+                $fileDiff->getRelativeFilePath(),
+                implode(
+                    '\n',
+                    map(static fn (Line $line): string => sprintf(
+                        '%d:%s',
+                        $line->type(),
+                        $line->content()
+                    ), $chunk->lines())
+                ),
             ),
             'severity' => 'blocker',
             'categories' => ['Style'],
             'remediation_points' => 50_000,
             'location' => [
-                'path' => $diff->getRelativeFilePath(),
+                'path' => $fileDiff->getRelativeFilePath(),
                 'lines' => [
                     'begin' => $lineStart,
                     'end' => $lineEnd,

@@ -11,10 +11,10 @@ use Symplify\EasyCodingStandard\Exception\Configuration\SourceNotFoundException;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 
-final class ConfigurationFactory
+final readonly class ConfigurationFactory
 {
     public function __construct(
-        private readonly OutputFormatterCollector $outputFormatterCollector
+        private OutputFormatterCollector $outputFormatterCollector
     ) {
     }
 
