@@ -39,7 +39,7 @@ final class ListCheckersCommand extends Command
             null,
             InputOption::VALUE_REQUIRED,
             'Select output format',
-            ConsoleOutputFormatter::NAME
+            ConsoleOutputFormatter::getName()
         );
 
         $this->addOption(Option::CONFIG, 'c', InputOption::VALUE_REQUIRED, 'Path to config file');

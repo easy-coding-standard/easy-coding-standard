@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\Configuration;
 
 use Symfony\Component\Console\Input\InputInterface;
-use Symplify\EasyCodingStandard\Console\Output\CheckstyleOutputFormatter;
-use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
+use Symplify\EasyCodingStandard\Console\Output\OutputFormatterCollector;
 use Symplify\EasyCodingStandard\DependencyInjection\SimpleParameterProvider;
 use Symplify\EasyCodingStandard\Exception\Configuration\SourceNotFoundException;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
@@ -14,6 +13,11 @@ use Symplify\EasyCodingStandard\ValueObject\Option;
 
 final class ConfigurationFactory
 {
+    public function __construct(
+        private readonly OutputFormatterCollector $outputFormatterCollector
+    ) {
+    }
+
     /**
      * Needs to run in the start of the life cycle, since the rest of workflow uses it.
      */
@@ -66,8 +70,9 @@ final class ConfigurationFactory
         }
 
         $outputFormat = $input->getOption(Option::OUTPUT_FORMAT);
-        $formatsWithoutProgressBar = [CheckstyleOutputFormatter::NAME, JsonOutputFormatter::NAME];
-        if (in_array($outputFormat, $formatsWithoutProgressBar, true)) {
+        $formatter = $this->outputFormatterCollector->getByName($outputFormat);
+
+        if (! $formatter->hasSupportForProgressBars()) {
             return false;
         }
 

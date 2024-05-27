@@ -19,11 +19,6 @@ final readonly class JsonOutputFormatter implements OutputFormatterInterface
     /**
      * @var string
      */
-    public const NAME = 'json';
-
-    /**
-     * @var string
-     */
     private const FILES = 'files';
 
     public function __construct(
@@ -43,9 +38,14 @@ final readonly class JsonOutputFormatter implements OutputFormatterInterface
         return $this->exitCodeResolver->resolve($errorAndDiffResult, $configuration);
     }
 
-    public function getName(): string
+    public static function getName(): string
     {
-        return self::NAME;
+        return 'json';
+    }
+
+    public static function hasSupportForProgressBars(): bool
+    {
+        return false;
     }
 
     /**
