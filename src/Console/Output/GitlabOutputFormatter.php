@@ -86,6 +86,13 @@ final readonly class GitlabOutputFormatter implements OutputFormatterInterface
      */
     public function report(ErrorAndDiffResult $errorAndDiffResult, Configuration $configuration): int
     {
+        $output = $this->generateReport($errorAndDiffResult, $configuration);
+        $this->easyCodingStandardStyle->writeln($output);
+        return $this->exitCodeResolver->resolve($errorAndDiffResult, $configuration);
+    }
+
+    public function generateReport(ErrorAndDiffResult $errorAndDiffResult, Configuration $configuration): string
+    {
         $reportedQualityIssues = (! $configuration->isFixer() && $configuration->shouldShowDiffs())
             ? merge(
                 $this->generateIssuesForErrors($errorAndDiffResult->getErrors()),
@@ -93,10 +100,7 @@ final readonly class GitlabOutputFormatter implements OutputFormatterInterface
             )
             : $this->generateIssuesForErrors($errorAndDiffResult->getErrors());
 
-        $output = $this->encode($reportedQualityIssues);
-
-        $this->easyCodingStandardStyle->writeln($output);
-        return $this->exitCodeResolver->resolve($errorAndDiffResult, $configuration);
+        return $this->encode($reportedQualityIssues);
     }
 
     /**
