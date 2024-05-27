@@ -1,0 +1,20 @@
+[
+    {
+        "type": "issue",
+        "description": "Chunk has fixable errors: LineLengthFixer",
+        "check_name": "Symplify\\CodingStandard\\Fixer\\LineLength\\LineLengthFixer",
+        "fingerprint": "c1b8fa798585a0ec85e62e87cd085e6e",
+        "severity": "minor",
+        "categories": [
+            "Style"
+        ],
+        "remediation_points": 50000,
+        "location": {
+            "path": "/workspaces/easy-coding-standard-with-gitlab-output/tests/Console/Output/Source/RandomFile.php",
+            "lines": {
+                "begin": 6,
+                "end": 11
+            }
+        }
+    }
+]
