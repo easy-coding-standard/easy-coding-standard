@@ -6,6 +6,7 @@ namespace Symplify\EasyCodingStandard\Tests\Console\Output;
 
 use PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineLengthSniff;
 use PhpCsFixer\Differ\DifferInterface;
+use PHPUnit\Framework\Attributes\Depends;
 use Symplify\CodingStandard\Fixer\LineLength\LineLengthFixer;
 use Symplify\EasyCodingStandard\Console\Formatter\ColorConsoleDiffFormatter;
 use Symplify\EasyCodingStandard\Console\Output\GitlabOutputFormatter;
@@ -147,7 +148,7 @@ final class GitlabOutputFormatterTest extends AbstractTestCase
         $this->assertJsonStringEqualsJsonFile($filePathForExpectedOutput, $output);
     }
 
-    // #[Depends('testReportsFixesInTheRightFormat')]
+    #[Depends('testReportsFixesInTheRightFormat')]
     public function testIssueFingerpintsDoNotChangeFromSimpleLineOffsets(): void
     {
         $configuration = new Configuration();
@@ -161,6 +162,7 @@ final class GitlabOutputFormatterTest extends AbstractTestCase
             file_get_contents($filePathForChanges) ?: 'ERROR 2',
         );
 
+        // We need to mock the filepath because it's used as fingerprint material.
         $simulatedFixes = [
             new FileDiff(
                 $mockedFilePathForOriginal,
