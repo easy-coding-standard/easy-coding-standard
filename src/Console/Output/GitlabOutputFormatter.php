@@ -34,7 +34,9 @@ use function array_merge as merge;
  * and with cascading effects, multiple major refactors would be required in
  * order to accurately report exactly which fixes apply to exactly which lines.
  *
- * Finally, all reported errors will be marked as "blocker" severity.
+ * Finally, all reported errors will be marked as "minor" severity, since
+ * DevOps downstream can choose if CI/CD ignores and our Sniffers don't
+ * currently provide their own levels.
  *
  * As a warning to future maintainers, I believe Gitlab's documentation may be
  * slightly wrong. It's not a subset of the Code Climate format as insinuated,
@@ -48,7 +50,7 @@ use function array_merge as merge;
  *     description: string,
  *     check_name: string,
  *     fingerprint: string,
- *     severity: 'blocker',
+ *     severity: 'minor',
  *     categories: array{'Style'},
  *     remediation_points?: int,
  *     location: array{
@@ -113,7 +115,7 @@ final readonly class GitlabOutputFormatter implements OutputFormatterInterface
                     $codingStandardError->getMessage(),
                     $codingStandardError->getRelativeFilePath(),
                 ),
-                'severity' => 'blocker',
+                'severity' => 'minor',
                 'categories' => ['Style'],
                 'location' => [
                     'path' => $codingStandardError->getRelativeFilePath(),
@@ -178,7 +180,7 @@ final readonly class GitlabOutputFormatter implements OutputFormatterInterface
                     ), $chunk->lines())
                 ),
             ),
-            'severity' => 'blocker',
+            'severity' => 'minor',
             'categories' => ['Style'],
             'remediation_points' => 50_000,
             'location' => [
