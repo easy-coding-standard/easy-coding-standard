@@ -70,9 +70,9 @@
             "@fix-rector",
             "@fix-cs"
         ],
-        "phpstan": "vendor/bin/phpstan analyse --ansi  --error-format symplify",
-        "rector": "vendor/bin/rector process --dry-run --ansi",
-        "fix-rector": "vendor/bin/rector process --ansi",
+        "phpstan": "vendor/bin/phpstan analyse --ansi --memory-limit=1G --error-format symplify",
+        "rector": "vendor/bin/rector process --dry-run --memory-limit=1G --ansi",
+        "fix-rector": "vendor/bin/rector process --memory-limit=1G --ansi",
         "check-cs": "bin/ecs check --ansi",
         "fix-cs": "bin/ecs check --fix --ansi"
     },
