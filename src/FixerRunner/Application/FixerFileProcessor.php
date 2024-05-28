@@ -41,7 +41,6 @@ final class FixerFileProcessor implements FileProcessorInterface
         private readonly Skipper $skipper,
         private readonly DifferInterface $differ,
         private readonly EasyCodingStandardStyle $easyCodingStandardStyle,
-        private readonly \Symfony\Component\Filesystem\Filesystem $filesystem,
         private readonly FileDiffFactory $fileDiffFactory,
         array $fixers
     ) {
@@ -91,7 +90,7 @@ final class FixerFileProcessor implements FileProcessorInterface
 
         $tokenGeneratedCode = $tokens->generateCode();
         if ($configuration->isFixer()) {
-            $this->filesystem->dumpFile($filePath, $tokenGeneratedCode);
+            FileSystem::write($filePath, $tokenGeneratedCode, null);
         }
 
         Tokens::clearCache();
