@@ -52,7 +52,7 @@ abstract class AbstractCheckCommand extends Command
             null,
             InputOption::VALUE_REQUIRED,
             'Select output format',
-            ConsoleOutputFormatter::NAME
+            ConsoleOutputFormatter::getName()
         );
 
         $this->addOption(Option::MEMORY_LIMIT, null, InputOption::VALUE_REQUIRED, 'Memory limit for check');

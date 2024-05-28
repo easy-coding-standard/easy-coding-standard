@@ -92,7 +92,7 @@ final class EasyCodingStandardConsoleApplication extends Application
 
         $outputFormat = $input->getParameterOption('--' . Option::OUTPUT_FORMAT);
 
-        return $outputFormat === ConsoleOutputFormatter::NAME;
+        return $outputFormat === ConsoleOutputFormatter::getName();
     }
 
     private function addExtraOptions(InputDefinition $inputDefinition): void

@@ -167,6 +167,22 @@ composer fix-cs
 
 <br>
 
+### Controlling Output Format
+
+You may want to use ECS to generate reports for third-party tooling.
+
+We currently provide formatters for:
+
+- `console`:  Human-oriented printing à la PHP CS Fixer.
+- `json`:  A custom JSON blob for arbitrary tooling.
+- `checkstyle`: Useful for Github Action Reports.
+- `gitlab`: For Gitlab code quality reports or Code Climate tooling.
+
+For information on how each of these behave, refer to their respective
+[implementations](src/Console/Output/).
+
+<br>
+
 ## FAQ
 
 ### How do I clear cache?
