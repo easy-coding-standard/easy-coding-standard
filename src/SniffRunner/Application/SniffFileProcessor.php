@@ -64,7 +64,6 @@ final class SniffFileProcessor implements FileProcessorInterface
         private readonly FileFactory $fileFactory,
         private readonly DifferInterface $differ,
         private readonly SniffMetadataCollector $sniffMetadataCollector,
-        private readonly \Symfony\Component\Filesystem\Filesystem $filesystem,
         private readonly FileDiffFactory $fileDiffFactory,
         array $sniffs
     ) {
@@ -117,7 +116,7 @@ final class SniffFileProcessor implements FileProcessorInterface
         }
 
         if ($configuration->isFixer()) {
-            $this->filesystem->dumpFile($file->getFilename(), $this->fixer->getContents());
+            FileSystem::write($file->getFilename(), $this->fixer->getContents(), null);
         }
 
         return $errorsAndDiffs;

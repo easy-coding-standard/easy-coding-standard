@@ -18,11 +18,6 @@ use Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult;
  */
 final readonly class CheckstyleOutputFormatter implements OutputFormatterInterface
 {
-    /**
-     * @var string
-     */
-    public const NAME = 'checkstyle';
-
     public function __construct(
         private EasyCodingStandardStyle $easyCodingStandardStyle,
         private ExitCodeResolver $exitCodeResolver
@@ -40,9 +35,14 @@ final readonly class CheckstyleOutputFormatter implements OutputFormatterInterfa
         return $this->exitCodeResolver->resolve($errorAndDiffResult, $configuration);
     }
 
-    public function getName(): string
+    public static function getName(): string
     {
-        return self::NAME;
+        return 'checkstyle';
+    }
+
+    public static function hasSupportForProgressBars(): bool
+    {
+        return false;
     }
 
     /**

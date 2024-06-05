@@ -53,9 +53,14 @@ final readonly class ConsoleOutputFormatter implements OutputFormatterInterface
         return $this->exitCodeResolver->resolve($errorAndDiffResult, $configuration);
     }
 
-    public function getName(): string
+    public static function getName(): string
     {
         return self::NAME;
+    }
+
+    public static function hasSupportForProgressBars(): bool
+    {
+        return true;
     }
 
     /**
