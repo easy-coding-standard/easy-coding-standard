@@ -23,6 +23,7 @@ use Symplify\EasyCodingStandard\Console\Output\CheckstyleOutputFormatter;
 use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 use Symplify\EasyCodingStandard\Console\Output\GitlabOutputFormatter;
 use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
+use Symplify\EasyCodingStandard\Console\Output\JUnitOutputFormatter;
 use Symplify\EasyCodingStandard\Console\Output\OutputFormatterCollector;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyleFactory;
@@ -91,6 +92,7 @@ final class LazyContainerFactory
         $ecsConfig->singleton(CheckstyleOutputFormatter::class);
         $ecsConfig->singleton(ConsoleOutputFormatter::class);
         $ecsConfig->singleton(JsonOutputFormatter::class);
+        $ecsConfig->singleton(JUnitOutputFormatter::class);
         $ecsConfig->singleton(OutputFormatterCollector::class);
 
         $ecsConfig->when(OutputFormatterCollector::class)
