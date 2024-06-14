@@ -175,6 +175,7 @@ We currently provide formatters for:
 
 - `console`:  Human-oriented printing à la PHP CS Fixer.
 - `json`:  A custom JSON blob for arbitrary tooling.
+- `junit`:  JUnit format to be used in different CI environments.
 - `checkstyle`: Useful for Github Action Reports.
 - `gitlab`: For Gitlab code quality reports or Code Climate tooling.
 
