@@ -38,6 +38,13 @@ final class File extends BaseFile
     private ?string $filePath = null;
 
     /**
+     * @var array<class-string<Sniff>, int> A map of which sniffers have
+     *     requested themselves to be disabled, pointing to the index in
+     *     the files token stack that they are to be re-enabled.
+     */
+    private array $disabledSniffers = [];
+
+    /**
      * @var array<class-string<Sniff>>
      */
     private array $reportSniffClassesWarnings = [];
@@ -94,17 +101,20 @@ final class File extends BaseFile
             }
 
             foreach ($this->tokenListeners[$token['code']] as $sniff) {
-                if ($this->skipper->shouldSkipElementAndFilePath($sniff, $currentFilePath)) {
+                $shouldSkipSniff = $this->skipper->shouldSkipElementAndFilePath($sniff, $currentFilePath);
+                $sniffIsDisabled = $this->isSniffStillDisabled($sniff::class, $stackPtr);
+
+                if ($shouldSkipSniff || $sniffIsDisabled) {
                     continue;
                 }
 
                 $this->reportActiveSniffClass($sniff);
-
-                $sniff->process($this, $stackPtr);
+                $this->disableSnifferUntil($sniff::class, $sniff->process($this, $stackPtr));
             }
         }
 
         $this->fixedCount += $this->fixer->getFixCount();
+        $this->disabledSniffers = [];
     }
 
     /**
@@ -258,6 +268,32 @@ final class File extends BaseFile
             }
         }
 
+        return true;
+    }
+
+    private function isSniffStillDisabled(string $sniffClass, int $targetStackPtr): bool
+    {
+        $disabledUntil = $this->disabledSniffers[$sniffClass] ?? 0;
+
+        if ($disabledUntil > $targetStackPtr) {
+            return true;
+        }
+
+        unset($this->disabledSniffers[$sniffClass]);
+                return false;
+            }
+
+    /**
+     * @param class-string<Sniff> $sniffClass
+     */
+    private function disableSnifferUntil(string $sniffClass, ?int $targetStackPtr = null): void
+    {
+        if ($targetStackPtr === null) {
+            return;
+        }
+
+        $this->disabledSniffers[$sniffClass] = $targetStackPtr;
+    }
         return true;
     }
 }
