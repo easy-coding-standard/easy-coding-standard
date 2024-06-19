@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\Config;
 
 use Illuminate\Container\Container;
+use PHP_CodeSniffer\Config as SnifferConfig;
+use PHP_CodeSniffer\Ruleset as SnifferRuleSet;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
 use PhpCsFixer\FixerFactory;
-use PhpCsFixer\RuleSet\RuleSet;
+use PhpCsFixer\RuleSet\RuleSet as FixerRuleSet;
 use PhpCsFixer\WhitespacesFixerConfig;
 use Symplify\EasyCodingStandard\Configuration\ECSConfigBuilder;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
@@ -197,7 +199,7 @@ final class ECSConfig extends Container
         $fixerFactory = new FixerFactory();
         $fixerFactory->registerBuiltInFixers();
 
-        $ruleSet = new RuleSet(array_fill_keys($setNames, true));
+        $ruleSet = new FixerRuleSet(array_fill_keys($setNames, true));
         $fixerFactory->useRuleSet($ruleSet);
 
         /** @var FixerInterface $fixer */
@@ -209,6 +211,47 @@ final class ECSConfig extends Container
             } else {
                 $this->ruleWithConfiguration($fixer::class, $ruleConfiguration);
             }
+        }
+    }
+
+    /**
+     * @param string[] $standards
+     */
+    public function snifferStandards(array $standards): void
+    {
+        $config = $this->get(SnifferConfig::class);
+        $config->standards = $standards;
+
+        $ruleset = new SnifferRuleSet($config);
+        $this->singleton(SnifferRuleSet::class, static fn (): SnifferRuleSet => $ruleset);
+
+        $globalIgnorePaths = $ruleset->getIgnorePatterns();
+
+        /** @var class-string<Sniff> $className */
+        foreach ($ruleset->sniffs as $className => $instance) {
+            /* ECS doesn't currently support rules being conditionally enabled
+               for subpaths, only disabled. So all rules will be globally
+               enabled. */
+            $this->singleton($className, static fn () => $instance);
+
+            $ignorePaths = $ruleset->getIgnorePatterns($className);
+
+            if (! (empty($ignorePaths) && empty($globalIgnorePaths))) {
+                $this->skip([
+                    $className => array_merge($ignorePaths, $globalIgnorePaths),
+                ]);
+            }
+        }
+    }
+
+    public function setWarnings(bool $areEnabled): void
+    {
+        $config = $this->get(SnifferConfig::class);
+
+        if ($areEnabled) {
+            $config->warningSeverity = $config->warningSeverity ?: 1;
+        } else {
+            $config->warningSeverity = 0;
         }
     }
 
@@ -251,7 +294,7 @@ final class ECSConfig extends Container
     }
 
     /**
-     * @param class-string $checkerClass
+     * @phpstan-assert class-string<Sniff|FixerInterface> $checkerClass
      */
     private function assertCheckerClass(string $checkerClass): void
     {

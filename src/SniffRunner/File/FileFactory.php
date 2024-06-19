@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\SniffRunner\File;
 
 use Nette\Utils\FileSystem;
+use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Fixer;
+use PHP_CodeSniffer\Ruleset;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\FileSystem\StaticRelativeFilePathHelper;
 use Symplify\EasyCodingStandard\Skipper\Skipper\Skipper;
@@ -21,7 +23,9 @@ final readonly class FileFactory
         private Fixer $fixer,
         private Skipper $skipper,
         private SniffMetadataCollector $sniffMetadataCollector,
-        private EasyCodingStandardStyle $easyCodingStandardStyle
+        private EasyCodingStandardStyle $easyCodingStandardStyle,
+        private Config $config,
+        private ?Ruleset $ruleset,
     ) {
     }
 
@@ -36,7 +40,9 @@ final readonly class FileFactory
             $this->fixer,
             $this->skipper,
             $this->sniffMetadataCollector,
-            $this->easyCodingStandardStyle
+            $this->easyCodingStandardStyle,
+            $this->config,
+            $this->ruleset,
         );
     }
 }
