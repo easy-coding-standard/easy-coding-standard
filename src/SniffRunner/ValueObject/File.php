@@ -76,6 +76,10 @@ final class File extends BaseFile
      */
     public function process(): void
     {
+        // Since sniffs are re-run after they do fixes, we need to clear the old
+        // errors to avoid duplicates.
+        $this->sniffMetadataCollector->resetErrors();
+
         $this->parse();
         $this->fixer->startFile($this);
 
