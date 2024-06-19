@@ -9,7 +9,7 @@
 - Install on **any PHP 7.2-PHP 8.3** project with any dependencies
 - Blazing fast with parallel run out of the box
 - Use [PHP_CodeSniffer or PHP-CS-Fixer](https://tomasvotruba.com/blog/2017/05/03/combine-power-of-php-code-sniffer-and-php-cs-fixer-in-3-lines/) - anything you like
-- Use **prepared sets** and [PHP CS Fixer sets](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/blob/master/doc/ruleSets/index.rst) to save time
+- Use **prepared sets**, [PHP CS Fixer sets](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/blob/master/doc/ruleSets/index.rst), or [PHP Code Sniffer standards](https://github.com/PHPCSStandards/PHP_CodeSniffer/wiki/Usage#specifying-a-coding-standard) to save time
 
 <br>
 
@@ -50,6 +50,7 @@ That's it!
 Most of the time, you'll be happy with the default configuration. The most relevant part is configuring paths, checkers and sets:
 
 ```php
+use PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineLengthSniff;
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 
@@ -58,6 +59,9 @@ return ECSConfig::configure()
     ->withRules([
         ArraySyntaxFixer::class,
     ])
+    // Warnings for included PHPCS rules are disabled by default,
+    // but they can be enabled manually.
+    ->withWarnings()
     ->withPreparedSets(psr12: true);
 ```
 
@@ -86,6 +90,52 @@ return ECSConfig::configure()
     ->withPaths([__DIR__ . '/src', __DIR__ . '/tests'])
     ->withPhpCsFixerSets(perCS20: true, doctrineAnnotation: true);
 ```
+
+<br>
+
+Do you want to use [an existing PHPCS config or standard](https://github.com/PHPCSStandards/PHP_CodeSniffer/wiki/Usage#specifying-a-coding-standard)?
+You have plenty of options:
+
+```php
+use Symplify\EasyCodingStandard\Config\ECSConfig;
+
+return ECSConfig::configure()
+    ->withPaths([__DIR__ . '/src', __DIR__ . '/tests'])
+
+    // Load your existing [.]phpcs.xml[.dist]
+    ->withSnifferStandards()
+
+    // Use any of their 8 built-ins.
+    ->withSnifferStandards(psr12: true)
+
+    // Maybe third parties interest you?
+    ->withSnifferStandards(vendor: 'WordPress')
+
+    // Or maybe you use LOTS of configs?
+    ->withSnifferStandards(
+        config: [ 'phpcs.xml.dist', 'phpcs.xml' ],
+        vendor: [ 'WordPress', 'PHPCompatibility' ],
+        psr12: true
+    )
+
+    // The standards warning severities are respected by default,
+    // this returns to the default behavior of skipping most warnings.
+    ->withSnifferStandards(withWarnings: false);
+```
+
+> [!IMPORTANT]
+> This only supports a **subset** of PHPCS configuration:
+>
+> - Included rules and their default configurations.
+> - Rules excluded globally or based on patterns.
+> - Severity levels.
+> - Ruleset inheritance.
+>
+> Rules included only for specific paths will be included globally instead.
+> To migrate, enable these rules globally and specify _excluded_ paths instead.
+>
+> All other arguments, parameters, or settings are ignored.
+> This includes specified file patterns and extensions.
 
 <br>
 
@@ -201,6 +251,17 @@ Do you look for json format?
 
 ```bash
 vendor/bin/ecs list-checkers --output-format json
+```
+
+### ECS isn't respecting my `phpcs:ignore` directives?
+
+Currently, we do not support comment-based directives to enable, disable, or
+ignore specific rules or specific tools. We do support our own global toggle:
+
+```php
+// @codingStandardsIgnoreStart
+$atom = "[-a-z0-9!#$%&'*+/=?^_`{|}~]"; // RFC 5322 unquoted characters in local-part
+// @codingStandardsIgnoreEnd
 ```
 
 <br>
