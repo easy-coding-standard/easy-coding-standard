@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\DependencyInjection;
 
 use Illuminate\Container\Container;
+use PHP_CodeSniffer\Config as SnifferConfig;
 use PHP_CodeSniffer\Fixer;
+use PHP_CodeSniffer\Ruleset as SnifferRuleset;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
 use PhpCsFixer\Differ\DifferInterface;
@@ -109,6 +111,18 @@ final class LazyContainerFactory
         $ecsConfig->when(SniffFileProcessor::class)
             ->needs('$sniffs')
             ->giveTagged(Sniff::class);
+
+        $ecsConfig->singleton(SnifferRuleset::class, static fn (): null => null);
+        $ecsConfig->singleton(
+            SnifferConfig::class,
+            static fn (): SnifferConfig => new SnifferConfig([
+                '--error-severity=1',
+                '--warning-severity=0',
+                '--tab-width=4',
+                '--ignore-annotations',
+                '--encoding=UTF-8',
+            ])
+        );
 
         // load default config first
         $configFiles = [__DIR__ . '/../../config/config.php', ...$configFiles];
