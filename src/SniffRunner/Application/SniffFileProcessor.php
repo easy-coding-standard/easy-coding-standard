@@ -148,14 +148,14 @@ final class SniffFileProcessor implements FileProcessorInterface
      * @see \PHP_CodeSniffer\Fixer::fixFile()
      *
      * @param array<int|string, Sniff[]> $tokenListeners
-     * @param array<class-string<Sniff>> $reportSniffClassesWarnings
+     * @param array<class-string<Sniff>> $escalatedSniffClassesWarnings
      */
     private function fixFile(
         File $file,
         Fixer $fixer,
         string $filePath,
         array $tokenListeners,
-        array $reportSniffClassesWarnings
+        array $escalatedSniffClassesWarnings
     ): void {
         $previousContent = FileSystem::read($filePath);
 
@@ -169,7 +169,7 @@ final class SniffFileProcessor implements FileProcessorInterface
             PrivatesAccessorHelper::setPropertyValue($fixer, 'inConflict', false);
 
             $file->setContent($content);
-            $file->processWithTokenListenersAndFilePath($tokenListeners, $filePath, $reportSniffClassesWarnings);
+            $file->processWithTokenListenersAndFilePath($tokenListeners, $filePath, $escalatedSniffClassesWarnings);
 
             // fixed content
             $previousContent = $fixer->getContents();

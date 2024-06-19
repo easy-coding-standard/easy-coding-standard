@@ -33,6 +33,11 @@ final class ECSConfigBuilder
     private array $dynamicSets = [];
 
     /**
+     * @var string[]|null
+     */
+    private ?array $snifferStandards = null;
+
+    /**
      * @var array<mixed>
      */
     private array $skip = [];
@@ -71,6 +76,8 @@ final class ECSConfigBuilder
 
     private int $parallelJobSize = 20;
 
+    private bool $areWarningsEnabled = false;
+
     public function __invoke(ECSConfig $ecsConfig): void
     {
         if ($this->sets !== []) {
@@ -79,6 +86,10 @@ final class ECSConfigBuilder
 
         if ($this->dynamicSets !== []) {
             $ecsConfig->dynamicSets($this->dynamicSets);
+        }
+
+        if ($this->snifferStandards !== null) {
+            $ecsConfig->snifferStandards($this->snifferStandards);
         }
 
         if ($this->paths !== []) {
@@ -128,6 +139,8 @@ final class ECSConfigBuilder
                 $ecsConfig->disableParallel();
             }
         }
+
+        $ecsConfig->setWarnings($this->areWarningsEnabled);
     }
 
     /**
@@ -175,7 +188,6 @@ final class ECSConfigBuilder
         bool $common = false,
         /** @see SetList::SYMPLIFY */
         bool $symplify = false,
-
         // common sets
         /** @see SetList::ARRAY */
         bool $arrays = false,
@@ -490,6 +502,71 @@ final class ECSConfigBuilder
     }
 
     /**
+     * @param string|string[] $config
+     * @param string|string[] $vendor
+     */
+    public function withSnifferStandards(
+        mixed $config = null,
+        mixed $vendor = null,
+        bool $mySource = false,
+        bool $pear = false,
+        bool $psr1 = false,
+        bool $psr2 = false,
+        bool $psr12 = false,
+        bool $squiz = false,
+        bool $zend = false,
+        bool $withWarnings = true
+    ): self {
+        $this->snifferStandards = [];
+
+        if ($config !== null) {
+            if (is_array($config)) {
+                $this->snifferStandards = array_merge($this->snifferStandards, $config);
+            } else {
+                $this->snifferStandards[] = $config;
+            }
+        }
+
+        if ($vendor !== null) {
+            if (is_array($vendor)) {
+                $this->snifferStandards = array_merge($this->snifferStandards, $vendor);
+            } else {
+                $this->snifferStandards[] = $vendor;
+            }
+        }
+
+        if ($mySource) {
+            $this->snifferStandards[] = 'MySource';
+        }
+
+        if ($pear) {
+            $this->snifferStandards[] = 'PEAR';
+        }
+
+        if ($psr1) {
+            $this->snifferStandards[] = 'PSR1';
+        }
+
+        if ($psr2) {
+            $this->snifferStandards[] = 'PSR2';
+        }
+
+        if ($psr12) {
+            $this->snifferStandards[] = 'PSR12';
+        }
+
+        if ($squiz) {
+            $this->snifferStandards[] = 'Squiz';
+        }
+
+        if ($zend) {
+            $this->snifferStandards[] = 'Zend';
+        }
+
+        return $this->withWarnings($withWarnings);
+    }
+
+    /**
      * @param string[] $sets
      */
     public function withSets(array $sets): self
@@ -575,6 +652,18 @@ final class ECSConfigBuilder
     {
         $this->parallel = false;
 
+        return $this;
+    }
+
+    public function withWarnings(bool $areEnabled = true): self
+    {
+        $this->areWarningsEnabled = $areEnabled;
+        return $this;
+    }
+
+    public function withoutWarnings(): self
+    {
+        $this->areWarningsEnabled = false;
         return $this;
     }
 }
