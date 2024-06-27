@@ -27,7 +27,7 @@ final readonly class JUnitOutputFormatter implements OutputFormatterInterface
      */
     public function report(ErrorAndDiffResult $errorAndDiffResult, Configuration $configuration): int
     {
-        $xml = $this->createXmlOutput($errorAndDiffResult);
+        $xml = $this->createXmlOutput($errorAndDiffResult, $configuration->isReportingWithRealPath());
         $this->easyCodingStandardStyle->writeln($xml);
 
         return $this->exitCodeResolver->resolve($errorAndDiffResult, $configuration);
@@ -46,7 +46,7 @@ final readonly class JUnitOutputFormatter implements OutputFormatterInterface
     /**
      * @api
      */
-    public function createXmlOutput(ErrorAndDiffResult $errorAndDiffResult): string
+    public function createXmlOutput(ErrorAndDiffResult $errorAndDiffResult, bool $absoluteFilePath = false): string
     {
         $result = '<?xml version="1.0" encoding="UTF-8"?>';
 
@@ -60,7 +60,7 @@ final readonly class JUnitOutputFormatter implements OutputFormatterInterface
         );
 
         foreach ($errorAndDiffResult->getErrors() as $codingStandardError) {
-            $fileName = $codingStandardError->getRelativeFilePath();
+            $fileName = $absoluteFilePath ? $codingStandardError->getAbsoluteFilePath() : $codingStandardError->getRelativeFilePath();
             $result .= $this->createTestCase(
                 sprintf('%s:%s', $fileName, $codingStandardError->getLine()),
                 $codingStandardError->getMessage()
@@ -74,7 +74,7 @@ final readonly class JUnitOutputFormatter implements OutputFormatterInterface
         }
 
         foreach ($errorAndDiffResult->getFileDiffs() as $codingStandardError) {
-            $fileName = $codingStandardError->getRelativeFilePath();
+            $fileName = $absoluteFilePath ? $codingStandardError->getAbsoluteFilePath() : $codingStandardError->getRelativeFilePath();
             $result .= $this->createTestCase($fileName, $codingStandardError->getDiff());
         }
 

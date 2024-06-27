@@ -29,7 +29,7 @@ final readonly class CheckstyleOutputFormatter implements OutputFormatterInterfa
      */
     public function report(ErrorAndDiffResult $errorAndDiffResult, Configuration $configuration): int
     {
-        $checkstyleContent = $this->createCheckstyleContent($errorAndDiffResult);
+        $checkstyleContent = $this->createCheckstyleContent($errorAndDiffResult, $configuration->isReportingWithRealPath());
         $this->easyCodingStandardStyle->writeln($checkstyleContent);
 
         return $this->exitCodeResolver->resolve($errorAndDiffResult, $configuration);
@@ -48,7 +48,7 @@ final readonly class CheckstyleOutputFormatter implements OutputFormatterInterfa
     /**
      * @api
      */
-    public function createCheckstyleContent(ErrorAndDiffResult $errorAndDiffResult): string
+    public function createCheckstyleContent(ErrorAndDiffResult $errorAndDiffResult, bool $absoluteFilePath = false): string
     {
         if (! \extension_loaded('dom')) {
             throw new RuntimeException('Cannot generate report! `ext-dom` is not available!');
@@ -60,9 +60,10 @@ final readonly class CheckstyleOutputFormatter implements OutputFormatterInterfa
         $checkstyleElement = $domDocument->appendChild($domDocument->createElement('checkstyle'));
 
         foreach ($errorAndDiffResult->getFileDiffs() as $fileDiff) {
+            $filePath = $absoluteFilePath ? $fileDiff->getAbsoluteFilePath() : $fileDiff->getRelativeFilePath();
             /** @var DOMElement $file */
             $file = $checkstyleElement->appendChild($domDocument->createElement('file'));
-            $file->setAttribute('name', $fileDiff->getRelativeFilePath());
+            $file->setAttribute('name', $filePath);
 
             foreach ($fileDiff->getAppliedCheckers() as $appliedChecker) {
                 $errorElement = $this->createError($domDocument, $appliedChecker);
