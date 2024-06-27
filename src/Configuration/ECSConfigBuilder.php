@@ -71,6 +71,8 @@ final class ECSConfigBuilder
 
     private int $parallelJobSize = 20;
 
+    private ?bool $reportingRealPath = null;
+
     public function __invoke(ECSConfig $ecsConfig): void
     {
         if ($this->sets !== []) {
@@ -128,6 +130,8 @@ final class ECSConfigBuilder
                 $ecsConfig->disableParallel();
             }
         }
+
+        $ecsConfig->reportingRealPath($this->reportingRealPath === null ? false : $this->reportingRealPath);
     }
 
     /**
@@ -574,6 +578,13 @@ final class ECSConfigBuilder
     public function withoutParallel(): self
     {
         $this->parallel = false;
+
+        return $this;
+    }
+
+    public function withRealPathReporting(bool $absolutePath = true): self
+    {
+        $this->reportingRealPath = $absolutePath;
 
         return $this;
     }
