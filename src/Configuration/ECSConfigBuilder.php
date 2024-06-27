@@ -131,7 +131,9 @@ final class ECSConfigBuilder
             }
         }
 
-        $ecsConfig->reportingRealPath($this->reportingRealPath === null ? false : $this->reportingRealPath);
+        if ($this->reportingRealPath !== null) {
+            $ecsConfig->reportingRealPath($this->reportingRealPath);
+        }
     }
 
     /**
