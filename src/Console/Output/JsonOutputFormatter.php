@@ -32,7 +32,7 @@ final readonly class JsonOutputFormatter implements OutputFormatterInterface
      */
     public function report(ErrorAndDiffResult $errorAndDiffResult, Configuration $configuration): int
     {
-        $json = $this->createJsonContent($errorAndDiffResult);
+        $json = $this->createJsonContent($errorAndDiffResult, $configuration->isReportingWithRealPath());
         $this->easyCodingStandardStyle->writeln($json);
 
         return $this->exitCodeResolver->resolve($errorAndDiffResult, $configuration);
@@ -51,15 +51,16 @@ final readonly class JsonOutputFormatter implements OutputFormatterInterface
     /**
      * @api
      */
-    public function createJsonContent(ErrorAndDiffResult $errorAndDiffResult): string
+    public function createJsonContent(ErrorAndDiffResult $errorAndDiffResult, bool $absoluteFilePath = false): string
     {
         $errorsArrayJson = $this->createBaseErrorsJson($errorAndDiffResult);
 
         $codingStandardErrors = $errorAndDiffResult->getErrors();
         foreach ($codingStandardErrors as $codingStandardError) {
-            $errorsArrayJson[self::FILES][$codingStandardError->getRelativeFilePath()]['errors'][] = [
+            $filePath = $absoluteFilePath ? $codingStandardError->getAbsoluteFilePath() : $codingStandardError->getRelativeFilePath();
+            $errorsArrayJson[self::FILES][$filePath]['errors'][] = [
                 'line' => $codingStandardError->getLine(),
-                'file_path' => $codingStandardError->getRelativeFilePath(),
+                'file_path' => $filePath,
                 'message' => $codingStandardError->getMessage(),
                 'source_class' => $codingStandardError->getCheckerClass(),
             ];
@@ -67,7 +68,8 @@ final readonly class JsonOutputFormatter implements OutputFormatterInterface
 
         $fileDiffs = $errorAndDiffResult->getFileDiffs();
         foreach ($fileDiffs as $fileDiff) {
-            $errorsArrayJson[self::FILES][$fileDiff->getRelativeFilePath()]['diffs'][] = [
+            $filePath = $absoluteFilePath ? $fileDiff->getAbsoluteFilePath() : $fileDiff->getRelativeFilePath();
+            $errorsArrayJson[self::FILES][$filePath]['diffs'][] = [
                 'diff' => $fileDiff->getDiff(),
                 'applied_checkers' => $fileDiff->getAppliedCheckers(),
             ];

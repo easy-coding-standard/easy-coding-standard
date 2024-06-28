@@ -48,7 +48,7 @@ final readonly class CodingStandardError implements SerializableInterface
     }
 
     /**
-     * @return array{line: int, message: string, checker_class: string, relative_file_path: string}
+     * @return array{line: int, message: string, checker_class: string, absolute_file_path: string|null, relative_file_path: string}
      */
     public function jsonSerialize(): array
     {
