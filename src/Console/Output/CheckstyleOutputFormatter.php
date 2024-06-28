@@ -56,12 +56,12 @@ final readonly class CheckstyleOutputFormatter implements OutputFormatterInterfa
 
         $domDocument = new DOMDocument('1.0', 'UTF-8');
 
-        /** @var DOMElement $checkstyleElement */
-        $checkstyleElement = $domDocument->appendChild($domDocument->createElement('checkstyle'));
+        /** @var DOMElement $domNode */
+        $domNode = $domDocument->appendChild($domDocument->createElement('checkstyle'));
 
         foreach ($errorAndDiffResult->getFileDiffs() as $fileDiff) {
             /** @var DOMElement $file */
-            $file = $checkstyleElement->appendChild($domDocument->createElement('file'));
+            $file = $domNode->appendChild($domDocument->createElement('file'));
             $file->setAttribute('name', $fileDiff->getRelativeFilePath());
 
             foreach ($fileDiff->getAppliedCheckers() as $appliedChecker) {

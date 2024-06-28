@@ -31,16 +31,16 @@ final class EasyCodingStandardContainerFactory
             $inputConfigFiles[] = $rootECSConfig;
         }
 
-        $container = $lazyContainerFactory->create($inputConfigFiles);
-        $container->boot();
+        $ecsConfig = $lazyContainerFactory->create($inputConfigFiles);
+        $ecsConfig->boot();
 
         if ($inputConfigFiles !== []) {
             // for cache invalidation on config change
             /** @var ChangedFilesDetector $changedFilesDetector */
-            $changedFilesDetector = $container->make(ChangedFilesDetector::class);
+            $changedFilesDetector = $ecsConfig->make(ChangedFilesDetector::class);
             $changedFilesDetector->setUsedConfigs($inputConfigFiles);
         }
 
-        return $container;
+        return $ecsConfig;
     }
 }

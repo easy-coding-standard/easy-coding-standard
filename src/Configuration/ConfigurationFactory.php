@@ -70,9 +70,9 @@ final readonly class ConfigurationFactory
         }
 
         $outputFormat = $input->getOption(Option::OUTPUT_FORMAT);
-        $formatter = $this->outputFormatterCollector->getByName($outputFormat);
+        $outputFormatter = $this->outputFormatterCollector->getByName($outputFormat);
 
-        if (! $formatter->hasSupportForProgressBars()) {
+        if (! $outputFormatter->hasSupportForProgressBars()) {
             return false;
         }
 
