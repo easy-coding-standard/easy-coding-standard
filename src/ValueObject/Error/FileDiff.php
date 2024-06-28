@@ -48,12 +48,18 @@ final class FileDiff implements SerializableInterface
         return $this->relativeFilePath;
     }
 
+    public function getAbsoluteFilePath(): ?string
+    {
+        return \realpath($this->relativeFilePath) ?: null;
+    }
+
     /**
      * @return array{relative_file_path: string, diff: string, diff_console_formatted: string, applied_checkers: string[]}
      */
     public function jsonSerialize(): array
     {
         return [
+            Name::ABSOLUTE_FILE_PATH => $this->getAbsoluteFilePath(),
             Name::RELATIVE_FILE_PATH => $this->relativeFilePath,
             Name::DIFF => $this->diff,
             Name::DIFF_CONSOLE_FORMATTED => $this->consoleFormattedDiff,

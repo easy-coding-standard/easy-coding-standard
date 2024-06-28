@@ -189,6 +189,14 @@ final class ECSConfig extends Container
     }
 
     /**
+     * @api
+     */
+    public function reportingRealPath(bool $absolute = true): void
+    {
+        SimpleParameterProvider::setParameter(Option::REPORTING_REALPATH, $absolute);
+    }
+
+    /**
      * @link https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/blob/master/doc/ruleSets/index.rst
      * @param list<string> $setNames
      */

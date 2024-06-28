@@ -154,4 +154,10 @@ final class Option
      * @var string
      */
     public const PARALLEL_TIMEOUT_IN_SECONDS = 'parallel-timeout-in-seconds';
+
+    /**
+     * @see \Symplify\EasyCodingStandard\Config\ECSConfig::reportingRealPath()
+     * @var string
+     */
+    public const REPORTING_REALPATH = 'reporting-realpath';
 }
