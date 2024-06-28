@@ -50,7 +50,7 @@ final class FileDiff implements SerializableInterface
 
     public function getAbsoluteFilePath(): ?string
     {
-        return \realpath($this->relativeFilePath) ? : null;
+        return \realpath($this->relativeFilePath) ?: null;
     }
 
     /**

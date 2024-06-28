@@ -95,10 +95,19 @@ final readonly class GitlabOutputFormatter implements OutputFormatterInterface
     {
         $reportedQualityIssues = (! $configuration->isFixer() && $configuration->shouldShowDiffs())
             ? merge(
-                $this->generateIssuesForErrors($errorAndDiffResult->getErrors(), $configuration->isReportingWithRealPath()),
-                $this->generateIssuesForFixes($errorAndDiffResult->getFileDiffs(), $configuration->isReportingWithRealPath()),
+                $this->generateIssuesForErrors(
+                    $errorAndDiffResult->getErrors(),
+                    $configuration->isReportingWithRealPath()
+                ),
+                $this->generateIssuesForFixes(
+                    $errorAndDiffResult->getFileDiffs(),
+                    $configuration->isReportingWithRealPath()
+                ),
             )
-            : $this->generateIssuesForErrors($errorAndDiffResult->getErrors(), $configuration->isReportingWithRealPath());
+            : $this->generateIssuesForErrors(
+                $errorAndDiffResult->getErrors(),
+                $configuration->isReportingWithRealPath()
+            );
 
         return $this->encode($reportedQualityIssues);
     }
