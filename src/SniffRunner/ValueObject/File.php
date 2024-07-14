@@ -66,7 +66,7 @@ final class File extends BaseFile
         $this->eolChar = Common::detectLineEndings($content);
 
         // compat
-        if (!defined('PHP_CODESNIFFER_CBF')) {
+        if (! defined('PHP_CODESNIFFER_CBF')) {
             define('PHP_CODESNIFFER_CBF', false);
         }
 
@@ -91,12 +91,12 @@ final class File extends BaseFile
         $this->fixer->startFile($this);
 
         $currentFilePath = $this->filePath;
-        if (!is_string($currentFilePath)) {
+        if (! is_string($currentFilePath)) {
             throw new ShouldNotHappenException();
         }
 
         foreach ($this->tokens as $stackPtr => $token) {
-            if (!isset($this->tokenListeners[$token['code']])) {
+            if (! isset($this->tokenListeners[$token['code']])) {
                 continue;
             }
 
@@ -127,7 +127,7 @@ final class File extends BaseFile
         $fullyQualifiedCode = $this->resolveFullyQualifiedCode($code);
         $this->sniffMetadataCollector->addAppliedSniff($fullyQualifiedCode);
 
-        return !$this->shouldSkipError($error, $code, $data);
+        return ! $this->shouldSkipError($error, $code, $data);
     }
 
     /**
@@ -189,7 +189,7 @@ final class File extends BaseFile
         $isFixable = false
     ): bool {
         // skip warnings
-        if (!$isError) {
+        if (! $isError) {
             return false;
         }
 
@@ -219,7 +219,7 @@ final class File extends BaseFile
         // used in other places later
         $this->activeSniffClass = $sniff::class;
 
-        if (!$this->easyCodingStandardStyle->isDebug()) {
+        if (! $this->easyCodingStandardStyle->isDebug()) {
             return;
         }
 
@@ -247,7 +247,7 @@ final class File extends BaseFile
     {
         $fullyQualifiedCode = $this->resolveFullyQualifiedCode($code);
 
-        if (!is_string($this->filePath)) {
+        if (! is_string($this->filePath)) {
             throw new ShouldNotHappenException();
         }
 
