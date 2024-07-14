@@ -10,6 +10,7 @@ use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\AbstractFixer;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\Fixer\FixerInterface;
+use ReflectionClass;
 use Symplify\EasyCodingStandard\Application\Version\StaticVersionResolver;
 use Symplify\EasyCodingStandard\DependencyInjection\LazyContainerFactory;
 use Symplify\EasyCodingStandard\DependencyInjection\SimpleParameterProvider;
@@ -91,14 +92,17 @@ final class FileHashComputer
      */
     private function getFixerConfiguration(FixerInterface $fixer): array
     {
-        $extendsAbstract = $fixer instanceof AbstractFixer;
-        $isConfigurable = $fixer instanceof ConfigurableFixerInterface;
-
-        if (! $isConfigurable || ! $extendsAbstract) {
-            return get_object_vars($fixer);
+        if ($fixer instanceof AbstractFixer) {
+            $reflectionClass = new ReflectionClass($fixer);
+            $configProperty = $reflectionClass->getProperty('configuration');
+            $configProperty->setAccessible(true);
+            return $configProperty->getValue($fixer) ?? [];
         }
 
-        $properties = (array) $fixer;
-        return $properties["\0*\0configuration"];
+        if ($fixer instanceof ConfigurableFixerInterface) {
+            return (array) $fixer;
+        }
+
+        return [];
     }
 }
