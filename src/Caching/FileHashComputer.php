@@ -7,10 +7,8 @@ namespace Symplify\EasyCodingStandard\Caching;
 use Nette\Utils\Json;
 use PHP_CodeSniffer\Config as SnifferConfig;
 use PHP_CodeSniffer\Sniffs\Sniff;
-use PhpCsFixer\AbstractFixer;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\Fixer\FixerInterface;
-use ReflectionClass;
 use Symplify\EasyCodingStandard\Application\Version\StaticVersionResolver;
 use Symplify\EasyCodingStandard\DependencyInjection\LazyContainerFactory;
 use Symplify\EasyCodingStandard\DependencyInjection\SimpleParameterProvider;
@@ -83,26 +81,27 @@ final class FileHashComputer
     }
 
     /**
-     * All configurable options will be in a protected property, but third-party
-     * plugins may not respect the same convention, so we leave a fallback.
+     * Unlike for sniffers, fixers don't have any requirements on their
+     * configuration being accessible.
+     *
+     * Previously `AbstractFixer` provided a configuration property, but it was
+     * removed in 5.39.3, replaced with a definition in
+     * `ConfigurableFixerTrait`. But since this is marked `@internal` and a
+     * breaking change to the interface occurred on a patch release, we
+     * definitely don't want to rely on it.
+     *
+     * So we have to be overly cautious and just return EVERY property.
      *
      * @return array<string, mixed>
-     *
-     * @see https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/blob/a56dc23a3a3bd3c919a439fc9c9677256663749c/src/AbstractFixer.php#L38
      */
     private function getFixerConfiguration(FixerInterface $fixer): array
     {
-        if ($fixer instanceof AbstractFixer) {
-            $reflectionClass = new ReflectionClass($fixer);
-            $configProperty = $reflectionClass->getProperty('configuration');
-            $configProperty->setAccessible(true);
-            return $configProperty->getValue($fixer) ?? [];
+        if (! $fixer instanceof ConfigurableFixerInterface) {
+            return [];
         }
 
-        if ($fixer instanceof ConfigurableFixerInterface) {
-            return (array) $fixer;
-        }
-
-        return [];
+        /// This will return all non-static instance properties.
+        /// @see https://www.php.net/manual/en/function.get-object-vars.php#47075
+        return (array) $fixer;
     }
 }
