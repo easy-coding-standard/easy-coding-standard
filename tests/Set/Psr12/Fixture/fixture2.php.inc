@@ -102,7 +102,9 @@ try {
 /** Closures */
 function( $a , $b )use($c){};
 
-function   ()  use  (  $a  )  {  }  ;
+function   ()  use  (  $a  )  {
+
+}  ;
 
 function ($a, $b)
 {};
@@ -132,6 +134,8 @@ new class(
     \Countable {
     // Body
 };
+
+$instance = new class(){};
 
 ?>
 -----
@@ -224,14 +228,12 @@ try {
 }
 
 /** Closures */
-function ($a, $b) use ($c) {
-};
+function ($a, $b) use ($c) {};
 
 function () use ($a) {
 };
 
-function ($a, $b) {
-};
+function ($a, $b) {};
 
 function ($a, $b) {
     // Body
@@ -251,3 +253,5 @@ new class($a, $b, $c) extends SomeExtendedClass implements
     \Countable {
     // Body
 };
+
+$instance = new class() {};

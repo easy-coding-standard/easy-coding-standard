@@ -14,7 +14,7 @@
     "require": {
         "php": ">=8.2",
         "composer/xdebug-handler": "^3.0",
-        "friendsofphp/php-cs-fixer": "^3.58.1",
+        "friendsofphp/php-cs-fixer": "^3.59.3",
         "illuminate/container": "^10.39",
         "nette/utils": "^3.2",
         "sebastian/diff": "^5.1",

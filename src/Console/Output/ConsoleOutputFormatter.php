@@ -31,7 +31,7 @@ final readonly class ConsoleOutputFormatter implements OutputFormatterInterface
     public function report(ErrorAndDiffResult $errorAndDiffResult, Configuration $configuration): int
     {
         if ($configuration->shouldShowDiffs()) {
-            $this->reportFileDiffs($errorAndDiffResult->getFileDiffs());
+            $this->reportFileDiffs($errorAndDiffResult->getFileDiffs(), $configuration->isReportingWithRealPath());
         }
 
         $this->easyCodingStandardStyle->newLine(1);
@@ -66,7 +66,7 @@ final readonly class ConsoleOutputFormatter implements OutputFormatterInterface
     /**
      * @param FileDiff[] $fileDiffs
      */
-    private function reportFileDiffs(array $fileDiffs): void
+    private function reportFileDiffs(array $fileDiffs, bool $absoluteFilePath = false): void
     {
         if ($fileDiffs === []) {
             return;
@@ -78,7 +78,8 @@ final readonly class ConsoleOutputFormatter implements OutputFormatterInterface
         foreach ($fileDiffs as $fileDiff) {
             $this->easyCodingStandardStyle->newLine(2);
 
-            $boldNumberedMessage = sprintf('<options=bold>%d) %s</>', $i, $fileDiff->getRelativeFilePath());
+            $filePath = $absoluteFilePath ? $fileDiff->getAbsoluteFilePath() : $fileDiff->getRelativeFilePath();
+            $boldNumberedMessage = sprintf('<options=bold>%d) %s</>', $i, $filePath);
             $this->easyCodingStandardStyle->writeln($boldNumberedMessage);
 
             ++$i;
