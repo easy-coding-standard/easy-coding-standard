@@ -5,4 +5,4 @@ declare(strict_types=1);
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 
 return ECSConfig::configure()
-    ->withSkip(['configuration-2']);
+    ->withParallel(timeoutSeconds: 15, maxNumberOfProcess: 16, jobSize: 10);;
