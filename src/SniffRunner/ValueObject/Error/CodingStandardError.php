@@ -42,8 +42,13 @@ final readonly class CodingStandardError implements SerializableInterface
         return $this->relativeFilePath;
     }
 
+    public function getAbsoluteFilePath(): ?string
+    {
+        return \realpath($this->relativeFilePath) ?: null;
+    }
+
     /**
-     * @return array{line: int, message: string, checker_class: string, relative_file_path: string}
+     * @return array{line: int, message: string, checker_class: string, absolute_file_path: string|null, relative_file_path: string}
      */
     public function jsonSerialize(): array
     {
@@ -51,6 +56,7 @@ final readonly class CodingStandardError implements SerializableInterface
             Name::LINE => $this->line,
             Name::MESSAGE => $this->message,
             Name::CHECKER_CLASS => $this->checkerClass,
+            Name::ABSOLUTE_FILE_PATH => $this->getAbsoluteFilePath(),
             Name::RELATIVE_FILE_PATH => $this->relativeFilePath,
         ];
     }

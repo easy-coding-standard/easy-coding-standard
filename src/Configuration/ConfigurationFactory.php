@@ -40,6 +40,8 @@ final readonly class ConfigurationFactory
 
         $isParallel = SimpleParameterProvider::getBoolParameter(Option::PARALLEL);
 
+        $isReportingWithRealPath = SimpleParameterProvider::getBoolParameter(Option::REPORTING_REALPATH);
+
         $config = $input->getOption(Option::CONFIG);
         if ($config !== null) {
             $config = (string) $config;
@@ -57,7 +59,8 @@ final readonly class ConfigurationFactory
             $parallelPort,
             $parallelIdentifier,
             $memoryLimit,
-            $showDiffs
+            $showDiffs,
+            $isReportingWithRealPath
         );
     }
 
@@ -70,9 +73,9 @@ final readonly class ConfigurationFactory
         }
 
         $outputFormat = $input->getOption(Option::OUTPUT_FORMAT);
-        $formatter = $this->outputFormatterCollector->getByName($outputFormat);
+        $outputFormatter = $this->outputFormatterCollector->getByName($outputFormat);
 
-        if (! $formatter->hasSupportForProgressBars()) {
+        if (! $outputFormatter->hasSupportForProgressBars()) {
             return false;
         }
 

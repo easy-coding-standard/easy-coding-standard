@@ -95,10 +95,19 @@ final readonly class GitlabOutputFormatter implements OutputFormatterInterface
     {
         $reportedQualityIssues = (! $configuration->isFixer() && $configuration->shouldShowDiffs())
             ? merge(
-                $this->generateIssuesForErrors($errorAndDiffResult->getErrors()),
-                $this->generateIssuesForFixes($errorAndDiffResult->getFileDiffs()),
+                $this->generateIssuesForErrors(
+                    $errorAndDiffResult->getErrors(),
+                    $configuration->isReportingWithRealPath()
+                ),
+                $this->generateIssuesForFixes(
+                    $errorAndDiffResult->getFileDiffs(),
+                    $configuration->isReportingWithRealPath()
+                ),
             )
-            : $this->generateIssuesForErrors($errorAndDiffResult->getErrors());
+            : $this->generateIssuesForErrors(
+                $errorAndDiffResult->getErrors(),
+                $configuration->isReportingWithRealPath()
+            );
 
         return $this->encode($reportedQualityIssues);
     }
@@ -107,7 +116,7 @@ final readonly class GitlabOutputFormatter implements OutputFormatterInterface
      * @param CodingStandardError[] $errors
      * @return GitlabIssue[]
      */
-    private function generateIssuesForErrors(array $errors): array
+    private function generateIssuesForErrors(array $errors, bool $absoluteFilePath = false): array
     {
         return map(
             fn (CodingStandardError $codingStandardError): array => [
@@ -122,7 +131,7 @@ final readonly class GitlabOutputFormatter implements OutputFormatterInterface
                 'severity' => 'minor',
                 'categories' => ['Style'],
                 'location' => [
-                    'path' => $codingStandardError->getRelativeFilePath(),
+                    'path' => $absoluteFilePath ? $codingStandardError->getAbsoluteFilePath() ?? '' : $codingStandardError->getRelativeFilePath(),
                     'lines' => [
                         'begin' => $codingStandardError->getLine(),
                         'end' => $codingStandardError->getLine(),
@@ -139,12 +148,12 @@ final readonly class GitlabOutputFormatter implements OutputFormatterInterface
      * @param FileDiff[] $diffs
      * @return GitlabIssue[]
      */
-    private function generateIssuesForFixes(array $diffs): array
+    private function generateIssuesForFixes(array $diffs, bool $absoluteFilePath = false): array
     {
         return merge(
             ...map(
                 fn (FileDiff $fileDiff): array => map(
-                    fn (Chunk $chunk): array => $this->generateIssueForChunk($fileDiff, $chunk),
+                    fn (Chunk $chunk): array => $this->generateIssueForChunk($fileDiff, $chunk, $absoluteFilePath),
                     $this->diffParser->parse($fileDiff->getDiff())[0]->chunks(),
                 ),
                 $diffs,
@@ -155,7 +164,7 @@ final readonly class GitlabOutputFormatter implements OutputFormatterInterface
     /**
      * @return GitlabIssue
      */
-    private function generateIssueForChunk(FileDiff $fileDiff, Chunk $chunk): array
+    private function generateIssueForChunk(FileDiff $fileDiff, Chunk $chunk, bool $absoluteFilePath): array
     {
         $checkersAsFqcns = implode(',', $fileDiff->getAppliedCheckers());
         $checkersAsClasses = implode(', ', map(
@@ -188,7 +197,7 @@ final readonly class GitlabOutputFormatter implements OutputFormatterInterface
             'categories' => ['Style'],
             'remediation_points' => 50_000,
             'location' => [
-                'path' => $fileDiff->getRelativeFilePath(),
+                'path' => $absoluteFilePath ? $fileDiff->getAbsoluteFilePath() ?? '' : $fileDiff->getRelativeFilePath(),
                 'lines' => [
                     'begin' => $lineStart,
                     'end' => $lineEnd,
