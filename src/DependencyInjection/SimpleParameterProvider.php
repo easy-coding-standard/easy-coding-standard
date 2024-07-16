@@ -16,7 +16,7 @@ final class SimpleParameterProvider
     public static function addParameter(string $key, mixed $value): void
     {
         if (is_array($value)) {
-            $mergedParameters = array_merge(self::$parameters[$key] ?? [], $value);
+            $mergedParameters = array_merge_recursive(self::$parameters[$key] ?? [], $value);
             self::$parameters[$key] = $mergedParameters;
         } else {
             self::$parameters[$key][] = $value;
