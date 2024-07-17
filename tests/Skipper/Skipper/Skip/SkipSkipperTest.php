@@ -6,6 +6,7 @@ namespace Symplify\EasyCodingStandard\Tests\Skipper\Skipper\Skip;
 
 use Iterator;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use Symplify\EasyCodingStandard\Skipper\Skipper\Skipper;
 use Symplify\EasyCodingStandard\Testing\PHPUnit\AbstractTestCase;
 use Symplify\EasyCodingStandard\Tests\Skipper\Skipper\Skip\Source\AnotherClassToSkip;
@@ -14,6 +15,7 @@ use Symplify\EasyCodingStandard\Tests\Skipper\Skipper\Skip\Source\SomeClassToSki
 
 final class SkipSkipperTest extends AbstractTestCase
 {
+    #[RunInSeparateProcess]
     #[DataProvider('provideCheckerAndFile')]
     #[DataProvider('provideCodeAndFile')]
     #[DataProvider('provideMessageAndFile')]
@@ -71,6 +73,7 @@ final class SkipSkipperTest extends AbstractTestCase
         yield ['anything', __DIR__ . '/Fixture/PathSkippedWithMask/another_file.txt', true];
     }
 
+    #[RunInSeparateProcess]
     #[DataProvider('provideCheckerAndFileForRecursivelyMergedConfig')]
     public function testCheckerSkipRulesAreMergedRecursively(string $element, string $filePath, bool $expectedSkip): void
     {
