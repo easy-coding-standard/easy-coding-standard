@@ -86,5 +86,6 @@ final class SkipSkipperTest extends AbstractTestCase
         yield [SomeClassToSkip::class, __DIR__ . '/Fixture/AlwaysSkippedPath', true];
         yield [SomeClassToSkip::class, __DIR__ . '/Fixture/someDirectory', false];
         yield [SomeClassToSkip::class, __DIR__ . '/Fixture/someDirectory/someFile.php', true];
+        yield [AnotherClassToSkip::class, __DIR__ . '/Fixture', true];
     }
 }
