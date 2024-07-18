@@ -25,6 +25,7 @@ use Webmozart\Assert\InvalidArgumentException;
 
 /**
  * @api
+ * @phpstan-type SkipRules list<string>|array<string|class-string<Sniff|FixerInterface>, string|list<string>|null>
  */
 final class ECSConfig extends Container
 {
@@ -49,7 +50,7 @@ final class ECSConfig extends Container
     }
 
     /**
-     * @param list<string>|array<class-string<Sniff|FixerInterface>, list<string>|null> $skips
+     * @param SkipRules $skips
      */
     public function skip(array $skips): void
     {
