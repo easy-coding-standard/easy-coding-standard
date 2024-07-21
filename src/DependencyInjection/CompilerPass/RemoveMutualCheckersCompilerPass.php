@@ -8,7 +8,9 @@ use Illuminate\Container\Container;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\Arrays\DisallowLongArraySyntaxSniff;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\Arrays\DisallowShortArraySyntaxSniff;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff;
+use PHP_CodeSniffer\Standards\Generic\Sniffs\Files\EndFileNewlineSniff as GenericEndFileNewlineSniff;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineEndingsSniff;
+use PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineLengthSniff;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\Formatting\DisallowMultipleStatementsSniff;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\LowerCaseConstantSniff;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\LowerCaseKeywordSniff;
@@ -52,7 +54,9 @@ use PhpCsFixer\Fixer\StringNotation\SingleQuoteFixer;
 use PhpCsFixer\Fixer\Whitespace\IndentationTypeFixer;
 use PhpCsFixer\Fixer\Whitespace\LineEndingFixer;
 use PhpCsFixer\Fixer\Whitespace\NoExtraBlankLinesFixer;
+use PhpCsFixer\Fixer\Whitespace\NoTrailingWhitespaceFixer;
 use PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer;
+use Symplify\CodingStandard\Fixer\LineLength\LineLengthFixer;
 
 final class RemoveMutualCheckersCompilerPass
 {
@@ -62,6 +66,7 @@ final class RemoveMutualCheckersCompilerPass
      * @var string[][]
      */
     private const DUPLICATED_CHECKER_GROUPS = [
+        [IndentationTypeFixer::class, ScopeIndentSniff::class],
         [IndentationTypeFixer::class, DisallowTabIndentSniff::class],
         [IndentationTypeFixer::class, DisallowSpaceIndentSniff::class],
         [StrictComparisonFixer::class, 'SlevomatCodingStandard\Sniffs\Operators\DisallowEqualOperatorsSniff'],
@@ -89,6 +94,7 @@ final class RemoveMutualCheckersCompilerPass
             'SlevomatCodingStandard\Sniffs\Commenting\ForbiddenAnnotationsSniff',
         ],
         [NoExtraBlankLinesFixer::class, SuperfluousWhitespaceSniff::class],
+        [NoTrailingWhitespaceFixer::class, SuperfluousWhitespaceSniff::class],
         [IncludeFixer::class, LanguageConstructSpacingSniff::class],
         [
             AssignmentInConditionSniff::class,
@@ -104,11 +110,14 @@ final class RemoveMutualCheckersCompilerPass
         [ConstantCaseFixer::class, LowerCaseConstantSniff::class],
         [LowercaseKeywordsFixer::class, LowerCaseKeywordSniff::class],
         [SingleBlankLineAtEofFixer::class, EndFileNewlineSniff::class],
+        [SingleBlankLineAtEofFixer::class, GenericEndFileNewlineSniff::class],
+        [EndFileNewlineSniff::class, GenericEndFileNewlineSniff::class],
         [BracesFixer::class, ScopeIndentSniff::class],
         [BracesFixer::class, ScopeClosingBraceSniff::class],
         [ClassDefinitionFixer::class, ClassDeclarationSniff::class],
         [NoClosingTagFixer::class, ClosingTagSniff::class],
         [SingleClassElementPerStatementFixer::class, PropertyDeclarationSniff::class],
+        [LineLengthFixer::class, LineLengthSniff::class],
     ];
 
     public function process(Container $container): void
