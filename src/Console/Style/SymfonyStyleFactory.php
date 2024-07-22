@@ -67,27 +67,15 @@ final class SymfonyStyleFactory
 
         $enableQuiet = $input->hasParameterOption(['--quiet', '-q'], true);
 
-        $enableVVV = $input->hasParameterOption('-vvv', true);
-        $enableVV = $input->hasParameterOption('-vv', true);
-        $enableV = $input->hasParameterOption('-v', true);
-
-        $enableVerbose3 = $input->hasParameterOption('--verbose=3', true);
-        $enableVerbose2 = $input->hasParameterOption('--verbose=2', true);
-        $enableVerbose1 = $input->hasParameterOption('--verbose=1', true);
-
-        $isVerbose3 = $input->getParameterOption('--verbose', false, true) === 3;
-        $isVerbose2 = $input->getParameterOption('--verbose', false, true) === 2;
-        $isVerbose1 = $input->getParameterOption('--verbose', false, true) === 1;
-
-        $isDebug = $enableVVV || $enableVerbose3 || $isVerbose3;
-        $isVeryVerbose = $enableVV || $enableVerbose2 || $isVerbose2;
-        $isVerbose = $enableV || $enableVerbose1 || $isVerbose1;
+        $isVVV = $input->hasParameterOption('-vvv', true);
+        $isVV = $input->hasParameterOption('-vv', true);
+        $isV = $input->hasParameterOption('-v', true);
 
         match (true) {
             $enableQuiet => $output->setVerbosity(OutputInterface::VERBOSITY_QUIET),
-            $isDebug => $output->setVerbosity(OutputInterface::VERBOSITY_DEBUG),
-            $isVeryVerbose => $output->setVerbosity(OutputInterface::VERBOSITY_VERY_VERBOSE),
-            $isVerbose => $output->setVerbosity(OutputInterface::VERBOSITY_VERBOSE),
+            $isVVV => $output->setVerbosity(OutputInterface::VERBOSITY_DEBUG),
+            $isVV => $output->setVerbosity(OutputInterface::VERBOSITY_VERY_VERBOSE),
+            $isV => $output->setVerbosity(OutputInterface::VERBOSITY_VERBOSE),
             default => null,
         };
     }
