@@ -1,0 +1,2546 @@
+{
+    "packages": [
+        {
+            "name": "clue\/ndjson-react",
+            "version": "v1.3.0",
+            "version_normalized": "1.3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/clue\/reactphp-ndjson.git",
+                "reference": "392dc165fce93b5bb5c637b67e59619223c931b0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/clue\/reactphp-ndjson\/zipball\/392dc165fce93b5bb5c637b67e59619223c931b0",
+                "reference": "392dc165fce93b5bb5c637b67e59619223c931b0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3",
+                "react\/stream": "^1.2"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.5 || ^5.7 || ^4.8.35",
+                "react\/event-loop": "^1.2"
+            },
+            "time": "2022-12-23T10:58:28+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "ECSPrefix202408\\Clue\\React\\NDJson\\": "src\/"
+                }
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christian L\u00fcck",
+                    "email": "christian@clue.engineering"
+                }
+            ],
+            "description": "Streaming newline-delimited JSON (NDJSON) parser and encoder for ReactPHP.",
+            "homepage": "https:\/\/github.com\/clue\/reactphp-ndjson",
+            "keywords": [
+                "NDJSON",
+                "json",
+                "jsonlines",
+                "newline",
+                "reactphp",
+                "streaming"
+            ],
+            "support": {
+                "issues": "https:\/\/github.com\/clue\/reactphp-ndjson\/issues",
+                "source": "https:\/\/github.com\/clue\/reactphp-ndjson\/tree\/v1.3.0"
+            },
+            "funding": [
+                {
+                    "url": "https:\/\/clue.engineering\/support",
+                    "type": "custom"
+                },
+                {
+                    "url": "https:\/\/github.com\/clue",
+                    "type": "github"
+                }
+            ],
+            "install-path": "..\/clue\/ndjson-react"
+        },
+        {
+            "name": "composer\/pcre",
+            "version": "3.2.0",
+            "version_normalized": "3.2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/composer\/pcre.git",
+                "reference": "ea4ab6f9580a4fd221e0418f2c357cdd39102a90"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/composer\/pcre\/zipball\/ea4ab6f9580a4fd221e0418f2c357cdd39102a90",
+                "reference": "ea4ab6f9580a4fd221e0418f2c357cdd39102a90",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4 || ^8.0"
+            },
+            "conflict": {
+                "phpstan\/phpstan": "<1.11.8"
+            },
+            "require-dev": {
+                "phpstan\/phpstan": "^1.11.8",
+                "phpstan\/phpstan-strict-rules": "^1.1",
+                "phpunit\/phpunit": "^8 || ^9"
+            },
+            "time": "2024-07-25T09:36:02+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "3.x-dev"
+                },
+                "phpstan": {
+                    "includes": [
+                        "extension.neon"
+                    ]
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "ECSPrefix202408\\Composer\\Pcre\\": "src"
+                }
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jordi Boggiano",
+                    "email": "j.boggiano@seld.be",
+                    "homepage": "http:\/\/seld.be"
+                }
+            ],
+            "description": "PCRE wrapping library that offers type-safe preg_* replacements.",
+            "keywords": [
+                "PCRE",
+                "preg",
+                "regex",
+                "regular expression"
+            ],
+            "support": {
+                "issues": "https:\/\/github.com\/composer\/pcre\/issues",
+                "source": "https:\/\/github.com\/composer\/pcre\/tree\/3.2.0"
+            },
+            "funding": [
+                {
+                    "url": "https:\/\/packagist.com",
+                    "type": "custom"
+                },
+                {
+                    "url": "https:\/\/github.com\/composer",
+                    "type": "github"
+                },
+                {
+                    "url": "https:\/\/tidelift.com\/funding\/github\/packagist\/composer\/composer",
+                    "type": "tidelift"
+                }
+            ],
+            "install-path": ".\/pcre"
+        },
+        {
+            "name": "composer\/semver",
+            "version": "3.4.2",
+            "version_normalized": "3.4.2.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/composer\/semver.git",
+                "reference": "c51258e759afdb17f1fd1fe83bc12baaef6309d6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/composer\/semver\/zipball\/c51258e759afdb17f1fd1fe83bc12baaef6309d6",
+                "reference": "c51258e759afdb17f1fd1fe83bc12baaef6309d6",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.3.2 || ^7.0 || ^8.0"
+            },
+            "require-dev": {
+                "phpstan\/phpstan": "^1.4",
+                "symfony\/phpunit-bridge": "^4.2 || ^5"
+            },
+            "time": "2024-07-12T11:35:52+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "3.x-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "ECSPrefix202408\\Composer\\Semver\\": "src"
+                }
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nils Adermann",
+                    "email": "naderman@naderman.de",
+                    "homepage": "http:\/\/www.naderman.de"
+                },
+                {
+                    "name": "Jordi Boggiano",
+                    "email": "j.boggiano@seld.be",
+                    "homepage": "http:\/\/seld.be"
+                },
+                {
+                    "name": "Rob Bast",
+                    "email": "rob.bast@gmail.com",
+                    "homepage": "http:\/\/robbast.nl"
+                }
+            ],
+            "description": "Semver library that offers utilities, version constraint parsing and validation.",
+            "keywords": [
+                "semantic",
+                "semver",
+                "validation",
+                "versioning"
+            ],
+            "support": {
+                "irc": "ircs:\/\/irc.libera.chat:6697\/composer",
+                "issues": "https:\/\/github.com\/composer\/semver\/issues",
+                "source": "https:\/\/github.com\/composer\/semver\/tree\/3.4.2"
+            },
+            "funding": [
+                {
+                    "url": "https:\/\/packagist.com",
+                    "type": "custom"
+                },
+                {
+                    "url": "https:\/\/github.com\/composer",
+                    "type": "github"
+                },
+                {
+                    "url": "https:\/\/tidelift.com\/funding\/github\/packagist\/composer\/composer",
+                    "type": "tidelift"
+                }
+            ],
+            "install-path": ".\/semver"
+        },
+        {
+            "name": "composer\/xdebug-handler",
+            "version": "3.0.5",
+            "version_normalized": "3.0.5.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/composer\/xdebug-handler.git",
+                "reference": "6c1925561632e83d60a44492e0b344cf48ab85ef"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/composer\/xdebug-handler\/zipball\/6c1925561632e83d60a44492e0b344cf48ab85ef",
+                "reference": "6c1925561632e83d60a44492e0b344cf48ab85ef",
+                "shasum": ""
+            },
+            "require": {
+                "composer\/pcre": "^1 || ^2 || ^3",
+                "php": "^7.2.5 || ^8.0",
+                "psr\/log": "^1 || ^2 || ^3"
+            },
+            "require-dev": {
+                "phpstan\/phpstan": "^1.0",
+                "phpstan\/phpstan-strict-rules": "^1.1",
+                "phpunit\/phpunit": "^8.5 || ^9.6 || ^10.5"
+            },
+            "time": "2024-05-06T16:37:16+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "ECSPrefix202408\\Composer\\XdebugHandler\\": "src"
+                }
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "John Stevenson",
+                    "email": "john-stevenson@blueyonder.co.uk"
+                }
+            ],
+            "description": "Restarts a process without Xdebug.",
+            "keywords": [
+                "Xdebug",
+                "performance"
+            ],
+            "support": {
+                "irc": "ircs:\/\/irc.libera.chat:6697\/composer",
+                "issues": "https:\/\/github.com\/composer\/xdebug-handler\/issues",
+                "source": "https:\/\/github.com\/composer\/xdebug-handler\/tree\/3.0.5"
+            },
+            "funding": [
+                {
+                    "url": "https:\/\/packagist.com",
+                    "type": "custom"
+                },
+                {
+                    "url": "https:\/\/github.com\/composer",
+                    "type": "github"
+                },
+                {
+                    "url": "https:\/\/tidelift.com\/funding\/github\/packagist\/composer\/composer",
+                    "type": "tidelift"
+                }
+            ],
+            "install-path": ".\/xdebug-handler"
+        },
+        {
+            "name": "evenement\/evenement",
+            "version": "v3.0.2",
+            "version_normalized": "3.0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/igorw\/evenement.git",
+                "reference": "0a16b0d71ab13284339abb99d9d2bd813640efbc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/igorw\/evenement\/zipball\/0a16b0d71ab13284339abb99d9d2bd813640efbc",
+                "reference": "0a16b0d71ab13284339abb99d9d2bd813640efbc",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9 || ^6"
+            },
+            "time": "2023-08-08T05:53:35+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "ECSPrefix202408\\Evenement\\": "src\/"
+                }
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Igor Wiedler",
+                    "email": "igor@wiedler.ch"
+                }
+            ],
+            "description": "\u00c9v\u00e9nement is a very simple event dispatching library for PHP",
+            "keywords": [
+                "event-dispatcher",
+                "event-emitter"
+            ],
+            "support": {
+                "issues": "https:\/\/github.com\/igorw\/evenement\/issues",
+                "source": "https:\/\/github.com\/igorw\/evenement\/tree\/v3.0.2"
+            },
+            "install-path": "..\/evenement\/evenement"
+        },
+        {
+            "name": "fidry\/cpu-core-counter",
+            "version": "1.1.0",
+            "version_normalized": "1.1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/theofidry\/cpu-core-counter.git",
+                "reference": "f92996c4d5c1a696a6a970e20f7c4216200fcc42"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/theofidry\/cpu-core-counter\/zipball\/f92996c4d5c1a696a6a970e20f7c4216200fcc42",
+                "reference": "f92996c4d5c1a696a6a970e20f7c4216200fcc42",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2 || ^8.0"
+            },
+            "require-dev": {
+                "fidry\/makefile": "^0.2.0",
+                "fidry\/php-cs-fixer-config": "^1.1.2",
+                "phpstan\/extension-installer": "^1.2.0",
+                "phpstan\/phpstan": "^1.9.2",
+                "phpstan\/phpstan-deprecation-rules": "^1.0.0",
+                "phpstan\/phpstan-phpunit": "^1.2.2",
+                "phpstan\/phpstan-strict-rules": "^1.4.4",
+                "phpunit\/phpunit": "^8.5.31 || ^9.5.26",
+                "webmozarts\/strict-phpunit": "^7.5"
+            },
+            "time": "2024-02-07T09:43:46+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "ECSPrefix202408\\Fidry\\CpuCoreCounter\\": "src\/"
+                }
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Th\u00e9o FIDRY",
+                    "email": "theo.fidry@gmail.com"
+                }
+            ],
+            "description": "Tiny utility to get the number of CPU cores.",
+            "keywords": [
+                "CPU",
+                "core"
+            ],
+            "support": {
+                "issues": "https:\/\/github.com\/theofidry\/cpu-core-counter\/issues",
+                "source": "https:\/\/github.com\/theofidry\/cpu-core-counter\/tree\/1.1.0"
+            },
+            "funding": [
+                {
+                    "url": "https:\/\/github.com\/theofidry",
+                    "type": "github"
+                }
+            ],
+            "install-path": "..\/fidry\/cpu-core-counter"
+        },
+        {
+            "name": "friendsofphp\/php-cs-fixer",
+            "version": "v3.61.1",
+            "version_normalized": "3.61.1.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/PHP-CS-Fixer\/PHP-CS-Fixer.git",
+                "reference": "94a87189f55814e6cabca2d9a33b06de384a2ab8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/PHP-CS-Fixer\/PHP-CS-Fixer\/zipball\/94a87189f55814e6cabca2d9a33b06de384a2ab8",
+                "reference": "94a87189f55814e6cabca2d9a33b06de384a2ab8",
+                "shasum": ""
+            },
+            "require": {
+                "clue\/ndjson-react": "^1.0",
+                "composer\/semver": "^3.4",
+                "composer\/xdebug-handler": "^3.0.3",
+                "ext-filter": "*",
+                "ext-json": "*",
+                "ext-tokenizer": "*",
+                "fidry\/cpu-core-counter": "^1.0",
+                "php": "^7.4 || ^8.0",
+                "react\/child-process": "^0.6.5",
+                "react\/event-loop": "^1.0",
+                "react\/promise": "^2.0 || ^3.0",
+                "react\/socket": "^1.0",
+                "react\/stream": "^1.0",
+                "sebastian\/diff": "^4.0 || ^5.0 || ^6.0",
+                "symfony\/console": "^5.4 || ^6.0 || ^7.0",
+                "symfony\/event-dispatcher": "^5.4 || ^6.0 || ^7.0",
+                "symfony\/filesystem": "^5.4 || ^6.0 || ^7.0",
+                "symfony\/finder": "^5.4 || ^6.0 || ^7.0",
+                "symfony\/options-resolver": "^5.4 || ^6.0 || ^7.0",
+                "symfony\/polyfill-mbstring": "^1.28",
+                "symfony\/polyfill-php80": "^1.28",
+                "symfony\/polyfill-php81": "^1.28",
+                "symfony\/process": "^5.4 || ^6.0 || ^7.0",
+                "symfony\/stopwatch": "^5.4 || ^6.0 || ^7.0"
+            },
+            "require-dev": {
+                "facile-it\/paraunit": "^1.3 || ^2.3",
+                "infection\/infection": "^0.29.5",
+                "justinrainbow\/json-schema": "^5.2",
+                "keradus\/cli-executor": "^2.1",
+                "mikey179\/vfsstream": "^1.6.11",
+                "php-coveralls\/php-coveralls": "^2.7",
+                "php-cs-fixer\/accessible-object": "^1.1",
+                "php-cs-fixer\/phpunit-constraint-isidenticalstring": "^1.5",
+                "php-cs-fixer\/phpunit-constraint-xmlmatchesxsd": "^1.5",
+                "phpunit\/phpunit": "^9.6.19 || ^10.5.21 || ^11.2",
+                "symfony\/var-dumper": "^5.4 || ^6.0 || ^7.0",
+                "symfony\/yaml": "^5.4 || ^6.0 || ^7.0"
+            },
+            "suggest": {
+                "ext-dom": "For handling output formats in XML",
+                "ext-mbstring": "For handling non-UTF8 characters."
+            },
+            "time": "2024-07-31T14:33:15+00:00",
+            "bin": [
+                "php-cs-fixer"
+            ],
+            "type": "application",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "PhpCsFixer\\": "src\/"
+                },
+                "exclude-from-classmap": [
+                    "src\/Fixer\/Internal\/*"
+                ]
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Dariusz Rumi\u0144ski",
+                    "email": "dariusz.ruminski@gmail.com"
+                }
+            ],
+            "description": "A tool to automatically fix PHP code style",
+            "keywords": [
+                "Static code analysis",
+                "fixer",
+                "standards",
+                "static analysis"
+            ],
+            "support": {
+                "issues": "https:\/\/github.com\/PHP-CS-Fixer\/PHP-CS-Fixer\/issues",
+                "source": "https:\/\/github.com\/PHP-CS-Fixer\/PHP-CS-Fixer\/tree\/v3.61.1"
+            },
+            "funding": [
+                {
+                    "url": "https:\/\/github.com\/keradus",
+                    "type": "github"
+                }
+            ],
+            "install-path": "..\/friendsofphp\/php-cs-fixer"
+        },
+        {
+            "name": "illuminate\/container",
+            "version": "v10.48.18",
+            "version_normalized": "10.48.18.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/illuminate\/container.git",
+                "reference": "ddc26273085fad3c471b2602ad820e0097ff7939"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/illuminate\/container\/zipball\/ddc26273085fad3c471b2602ad820e0097ff7939",
+                "reference": "ddc26273085fad3c471b2602ad820e0097ff7939",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate\/contracts": "^10.0",
+                "php": "^8.1",
+                "psr\/container": "^1.1.1|^2.0.1"
+            },
+            "provide": {
+                "psr\/container-implementation": "1.1|2.0"
+            },
+            "time": "2023-06-18T09:12:03+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "10.x-dev"
+                },
+                "patches_applied": [
+                    "patches\/illuminate-container-container-php.patch"
+                ]
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "ECSPrefix202408\\Illuminate\\Container\\": ""
+                }
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "The Illuminate Container package.",
+            "homepage": "https:\/\/laravel.com",
+            "support": {
+                "issues": "https:\/\/github.com\/laravel\/framework\/issues",
+                "source": "https:\/\/github.com\/laravel\/framework"
+            },
+            "install-path": "..\/illuminate\/container"
+        },
+        {
+            "name": "illuminate\/contracts",
+            "version": "v10.48.18",
+            "version_normalized": "10.48.18.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/illuminate\/contracts.git",
+                "reference": "8d7152c4a1f5d9cf7da3e8b71f23e4556f6138ac"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/illuminate\/contracts\/zipball\/8d7152c4a1f5d9cf7da3e8b71f23e4556f6138ac",
+                "reference": "8d7152c4a1f5d9cf7da3e8b71f23e4556f6138ac",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.1",
+                "psr\/container": "^1.1.1|^2.0.1",
+                "psr\/simple-cache": "^1.0|^2.0|^3.0"
+            },
+            "time": "2024-01-15T18:52:32+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "10.x-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "ECSPrefix202408\\Illuminate\\Contracts\\": ""
+                }
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "The Illuminate Contracts package.",
+            "homepage": "https:\/\/laravel.com",
+            "support": {
+                "issues": "https:\/\/github.com\/laravel\/framework\/issues",
+                "source": "https:\/\/github.com\/laravel\/framework"
+            },
+            "install-path": "..\/illuminate\/contracts"
+        },
+        {
+            "name": "nette\/utils",
+            "version": "v4.0.4",
+            "version_normalized": "4.0.4.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/nette\/utils.git",
+                "reference": "d3ad0aa3b9f934602cb3e3902ebccf10be34d218"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/nette\/utils\/zipball\/d3ad0aa3b9f934602cb3e3902ebccf10be34d218",
+                "reference": "d3ad0aa3b9f934602cb3e3902ebccf10be34d218",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0 <8.4"
+            },
+            "conflict": {
+                "nette\/finder": "<3",
+                "nette\/schema": "<1.2.2"
+            },
+            "require-dev": {
+                "jetbrains\/phpstorm-attributes": "dev-master",
+                "nette\/tester": "^2.5",
+                "phpstan\/phpstan": "^1.0",
+                "tracy\/tracy": "^2.9"
+            },
+            "suggest": {
+                "ext-gd": "to use Image",
+                "ext-iconv": "to use Strings::webalize(), toAscii(), chr() and reverse()",
+                "ext-intl": "to use Strings::webalize(), toAscii(), normalize() and compare()",
+                "ext-json": "to use Nette\\Utils\\Json",
+                "ext-mbstring": "to use Strings::lower() etc...",
+                "ext-tokenizer": "to use Nette\\Utils\\Reflection::getUseStatements()"
+            },
+            "time": "2024-01-17T16:50:36+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.0-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "classmap": [
+                    "src\/"
+                ]
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "BSD-3-Clause",
+                "GPL-2.0-only",
+                "GPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "David Grudl",
+                    "homepage": "https:\/\/davidgrudl.com"
+                },
+                {
+                    "name": "Nette Community",
+                    "homepage": "https:\/\/nette.org\/contributors"
+                }
+            ],
+            "description": "\ud83d\udee0  Nette Utils: lightweight utilities for string & array manipulation, image handling, safe JSON encoding\/decoding, validation, slug or strong password generating etc.",
+            "homepage": "https:\/\/nette.org",
+            "keywords": [
+                "array",
+                "core",
+                "datetime",
+                "images",
+                "json",
+                "nette",
+                "paginator",
+                "password",
+                "slugify",
+                "string",
+                "unicode",
+                "utf-8",
+                "utility",
+                "validation"
+            ],
+            "support": {
+                "issues": "https:\/\/github.com\/nette\/utils\/issues",
+                "source": "https:\/\/github.com\/nette\/utils\/tree\/v4.0.4"
+            },
+            "install-path": "..\/nette\/utils"
+        },
+        {
+            "name": "psr\/container",
+            "version": "2.0.2",
+            "version_normalized": "2.0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/php-fig\/container.git",
+                "reference": "c71ecc56dfe541dbd90c5360474fbc405f8d5963"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/php-fig\/container\/zipball\/c71ecc56dfe541dbd90c5360474fbc405f8d5963",
+                "reference": "c71ecc56dfe541dbd90c5360474fbc405f8d5963",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4.0"
+            },
+            "time": "2021-11-05T16:47:00+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "ECSPrefix202408\\Psr\\Container\\": "src\/"
+                }
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "https:\/\/www.php-fig.org\/"
+                }
+            ],
+            "description": "Common Container Interface (PHP FIG PSR-11)",
+            "homepage": "https:\/\/github.com\/php-fig\/container",
+            "keywords": [
+                "PSR-11",
+                "container",
+                "container-interface",
+                "container-interop",
+                "psr"
+            ],
+            "support": {
+                "issues": "https:\/\/github.com\/php-fig\/container\/issues",
+                "source": "https:\/\/github.com\/php-fig\/container\/tree\/2.0.2"
+            },
+            "install-path": "..\/psr\/container"
+        },
+        {
+            "name": "psr\/log",
+            "version": "3.0.0",
+            "version_normalized": "3.0.0.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/php-fig\/log.git",
+                "reference": "fe5ea303b0887d5caefd3d431c3e61ad47037001"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/php-fig\/log\/zipball\/fe5ea303b0887d5caefd3d431c3e61ad47037001",
+                "reference": "fe5ea303b0887d5caefd3d431c3e61ad47037001",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0.0"
+            },
+            "time": "2021-07-14T16:46:02+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.x-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "ECSPrefix202408\\Psr\\Log\\": "src"
+                }
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "https:\/\/www.php-fig.org\/"
+                }
+            ],
+            "description": "Common interface for logging libraries",
+            "homepage": "https:\/\/github.com\/php-fig\/log",
+            "keywords": [
+                "log",
+                "psr",
+                "psr-3"
+            ],
+            "support": {
+                "source": "https:\/\/github.com\/php-fig\/log\/tree\/3.0.0"
+            },
+            "install-path": "..\/psr\/log"
+        },
+        {
+            "name": "psr\/simple-cache",
+            "version": "3.0.0",
+            "version_normalized": "3.0.0.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/php-fig\/simple-cache.git",
+                "reference": "764e0b3939f5ca87cb904f570ef9be2d78a07865"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/php-fig\/simple-cache\/zipball\/764e0b3939f5ca87cb904f570ef9be2d78a07865",
+                "reference": "764e0b3939f5ca87cb904f570ef9be2d78a07865",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0.0"
+            },
+            "time": "2021-10-29T13:26:27+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0.x-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "ECSPrefix202408\\Psr\\SimpleCache\\": "src\/"
+                }
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "https:\/\/www.php-fig.org\/"
+                }
+            ],
+            "description": "Common interfaces for simple caching",
+            "keywords": [
+                "cache",
+                "caching",
+                "psr",
+                "psr-16",
+                "simple-cache"
+            ],
+            "support": {
+                "source": "https:\/\/github.com\/php-fig\/simple-cache\/tree\/3.0.0"
+            },
+            "install-path": "..\/psr\/simple-cache"
+        },
+        {
+            "name": "react\/cache",
+            "version": "v1.2.0",
+            "version_normalized": "1.2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/reactphp\/cache.git",
+                "reference": "d47c472b64aa5608225f47965a484b75c7817d5b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/reactphp\/cache\/zipball\/d47c472b64aa5608225f47965a484b75c7817d5b",
+                "reference": "d47c472b64aa5608225f47965a484b75c7817d5b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "react\/promise": "^3.0 || ^2.0 || ^1.1"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.5 || ^5.7 || ^4.8.35"
+            },
+            "time": "2022-11-30T15:59:55+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "ECSPrefix202408\\React\\Cache\\": "src\/"
+                }
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christian L\u00fcck",
+                    "email": "christian@clue.engineering",
+                    "homepage": "https:\/\/clue.engineering\/"
+                },
+                {
+                    "name": "Cees-Jan Kiewiet",
+                    "email": "reactphp@ceesjankiewiet.nl",
+                    "homepage": "https:\/\/wyrihaximus.net\/"
+                },
+                {
+                    "name": "Jan Sorgalla",
+                    "email": "jsorgalla@gmail.com",
+                    "homepage": "https:\/\/sorgalla.com\/"
+                },
+                {
+                    "name": "Chris Boden",
+                    "email": "cboden@gmail.com",
+                    "homepage": "https:\/\/cboden.dev\/"
+                }
+            ],
+            "description": "Async, Promise-based cache interface for ReactPHP",
+            "keywords": [
+                "cache",
+                "caching",
+                "promise",
+                "reactphp"
+            ],
+            "support": {
+                "issues": "https:\/\/github.com\/reactphp\/cache\/issues",
+                "source": "https:\/\/github.com\/reactphp\/cache\/tree\/v1.2.0"
+            },
+            "funding": [
+                {
+                    "url": "https:\/\/opencollective.com\/reactphp",
+                    "type": "open_collective"
+                }
+            ],
+            "install-path": "..\/react\/cache"
+        },
+        {
+            "name": "react\/child-process",
+            "version": "v0.6.5",
+            "version_normalized": "0.6.5.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/reactphp\/child-process.git",
+                "reference": "e71eb1aa55f057c7a4a0d08d06b0b0a484bead43"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/reactphp\/child-process\/zipball\/e71eb1aa55f057c7a4a0d08d06b0b0a484bead43",
+                "reference": "e71eb1aa55f057c7a4a0d08d06b0b0a484bead43",
+                "shasum": ""
+            },
+            "require": {
+                "evenement\/evenement": "^3.0 || ^2.0 || ^1.0",
+                "php": ">=5.3.0",
+                "react\/event-loop": "^1.2",
+                "react\/stream": "^1.2"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.3 || ^5.7 || ^4.8.35",
+                "react\/socket": "^1.8",
+                "sebastian\/environment": "^5.0 || ^3.0 || ^2.0 || ^1.0"
+            },
+            "time": "2022-09-16T13:41:56+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "ECSPrefix202408\\React\\ChildProcess\\": "src"
+                }
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christian L\u00fcck",
+                    "email": "christian@clue.engineering",
+                    "homepage": "https:\/\/clue.engineering\/"
+                },
+                {
+                    "name": "Cees-Jan Kiewiet",
+                    "email": "reactphp@ceesjankiewiet.nl",
+                    "homepage": "https:\/\/wyrihaximus.net\/"
+                },
+                {
+                    "name": "Jan Sorgalla",
+                    "email": "jsorgalla@gmail.com",
+                    "homepage": "https:\/\/sorgalla.com\/"
+                },
+                {
+                    "name": "Chris Boden",
+                    "email": "cboden@gmail.com",
+                    "homepage": "https:\/\/cboden.dev\/"
+                }
+            ],
+            "description": "Event-driven library for executing child processes with ReactPHP.",
+            "keywords": [
+                "event-driven",
+                "process",
+                "reactphp"
+            ],
+            "support": {
+                "issues": "https:\/\/github.com\/reactphp\/child-process\/issues",
+                "source": "https:\/\/github.com\/reactphp\/child-process\/tree\/v0.6.5"
+            },
+            "funding": [
+                {
+                    "url": "https:\/\/github.com\/WyriHaximus",
+                    "type": "github"
+                },
+                {
+                    "url": "https:\/\/github.com\/clue",
+                    "type": "github"
+                }
+            ],
+            "install-path": "..\/react\/child-process"
+        },
+        {
+            "name": "react\/dns",
+            "version": "v1.13.0",
+            "version_normalized": "1.13.0.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/reactphp\/dns.git",
+                "reference": "eb8ae001b5a455665c89c1df97f6fb682f8fb0f5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/reactphp\/dns\/zipball\/eb8ae001b5a455665c89c1df97f6fb682f8fb0f5",
+                "reference": "eb8ae001b5a455665c89c1df97f6fb682f8fb0f5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "react\/cache": "^1.0 || ^0.6 || ^0.5",
+                "react\/event-loop": "^1.2",
+                "react\/promise": "^3.2 || ^2.7 || ^1.2.1"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.6 || ^5.7 || ^4.8.36",
+                "react\/async": "^4.3 || ^3 || ^2",
+                "react\/promise-timer": "^1.11"
+            },
+            "time": "2024-06-13T14:18:03+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "ECSPrefix202408\\React\\Dns\\": "src\/"
+                }
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christian L\u00fcck",
+                    "email": "christian@clue.engineering",
+                    "homepage": "https:\/\/clue.engineering\/"
+                },
+                {
+                    "name": "Cees-Jan Kiewiet",
+                    "email": "reactphp@ceesjankiewiet.nl",
+                    "homepage": "https:\/\/wyrihaximus.net\/"
+                },
+                {
+                    "name": "Jan Sorgalla",
+                    "email": "jsorgalla@gmail.com",
+                    "homepage": "https:\/\/sorgalla.com\/"
+                },
+                {
+                    "name": "Chris Boden",
+                    "email": "cboden@gmail.com",
+                    "homepage": "https:\/\/cboden.dev\/"
+                }
+            ],
+            "description": "Async DNS resolver for ReactPHP",
+            "keywords": [
+                "async",
+                "dns",
+                "dns-resolver",
+                "reactphp"
+            ],
+            "support": {
+                "issues": "https:\/\/github.com\/reactphp\/dns\/issues",
+                "source": "https:\/\/github.com\/reactphp\/dns\/tree\/v1.13.0"
+            },
+            "funding": [
+                {
+                    "url": "https:\/\/opencollective.com\/reactphp",
+                    "type": "open_collective"
+                }
+            ],
+            "install-path": "..\/react\/dns"
+        },
+        {
+            "name": "react\/event-loop",
+            "version": "v1.5.0",
+            "version_normalized": "1.5.0.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/reactphp\/event-loop.git",
+                "reference": "bbe0bd8c51ffc05ee43f1729087ed3bdf7d53354"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/reactphp\/event-loop\/zipball\/bbe0bd8c51ffc05ee43f1729087ed3bdf7d53354",
+                "reference": "bbe0bd8c51ffc05ee43f1729087ed3bdf7d53354",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.6 || ^5.7 || ^4.8.36"
+            },
+            "suggest": {
+                "ext-pcntl": "For signal handling support when using the StreamSelectLoop"
+            },
+            "time": "2023-11-13T13:48:05+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "ECSPrefix202408\\React\\EventLoop\\": "src\/"
+                }
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christian L\u00fcck",
+                    "email": "christian@clue.engineering",
+                    "homepage": "https:\/\/clue.engineering\/"
+                },
+                {
+                    "name": "Cees-Jan Kiewiet",
+                    "email": "reactphp@ceesjankiewiet.nl",
+                    "homepage": "https:\/\/wyrihaximus.net\/"
+                },
+                {
+                    "name": "Jan Sorgalla",
+                    "email": "jsorgalla@gmail.com",
+                    "homepage": "https:\/\/sorgalla.com\/"
+                },
+                {
+                    "name": "Chris Boden",
+                    "email": "cboden@gmail.com",
+                    "homepage": "https:\/\/cboden.dev\/"
+                }
+            ],
+            "description": "ReactPHP's core reactor event loop that libraries can use for evented I\/O.",
+            "keywords": [
+                "asynchronous",
+                "event-loop"
+            ],
+            "support": {
+                "issues": "https:\/\/github.com\/reactphp\/event-loop\/issues",
+                "source": "https:\/\/github.com\/reactphp\/event-loop\/tree\/v1.5.0"
+            },
+            "funding": [
+                {
+                    "url": "https:\/\/opencollective.com\/reactphp",
+                    "type": "open_collective"
+                }
+            ],
+            "install-path": "..\/react\/event-loop"
+        },
+        {
+            "name": "react\/promise",
+            "version": "v3.2.0",
+            "version_normalized": "3.2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/reactphp\/promise.git",
+                "reference": "8a164643313c71354582dc850b42b33fa12a4b63"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/reactphp\/promise\/zipball\/8a164643313c71354582dc850b42b33fa12a4b63",
+                "reference": "8a164643313c71354582dc850b42b33fa12a4b63",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "require-dev": {
+                "phpstan\/phpstan": "1.10.39 || 1.4.10",
+                "phpunit\/phpunit": "^9.6 || ^7.5"
+            },
+            "time": "2024-05-24T10:39:05+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "files": [
+                    "src\/functions_include.php"
+                ],
+                "psr-4": {
+                    "ECSPrefix202408\\React\\Promise\\": "src\/"
+                }
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jan Sorgalla",
+                    "email": "jsorgalla@gmail.com",
+                    "homepage": "https:\/\/sorgalla.com\/"
+                },
+                {
+                    "name": "Christian L\u00fcck",
+                    "email": "christian@clue.engineering",
+                    "homepage": "https:\/\/clue.engineering\/"
+                },
+                {
+                    "name": "Cees-Jan Kiewiet",
+                    "email": "reactphp@ceesjankiewiet.nl",
+                    "homepage": "https:\/\/wyrihaximus.net\/"
+                },
+                {
+                    "name": "Chris Boden",
+                    "email": "cboden@gmail.com",
+                    "homepage": "https:\/\/cboden.dev\/"
+                }
+            ],
+            "description": "A lightweight implementation of CommonJS Promises\/A for PHP",
+            "keywords": [
+                "promise",
+                "promises"
+            ],
+            "support": {
+                "issues": "https:\/\/github.com\/reactphp\/promise\/issues",
+                "source": "https:\/\/github.com\/reactphp\/promise\/tree\/v3.2.0"
+            },
+            "funding": [
+                {
+                    "url": "https:\/\/opencollective.com\/reactphp",
+                    "type": "open_collective"
+                }
+            ],
+            "install-path": "..\/react\/promise"
+        },
+        {
+            "name": "react\/socket",
+            "version": "v1.16.0",
+            "version_normalized": "1.16.0.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/reactphp\/socket.git",
+                "reference": "23e4ff33ea3e160d2d1f59a0e6050e4b0fb0eac1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/reactphp\/socket\/zipball\/23e4ff33ea3e160d2d1f59a0e6050e4b0fb0eac1",
+                "reference": "23e4ff33ea3e160d2d1f59a0e6050e4b0fb0eac1",
+                "shasum": ""
+            },
+            "require": {
+                "evenement\/evenement": "^3.0 || ^2.0 || ^1.0",
+                "php": ">=5.3.0",
+                "react\/dns": "^1.13",
+                "react\/event-loop": "^1.2",
+                "react\/promise": "^3.2 || ^2.6 || ^1.2.1",
+                "react\/stream": "^1.4"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.6 || ^5.7 || ^4.8.36",
+                "react\/async": "^4.3 || ^3.3 || ^2",
+                "react\/promise-stream": "^1.4",
+                "react\/promise-timer": "^1.11"
+            },
+            "time": "2024-07-26T10:38:09+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "ECSPrefix202408\\React\\Socket\\": "src\/"
+                }
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christian L\u00fcck",
+                    "email": "christian@clue.engineering",
+                    "homepage": "https:\/\/clue.engineering\/"
+                },
+                {
+                    "name": "Cees-Jan Kiewiet",
+                    "email": "reactphp@ceesjankiewiet.nl",
+                    "homepage": "https:\/\/wyrihaximus.net\/"
+                },
+                {
+                    "name": "Jan Sorgalla",
+                    "email": "jsorgalla@gmail.com",
+                    "homepage": "https:\/\/sorgalla.com\/"
+                },
+                {
+                    "name": "Chris Boden",
+                    "email": "cboden@gmail.com",
+                    "homepage": "https:\/\/cboden.dev\/"
+                }
+            ],
+            "description": "Async, streaming plaintext TCP\/IP and secure TLS socket server and client connections for ReactPHP",
+            "keywords": [
+                "Connection",
+                "Socket",
+                "async",
+                "reactphp",
+                "stream"
+            ],
+            "support": {
+                "issues": "https:\/\/github.com\/reactphp\/socket\/issues",
+                "source": "https:\/\/github.com\/reactphp\/socket\/tree\/v1.16.0"
+            },
+            "funding": [
+                {
+                    "url": "https:\/\/opencollective.com\/reactphp",
+                    "type": "open_collective"
+                }
+            ],
+            "install-path": "..\/react\/socket"
+        },
+        {
+            "name": "react\/stream",
+            "version": "v1.4.0",
+            "version_normalized": "1.4.0.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/reactphp\/stream.git",
+                "reference": "1e5b0acb8fe55143b5b426817155190eb6f5b18d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/reactphp\/stream\/zipball\/1e5b0acb8fe55143b5b426817155190eb6f5b18d",
+                "reference": "1e5b0acb8fe55143b5b426817155190eb6f5b18d",
+                "shasum": ""
+            },
+            "require": {
+                "evenement\/evenement": "^3.0 || ^2.0 || ^1.0",
+                "php": ">=5.3.8",
+                "react\/event-loop": "^1.2"
+            },
+            "require-dev": {
+                "clue\/stream-filter": "~1.2",
+                "phpunit\/phpunit": "^9.6 || ^5.7 || ^4.8.36"
+            },
+            "time": "2024-06-11T12:45:25+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "ECSPrefix202408\\React\\Stream\\": "src\/"
+                }
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christian L\u00fcck",
+                    "email": "christian@clue.engineering",
+                    "homepage": "https:\/\/clue.engineering\/"
+                },
+                {
+                    "name": "Cees-Jan Kiewiet",
+                    "email": "reactphp@ceesjankiewiet.nl",
+                    "homepage": "https:\/\/wyrihaximus.net\/"
+                },
+                {
+                    "name": "Jan Sorgalla",
+                    "email": "jsorgalla@gmail.com",
+                    "homepage": "https:\/\/sorgalla.com\/"
+                },
+                {
+                    "name": "Chris Boden",
+                    "email": "cboden@gmail.com",
+                    "homepage": "https:\/\/cboden.dev\/"
+                }
+            ],
+            "description": "Event-driven readable and writable streams for non-blocking I\/O in ReactPHP",
+            "keywords": [
+                "event-driven",
+                "io",
+                "non-blocking",
+                "pipe",
+                "reactphp",
+                "readable",
+                "stream",
+                "writable"
+            ],
+            "support": {
+                "issues": "https:\/\/github.com\/reactphp\/stream\/issues",
+                "source": "https:\/\/github.com\/reactphp\/stream\/tree\/v1.4.0"
+            },
+            "funding": [
+                {
+                    "url": "https:\/\/opencollective.com\/reactphp",
+                    "type": "open_collective"
+                }
+            ],
+            "install-path": "..\/react\/stream"
+        },
+        {
+            "name": "sebastian\/diff",
+            "version": "5.1.1",
+            "version_normalized": "5.1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/sebastianbergmann\/diff.git",
+                "reference": "c41e007b4b62af48218231d6c2275e4c9b975b2e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/sebastianbergmann\/diff\/zipball\/c41e007b4b62af48218231d6c2275e4c9b975b2e",
+                "reference": "c41e007b4b62af48218231d6c2275e4c9b975b2e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^10.0",
+                "symfony\/process": "^6.4"
+            },
+            "time": "2024-03-02T07:15:17+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "5.1-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "classmap": [
+                    "src\/"
+                ]
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian Bergmann",
+                    "email": "sebastian@phpunit.de"
+                },
+                {
+                    "name": "Kore Nordmann",
+                    "email": "mail@kore-nordmann.de"
+                }
+            ],
+            "description": "Diff implementation",
+            "homepage": "https:\/\/github.com\/sebastianbergmann\/diff",
+            "keywords": [
+                "diff",
+                "udiff",
+                "unidiff",
+                "unified diff"
+            ],
+            "support": {
+                "issues": "https:\/\/github.com\/sebastianbergmann\/diff\/issues",
+                "security": "https:\/\/github.com\/sebastianbergmann\/diff\/security\/policy",
+                "source": "https:\/\/github.com\/sebastianbergmann\/diff\/tree\/5.1.1"
+            },
+            "funding": [
+                {
+                    "url": "https:\/\/github.com\/sebastianbergmann",
+                    "type": "github"
+                }
+            ],
+            "install-path": "..\/sebastian\/diff"
+        },
+        {
+            "name": "squizlabs\/php_codesniffer",
+            "version": "3.10.2",
+            "version_normalized": "3.10.2.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/PHPCSStandards\/PHP_CodeSniffer.git",
+                "reference": "86e5f5dd9a840c46810ebe5ff1885581c42a3017"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/PHPCSStandards\/PHP_CodeSniffer\/zipball\/86e5f5dd9a840c46810ebe5ff1885581c42a3017",
+                "reference": "86e5f5dd9a840c46810ebe5ff1885581c42a3017",
+                "shasum": ""
+            },
+            "require": {
+                "ext-simplexml": "*",
+                "ext-tokenizer": "*",
+                "ext-xmlwriter": "*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0 || ^8.0 || ^9.3.4"
+            },
+            "time": "2024-07-21T23:26:44+00:00",
+            "bin": [
+                "bin\/phpcbf",
+                "bin\/phpcs"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.x-dev"
+                }
+            },
+            "installation-source": "dist",
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Greg Sherwood",
+                    "role": "Former lead"
+                },
+                {
+                    "name": "Juliette Reinders Folmer",
+                    "role": "Current lead"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https:\/\/github.com\/PHPCSStandards\/PHP_CodeSniffer\/graphs\/contributors"
+                }
+            ],
+            "description": "PHP_CodeSniffer tokenizes PHP, JavaScript and CSS files and detects violations of a defined set of coding standards.",
+            "homepage": "https:\/\/github.com\/PHPCSStandards\/PHP_CodeSniffer",
+            "keywords": [
+                "phpcs",
+                "standards",
+                "static analysis"
+            ],
+            "support": {
+                "issues": "https:\/\/github.com\/PHPCSStandards\/PHP_CodeSniffer\/issues",
+                "security": "https:\/\/github.com\/PHPCSStandards\/PHP_CodeSniffer\/security\/policy",
+                "source": "https:\/\/github.com\/PHPCSStandards\/PHP_CodeSniffer",
+                "wiki": "https:\/\/github.com\/PHPCSStandards\/PHP_CodeSniffer\/wiki"
+            },
+            "funding": [
+                {
+                    "url": "https:\/\/github.com\/PHPCSStandards",
+                    "type": "github"
+                },
+                {
+                    "url": "https:\/\/github.com\/jrfnl",
+                    "type": "github"
+                },
+                {
+                    "url": "https:\/\/opencollective.com\/php_codesniffer",
+                    "type": "open_collective"
+                }
+            ],
+            "install-path": "..\/squizlabs\/php_codesniffer"
+        },
+        {
+            "name": "symfony\/console",
+            "version": "v6.4.10",
+            "version_normalized": "6.4.10.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/symfony\/console.git",
+                "reference": "504974cbe43d05f83b201d6498c206f16fc0cdbc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/console\/zipball\/504974cbe43d05f83b201d6498c206f16fc0cdbc",
+                "reference": "504974cbe43d05f83b201d6498c206f16fc0cdbc",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1",
+                "symfony\/deprecation-contracts": "^2.5|^3",
+                "symfony\/polyfill-mbstring": "~1.0",
+                "symfony\/service-contracts": "^2.5|^3",
+                "symfony\/string": "^5.4|^6.0|^7.0"
+            },
+            "conflict": {
+                "symfony\/dependency-injection": "<5.4",
+                "symfony\/dotenv": "<5.4",
+                "symfony\/event-dispatcher": "<5.4",
+                "symfony\/lock": "<5.4",
+                "symfony\/process": "<5.4"
+            },
+            "provide": {
+                "psr\/log-implementation": "1.0|2.0|3.0"
+            },
+            "require-dev": {
+                "psr\/log": "^1|^2|^3",
+                "symfony\/config": "^5.4|^6.0|^7.0",
+                "symfony\/dependency-injection": "^5.4|^6.0|^7.0",
+                "symfony\/event-dispatcher": "^5.4|^6.0|^7.0",
+                "symfony\/http-foundation": "^6.4|^7.0",
+                "symfony\/http-kernel": "^6.4|^7.0",
+                "symfony\/lock": "^5.4|^6.0|^7.0",
+                "symfony\/messenger": "^5.4|^6.0|^7.0",
+                "symfony\/process": "^5.4|^6.0|^7.0",
+                "symfony\/stopwatch": "^5.4|^6.0|^7.0",
+                "symfony\/var-dumper": "^5.4|^6.0|^7.0"
+            },
+            "time": "2024-07-26T12:30:32+00:00",
+            "type": "library",
+            "extra": {
+                "patches_applied": [
+                    "patches\/symfony-console-helper-helper-php.patch"
+                ]
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "ECSPrefix202408\\Symfony\\Component\\Console\\": ""
+                },
+                "exclude-from-classmap": [
+                    "\/Tests\/"
+                ]
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https:\/\/symfony.com\/contributors"
+                }
+            ],
+            "description": "Eases the creation of beautiful and testable command line interfaces",
+            "homepage": "https:\/\/symfony.com",
+            "keywords": [
+                "cli",
+                "command-line",
+                "console",
+                "terminal"
+            ],
+            "support": {
+                "source": "https:\/\/github.com\/symfony\/console\/tree\/v6.4.10"
+            },
+            "funding": [
+                {
+                    "url": "https:\/\/symfony.com\/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https:\/\/github.com\/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https:\/\/tidelift.com\/funding\/github\/packagist\/symfony\/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "install-path": "..\/symfony\/console"
+        },
+        {
+            "name": "symfony\/deprecation-contracts",
+            "version": "v3.5.0",
+            "version_normalized": "3.5.0.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/symfony\/deprecation-contracts.git",
+                "reference": "0e0d29ce1f20deffb4ab1b016a7257c4f1e789a1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/deprecation-contracts\/zipball\/0e0d29ce1f20deffb4ab1b016a7257c4f1e789a1",
+                "reference": "0e0d29ce1f20deffb4ab1b016a7257c4f1e789a1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1"
+            },
+            "time": "2024-04-18T09:32:20+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "3.5-dev"
+                },
+                "thanks": {
+                    "name": "symfony\/contracts",
+                    "url": "https:\/\/github.com\/symfony\/contracts"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "files": [
+                    "function.php"
+                ]
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https:\/\/symfony.com\/contributors"
+                }
+            ],
+            "description": "A generic function and convention to trigger deprecation notices",
+            "homepage": "https:\/\/symfony.com",
+            "support": {
+                "source": "https:\/\/github.com\/symfony\/deprecation-contracts\/tree\/v3.5.0"
+            },
+            "funding": [
+                {
+                    "url": "https:\/\/symfony.com\/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https:\/\/github.com\/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https:\/\/tidelift.com\/funding\/github\/packagist\/symfony\/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "install-path": "..\/symfony\/deprecation-contracts"
+        },
+        {
+            "name": "symfony\/filesystem",
+            "version": "v7.1.2",
+            "version_normalized": "7.1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/symfony\/filesystem.git",
+                "reference": "92a91985250c251de9b947a14bb2c9390b1a562c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/filesystem\/zipball\/92a91985250c251de9b947a14bb2c9390b1a562c",
+                "reference": "92a91985250c251de9b947a14bb2c9390b1a562c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.2",
+                "symfony\/polyfill-ctype": "~1.8",
+                "symfony\/polyfill-mbstring": "~1.8"
+            },
+            "require-dev": {
+                "symfony\/process": "^6.4|^7.0"
+            },
+            "time": "2024-06-28T10:03:55+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "ECSPrefix202408\\Symfony\\Component\\Filesystem\\": ""
+                },
+                "exclude-from-classmap": [
+                    "\/Tests\/"
+                ]
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https:\/\/symfony.com\/contributors"
+                }
+            ],
+            "description": "Provides basic utilities for the filesystem",
+            "homepage": "https:\/\/symfony.com",
+            "support": {
+                "source": "https:\/\/github.com\/symfony\/filesystem\/tree\/v7.1.2"
+            },
+            "funding": [
+                {
+                    "url": "https:\/\/symfony.com\/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https:\/\/github.com\/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https:\/\/tidelift.com\/funding\/github\/packagist\/symfony\/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "install-path": "..\/symfony\/filesystem"
+        },
+        {
+            "name": "symfony\/finder",
+            "version": "v7.1.3",
+            "version_normalized": "7.1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/symfony\/finder.git",
+                "reference": "717c6329886f32dc65e27461f80f2a465412fdca"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/finder\/zipball\/717c6329886f32dc65e27461f80f2a465412fdca",
+                "reference": "717c6329886f32dc65e27461f80f2a465412fdca",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.2"
+            },
+            "require-dev": {
+                "symfony\/filesystem": "^6.4|^7.0"
+            },
+            "time": "2024-07-24T07:08:44+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "ECSPrefix202408\\Symfony\\Component\\Finder\\": ""
+                },
+                "exclude-from-classmap": [
+                    "\/Tests\/"
+                ]
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https:\/\/symfony.com\/contributors"
+                }
+            ],
+            "description": "Finds files and directories via an intuitive fluent interface",
+            "homepage": "https:\/\/symfony.com",
+            "support": {
+                "source": "https:\/\/github.com\/symfony\/finder\/tree\/v7.1.3"
+            },
+            "funding": [
+                {
+                    "url": "https:\/\/symfony.com\/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https:\/\/github.com\/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https:\/\/tidelift.com\/funding\/github\/packagist\/symfony\/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "install-path": "..\/symfony\/finder"
+        },
+        {
+            "name": "symfony\/options-resolver",
+            "version": "v7.1.1",
+            "version_normalized": "7.1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/symfony\/options-resolver.git",
+                "reference": "47aa818121ed3950acd2b58d1d37d08a94f9bf55"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/options-resolver\/zipball\/47aa818121ed3950acd2b58d1d37d08a94f9bf55",
+                "reference": "47aa818121ed3950acd2b58d1d37d08a94f9bf55",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.2",
+                "symfony\/deprecation-contracts": "^2.5|^3"
+            },
+            "time": "2024-05-31T14:57:53+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "ECSPrefix202408\\Symfony\\Component\\OptionsResolver\\": ""
+                },
+                "exclude-from-classmap": [
+                    "\/Tests\/"
+                ]
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https:\/\/symfony.com\/contributors"
+                }
+            ],
+            "description": "Provides an improved replacement for the array_replace PHP function",
+            "homepage": "https:\/\/symfony.com",
+            "keywords": [
+                "config",
+                "configuration",
+                "options"
+            ],
+            "support": {
+                "source": "https:\/\/github.com\/symfony\/options-resolver\/tree\/v7.1.1"
+            },
+            "funding": [
+                {
+                    "url": "https:\/\/symfony.com\/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https:\/\/github.com\/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https:\/\/tidelift.com\/funding\/github\/packagist\/symfony\/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "install-path": "..\/symfony\/options-resolver"
+        },
+        {
+            "name": "symfony\/polyfill-mbstring",
+            "version": "v1.30.0",
+            "version_normalized": "1.30.0.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/symfony\/polyfill-mbstring.git",
+                "reference": "fd22ab50000ef01661e2a31d850ebaa297f8e03c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/polyfill-mbstring\/zipball\/fd22ab50000ef01661e2a31d850ebaa297f8e03c",
+                "reference": "fd22ab50000ef01661e2a31d850ebaa297f8e03c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "provide": {
+                "ext-mbstring": "*"
+            },
+            "suggest": {
+                "ext-mbstring": "For best performance"
+            },
+            "time": "2024-06-19T12:30:46+00:00",
+            "type": "library",
+            "extra": {
+                "thanks": {
+                    "name": "symfony\/polyfill",
+                    "url": "https:\/\/github.com\/symfony\/polyfill"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Mbstring\\": ""
+                }
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https:\/\/symfony.com\/contributors"
+                }
+            ],
+            "description": "Symfony polyfill for the Mbstring extension",
+            "homepage": "https:\/\/symfony.com",
+            "keywords": [
+                "compatibility",
+                "mbstring",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "support": {
+                "source": "https:\/\/github.com\/symfony\/polyfill-mbstring\/tree\/v1.30.0"
+            },
+            "funding": [
+                {
+                    "url": "https:\/\/symfony.com\/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https:\/\/github.com\/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https:\/\/tidelift.com\/funding\/github\/packagist\/symfony\/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "install-path": "..\/symfony\/polyfill-mbstring"
+        },
+        {
+            "name": "symfony\/polyfill-php80",
+            "version": "v1.30.0",
+            "version_normalized": "1.30.0.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/symfony\/polyfill-php80.git",
+                "reference": "77fa7995ac1b21ab60769b7323d600a991a90433"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/polyfill-php80\/zipball\/77fa7995ac1b21ab60769b7323d600a991a90433",
+                "reference": "77fa7995ac1b21ab60769b7323d600a991a90433",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "time": "2024-05-31T15:07:36+00:00",
+            "type": "library",
+            "extra": {
+                "thanks": {
+                    "name": "symfony\/polyfill",
+                    "url": "https:\/\/github.com\/symfony\/polyfill"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Php80\\": ""
+                },
+                "classmap": [
+                    "Resources\/stubs"
+                ]
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ion Bazan",
+                    "email": "ion.bazan@gmail.com"
+                },
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https:\/\/symfony.com\/contributors"
+                }
+            ],
+            "description": "Symfony polyfill backporting some PHP 8.0+ features to lower PHP versions",
+            "homepage": "https:\/\/symfony.com",
+            "keywords": [
+                "compatibility",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "support": {
+                "source": "https:\/\/github.com\/symfony\/polyfill-php80\/tree\/v1.30.0"
+            },
+            "funding": [
+                {
+                    "url": "https:\/\/symfony.com\/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https:\/\/github.com\/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https:\/\/tidelift.com\/funding\/github\/packagist\/symfony\/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "install-path": "..\/symfony\/polyfill-php80"
+        },
+        {
+            "name": "symfony\/polyfill-php81",
+            "version": "v1.30.0",
+            "version_normalized": "1.30.0.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/symfony\/polyfill-php81.git",
+                "reference": "3fb075789fb91f9ad9af537c4012d523085bd5af"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/polyfill-php81\/zipball\/3fb075789fb91f9ad9af537c4012d523085bd5af",
+                "reference": "3fb075789fb91f9ad9af537c4012d523085bd5af",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "time": "2024-06-19T12:30:46+00:00",
+            "type": "library",
+            "extra": {
+                "thanks": {
+                    "name": "symfony\/polyfill",
+                    "url": "https:\/\/github.com\/symfony\/polyfill"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Php81\\": ""
+                },
+                "classmap": [
+                    "Resources\/stubs"
+                ]
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https:\/\/symfony.com\/contributors"
+                }
+            ],
+            "description": "Symfony polyfill backporting some PHP 8.1+ features to lower PHP versions",
+            "homepage": "https:\/\/symfony.com",
+            "keywords": [
+                "compatibility",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "support": {
+                "source": "https:\/\/github.com\/symfony\/polyfill-php81\/tree\/v1.30.0"
+            },
+            "funding": [
+                {
+                    "url": "https:\/\/symfony.com\/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https:\/\/github.com\/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https:\/\/tidelift.com\/funding\/github\/packagist\/symfony\/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "install-path": "..\/symfony\/polyfill-php81"
+        },
+        {
+            "name": "symfony\/service-contracts",
+            "version": "v3.5.0",
+            "version_normalized": "3.5.0.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/symfony\/service-contracts.git",
+                "reference": "bd1d9e59a81d8fa4acdcea3f617c581f7475a80f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/service-contracts\/zipball\/bd1d9e59a81d8fa4acdcea3f617c581f7475a80f",
+                "reference": "bd1d9e59a81d8fa4acdcea3f617c581f7475a80f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1",
+                "psr\/container": "^1.1|^2.0",
+                "symfony\/deprecation-contracts": "^2.5|^3"
+            },
+            "conflict": {
+                "ext-psr": "<1.1|>=2"
+            },
+            "time": "2024-04-18T09:32:20+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "3.5-dev"
+                },
+                "thanks": {
+                    "name": "symfony\/contracts",
+                    "url": "https:\/\/github.com\/symfony\/contracts"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "ECSPrefix202408\\Symfony\\Contracts\\Service\\": ""
+                },
+                "exclude-from-classmap": [
+                    "\/Test\/"
+                ]
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https:\/\/symfony.com\/contributors"
+                }
+            ],
+            "description": "Generic abstractions related to writing services",
+            "homepage": "https:\/\/symfony.com",
+            "keywords": [
+                "abstractions",
+                "contracts",
+                "decoupling",
+                "interfaces",
+                "interoperability",
+                "standards"
+            ],
+            "support": {
+                "source": "https:\/\/github.com\/symfony\/service-contracts\/tree\/v3.5.0"
+            },
+            "funding": [
+                {
+                    "url": "https:\/\/symfony.com\/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https:\/\/github.com\/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https:\/\/tidelift.com\/funding\/github\/packagist\/symfony\/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "install-path": "..\/symfony\/service-contracts"
+        },
+        {
+            "name": "symplify\/coding-standard",
+            "version": "12.2.2",
+            "version_normalized": "12.2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/symplify\/coding-standard.git",
+                "reference": "a7fff184e4aea3e1043639312bd32211f278824c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/symplify\/coding-standard\/zipball\/a7fff184e4aea3e1043639312bd32211f278824c",
+                "reference": "a7fff184e4aea3e1043639312bd32211f278824c",
+                "shasum": ""
+            },
+            "require": {
+                "friendsofphp\/php-cs-fixer": "^3.59",
+                "nette\/utils": "^4.0",
+                "php": ">=8.2",
+                "symplify\/rule-doc-generator-contracts": "^11.2"
+            },
+            "require-dev": {
+                "phpstan\/extension-installer": "^1.4",
+                "phpstan\/phpstan": "^1.11",
+                "phpunit\/phpunit": "^10.5",
+                "rector\/rector": "^1.1",
+                "squizlabs\/php_codesniffer": "^3.10.1",
+                "symplify\/easy-coding-standard": "^12.3",
+                "symplify\/phpstan-extensions": "^11.4",
+                "symplify\/rule-doc-generator": "^12.2.2",
+                "tomasvotruba\/class-leak": "^0.2",
+                "tracy\/tracy": "^2.10"
+            },
+            "time": "2024-08-01T07:46:13+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Symplify\\CodingStandard\\": "src"
+                }
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Set of Symplify rules for PHP_CodeSniffer and PHP CS Fixer.",
+            "support": {
+                "issues": "https:\/\/github.com\/symplify\/coding-standard\/issues",
+                "source": "https:\/\/github.com\/symplify\/coding-standard\/tree\/12.2.2"
+            },
+            "funding": [
+                {
+                    "url": "https:\/\/www.paypal.me\/rectorphp",
+                    "type": "custom"
+                },
+                {
+                    "url": "https:\/\/github.com\/tomasvotruba",
+                    "type": "github"
+                }
+            ],
+            "install-path": "..\/symplify\/coding-standard"
+        },
+        {
+            "name": "symplify\/easy-parallel",
+            "version": "11.2.2",
+            "version_normalized": "11.2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/symplify\/easy-parallel.git",
+                "reference": "8586c18bb8efb31cd192a4e5cc94ae7813f72ed9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/symplify\/easy-parallel\/zipball\/8586c18bb8efb31cd192a4e5cc94ae7813f72ed9",
+                "reference": "8586c18bb8efb31cd192a4e5cc94ae7813f72ed9",
+                "shasum": ""
+            },
+            "require": {
+                "clue\/ndjson-react": "^1.3",
+                "fidry\/cpu-core-counter": "^0.5.1|^1.1",
+                "nette\/utils": "^3.2|^4.0",
+                "php": ">=8.1",
+                "react\/child-process": "^0.6.5",
+                "react\/event-loop": "^1.5",
+                "react\/socket": "^1.15",
+                "symfony\/console": "^6.2|^7.0"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^10.5",
+                "rector\/rector": "^1.0",
+                "symplify\/easy-coding-standard": "^12.1",
+                "tomasvotruba\/class-leak": "^0.2.6"
+            },
+            "time": "2024-02-08T04:56:53+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "ECSPrefix202408\\Symplify\\EasyParallel\\": "src"
+                }
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Helper package for easier CLI project parallelization",
+            "support": {
+                "issues": "https:\/\/github.com\/symplify\/easy-parallel\/issues",
+                "source": "https:\/\/github.com\/symplify\/easy-parallel\/tree\/11.2.2"
+            },
+            "funding": [
+                {
+                    "url": "https:\/\/www.paypal.me\/rectorphp",
+                    "type": "custom"
+                },
+                {
+                    "url": "https:\/\/github.com\/tomasvotruba",
+                    "type": "github"
+                }
+            ],
+            "install-path": "..\/symplify\/easy-parallel"
+        },
+        {
+            "name": "symplify\/rule-doc-generator-contracts",
+            "version": "11.2.0",
+            "version_normalized": "11.2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/symplify\/rule-doc-generator-contracts.git",
+                "reference": "479cfcfd46047f80624aba931d9789e50475b5c6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/symplify\/rule-doc-generator-contracts\/zipball\/479cfcfd46047f80624aba931d9789e50475b5c6",
+                "reference": "479cfcfd46047f80624aba931d9789e50475b5c6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1"
+            },
+            "require-dev": {
+                "php-parallel-lint\/php-parallel-lint": "^1.3",
+                "phpstan\/extension-installer": "^1.2",
+                "rector\/rector": "^0.15.10",
+                "symplify\/easy-ci": "^11.1",
+                "symplify\/easy-coding-standard": "^11.1",
+                "symplify\/easy-testing": "^11.1",
+                "symplify\/phpstan-extensions": "^11.1",
+                "symplify\/phpstan-rules": "11.2.3.72",
+                "tomasvotruba\/unused-public": "^0.0.34"
+            },
+            "time": "2024-03-18T22:02:54+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "11.2-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "ECSPrefix202408\\Symplify\\RuleDocGenerator\\": "src"
+                }
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Contracts for production code of RuleDocGenerator",
+            "support": {
+                "source": "https:\/\/github.com\/symplify\/rule-doc-generator-contracts\/tree\/11.2.0"
+            },
+            "funding": [
+                {
+                    "url": "https:\/\/www.paypal.me\/rectorphp",
+                    "type": "custom"
+                },
+                {
+                    "url": "https:\/\/github.com\/tomasvotruba",
+                    "type": "github"
+                }
+            ],
+            "install-path": "..\/symplify\/rule-doc-generator-contracts"
+        },
+        {
+            "name": "webmozart\/assert",
+            "version": "1.11.0",
+            "version_normalized": "1.11.0.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/webmozarts\/assert.git",
+                "reference": "11cb2199493b2f8a3b53e7f19068fc6aac760991"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/webmozarts\/assert\/zipball\/11cb2199493b2f8a3b53e7f19068fc6aac760991",
+                "reference": "11cb2199493b2f8a3b53e7f19068fc6aac760991",
+                "shasum": ""
+            },
+            "require": {
+                "ext-ctype": "*",
+                "php": "^7.2 || ^8.0"
+            },
+            "conflict": {
+                "phpstan\/phpstan": "<0.12.20",
+                "vimeo\/psalm": "<4.6.1 || 4.6.2"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^8.5.13"
+            },
+            "time": "2022-06-03T18:03:27+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.10-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "ECSPrefix202408\\Webmozart\\Assert\\": "src\/"
+                }
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bernhard Schussek",
+                    "email": "bschussek@gmail.com"
+                }
+            ],
+            "description": "Assertions to validate method input\/output with nice error messages.",
+            "keywords": [
+                "assert",
+                "check",
+                "validate"
+            ],
+            "support": {
+                "issues": "https:\/\/github.com\/webmozarts\/assert\/issues",
+                "source": "https:\/\/github.com\/webmozarts\/assert\/tree\/1.11.0"
+            },
+            "install-path": "..\/webmozart\/assert"
+        }
+    ],
+    "dev": false,
+    "dev-package-names": []
+}

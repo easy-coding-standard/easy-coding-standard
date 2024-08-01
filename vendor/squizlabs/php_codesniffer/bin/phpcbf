@@ -1,0 +1,15 @@
+#!/usr/bin/env php
+<?php 
+namespace ECSPrefix202408;
+
+/**
+ * PHP Code Beautifier and Fixer fixes violations of a defined coding standard.
+ *
+ * @author    Greg Sherwood <gsherwood@squiz.net>
+ * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
+ * @license   https://github.com/PHPCSStandards/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
+ */
+require_once __DIR__ . '/../autoload.php';
+$runner = new \PHP_CodeSniffer\Runner();
+$exitCode = $runner->runPHPCBF();
+exit($exitCode);
