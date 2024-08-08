@@ -1,0 +1,30 @@
+parameters:
+    level: 8
+
+    paths:
+        - src
+        - config
+        - tests
+
+    excludePaths:
+        - '*/tests/**/Source/*'
+        - '*/tests/**/Fixture/*'
+
+    ignoreErrors:
+        # partial enum
+        - '#Method Symplify\\CodingStandard\\TokenRunner\\Analyzer\\FixerAnalyzer\\BlockFinder\:\:(getBlockTypeByContent|getBlockTypeByToken)\(\) never returns \d+ so it can be removed from the return type#'
+
+        -
+            path: tests/bootstrap.php
+            message: '#Instantiated class PHP_CodeSniffer\\Util\\Tokens not found#'
+
+        - '#Constant T_OPEN_CURLY_BRACKET|T_START_NOWDOC not found#'
+        - '#Method Symplify\\CodingStandard\\TokenRunner\\Traverser\\ArrayBlockInfoFinder\:\:reverseTokens\(\) should return array<PhpCsFixer\\Tokenizer\\Token> but returns array<int, PhpCsFixer\\Tokenizer\\Token\|null>#'
+
+        # unused generics
+        - '#Class (.*?) implements generic interface PhpCsFixer\\Fixer\\ConfigurableFixerInterface but does not specify its types\: TFixerInputConfig, TFixerComputedConfig#'
+
+        # false positive
+        -
+            message: '#Parameter \#1 \$sequence of method PhpCsFixer\\Tokenizer\\Tokens\:\:findSequence\(\) expects non\-empty\-array<int, array\{0\: int, 1\?\: string\}\|PhpCsFixer\\Tokenizer\\Token\|string>, array<PhpCsFixer\\Tokenizer\\Token> given#'
+            path: src/Fixer/Strict/BlankLineAfterStrictTypesFixer.php

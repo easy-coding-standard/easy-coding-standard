@@ -1,99 +1,25 @@
 {
     "name": "symplify/easy-coding-standard",
-    "description": "Use Coding Standard with 0-knowledge of PHP-CS-Fixer and PHP_CodeSniffer.",
+    "description": "Use Coding Standard with 0-knowledge of PHP-CS-Fixer and PHP_CodeSniffer",
     "license": "MIT",
-    "keywords": [
-        "static analysis",
-        "code style",
-        "automation",
-        "fixer"
-    ],
+    "keywords": ["static analysis", "code style", "automation", "fixer"],
     "bin": [
         "bin/ecs"
     ],
     "require": {
-        "php": ">=8.2",
-        "composer/pcre": "^3.2.0",
-        "composer/xdebug-handler": "^3.0.5",
-        "friendsofphp/php-cs-fixer": "^3.62",
-        "illuminate/container": "^10.48",
-        "nette/utils": "^4.0",
-        "sebastian/diff": "^5.1",
-        "squizlabs/php_codesniffer": "^3.10.2",
-        "symfony/console": "^6.4",
-        "symfony/finder": "^7.1",
-        "symplify/coding-standard": "^12.2.3",
-        "symplify/easy-parallel": "^11.2.2",
-        "webmozart/assert": "^1.11"
-    },
-    "require-dev": {
-        "php-parallel-lint/php-parallel-lint": "^1.3",
-        "phpstan/extension-installer": "^1.3",
-        "phpstan/phpstan": "^1.11.8",
-        "phpstan/phpstan-phpunit": "^1.3",
-        "phpstan/phpstan-webmozart-assert": "^1.2",
-        "phpunit/phpunit": "^10.5",
-        "rector/rector": "^1.0",
-        "symplify/phpstan-extensions": "^11.4",
-        "symplify/vendor-patches": "^11.3",
-        "tomasvotruba/class-leak": "^0.2",
-        "tomasvotruba/unused-public": "^0.3",
-        "tracy/tracy": "^2.9"
+        "php": ">=7.2"
     },
     "autoload": {
-        "psr-4": {
-            "Symplify\\EasyCodingStandard\\": "src"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Symplify\\EasyCodingStandard\\Tests\\": "tests"
-        },
         "files": [
-            "tests/functions.php"
+            "bootstrap.php"
         ]
     },
-    "config": {
-        "sort-packages": true,
-        "platform-check": false,
-        "allow-plugins": {
-            "cweagans/composer-patches": true,
-            "phpstan/extension-installer": true
-        }
+    "conflict": {
+        "symplify/coding-standard": "<12.1",
+        "phpcsstandards/php_codesniffer": "<3.8",
+        "friendsofphp/php-cs-fixer": "<3.46"
     },
-    "scripts": {
-        "lint": [
-            "@phpstan",
-            "@rector",
-            "@check-cs"
-        ],
-        "lint.fix": [
-            "@fix-rector",
-            "@fix-cs"
-        ],
-        "phpstan": "vendor/bin/phpstan analyse --ansi --memory-limit=1G --error-format symplify",
-        "rector": "vendor/bin/rector process --dry-run --memory-limit=1G --ansi",
-        "fix-rector": "vendor/bin/rector process --memory-limit=1G --ansi",
-        "check-cs": "bin/ecs check --ansi",
-        "fix-cs": "bin/ecs check --fix --ansi"
-    },
-    "replace": {
-        "symfony/polyfill-intl-grapheme": "*",
-        "symfony/polyfill-ctype": "*",
-        "symfony/polyfill-intl-normalizer": "*",
-        "symfony/event-dispatcher": "7.*",
-        "symfony/process": "7.*",
-        "symfony/stopwatch": "7.*",
-        "symfony/string": "7.*"
-    },
-    "extra": {
-        "patches": {
-            "illuminate/container": [
-                "patches/illuminate-container-container-php.patch"
-            ],
-            "symfony/console": [
-                "patches/symfony-console-helper-helper-php.patch"
-            ]
-        }
+    "suggest": {
+        "ext-dom": "Needed to support checkstyle output format in class CheckstyleOutputFormatter"
     }
 }
