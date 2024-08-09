@@ -5,9 +5,22 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\Configuration;
 
 use PHP_CodeSniffer\Sniffs\Sniff;
+use PHP_CodeSniffer\Standards\Generic\Sniffs\Files\EndFileNewlineSniff as GenericEndFileNewlineSniff;
+use PHP_CodeSniffer\Standards\Generic\Sniffs\Files\EndFileNoNewlineSniff;
+use PHP_CodeSniffer\Standards\PSR2\Sniffs\Files\EndFileNewlineSniff as Psr2EndFileNewlineSniff;
+use PHP_CodeSniffer\Standards\Squiz\Sniffs\Strings\DoubleQuoteUsageSniff;
+use PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\SuperfluousWhitespaceSniff;
 use PhpCsFixer\Fixer\FixerInterface;
+use PhpCsFixer\Fixer\StringNotation\SingleQuoteFixer;
+use PhpCsFixer\Fixer\Whitespace\NoTrailingWhitespaceFixer;
+use PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer;
 use Symfony\Component\Finder\Finder;
+use Symplify\CodingStandard\Fixer\LineLength\LineLengthFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
+use Symplify\EasyCodingStandard\Configuration\EditorConfig\EditorConfigFactory;
+use Symplify\EasyCodingStandard\Configuration\EditorConfig\EndOfLine;
+use Symplify\EasyCodingStandard\Configuration\EditorConfig\IndentStyle;
+use Symplify\EasyCodingStandard\Configuration\EditorConfig\QuoteType;
 use Symplify\EasyCodingStandard\Exception\Configuration\SuperfluousConfigurationException;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
@@ -73,8 +86,12 @@ final class ECSConfigBuilder
 
     private ?bool $reportingRealPath = null;
 
+    private bool $useEditorConfig = false;
+
     public function __invoke(ECSConfig $ecsConfig): void
     {
+        $this->applyEditorConfigSettings();
+
         if ($this->sets !== []) {
             $ecsConfig->sets($this->sets);
         }
@@ -533,6 +550,13 @@ final class ECSConfigBuilder
         return $this;
     }
 
+    public function withEditorConfig(bool $enabled = true): self
+    {
+        $this->useEditorConfig = $enabled;
+
+        return $this;
+    }
+
     /**
      * @param Option::INDENTATION_*|null $indentation
      */
@@ -589,5 +613,73 @@ final class ECSConfigBuilder
         $this->reportingRealPath = $absolutePath;
 
         return $this;
+    }
+
+    private function applyEditorConfigSettings(): void
+    {
+        if (! $this->useEditorConfig) {
+            return;
+        }
+
+        /**
+         * PHP CS Fixer handles most of this, code sniffer just needs to stay
+         * out of out way. Luckily, we have a pass to make sure it does!
+         *
+         * This does introduce a quirk that if someone manually disables a Fixer
+         * rule, but does not enable the equivalent Sniffer rule, that
+         * EditorConfig setting won't be respected. But why would they do that?
+         *
+         * @see Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualCheckersCompilerPass
+         */
+        $editorConfig = (new EditorConfigFactory())->load();
+
+        if ($editorConfig->indentStyle instanceof IndentStyle) {
+            $this->indentation = match ($editorConfig->indentStyle) {
+                IndentStyle::Space => Option::INDENTATION_SPACES,
+                IndentStyle::Tab => Option::INDENTATION_TAB,
+            };
+        }
+
+        if ($editorConfig->endOfLine instanceof EndOfLine) {
+            $this->lineEnding = match ($editorConfig->endOfLine) {
+                EndOfLine::Posix => "\n",
+                EndOfLine::Legacy => "\r",
+                EndOfLine::Windows => "\r\n",
+            };
+        }
+
+        if ($editorConfig->maxLineLength) {
+            $this->rulesWithConfiguration[LineLengthFixer::class] = [
+                ...($this->rulesWithConfiguration[LineLengthFixer::class] ?? []),
+                'line_length' => $editorConfig->maxLineLength,
+            ];
+        }
+
+        if ($editorConfig->trimTrailingWhitespace === true) {
+            $this->rules[] = NoTrailingWhitespaceFixer::class;
+        } elseif ($editorConfig->trimTrailingWhitespace === false) {
+            $this->skip = [...$this->skip, NoTrailingWhitespaceFixer::class, SuperfluousWhitespaceSniff::class];
+        }
+
+        if ($editorConfig->insertFinalNewline === true) {
+            $this->rules[] = SingleBlankLineAtEofFixer::class;
+        } elseif ($editorConfig->insertFinalNewline === false) {
+            $this->rules[] = EndFileNoNewlineSniff::class;
+            $this->skip[] = [
+                SingleBlankLineAtEofFixer::class,
+                Psr2EndFileNewlineSniff::class,
+                GenericEndFileNewlineSniff::class,
+            ];
+        }
+
+        if ($editorConfig->quoteType === QuoteType::Auto) {
+            $this->rules[] = SingleQuoteFixer::class;
+        } elseif ($editorConfig->quoteType === QuoteType::Single) {
+            $this->rulesWithConfiguration[SingleQuoteFixer::class] = [
+                'strings_containing_single_quote_chars' => true,
+            ];
+        } elseif ($editorConfig->quoteType === QuoteType::Double) {
+            $this->skip = [...$this->skip, SingleQuoteFixer::class, DoubleQuoteUsageSniff::class];
+        }
     }
 }
