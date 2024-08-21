@@ -211,6 +211,28 @@ vendor/bin/ecs list-checkers --output-format json
 
 <br>
 
+### Can I Use My [`.editorconfig`](https://editorconfig.org/)?
+
+Mostly! By using `withEditorConfig()`, ECS will automatically discover
+the `.editorconfig` file in the project's root directory. It will use any
+rules under `[*]` or `[*.php]` (the latter taking priority) and respect the
+settings for:
+
+-   `indent_style`
+-   `end_of_line`
+-   `max_line_length`
+-   `trim_trailing_whitespace`
+-   `insert_final_newline`
+-   [`quote_type`](https://github.com/jednano/codepainter#quote_type-single-double-auto)
+    -   Only `single` and `auto` are respected.
+    -   Warning: this is a proposed field, but not fully standard.
+
+These settings will take precedence over similar rules configured through sets
+like PSR12, to avoid conflicting with other tooling using your `.editorconfig`.
+
+Unfortunately, not all settings are currently respected, but PRs are always
+welcome!
+
 ## How to Migrate from another coding standard tool?
 
 Do you use another tool and want to migrate? It's pretty straightforward - here is "how to":
