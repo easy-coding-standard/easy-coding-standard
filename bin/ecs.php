@@ -3,13 +3,13 @@
 declare(strict_types=1);
 
 // decoupled in own "*.php" file, so ECS, Rector and PHPStan works out of the box here
-use Symplify\EasyCodingStandard\DependencyInjection\LazyContainerFactory;
 use PHP_CodeSniffer\Util\Tokens;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symplify\EasyCodingStandard\Console\EasyCodingStandardConsoleApplication;
 use Symplify\EasyCodingStandard\Console\Style\SymfonyStyleFactory;
 use Symplify\EasyCodingStandard\DependencyInjection\EasyCodingStandardContainerFactory;
+use Symplify\EasyCodingStandard\DependencyInjection\LazyContainerFactory;
 
 // performance boost
 gc_disable();

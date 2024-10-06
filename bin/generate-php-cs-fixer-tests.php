@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
+use PhpCsFixer\RuleSet\RuleSets;
 use PhpParser\Modifiers;
-use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Expr\ArrayDimFetch;
+use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\ConstFetch;
+use PhpParser\Node\Expr\PropertyFetch;
+use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\Param;
-use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Expr\ConstFetch;
-use PhpParser\Node\Identifier;
-use PhpParser\Node\Expr\PropertyFetch;
-use PhpParser\Node\Stmt\If_;
-use PhpParser\Node\Stmt\Expression;
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Scalar\String_;
+use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Expression;
+use PhpParser\Node\Stmt\If_;
 use PhpParser\Node\Stmt\Return_;
 use PhpParser\PrettyPrinter\Standard;
-use PhpCsFixer\RuleSet\RuleSets;
 
 // this helper script generates the withPhpCsFixerSets() method for ECSConfigBuilder class
 
@@ -39,7 +39,7 @@ $classMethod->returnType = new Name('self');
 
 foreach ($setNames as $setName) {
     // convert to PHP variable name
-    $paramName = ltrim( $setName, '@');
+    $paramName = ltrim($setName, '@');
 
     $paramName = lowercaseUntilFirstLower($paramName);
     $paramName = str_replace(':r', 'R', $paramName);
@@ -57,23 +57,20 @@ foreach ($setNames as $setName) {
 
     $classMethod->stmts[] = new If_(new Variable($paramName), [
         'stmts' => [
-            new Expression(new Assign(
-                new ArrayDimFetch($dynamicSetsPropertyFetch),
-                new String_($setName)
-            ))
-        ]
+            new Expression(new Assign(new ArrayDimFetch($dynamicSetsPropertyFetch), new String_($setName))),
+        ],
     ]);
 }
 
-
-function lowercaseUntilFirstLower($input): string {
+function lowercaseUntilFirstLower($input): string
+{
     $output = '';
     $foundLower = false;
 
     for ($i = 0; $i < strlen((string) $input); $i++) {
         $char = $input[$i];
 
-        if (!$foundLower && ctype_upper((string) $char)) {
+        if (! $foundLower && ctype_upper((string) $char)) {
             $output .= strtolower((string) $char);
         } else {
             $output .= $char;
@@ -87,7 +84,6 @@ function lowercaseUntilFirstLower($input): string {
 // add dynamic set includes
 
 $classMethod->stmts[] = new Return_(new Variable('this'));
-
 
 $printerStandard = new Standard();
 echo $printerStandard->prettyPrint([$classMethod]);
