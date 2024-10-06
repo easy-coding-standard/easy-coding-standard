@@ -2,6 +2,21 @@
 
 declare(strict_types=1);
 
+use PhpParser\Modifiers;
+use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Name;
+use PhpParser\Node\Param;
+use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Expr\ConstFetch;
+use PhpParser\Node\Identifier;
+use PhpParser\Node\Expr\PropertyFetch;
+use PhpParser\Node\Stmt\If_;
+use PhpParser\Node\Stmt\Expression;
+use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\ArrayDimFetch;
+use PhpParser\Node\Scalar\String_;
+use PhpParser\Node\Stmt\Return_;
+use PhpParser\PrettyPrinter\Standard;
 use PhpCsFixer\RuleSet\RuleSets;
 
 // this helper script generates the withPhpCsFixerSets() method for ECSConfigBuilder class
@@ -18,9 +33,9 @@ foreach ($setDefinitions as $setDefinition) {
 }
 
 // create withPhpCsFixerSets() method here
-$classMethod = new \PhpParser\Node\Stmt\ClassMethod('withPhpCsFixerSets');
-$classMethod->flags = \PhpParser\Node\Stmt\Class_::MODIFIER_PUBLIC;
-$classMethod->returnType = new \PhpParser\Node\Name('self');
+$classMethod = new ClassMethod('withPhpCsFixerSets');
+$classMethod->flags = Modifiers::PUBLIC;
+$classMethod->returnType = new Name('self');
 
 foreach ($setNames as $setName) {
     // convert to PHP variable name
@@ -32,34 +47,34 @@ foreach ($setNames as $setName) {
 
     // lowercase only the first uppercase letters
 
-    $classMethod->params[] = new \PhpParser\Node\Param(
-        new \PhpParser\Node\Expr\Variable($paramName),
-        new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name('false')),
-        new \PhpParser\Node\Identifier('bool')
+    $classMethod->params[] = new Param(
+        new Variable($paramName),
+        new ConstFetch(new Name('false')),
+        new Identifier('bool')
     );
 
-    $dynamicSetsPropertyFetch = new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), 'dynamicSets');
+    $dynamicSetsPropertyFetch = new PropertyFetch(new Variable('this'), 'dynamicSets');
 
-    $classMethod->stmts[] = new \PhpParser\Node\Stmt\If_(new \PhpParser\Node\Expr\Variable($paramName), [
+    $classMethod->stmts[] = new If_(new Variable($paramName), [
         'stmts' => [
-            new \PhpParser\Node\Stmt\Expression(new \PhpParser\Node\Expr\Assign(
-                new \PhpParser\Node\Expr\ArrayDimFetch($dynamicSetsPropertyFetch),
-                new \PhpParser\Node\Scalar\String_($setName)
+            new Expression(new Assign(
+                new ArrayDimFetch($dynamicSetsPropertyFetch),
+                new String_($setName)
             ))
         ]
     ]);
 }
 
 
-function lowercaseUntilFirstLower($input) {
+function lowercaseUntilFirstLower($input): string {
     $output = '';
     $foundLower = false;
 
-    for ($i = 0; $i < strlen($input); $i++) {
+    for ($i = 0; $i < strlen((string) $input); $i++) {
         $char = $input[$i];
 
-        if (!$foundLower && ctype_upper($char)) {
-            $output .= strtolower($char);
+        if (!$foundLower && ctype_upper((string) $char)) {
+            $output .= strtolower((string) $char);
         } else {
             $output .= $char;
             $foundLower = true;
@@ -68,10 +83,11 @@ function lowercaseUntilFirstLower($input) {
 
     return $output;
 }
+
 // add dynamic set includes
 
-$classMethod->stmts[] = new \PhpParser\Node\Stmt\Return_(new \PhpParser\Node\Expr\Variable('this'));
+$classMethod->stmts[] = new Return_(new Variable('this'));
 
 
-$printerStandard = new \PhpParser\PrettyPrinter\Standard();
+$printerStandard = new Standard();
 echo $printerStandard->prettyPrint([$classMethod]);
