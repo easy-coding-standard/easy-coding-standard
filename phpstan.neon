@@ -20,6 +20,18 @@ parameters:
         - '*/Source/*'
         - '*/Fixture/*'
 
+    # see https://github.com/tomasVotruba/unused-public
+    unused_public:
+        methods: true
+        properties: true
+        constants: true
+
+    # see https://github.com/TomasVotruba/type-coverage
+    type_coverage:
+        return: 99
+        param: 94.4
+        property: 99
+
     bootstrapFiles:
         - tests/bootstrap.php
 
