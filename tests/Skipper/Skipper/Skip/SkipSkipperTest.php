@@ -6,6 +6,7 @@ namespace Symplify\EasyCodingStandard\Tests\Skipper\Skipper\Skip;
 
 use Iterator;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use Symplify\EasyCodingStandard\Skipper\Skipper\Skipper;
 use Symplify\EasyCodingStandard\Testing\PHPUnit\AbstractTestCase;
 use Symplify\EasyCodingStandard\Tests\Skipper\Skipper\Skip\Source\AnotherClassToSkip;
@@ -14,21 +15,16 @@ use Symplify\EasyCodingStandard\Tests\Skipper\Skipper\Skip\Source\SomeClassToSki
 
 final class SkipSkipperTest extends AbstractTestCase
 {
-    private Skipper $skipper;
-
-    protected function setUp(): void
-    {
-        $this->createContainerWithConfigs([__DIR__ . '/config/config.php']);
-        $this->skipper = $this->make(Skipper::class);
-    }
-
+    #[RunInSeparateProcess]
     #[DataProvider('provideCheckerAndFile')]
     #[DataProvider('provideCodeAndFile')]
     #[DataProvider('provideMessageAndFile')]
     #[DataProvider('provideAnythingAndFilePath')]
     public function test(string $element, string $filePath, bool $expectedSkip): void
     {
-        $resolvedSkip = $this->skipper->shouldSkipElementAndFilePath($element, $filePath);
+        $this->createContainerWithConfigs([__DIR__ . '/config/config.php']);
+
+        $resolvedSkip = $this->make(Skipper::class)->shouldSkipElementAndFilePath($element, $filePath);
         $this->assertSame($expectedSkip, $resolvedSkip);
     }
 
@@ -75,5 +71,24 @@ final class SkipSkipperTest extends AbstractTestCase
     {
         yield ['anything', __DIR__ . '/Fixture/AlwaysSkippedPath/some_file.txt', true];
         yield ['anything', __DIR__ . '/Fixture/PathSkippedWithMask/another_file.txt', true];
+    }
+
+    #[RunInSeparateProcess]
+    #[DataProvider('provideCheckerAndFileForRecursivelyMergedConfig')]
+    public function testCheckerSkipRulesAreMergedRecursively(string $element, string $filePath, bool $expectedSkip): void
+    {
+        $this->createContainerWithConfigs([__DIR__ . '/config/config_with_import.php']);
+
+        $resolvedSkip = $this->make(Skipper::class)->shouldSkipElementAndFilePath($element, $filePath);
+        $this->assertSame($expectedSkip, $resolvedSkip);
+    }
+
+    public static function provideCheckerAndFileForRecursivelyMergedConfig(): Iterator
+    {
+        yield [SomeClassToSkip::class, __DIR__ . '/Fixture', false];
+        yield [SomeClassToSkip::class, __DIR__ . '/Fixture/AlwaysSkippedPath', true];
+        yield [SomeClassToSkip::class, __DIR__ . '/Fixture/someDirectory', false];
+        yield [SomeClassToSkip::class, __DIR__ . '/Fixture/someDirectory/someFile.php', true];
+        yield [AnotherClassToSkip::class, __DIR__ . '/Fixture', true];
     }
 }
