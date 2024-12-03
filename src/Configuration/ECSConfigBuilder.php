@@ -181,6 +181,8 @@ final class ECSConfigBuilder
         bool $common = false,
         /** @see SetList::SYMPLIFY */
         bool $symplify = false,
+        /** @see SetList::LARAVEL */
+        bool $laravel = false,
 
         // common sets
         /** @see SetList::ARRAY */
@@ -255,6 +257,10 @@ final class ECSConfigBuilder
 
         if ($symplify) {
             $this->sets[] = SetList::SYMPLIFY;
+        }
+
+        if ($laravel) {
+            $this->sets[] = SetList::LARAVEL;
         }
 
         return $this;
