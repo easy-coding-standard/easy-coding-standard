@@ -31,7 +31,12 @@ final class WhitespacesFixerConfigFactory
             $lineEnding = "\n";
         }
 
-        return new WhitespacesFixerConfig($this->resolveIndentation(), $lineEnding);
+        $indentation = $this->resolveIndentation();
+
+        assert($lineEnding !== '');
+        assert($indentation !== '');
+
+        return new WhitespacesFixerConfig($indentation, $lineEnding);
     }
 
     private function resolveIndentation(): string
