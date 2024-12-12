@@ -12,5 +12,6 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->skip([
         '*/Tests/*',
         '*/tests/*',
+        '*/Fixtures/DirectoryExpansion/.hiddenAbove/*'
     ]);
 };
