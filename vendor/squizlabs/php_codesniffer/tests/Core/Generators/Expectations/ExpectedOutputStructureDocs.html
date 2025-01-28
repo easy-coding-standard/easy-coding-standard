@@ -1,0 +1,191 @@
+<html>
+ <head>
+  <title>GeneratorTest Coding Standards</title>
+  <style>
+        body {
+            background-color: #FFFFFF;
+            font-size: 14px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #000000;
+        }
+
+        h1 {
+            color: #666666;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 0px;
+            background-color: #E6E7E8;
+            padding: 20px;
+            border: 1px solid #BBBBBB;
+        }
+
+        h2 {
+            color: #00A5E3;
+            font-size: 16px;
+            font-weight: normal;
+            margin-top: 50px;
+        }
+
+        .code-comparison {
+            width: 100%;
+        }
+
+        .code-comparison td {
+            border: 1px solid #CCCCCC;
+        }
+
+        .code-comparison-title, .code-comparison-code {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 12px;
+            color: #000000;
+            vertical-align: top;
+            padding: 4px;
+            width: 50%;
+            background-color: #F1F1F1;
+            line-height: 15px;
+        }
+
+        .code-comparison-code {
+            font-family: Courier;
+            background-color: #F9F9F9;
+        }
+
+        .code-comparison-highlight {
+            background-color: #DDF1F7;
+            border: 1px solid #00A5E3;
+            line-height: 15px;
+        }
+
+        .tag-line {
+            text-align: center;
+            width: 100%;
+            margin-top: 30px;
+            font-size: 12px;
+        }
+
+        .tag-line a {
+            color: #000000;
+        }
+    </style>
+ </head>
+ <body>
+  <h1>GeneratorTest Coding Standards</h1>
+  <h2>Table of Contents</h2>
+  <ul class="toc">
+   <li><a href="#No-Content">No Content</a></li>
+   <li><a href="#Code-Comparison-Only,-Missing-Standard-Block">Code Comparison Only, Missing Standard Block</a></li>
+   <li><a href="#One-Standard-Block,-Code-Comparison">One Standard Block, Code Comparison</a></li>
+   <li><a href="#One-Standard-Block,-No-Code">One Standard Block, No Code</a></li>
+   <li><a href="#One-Standard-Block,-Two-Code-Comparisons">One Standard Block, Two Code Comparisons</a></li>
+   <li><a href="#Two-Standard-Blocks,-No-Code">Two Standard Blocks, No Code</a></li>
+   <li><a href="#Two-Standard-Blocks,-One-Code-Comparison">Two Standard Blocks, One Code Comparison</a></li>
+   <li><a href="#Two-Standard-Blocks,-Three-Code-Comparisons">Two Standard Blocks, Three Code Comparisons</a></li>
+  </ul>
+  <a name="No-Content" />
+  <h2>No Content</h2>
+  <a name="Code-Comparison-Only,-Missing-Standard-Block" />
+  <h2>Code Comparison Only, Missing Standard Block</h2>
+  <table class="code-comparison">
+   <tr>
+    <td class="code-comparison-title">Valid: Lorem ipsum dolor sit amet.</td>
+    <td class="code-comparison-title">Invalid: Maecenas non rutrum dolor.</td>
+   </tr>
+   <tr>
+    <td class="code-comparison-code"><span class="code-comparison-highlight">class&nbsp;Code</span>&nbsp;{}</td>
+    <td class="code-comparison-code"><span class="code-comparison-highlight">class&nbsp;Comparison</span>&nbsp;{}</td>
+   </tr>
+  </table>
+  <a name="One-Standard-Block,-Code-Comparison" />
+  <h2>One Standard Block, Code Comparison</h2>
+  <p class="text">Documentation contains one standard block and one code comparison.</p>
+  <table class="code-comparison">
+   <tr>
+    <td class="code-comparison-title">Valid: Lorem ipsum dolor sit amet.</td>
+    <td class="code-comparison-title">Invalid: Maecenas non rutrum dolor.</td>
+   </tr>
+   <tr>
+    <td class="code-comparison-code"><span class="code-comparison-highlight">class&nbsp;Code</span>&nbsp;{}</td>
+    <td class="code-comparison-code"><span class="code-comparison-highlight">class&nbsp;Comparison</span>&nbsp;{}</td>
+   </tr>
+  </table>
+  <a name="One-Standard-Block,-No-Code" />
+  <h2>One Standard Block, No Code</h2>
+  <p class="text">Documentation contains one standard block and no code comparison.</p>
+  <a name="One-Standard-Block,-Two-Code-Comparisons" />
+  <h2>One Standard Block, Two Code Comparisons</h2>
+  <p class="text">Documentation contains one standard block and two code comparisons.</p>
+  <table class="code-comparison">
+   <tr>
+    <td class="code-comparison-title">Valid: Etiam commodo magna at vestibulum blandit.</td>
+    <td class="code-comparison-title">Invalid: Vivamus lacinia ante velit.</td>
+   </tr>
+   <tr>
+    <td class="code-comparison-code"><span class="code-comparison-highlight">class&nbsp;Code</span>&nbsp;{}</td>
+    <td class="code-comparison-code"><span class="code-comparison-highlight">class&nbsp;Comparison</span>&nbsp;{}</td>
+   </tr>
+  </table>
+  <table class="code-comparison">
+   <tr>
+    <td class="code-comparison-title">Valid: Pellentesque nisi neque.</td>
+    <td class="code-comparison-title">Invalid: Mauris dictum metus quis maximus pharetra.</td>
+   </tr>
+   <tr>
+    <td class="code-comparison-code"><span class="code-comparison-highlight">$one</span>&nbsp;=&nbsp;10;</td>
+    <td class="code-comparison-code"><span class="code-comparison-highlight">$a</span>&nbsp;=&nbsp;10;</td>
+   </tr>
+  </table>
+  <a name="Two-Standard-Blocks,-No-Code" />
+  <h2>Two Standard Blocks, No Code</h2>
+  <p class="text">This is standard block one.</p>
+  <p class="text">This is standard block two.</p>
+  <a name="Two-Standard-Blocks,-One-Code-Comparison" />
+  <h2>Two Standard Blocks, One Code Comparison</h2>
+  <p class="text">This is standard block one.</p>
+  <table class="code-comparison">
+   <tr>
+    <td class="code-comparison-title">Valid: Vestibulum et orci condimentum.</td>
+    <td class="code-comparison-title">Invalid: Donec in nisl ut tortor convallis interdum.</td>
+   </tr>
+   <tr>
+    <td class="code-comparison-code">class&nbsp;<span class="code-comparison-highlight">Code</span>&nbsp;{}</td>
+    <td class="code-comparison-code">class&nbsp;<span class="code-comparison-highlight">Comparison</span>&nbsp;{}</td>
+   </tr>
+  </table>
+  <p class="text">This is standard block two.</p>
+  <a name="Two-Standard-Blocks,-Three-Code-Comparisons" />
+  <h2>Two Standard Blocks, Three Code Comparisons</h2>
+  <p class="text">This is standard block one.</p>
+  <table class="code-comparison">
+   <tr>
+    <td class="code-comparison-title">Valid: Vestibulum et orci condimentum.</td>
+    <td class="code-comparison-title">Invalid: Donec in nisl ut tortor convallis interdum.</td>
+   </tr>
+   <tr>
+    <td class="code-comparison-code"><span class="code-comparison-highlight">class&nbsp;Code</span>&nbsp;{}</td>
+    <td class="code-comparison-code"><span class="code-comparison-highlight">class&nbsp;Comparison</span>&nbsp;{}</td>
+   </tr>
+  </table>
+  <p class="text">This is standard block two.</p>
+  <table class="code-comparison">
+   <tr>
+    <td class="code-comparison-title">Valid: Pellentesque nisi neque.</td>
+    <td class="code-comparison-title">Invalid: Mauris dictum metus quis maximus pharetra.</td>
+   </tr>
+   <tr>
+    <td class="code-comparison-code"><span class="code-comparison-highlight">$one</span>&nbsp;=&nbsp;10;</td>
+    <td class="code-comparison-code"><span class="code-comparison-highlight">$a</span>&nbsp;=&nbsp;10;</td>
+   </tr>
+  </table>
+  <table class="code-comparison">
+   <tr>
+    <td class="code-comparison-title">Valid: Quisque sagittis nisi vitae.</td>
+    <td class="code-comparison-title">Invalid: Morbi ac libero vitae lorem.</td>
+   </tr>
+   <tr>
+    <td class="code-comparison-code"><span class="code-comparison-highlight">echo</span>&nbsp;$foo;</td>
+    <td class="code-comparison-code"><span class="code-comparison-highlight">print</span>&nbsp;$foo;</td>
+   </tr>
+  </table>
+  <div class="tag-line">Documentation generated on #REDACTED# by <a href="https://github.com/PHPCSStandards/PHP_CodeSniffer">PHP_CodeSniffer #VERSION#</a></div>
+ </body>
+</html>
