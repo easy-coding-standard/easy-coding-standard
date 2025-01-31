@@ -15,7 +15,7 @@
         "php": ">=8.2",
         "composer/pcre": "^3.3.2",
         "composer/xdebug-handler": "^3.0.5",
-        "friendsofphp/php-cs-fixer": "^3.68.3",
+        "friendsofphp/php-cs-fixer": "^3.68.5",
         "illuminate/container": "^11.40",
         "nette/utils": "^4.0.5",
         "sebastian/diff": "^6.0.2",
