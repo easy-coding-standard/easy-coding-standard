@@ -639,18 +639,20 @@ final class ECSConfigBuilder
          */
         $editorConfig = (new EditorConfigFactory())->load();
 
-        if ($editorConfig->indentStyle instanceof IndentStyle) {
+        if ($editorConfig->indentStyle !== null) {
             $this->indentation = match ($editorConfig->indentStyle) {
                 IndentStyle::Space => Option::INDENTATION_SPACES,
                 IndentStyle::Tab => Option::INDENTATION_TAB,
+                default => Option::INDENTATION_SPACES,
             };
         }
 
-        if ($editorConfig->endOfLine instanceof EndOfLine) {
+        if ($editorConfig->endOfLine !== null) {
             $this->lineEnding = match ($editorConfig->endOfLine) {
                 EndOfLine::Posix => "\n",
                 EndOfLine::Legacy => "\r",
                 EndOfLine::Windows => "\r\n",
+                default => "\n",
             };
         }
 
