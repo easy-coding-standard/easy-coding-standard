@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Configuration\EditorConfig;
 
-enum EndOfLine: string
+class EndOfLine
 {
-    case Posix = 'lf';
-    case Legacy = 'cr';
-    case Windows = 'crlf';
+    public const Posix = 'lf';
+    public const Legacy = 'cr';
+    public const Windows = 'crlf';
 }
