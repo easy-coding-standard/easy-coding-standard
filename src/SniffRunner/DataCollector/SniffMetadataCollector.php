@@ -41,6 +41,11 @@ final class SniffMetadataCollector
         $this->codingStandardErrors = [];
     }
 
+    public function resetErrors(): void
+    {
+        $this->codingStandardErrors = [];
+    }
+
     public function addCodingStandardError(CodingStandardError $codingStandardError): void
     {
         $this->codingStandardErrors[] = $codingStandardError;
