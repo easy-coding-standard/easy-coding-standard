@@ -39,12 +39,12 @@ class EditorConfigFactory
 
         // Just letting "validation" happen with PHP's type hints.
         return new EditorConfig(
-            indentStyle: $this->field($config, 'indent_style', IndentStyle::tryFrom(...)),
-            endOfLine: $this->field($config, 'end_of_line', EndOfLine::tryFrom(...)),
+            indentStyle: $config['indent_style'] ?? null,
+            endOfLine: $config['end_of_line'] ?? null,
             trimTrailingWhitespace: $this->field($config, 'trim_trailing_whitespace', $this->id(...)),
             insertFinalNewline: $this->field($config, 'insert_final_newline', $this->id(...)),
             maxLineLength: $this->field($config, 'max_line_length', $this->id(...)),
-            quoteType: $this->field($config, 'quote_type', QuoteType::tryFrom(...)),
+            quoteType: $config['quote_type'] ?? null,
         );
     }
 
