@@ -48,7 +48,7 @@ jobs:
                     coverage: none
 
             -   run: composer global require php-parallel-lint/php-parallel-lint --ansi
-            -   run: /home/runner/.composer/vendor/bin/parallel-lint src vendor --exclude vendor/symfony/dependency-injection/Attribute/Autowire.php --exclude vendor/symfony/config/Definition/Dumper/XmlReferenceDumper.php --exclude vendor/symfony/console/Debug/CliRequest.php
+            -   run: /home/runner/.composer/vendor/bin/parallel-lint src vendor --exclude vendor/symfony/dependency-injection/Attribute/Autowire.php --exclude vendor/symfony/config/Definition/Dumper/XmlReferenceDumper.php --exclude vendor/symfony/console/Debug/CliRequest.php --exclude vendor/squizlabs/php_codesniffer/tests
 
             # restore build php version
             -

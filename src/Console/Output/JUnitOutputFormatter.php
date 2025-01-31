@@ -84,7 +84,7 @@ final readonly class JUnitOutputFormatter implements OutputFormatterInterface
     /**
      * Format a single test case
      */
-    private function createTestCase(string $reference, string $message = null): string
+    private function createTestCase(string $reference, ?string $message = null): string
     {
         $result = sprintf('<testcase name="%s">', $this->escape($reference));
         if ($message !== null) {

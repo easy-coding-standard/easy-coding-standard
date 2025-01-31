@@ -51,12 +51,17 @@ Most of the time, you'll be happy with the default configuration. The most relev
 
 ```php
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
+use PhpCsFixer\Fixer\ListNotation\ListSyntaxFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 
 return ECSConfig::configure()
     ->withPaths([__DIR__ . '/src', __DIR__ . '/tests'])
-    ->withRules([
+    ->withConfiguredRule(
         ArraySyntaxFixer::class,
+        ['syntax' => 'long']
+    )
+    ->withRules([
+        ListSyntaxFixer::class,
     ])
     ->withPreparedSets(psr12: true);
 ```

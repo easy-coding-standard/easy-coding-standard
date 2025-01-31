@@ -3,13 +3,13 @@
 declare(strict_types=1);
 
 // decoupled in own "*.php" file, so ECS, Rector and PHPStan works out of the box here
-
 use PHP_CodeSniffer\Util\Tokens;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symplify\EasyCodingStandard\Console\EasyCodingStandardConsoleApplication;
 use Symplify\EasyCodingStandard\Console\Style\SymfonyStyleFactory;
 use Symplify\EasyCodingStandard\DependencyInjection\EasyCodingStandardContainerFactory;
+use Symplify\EasyCodingStandard\DependencyInjection\LazyContainerFactory;
 
 // performance boost
 gc_disable();
@@ -17,7 +17,7 @@ gc_disable();
 define('__ECS_RUNNING__', true);
 
 # 1. autoload
-$autoloadIncluder = new AutoloadIncluder();
+$autoloadIncluder = new ECSAutoloadIncluder();
 
 if (file_exists(__DIR__ . '/../preload.php')) {
     require_once __DIR__ . '/../preload.php';
@@ -32,7 +32,7 @@ $autoloadIncluder->includePhpCodeSnifferAutoload();
 /**
  * Inspired by https://github.com/rectorphp/rector/pull/2373/files#diff-0fc04a2bb7928cac4ae339d5a8bf67f3
  */
-final class AutoloadIncluder
+final class ECSAutoloadIncluder
 {
     /**
      * @var string[]
@@ -57,13 +57,14 @@ final class AutoloadIncluder
         if (! is_file($cwdVendorAutoload)) {
             return;
         }
+
         $this->loadIfNotLoadedYet($cwdVendorAutoload);
     }
 
     public function includeDependencyOrRepositoryVendorAutoloadIfExists(): void
     {
         // ECS' vendor is already loaded
-        if (class_exists('Symplify\EasyCodingStandard\DependencyInjection\LazyContainerFactory')) {
+        if (class_exists(LazyContainerFactory::class)) {
             return;
         }
 
@@ -81,6 +82,7 @@ final class AutoloadIncluder
         if (! is_file($path)) {
             return;
         }
+
         $this->loadIfNotLoadedYet($path);
     }
 
