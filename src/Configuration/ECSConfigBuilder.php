@@ -86,7 +86,7 @@ final class ECSConfigBuilder
 
     private ?bool $reportingRealPath = null;
 
-    private bool $useEditorConfig = false;
+    private ?bool $useEditorConfig = null;
 
     public function __invoke(ECSConfig $ecsConfig): void
     {
