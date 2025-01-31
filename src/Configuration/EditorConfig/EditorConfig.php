@@ -10,12 +10,12 @@ namespace Symplify\EasyCodingStandard\Configuration\EditorConfig;
 class EditorConfig
 {
     public function __construct(
-        public readonly ?IndentStyle $indentStyle,
-        public readonly ?EndOfLine $endOfLine,
+        public readonly ?string $indentStyle,
+        public readonly ?string $endOfLine,
         public readonly ?bool $trimTrailingWhitespace,
         public readonly ?bool $insertFinalNewline,
         public readonly ?int $maxLineLength,
-        public readonly ?QuoteType $quoteType
+        public readonly ?string $quoteType
     ) {
     }
 }

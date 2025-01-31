@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Configuration\EditorConfig;
 
-enum IndentStyle: string
+final class IndentStyle
 {
-    case Space = 'space';
-    case Tab = 'tab';
+    public const Space = 'space';
+
+    public const Tab = 'tab';
 }

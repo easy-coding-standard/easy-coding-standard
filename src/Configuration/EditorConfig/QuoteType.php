@@ -7,9 +7,11 @@ namespace Symplify\EasyCodingStandard\Configuration\EditorConfig;
 /**
  * @see https://github.com/jednano/codepainter#quote_type-single-double-auto
  */
-enum QuoteType: string
+final class QuoteType
 {
-    case Single = 'single';
-    case Double = 'double';
-    case Auto = 'auto';
+    public const Single = 'single';
+
+    public const Double = 'double';
+
+    public const Auto = 'auto';
 }
