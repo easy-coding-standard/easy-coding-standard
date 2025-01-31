@@ -154,7 +154,8 @@ final readonly class GitlabOutputFormatter implements OutputFormatterInterface
             ...map(
                 fn (FileDiff $fileDiff): array => map(
                     fn (Chunk $chunk): array => $this->generateIssueForChunk($fileDiff, $chunk, $absoluteFilePath),
-                    $this->diffParser->parse($fileDiff->getDiff())[0]->chunks(),
+                    $this->diffParser->parse($fileDiff->getDiff())[0]
+                        ->chunks(),
                 ),
                 $diffs,
             ),

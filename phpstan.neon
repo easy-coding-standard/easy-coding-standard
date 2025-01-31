@@ -20,8 +20,22 @@ parameters:
         - '*/Source/*'
         - '*/Fixture/*'
 
+    # see https://github.com/tomasVotruba/unused-public
+    unused_public:
+        methods: true
+        properties: true
+        constants: true
+
+    # see https://github.com/TomasVotruba/type-coverage
+    type_coverage:
+        return: 99
+        param: 94.4
+        property: 99
+
     bootstrapFiles:
         - tests/bootstrap.php
+
+    treatPhpDocTypesAsCertain: true
 
     ignoreErrors:
         # set above
@@ -49,3 +63,18 @@ parameters:
         -
             message: '#Method Symplify\\EasyCodingStandard\\Config\\ECSConfig\:\:singleton\(\) has parameter \$concrete with no signature specified for Closure#'
             path: src/Config/ECSConfig.php
+
+        # testing instance of on purpose
+        -
+            message: '#Call to method PHPUnit\\Framework\\Assert\:\:assertInstanceOf#'
+            path: tests/*
+
+        # overly detailed
+        - '#PHPDoc tag @var with type string\|false is not subtype of native type non\-empty\-string\|false#'
+
+        # array validation on purpose
+        - '#Call to static method Webmozart\\Assert\\Assert\:\:allString\(\) with (non-empty-array|list|array)<string> will always evaluate to true#'
+        - '#Call to static method Webmozart\\Assert\\Assert\:\:allIsArray\(\) with array<class\-string<PHP_CodeSniffer\\Sniffs\\Sniff\|PhpCsFixer\\Fixer\\FixerInterface>, array<mixed>> will always evaluate to true#'
+
+        # hack to autoload contants
+        - '#Call to new PHP_CodeSniffer\\Util\\Tokens\(\) on a separate line has no effect#'

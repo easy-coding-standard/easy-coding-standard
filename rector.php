@@ -3,10 +3,9 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
-use Rector\Naming\Rector\ClassMethod\RenameParamToMatchTypeRector;
 
 return RectorConfig::configure()
-    ->withPhpSets(php82: true)
+    ->withPhpSets()
     ->withPreparedSets(
         codeQuality: true,
         deadCode: true,
@@ -16,7 +15,7 @@ return RectorConfig::configure()
         privatization: true,
         earlyReturn: true
     )
-    ->withPaths([__DIR__ . '/config', __DIR__ . '/src', __DIR__ . '/config', __DIR__ . '/tests'])
+    ->withPaths([__DIR__ . '/bin', __DIR__ . '/config', __DIR__ . '/src', __DIR__ . '/config', __DIR__ . '/tests'])
     ->withRootFiles()
     ->withImportNames()
     ->withBootstrapFiles([__DIR__ . '/tests/bootstrap.php'])
@@ -25,6 +24,4 @@ return RectorConfig::configure()
         '*/Fixture/*',
         __DIR__ . '/src/SniffRunner/ValueObject/File.php',
         __DIR__ . '/scoper.php',
-
-        RenameParamToMatchTypeRector::class => [__DIR__ . '/src/FixerRunner/Application/FixerFileProcessor.php'],
     ]);
