@@ -33,7 +33,7 @@
         "phpstan/phpstan-phpunit": "^2.0.3",
         "phpstan/phpstan-webmozart-assert": "^2.0",
         "phpunit/phpunit": "^11.5.2",
-        "rector/rector": "dev-main",
+        "rector/rector": "^2.0.7",
         "rector/type-perfect": "^2.0.1",
         "symplify/phpstan-extensions": "^12.0",
         "symplify/vendor-patches": "^11.3.7",
