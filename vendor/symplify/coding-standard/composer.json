@@ -1,0 +1,45 @@
+{
+    "name": "symplify\/coding-standard",
+    "description": "Set of Symplify rules for PHP_CodeSniffer and PHP CS Fixer.",
+    "license": "MIT",
+    "require": {
+        "php": ">=8.2",
+        "nette\/utils": "^4.0",
+        "friendsofphp\/php-cs-fixer": "^3.59",
+        "symplify\/rule-doc-generator-contracts": "^11.2"
+    },
+    "require-dev": {
+        "symplify\/easy-coding-standard": "^12.3",
+        "squizlabs\/php_codesniffer": "^3.10.1",
+        "phpunit\/phpunit": "^10.5",
+        "symplify\/rule-doc-generator": "^12.2.2",
+        "phpstan\/extension-installer": "^1.4",
+        "phpstan\/phpstan": "^1.11",
+        "rector\/rector": "^1.1",
+        "symplify\/phpstan-extensions": "^11.4",
+        "tomasvotruba\/class-leak": "^0.2",
+        "tracy\/tracy": "^2.10"
+    },
+    "autoload": {
+        "psr-4": {
+            "Symplify\\CodingStandard\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Symplify\\CodingStandard\\Tests\\": "tests"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "phpstan\/extension-installer": true
+        }
+    },
+    "scripts": {
+        "check-cs": "vendor\/bin\/ecs check --ansi",
+        "fix-cs": "vendor\/bin\/ecs check --fix --ansi",
+        "phpstan": "vendor\/bin\/phpstan analyse --ansi  --error-format symplify",
+        "rector": "vendor\/bin\/rector process --dry-run --ansi",
+        "docs": "vendor\/bin\/rule-doc-generator generate src --readme --ansi"
+    }
+}
