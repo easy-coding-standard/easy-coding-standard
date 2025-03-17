@@ -56,7 +56,6 @@ parameters:
                  - tests/Skipper/Skipper/Skipper/SkipperTest.php
                  - tests/Skipper/Skipper/Skip/SkipSkipperTest.php
                  - tests/Skipper/SkipCriteriaResolver/SkippedPathsResolver/SkippedPathsResolverTest.php
-                 - tests/FixerRunner/Application/FileProcessorTest.ph
                  - src/Testing/PHPUnit/AbstractCheckerTestCase.php
 
         # optional
