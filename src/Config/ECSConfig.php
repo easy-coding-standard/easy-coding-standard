@@ -19,7 +19,6 @@ use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveExcludedC
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\SimpleParameterProvider;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
 use Webmozart\Assert\Assert;
 use Webmozart\Assert\InvalidArgumentException;
 
@@ -105,7 +104,7 @@ final class ECSConfig extends Container
         $this->autowireWhitespaceAwareFixer($checkerClass);
 
         if (is_a($checkerClass, FixerInterface::class, true)) {
-            Assert::isAnyOf($checkerClass, [ConfigurableFixerInterface::class, ConfigurableRuleInterface::class]);
+            Assert::isAOf($checkerClass, ConfigurableFixerInterface::class);
             $this->extend($checkerClass, static function (ConfigurableFixerInterface $configurableFixer) use (
                 $configuration
             ): ConfigurableFixerInterface {

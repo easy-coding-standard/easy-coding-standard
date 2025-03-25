@@ -13,7 +13,6 @@ parameters:
         - rector.php
 
     excludePaths:
-        # deprecated, to be removed
         - scoper.php
 
         # tests
