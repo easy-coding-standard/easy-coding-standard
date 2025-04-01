@@ -142,8 +142,8 @@ factoryFunction($arg1, $arg2, [
 declare(strict_types=1);
 namespace Vendor\Package;
 
-use Vendor\Package\SomeNamespace\ClassD as D;
 use Vendor\Package\{ClassA as A, ClassB, ClassC as C};
+use Vendor\Package\SomeNamespace\ClassD as D;
 use function Vendor\Package\{functionA, functionB, functionC};
 use const Vendor\Package\{ConstantA, ConstantB, ConstantC};
 
