@@ -229,9 +229,20 @@ final class ECSConfigBuilder
             // include all "common" sets
             $this->sets[] = SetList::COMMON;
 
-            if ($arrays || $spaces || $namespaces || $docblocks || $controlStructures || $phpunit || $comments) {
+            if (($alreadyIncludedSets = array_keys(array_filter([
+                'arrays' => $arrays,
+                'spaces' => $spaces,
+                'namespaces' => $namespaces,
+                'docblocks' => $docblocks,
+                'controlStructures' => $controlStructures,
+                'phpunit' => $phpunit,
+                'comments' => $comments,
+            ]))) !== []) {
                 throw new SuperfluousConfigurationException(
-                    'This set is already included in the "common" set. You can remove it'
+                    sprintf(
+                        'The following sets are already included in the "common" set: %s. Please remove them.',
+                        implode(', ', $alreadyIncludedSets)
+                    )
                 );
             }
         } else {
