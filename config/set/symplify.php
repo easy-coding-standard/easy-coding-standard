@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use PhpCsFixer\Fixer\Phpdoc\GeneralPhpdocAnnotationRemoveFixer;
 use Symplify\CodingStandard\Fixer\Annotation\RemovePHPStormAnnotationFixer;
+use Symplify\CodingStandard\Fixer\Annotation\RemoveSetterGetterDocblockFixer;
 use Symplify\CodingStandard\Fixer\ArrayNotation\ArrayListItemNewlineFixer;
 use Symplify\CodingStandard\Fixer\ArrayNotation\ArrayOpenerAndCloserNewlineFixer;
 use Symplify\CodingStandard\Fixer\Commenting\ParamReturnAndVarTagMalformsFixer;
@@ -21,6 +22,7 @@ return ECSConfig::configure()
         RemovePHPStormAnnotationFixer::class,
         ParamReturnAndVarTagMalformsFixer::class,
         RemoveUselessDefaultCommentFixer::class,
+        RemoveSetterGetterDocblockFixer::class,
 
         // arrays
         ArrayListItemNewlineFixer::class,
