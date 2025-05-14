@@ -15,13 +15,7 @@ __PATHS__
         NoUnusedImportsFixer::class,
     ])
 
-    // add sets - group of rules
-   // ->withPreparedSets(
-        // arrays: true,
-        // namespaces: true,
-        // spaces: true,
-        // docblocks: true,
-        // comments: true,
-    // )
-     
-     ;
+    // add sets - group of rules, from easiest to more complex ones
+    // uncomment one, apply one, commit, PR, merge and repeat
+    __PREPARED_SETS__
+    ;
