@@ -17,5 +17,5 @@ __PATHS__
 
     // add sets - group of rules, from easiest to more complex ones
     // uncomment one, apply one, commit, PR, merge and repeat
-    __PREPARED_SETS__
+__PREPARED_SETS__
     ;

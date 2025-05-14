@@ -21,6 +21,7 @@ use Symplify\EasyCodingStandard\Configuration\EditorConfig\EditorConfigFactory;
 use Symplify\EasyCodingStandard\Configuration\EditorConfig\EndOfLine;
 use Symplify\EasyCodingStandard\Configuration\EditorConfig\IndentStyle;
 use Symplify\EasyCodingStandard\Configuration\EditorConfig\QuoteType;
+use Symplify\EasyCodingStandard\Exception\Configuration\InitializationException;
 use Symplify\EasyCodingStandard\Exception\Configuration\SuperfluousConfigurationException;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
@@ -221,6 +222,12 @@ final class ECSConfigBuilder
         /** @see SetList::CLEAN_CODE */
         bool $cleanCode = false,
     ): self {
+        if (func_get_args() === []) {
+            throw new InitializationException(
+                'Pick at least one set in "->withPreparedSets()" in your ecs.php using named arguments, e.g. "->withPreparedSets(spaces: true)"'
+            );
+        }
+
         if ($psr12) {
             $this->sets[] = SetList::PSR_12;
         }

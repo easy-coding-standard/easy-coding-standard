@@ -87,12 +87,12 @@ final readonly class ConfigInitializer
         $templateFileContents = $this->fillPaths($projectDirectory, $templateFileContents);
 
         if (PHP_VERSION_ID < 80000) {
-            $preparedSetTemplate = FileSystem::read(__DIR__ . '/../../templates/includes/prepared_sets_php74.php.inc');
+            $preparedSetTemplate = FileSystem::read(__DIR__ . '/../../templates/include/prepared_sets_php74.php.inc');
         } else {
             // PHP 8.0+ uses named arguments
-            $preparedSetTemplate = FileSystem::read(__DIR__ . '/../../templates/includes/prepared_sets_php80.php.inc');
+            $preparedSetTemplate = FileSystem::read(__DIR__ . '/../../templates/include/prepared_sets_php80.php.inc');
         }
 
-        return str_replace('__PREPARED_SETS__', $preparedSetTemplate, $templateFileContents);
+        return str_replace('__PREPARED_SETS__', rtrim($preparedSetTemplate), $templateFileContents);
     }
 }

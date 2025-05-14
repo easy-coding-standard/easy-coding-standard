@@ -1,7 +1,7 @@
-// ->withPreparedSets(
-    // spaces: true,
-    // namespaces: true,
-    // docblocks: true,
-    // arrays: true,
-    // comments: true,
-// )
+    ->withPreparedSets(
+    //      spaces: true,
+    //      namespaces: true,
+    //      docblocks: true,
+    //      arrays: true,
+    //      comments: true,
+    )
