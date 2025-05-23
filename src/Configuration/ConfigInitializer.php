@@ -82,7 +82,7 @@ final readonly class ConfigInitializer
         return rtrim($projectPhpDirectoriesContents);
     }
 
-    private function fillPreparedSets(string $projectDirectory, string $templateFileContents): string|array
+    private function fillPreparedSets(string $projectDirectory, string $templateFileContents): string
     {
         $templateFileContents = $this->fillPaths($projectDirectory, $templateFileContents);
 
