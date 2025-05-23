@@ -24,4 +24,7 @@ return RectorConfig::configure()
         '*/Fixture/*',
         __DIR__ . '/src/SniffRunner/ValueObject/File.php',
         __DIR__ . '/scoper.php',
+
+        // conditional checks
+        \Rector\DeadCode\Rector\ConstFetch\RemovePhpVersionIdCheckRector::class,
     ]);
