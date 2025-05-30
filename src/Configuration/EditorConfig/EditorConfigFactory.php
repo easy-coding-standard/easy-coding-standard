@@ -44,7 +44,7 @@ class EditorConfigFactory
             trimTrailingWhitespace: $this->field($config, 'trim_trailing_whitespace', $this->id(...)),
             insertFinalNewline: $this->field($config, 'insert_final_newline', $this->id(...)),
             maxLineLength: $this->field($config, 'max_line_length', $this->id(...)),
-            quoteType: $config['quote_type'] ?? null,
+            quoteType: $config['quote_type'] ?? null
         );
     }
 
