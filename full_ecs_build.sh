@@ -11,7 +11,7 @@ rm -rf tests vendor/phpcsstandards/php_codesniffer/tests vendor/phpcsstandards/p
 
 # downgrade with rector
 mkdir rector-local
-composer require rector/rector --working-dir rector-local
+composer require rector/rector --working-dir rector-local --dev
 rector-local/vendor/bin/rector process bin config/config.php src vendor --config build/rector-downgrade-php-72.php --ansi
 
 # prefix

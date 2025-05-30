@@ -1,7 +1,7 @@
 parameters:
     level: 8
 
-    reportUnmatchedIgnoredErrors: false
+    # reportUnmatchedIgnoredErrors: false
 
     # requires exact closure types
     checkMissingCallableSignature: true
@@ -76,3 +76,8 @@ parameters:
 
         # hack to autoload contants
         - '#Call to new PHP_CodeSniffer\\Util\\Tokens\(\) on a separate line has no effect#'
+
+        # php version condition
+        -
+            identifier: smaller.alwaysFalse
+            path: src/Configuration/ConfigInitializer.php

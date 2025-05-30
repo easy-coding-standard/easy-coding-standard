@@ -37,7 +37,7 @@ final readonly class ConfigInitializer
         // config already exists, nothing to add
         if ($doesConfigExist) {
             $this->symfonyStyle->warning(
-                'We found ecs.php config, but with no rules in it. Register some rules or sets there first'
+                'We found ecs.php config, but no rules in it. Register some rules or sets there first'
             );
             return;
         }
@@ -52,15 +52,21 @@ final readonly class ConfigInitializer
 
         $templateFileContents = FileSystem::read(__DIR__ . '/../../templates/ecs.php.dist');
 
-        $projectPhpDirectories = $this->initPathsResolver->resolve($projectDirectory);
-        $projectPhpDirectoriesContents = $this->createPathsString($projectPhpDirectories);
-
-        $templateFileContents = str_replace('__PATHS__', $projectPhpDirectoriesContents, $templateFileContents);
+        $templateFileContents = $this->fillPaths($projectDirectory, $templateFileContents);
+        $templateFileContents = $this->fillPreparedSets($projectDirectory, $templateFileContents);
 
         // create the ecs.php file
         FileSystem::write(getcwd() . '/ecs.php', $templateFileContents, null);
 
         $this->symfonyStyle->success('The ecs.php config was generated! Re-run the command to tidy your code');
+    }
+
+    private function fillPaths(string $projectDirectory, string $templateFileContents): string
+    {
+        $projectPhpDirectories = $this->initPathsResolver->resolve($projectDirectory);
+        $projectPhpDirectoriesContents = $this->createPathsString($projectPhpDirectories);
+
+        return str_replace('__PATHS__', $projectPhpDirectoriesContents, $templateFileContents);
     }
 
     /**
@@ -74,5 +80,19 @@ final readonly class ConfigInitializer
         }
 
         return rtrim($projectPhpDirectoriesContents);
+    }
+
+    private function fillPreparedSets(string $projectDirectory, string $templateFileContents): string
+    {
+        $templateFileContents = $this->fillPaths($projectDirectory, $templateFileContents);
+
+        if (PHP_VERSION_ID < 80000) {
+            $preparedSetTemplate = FileSystem::read(__DIR__ . '/../../templates/include/prepared_sets_php74.php.inc');
+        } else {
+            // PHP 8.0+ uses named arguments
+            $preparedSetTemplate = FileSystem::read(__DIR__ . '/../../templates/include/prepared_sets_php80.php.inc');
+        }
+
+        return str_replace('__PREPARED_SETS__', rtrim($preparedSetTemplate), $templateFileContents);
     }
 }
