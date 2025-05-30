@@ -1,0 +1,28 @@
+<documentation title="Compound Namespace Depth">
+    <standard>
+    <![CDATA[
+    Compound namespaces with a depth of more than two MUST NOT be used.
+    ]]>
+    </standard>
+    <code_comparison>
+        <code title="Valid: Max depth of 2.">
+        <![CDATA[
+use ECSPrefix202505\Vendor\Package\SomeNamespace\{
+    ECSPrefix202505\SubnamespaceOne\ClassA,
+    ECSPrefix202505\SubnamespaceOne\ClassB,
+    ECSPrefix202505\SubnamespaceTwo\ClassY,
+    ClassZ,
+};
+        ]]>
+        </code>
+        <code title="Invalid: Max depth of 3.">
+        <![CDATA[
+use ECSPrefix202505\Vendor\Package\SomeNamespace\{
+    <em>ECSPrefix202505\SubnamespaceOne\AnotherNamespace\ClassA,</em>
+    ECSPrefix202505\SubnamespaceOne\ClassB,
+    ClassZ,
+};
+        ]]>
+        </code>
+    </code_comparison>
+</documentation>
