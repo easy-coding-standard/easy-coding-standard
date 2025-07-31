@@ -24,8 +24,8 @@ final class EditorConfigFactoryTest extends AbstractTestCase
         $this->assertEquals($editorConfig, new EditorConfig(
             indentStyle: IndentStyle::Space,
             endOfLine: EndOfLine::Posix,
-            insertFinalNewline: true,
             trimTrailingWhitespace: true,
+            insertFinalNewline: true,
             maxLineLength: null,
             quoteType: null
         ));
@@ -70,8 +70,8 @@ final class EditorConfigFactoryTest extends AbstractTestCase
             new EditorConfig(
                 indentStyle: IndentStyle::Tab,
                 endOfLine: EndOfLine::Posix,
-                insertFinalNewline: null,
                 trimTrailingWhitespace: null,
+                insertFinalNewline: null,
                 maxLineLength: 100,
                 quoteType: null
             ),
@@ -85,8 +85,8 @@ final class EditorConfigFactoryTest extends AbstractTestCase
             new EditorConfig(
                 indentStyle: null,
                 endOfLine: null,
-                insertFinalNewline: null,
                 trimTrailingWhitespace: null,
+                insertFinalNewline: null,
                 maxLineLength: null,
                 quoteType: null
             )
@@ -105,8 +105,8 @@ final class EditorConfigFactoryTest extends AbstractTestCase
             new EditorConfig(
                 indentStyle: IndentStyle::Space,
                 endOfLine: null,
-                insertFinalNewline: null,
                 trimTrailingWhitespace: null,
+                insertFinalNewline: null,
                 maxLineLength: null,
                 quoteType: null
             )
@@ -125,8 +125,8 @@ final class EditorConfigFactoryTest extends AbstractTestCase
             new EditorConfig(
                 indentStyle: IndentStyle::Tab,
                 endOfLine: null,
-                insertFinalNewline: null,
                 trimTrailingWhitespace: null,
+                insertFinalNewline: null,
                 maxLineLength: null,
                 quoteType: null
             )
@@ -145,8 +145,8 @@ final class EditorConfigFactoryTest extends AbstractTestCase
             new EditorConfig(
                 indentStyle: null,
                 endOfLine: EndOfLine::Posix,
-                insertFinalNewline: null,
                 trimTrailingWhitespace: null,
+                insertFinalNewline: null,
                 maxLineLength: null,
                 quoteType: null
             )
@@ -165,8 +165,8 @@ final class EditorConfigFactoryTest extends AbstractTestCase
             new EditorConfig(
                 indentStyle: null,
                 endOfLine: EndOfLine::Legacy,
-                insertFinalNewline: null,
                 trimTrailingWhitespace: null,
+                insertFinalNewline: null,
                 maxLineLength: null,
                 quoteType: null
             )
@@ -185,8 +185,8 @@ final class EditorConfigFactoryTest extends AbstractTestCase
             new EditorConfig(
                 indentStyle: null,
                 endOfLine: EndOfLine::Windows,
-                insertFinalNewline: null,
                 trimTrailingWhitespace: null,
+                insertFinalNewline: null,
                 maxLineLength: null,
                 quoteType: null
             )
@@ -205,8 +205,8 @@ final class EditorConfigFactoryTest extends AbstractTestCase
             new EditorConfig(
                 indentStyle: null,
                 endOfLine: null,
-                insertFinalNewline: null,
                 trimTrailingWhitespace: true,
+                insertFinalNewline: null,
                 maxLineLength: null,
                 quoteType: null
             )
@@ -225,8 +225,8 @@ final class EditorConfigFactoryTest extends AbstractTestCase
             new EditorConfig(
                 indentStyle: null,
                 endOfLine: null,
-                insertFinalNewline: null,
                 trimTrailingWhitespace: false,
+                insertFinalNewline: null,
                 maxLineLength: null,
                 quoteType: null
             )
@@ -245,8 +245,8 @@ final class EditorConfigFactoryTest extends AbstractTestCase
             new EditorConfig(
                 indentStyle: null,
                 endOfLine: null,
-                insertFinalNewline: true,
                 trimTrailingWhitespace: null,
+                insertFinalNewline: true,
                 maxLineLength: null,
                 quoteType: null
             )
@@ -265,8 +265,8 @@ final class EditorConfigFactoryTest extends AbstractTestCase
             new EditorConfig(
                 indentStyle: null,
                 endOfLine: null,
-                insertFinalNewline: false,
                 trimTrailingWhitespace: null,
+                insertFinalNewline: false,
                 maxLineLength: null,
                 quoteType: null
             )
@@ -285,8 +285,8 @@ final class EditorConfigFactoryTest extends AbstractTestCase
             new EditorConfig(
                 indentStyle: null,
                 endOfLine: null,
-                insertFinalNewline: null,
                 trimTrailingWhitespace: null,
+                insertFinalNewline: null,
                 maxLineLength: 63,
                 quoteType: null
             )
@@ -305,8 +305,8 @@ final class EditorConfigFactoryTest extends AbstractTestCase
             new EditorConfig(
                 indentStyle: null,
                 endOfLine: null,
-                insertFinalNewline: null,
                 trimTrailingWhitespace: null,
+                insertFinalNewline: null,
                 maxLineLength: null,
                 quoteType: QuoteType::Auto
             )
@@ -325,8 +325,8 @@ final class EditorConfigFactoryTest extends AbstractTestCase
             new EditorConfig(
                 indentStyle: null,
                 endOfLine: null,
-                insertFinalNewline: null,
                 trimTrailingWhitespace: null,
+                insertFinalNewline: null,
                 maxLineLength: null,
                 quoteType: QuoteType::Single
             )
@@ -345,8 +345,8 @@ final class EditorConfigFactoryTest extends AbstractTestCase
             new EditorConfig(
                 indentStyle: null,
                 endOfLine: null,
-                insertFinalNewline: null,
                 trimTrailingWhitespace: null,
+                insertFinalNewline: null,
                 maxLineLength: null,
                 quoteType: QuoteType::Double
             )

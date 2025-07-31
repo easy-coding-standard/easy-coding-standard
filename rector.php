@@ -8,12 +8,12 @@ use Rector\DeadCode\Rector\ConstFetch\RemovePhpVersionIdCheckRector;
 return RectorConfig::configure()
     ->withPhpSets()
     ->withPreparedSets(
-        codeQuality: true,
         deadCode: true,
+        codeQuality: true,
         codingStyle: true,
         typeDeclarations: true,
-        naming: true,
         privatization: true,
+        naming: true,
         earlyReturn: true
     )
     ->withPaths([__DIR__ . '/bin', __DIR__ . '/config', __DIR__ . '/src', __DIR__ . '/config', __DIR__ . '/tests'])
