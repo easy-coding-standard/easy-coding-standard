@@ -90,6 +90,9 @@
     },
     "extra": {
         "patches": {
+            "friendsofphp/php-cs-fixer": [
+                "patches/friendsofphp-php-cs-fixer-src-fixer-classnotation-visibilityrequiredfixer-php.patch"
+            ],
             "illuminate/container": [
                 "patches/illuminate-container-container-php.patch"
             ],
