@@ -13,6 +13,7 @@ use PhpCsFixer\Differ\UnifiedDiffer;
 use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\WhitespacesFixerConfig;
 use SebastianBergmann\Diff\Parser as DiffParser;
+use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\EasyCodingStandard\Application\SingleFileProcessor;
 use Symplify\EasyCodingStandard\Caching\Cache;
@@ -68,6 +69,7 @@ final class LazyContainerFactory
         );
 
         $ecsConfig->singleton(SymfonyStyle::class, static fn (): SymfonyStyle => SymfonyStyleFactory::create());
+        $ecsConfig->singleton(SymfonyStyleFactory::class);
 
         $ecsConfig->singleton(Fixer::class);
 

@@ -15,14 +15,9 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  */
 final class SymfonyStyleFactory
 {
-    public static function create(): SymfonyStyle
+    public static function create(?ArgvInput $argvInput = null): SymfonyStyle
     {
-        // to prevent missing argv indexes
-        if (! isset($_SERVER['argv'])) {
-            $_SERVER['argv'] = [];
-        }
-
-        $argvInput = new ArgvInput();
+        $argvInput = $argvInput ?? new ArgvInput();
         $consoleOutput = new ConsoleOutput();
 
         self::applySymfonyConsoleArgs($argvInput, $consoleOutput);

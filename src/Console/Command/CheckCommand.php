@@ -36,7 +36,7 @@ final class CheckCommand extends AbstractCheckCommand
     {
         // create ecs.php config file if does not exist yet
         if (! $this->configInitializer->areSomeCheckersRegistered()) {
-            $this->configInitializer->createConfig(getcwd());
+            $this->configInitializer->createConfig(getcwd(), $input);
             return self::SUCCESS;
         }
 

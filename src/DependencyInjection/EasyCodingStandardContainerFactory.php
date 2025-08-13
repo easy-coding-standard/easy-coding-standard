@@ -15,7 +15,6 @@ final class EasyCodingStandardContainerFactory
 {
     public function createFromFromInput(ArgvInput $argvInput): Container
     {
-        // $easyCodingStandardKernel = new EasyCodingStandardKernel();
         $lazyContainerFactory = new LazyContainerFactory();
 
         $inputConfigFiles = [];

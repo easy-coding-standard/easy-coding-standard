@@ -5,14 +5,18 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\Configuration;
 
 use Nette\Utils\FileSystem;
+use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\EasyCodingStandard\Application\FileProcessorCollector;
+use Symplify\EasyCodingStandard\Console\Style\SymfonyStyleFactory;
 
 final readonly class ConfigInitializer
 {
+    private SymfonyStyle $symfonyStyle;
+
     public function __construct(
         private FileProcessorCollector $fileProcessorCollector,
-        private SymfonyStyle $symfonyStyle,
+        private SymfonyStyleFactory $symfonyStyleFactory,
         private InitPathsResolver $initPathsResolver,
         private \Symfony\Component\Filesystem\Filesystem $filesystem,
     ) {
@@ -30,8 +34,10 @@ final readonly class ConfigInitializer
         return false;
     }
 
-    public function createConfig(string $projectDirectory): void
+    public function createConfig(string $projectDirectory, InputInterface $input): void
     {
+        $this->symfonyStyle = SymfonyStyleFactory::create($input);
+
         $doesConfigExist = $this->filesystem->exists($projectDirectory . '/ecs.php');
 
         // config already exists, nothing to add
