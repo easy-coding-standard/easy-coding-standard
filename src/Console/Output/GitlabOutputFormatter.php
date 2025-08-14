@@ -65,9 +65,9 @@ use function array_merge as merge;
 final readonly class GitlabOutputFormatter implements OutputFormatterInterface
 {
     public function __construct(
-        private readonly EasyCodingStandardStyle $easyCodingStandardStyle,
-        private readonly ExitCodeResolver $exitCodeResolver,
-        private readonly DiffParser $diffParser,
+        private EasyCodingStandardStyle $easyCodingStandardStyle,
+        private ExitCodeResolver $exitCodeResolver,
+        private DiffParser $diffParser,
     ) {
     }
 
