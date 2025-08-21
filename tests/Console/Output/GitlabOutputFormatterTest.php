@@ -154,7 +154,7 @@ final class GitlabOutputFormatterTest extends AbstractTestCase
     /**
      * @return array{CodingStandardError[], FileDiff[]}
      */
-    private function getMockedIssues(string $filePathForChanges = null): array
+    private function getMockedIssues(?string $filePathForChanges = null): array
     {
         $filePathForOriginal = $this->path('/Source/RandomFile.php');
 
