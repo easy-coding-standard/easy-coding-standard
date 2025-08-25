@@ -80,7 +80,6 @@
         "fix-cs": "bin/ecs check --fix --ansi"
     },
     "replace": {
-        "symfony/polyfill-ctype": "*",
         "symfony/event-dispatcher": "7.*",
         "symfony/process": "7.*",
         "symfony/stopwatch": "7.*"
