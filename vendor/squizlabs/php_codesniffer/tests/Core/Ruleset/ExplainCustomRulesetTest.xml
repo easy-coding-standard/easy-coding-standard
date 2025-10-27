@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="ExplainCustomRulesetTest" xsi:noNamespaceSchemaLocation="https://schema.phpcodesniffer.com/phpcs.xsd">
+
+    <rule ref="PSR12.ControlStructures"/>
+    <rule ref="Squiz.Scope.MethodScope"/>
+    <rule ref="PSR1">
+        <exclude name="PSR1.Files.SideEffects"/>
+    </rule>
+
+</ruleset>
