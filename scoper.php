@@ -146,7 +146,7 @@ return [
             }
 
             // remove prefix in quote
-            return str_replace("'{$prefix}\\", '\\', $content);
+            return str_replace("'{$prefix}\\", "'\\", $content);
         },
     ],
 ];
