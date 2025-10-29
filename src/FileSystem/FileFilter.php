@@ -19,9 +19,6 @@ final readonly class FileFilter
      */
     public function filterOnlyChangedFiles(array $filePaths): array
     {
-        return array_filter(
-            $filePaths,
-            fn (string $filePath): bool => $this->changedFilesDetector->hasFileChanged($filePath)
-        );
+        return array_filter($filePaths, $this->changedFilesDetector->hasFileChanged(...));
     }
 }

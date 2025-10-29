@@ -79,3 +79,8 @@ parameters:
         -
             identifier: smaller.alwaysFalse
             path: src/Configuration/ConfigInitializer.php
+
+        # false positive
+        -
+            identifier: offsetAssign.dimType
+            path: src/Console/Output/JsonOutputFormatter.php
