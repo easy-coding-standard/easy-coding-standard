@@ -7,7 +7,7 @@
 +        // workaround for https://github.com/easy-coding-standard/easy-coding-standard/issues/303
 +        // the real target name already has been resolved
 +        // additional with prefix is not needed
-+        if (str_starts_with($setName, '@PHPECSPrefix')) {
++        if (str_contains($setName, 'ECSPrefix')) {
 +            return [];
 +        }
 +
