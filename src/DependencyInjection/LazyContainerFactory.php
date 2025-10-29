@@ -67,7 +67,7 @@ final class LazyContainerFactory
             }
         );
 
-        $ecsConfig->singleton(SymfonyStyle::class, static fn (): SymfonyStyle => SymfonyStyleFactory::create());
+        $ecsConfig->singleton(SymfonyStyle::class, SymfonyStyleFactory::create(...));
 
         $ecsConfig->singleton(Fixer::class);
 

@@ -138,16 +138,15 @@ return [
         },
 
         static function (string $filePath, string $prefix, string $content): string {
-            if (! \str_ends_with($filePath, 'vendor/friendsofphp/php-cs-fixer/src/RuleSet/AbstractMajorMinorDeprecationSetDefinition.php')) {
+            if (! \str_ends_with(
+                $filePath,
+                'vendor/friendsofphp/php-cs-fixer/src/RuleSet/AbstractMajorMinorDeprecationSetDefinition.php'
+            )) {
                 return $content;
             }
 
             // remove prefix in quote
-            return str_replace(
-                "'$prefix\\",
-                "\\",
-                $content
-            );
+            return str_replace("'{$prefix}\\", '\\', $content);
         },
     ],
 ];
