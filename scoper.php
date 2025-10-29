@@ -136,5 +136,18 @@ return [
                 '@release_date@' => $releaseDateTime->format('Y-m-d H:i:s'),
             ]);
         },
+
+        static function (string $filePath, string $prefix, string $content): string {
+            if (! \str_ends_with($filePath, 'vendor/friendsofphp/php-cs-fixer/src/RuleSet/AbstractMajorMinorDeprecationSetDefinition.php')) {
+                return $content;
+            }
+
+            // remove prefix in quote
+            return str_replace(
+                "'$prefix\\",
+                "\\",
+                $content
+            );
+        },
     ],
 ];
