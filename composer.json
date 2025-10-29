@@ -87,6 +87,9 @@
     },
     "extra": {
         "patches": {
+            "friendsofphp/php-cs-fixer": [
+                "patches/friendsofphp-php-cs-fixer-src-ruleset-ruleset-php.patch"
+            ],
             "illuminate/container": [
                 "patches/illuminate-container-container-php.patch"
             ]

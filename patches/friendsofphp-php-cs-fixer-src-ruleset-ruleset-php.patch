@@ -1,0 +1,16 @@
+--- /dev/null
++++ ../src/RuleSet/RuleSet.php
+@@ -130,6 +130,13 @@
+      */
+     private function resolveSubset(string $setName, bool $setValue): array
+     {
++        // workaround for https://github.com/easy-coding-standard/easy-coding-standard/issues/303
++        // the real target name already has been resolved
++        // additional with prefix is not needed
++        if (str_starts_with($setName, '@PHPECSPrefix')) {
++            return [];
++        }
++
+         $ruleSet = RuleSets::getSetDefinition($setName);
+ 
+         if ($ruleSet instanceof DeprecatedRuleSetDescriptionInterface) {
