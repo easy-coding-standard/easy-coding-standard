@@ -184,6 +184,12 @@ We currently provide formatters for:
 - `checkstyle`: Useful for Github Action Reports.
 - `gitlab`: For Gitlab code quality reports or Code Climate tooling.
 
+You can use the output format option as below
+
+```bash
+vendor/bin/ecs --output-format=checkstyle
+```
+
 For information on how each of these behave, refer to their respective
 [implementations](src/Console/Output/).
 
