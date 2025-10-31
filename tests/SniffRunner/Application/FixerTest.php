@@ -40,6 +40,8 @@ final class FixerTest extends AbstractTestCase
         $this->file->parse();
         $this->fixer->startFile($this->file);
 
+        // Tokenization of identifier names changed in PHPCS from 3.x to 4.0
+        // https://github.com/PHPCSStandards/PHP_CodeSniffer/wiki/Version-4.0-Developer-Upgrade-Guide#namespaced-names
         $token = $this->fixer->getTokenContent(14);
         $this->assertSame('Symplify\EasyCodingStandard\Tests\SniffRunner\Application\FixerSource', $token);
 
