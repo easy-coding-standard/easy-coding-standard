@@ -21,11 +21,6 @@ use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardErro
  */
 final class File extends BaseFile
 {
-    /**
-     * @var string
-     */
-    public $tokenizerType = 'PHP';
-
     private string|null $activeSniffClass = null;
 
     private string|null $previousActiveSniffClass = null;
@@ -122,7 +117,7 @@ final class File extends BaseFile
      *
      * @param mixed[] $data
      */
-    public function addFixableError($error, $stackPtr, $code, $data = [], $severity = 0): bool
+    public function addFixableError(string $error, int $stackPtr, string $code, array $data = [], int $severity = 0): bool
     {
         $fullyQualifiedCode = $this->resolveFullyQualifiedCode($code);
         $this->sniffMetadataCollector->addAppliedSniff($fullyQualifiedCode);
@@ -133,7 +128,7 @@ final class File extends BaseFile
     /**
      * @param mixed[] $data
      */
-    public function addError($error, $stackPtr, $code, $data = [], $severity = 0, $fixable = false): bool
+    public function addError(string $error, ?int $stackPtr, string $code, array $data = [], int $severity = 0, bool $fixable = false): bool
     {
         if ($this->shouldSkipError($error, $code, $data)) {
             return false;
@@ -143,10 +138,10 @@ final class File extends BaseFile
     }
 
     /**
-     * @param mixed $data
+     * @param mixed[] $data
      * Allow only specific classes
      */
-    public function addWarning($warning, $stackPtr, $code, $data = [], $severity = 0, $fixable = false): bool
+    public function addWarning(string $warning, ?int $stackPtr, string $code, array $data = [], int $severity = 0, bool $fixable = false): bool
     {
         if ($this->activeSniffClass === null) {
             throw new ShouldNotHappenException();
@@ -175,18 +170,18 @@ final class File extends BaseFile
     }
 
     /**
-     * @param mixed $data
+     * @param mixed[] $data
      * Delegated from addError().
      */
     protected function addMessage(
-        $isError,
-        $message,
-        $line,
-        $column,
-        $sniffClassOrCode,
-        $data,
-        $severity,
-        $isFixable = false
+        bool $isError,
+        string $message,
+        int $line,
+        int $column,
+        string $sniffClassOrCode,
+        array $data,
+        int $severity,
+        bool $isFixable = false
     ): bool {
         // skip warnings
         if (! $isError) {
