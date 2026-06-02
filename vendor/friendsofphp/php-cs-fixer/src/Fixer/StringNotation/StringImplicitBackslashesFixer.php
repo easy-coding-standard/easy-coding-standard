@@ -52,7 +52,7 @@ final class StringImplicitBackslashesFixer extends AbstractFixer implements Conf
         $codeSample = <<<'EOF'
 <?php
 
-namespace ECSPrefix202605;
+namespace ECSPrefix202606;
 
 $singleQuoted = 'String with \" and My\Prefix\\';
 $doubleQuoted = "Interpret my \n but not my \\a";

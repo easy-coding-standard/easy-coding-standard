@@ -4,8 +4,8 @@ declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Application;
 
 use ParseError;
-use ECSPrefix202605\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix202605\Symfony\Component\Console\Style\SymfonyStyle;
+use ECSPrefix202606\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix202606\Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\DependencyInjection\SimpleParameterProvider;
@@ -21,8 +21,8 @@ use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use ECSPrefix202605\Symplify\EasyParallel\CpuCoreCountProvider;
-use ECSPrefix202605\Symplify\EasyParallel\ScheduleFactory;
+use ECSPrefix202606\Symplify\EasyParallel\CpuCoreCountProvider;
+use ECSPrefix202606\Symplify\EasyParallel\ScheduleFactory;
 final class EasyCodingStandardApplication
 {
     /**

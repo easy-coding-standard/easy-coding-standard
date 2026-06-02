@@ -1,10 +1,10 @@
 <?php
 
-namespace ECSPrefix202605\Illuminate\Container\Attributes;
+namespace ECSPrefix202606\Illuminate\Container\Attributes;
 
 use Attribute;
-use ECSPrefix202605\Illuminate\Contracts\Container\Container;
-use ECSPrefix202605\Illuminate\Contracts\Container\ContextualAttribute;
+use ECSPrefix202606\Illuminate\Contracts\Container\Container;
+use ECSPrefix202606\Illuminate\Contracts\Container\ContextualAttribute;
 use UnitEnum;
 #[Attribute(Attribute::TARGET_PARAMETER)]
 class Database implements ContextualAttribute

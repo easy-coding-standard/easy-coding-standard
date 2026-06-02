@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202605\Entropy\Console\Terminal;
+namespace ECSPrefix202606\Entropy\Console\Terminal;
 
 final class Terminal
 {

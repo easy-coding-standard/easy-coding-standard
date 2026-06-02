@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202605\Symfony\Component\Console\Messenger;
+namespace ECSPrefix202606\Symfony\Component\Console\Messenger;
 
-use ECSPrefix202605\Symfony\Component\Console\Application;
-use ECSPrefix202605\Symfony\Component\Console\Command\Command;
-use ECSPrefix202605\Symfony\Component\Console\Exception\RunCommandFailedException;
-use ECSPrefix202605\Symfony\Component\Console\Input\StringInput;
-use ECSPrefix202605\Symfony\Component\Console\Output\BufferedOutput;
-use ECSPrefix202605\Symfony\Component\Messenger\Exception\RecoverableExceptionInterface;
-use ECSPrefix202605\Symfony\Component\Messenger\Exception\UnrecoverableExceptionInterface;
+use ECSPrefix202606\Symfony\Component\Console\Application;
+use ECSPrefix202606\Symfony\Component\Console\Command\Command;
+use ECSPrefix202606\Symfony\Component\Console\Exception\RunCommandFailedException;
+use ECSPrefix202606\Symfony\Component\Console\Input\StringInput;
+use ECSPrefix202606\Symfony\Component\Console\Output\BufferedOutput;
+use ECSPrefix202606\Symfony\Component\Messenger\Exception\RecoverableExceptionInterface;
+use ECSPrefix202606\Symfony\Component\Messenger\Exception\UnrecoverableExceptionInterface;
 /**
  * @author Kevin Bond <kevinbond@gmail.com>
  */

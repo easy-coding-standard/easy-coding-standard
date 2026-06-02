@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202605\Composer\Pcre\PHPStan;
+namespace ECSPrefix202606\Composer\Pcre\PHPStan;
 
-use ECSPrefix202605\PHPStan\Analyser\Scope;
-use ECSPrefix202605\PHPStan\Type\ArrayType;
-use ECSPrefix202605\PHPStan\Type\Constant\ConstantArrayType;
-use ECSPrefix202605\PHPStan\Type\Constant\ConstantIntegerType;
-use ECSPrefix202605\PHPStan\Type\IntersectionType;
-use ECSPrefix202605\PHPStan\Type\TypeCombinator;
-use ECSPrefix202605\PHPStan\Type\Type;
-use ECSPrefix202605\PhpParser\Node\Arg;
-use ECSPrefix202605\PHPStan\Type\Php\RegexArrayShapeMatcher;
-use ECSPrefix202605\PHPStan\Type\TypeTraverser;
-use ECSPrefix202605\PHPStan\Type\UnionType;
+use ECSPrefix202606\PHPStan\Analyser\Scope;
+use ECSPrefix202606\PHPStan\Type\ArrayType;
+use ECSPrefix202606\PHPStan\Type\Constant\ConstantArrayType;
+use ECSPrefix202606\PHPStan\Type\Constant\ConstantIntegerType;
+use ECSPrefix202606\PHPStan\Type\IntersectionType;
+use ECSPrefix202606\PHPStan\Type\TypeCombinator;
+use ECSPrefix202606\PHPStan\Type\Type;
+use ECSPrefix202606\PhpParser\Node\Arg;
+use ECSPrefix202606\PHPStan\Type\Php\RegexArrayShapeMatcher;
+use ECSPrefix202606\PHPStan\Type\TypeTraverser;
+use ECSPrefix202606\PHPStan\Type\UnionType;
 final class PregMatchFlags
 {
     public static function getType(?Arg $flagsArg, Scope $scope): ?Type

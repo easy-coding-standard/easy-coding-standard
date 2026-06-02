@@ -1,9 +1,9 @@
 <?php
 
-namespace ECSPrefix202605\Illuminate\Contracts\Container;
+namespace ECSPrefix202606\Illuminate\Contracts\Container;
 
 use Exception;
-use ECSPrefix202605\Psr\Container\ContainerExceptionInterface;
+use ECSPrefix202606\Psr\Container\ContainerExceptionInterface;
 class CircularDependencyException extends Exception implements ContainerExceptionInterface
 {
     //

@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\DependencyInjection;
 
-use ECSPrefix202605\Illuminate\Container\Container;
-use ECSPrefix202605\Symfony\Component\Console\Input\ArgvInput;
+use ECSPrefix202606\Illuminate\Container\Container;
+use ECSPrefix202606\Symfony\Component\Console\Input\ArgvInput;
 use Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 /**

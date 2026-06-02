@@ -8,27 +8,27 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202605\Symfony\Component\Console\Style;
+namespace ECSPrefix202606\Symfony\Component\Console\Style;
 
-use ECSPrefix202605\Symfony\Component\Console\Exception\InvalidArgumentException;
-use ECSPrefix202605\Symfony\Component\Console\Exception\RuntimeException;
-use ECSPrefix202605\Symfony\Component\Console\Formatter\OutputFormatter;
-use ECSPrefix202605\Symfony\Component\Console\Helper\Helper;
-use ECSPrefix202605\Symfony\Component\Console\Helper\OutputWrapper;
-use ECSPrefix202605\Symfony\Component\Console\Helper\ProgressBar;
-use ECSPrefix202605\Symfony\Component\Console\Helper\SymfonyQuestionHelper;
-use ECSPrefix202605\Symfony\Component\Console\Helper\Table;
-use ECSPrefix202605\Symfony\Component\Console\Helper\TableCell;
-use ECSPrefix202605\Symfony\Component\Console\Helper\TableSeparator;
-use ECSPrefix202605\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix202605\Symfony\Component\Console\Output\ConsoleOutputInterface;
-use ECSPrefix202605\Symfony\Component\Console\Output\ConsoleSectionOutput;
-use ECSPrefix202605\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix202605\Symfony\Component\Console\Output\TrimmedBufferOutput;
-use ECSPrefix202605\Symfony\Component\Console\Question\ChoiceQuestion;
-use ECSPrefix202605\Symfony\Component\Console\Question\ConfirmationQuestion;
-use ECSPrefix202605\Symfony\Component\Console\Question\Question;
-use ECSPrefix202605\Symfony\Component\Console\Terminal;
+use ECSPrefix202606\Symfony\Component\Console\Exception\InvalidArgumentException;
+use ECSPrefix202606\Symfony\Component\Console\Exception\RuntimeException;
+use ECSPrefix202606\Symfony\Component\Console\Formatter\OutputFormatter;
+use ECSPrefix202606\Symfony\Component\Console\Helper\Helper;
+use ECSPrefix202606\Symfony\Component\Console\Helper\OutputWrapper;
+use ECSPrefix202606\Symfony\Component\Console\Helper\ProgressBar;
+use ECSPrefix202606\Symfony\Component\Console\Helper\SymfonyQuestionHelper;
+use ECSPrefix202606\Symfony\Component\Console\Helper\Table;
+use ECSPrefix202606\Symfony\Component\Console\Helper\TableCell;
+use ECSPrefix202606\Symfony\Component\Console\Helper\TableSeparator;
+use ECSPrefix202606\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix202606\Symfony\Component\Console\Output\ConsoleOutputInterface;
+use ECSPrefix202606\Symfony\Component\Console\Output\ConsoleSectionOutput;
+use ECSPrefix202606\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix202606\Symfony\Component\Console\Output\TrimmedBufferOutput;
+use ECSPrefix202606\Symfony\Component\Console\Question\ChoiceQuestion;
+use ECSPrefix202606\Symfony\Component\Console\Question\ConfirmationQuestion;
+use ECSPrefix202606\Symfony\Component\Console\Question\Question;
+use ECSPrefix202606\Symfony\Component\Console\Terminal;
 /**
  * Output decorator helpers for the Symfony Style Guide.
  *

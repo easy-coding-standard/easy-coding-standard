@@ -30,7 +30,7 @@ use PhpCsFixer\Tokenizer\Analyzer\FullyQualifiedNameAnalyzer;
 use PhpCsFixer\Tokenizer\FCT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-use ECSPrefix202605\Symfony\Component\OptionsResolver\Options;
+use ECSPrefix202606\Symfony\Component\OptionsResolver\Options;
 /**
  * @phpstan-import-type _AttributeItems from AttributeAnalysis
  *
@@ -61,7 +61,7 @@ final class OrderedAttributesFixer extends AbstractFixer implements Configurable
         return new FixerDefinition('Sorts attributes using the configured sort algorithm.', [new VersionSpecificCodeSample(<<<'EOL'
 <?php
 
-namespace ECSPrefix202605;
+namespace ECSPrefix202606;
 
 #[Foo]
 #[Bar(3)]
@@ -70,33 +70,33 @@ namespace ECSPrefix202605;
 class Sample1
 {
 }
-\class_alias('ECSPrefix202605\Sample1', 'Sample1', \false);
+\class_alias('ECSPrefix202606\Sample1', 'Sample1', \false);
 #[Foo, Bar(3), Qux(new Bar(5)), Corge(a: 'test')]
 class Sample2
 {
 }
-\class_alias('ECSPrefix202605\Sample2', 'Sample2', \false);
+\class_alias('ECSPrefix202606\Sample2', 'Sample2', \false);
 
 EOL
 , new VersionSpecification(80000)), new VersionSpecificCodeSample(<<<'EOL'
 <?php
 
-namespace ECSPrefix202605;
+namespace ECSPrefix202606;
 
-use ECSPrefix202605\A\B\Foo;
-use ECSPrefix202605\A\B\Bar as BarAlias;
-use ECSPrefix202605\A\B as AB;
+use ECSPrefix202606\A\B\Foo;
+use ECSPrefix202606\A\B\Bar as BarAlias;
+use ECSPrefix202606\A\B as AB;
 #[Foo]
 #[BarAlias(3)]
 #[AB\Qux(new Bar(5))]
-#[\ECSPrefix202605\A\B\Corge(a: 'test')]
+#[\ECSPrefix202606\A\B\Corge(a: 'test')]
 class Sample1
 {
 }
-\class_alias('ECSPrefix202605\Sample1', 'Sample1', \false);
+\class_alias('ECSPrefix202606\Sample1', 'Sample1', \false);
 
 EOL
-, new VersionSpecification(80000), ['sort_algorithm' => self::ORDER_CUSTOM, 'order' => ['ECSPrefix202605\A\B\Qux', 'ECSPrefix202605\A\B\Bar', 'ECSPrefix202605\A\B\Corge']])]);
+, new VersionSpecification(80000), ['sort_algorithm' => self::ORDER_CUSTOM, 'order' => ['ECSPrefix202606\A\B\Qux', 'ECSPrefix202606\A\B\Bar', 'ECSPrefix202606\A\B\Corge']])]);
     }
     /**
      * {@inheritdoc}

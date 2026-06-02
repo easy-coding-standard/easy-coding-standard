@@ -1,13 +1,13 @@
 <?php
 
-namespace ECSPrefix202605\React\Socket;
+namespace ECSPrefix202606\React\Socket;
 
-use ECSPrefix202605\Evenement\EventEmitter;
-use ECSPrefix202605\React\EventLoop\LoopInterface;
-use ECSPrefix202605\React\Stream\DuplexResourceStream;
-use ECSPrefix202605\React\Stream\Util;
-use ECSPrefix202605\React\Stream\WritableResourceStream;
-use ECSPrefix202605\React\Stream\WritableStreamInterface;
+use ECSPrefix202606\Evenement\EventEmitter;
+use ECSPrefix202606\React\EventLoop\LoopInterface;
+use ECSPrefix202606\React\Stream\DuplexResourceStream;
+use ECSPrefix202606\React\Stream\Util;
+use ECSPrefix202606\React\Stream\WritableResourceStream;
+use ECSPrefix202606\React\Stream\WritableStreamInterface;
 /**
  * The actual connection implementation for ConnectionInterface
  *

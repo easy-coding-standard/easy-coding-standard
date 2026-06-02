@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix202605\Nette\Utils;
+namespace ECSPrefix202606\Nette\Utils;
 
-use ECSPrefix202605\Nette;
+use ECSPrefix202606\Nette;
 use function is_array, is_int, is_string;
 use const IMG_BMP, IMG_FLIP_BOTH, IMG_FLIP_HORIZONTAL, IMG_FLIP_VERTICAL, IMG_GIF, IMG_JPG, IMG_PNG, IMG_WEBP, PATHINFO_EXTENSION;
 /**

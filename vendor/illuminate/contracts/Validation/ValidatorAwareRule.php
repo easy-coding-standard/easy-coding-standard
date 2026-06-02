@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix202605\Illuminate\Contracts\Validation;
+namespace ECSPrefix202606\Illuminate\Contracts\Validation;
 
-use ECSPrefix202605\Illuminate\Validation\Validator;
+use ECSPrefix202606\Illuminate\Validation\Validator;
 interface ValidatorAwareRule
 {
     /**

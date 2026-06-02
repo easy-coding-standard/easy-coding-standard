@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202605\Entropy\Utils;
+namespace ECSPrefix202606\Entropy\Utils;
 
-use ECSPrefix202605\Entropy\Attributes\RelatedTest;
-use ECSPrefix202605\Entropy\Tests\Utils\RegexTest;
+use ECSPrefix202606\Entropy\Attributes\RelatedTest;
+use ECSPrefix202606\Entropy\Tests\Utils\RegexTest;
 /**
  * @api to be used
  */

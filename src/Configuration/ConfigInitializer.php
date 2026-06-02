@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Configuration;
 
-use ECSPrefix202605\Nette\Utils\FileSystem;
-use ECSPrefix202605\Symfony\Component\Console\Style\SymfonyStyle;
+use ECSPrefix202606\Nette\Utils\FileSystem;
+use ECSPrefix202606\Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\EasyCodingStandard\Application\FileProcessorCollector;
 final class ConfigInitializer
 {
@@ -28,7 +28,7 @@ final class ConfigInitializer
      * @var \Symfony\Component\Filesystem\Filesystem
      */
     private $filesystem;
-    public function __construct(FileProcessorCollector $fileProcessorCollector, SymfonyStyle $symfonyStyle, \Symplify\EasyCodingStandard\Configuration\InitPathsResolver $initPathsResolver, \ECSPrefix202605\Symfony\Component\Filesystem\Filesystem $filesystem)
+    public function __construct(FileProcessorCollector $fileProcessorCollector, SymfonyStyle $symfonyStyle, \Symplify\EasyCodingStandard\Configuration\InitPathsResolver $initPathsResolver, \ECSPrefix202606\Symfony\Component\Filesystem\Filesystem $filesystem)
     {
         $this->fileProcessorCollector = $fileProcessorCollector;
         $this->symfonyStyle = $symfonyStyle;

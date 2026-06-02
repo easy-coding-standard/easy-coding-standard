@@ -32,7 +32,7 @@ final class MagicMethodCasingFixer extends AbstractFixer
         return new FixerDefinition('Magic method definitions and calls must be using the correct casing.', [new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202605;
+namespace ECSPrefix202606;
 
 class Foo
 {
@@ -40,13 +40,13 @@ class Foo
     {
     }
 }
-\class_alias('ECSPrefix202605\Foo', 'Foo', \false);
+\class_alias('ECSPrefix202606\Foo', 'Foo', \false);
 
 PHP
 ), new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202605;
+namespace ECSPrefix202606;
 
 $foo->__INVOKE(1);
 

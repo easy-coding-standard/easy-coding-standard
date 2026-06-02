@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix202605\Illuminate\Contracts\Pipeline;
+namespace ECSPrefix202606\Illuminate\Contracts\Pipeline;
 
 use Closure;
 interface Pipeline

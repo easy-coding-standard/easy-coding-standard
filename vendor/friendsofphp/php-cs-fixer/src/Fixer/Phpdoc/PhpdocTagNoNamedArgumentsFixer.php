@@ -57,7 +57,7 @@ final class PhpdocTagNoNamedArgumentsFixer extends AbstractFixer implements Conf
         $code = <<<'PHP'
 <?php
 
-namespace ECSPrefix202605;
+namespace ECSPrefix202606;
 
 class Foo
 {
@@ -65,7 +65,7 @@ class Foo
     {
     }
 }
-\class_alias('ECSPrefix202605\Foo', 'Foo', \false);
+\class_alias('ECSPrefix202606\Foo', 'Foo', \false);
 
 PHP;
         return new FixerDefinition('There must be `@no-named-arguments` tag in PHPDoc of a class/enum/interface/trait.', [new CodeSample($code), new CodeSample($code, ['description' => 'Parameter names are not covered by the backward compatibility promise.'])]);

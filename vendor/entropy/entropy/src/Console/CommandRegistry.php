@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202605\Entropy\Console;
+namespace ECSPrefix202606\Entropy\Console;
 
-use ECSPrefix202605\Entropy\Console\Contract\CommandInterface;
-use ECSPrefix202605\Entropy\Console\Exception\InvalidCommandException;
-use ECSPrefix202605\Entropy\Utils\FuzzyMatcher;
-use ECSPrefix202605\Webmozart\Assert\Assert;
+use ECSPrefix202606\Entropy\Console\Contract\CommandInterface;
+use ECSPrefix202606\Entropy\Console\Exception\InvalidCommandException;
+use ECSPrefix202606\Entropy\Utils\FuzzyMatcher;
+use ECSPrefix202606\Webmozart\Assert\Assert;
 final class CommandRegistry
 {
     /**

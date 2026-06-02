@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix202605\Nette\Utils;
+namespace ECSPrefix202606\Nette\Utils;
 
-use ECSPrefix202605\Nette;
+use ECSPrefix202606\Nette;
 use function count, is_array, is_scalar, sprintf;
 /**
  * Provides objects to work as array.

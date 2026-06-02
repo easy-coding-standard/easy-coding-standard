@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202605\Symfony\Contracts\Service\Attribute;
+namespace ECSPrefix202606\Symfony\Contracts\Service\Attribute;
 
-use ECSPrefix202605\Symfony\Contracts\Service\ServiceMethodsSubscriberTrait;
-use ECSPrefix202605\Symfony\Contracts\Service\ServiceSubscriberInterface;
+use ECSPrefix202606\Symfony\Contracts\Service\ServiceMethodsSubscriberTrait;
+use ECSPrefix202606\Symfony\Contracts\Service\ServiceSubscriberInterface;
 /**
  * For use as the return value for {@see ServiceSubscriberInterface}.
  *

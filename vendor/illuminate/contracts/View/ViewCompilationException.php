@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix202605\Illuminate\Contracts\View;
+namespace ECSPrefix202606\Illuminate\Contracts\View;
 
 use Exception;
 class ViewCompilationException extends Exception

@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix202605\Illuminate\Contracts\JsonSchema;
+namespace ECSPrefix202606\Illuminate\Contracts\JsonSchema;
 
 use Closure;
 interface JsonSchema

@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix202605;
+namespace ECSPrefix202606;
 
 /*
  * This file is part of the Symfony package.
@@ -22,5 +22,5 @@ if (\PHP_VERSION_ID < 80400) {
         public const NegativeInfinity = 'negativeinfinity';
         public const PositiveInfinity = 'positiveinfinity';
     }
-    \class_alias('ECSPrefix202605\RoundingMode', 'RoundingMode', \false);
+    \class_alias('ECSPrefix202606\RoundingMode', 'RoundingMode', \false);
 }

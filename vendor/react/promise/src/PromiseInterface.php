@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix202605\React\Promise;
+namespace ECSPrefix202606\React\Promise;
 
 /**
  * @template-covariant T

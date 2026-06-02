@@ -59,7 +59,7 @@
             "src\/"
         ],
         "psr-4": {
-            "ECSPrefix202605\\Nette\\": "src"
+            "ECSPrefix202606\\Nette\\": "src"
         }
     },
     "minimum-stability": "dev",

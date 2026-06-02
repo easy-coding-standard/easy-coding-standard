@@ -33,7 +33,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix202605\\Illuminate\\Container\\": ""
+            "ECSPrefix202606\\Illuminate\\Container\\": ""
         }
     },
     "extra": {

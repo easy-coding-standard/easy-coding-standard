@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202605\Symfony\Component\String;
+namespace ECSPrefix202606\Symfony\Component\String;
 
-use ECSPrefix202605\Symfony\Component\String\Exception\ExceptionInterface;
-use ECSPrefix202605\Symfony\Component\String\Exception\InvalidArgumentException;
-use ECSPrefix202605\Symfony\Component\String\Exception\RuntimeException;
+use ECSPrefix202606\Symfony\Component\String\Exception\ExceptionInterface;
+use ECSPrefix202606\Symfony\Component\String\Exception\InvalidArgumentException;
+use ECSPrefix202606\Symfony\Component\String\Exception\RuntimeException;
 /**
  * Represents a string of abstract characters.
  *
@@ -490,7 +490,7 @@ abstract class AbstractString implements \JsonSerializable
         try {
             $b->string = mb_convert_encoding($this->string, $toEncoding, 'UTF-8');
         } catch (\ValueError $e) {
-            if (!\function_exists('iconv') && !\function_exists('ECSPrefix202605\iconv')) {
+            if (!\function_exists('iconv') && !\function_exists('ECSPrefix202606\iconv')) {
                 throw new InvalidArgumentException($e->getMessage(), $e->getCode(), $e);
             }
             $b->string = iconv('UTF-8', $toEncoding, $this->string);

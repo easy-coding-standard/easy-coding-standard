@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix202605\Illuminate\Contracts\Queue;
+namespace ECSPrefix202606\Illuminate\Contracts\Queue;
 
 interface ClearableQueue
 {

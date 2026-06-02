@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix202605\React\Promise\Exception;
+namespace ECSPrefix202606\React\Promise\Exception;
 
 /**
  * Represents an exception that is a composite of one or more other exceptions.

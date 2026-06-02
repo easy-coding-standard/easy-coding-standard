@@ -8,16 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202605\Symfony\Component\Console\DataCollector;
+namespace ECSPrefix202606\Symfony\Component\Console\DataCollector;
 
-use ECSPrefix202605\Symfony\Component\Console\Command\Command;
-use ECSPrefix202605\Symfony\Component\Console\Debug\CliRequest;
-use ECSPrefix202605\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix202605\Symfony\Component\Console\SignalRegistry\SignalMap;
-use ECSPrefix202605\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix202605\Symfony\Component\HttpFoundation\Response;
-use ECSPrefix202605\Symfony\Component\HttpKernel\DataCollector\DataCollector;
-use ECSPrefix202605\Symfony\Component\VarDumper\Cloner\Data;
+use ECSPrefix202606\Symfony\Component\Console\Command\Command;
+use ECSPrefix202606\Symfony\Component\Console\Debug\CliRequest;
+use ECSPrefix202606\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix202606\Symfony\Component\Console\SignalRegistry\SignalMap;
+use ECSPrefix202606\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix202606\Symfony\Component\HttpFoundation\Response;
+use ECSPrefix202606\Symfony\Component\HttpKernel\DataCollector\DataCollector;
+use ECSPrefix202606\Symfony\Component\VarDumper\Cloner\Data;
 /**
  * @internal
  *

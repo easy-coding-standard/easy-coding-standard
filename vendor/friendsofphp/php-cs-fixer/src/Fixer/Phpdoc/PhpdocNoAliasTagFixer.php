@@ -51,7 +51,7 @@ final class PhpdocNoAliasTagFixer extends AbstractProxyFixer implements Configur
         return new FixerDefinition('No alias PHPDoc tags should be used.', [new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202605;
+namespace ECSPrefix202606;
 
 /**
 * @property string $foo
@@ -68,13 +68,13 @@ final class Example
 *
 * @link baz
 */
-\class_alias('ECSPrefix202605\Example', 'Example', \false);
+\class_alias('ECSPrefix202606\Example', 'Example', \false);
 
 PHP
 ), new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202605;
+namespace ECSPrefix202606;
 
 /**
 * @property string $foo
@@ -91,7 +91,7 @@ final class Example
 *
 * @link baz
 */
-\class_alias('ECSPrefix202605\Example', 'Example', \false);
+\class_alias('ECSPrefix202606\Example', 'Example', \false);
 
 PHP
 , ['replacements' => ['link' => 'website']])]);

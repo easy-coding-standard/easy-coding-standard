@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix202605\Illuminate\Contracts\Validation;
+namespace ECSPrefix202606\Illuminate\Contracts\Validation;
 
 interface Factory
 {

@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202605\Entropy\Console\Input;
+namespace ECSPrefix202606\Entropy\Console\Input;
 
-use ECSPrefix202605\Entropy\Attributes\RelatedTest;
-use ECSPrefix202605\Entropy\Console\ValueObject\CLIRequest;
-use ECSPrefix202605\Entropy\Tests\Console\Input\InputParserTest;
+use ECSPrefix202606\Entropy\Attributes\RelatedTest;
+use ECSPrefix202606\Entropy\Console\ValueObject\CLIRequest;
+use ECSPrefix202606\Entropy\Tests\Console\Input\InputParserTest;
 final class InputParser
 {
     /**

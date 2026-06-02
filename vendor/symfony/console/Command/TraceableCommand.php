@@ -8,18 +8,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202605\Symfony\Component\Console\Command;
+namespace ECSPrefix202606\Symfony\Component\Console\Command;
 
-use ECSPrefix202605\Symfony\Component\Console\Application;
-use ECSPrefix202605\Symfony\Component\Console\Completion\CompletionInput;
-use ECSPrefix202605\Symfony\Component\Console\Completion\CompletionSuggestions;
-use ECSPrefix202605\Symfony\Component\Console\Helper\HelperInterface;
-use ECSPrefix202605\Symfony\Component\Console\Helper\HelperSet;
-use ECSPrefix202605\Symfony\Component\Console\Input\InputDefinition;
-use ECSPrefix202605\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix202605\Symfony\Component\Console\Output\ConsoleOutputInterface;
-use ECSPrefix202605\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix202605\Symfony\Component\Stopwatch\Stopwatch;
+use ECSPrefix202606\Symfony\Component\Console\Application;
+use ECSPrefix202606\Symfony\Component\Console\Completion\CompletionInput;
+use ECSPrefix202606\Symfony\Component\Console\Completion\CompletionSuggestions;
+use ECSPrefix202606\Symfony\Component\Console\Helper\HelperInterface;
+use ECSPrefix202606\Symfony\Component\Console\Helper\HelperSet;
+use ECSPrefix202606\Symfony\Component\Console\Input\InputDefinition;
+use ECSPrefix202606\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix202606\Symfony\Component\Console\Output\ConsoleOutputInterface;
+use ECSPrefix202606\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix202606\Symfony\Component\Stopwatch\Stopwatch;
 /**
  * @internal
  *

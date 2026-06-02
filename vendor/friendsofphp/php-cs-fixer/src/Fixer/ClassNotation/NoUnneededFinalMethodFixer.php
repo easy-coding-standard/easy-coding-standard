@@ -48,7 +48,7 @@ final class NoUnneededFinalMethodFixer extends AbstractFixer implements Configur
         return new FixerDefinition('Removes `final` from methods where possible.', [new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202605;
+namespace ECSPrefix202606;
 
 final class Foo
 {
@@ -62,20 +62,20 @@ final class Foo
     {
     }
 }
-\class_alias('ECSPrefix202605\Foo', 'Foo', \false);
+\class_alias('ECSPrefix202606\Foo', 'Foo', \false);
 class Bar
 {
     final private function bar1()
     {
     }
 }
-\class_alias('ECSPrefix202605\Bar', 'Bar', \false);
+\class_alias('ECSPrefix202606\Bar', 'Bar', \false);
 
 PHP
 ), new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202605;
+namespace ECSPrefix202606;
 
 final class Foo
 {
@@ -83,14 +83,14 @@ final class Foo
     {
     }
 }
-\class_alias('ECSPrefix202605\Foo', 'Foo', \false);
+\class_alias('ECSPrefix202606\Foo', 'Foo', \false);
 class Bar
 {
     final private function bar1()
     {
     }
 }
-\class_alias('ECSPrefix202605\Bar', 'Bar', \false);
+\class_alias('ECSPrefix202606\Bar', 'Bar', \false);
 
 PHP
 , ['private_methods' => \false])], null, 'Risky when child class overrides a `private` method.');

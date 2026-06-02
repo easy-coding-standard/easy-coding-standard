@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202605\Symfony\Component\String;
+namespace ECSPrefix202606\Symfony\Component\String;
 
 use Random\Randomizer;
-use ECSPrefix202605\Symfony\Component\String\Exception\ExceptionInterface;
-use ECSPrefix202605\Symfony\Component\String\Exception\InvalidArgumentException;
-use ECSPrefix202605\Symfony\Component\String\Exception\RuntimeException;
+use ECSPrefix202606\Symfony\Component\String\Exception\ExceptionInterface;
+use ECSPrefix202606\Symfony\Component\String\Exception\InvalidArgumentException;
+use ECSPrefix202606\Symfony\Component\String\Exception\RuntimeException;
 /**
  * Represents a binary-safe string of bytes.
  *
@@ -404,7 +404,7 @@ class ByteString extends AbstractString
             try {
                 $validEncoding = \false !== mb_detect_encoding($this->string, $fromEncoding ?? 'Windows-1252', \true);
             } catch (InvalidArgumentException $e) {
-                if (!\function_exists('iconv') && !\function_exists('ECSPrefix202605\iconv')) {
+                if (!\function_exists('iconv') && !\function_exists('ECSPrefix202606\iconv')) {
                     throw $e;
                 }
                 $u->string = iconv($fromEncoding ?? 'Windows-1252', 'UTF-8', $this->string);

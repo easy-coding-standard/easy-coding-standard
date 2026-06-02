@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202605;
+namespace ECSPrefix202606;
 
 // decoupled in own "*.php" file, so ECS, Rector and PHPStan works out of the box here
 use PHP_CodeSniffer\Util\Tokens;
-use ECSPrefix202605\Symfony\Component\Console\Command\Command;
-use ECSPrefix202605\Symfony\Component\Console\Input\ArgvInput;
+use ECSPrefix202606\Symfony\Component\Console\Command\Command;
+use ECSPrefix202606\Symfony\Component\Console\Input\ArgvInput;
 use Symplify\EasyCodingStandard\Console\EasyCodingStandardConsoleApplication;
 use Symplify\EasyCodingStandard\Console\Style\SymfonyStyleFactory;
 use Symplify\EasyCodingStandard\DependencyInjection\EasyCodingStandardContainerFactory;
@@ -119,7 +119,7 @@ final class ECSAutoloadIncluder
 /**
  * Inspired by https://github.com/rectorphp/rector/pull/2373/files#diff-0fc04a2bb7928cac4ae339d5a8bf67f3
  */
-\class_alias('ECSPrefix202605\ECSAutoloadIncluder', 'ECSAutoloadIncluder', \false);
+\class_alias('ECSPrefix202606\ECSAutoloadIncluder', 'ECSAutoloadIncluder', \false);
 try {
     $input = new ArgvInput();
     $ecsContainerFactory = new EasyCodingStandardContainerFactory();

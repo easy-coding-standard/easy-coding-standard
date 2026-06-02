@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix202605\Illuminate\Contracts\Database;
+namespace ECSPrefix202606\Illuminate\Contracts\Database;
 
-use ECSPrefix202605\Illuminate\Database\Eloquent\Relations\Relation;
+use ECSPrefix202606\Illuminate\Database\Eloquent\Relations\Relation;
 class ModelIdentifier
 {
     /**

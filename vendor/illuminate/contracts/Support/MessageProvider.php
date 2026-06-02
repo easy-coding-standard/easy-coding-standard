@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix202605\Illuminate\Contracts\Support;
+namespace ECSPrefix202606\Illuminate\Contracts\Support;
 
 interface MessageProvider
 {

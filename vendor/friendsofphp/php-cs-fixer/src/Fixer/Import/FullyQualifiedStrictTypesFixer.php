@@ -113,17 +113,17 @@ final class FullyQualifiedStrictTypesFixer extends AbstractFixer implements Conf
         return new FixerDefinition('Removes the leading part of fully qualified symbol references if a given symbol is imported or belongs to the current namespace.', [new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202605;
+namespace ECSPrefix202606;
 
-use ECSPrefix202605\Foo\Bar;
-use ECSPrefix202605\Foo\Bar\Baz;
-use ECSPrefix202605\Foo\OtherClass;
-use ECSPrefix202605\Foo\SomeContract;
-use ECSPrefix202605\Foo\SomeException;
+use ECSPrefix202606\Foo\Bar;
+use ECSPrefix202606\Foo\Bar\Baz;
+use ECSPrefix202606\Foo\OtherClass;
+use ECSPrefix202606\Foo\SomeContract;
+use ECSPrefix202606\Foo\SomeException;
 /**
 * @see \Foo\Bar\Baz
 */
-class SomeClass extends \ECSPrefix202605\Foo\OtherClass implements \ECSPrefix202605\Foo\SomeContract
+class SomeClass extends \ECSPrefix202606\Foo\OtherClass implements \ECSPrefix202606\Foo\SomeContract
 {
     /**
     * @var \Foo\Bar\Baz
@@ -143,46 +143,46 @@ class SomeClass extends \ECSPrefix202605\Foo\OtherClass implements \ECSPrefix202
     {
         return $this->baz;
     }
-    public function doX(\ECSPrefix202605\Foo\Bar $foo, \Exception $e): \ECSPrefix202605\Foo\Bar\Baz
+    public function doX(\ECSPrefix202606\Foo\Bar $foo, \Exception $e): \ECSPrefix202606\Foo\Bar\Baz
     {
         try {
-        } catch (\ECSPrefix202605\Foo\SomeException $e) {
+        } catch (\ECSPrefix202606\Foo\SomeException $e) {
         }
     }
 }
 /**
 * @see \Foo\Bar\Baz
 */
-\class_alias('ECSPrefix202605\SomeClass', 'SomeClass', \false);
+\class_alias('ECSPrefix202606\SomeClass', 'SomeClass', \false);
 
 PHP
 ), new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202605;
+namespace ECSPrefix202606;
 
 class SomeClass
 {
-    public function doY(Foo\NotImported $u, \ECSPrefix202605\Foo\NotImported $v)
+    public function doY(Foo\NotImported $u, \ECSPrefix202606\Foo\NotImported $v)
     {
     }
 }
-\class_alias('ECSPrefix202605\SomeClass', 'SomeClass', \false);
+\class_alias('ECSPrefix202606\SomeClass', 'SomeClass', \false);
 
 PHP
 , ['leading_backslash_in_global_namespace' => \true]), new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202605;
+namespace ECSPrefix202606;
 
-use ECSPrefix202605\Foo\A;
+use ECSPrefix202606\Foo\A;
 try {
     foo();
-} catch (\Exception|\ECSPrefix202605\Foo\A $e) {
+} catch (\Exception|\ECSPrefix202606\Foo\A $e) {
 }
-namespace ECSPrefix202605\Foo\Bar;
+namespace ECSPrefix202606\Foo\Bar;
 
-class SomeClass implements \ECSPrefix202605\Foo\Bar\Baz
+class SomeClass implements \ECSPrefix202606\Foo\Bar\Baz
 {
 }
 
@@ -190,20 +190,20 @@ PHP
 , ['leading_backslash_in_global_namespace' => \true]), new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202605\Foo\Test;
+namespace ECSPrefix202606\Foo\Test;
 
-class Foo extends \ECSPrefix202605\Other\BaseClass implements \ECSPrefix202605\Other\Interface1, \ECSPrefix202605\Other\Interface2
+class Foo extends \ECSPrefix202606\Other\BaseClass implements \ECSPrefix202606\Other\Interface1, \ECSPrefix202606\Other\Interface2
 {
     /** @var \Other\PropertyPhpDoc */
     private $array;
-    public function __construct(\ECSPrefix202605\Other\FunctionArgument $arg)
+    public function __construct(\ECSPrefix202606\Other\FunctionArgument $arg)
     {
     }
-    public function foo(): \ECSPrefix202605\Other\FunctionReturnType
+    public function foo(): \ECSPrefix202606\Other\FunctionReturnType
     {
         try {
-            \ECSPrefix202605\Other\StaticFunctionCall::bar();
-        } catch (\ECSPrefix202605\Other\CaughtThrowable $e) {
+            \ECSPrefix202606\Other\StaticFunctionCall::bar();
+        } catch (\ECSPrefix202606\Other\CaughtThrowable $e) {
         }
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202605\Webmozart\Assert;
+namespace ECSPrefix202606\Webmozart\Assert;
 
 use ArrayAccess;
 use Closure;

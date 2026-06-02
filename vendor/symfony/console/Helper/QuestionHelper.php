@@ -8,22 +8,22 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202605\Symfony\Component\Console\Helper;
+namespace ECSPrefix202606\Symfony\Component\Console\Helper;
 
-use ECSPrefix202605\Symfony\Component\Console\Cursor;
-use ECSPrefix202605\Symfony\Component\Console\Exception\MissingInputException;
-use ECSPrefix202605\Symfony\Component\Console\Exception\RuntimeException;
-use ECSPrefix202605\Symfony\Component\Console\Formatter\OutputFormatter;
-use ECSPrefix202605\Symfony\Component\Console\Formatter\OutputFormatterStyle;
-use ECSPrefix202605\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix202605\Symfony\Component\Console\Input\StreamableInputInterface;
-use ECSPrefix202605\Symfony\Component\Console\Output\ConsoleOutputInterface;
-use ECSPrefix202605\Symfony\Component\Console\Output\ConsoleSectionOutput;
-use ECSPrefix202605\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix202605\Symfony\Component\Console\Question\ChoiceQuestion;
-use ECSPrefix202605\Symfony\Component\Console\Question\Question;
-use ECSPrefix202605\Symfony\Component\Console\Terminal;
-use function ECSPrefix202605\Symfony\Component\String\s;
+use ECSPrefix202606\Symfony\Component\Console\Cursor;
+use ECSPrefix202606\Symfony\Component\Console\Exception\MissingInputException;
+use ECSPrefix202606\Symfony\Component\Console\Exception\RuntimeException;
+use ECSPrefix202606\Symfony\Component\Console\Formatter\OutputFormatter;
+use ECSPrefix202606\Symfony\Component\Console\Formatter\OutputFormatterStyle;
+use ECSPrefix202606\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix202606\Symfony\Component\Console\Input\StreamableInputInterface;
+use ECSPrefix202606\Symfony\Component\Console\Output\ConsoleOutputInterface;
+use ECSPrefix202606\Symfony\Component\Console\Output\ConsoleSectionOutput;
+use ECSPrefix202606\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix202606\Symfony\Component\Console\Question\ChoiceQuestion;
+use ECSPrefix202606\Symfony\Component\Console\Question\Question;
+use ECSPrefix202606\Symfony\Component\Console\Terminal;
+use function ECSPrefix202606\Symfony\Component\String\s;
 /**
  * The QuestionHelper class provides helpers to interact with the user.
  *

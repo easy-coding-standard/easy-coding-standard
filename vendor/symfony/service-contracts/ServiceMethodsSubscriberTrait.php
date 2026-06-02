@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202605\Symfony\Contracts\Service;
+namespace ECSPrefix202606\Symfony\Contracts\Service;
 
-use ECSPrefix202605\Psr\Container\ContainerInterface;
-use ECSPrefix202605\Symfony\Contracts\Service\Attribute\Required;
-use ECSPrefix202605\Symfony\Contracts\Service\Attribute\SubscribedService;
+use ECSPrefix202606\Psr\Container\ContainerInterface;
+use ECSPrefix202606\Symfony\Contracts\Service\Attribute\Required;
+use ECSPrefix202606\Symfony\Contracts\Service\Attribute\SubscribedService;
 /**
  * Implementation of ServiceSubscriberInterface that determines subscribed services
  * from methods that have the #[SubscribedService] attribute.

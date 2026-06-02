@@ -29,7 +29,7 @@ final class SetTypeToCastFixer extends AbstractFunctionReferenceFixer
         return new FixerDefinition('Cast shall be used, not `settype`.', [new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202605;
+namespace ECSPrefix202606;
 
 \settype($foo, "integer");
 \settype($bar, "string");

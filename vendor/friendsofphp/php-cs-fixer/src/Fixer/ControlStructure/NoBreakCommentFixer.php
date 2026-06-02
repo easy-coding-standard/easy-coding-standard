@@ -27,8 +27,8 @@ use PhpCsFixer\Tokenizer\Analyzer\WhitespacesAnalyzer;
 use PhpCsFixer\Tokenizer\FCT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-use ECSPrefix202605\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
-use ECSPrefix202605\Symfony\Component\OptionsResolver\Options;
+use ECSPrefix202606\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+use ECSPrefix202606\Symfony\Component\OptionsResolver\Options;
 /**
  * Fixer for rule defined in PSR2 ¶5.2.
  *
@@ -53,7 +53,7 @@ final class NoBreakCommentFixer extends AbstractFixer implements ConfigurableFix
         return new FixerDefinition('There must be a comment when fall-through is intentional in a non-empty case body.', [new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202605;
+namespace ECSPrefix202606;
 
 switch ($foo) {
     case 1:
@@ -70,7 +70,7 @@ PHP
 ), new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202605;
+namespace ECSPrefix202606;
 
 switch ($foo) {
     case 1:

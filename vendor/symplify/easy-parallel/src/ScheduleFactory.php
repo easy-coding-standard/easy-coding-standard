@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202605\Symplify\EasyParallel;
+namespace ECSPrefix202606\Symplify\EasyParallel;
 
-use ECSPrefix202605\Symplify\EasyParallel\ValueObject\Schedule;
+use ECSPrefix202606\Symplify\EasyParallel\ValueObject\Schedule;
 /**
  * Used from
  * https://github.com/phpstan/phpstan-src/blob/9124c66dcc55a222e21b1717ba5f60771f7dda92/src/Parallel/Scheduler.php

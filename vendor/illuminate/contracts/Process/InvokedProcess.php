@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix202605\Illuminate\Contracts\Process;
+namespace ECSPrefix202606\Illuminate\Contracts\Process;
 
 interface InvokedProcess
 {

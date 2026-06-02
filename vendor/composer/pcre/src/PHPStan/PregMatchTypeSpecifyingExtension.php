@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202605\Composer\Pcre\PHPStan;
+namespace ECSPrefix202606\Composer\Pcre\PHPStan;
 
-use ECSPrefix202605\Composer\Pcre\Preg;
-use ECSPrefix202605\PhpParser\Node\Expr\StaticCall;
-use ECSPrefix202605\PHPStan\Analyser\Scope;
-use ECSPrefix202605\PHPStan\Analyser\SpecifiedTypes;
-use ECSPrefix202605\PHPStan\Analyser\TypeSpecifier;
-use ECSPrefix202605\PHPStan\Analyser\TypeSpecifierAwareExtension;
-use ECSPrefix202605\PHPStan\Analyser\TypeSpecifierContext;
-use ECSPrefix202605\PHPStan\Reflection\MethodReflection;
-use ECSPrefix202605\PHPStan\TrinaryLogic;
-use ECSPrefix202605\PHPStan\Type\Constant\ConstantArrayType;
-use ECSPrefix202605\PHPStan\Type\Php\RegexArrayShapeMatcher;
-use ECSPrefix202605\PHPStan\Type\StaticMethodTypeSpecifyingExtension;
-use ECSPrefix202605\PHPStan\Type\TypeCombinator;
-use ECSPrefix202605\PHPStan\Type\Type;
+use ECSPrefix202606\Composer\Pcre\Preg;
+use ECSPrefix202606\PhpParser\Node\Expr\StaticCall;
+use ECSPrefix202606\PHPStan\Analyser\Scope;
+use ECSPrefix202606\PHPStan\Analyser\SpecifiedTypes;
+use ECSPrefix202606\PHPStan\Analyser\TypeSpecifier;
+use ECSPrefix202606\PHPStan\Analyser\TypeSpecifierAwareExtension;
+use ECSPrefix202606\PHPStan\Analyser\TypeSpecifierContext;
+use ECSPrefix202606\PHPStan\Reflection\MethodReflection;
+use ECSPrefix202606\PHPStan\TrinaryLogic;
+use ECSPrefix202606\PHPStan\Type\Constant\ConstantArrayType;
+use ECSPrefix202606\PHPStan\Type\Php\RegexArrayShapeMatcher;
+use ECSPrefix202606\PHPStan\Type\StaticMethodTypeSpecifyingExtension;
+use ECSPrefix202606\PHPStan\Type\TypeCombinator;
+use ECSPrefix202606\PHPStan\Type\Type;
 final class PregMatchTypeSpecifyingExtension implements StaticMethodTypeSpecifyingExtension, TypeSpecifierAwareExtension
 {
     /**
@@ -73,7 +73,7 @@ final class PregMatchTypeSpecifyingExtension implements StaticMethodTypeSpecifyi
             $context = $context->negate();
         }
         // @phpstan-ignore function.alreadyNarrowedType
-        if (method_exists('ECSPrefix202605\PHPStan\Analyser\SpecifiedTypes', 'setRootExpr')) {
+        if (method_exists('ECSPrefix202606\PHPStan\Analyser\SpecifiedTypes', 'setRootExpr')) {
             $typeSpecifier = $this->typeSpecifier->create($matchesArg->value, $matchedType, $context, $scope)->setRootExpr($node);
             return $overwrite ? $typeSpecifier->setAlwaysOverwriteTypes() : $typeSpecifier;
         }

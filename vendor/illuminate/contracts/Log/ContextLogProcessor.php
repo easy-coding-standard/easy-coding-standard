@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix202605\Illuminate\Contracts\Log;
+namespace ECSPrefix202606\Illuminate\Contracts\Log;
 
-use ECSPrefix202605\Monolog\Processor\ProcessorInterface;
+use ECSPrefix202606\Monolog\Processor\ProcessorInterface;
 interface ContextLogProcessor extends ProcessorInterface
 {
 }

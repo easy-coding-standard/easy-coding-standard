@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix202605\Illuminate\Contracts\Events;
+namespace ECSPrefix202606\Illuminate\Contracts\Events;
 
 interface ShouldDispatchAfterCommit
 {

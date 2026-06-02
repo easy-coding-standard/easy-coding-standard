@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix202605\Illuminate\Contracts\Container;
+namespace ECSPrefix202606\Illuminate\Contracts\Container;
 
 interface ContextualAttribute
 {

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202605\Entropy\Attributes;
+namespace ECSPrefix202606\Entropy\Attributes;
 
 use Attribute;
 use PHPUnit\Framework\TestCase;

@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix202605\Illuminate\Contracts\Mail;
+namespace ECSPrefix202606\Illuminate\Contracts\Mail;
 
 interface Attachable
 {

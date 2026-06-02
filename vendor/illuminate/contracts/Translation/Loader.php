@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix202605\Illuminate\Contracts\Translation;
+namespace ECSPrefix202606\Illuminate\Contracts\Translation;
 
 interface Loader
 {

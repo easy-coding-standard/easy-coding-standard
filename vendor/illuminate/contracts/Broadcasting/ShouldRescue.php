@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix202605\Illuminate\Contracts\Broadcasting;
+namespace ECSPrefix202606\Illuminate\Contracts\Broadcasting;
 
 interface ShouldRescue
 {

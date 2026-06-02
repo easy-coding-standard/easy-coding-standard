@@ -1,9 +1,9 @@
 <?php
 
-namespace ECSPrefix202605\Illuminate\Container;
+namespace ECSPrefix202606\Illuminate\Container;
 
-use ECSPrefix202605\Illuminate\Contracts\Container\Container;
-use ECSPrefix202605\Illuminate\Contracts\Container\ContextualBindingBuilder as ContextualBindingBuilderContract;
+use ECSPrefix202606\Illuminate\Contracts\Container\Container;
+use ECSPrefix202606\Illuminate\Contracts\Container\ContextualBindingBuilder as ContextualBindingBuilderContract;
 class ContextualBindingBuilder implements ContextualBindingBuilderContract
 {
     /**

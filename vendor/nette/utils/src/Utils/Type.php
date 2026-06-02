@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix202605\Nette\Utils;
+namespace ECSPrefix202606\Nette\Utils;
 
-use ECSPrefix202605\Nette;
+use ECSPrefix202606\Nette;
 use function array_map, array_search, array_splice, count, explode, implode, is_a, is_string, strcasecmp, strtolower, substr, trim;
 use const PHP_VERSION_ID;
 /**

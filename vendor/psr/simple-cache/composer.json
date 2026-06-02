@@ -20,7 +20,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix202605\\Psr\\SimpleCache\\": "src\/"
+            "ECSPrefix202606\\Psr\\SimpleCache\\": "src\/"
         }
     },
     "extra": {

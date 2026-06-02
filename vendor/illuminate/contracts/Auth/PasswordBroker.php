@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix202605\Illuminate\Contracts\Auth;
+namespace ECSPrefix202606\Illuminate\Contracts\Auth;
 
 use Closure;
 interface PasswordBroker

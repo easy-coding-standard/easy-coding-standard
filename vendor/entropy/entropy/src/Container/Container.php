@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202605\Entropy\Container;
+namespace ECSPrefix202606\Entropy\Container;
 
-use ECSPrefix202605\Entropy\Attributes\RelatedTest;
-use ECSPrefix202605\Entropy\Console\CommandRegistry;
-use ECSPrefix202605\Entropy\Console\Contract\CommandInterface;
-use ECSPrefix202605\Entropy\Container\Exception\CreateServiceException;
-use ECSPrefix202605\Entropy\Container\Exception\RegisterServiceException;
-use ECSPrefix202605\Entropy\Reflection\ParameterTypesResolver;
-use ECSPrefix202605\Entropy\Tests\Container\Container\ContainerTest;
+use ECSPrefix202606\Entropy\Attributes\RelatedTest;
+use ECSPrefix202606\Entropy\Console\CommandRegistry;
+use ECSPrefix202606\Entropy\Console\Contract\CommandInterface;
+use ECSPrefix202606\Entropy\Container\Exception\CreateServiceException;
+use ECSPrefix202606\Entropy\Container\Exception\RegisterServiceException;
+use ECSPrefix202606\Entropy\Reflection\ParameterTypesResolver;
+use ECSPrefix202606\Entropy\Tests\Container\Container\ContainerTest;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionParameter;
-use ECSPrefix202605\Webmozart\Assert\Assert;
+use ECSPrefix202606\Webmozart\Assert\Assert;
 final class Container
 {
     /**

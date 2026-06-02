@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202605\Symfony\Component\Console\Helper;
+namespace ECSPrefix202606\Symfony\Component\Console\Helper;
 
-use ECSPrefix202605\Symfony\Component\Console\Exception\InvalidArgumentException;
-use ECSPrefix202605\Symfony\Component\Console\Exception\LogicException;
-use ECSPrefix202605\Symfony\Component\Console\Output\ConsoleSectionOutput;
-use ECSPrefix202605\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix202606\Symfony\Component\Console\Exception\InvalidArgumentException;
+use ECSPrefix202606\Symfony\Component\Console\Exception\LogicException;
+use ECSPrefix202606\Symfony\Component\Console\Output\ConsoleSectionOutput;
+use ECSPrefix202606\Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author Kevin Bond <kevinbond@gmail.com>
  */

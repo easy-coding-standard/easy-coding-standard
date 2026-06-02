@@ -1,9 +1,9 @@
 <?php
 
-namespace ECSPrefix202605\Illuminate\Container;
+namespace ECSPrefix202606\Illuminate\Container;
 
 use Exception;
-use ECSPrefix202605\Psr\Container\NotFoundExceptionInterface;
+use ECSPrefix202606\Psr\Container\NotFoundExceptionInterface;
 class EntryNotFoundException extends Exception implements NotFoundExceptionInterface
 {
     //

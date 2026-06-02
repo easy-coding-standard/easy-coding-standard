@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\DependencyInjection;
 
-use ECSPrefix202605\Illuminate\Container\Container;
+use ECSPrefix202606\Illuminate\Container\Container;
 use PHP_CodeSniffer\Fixer;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
@@ -11,8 +11,8 @@ use PhpCsFixer\Differ\DifferInterface;
 use PhpCsFixer\Differ\UnifiedDiffer;
 use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\WhitespacesFixerConfig;
-use ECSPrefix202605\SebastianBergmann\Diff\Parser as DiffParser;
-use ECSPrefix202605\Symfony\Component\Console\Style\SymfonyStyle;
+use ECSPrefix202606\SebastianBergmann\Diff\Parser as DiffParser;
+use ECSPrefix202606\Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\EasyCodingStandard\Application\SingleFileProcessor;
 use Symplify\EasyCodingStandard\Caching\Cache;
 use Symplify\EasyCodingStandard\Caching\CacheFactory;
@@ -35,7 +35,7 @@ use Symplify\EasyCodingStandard\Skipper\Skipper\Skipper;
 use Symplify\EasyCodingStandard\Skipper\Skipper\SkipSkipper;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 use Symplify\EasyCodingStandard\SniffRunner\DataCollector\SniffMetadataCollector;
-use ECSPrefix202605\Webmozart\Assert\Assert;
+use ECSPrefix202606\Webmozart\Assert\Assert;
 final class LazyContainerFactory
 {
     /**

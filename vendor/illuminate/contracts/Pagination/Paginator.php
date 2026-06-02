@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix202605\Illuminate\Contracts\Pagination;
+namespace ECSPrefix202606\Illuminate\Contracts\Pagination;
 
 /**
  * @template TKey of array-key

@@ -3,10 +3,10 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Testing\PHPUnit;
 
-use ECSPrefix202605\Illuminate\Container\Container;
+use ECSPrefix202606\Illuminate\Container\Container;
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\DependencyInjection\LazyContainerFactory;
-use ECSPrefix202605\Webmozart\Assert\Assert;
+use ECSPrefix202606\Webmozart\Assert\Assert;
 abstract class AbstractTestCase extends TestCase
 {
     /**

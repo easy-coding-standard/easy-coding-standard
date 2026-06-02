@@ -1,9 +1,9 @@
 <?php
 
-namespace ECSPrefix202605\Illuminate\Contracts\Cache;
+namespace ECSPrefix202606\Illuminate\Contracts\Cache;
 
 use Closure;
-use ECSPrefix202605\Psr\SimpleCache\CacheInterface;
+use ECSPrefix202606\Psr\SimpleCache\CacheInterface;
 interface Repository extends CacheInterface
 {
     /**

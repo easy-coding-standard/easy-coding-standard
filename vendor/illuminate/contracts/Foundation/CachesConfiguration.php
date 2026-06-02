@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix202605\Illuminate\Contracts\Foundation;
+namespace ECSPrefix202606\Illuminate\Contracts\Foundation;
 
 interface CachesConfiguration
 {

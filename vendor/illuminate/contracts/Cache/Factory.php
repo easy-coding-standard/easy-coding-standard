@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix202605\Illuminate\Contracts\Cache;
+namespace ECSPrefix202606\Illuminate\Contracts\Cache;
 
 interface Factory
 {

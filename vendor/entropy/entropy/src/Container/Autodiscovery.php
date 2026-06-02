@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202605\Entropy\Container;
+namespace ECSPrefix202606\Entropy\Container;
 
-use ECSPrefix202605\Entropy\Attributes\RelatedTest;
-use ECSPrefix202605\Entropy\FileSystem\FileFinder;
-use ECSPrefix202605\Entropy\Reflection\ClassNameResolver;
-use ECSPrefix202605\Entropy\Tests\Container\Autodiscovery\AutodiscoveryTest;
+use ECSPrefix202606\Entropy\Attributes\RelatedTest;
+use ECSPrefix202606\Entropy\FileSystem\FileFinder;
+use ECSPrefix202606\Entropy\Reflection\ClassNameResolver;
+use ECSPrefix202606\Entropy\Tests\Container\Autodiscovery\AutodiscoveryTest;
 use ReflectionClass;
 use Throwable;
-use ECSPrefix202605\Webmozart\Assert\Assert;
+use ECSPrefix202606\Webmozart\Assert\Assert;
 /**
  * Registers project classes to services automatically
  */

@@ -5,7 +5,7 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix202605\Nette\Utils;
+namespace ECSPrefix202606\Nette\Utils;
 
 use function explode, is_string, str_contains;
 /**

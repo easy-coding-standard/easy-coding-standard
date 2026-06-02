@@ -33,7 +33,7 @@ final class PhpdocIndentFixer extends AbstractFixer
         return new FixerDefinition('Docblocks should have the same indentation as the documented subject.', [new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202605;
+namespace ECSPrefix202606;
 
 class DocBlocks
 {
@@ -42,7 +42,7 @@ class DocBlocks
     */
     const INDENT = 1;
 }
-\class_alias('ECSPrefix202605\DocBlocks', 'DocBlocks', \false);
+\class_alias('ECSPrefix202606\DocBlocks', 'DocBlocks', \false);
 
 PHP
 )]);

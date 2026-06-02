@@ -5,10 +5,10 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace ECSPrefix202605\Nette\Utils;
+namespace ECSPrefix202606\Nette\Utils;
 
-use ECSPrefix202605\Nette;
-use ECSPrefix202605\Nette\MemberAccessException;
+use ECSPrefix202606\Nette;
+use ECSPrefix202606\Nette\MemberAccessException;
 use function array_filter, array_merge, array_pop, array_unique, get_class_methods, get_parent_class, implode, is_a, levenshtein, method_exists, preg_match_all, preg_replace, strlen, ucfirst;
 use const PREG_SET_ORDER, SORT_REGULAR;
 /**

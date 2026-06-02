@@ -33,7 +33,7 @@ final class SelfAccessorFixer extends AbstractFixer
         return new FixerDefinition('Inside class or interface element `self` should be preferred to the class name itself.', [new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202605;
+namespace ECSPrefix202606;
 
 class Sample
 {
@@ -44,7 +44,7 @@ class Sample
         return Sample::BAR;
     }
 }
-\class_alias('ECSPrefix202605\Sample', 'Sample', \false);
+\class_alias('ECSPrefix202606\Sample', 'Sample', \false);
 
 PHP
 )], null, 'Risky when using dynamic calls like get_called_class() or late static binding.');
