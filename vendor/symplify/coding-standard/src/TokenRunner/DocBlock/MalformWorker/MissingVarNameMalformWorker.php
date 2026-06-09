@@ -3,15 +3,15 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker;
 
-use ECSPrefix202606\Nette\Utils\Strings;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use Symplify\CodingStandard\TokenRunner\Contract\DocBlock\MalformWorkerInterface;
+use Symplify\CodingStandard\Utils\Regex;
 final class MissingVarNameMalformWorker implements MalformWorkerInterface
 {
     /**
-     * @var string
      * @see https://regex101.com/r/s1UkZs/1
+     * @var string
      */
     private const VAR_WITHOUT_NAME_REGEX = '#^(?<open>\/\*\* @(?:psalm-|phpstan-)?var )(?<type>[\\\\\\w\|-|]+)(?<close>\s+\*\/)$#';
     /**
@@ -19,14 +19,14 @@ final class MissingVarNameMalformWorker implements MalformWorkerInterface
      */
     public function work(string $docContent, Tokens $tokens, int $position): string
     {
-        if (!Strings::match($docContent, self::VAR_WITHOUT_NAME_REGEX)) {
+        if (!Regex::match($docContent, self::VAR_WITHOUT_NAME_REGEX)) {
             return $docContent;
         }
         $nextVariableToken = $this->getNextVariableToken($tokens, $position);
         if (!$nextVariableToken instanceof Token) {
             return $docContent;
         }
-        return Strings::replace($docContent, self::VAR_WITHOUT_NAME_REGEX, static function (array $match) use ($nextVariableToken): string {
+        return Regex::replace($docContent, self::VAR_WITHOUT_NAME_REGEX, static function (array $match) use ($nextVariableToken): string {
             return $match['open'] . $match['type'] . ' ' . $nextVariableToken->getContent() . $match['close'];
         });
     }

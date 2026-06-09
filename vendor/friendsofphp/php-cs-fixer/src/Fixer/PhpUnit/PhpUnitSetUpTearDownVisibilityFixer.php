@@ -65,7 +65,7 @@ PHP
                 // we've seen both methods we are interested in, so stop analyzing this class
             }
             if ($tokens[$index]->equals('{')) {
-                $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $index);
+                $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_BRACE, $index);
                 continue;
             }
             if (!$tokens[$index]->isGivenKind(\T_FUNCTION)) {

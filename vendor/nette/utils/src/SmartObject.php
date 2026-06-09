@@ -1,10 +1,10 @@
 <?php
 
+declare (strict_types=1);
 /**
  * This file is part of the Nette Framework (https://nette.org)
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
-declare (strict_types=1);
 namespace ECSPrefix202606\Nette;
 
 use ECSPrefix202606\Nette\Utils\ObjectHelpers;
@@ -18,6 +18,7 @@ use ECSPrefix202606\Nette\Utils\ObjectHelpers;
 trait SmartObject
 {
     /**
+     * @param  mixed[]  $args
      * @return mixed
      * @throws MemberAccessException
      */
@@ -39,6 +40,8 @@ trait SmartObject
         ObjectHelpers::strictCall($class, $name);
     }
     /**
+     * @param  mixed[]  $args
+     * @return never
      * @throws MemberAccessException
      */
     public static function __callStatic(string $name, array $args)

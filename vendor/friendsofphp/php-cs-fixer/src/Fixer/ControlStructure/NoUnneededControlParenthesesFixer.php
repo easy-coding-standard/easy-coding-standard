@@ -52,7 +52,7 @@ final class NoUnneededControlParenthesesFixer extends AbstractFixer implements C
     /**
      * @var non-empty-list<int>
      */
-    private const BLOCK_TYPES = [Tokens::BLOCK_TYPE_ARRAY_INDEX_CURLY_BRACE, Tokens::BLOCK_TYPE_ARRAY_SQUARE_BRACE, Tokens::BLOCK_TYPE_CURLY_BRACE, Tokens::BLOCK_TYPE_DESTRUCTURING_SQUARE_BRACE, Tokens::BLOCK_TYPE_DYNAMIC_PROP_BRACE, Tokens::BLOCK_TYPE_DYNAMIC_VAR_BRACE, Tokens::BLOCK_TYPE_INDEX_SQUARE_BRACE, Tokens::BLOCK_TYPE_PARENTHESIS_BRACE];
+    private const BLOCK_TYPES = [Tokens::BLOCK_TYPE_INDEX_BRACE, Tokens::BLOCK_TYPE_ARRAY_BRACKET, Tokens::BLOCK_TYPE_BRACE, Tokens::BLOCK_TYPE_DESTRUCTURING_BRACKET, Tokens::BLOCK_TYPE_DYNAMIC_PROP_BRACE, Tokens::BLOCK_TYPE_DYNAMIC_VAR_BRACE, Tokens::BLOCK_TYPE_INDEX_BRACKET, Tokens::BLOCK_TYPE_PARENTHESIS];
     private const BEFORE_TYPES = [
         ';',
         '{',
@@ -200,16 +200,16 @@ PHP
     }
     public function isCandidate(Tokens $tokens): bool
     {
-        return $tokens->isAnyTokenKindsFound(['(', CT::T_BRACE_CLASS_INSTANTIATION_OPEN]);
+        return $tokens->isAnyTokenKindsFound(['(', CT::T_CLASS_INSTANTIATION_PARENTHESIS_OPEN]);
     }
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         $this->tokensAnalyzer = new TokensAnalyzer($tokens);
         foreach ($tokens as $openIndex => $token) {
             if ($token->equals('(')) {
-                $closeIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openIndex);
-            } elseif ($token->isGivenKind(CT::T_BRACE_CLASS_INSTANTIATION_OPEN)) {
-                $closeIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_BRACE_CLASS_INSTANTIATION, $openIndex);
+                $closeIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $openIndex);
+            } elseif ($token->isGivenKind(CT::T_CLASS_INSTANTIATION_PARENTHESIS_OPEN)) {
+                $closeIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CLASS_INSTANTIATION_PARENTHESIS, $openIndex);
             } else {
                 continue;
             }
@@ -392,7 +392,7 @@ PHP
         if ($tokens[$beforeOpenIndex]->equals('(') && $tokens[$afterCloseIndex]->equals(';')) {
             $forCandidateIndex = $tokens->getPrevMeaningfulToken($beforeOpenIndex);
         } elseif ($tokens[$afterCloseIndex]->equals(')') && $tokens[$beforeOpenIndex]->equals(';')) {
-            $forCandidateIndex = $tokens->findBlockStart(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $afterCloseIndex);
+            $forCandidateIndex = $tokens->findBlockStart(Tokens::BLOCK_TYPE_PARENTHESIS, $afterCloseIndex);
             $forCandidateIndex = $tokens->getPrevMeaningfulToken($forCandidateIndex);
         }
         return null !== $forCandidateIndex && $tokens[$forCandidateIndex]->isGivenKind(\T_FOR);
@@ -419,7 +419,7 @@ PHP
         if (!$tokens[$beforeOpenIndex]->equals(')')) {
             return \false;
         }
-        $beforeOpenIndex = $tokens->findBlockStart(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $beforeOpenIndex);
+        $beforeOpenIndex = $tokens->findBlockStart(Tokens::BLOCK_TYPE_PARENTHESIS, $beforeOpenIndex);
         $beforeOpenIndex = $tokens->getPrevMeaningfulToken($beforeOpenIndex);
         if ($tokens[$beforeOpenIndex]->isGivenKind(CT::T_RETURN_REF)) {
             $beforeOpenIndex = $tokens->getPrevMeaningfulToken($beforeOpenIndex);
@@ -444,7 +444,7 @@ PHP
     private function isAccess(Tokens $tokens, int $index): bool
     {
         $token = $tokens[$index];
-        return $token->isObjectOperator() || $token->equals('[') || $token->isGivenKind(CT::T_ARRAY_INDEX_CURLY_BRACE_OPEN);
+        return $token->isObjectOperator() || $token->equals('[') || $token->isGivenKind(CT::T_ARRAY_INDEX_BRACE_OPEN);
     }
     private function getAfterAccess(Tokens $tokens, int $index): int
     {
@@ -531,7 +531,7 @@ PHP
     }
     private function closeCurlyBelongsToDynamicElement(Tokens $tokens, int $beforeOpenIndex): bool
     {
-        $index = $tokens->findBlockStart(Tokens::BLOCK_TYPE_CURLY_BRACE, $beforeOpenIndex);
+        $index = $tokens->findBlockStart(Tokens::BLOCK_TYPE_BRACE, $beforeOpenIndex);
         $index = $tokens->getPrevMeaningfulToken($index);
         if ($tokens[$index]->isGivenKind(\T_DOUBLE_COLON)) {
             return \true;

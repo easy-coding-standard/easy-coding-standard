@@ -124,7 +124,7 @@ PHP;
             if ($this->hasReturnAnnotation($tokens, $index)) {
                 continue;
             }
-            $endIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $startIndex);
+            $endIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_BRACE, $startIndex);
             if ($this->hasVoidReturn($tokens, $startIndex, $endIndex)) {
                 $this->fixFunctionDefinition($tokens, $startIndex);
             }
@@ -180,7 +180,7 @@ PHP;
         for ($i = $startIndex; $i < $endIndex; ++$i) {
             if ($tokens[$i]->isGivenKind(\T_CLASS) && $this->tokensAnalyzer->isAnonymousClass($i) || $tokens[$i]->isGivenKind(\T_FUNCTION) && $this->tokensAnalyzer->isLambda($i)) {
                 $i = $tokens->getNextTokenOfKind($i, ['{']);
-                $i = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $i);
+                $i = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_BRACE, $i);
                 continue;
             }
             if ($tokens[$i]->isGivenKind([\T_YIELD, \T_YIELD_FROM])) {

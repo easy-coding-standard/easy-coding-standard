@@ -135,7 +135,7 @@ PHP
                 continue;
             }
             $openParenthesisIndex = $tokens->getNextTokenOfKind($index, ['(']);
-            $closeParenthesisIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openParenthesisIndex);
+            $closeParenthesisIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $openParenthesisIndex);
             if ($this->shouldBeMultiline($tokens, $openParenthesisIndex, $closeParenthesisIndex)) {
                 $this->makeMultiline($tokens, $openParenthesisIndex, $closeParenthesisIndex);
             } elseif ($this->shouldBeSingleline($tokens, $openParenthesisIndex, $closeParenthesisIndex)) {

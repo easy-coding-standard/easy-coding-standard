@@ -108,7 +108,7 @@ PHP
                 continue;
             }
             $openingBraceIndex = $tokens->getNextTokenOfKind($index, ['{']);
-            $closingBraceIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $openingBraceIndex);
+            $closingBraceIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_BRACE, $openingBraceIndex);
             $anonymousClassIndices[$closingBraceIndex] = $openingBraceIndex;
         }
         for ($index = $endIndex - 1; $index > $startIndex; --$index) {

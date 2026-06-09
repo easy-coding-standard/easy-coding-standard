@@ -1,10 +1,10 @@
 <?php
 
+declare (strict_types=1);
 /**
  * This file is part of the Nette Framework (https://nette.org)
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
-declare (strict_types=1);
 namespace ECSPrefix202606\Nette\Utils;
 
 use function explode, is_string, str_contains;
@@ -14,13 +14,10 @@ use function explode, is_string, str_contains;
  */
 final class ReflectionMethod extends \ReflectionMethod
 {
-    /**
-     * @var \ReflectionClass
-     */
+    /** @var \ReflectionClass<object>
+     * @readonly */
     private $originalClass;
-    /**
-     * @param object|string $objectOrMethod
-     */
+    /** @param  class-string|object  $objectOrMethod */
     public function __construct($objectOrMethod, ?string $method = null)
     {
         if (is_string($objectOrMethod) && strpos($objectOrMethod, '::') !== \false) {
@@ -29,6 +26,7 @@ final class ReflectionMethod extends \ReflectionMethod
         parent::__construct($objectOrMethod, $method);
         $this->originalClass = new \ReflectionClass($objectOrMethod);
     }
+    /** @return \ReflectionClass<object> */
     public function getOriginalClass(): \ReflectionClass
     {
         return $this->originalClass;

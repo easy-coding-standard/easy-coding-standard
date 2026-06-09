@@ -190,7 +190,7 @@ PHP
                 continue;
             }
             $whitespaceTokenIndex = $index + 1;
-            if ($tokens[$whitespaceTokenIndex]->equalsAny([',', ':', ';', ')', [CT::T_ARRAY_SQUARE_BRACE_CLOSE], [CT::T_DESTRUCTURING_SQUARE_BRACE_CLOSE]])) {
+            if ($tokens[$whitespaceTokenIndex]->equalsAny([',', ':', ';', ')', [CT::T_ARRAY_BRACKET_CLOSE], [CT::T_DESTRUCTURING_BRACKET_CLOSE]])) {
                 continue;
             }
             if ($token->isGivenKind(\T_STATIC) && !$tokens[$tokens->getNextMeaningfulToken($index)]->isGivenKind([\T_FN, \T_FUNCTION, \T_NS_SEPARATOR, \T_STRING, \T_VARIABLE, CT::T_ARRAY_TYPEHINT, CT::T_NULLABLE_TYPE])) {

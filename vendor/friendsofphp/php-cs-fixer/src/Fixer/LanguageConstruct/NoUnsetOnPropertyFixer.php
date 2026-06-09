@@ -79,7 +79,7 @@ final class NoUnsetOnPropertyFixer extends AbstractFixer
     {
         $argumentsAnalyzer = new ArgumentsAnalyzer();
         $unsetStart = $tokens->getNextTokenOfKind($index, ['(']);
-        $unsetEnd = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $unsetStart);
+        $unsetEnd = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $unsetStart);
         $isFirst = \true;
         $unsets = [];
         foreach ($argumentsAnalyzer->getArguments($tokens, $unsetStart, $unsetEnd) as $startIndex => $endIndex) {

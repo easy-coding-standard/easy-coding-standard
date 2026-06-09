@@ -59,12 +59,12 @@ PHP
     }
     public function isCandidate(Tokens $tokens): bool
     {
-        return $tokens->isAnyTokenKindsFound([\T_ARRAY, CT::T_ARRAY_SQUARE_BRACE_OPEN]);
+        return $tokens->isAnyTokenKindsFound([\T_ARRAY, CT::T_ARRAY_BRACKET_OPEN]);
     }
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         for ($index = $tokens->count() - 1; $index > 0; --$index) {
-            if ($tokens[$index]->isGivenKind([\T_ARRAY, CT::T_ARRAY_SQUARE_BRACE_OPEN])) {
+            if ($tokens[$index]->isGivenKind([\T_ARRAY, CT::T_ARRAY_BRACKET_OPEN])) {
                 $this->fixSpacing($index, $tokens);
             }
         }
@@ -78,12 +78,12 @@ PHP
      */
     private function fixSpacing(int $index, Tokens $tokens): void
     {
-        if ($tokens[$index]->isGivenKind(CT::T_ARRAY_SQUARE_BRACE_OPEN)) {
+        if ($tokens[$index]->isGivenKind(CT::T_ARRAY_BRACKET_OPEN)) {
             $startIndex = $index;
-            $endIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_ARRAY_SQUARE_BRACE, $startIndex);
+            $endIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_ARRAY_BRACKET, $startIndex);
         } else {
             $startIndex = $tokens->getNextTokenOfKind($index, ['(']);
-            $endIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $startIndex);
+            $endIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $startIndex);
         }
         for ($i = $endIndex - 1; $i > $startIndex; --$i) {
             $i = $this->skipNonArrayElements($i, $tokens);
@@ -100,12 +100,12 @@ PHP
     private function skipNonArrayElements(int $index, Tokens $tokens): int
     {
         if ($tokens[$index]->equals('}')) {
-            return $tokens->findBlockStart(Tokens::BLOCK_TYPE_CURLY_BRACE, $index);
+            return $tokens->findBlockStart(Tokens::BLOCK_TYPE_BRACE, $index);
         }
         if ($tokens[$index]->equals(')')) {
-            $startIndex = $tokens->findBlockStart(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $index);
+            $startIndex = $tokens->findBlockStart(Tokens::BLOCK_TYPE_PARENTHESIS, $index);
             $startIndex = $tokens->getPrevMeaningfulToken($startIndex);
-            if (!$tokens[$startIndex]->isGivenKind([\T_ARRAY, CT::T_ARRAY_SQUARE_BRACE_OPEN])) {
+            if (!$tokens[$startIndex]->isGivenKind([\T_ARRAY, CT::T_ARRAY_BRACKET_OPEN])) {
                 return $startIndex;
             }
         }

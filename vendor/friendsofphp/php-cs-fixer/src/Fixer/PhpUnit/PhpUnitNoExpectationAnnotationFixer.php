@@ -182,6 +182,7 @@ PHP
         if (!Preg::match('/@' . $tag . '\s+(.+)$/s', $annotation->getContent(), $matches)) {
             return '';
         }
+        \assert(isset($matches[1]));
         $content = Preg::replace('/\*+\/$/', '', $matches[1]);
         if (Preg::match('/\R/u', $content)) {
             $content = Preg::replace('/\s*\R+\s*\*\s*/u', ' ', $content);
@@ -196,8 +197,10 @@ PHP
     private function annotationsToParamList(array $annotations): array
     {
         $params = [];
+        \assert(isset($annotations['expectedException']));
         $exceptionClass = ltrim($annotations['expectedException'], '\\');
         if (strpos($exceptionClass, '*') !== \false) {
+            \assert(\is_int(strpos($exceptionClass, '*')));
             $exceptionClass = (string) substr($exceptionClass, 0, strpos($exceptionClass, '*'));
         }
         $exceptionClass = trim($exceptionClass);

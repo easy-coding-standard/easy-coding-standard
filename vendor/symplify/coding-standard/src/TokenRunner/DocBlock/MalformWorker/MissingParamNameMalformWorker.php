@@ -3,13 +3,13 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker;
 
-use ECSPrefix202606\Nette\Utils\Strings;
 use PhpCsFixer\DocBlock\DocBlock;
 use PhpCsFixer\DocBlock\Line;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use Symplify\CodingStandard\TokenAnalyzer\DocblockRelatedParamNamesResolver;
 use Symplify\CodingStandard\TokenRunner\Contract\DocBlock\MalformWorkerInterface;
+use Symplify\CodingStandard\Utils\Regex;
 final class MissingParamNameMalformWorker implements MalformWorkerInterface
 {
     /**
@@ -18,18 +18,18 @@ final class MissingParamNameMalformWorker implements MalformWorkerInterface
      */
     private $docblockRelatedParamNamesResolver;
     /**
-     * @var string
      * @see https://regex101.com/r/QtWnWv/6
+     * @var string
      */
     private const PARAM_WITHOUT_NAME_REGEX = '#@param ([^${<]*?)( ([^$]*?))?\n#';
     /**
-     * @var string
      * @see https://regex101.com/r/58YJNy/1
+     * @var string
      */
     private const PARAM_ANNOTATOIN_START_REGEX = '@param ';
     /**
-     * @var string
      * @see https://regex101.com/r/JhugsI/1
+     * @var string
      */
     private const PARAM_WITH_NAME_REGEX = '#@param(.*?)\$[\w]+(.*?)\n#';
     public function __construct(DocblockRelatedParamNamesResolver $docblockRelatedParamNamesResolver)
@@ -61,7 +61,7 @@ final class MissingParamNameMalformWorker implements MalformWorkerInterface
     {
         foreach ($functionArgumentNames as $key => $functionArgumentName) {
             $pattern = '# ' . preg_quote($functionArgumentName, '#') . '\b#';
-            if (Strings::match($docContent, $pattern)) {
+            if (Regex::match($docContent, $pattern)) {
                 unset($functionArgumentNames[$key]);
             }
         }
@@ -102,10 +102,10 @@ final class MissingParamNameMalformWorker implements MalformWorkerInterface
             return \true;
         }
         // already has a param name
-        if (Strings::match($line->getContent(), self::PARAM_WITH_NAME_REGEX)) {
+        if (Regex::match($line->getContent(), self::PARAM_WITH_NAME_REGEX)) {
             return \true;
         }
-        $match = Strings::match($line->getContent(), self::PARAM_WITHOUT_NAME_REGEX);
+        $match = Regex::match($line->getContent(), self::PARAM_WITHOUT_NAME_REGEX);
         return $match === null;
     }
     private function createNewLineContent(string $newArgumentName, Line $line): string
@@ -113,10 +113,10 @@ final class MissingParamNameMalformWorker implements MalformWorkerInterface
         // @see https://regex101.com/r/4FL49H/1
         $missingDollarSignPattern = '#(@param\s+([\w\|\[\]\\\\]+\s)?)(' . ltrim($newArgumentName, '$') . ')#';
         // missing \$ case - possibly own worker
-        if (Strings::match($line->getContent(), $missingDollarSignPattern)) {
-            return Strings::replace($line->getContent(), $missingDollarSignPattern, '$1$$3');
+        if (Regex::match($line->getContent(), $missingDollarSignPattern)) {
+            return Regex::replace($line->getContent(), $missingDollarSignPattern, '$1$$3');
         }
         $replacement = '@param $1 ' . $newArgumentName . '$2' . "\n";
-        return Strings::replace($line->getContent(), self::PARAM_WITHOUT_NAME_REGEX, $replacement);
+        return Regex::replace($line->getContent(), self::PARAM_WITHOUT_NAME_REGEX, $replacement);
     }
 }

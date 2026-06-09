@@ -115,7 +115,7 @@ PHP
         // figure out where the switch starts
         $openIndex = $tokens->getNextTokenOfKind($switchIndex, ['{']);
         // figure out where the switch ends
-        $closeIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $openIndex);
+        $closeIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_BRACE, $openIndex);
         for ($index = $openIndex + 1; $index < $closeIndex; ++$index) {
             $index = $this->doFix($tokens, $index, $depth, \true);
         }

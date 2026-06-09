@@ -110,7 +110,7 @@ final class IncrementStyleFixer extends AbstractIncrementOperatorFixer implement
     {
         $nextIndex = $tokens->getNextMeaningfulToken($index);
         $nextToken = $tokens[$nextIndex];
-        while ($nextToken->equalsAny(['$', '(', '[', [CT::T_DYNAMIC_PROP_BRACE_OPEN], [CT::T_DYNAMIC_VAR_BRACE_OPEN], [CT::T_ARRAY_INDEX_CURLY_BRACE_OPEN], [\T_NS_SEPARATOR], [\T_STATIC], [\T_STRING], [\T_VARIABLE]])) {
+        while ($nextToken->equalsAny(['$', '(', '[', [CT::T_DYNAMIC_PROP_BRACE_OPEN], [CT::T_DYNAMIC_VAR_BRACE_OPEN], [CT::T_ARRAY_INDEX_BRACE_OPEN], [\T_NS_SEPARATOR], [\T_STATIC], [\T_STRING], [\T_VARIABLE]])) {
             $blockType = Tokens::detectBlockType($nextToken);
             if (null !== $blockType) {
                 $nextIndex = $tokens->findBlockEnd($blockType['type'], $nextIndex);

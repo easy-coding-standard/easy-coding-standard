@@ -3,13 +3,13 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker;
 
-use ECSPrefix202606\Nette\Utils\Strings;
 use PhpCsFixer\DocBlock\Annotation;
 use PhpCsFixer\DocBlock\DocBlock;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use Symplify\CodingStandard\TokenAnalyzer\DocblockRelatedParamNamesResolver;
 use Symplify\CodingStandard\TokenRunner\Contract\DocBlock\MalformWorkerInterface;
+use Symplify\CodingStandard\Utils\Regex;
 final class ParamNameTypoMalformWorker implements MalformWorkerInterface
 {
     /**
@@ -18,8 +18,8 @@ final class ParamNameTypoMalformWorker implements MalformWorkerInterface
      */
     private $docblockRelatedParamNamesResolver;
     /**
-     * @var string
      * @see https://regex101.com/r/5szHlw/1
+     * @var string
      */
     private const PARAM_NAME_REGEX = '#@param(\s+)(?<callable>callable)?(.*?)(?<paramName>\$\w+)#';
     public function __construct(DocblockRelatedParamNamesResolver $docblockRelatedParamNamesResolver)
@@ -63,7 +63,7 @@ final class ParamNameTypoMalformWorker implements MalformWorkerInterface
         $paramAnnotations = $this->getAnnotationsOfType($docContent, 'param');
         $paramNames = [];
         foreach ($paramAnnotations as $paramAnnotation) {
-            $match = Strings::match($paramAnnotation->getContent(), self::PARAM_NAME_REGEX);
+            $match = Regex::match($paramAnnotation->getContent(), self::PARAM_NAME_REGEX);
             if (isset($match['paramName'])) {
                 // skip callables, as they contain nested params
                 if (isset($match['callable']) && $match['callable'] === 'callable') {
@@ -98,7 +98,7 @@ final class ParamNameTypoMalformWorker implements MalformWorkerInterface
             }
             $typoName = $paramNames[$key];
             $replacePattern = '#@param(.*?)(' . preg_quote($typoName, '#') . '\b)#';
-            $docContent = Strings::replace($docContent, $replacePattern, static function (array $matched) use ($argumentName, &$replacedParams) {
+            $docContent = Regex::replace($docContent, $replacePattern, static function (array $matched) use ($argumentName, &$replacedParams) {
                 $paramName = $matched[2];
                 // 2. If the PHPDoc $paramName is one of the existing $argumentNames and has not already been replaced, it will be deferred
                 if (isset($replacedParams[$paramName]) && !$replacedParams[$paramName]) {

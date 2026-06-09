@@ -417,6 +417,7 @@ PHP
                 }
             }
             if ($i > 0) {
+                \assert(\false !== strrpos($tmp, '\\'));
                 $tmp = (string) substr($tmp, 0, strrpos($tmp, '\\'));
             }
         }
@@ -481,6 +482,7 @@ PHP
                     if (strncmp($symbol, '\\', strlen('\\')) === 0 || '' === $namespaceName || strpos($symbol, '\\') === \false) {
                         break;
                     }
+                    \assert(\false !== strrpos($symbol, '\\'));
                     $symbol = (string) substr($symbol, 0, strrpos($symbol, '\\'));
                 }
             }

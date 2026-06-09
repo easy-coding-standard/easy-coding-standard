@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\Fixer\ArrayNotation;
 
+use Override;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
@@ -54,6 +55,7 @@ final class StandaloneLineInMultilineArrayFixer extends AbstractSymplifyFixer
      *
      * @see \PhpCsFixer\Fixer\ControlStructure\TrailingCommaInMultilineFixer::getPriority()
      */
+    #[Override]
     public function getPriority(): int
     {
         return 5;

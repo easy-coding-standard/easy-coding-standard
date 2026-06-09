@@ -3,21 +3,20 @@
     "description": "Set of Symplify rules for PHP_CodeSniffer and PHP CS Fixer.",
     "license": "MIT",
     "require": {
-        "php": ">=8.2",
-        "nette\/utils": "^4.0",
-        "friendsofphp\/php-cs-fixer": "^3.89"
+        "php": ">=8.4",
+        "friendsofphp\/php-cs-fixer": "^3.95.4"
     },
     "require-dev": {
-        "symplify\/easy-coding-standard": "^12.6",
+        "symplify\/easy-coding-standard": "^13.1",
         "squizlabs\/php_codesniffer": "^4.0",
-        "phpunit\/phpunit": "^11.5|^12.0",
+        "phpunit\/phpunit": "^12.5",
         "phpstan\/extension-installer": "^1.4",
-        "phpstan\/phpstan": "^2.1",
-        "rector\/rector": "^2.2",
+        "phpstan\/phpstan": "^2.2",
+        "rector\/rector": "^2.4",
         "symplify\/phpstan-extensions": "^12.0",
-        "tomasvotruba\/class-leak": "^2.0",
-        "rector\/jack": "^0.2",
-        "tracy\/tracy": "^2.11"
+        "tomasvotruba\/class-leak": "^2.1.5",
+        "rector\/jack": "^1.0",
+        "tracy\/tracy": "^2.12"
     },
     "autoload": {
         "psr-4": {

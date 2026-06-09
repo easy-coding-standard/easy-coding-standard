@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\Fixer\Annotation;
 
-use ECSPrefix202606\Nette\Utils\Strings;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
@@ -27,8 +26,8 @@ final class RemovePropertyVariableNameDescriptionFixer extends AbstractSymplifyF
      */
     private const ERROR_MESSAGE = 'Remove useless "$variable" from @var tag';
     /**
-     * @var string
      * @see https://regex101.com/r/2PxeKF/1
+     * @var string
      */
     private const VAR_REGEX = '#@(?:psalm-|phpstan-)?var#';
     /**
@@ -85,7 +84,7 @@ final class RemovePropertyVariableNameDescriptionFixer extends AbstractSymplifyF
                     continue;
                 }
                 // remove last x characters
-                $docblockLine = Strings::substring($docblockLine, 0, -strlen(' ' . $propertyName));
+                $docblockLine = mb_substr($docblockLine, 0, -strlen(' ' . $propertyName));
                 $hasChanged = \true;
                 $docblockLines[$key] = rtrim($docblockLine);
             }

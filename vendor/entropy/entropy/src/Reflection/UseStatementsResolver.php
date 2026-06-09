@@ -19,7 +19,7 @@ final class UseStatementsResolver
         preg_match_all($pattern, $fileContent, $matches, \PREG_SET_ORDER);
         foreach ($matches as $match) {
             $fullClassName = $match[1];
-            $shortClassName = $match[3] ?? substr((string) strrchr($fullClassName, '\\'), 1);
+            $shortClassName = $match[3] ?? (strpos($fullClassName, '\\') !== \false ? (string) substr((string) strrchr($fullClassName, '\\'), 1) : $fullClassName);
             $useStatements[$shortClassName] = $fullClassName;
         }
         return $useStatements;

@@ -3,21 +3,21 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker;
 
-use ECSPrefix202606\Nette\Utils\Strings;
 use PhpCsFixer\DocBlock\DocBlock;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use Symplify\CodingStandard\TokenRunner\Contract\DocBlock\MalformWorkerInterface;
+use Symplify\CodingStandard\Utils\Regex;
 final class SuperfluousVarNameMalformWorker implements MalformWorkerInterface
 {
     /**
-     * @var string
      * @see https://regex101.com/r/euhrn8/1
+     * @var string
      */
     private const THIS_VARIABLE_REGEX = '#\$this$#';
     /**
-     * @var string
      * @see https://regex101.com/r/6XuSGV/1
+     * @var string
      */
     private const VAR_VARIABLE_NAME_REGEX = '#(?<tag>@(?:psalm-|phpstan-)?var)(?<type>\s+[|\\\\\\w]+)?(\s+)(?<propertyName>\$[\w]+)#';
     /**
@@ -31,16 +31,16 @@ final class SuperfluousVarNameMalformWorker implements MalformWorkerInterface
         $docBlock = new DocBlock($docContent);
         $lines = $docBlock->getLines();
         foreach ($lines as $line) {
-            $match = Strings::match($line->getContent(), self::VAR_VARIABLE_NAME_REGEX);
+            $match = Regex::match($line->getContent(), self::VAR_VARIABLE_NAME_REGEX);
             if ($match === null) {
                 continue;
             }
-            $newLineContent = Strings::replace($line->getContent(), self::VAR_VARIABLE_NAME_REGEX, static function (array $match): string {
+            $newLineContent = Regex::replace($line->getContent(), self::VAR_VARIABLE_NAME_REGEX, static function (array $match): string {
                 $replacement = $match['tag'];
                 if ($match['type'] !== []) {
                     $replacement .= $match['type'];
                 }
-                if (Strings::match($match['propertyName'], self::THIS_VARIABLE_REGEX)) {
+                if (Regex::match($match['propertyName'], self::THIS_VARIABLE_REGEX)) {
                     return $match['tag'] . ' self';
                 }
                 return $replacement;

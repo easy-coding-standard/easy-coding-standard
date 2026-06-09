@@ -407,6 +407,7 @@ final class TypeExpression
             if ([] === $matches) {
                 throw new \Exception('Unable to parse phpdoc type ' . var_export($this->value, \true));
             }
+            \assert(isset($matches[0], $matches['type']));
             if (null === $seenGlues) {
                 if (($matches['glue'][0] ?? '') === '') {
                     break;
@@ -452,14 +453,17 @@ final class TypeExpression
             }
         }
         $this->isCompositeType = \false;
+        \assert(isset($matches['nullable'], $matches['array'], $matches['class_constant']));
         if ('' !== $matches['nullable'][0]) {
             $this->innerTypeExpressions[] = ['start_index' => \strlen($matches['nullable'][0]), 'expression' => $this->inner((string) substr($matches['type'][0], \strlen($matches['nullable'][0])))];
         } elseif ('' !== $matches['array'][0]) {
             $this->innerTypeExpressions[] = ['start_index' => 0, 'expression' => $this->inner((string) substr($matches['type'][0], 0, -\strlen($matches['array'][0])))];
         } elseif ('' !== ($matches['generic'][0] ?? '') && 0 === $matches['generic'][1]) {
+            \assert(isset($matches['generic_name'], $matches['generic_start'], $matches['generic_types']));
             $this->innerTypeExpressions[] = ['start_index' => 0, 'expression' => $this->inner($matches['generic_name'][0])];
             $this->parseCommaSeparatedInnerTypes(\strlen($matches['generic_name'][0]) + \strlen($matches['generic_start'][0]), $matches['generic_types'][0]);
         } elseif ('' !== ($matches['callable'][0] ?? '') && 0 === $matches['callable'][1]) {
+            \assert(isset($matches['callable_name'], $matches['callable_template'], $matches['callable_start'], $matches['callable_arguments'], $matches['callable_template_start'], $matches['callable_template_inners']));
             $this->innerTypeExpressions[] = ['start_index' => 0, 'expression' => $this->inner($matches['callable_name'][0])];
             $this->parseCallableTemplateInnerTypes(\strlen($matches['callable_name'][0]) + \strlen($matches['callable_template_start'][0]), $matches['callable_template_inners'][0]);
             $this->parseCallableArgumentTypes(\strlen($matches['callable_name'][0]) + \strlen($matches['callable_template'][0]) + \strlen($matches['callable_start'][0]), $matches['callable_arguments'][0]);
@@ -467,20 +471,25 @@ final class TypeExpression
                 $this->innerTypeExpressions[] = ['start_index' => \strlen($this->value) - \strlen($matches['callable_return'][0]), 'expression' => $this->inner($matches['callable_return'][0])];
             }
         } elseif ('' !== ($matches['array_shape'][0] ?? '') && 0 === $matches['array_shape'][1]) {
+            \assert(isset($matches['array_shape_name'], $matches['array_shape_start'], $matches['array_shape_inners']));
             $this->innerTypeExpressions[] = ['start_index' => 0, 'expression' => $this->inner($matches['array_shape_name'][0])];
             $nextIndex = \strlen($matches['array_shape_name'][0]) + \strlen($matches['array_shape_start'][0]);
             $this->parseArrayShapeInnerTypes($nextIndex, $matches['array_shape_inners'][0]);
             if ('' !== ($matches['array_shape_unsealed_type'][0] ?? '')) {
+                \assert(isset($matches['array_shape_unsealed_variadic'], $matches['array_shape_unsealed_type_start'], $matches['array_shape_unsealed_type_a']));
                 $nextIndex += \strlen($matches['array_shape_inners'][0]) + \strlen($matches['array_shape_unsealed_variadic'][0]) + \strlen($matches['array_shape_unsealed_type_start'][0]);
                 $this->innerTypeExpressions[] = ['start_index' => $nextIndex, 'expression' => $this->inner($matches['array_shape_unsealed_type_a'][0])];
                 if ('' !== ($matches['array_shape_unsealed_type_b'][0] ?? '')) {
+                    \assert(isset($matches['array_shape_unsealed_type_comma']));
                     $nextIndex += \strlen($matches['array_shape_unsealed_type_a'][0]) + \strlen($matches['array_shape_unsealed_type_comma'][0]);
                     $this->innerTypeExpressions[] = ['start_index' => $nextIndex, 'expression' => $this->inner($matches['array_shape_unsealed_type_b'][0])];
                 }
             }
         } elseif ('' !== ($matches['parenthesized'][0] ?? '') && 0 === $matches['parenthesized'][1]) {
+            \assert(isset($matches['parenthesized_start']));
             $index = \strlen($matches['parenthesized_start'][0]);
             if ('' !== ($matches['conditional'][0] ?? '')) {
+                \assert(isset($matches['conditional_cond_left'], $matches['conditional_cond_middle'], $matches['conditional_cond_right_types'], $matches['conditional_true_start'], $matches['conditional_true_types'], $matches['conditional_false_start'], $matches['conditional_false_types']));
                 if ('' !== ($matches['conditional_cond_left_types'][0] ?? '')) {
                     $this->innerTypeExpressions[] = ['start_index' => $index, 'expression' => $this->inner($matches['conditional_cond_left_types'][0])];
                 }
@@ -491,9 +500,11 @@ final class TypeExpression
                 $index += \strlen($matches['conditional_true_types'][0]) + \strlen($matches['conditional_false_start'][0]);
                 $this->innerTypeExpressions[] = ['start_index' => $index, 'expression' => $this->inner($matches['conditional_false_types'][0])];
             } else {
+                \assert(isset($matches['parenthesized_types']));
                 $this->innerTypeExpressions[] = ['start_index' => $index, 'expression' => $this->inner($matches['parenthesized_types'][0])];
             }
         } elseif ('' !== $matches['class_constant'][0]) {
+            \assert(isset($matches['class_constant_name']));
             $this->innerTypeExpressions[] = ['start_index' => 0, 'expression' => $this->inner($matches['class_constant_name'][0])];
         }
     }
@@ -502,6 +513,7 @@ final class TypeExpression
         $index = 0;
         while (\strlen($value) !== $index) {
             Preg::match('{\G' . self::REGEX_TYPES . '(?:\h*,[\h\v*]*|$)}', $value, $matches, 0, $index);
+            \assert(isset($matches[0], $matches['types']));
             $this->innerTypeExpressions[] = ['start_index' => $startIndex + $index, 'expression' => $this->inner($matches['types'])];
             $index += \strlen($matches[0]);
         }
@@ -511,15 +523,19 @@ final class TypeExpression
         $index = 0;
         while (\strlen($value) !== $index) {
             Preg::match('{\G(?:(?=1)0' . self::REGEX_TYPES . '|(?<_callable_template_inner>(?&callable_template_inner))(?:\h*,\h*|$))}', $value, $prematches, 0, $index);
+            \assert(isset($prematches[0], $prematches['_callable_template_inner']));
             $consumedValue = $prematches['_callable_template_inner'];
             $consumedValueLength = \strlen($consumedValue);
             $consumedCommaLength = \strlen($prematches[0]) - $consumedValueLength;
             $addedPrefix = 'Closure<';
             Preg::match('{^' . self::REGEX_TYPES . '$}', $addedPrefix . $consumedValue . '>(): void', $matches, \PREG_OFFSET_CAPTURE);
+            \assert(isset($matches['callable_template_inner_b'], $matches['callable_template_inner_d']));
             if ('' !== $matches['callable_template_inner_b'][0]) {
+                \assert(isset($matches['callable_template_inner_b_types']));
                 $this->innerTypeExpressions[] = ['start_index' => $startIndex + $index + $matches['callable_template_inner_b_types'][1] - \strlen($addedPrefix), 'expression' => $this->inner($matches['callable_template_inner_b_types'][0])];
             }
             if ('' !== $matches['callable_template_inner_d'][0]) {
+                \assert(isset($matches['callable_template_inner_d_types']));
                 $this->innerTypeExpressions[] = ['start_index' => $startIndex + $index + $matches['callable_template_inner_d_types'][1] - \strlen($addedPrefix), 'expression' => $this->inner($matches['callable_template_inner_d_types'][0])];
             }
             $index += $consumedValueLength + $consumedCommaLength;
@@ -530,11 +546,13 @@ final class TypeExpression
         $index = 0;
         while (\strlen($value) !== $index) {
             Preg::match('{\G(?:(?=1)0' . self::REGEX_TYPES . '|(?<_callable_argument>(?&callable_argument))(?:\h*,\h*|$))}', $value, $prematches, 0, $index);
+            \assert(isset($prematches[0], $prematches['_callable_argument']));
             $consumedValue = $prematches['_callable_argument'];
             $consumedValueLength = \strlen($consumedValue);
             $consumedCommaLength = \strlen($prematches[0]) - $consumedValueLength;
             $addedPrefix = 'Closure(';
             Preg::match('{^' . self::REGEX_TYPES . '$}', $addedPrefix . $consumedValue . '): void', $matches, \PREG_OFFSET_CAPTURE);
+            \assert(isset($matches['callable_argument_type']));
             $this->innerTypeExpressions[] = ['start_index' => $startIndex + $index, 'expression' => $this->inner($matches['callable_argument_type'][0])];
             $index += $consumedValueLength + $consumedCommaLength;
         }
@@ -544,11 +562,13 @@ final class TypeExpression
         $index = 0;
         while (\strlen($value) !== $index) {
             Preg::match('{\G(?:(?=1)0' . self::REGEX_TYPES . '|(?<_array_shape_inner>(?&array_shape_inner))(?:\h*,[\h\v*]*|$))}', $value, $prematches, 0, $index);
+            \assert(isset($prematches[0], $prematches['_array_shape_inner']));
             $consumedValue = $prematches['_array_shape_inner'];
             $consumedValueLength = \strlen($consumedValue);
             $consumedCommaLength = \strlen($prematches[0]) - $consumedValueLength;
             $addedPrefix = 'array{';
             Preg::match('{^' . self::REGEX_TYPES . '$}', $addedPrefix . $consumedValue . '}', $matches, \PREG_OFFSET_CAPTURE);
+            \assert(isset($matches['array_shape_inner_value']));
             $this->innerTypeExpressions[] = ['start_index' => $startIndex + $index + $matches['array_shape_inner_value'][1] - \strlen($addedPrefix), 'expression' => $this->inner($matches['array_shape_inner_value'][0])];
             $index += $consumedValueLength + $consumedCommaLength;
         }

@@ -74,11 +74,11 @@ PHP
                 // lambda is already 'static'
             }
             $argumentsStartIndex = $tokens->getNextTokenOfKind($index, ['(']);
-            $argumentsEndIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $argumentsStartIndex);
+            $argumentsEndIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $argumentsStartIndex);
             // figure out where the lambda starts and ends
             if ($tokens[$index]->isGivenKind(\T_FUNCTION)) {
                 $lambdaOpenIndex = $tokens->getNextTokenOfKind($argumentsEndIndex, ['{']);
-                $lambdaEndIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $lambdaOpenIndex);
+                $lambdaEndIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_BRACE, $lambdaOpenIndex);
             } else {
                 // T_FN
                 $lambdaOpenIndex = $tokens->getNextTokenOfKind($argumentsEndIndex, [[\T_DOUBLE_ARROW]]);
@@ -124,7 +124,7 @@ PHP
                 if ($i <= $openBraceIndex && $this->hasPossibleReferenceToThis($tokens, $i, $openBraceIndex)) {
                     return \true;
                 }
-                $i = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $openBraceIndex);
+                $i = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_BRACE, $openBraceIndex);
                 continue;
             }
             if ($tokens[$i]->equals('$')) {

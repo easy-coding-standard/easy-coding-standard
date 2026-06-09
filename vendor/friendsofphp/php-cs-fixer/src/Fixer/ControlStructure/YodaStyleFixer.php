@@ -209,7 +209,7 @@ PHP
                 $nonBlockFound = \true;
                 continue;
             }
-            if ($block['isStart'] || $nonBlockFound && Tokens::BLOCK_TYPE_CURLY_BRACE === $block['type']) {
+            if ($block['isStart'] || $nonBlockFound && Tokens::BLOCK_TYPE_BRACE === $block['type']) {
                 break;
             }
             $index = $tokens->findBlockStart($block['type'], $index) - 1;
@@ -220,8 +220,10 @@ PHP
     {
         for ($i = \count($tokens) - 1; $i > 1; --$i) {
             if ($tokens[$i]->isGivenKind($this->candidateTypes)) {
+                \assert(isset($this->candidateTypesConfiguration[$tokens[$i]->getId()]));
                 $yoda = $this->candidateTypesConfiguration[$tokens[$i]->getId()];
             } elseif ($tokens[$i]->equals('<') && \in_array('<', $this->candidateTypes, \true) || $tokens[$i]->equals('>') && \in_array('>', $this->candidateTypes, \true)) {
+                \assert(isset($this->candidateTypesConfiguration[$tokens[$i]->getContent()]));
                 $yoda = $this->candidateTypesConfiguration[$tokens[$i]->getContent()];
             } else {
                 continue;
@@ -323,7 +325,7 @@ PHP
     private function isListStatement(Tokens $tokens, int $index, int $end): bool
     {
         for ($i = $index; $i <= $end; ++$i) {
-            if ($tokens[$i]->isGivenKind([\T_LIST, CT::T_DESTRUCTURING_SQUARE_BRACE_OPEN, CT::T_DESTRUCTURING_SQUARE_BRACE_CLOSE])) {
+            if ($tokens[$i]->isGivenKind([\T_LIST, CT::T_DESTRUCTURING_BRACKET_OPEN, CT::T_DESTRUCTURING_BRACKET_CLOSE])) {
                 return \true;
             }
         }
@@ -451,7 +453,7 @@ PHP
         }
         $index = $start;
         // handle multiple braces around statement ((($a === 1)))
-        while ($tokens[$index]->equals('(') && $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $index) === $end) {
+        while ($tokens[$index]->equals('(') && $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $index) === $end) {
             $index = $tokens->getNextMeaningfulToken($index);
             $end = $tokens->getPrevMeaningfulToken($end);
         }
@@ -466,7 +468,7 @@ PHP
             if ($index === $end) {
                 return $current->isGivenKind($expectString ? \T_STRING : \T_VARIABLE);
             }
-            if ($current->isGivenKind([\T_LIST, CT::T_DESTRUCTURING_SQUARE_BRACE_OPEN, CT::T_DESTRUCTURING_SQUARE_BRACE_CLOSE])) {
+            if ($current->isGivenKind([\T_LIST, CT::T_DESTRUCTURING_BRACKET_OPEN, CT::T_DESTRUCTURING_BRACKET_CLOSE])) {
                 return \false;
             }
             $nextIndex = $tokens->getNextMeaningfulToken($index);
@@ -493,13 +495,13 @@ PHP
                 continue;
             }
             // $a[...], a[...] (as in $c->a[$b]), $a{...} or a{...} (as in $c->a{$b})
-            if ($current->isGivenKind($expectString ? \T_STRING : \T_VARIABLE) && $next->equalsAny(['[', [CT::T_ARRAY_INDEX_CURLY_BRACE_OPEN, '{']])) {
-                $index = $tokens->findBlockEnd($next->equals('[') ? Tokens::BLOCK_TYPE_INDEX_SQUARE_BRACE : Tokens::BLOCK_TYPE_ARRAY_INDEX_CURLY_BRACE, $nextIndex);
+            if ($current->isGivenKind($expectString ? \T_STRING : \T_VARIABLE) && $next->equalsAny(['[', [CT::T_ARRAY_INDEX_BRACE_OPEN, '{']])) {
+                $index = $tokens->findBlockEnd($next->equals('[') ? Tokens::BLOCK_TYPE_INDEX_BRACKET : Tokens::BLOCK_TYPE_INDEX_BRACE, $nextIndex);
                 if ($index === $end) {
                     return \true;
                 }
                 $index = $tokens->getNextMeaningfulToken($index);
-                if (!$tokens[$index]->equalsAny(['[', [CT::T_ARRAY_INDEX_CURLY_BRACE_OPEN, '{']]) && !$tokens[$index]->isObjectOperator()) {
+                if (!$tokens[$index]->equalsAny(['[', [CT::T_ARRAY_INDEX_BRACE_OPEN, '{']]) && !$tokens[$index]->isObjectOperator()) {
                     return \false;
                 }
                 $index = $tokens->getNextMeaningfulToken($index);
@@ -542,12 +544,12 @@ PHP
                 return \false;
             }
             if ($expectArrayOnly) {
-                if ($token->equalsAny(['(', ')', [CT::T_ARRAY_SQUARE_BRACE_CLOSE]])) {
+                if ($token->equalsAny(['(', ')', [CT::T_ARRAY_BRACKET_CLOSE]])) {
                     continue;
                 }
                 return \false;
             }
-            if ($token->isGivenKind([\T_ARRAY, CT::T_ARRAY_SQUARE_BRACE_OPEN])) {
+            if ($token->isGivenKind([\T_ARRAY, CT::T_ARRAY_BRACKET_OPEN])) {
                 $expectArrayOnly = \true;
                 continue;
             }

@@ -300,17 +300,17 @@
         },
         {
             "name": "entropy\/entropy",
-            "version": "dev-main",
-            "version_normalized": "dev-main",
+            "version": "0.3.0",
+            "version_normalized": "0.3.0.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/TomasVotruba\/entropy.git",
-                "reference": "4b35a25499cdf26d7e08d52aaccf53b90ece17fd"
+                "reference": "be1cef187e38640806a2e20fb094480dfa31fc39"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/TomasVotruba\/entropy\/zipball\/4b35a25499cdf26d7e08d52aaccf53b90ece17fd",
-                "reference": "4b35a25499cdf26d7e08d52aaccf53b90ece17fd",
+                "url": "https:\/\/api.github.com\/repos\/TomasVotruba\/entropy\/zipball\/be1cef187e38640806a2e20fb094480dfa31fc39",
+                "reference": "be1cef187e38640806a2e20fb094480dfa31fc39",
                 "shasum": ""
             },
             "require": {
@@ -334,8 +334,7 @@
                 "tomasvotruba\/unused-public": "^2.2",
                 "tracy\/tracy": "^2.12"
             },
-            "time": "2026-05-27T08:49:55+00:00",
-            "default-branch": true,
+            "time": "2026-06-06T09:32:39+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -350,7 +349,7 @@
             "description": "Entropy framework",
             "support": {
                 "issues": "https:\/\/github.com\/TomasVotruba\/entropy\/issues",
-                "source": "https:\/\/github.com\/TomasVotruba\/entropy\/tree\/main"
+                "source": "https:\/\/github.com\/TomasVotruba\/entropy\/tree\/0.3.0"
             },
             "install-path": "..\/entropy\/entropy"
         },
@@ -542,17 +541,17 @@
         },
         {
             "name": "friendsofphp\/php-cs-fixer",
-            "version": "v3.95.3",
-            "version_normalized": "3.95.3.0",
+            "version": "v3.95.5",
+            "version_normalized": "3.95.5.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/PHP-CS-Fixer\/PHP-CS-Fixer.git",
-                "reference": "3d681493acc0e93283481b1c63c263737df78687"
+                "reference": "7f86d8763063f5d2e2e2d0e1e45bb2f15895361d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/PHP-CS-Fixer\/PHP-CS-Fixer\/zipball\/3d681493acc0e93283481b1c63c263737df78687",
-                "reference": "3d681493acc0e93283481b1c63c263737df78687",
+                "url": "https:\/\/api.github.com\/repos\/PHP-CS-Fixer\/PHP-CS-Fixer\/zipball\/7f86d8763063f5d2e2e2d0e1e45bb2f15895361d",
+                "reference": "7f86d8763063f5d2e2e2d0e1e45bb2f15895361d",
                 "shasum": ""
             },
             "require": {
@@ -570,7 +569,7 @@
                 "react\/event-loop": "^1.5",
                 "react\/socket": "^1.16",
                 "react\/stream": "^1.4",
-                "sebastian\/diff": "^4.0.6 || ^5.1.1 || ^6.0.2 || ^7.0 || ^8.0",
+                "sebastian\/diff": "^4.0.6 || ^5.1.1 || ^6.0.2 || ^7.0 || ^8.0 || ^9.0",
                 "symfony\/console": "^5.4.47 || ^6.4.24 || ^7.0 || ^8.0",
                 "symfony\/event-dispatcher": "^5.4.45 || ^6.4.24 || ^7.0 || ^8.0",
                 "symfony\/filesystem": "^5.4.45 || ^6.4.24 || ^7.0 || ^8.0",
@@ -601,7 +600,7 @@
                 "ext-dom": "For handling output formats in XML",
                 "ext-mbstring": "For handling non-UTF8 characters."
             },
-            "time": "2026-05-29T20:35:26+00:00",
+            "time": "2026-06-09T14:55:16+00:00",
             "bin": [
                 "php-cs-fixer"
             ],
@@ -638,7 +637,7 @@
             ],
             "support": {
                 "issues": "https:\/\/github.com\/PHP-CS-Fixer\/PHP-CS-Fixer\/issues",
-                "source": "https:\/\/github.com\/PHP-CS-Fixer\/PHP-CS-Fixer\/tree\/v3.95.3"
+                "source": "https:\/\/github.com\/PHP-CS-Fixer\/PHP-CS-Fixer\/tree\/v3.95.5"
             },
             "funding": [
                 {
@@ -717,17 +716,17 @@
         },
         {
             "name": "illuminate\/contracts",
-            "version": "v12.61.0",
-            "version_normalized": "12.61.0.0",
+            "version": "v12.62.0",
+            "version_normalized": "12.62.0.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/illuminate\/contracts.git",
-                "reference": "099fd9b56ccaf776facaa27699b960a3f2451127"
+                "reference": "c16fd7ba7d8e6b8f336639ceb6b7e1ff6ed0efb5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/illuminate\/contracts\/zipball\/099fd9b56ccaf776facaa27699b960a3f2451127",
-                "reference": "099fd9b56ccaf776facaa27699b960a3f2451127",
+                "url": "https:\/\/api.github.com\/repos\/illuminate\/contracts\/zipball\/c16fd7ba7d8e6b8f336639ceb6b7e1ff6ed0efb5",
+                "reference": "c16fd7ba7d8e6b8f336639ceb6b7e1ff6ed0efb5",
                 "shasum": ""
             },
             "require": {
@@ -735,7 +734,7 @@
                 "psr\/container": "^1.1.1|^2.0.1",
                 "psr\/simple-cache": "^1.0|^2.0|^3.0"
             },
-            "time": "2026-02-20T14:37:40+00:00",
+            "time": "2026-06-09T13:20:54+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -768,21 +767,21 @@
         },
         {
             "name": "nette\/utils",
-            "version": "v4.0.8",
-            "version_normalized": "4.0.8.0",
+            "version": "v4.1.4",
+            "version_normalized": "4.1.4.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/nette\/utils.git",
-                "reference": "c930ca4e3cf4f17dcfb03037703679d2396d2ede"
+                "reference": "7da6c396d7ebe142bc857c20479d5e70a5e1aac7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/nette\/utils\/zipball\/c930ca4e3cf4f17dcfb03037703679d2396d2ede",
-                "reference": "c930ca4e3cf4f17dcfb03037703679d2396d2ede",
+                "url": "https:\/\/api.github.com\/repos\/nette\/utils\/zipball\/7da6c396d7ebe142bc857c20479d5e70a5e1aac7",
+                "reference": "7da6c396d7ebe142bc857c20479d5e70a5e1aac7",
                 "shasum": ""
             },
             "require": {
-                "php": "8.0 - 8.5"
+                "php": "8.2 - 8.5"
             },
             "conflict": {
                 "nette\/finder": "<3",
@@ -790,8 +789,10 @@
             },
             "require-dev": {
                 "jetbrains\/phpstorm-attributes": "^1.2",
+                "nette\/phpstan-rules": "^1.0",
                 "nette\/tester": "^2.5",
-                "phpstan\/phpstan-nette": "^2.0@stable",
+                "phpstan\/extension-installer": "^1.4@stable",
+                "phpstan\/phpstan": "^2.1@stable",
                 "tracy\/tracy": "^2.9"
             },
             "suggest": {
@@ -802,11 +803,11 @@
                 "ext-mbstring": "to use Strings::lower() etc...",
                 "ext-tokenizer": "to use Nette\\Utils\\Reflection::getUseStatements()"
             },
-            "time": "2025-08-06T21:43:34+00:00",
+            "time": "2026-05-11T20:49:54+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.0-dev"
+                    "dev-master": "4.1-dev"
                 }
             },
             "installation-source": "dist",
@@ -854,9 +855,70 @@
             ],
             "support": {
                 "issues": "https:\/\/github.com\/nette\/utils\/issues",
-                "source": "https:\/\/github.com\/nette\/utils\/tree\/v4.0.8"
+                "source": "https:\/\/github.com\/nette\/utils\/tree\/v4.1.4"
             },
             "install-path": "..\/nette\/utils"
+        },
+        {
+            "name": "nikic\/php-parser",
+            "version": "v5.7.0",
+            "version_normalized": "5.7.0.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/nikic\/PHP-Parser.git",
+                "reference": "dca41cd15c2ac9d055ad70dbfd011130757d1f82"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/nikic\/PHP-Parser\/zipball\/dca41cd15c2ac9d055ad70dbfd011130757d1f82",
+                "reference": "dca41cd15c2ac9d055ad70dbfd011130757d1f82",
+                "shasum": ""
+            },
+            "require": {
+                "ext-ctype": "*",
+                "ext-json": "*",
+                "ext-tokenizer": "*",
+                "php": ">=7.4"
+            },
+            "require-dev": {
+                "ircmaxell\/php-yacc": "^0.0.7",
+                "phpunit\/phpunit": "^9.0"
+            },
+            "time": "2025-12-06T11:56:16+00:00",
+            "bin": [
+                "bin\/php-parse"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.x-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "ECSPrefix202606\\PhpParser\\": "lib\/PhpParser"
+                }
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Nikita Popov"
+                }
+            ],
+            "description": "A PHP parser written in PHP",
+            "keywords": [
+                "parser",
+                "php"
+            ],
+            "support": {
+                "issues": "https:\/\/github.com\/nikic\/PHP-Parser\/issues",
+                "source": "https:\/\/github.com\/nikic\/PHP-Parser\/tree\/v5.7.0"
+            },
+            "install-path": "..\/nikic\/php-parser"
         },
         {
             "name": "psr\/container",
@@ -1570,31 +1632,31 @@
         },
         {
             "name": "sebastian\/diff",
-            "version": "7.0.0",
-            "version_normalized": "7.0.0.0",
+            "version": "9.0.0",
+            "version_normalized": "9.0.0.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/sebastianbergmann\/diff.git",
-                "reference": "7ab1ea946c012266ca32390913653d844ecd085f"
+                "reference": "a3fb6a298a265ff487a91bbea46e03cd01dbb226"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/sebastianbergmann\/diff\/zipball\/7ab1ea946c012266ca32390913653d844ecd085f",
-                "reference": "7ab1ea946c012266ca32390913653d844ecd085f",
+                "url": "https:\/\/api.github.com\/repos\/sebastianbergmann\/diff\/zipball\/a3fb6a298a265ff487a91bbea46e03cd01dbb226",
+                "reference": "a3fb6a298a265ff487a91bbea46e03cd01dbb226",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.3"
+                "php": ">=8.4"
             },
             "require-dev": {
-                "phpunit\/phpunit": "^12.0",
-                "symfony\/process": "^7.2"
+                "phpunit\/phpunit": "^13.2",
+                "symfony\/process": "^7.4.13"
             },
-            "time": "2025-02-07T04:55:46+00:00",
+            "time": "2026-06-05T03:04:51+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "7.0-dev"
+                    "dev-main": "9.0-dev"
                 }
             },
             "installation-source": "dist",
@@ -1628,12 +1690,24 @@
             "support": {
                 "issues": "https:\/\/github.com\/sebastianbergmann\/diff\/issues",
                 "security": "https:\/\/github.com\/sebastianbergmann\/diff\/security\/policy",
-                "source": "https:\/\/github.com\/sebastianbergmann\/diff\/tree\/7.0.0"
+                "source": "https:\/\/github.com\/sebastianbergmann\/diff\/tree\/9.0.0"
             },
             "funding": [
                 {
                     "url": "https:\/\/github.com\/sebastianbergmann",
                     "type": "github"
+                },
+                {
+                    "url": "https:\/\/liberapay.com\/sebastianbergmann",
+                    "type": "liberapay"
+                },
+                {
+                    "url": "https:\/\/thanks.dev\/u\/gh\/sebastianbergmann",
+                    "type": "thanks_dev"
+                },
+                {
+                    "url": "https:\/\/tidelift.com\/funding\/github\/packagist\/sebastian\/diff",
+                    "type": "tidelift"
                 }
             ],
             "install-path": "..\/sebastian\/diff"
@@ -1897,28 +1971,29 @@
         },
         {
             "name": "symfony\/filesystem",
-            "version": "v7.4.11",
-            "version_normalized": "7.4.11.0",
+            "version": "v8.1.0",
+            "version_normalized": "8.1.0.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/symfony\/filesystem.git",
-                "reference": "d721ea61b4a5fba8c5b6e7c1feda19efea144b50"
+                "reference": "99aec13b82b4967ec5088222c4a3ecca955949c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/symfony\/filesystem\/zipball\/d721ea61b4a5fba8c5b6e7c1feda19efea144b50",
-                "reference": "d721ea61b4a5fba8c5b6e7c1feda19efea144b50",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/filesystem\/zipball\/99aec13b82b4967ec5088222c4a3ecca955949c2",
+                "reference": "99aec13b82b4967ec5088222c4a3ecca955949c2",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.2",
+                "php": ">=8.4.1",
+                "symfony\/deprecation-contracts": "^2.5|^3",
                 "symfony\/polyfill-ctype": "~1.8",
                 "symfony\/polyfill-mbstring": "~1.8"
             },
             "require-dev": {
-                "symfony\/process": "^6.4|^7.0|^8.0"
+                "symfony\/process": "^7.4|^8.0"
             },
-            "time": "2026-05-11T16:38:44+00:00",
+            "time": "2026-05-29T05:06:50+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -1946,7 +2021,7 @@
             "description": "Provides basic utilities for the filesystem",
             "homepage": "https:\/\/symfony.com",
             "support": {
-                "source": "https:\/\/github.com\/symfony\/filesystem\/tree\/v7.4.11"
+                "source": "https:\/\/github.com\/symfony\/filesystem\/tree\/v8.1.0"
             },
             "funding": [
                 {
@@ -2041,24 +2116,24 @@
         },
         {
             "name": "symfony\/options-resolver",
-            "version": "v7.4.8",
-            "version_normalized": "7.4.8.0",
+            "version": "v8.1.0",
+            "version_normalized": "8.1.0.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/symfony\/options-resolver.git",
-                "reference": "2888fcdc4dc2fd5f7c7397be78631e8af12e02b4"
+                "reference": "88f9c561f678a02d54b897014049fa839e33ff82"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/symfony\/options-resolver\/zipball\/2888fcdc4dc2fd5f7c7397be78631e8af12e02b4",
-                "reference": "2888fcdc4dc2fd5f7c7397be78631e8af12e02b4",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/options-resolver\/zipball\/88f9c561f678a02d54b897014049fa839e33ff82",
+                "reference": "88f9c561f678a02d54b897014049fa839e33ff82",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.2",
+                "php": ">=8.4.1",
                 "symfony\/deprecation-contracts": "^2.5|^3"
             },
-            "time": "2026-03-24T13:12:05+00:00",
+            "time": "2026-05-29T05:06:50+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -2091,7 +2166,7 @@
                 "options"
             ],
             "support": {
-                "source": "https:\/\/github.com\/symfony\/options-resolver\/tree\/v7.4.8"
+                "source": "https:\/\/github.com\/symfony\/options-resolver\/tree\/v8.1.0"
             },
             "funding": [
                 {
@@ -2112,92 +2187,6 @@
                 }
             ],
             "install-path": "..\/symfony\/options-resolver"
-        },
-        {
-            "name": "symfony\/polyfill-ctype",
-            "version": "v1.37.0",
-            "version_normalized": "1.37.0.0",
-            "source": {
-                "type": "git",
-                "url": "https:\/\/github.com\/symfony\/polyfill-ctype.git",
-                "reference": "141046a8f9477948ff284fa65be2095baafb94f2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/symfony\/polyfill-ctype\/zipball\/141046a8f9477948ff284fa65be2095baafb94f2",
-                "reference": "141046a8f9477948ff284fa65be2095baafb94f2",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2"
-            },
-            "provide": {
-                "ext-ctype": "*"
-            },
-            "suggest": {
-                "ext-ctype": "For best performance"
-            },
-            "time": "2026-04-10T16:19:22+00:00",
-            "type": "library",
-            "extra": {
-                "thanks": {
-                    "url": "https:\/\/github.com\/symfony\/polyfill",
-                    "name": "symfony\/polyfill"
-                }
-            },
-            "installation-source": "dist",
-            "autoload": {
-                "files": [
-                    "bootstrap.php"
-                ],
-                "psr-4": {
-                    "Symfony\\Polyfill\\Ctype\\": ""
-                }
-            },
-            "notification-url": "https:\/\/packagist.org\/downloads\/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Gert de Pagter",
-                    "email": "BackEndTea@gmail.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https:\/\/symfony.com\/contributors"
-                }
-            ],
-            "description": "Symfony polyfill for ctype functions",
-            "homepage": "https:\/\/symfony.com",
-            "keywords": [
-                "compatibility",
-                "ctype",
-                "polyfill",
-                "portable"
-            ],
-            "support": {
-                "source": "https:\/\/github.com\/symfony\/polyfill-ctype\/tree\/v1.37.0"
-            },
-            "funding": [
-                {
-                    "url": "https:\/\/symfony.com\/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https:\/\/github.com\/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https:\/\/github.com\/nicolas-grekas",
-                    "type": "github"
-                },
-                {
-                    "url": "https:\/\/tidelift.com\/funding\/github\/packagist\/symfony\/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "install-path": "..\/symfony\/polyfill-ctype"
         },
         {
             "name": "symfony\/polyfill-intl-grapheme",
@@ -2283,182 +2272,6 @@
                 }
             ],
             "install-path": "..\/symfony\/polyfill-intl-grapheme"
-        },
-        {
-            "name": "symfony\/polyfill-intl-normalizer",
-            "version": "v1.38.0",
-            "version_normalized": "1.38.0.0",
-            "source": {
-                "type": "git",
-                "url": "https:\/\/github.com\/symfony\/polyfill-intl-normalizer.git",
-                "reference": "2d446c214bdbe5b71bde5011b060a05fece3ae6b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/symfony\/polyfill-intl-normalizer\/zipball\/2d446c214bdbe5b71bde5011b060a05fece3ae6b",
-                "reference": "2d446c214bdbe5b71bde5011b060a05fece3ae6b",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2"
-            },
-            "suggest": {
-                "ext-intl": "For best performance"
-            },
-            "time": "2026-05-25T13:48:31+00:00",
-            "type": "library",
-            "extra": {
-                "thanks": {
-                    "url": "https:\/\/github.com\/symfony\/polyfill",
-                    "name": "symfony\/polyfill"
-                }
-            },
-            "installation-source": "dist",
-            "autoload": {
-                "files": [
-                    "bootstrap.php"
-                ],
-                "psr-4": {
-                    "Symfony\\Polyfill\\Intl\\Normalizer\\": ""
-                },
-                "classmap": [
-                    "Resources\/stubs"
-                ]
-            },
-            "notification-url": "https:\/\/packagist.org\/downloads\/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nicolas Grekas",
-                    "email": "p@tchwork.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https:\/\/symfony.com\/contributors"
-                }
-            ],
-            "description": "Symfony polyfill for intl's Normalizer class and related functions",
-            "homepage": "https:\/\/symfony.com",
-            "keywords": [
-                "compatibility",
-                "intl",
-                "normalizer",
-                "polyfill",
-                "portable",
-                "shim"
-            ],
-            "support": {
-                "source": "https:\/\/github.com\/symfony\/polyfill-intl-normalizer\/tree\/v1.38.0"
-            },
-            "funding": [
-                {
-                    "url": "https:\/\/symfony.com\/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https:\/\/github.com\/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https:\/\/github.com\/nicolas-grekas",
-                    "type": "github"
-                },
-                {
-                    "url": "https:\/\/tidelift.com\/funding\/github\/packagist\/symfony\/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "install-path": "..\/symfony\/polyfill-intl-normalizer"
-        },
-        {
-            "name": "symfony\/polyfill-mbstring",
-            "version": "v1.38.1",
-            "version_normalized": "1.38.1.0",
-            "source": {
-                "type": "git",
-                "url": "https:\/\/github.com\/symfony\/polyfill-mbstring.git",
-                "reference": "14c5439eec4ccff081ac14eca2dc57feb2a66d92"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/symfony\/polyfill-mbstring\/zipball\/14c5439eec4ccff081ac14eca2dc57feb2a66d92",
-                "reference": "14c5439eec4ccff081ac14eca2dc57feb2a66d92",
-                "shasum": ""
-            },
-            "require": {
-                "ext-iconv": "*",
-                "php": ">=7.2"
-            },
-            "provide": {
-                "ext-mbstring": "*"
-            },
-            "suggest": {
-                "ext-mbstring": "For best performance"
-            },
-            "time": "2026-05-26T12:51:13+00:00",
-            "type": "library",
-            "extra": {
-                "thanks": {
-                    "url": "https:\/\/github.com\/symfony\/polyfill",
-                    "name": "symfony\/polyfill"
-                }
-            },
-            "installation-source": "dist",
-            "autoload": {
-                "files": [
-                    "bootstrap.php"
-                ],
-                "psr-4": {
-                    "Symfony\\Polyfill\\Mbstring\\": ""
-                }
-            },
-            "notification-url": "https:\/\/packagist.org\/downloads\/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nicolas Grekas",
-                    "email": "p@tchwork.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https:\/\/symfony.com\/contributors"
-                }
-            ],
-            "description": "Symfony polyfill for the Mbstring extension",
-            "homepage": "https:\/\/symfony.com",
-            "keywords": [
-                "compatibility",
-                "mbstring",
-                "polyfill",
-                "portable",
-                "shim"
-            ],
-            "support": {
-                "source": "https:\/\/github.com\/symfony\/polyfill-mbstring\/tree\/v1.38.1"
-            },
-            "funding": [
-                {
-                    "url": "https:\/\/symfony.com\/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https:\/\/github.com\/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https:\/\/github.com\/nicolas-grekas",
-                    "type": "github"
-                },
-                {
-                    "url": "https:\/\/tidelift.com\/funding\/github\/packagist\/symfony\/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "install-path": "..\/symfony\/polyfill-mbstring"
         },
         {
             "name": "symfony\/polyfill-php80",
@@ -2982,37 +2795,36 @@
         },
         {
             "name": "symplify\/coding-standard",
-            "version": "13.0.0",
-            "version_normalized": "13.0.0.0",
+            "version": "13.1.0",
+            "version_normalized": "13.1.0.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/symplify\/coding-standard.git",
-                "reference": "bd7c36af1e96eecd08cfcc0a772a19767aa02300"
+                "reference": "61675a1a18a7d0488ae88298c0521254918e2cae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/symplify\/coding-standard\/zipball\/bd7c36af1e96eecd08cfcc0a772a19767aa02300",
-                "reference": "bd7c36af1e96eecd08cfcc0a772a19767aa02300",
+                "url": "https:\/\/api.github.com\/repos\/symplify\/coding-standard\/zipball\/61675a1a18a7d0488ae88298c0521254918e2cae",
+                "reference": "61675a1a18a7d0488ae88298c0521254918e2cae",
                 "shasum": ""
             },
             "require": {
-                "friendsofphp\/php-cs-fixer": "^3.89",
-                "nette\/utils": "^4.0",
-                "php": ">=8.2"
+                "friendsofphp\/php-cs-fixer": "^3.95.4",
+                "php": ">=8.4"
             },
             "require-dev": {
                 "phpstan\/extension-installer": "^1.4",
-                "phpstan\/phpstan": "^2.1",
-                "phpunit\/phpunit": "^11.5|^12.0",
-                "rector\/jack": "^0.2",
-                "rector\/rector": "^2.2",
+                "phpstan\/phpstan": "^2.2",
+                "phpunit\/phpunit": "^12.5",
+                "rector\/jack": "^1.0",
+                "rector\/rector": "^2.4",
                 "squizlabs\/php_codesniffer": "^4.0",
-                "symplify\/easy-coding-standard": "^12.6",
+                "symplify\/easy-coding-standard": "^13.1",
                 "symplify\/phpstan-extensions": "^12.0",
-                "tomasvotruba\/class-leak": "^2.0",
-                "tracy\/tracy": "^2.11"
+                "tomasvotruba\/class-leak": "^2.1.5",
+                "tracy\/tracy": "^2.12"
             },
-            "time": "2025-10-30T21:46:47+00:00",
+            "time": "2026-06-09T21:34:02+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -3027,7 +2839,7 @@
             "description": "Set of Symplify rules for PHP_CodeSniffer and PHP CS Fixer.",
             "support": {
                 "issues": "https:\/\/github.com\/symplify\/coding-standard\/issues",
-                "source": "https:\/\/github.com\/symplify\/coding-standard\/tree\/13.0.0"
+                "source": "https:\/\/github.com\/symplify\/coding-standard\/tree\/13.1.0"
             },
             "funding": [
                 {
@@ -3100,6 +2912,78 @@
                 }
             ],
             "install-path": "..\/symplify\/easy-parallel"
+        },
+        {
+            "name": "tomasvotruba\/class-leak",
+            "version": "2.1.6",
+            "version_normalized": "2.1.6.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/TomasVotruba\/class-leak.git",
+                "reference": "df054d42785c47795efc11207fd5c96e3a43c579"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/TomasVotruba\/class-leak\/zipball\/df054d42785c47795efc11207fd5c96e3a43c579",
+                "reference": "df054d42785c47795efc11207fd5c96e3a43c579",
+                "shasum": ""
+            },
+            "require": {
+                "entropy\/entropy": "^0.3",
+                "nette\/utils": "^4.1",
+                "nikic\/php-parser": "^5.7",
+                "php": ">=8.4",
+                "symfony\/finder": "^7.4|^8.0",
+                "webmozart\/assert": "^2.0"
+            },
+            "replace": {
+                "symfony\/polyfill-ctype": "*",
+                "symfony\/polyfill-intl-normalizer": "*",
+                "symfony\/polyfill-mbstring": "*"
+            },
+            "require-dev": {
+                "phpstan\/extension-installer": "^1.4",
+                "phpstan\/phpstan": "^2.2",
+                "phpunit\/phpunit": "^13.0",
+                "rector\/jack": "^1.0",
+                "rector\/rector": "^2.4",
+                "symplify\/easy-coding-standard": "^13.0",
+                "symplify\/phpstan-extensions": "^12",
+                "tomasvotruba\/unused-public": "^2.2",
+                "tracy\/tracy": "^2.12"
+            },
+            "time": "2026-06-08T11:13:21+00:00",
+            "bin": [
+                "bin\/class-leak",
+                "bin\/class-leak.php"
+            ],
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "ECSPrefix202606\\TomasVotruba\\ClassLeak\\": "src"
+                }
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Detect leaking classes",
+            "support": {
+                "issues": "https:\/\/github.com\/TomasVotruba\/class-leak\/issues",
+                "source": "https:\/\/github.com\/TomasVotruba\/class-leak\/tree\/2.1.6"
+            },
+            "funding": [
+                {
+                    "url": "https:\/\/www.paypal.me\/rectorphp",
+                    "type": "custom"
+                },
+                {
+                    "url": "https:\/\/github.com\/tomasvotruba",
+                    "type": "github"
+                }
+            ],
+            "install-path": "..\/tomasvotruba\/class-leak"
         },
         {
             "name": "webmozart\/assert",

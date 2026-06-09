@@ -96,7 +96,7 @@ PHP
                 $includy = ['begin' => $index, 'braces' => null, 'end' => $tokens->getNextTokenOfKind($index, [';', [\T_CLOSE_TAG]])];
                 $braceOpenIndex = $tokens->getNextMeaningfulToken($index);
                 if ($tokens[$braceOpenIndex]->equals('(')) {
-                    $braceCloseIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $braceOpenIndex);
+                    $braceCloseIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $braceOpenIndex);
                     $includy['braces'] = ['open' => $braceOpenIndex, 'close' => $braceCloseIndex];
                 }
                 $includies[$index] = $includy;

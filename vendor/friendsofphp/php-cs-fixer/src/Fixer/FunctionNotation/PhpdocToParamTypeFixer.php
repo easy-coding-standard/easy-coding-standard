@@ -193,7 +193,7 @@ PHP
     }
     private function findCorrectVariable(Tokens $tokens, int $startIndex, Annotation $paramTypeAnnotation): ?int
     {
-        $endIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $startIndex);
+        $endIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $startIndex);
         for ($index = $startIndex + 1; $index < $endIndex; ++$index) {
             if (!$tokens[$index]->isGivenKind(\T_VARIABLE)) {
                 continue;

@@ -120,7 +120,7 @@ PHP
             // is it a global function call?
             if ($functionsAnalyzer->isGlobalFunctionCall($tokens, $index)) {
                 $openParenthesis = $tokens->getNextMeaningfulToken($index);
-                $closeParenthesis = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openParenthesis);
+                $closeParenthesis = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $openParenthesis);
                 $numberOfArguments = $argumentsAnalyzer->countArguments($tokens, $openParenthesis, $closeParenthesis);
                 if (!\in_array($numberOfArguments, $this->functions[$lowercasedContent]['argumentCount'], \true)) {
                     continue;

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\Fixer\Commenting;
 
-use ECSPrefix202606\Nette\Utils\Strings;
+use Override;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
@@ -11,6 +11,7 @@ use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
 use Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
 use Symplify\CodingStandard\TokenRunner\Contract\DocBlock\MalformWorkerInterface;
+use Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker\DeadParamMalformWorker;
 use Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker\InlineVariableDocBlockMalformWorker;
 use Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker\InlineVarMalformWorker;
 use Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker\MissingParamNameMalformWorker;
@@ -21,6 +22,7 @@ use Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker\SuperfluousReturn
 use Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker\SuperfluousVarNameMalformWorker;
 use Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker\SwitchedTypeAndNameMalformWorker;
 use Symplify\CodingStandard\TokenRunner\Traverser\TokenReverser;
+use Symplify\CodingStandard\Utils\Regex;
 /**
  * @see \Symplify\CodingStandard\Tests\Fixer\Commenting\ParamReturnAndVarTagMalformsFixer\ParamReturnAndVarTagMalformsFixerTest
  */
@@ -36,18 +38,18 @@ final class ParamReturnAndVarTagMalformsFixer extends AbstractSymplifyFixer
      */
     private const ERROR_MESSAGE = 'Fixes @param, @return, @var and inline @var annotations broken formats';
     /**
-     * @var string
      * @see https://regex101.com/r/Nlxkd9/1
+     * @var string
      */
     private const TYPE_ANNOTATION_REGEX = '#@(psalm-|phpstan-)?(param|return|var)#';
     /**
      * @var MalformWorkerInterface[]
      */
     private $malformWorkers = [];
-    public function __construct(InlineVariableDocBlockMalformWorker $inlineVariableDocBlockMalformWorker, InlineVarMalformWorker $inlineVarMalformWorker, MissingParamNameMalformWorker $missingParamNameMalformWorker, MissingVarNameMalformWorker $missingVarNameMalformWorker, ParamNameReferenceMalformWorker $paramNameReferenceMalformWorker, ParamNameTypoMalformWorker $paramNameTypoMalformWorker, SuperfluousReturnNameMalformWorker $superfluousReturnNameMalformWorker, SuperfluousVarNameMalformWorker $superfluousVarNameMalformWorker, SwitchedTypeAndNameMalformWorker $switchedTypeAndNameMalformWorker, TokenReverser $tokenReverser)
+    public function __construct(InlineVariableDocBlockMalformWorker $inlineVariableDocBlockMalformWorker, InlineVarMalformWorker $inlineVarMalformWorker, MissingParamNameMalformWorker $missingParamNameMalformWorker, MissingVarNameMalformWorker $missingVarNameMalformWorker, ParamNameReferenceMalformWorker $paramNameReferenceMalformWorker, ParamNameTypoMalformWorker $paramNameTypoMalformWorker, SuperfluousReturnNameMalformWorker $superfluousReturnNameMalformWorker, SuperfluousVarNameMalformWorker $superfluousVarNameMalformWorker, SwitchedTypeAndNameMalformWorker $switchedTypeAndNameMalformWorker, DeadParamMalformWorker $deadParamMalformWorker, TokenReverser $tokenReverser)
     {
         $this->tokenReverser = $tokenReverser;
-        $this->malformWorkers = [$inlineVariableDocBlockMalformWorker, $inlineVarMalformWorker, $missingParamNameMalformWorker, $missingVarNameMalformWorker, $paramNameReferenceMalformWorker, $paramNameTypoMalformWorker, $superfluousReturnNameMalformWorker, $superfluousVarNameMalformWorker, $switchedTypeAndNameMalformWorker];
+        $this->malformWorkers = [$inlineVariableDocBlockMalformWorker, $inlineVarMalformWorker, $missingParamNameMalformWorker, $missingVarNameMalformWorker, $paramNameReferenceMalformWorker, $paramNameTypoMalformWorker, $superfluousReturnNameMalformWorker, $superfluousVarNameMalformWorker, $switchedTypeAndNameMalformWorker, $deadParamMalformWorker];
     }
     public function getDefinition(): FixerDefinitionInterface
     {
@@ -84,7 +86,7 @@ final class ParamReturnAndVarTagMalformsFixer extends AbstractSymplifyFixer
                 continue;
             }
             $docContent = $token->getContent();
-            if (!Strings::match($docContent, self::TYPE_ANNOTATION_REGEX)) {
+            if (!Regex::match($docContent, self::TYPE_ANNOTATION_REGEX)) {
                 continue;
             }
             $originalDocContent = $docContent;
@@ -92,6 +94,15 @@ final class ParamReturnAndVarTagMalformsFixer extends AbstractSymplifyFixer
                 $docContent = $malformWorker->work($docContent, $tokens, $index);
             }
             if ($docContent === $originalDocContent) {
+                continue;
+            }
+            // doc block became empty after removing dead lines → remove it completely,
+            // including the whitespace that followed it, to avoid leaving a blank line
+            if ($this->isEmptyDocBlock($docContent)) {
+                $tokens->clearAt($index);
+                if (isset($tokens[$index + 1]) && $tokens[$index + 1]->isWhitespace()) {
+                    $tokens->clearAt($index + 1);
+                }
                 continue;
             }
             $tokens[$index] = new Token([\T_DOC_COMMENT, $docContent]);
@@ -102,8 +113,13 @@ final class ParamReturnAndVarTagMalformsFixer extends AbstractSymplifyFixer
      *
      * @see \PhpCsFixer\Fixer\Phpdoc\PhpdocAlignFixer::getPriority()
      */
+    #[Override]
     public function getPriority(): int
     {
         return -37;
+    }
+    private function isEmptyDocBlock(string $docContent): bool
+    {
+        return Regex::replace($docContent, '#/\*\*|\*/|\*|\s#', '') === '';
     }
 }

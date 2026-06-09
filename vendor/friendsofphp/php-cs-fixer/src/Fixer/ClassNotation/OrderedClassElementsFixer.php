@@ -388,11 +388,11 @@ Custom values:
     {
         $index = $tokens->getNextTokenOfKind($index, ['(', '{', ';', [CT::T_PROPERTY_HOOK_BRACE_OPEN]]);
         if ($tokens[$index]->equals('(')) {
-            $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $index);
+            $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $index);
             $index = $tokens->getNextTokenOfKind($index, ['{', ';']);
         }
         if ($tokens[$index]->equals('{')) {
-            $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $index);
+            $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_BRACE, $index);
         }
         if ($tokens[$index]->isGivenKind(CT::T_PROPERTY_HOOK_BRACE_OPEN)) {
             $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PROPERTY_HOOK, $index);
@@ -441,6 +441,7 @@ Custom values:
             if (isset($this->typePosition[$type])) {
                 $position = $this->typePosition[$type];
                 if ('phpunit' === $type) {
+                    \assert(\in_array($element['name'], ['setupbeforeclass', 'dosetupbeforeclass', 'teardownafterclass', 'doteardownafterclass', 'setup', 'dosetup', 'assertpreconditions', 'assertpostconditions', 'teardown', 'doteardown'], \true));
                     $position += ['setupbeforeclass' => 1, 'dosetupbeforeclass' => 2, 'teardownafterclass' => 3, 'doteardownafterclass' => 4, 'setup' => 5, 'dosetup' => 6, 'assertpreconditions' => 7, 'assertpostconditions' => 8, 'teardown' => 9, 'doteardown' => 10][$element['name']];
                 }
                 return $position;
@@ -459,6 +460,7 @@ Custom values:
                 $type .= '_readonly';
             }
         }
+        \assert(isset($this->typePosition[$type]));
         return $this->typePosition[$type];
     }
     /**

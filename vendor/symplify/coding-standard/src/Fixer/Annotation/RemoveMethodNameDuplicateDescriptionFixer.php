@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\Fixer\Annotation;
 
-use ECSPrefix202606\Nette\Utils\Strings;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
@@ -12,8 +11,9 @@ use SplFileInfo;
 use Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
 use Symplify\CodingStandard\Fixer\Naming\MethodNameResolver;
 use Symplify\CodingStandard\TokenRunner\Traverser\TokenReverser;
+use Symplify\CodingStandard\Utils\Regex;
 /**
- * @see \Symplify\CodingStandard\Tests\Fixer\Annotation\RemoveRedundantDescriptionFixer\RemoveRedundantDescriptionFixerTest
+ * @see \Symplify\CodingStandard\Tests\Fixer\Annotation\RemoveMethodNameDuplicateDescriptionFixer\RemoveMethodNameDuplicateDescriptionFixerTest
  */
 final class RemoveMethodNameDuplicateDescriptionFixer extends AbstractSymplifyFixer
 {
@@ -69,7 +69,7 @@ final class RemoveMethodNameDuplicateDescriptionFixer extends AbstractSymplifyFi
             $hasChanged = \false;
             $docblockLines = explode("\n", $originalDocContent);
             foreach ($docblockLines as $key => $docblockLine) {
-                $spacelessDocblockLine = Strings::replace($docblockLine, '#[\s\n]+#', '');
+                $spacelessDocblockLine = Regex::replace($docblockLine, '#[\s\n]+#', '');
                 if (strtolower($spacelessDocblockLine) !== strtolower('*' . $methodName)) {
                     continue;
                 }

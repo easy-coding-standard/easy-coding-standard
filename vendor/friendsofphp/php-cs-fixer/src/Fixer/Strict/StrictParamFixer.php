@@ -74,7 +74,7 @@ final class StrictParamFixer extends AbstractFixer
     private function fixFunction(Tokens $tokens, int $functionIndex, array $functionParams): void
     {
         $startBraceIndex = $tokens->getNextTokenOfKind($functionIndex, ['(']);
-        $endBraceIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $startBraceIndex);
+        $endBraceIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $startBraceIndex);
         $paramsQuantity = 0;
         $expectParam = \true;
         for ($index = $startBraceIndex + 1; $index < $endBraceIndex; ++$index) {
@@ -84,11 +84,11 @@ final class StrictParamFixer extends AbstractFixer
                 $expectParam = \false;
             }
             if ($token->equals('(')) {
-                $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $index);
+                $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $index);
                 continue;
             }
-            if ($token->isGivenKind(CT::T_ARRAY_SQUARE_BRACE_OPEN)) {
-                $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_ARRAY_SQUARE_BRACE, $index);
+            if ($token->isGivenKind(CT::T_ARRAY_BRACKET_OPEN)) {
+                $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_ARRAY_BRACKET, $index);
                 continue;
             }
             if ($token->equals(',')) {

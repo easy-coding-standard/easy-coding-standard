@@ -51,7 +51,7 @@ final class NoMultipleStatementsPerLineFixer extends AbstractFixer implements Wh
     {
         for ($index = 1, $max = \count($tokens) - 1; $index < $max; ++$index) {
             if ($tokens[$index]->isGivenKind(\T_FOR)) {
-                $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $tokens->getNextTokenOfKind($index, ['(']));
+                $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $tokens->getNextTokenOfKind($index, ['(']));
                 continue;
             }
             if ($tokens[$index]->isGivenKind(CT::T_PROPERTY_HOOK_BRACE_OPEN)) {

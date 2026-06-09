@@ -36,12 +36,14 @@ final class FileInfoMatcher
      */
     public function doesFileInfoMatchPatterns($fileInfo, array $filePatterns): bool
     {
+        $found = \false;
         foreach ($filePatterns as $filePattern) {
             if ($this->doesFileInfoMatchPattern($fileInfo, $filePattern)) {
-                return \true;
+                $found = \true;
+                break;
             }
         }
-        return \false;
+        return $found;
     }
     /**
      * Supports both relative and absolute $file path. They differ for PHP-CS-Fixer and PHP_CodeSniffer.

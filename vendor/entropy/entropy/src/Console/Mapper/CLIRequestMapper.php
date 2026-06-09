@@ -44,7 +44,7 @@ final class CLIRequestMapper
             // option name: dryRun → dry-run
             $optionName = $this->camelToKebab($name);
             // enable singular --option to parameter plural $options
-            if ($key !== 0 && (string) $reflectionParameter->getType() === 'array' && substr_compare($optionName, 's', -strlen('s')) === 0) {
+            if ($key !== 0 && $this->isArrayType($reflectionParameter, $type) && substr_compare($optionName, 's', -strlen('s')) === 0) {
                 $optionName = (string) substr($optionName, 0, -1);
             }
             // 1) Options always win (if present)
@@ -149,12 +149,12 @@ final class CLIRequestMapper
             return $defaultValue;
         }
         // special case, use single value if param type is scalar
-        if (in_array($reflectionType->getName(), ['string', 'int', 'float'], \true) && is_array($value)) {
+        if (in_array($reflectionType->getName(), ['string', 'int', 'float', 'bool'], \true) && is_array($value)) {
             $value = array_shift($value);
         }
         switch ($reflectionType->getName()) {
             case 'bool':
-                return filter_var($value, \FILTER_VALIDATE_BOOL);
+                return filter_var($value, \FILTER_VALIDATE_BOOLEAN);
             case 'int':
                 return (int) $value;
             case 'float':

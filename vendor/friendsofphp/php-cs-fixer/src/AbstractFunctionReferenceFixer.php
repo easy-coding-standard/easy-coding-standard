@@ -56,10 +56,11 @@ abstract class AbstractFunctionReferenceFixer extends \PhpCsFixer\AbstractFixer
             // not found, simply return without further attempts
         }
         // translate results for humans
+        \assert(isset(array_keys($matches)[1]));
         [$functionName, $openParenthesis] = array_keys($matches);
         if (!$this->functionsAnalyzer->isGlobalFunctionCall($tokens, $functionName)) {
             return $this->find($functionNameToSearch, $tokens, $openParenthesis, $end);
         }
-        return [$functionName, $openParenthesis, $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openParenthesis)];
+        return [$functionName, $openParenthesis, $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $openParenthesis)];
     }
 }

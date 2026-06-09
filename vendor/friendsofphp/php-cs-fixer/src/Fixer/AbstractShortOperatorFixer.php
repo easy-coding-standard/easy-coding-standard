@@ -131,7 +131,7 @@ abstract class AbstractShortOperatorFixer extends AbstractFixer
         }
         $range = ['end' => $previousIndex];
         $index = $previousIndex;
-        while ($previousToken->equalsAny(['$', ']', ')', [CT::T_ARRAY_INDEX_CURLY_BRACE_CLOSE], [CT::T_DYNAMIC_PROP_BRACE_CLOSE], [CT::T_DYNAMIC_VAR_BRACE_CLOSE], [\T_NS_SEPARATOR], [\T_STRING], [\T_VARIABLE]])) {
+        while ($previousToken->equalsAny(['$', ']', ')', [CT::T_ARRAY_INDEX_BRACE_CLOSE], [CT::T_DYNAMIC_PROP_BRACE_CLOSE], [CT::T_DYNAMIC_VAR_BRACE_CLOSE], [\T_NS_SEPARATOR], [\T_STRING], [\T_VARIABLE]])) {
             $blockType = Tokens::detectBlockType($previousToken);
             if (null !== $blockType) {
                 $blockStart = $tokens->findBlockStart($blockType['type'], $previousIndex);

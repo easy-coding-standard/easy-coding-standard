@@ -145,6 +145,7 @@ PHP
             return strpos($v, '-') !== \false ? 1 : 0;
         };
         Preg::matchAll('/([0-9-_]+)?((\.)([0-9_]*))?((e)([0-9-_]+))?/i', $value, $result);
+        \assert(isset($result[1][0], $result[3][0], $result[4][0], $result[6][0], $result[7][0]));
         $integer = $result[1][0];
         $joinedValue = $this->insertEveryRight($integer, 3, $negativeOffset($integer));
         $dot = $result[3][0];

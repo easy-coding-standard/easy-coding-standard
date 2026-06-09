@@ -65,7 +65,7 @@ final class DeclareEqualNormalizeFixer extends AbstractFixer implements Configur
                 continue;
             }
             $openParenthesisIndex = $tokens->getNextMeaningfulToken($index);
-            $closeParenthesisIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openParenthesisIndex);
+            $closeParenthesisIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $openParenthesisIndex);
             for ($i = $closeParenthesisIndex; $i > $openParenthesisIndex; --$i) {
                 if ($tokens[$i]->equals('=')) {
                     if ('none' === $this->configuration['space']) {

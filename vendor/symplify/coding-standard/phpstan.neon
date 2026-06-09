@@ -24,7 +24,7 @@ parameters:
 
         # conditional check to allow various php versions
         -
-            message: '#Comparison operation ">\=" between int<80200, 80599> and (.*?) is always true#'
+            message: '#Comparison operation ">\=" between int<\d+, \d+> and (.*?) is always true#'
             path: src/TokenAnalyzer/DocblockRelatedParamNamesResolver.php
 
         # array filter issue

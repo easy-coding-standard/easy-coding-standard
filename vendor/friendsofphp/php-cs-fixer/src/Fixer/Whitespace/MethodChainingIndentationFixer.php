@@ -77,7 +77,7 @@ final class MethodChainingIndentationFixer extends AbstractFixer implements Whit
             if (!$tokens[$endParenthesisIndex]->equals('(')) {
                 continue;
             }
-            $endParenthesisIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $endParenthesisIndex);
+            $endParenthesisIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $endParenthesisIndex);
             for ($searchIndex = $index + 1; $searchIndex < $endParenthesisIndex; ++$searchIndex) {
                 $searchToken = $tokens[$searchIndex];
                 if (!$searchToken->isWhitespace()) {
@@ -101,7 +101,7 @@ final class MethodChainingIndentationFixer extends AbstractFixer implements Whit
         $indent = $this->whitespacesConfig->getIndent();
         for ($i = $index; $i >= 0; --$i) {
             if ($tokens[$i]->equals(')')) {
-                $i = $tokens->findBlockStart(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $i);
+                $i = $tokens->findBlockStart(Tokens::BLOCK_TYPE_PARENTHESIS, $i);
             }
             $currentIndent = $this->getIndentAt($tokens, $i);
             if (null === $currentIndent) {
@@ -165,8 +165,8 @@ final class MethodChainingIndentationFixer extends AbstractFixer implements Whit
         $firstMeaningful = $tokens->getNextMeaningfulToken($start);
         if ($tokens[$firstMeaningful]->isObjectOperator()) {
             $thirdMeaningful = $tokens->getNextMeaningfulToken($tokens->getNextMeaningfulToken($firstMeaningful));
-            return $tokens[$thirdMeaningful]->equals('(') && $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $thirdMeaningful) > $end;
+            return $tokens[$thirdMeaningful]->equals('(') && $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $thirdMeaningful) > $end;
         }
-        return !$tokens[$end]->equals(')') || $tokens->findBlockStart(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $end) >= $start;
+        return !$tokens[$end]->equals(')') || $tokens->findBlockStart(Tokens::BLOCK_TYPE_PARENTHESIS, $end) >= $start;
     }
 }

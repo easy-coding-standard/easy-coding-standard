@@ -59,7 +59,7 @@ final class TernaryToNullCoalescingFixer extends AbstractFixer
             return;
         }
         $startBraceIndex = $tokens->getNextTokenOfKind($index, ['(']);
-        $endBraceIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $startBraceIndex);
+        $endBraceIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $startBraceIndex);
         $ternaryQuestionMarkIndex = $tokens->getNextMeaningfulToken($endBraceIndex);
         if (!$tokens[$ternaryQuestionMarkIndex]->equals('?')) {
             return;

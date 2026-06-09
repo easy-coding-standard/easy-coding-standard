@@ -65,7 +65,7 @@ abstract class AbstractPhpUnitFixer extends AbstractFixer
             if (!$functionsAnalyzer->isTheSameClassCall($tokens, $index)) {
                 continue;
             }
-            yield ['index' => $index, 'loweredName' => $loweredContent, 'openBraceIndex' => $openBraceIndex, 'closeBraceIndex' => $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openBraceIndex)];
+            yield ['index' => $index, 'loweredName' => $loweredContent, 'openBraceIndex' => $openBraceIndex, 'closeBraceIndex' => $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $openBraceIndex)];
         }
     }
     final protected function isTestAttributePresent(Tokens $tokens, int $index): bool

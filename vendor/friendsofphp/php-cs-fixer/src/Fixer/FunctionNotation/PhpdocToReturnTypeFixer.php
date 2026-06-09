@@ -192,7 +192,7 @@ PHP
                 continue;
             }
             $paramsStartIndex = $tokens->getNextTokenOfKind($index, ['(']);
-            $paramsEndIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $paramsStartIndex);
+            $paramsEndIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $paramsStartIndex);
             $bodyStartIndex = $tokens->getNextTokenOfKind($paramsEndIndex, ['{', ';', [\T_DOUBLE_ARROW]]);
             if ($this->hasReturnTypeHint($tokens, $bodyStartIndex)) {
                 continue;

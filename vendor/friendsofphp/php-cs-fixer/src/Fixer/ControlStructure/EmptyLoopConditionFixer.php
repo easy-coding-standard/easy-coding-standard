@@ -102,7 +102,7 @@ final class EmptyLoopConditionFixer extends AbstractFixer implements Configurabl
             if ($tokens[$index]->isGivenKind($candidateLoopKinds)) {
                 $openIndex = $tokens->getNextTokenOfKind($index, ['(']);
                 // proceed to open '('
-                $endIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openIndex);
+                $endIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $openIndex);
                 // proceed to close ')'
                 $fixLoop($index, $openIndex, $endIndex);
                 // fix loop if needed
@@ -138,7 +138,7 @@ final class EmptyLoopConditionFixer extends AbstractFixer implements Configurabl
         if (!$tokens[$endIndex]->equals('}')) {
             return null;
         }
-        $startIndex = $tokens->findBlockStart(Tokens::BLOCK_TYPE_CURLY_BRACE, $endIndex);
+        $startIndex = $tokens->findBlockStart(Tokens::BLOCK_TYPE_BRACE, $endIndex);
         $index = $tokens->getPrevMeaningfulToken($startIndex);
         return null === $index || !$tokens[$index]->isGivenKind(\T_DO) ? null : $index;
     }

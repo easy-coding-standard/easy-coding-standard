@@ -25,7 +25,7 @@ use PhpCsFixer\Tokenizer\Tokens;
  * - closing `}` for T_DOLLAR_OPEN_CURLY_BRACES into CT::T_DOLLAR_CLOSE_CURLY_BRACES,
  * - in `$foo->{$bar}` into CT::T_DYNAMIC_PROP_BRACE_OPEN and CT::T_DYNAMIC_PROP_BRACE_CLOSE,
  * - in `${$foo}` into CT::T_DYNAMIC_VAR_BRACE_OPEN and CT::T_DYNAMIC_VAR_BRACE_CLOSE,
- * - in `$array{$index}` into CT::T_ARRAY_INDEX_CURLY_BRACE_OPEN and CT::T_ARRAY_INDEX_CURLY_BRACE_CLOSE,
+ * - in `$array{$index}` into CT::T_ARRAY_INDEX_BRACE_OPEN and CT::T_ARRAY_INDEX_BRACE_CLOSE,
  * - in `use some\a\{ClassA, ClassB, ClassC as C}` into CT::T_GROUP_IMPORT_BRACE_OPEN, CT::T_GROUP_IMPORT_BRACE_CLOSE,
  * - in `class PropertyHooks { public string $bar _{_ set(string $value) { } _}_` into CT::T_PROPERTY_HOOK_BRACE_OPEN, CT::T_PROPERTY_HOOK_BRACE_CLOSE.
  *
@@ -54,7 +54,7 @@ final class BraceTransformer extends AbstractTransformer
     }
     public function getCustomTokens(): array
     {
-        return [CT::T_CURLY_CLOSE, CT::T_DOLLAR_CLOSE_CURLY_BRACES, CT::T_DYNAMIC_PROP_BRACE_OPEN, CT::T_DYNAMIC_PROP_BRACE_CLOSE, CT::T_DYNAMIC_VAR_BRACE_OPEN, CT::T_DYNAMIC_VAR_BRACE_CLOSE, CT::T_ARRAY_INDEX_CURLY_BRACE_OPEN, CT::T_ARRAY_INDEX_CURLY_BRACE_CLOSE, CT::T_GROUP_IMPORT_BRACE_OPEN, CT::T_GROUP_IMPORT_BRACE_CLOSE, CT::T_DYNAMIC_CLASS_CONSTANT_FETCH_CURLY_BRACE_OPEN, CT::T_DYNAMIC_CLASS_CONSTANT_FETCH_CURLY_BRACE_CLOSE, CT::T_PROPERTY_HOOK_BRACE_OPEN, CT::T_PROPERTY_HOOK_BRACE_CLOSE];
+        return [CT::T_CURLY_CLOSE, CT::T_DOLLAR_CLOSE_CURLY_BRACES, CT::T_DYNAMIC_PROP_BRACE_OPEN, CT::T_DYNAMIC_PROP_BRACE_CLOSE, CT::T_DYNAMIC_VAR_BRACE_OPEN, CT::T_DYNAMIC_VAR_BRACE_CLOSE, CT::T_ARRAY_INDEX_BRACE_OPEN, CT::T_ARRAY_INDEX_BRACE_CLOSE, CT::T_GROUP_IMPORT_BRACE_OPEN, CT::T_GROUP_IMPORT_BRACE_CLOSE, CT::T_DYNAMIC_CLASS_CONSTANT_FETCH_BRACE_OPEN, CT::T_DYNAMIC_CLASS_CONSTANT_FETCH_BRACE_CLOSE, CT::T_PROPERTY_HOOK_BRACE_OPEN, CT::T_PROPERTY_HOOK_BRACE_CLOSE];
     }
     /**
      * Transform closing `}` for T_CURLY_OPEN into CT::T_CURLY_CLOSE.
@@ -144,7 +144,7 @@ final class BraceTransformer extends AbstractTransformer
             return;
         }
         if ($tokens[$nextNextIndex]->equals('(')) {
-            $closeParenthesisIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $nextNextIndex);
+            $closeParenthesisIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $nextNextIndex);
             $afterCloseParenthesisIndex = $tokens->getNextMeaningfulToken($closeParenthesisIndex);
             if (!$tokens[$afterCloseParenthesisIndex]->equalsAny(['{', [\T_DOUBLE_ARROW]])) {
                 return;
@@ -169,18 +169,18 @@ final class BraceTransformer extends AbstractTransformer
             return;
         }
         $prevIndex = $tokens->getPrevMeaningfulToken($index);
-        if (!$tokens[$prevIndex]->equalsAny([[\T_STRING], [\T_VARIABLE], [CT::T_ARRAY_INDEX_CURLY_BRACE_CLOSE], ']', ')'])) {
+        if (!$tokens[$prevIndex]->equalsAny([[\T_STRING], [\T_VARIABLE], [CT::T_ARRAY_INDEX_BRACE_CLOSE], ']', ')'])) {
             return;
         }
         if ($tokens[$prevIndex]->isGivenKind(\T_STRING) && !$tokens[$tokens->getPrevMeaningfulToken($prevIndex)]->isObjectOperator()) {
             return;
         }
-        if ($tokens[$prevIndex]->equals(')') && !$tokens[$tokens->getPrevMeaningfulToken($tokens->findBlockStart(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $prevIndex))]->isGivenKind(\T_ARRAY)) {
+        if ($tokens[$prevIndex]->equals(')') && !$tokens[$tokens->getPrevMeaningfulToken($tokens->findBlockStart(Tokens::BLOCK_TYPE_PARENTHESIS, $prevIndex))]->isGivenKind(\T_ARRAY)) {
             return;
         }
         $closeIndex = $this->naivelyFindCurlyBlockEnd($tokens, $index);
-        $tokens[$index] = new Token([CT::T_ARRAY_INDEX_CURLY_BRACE_OPEN, '{']);
-        $tokens[$closeIndex] = new Token([CT::T_ARRAY_INDEX_CURLY_BRACE_CLOSE, '}']);
+        $tokens[$index] = new Token([CT::T_ARRAY_INDEX_BRACE_OPEN, '{']);
+        $tokens[$closeIndex] = new Token([CT::T_ARRAY_INDEX_BRACE_CLOSE, '}']);
     }
     private function transformIntoGroupUseBraces(Tokens $tokens, int $index): void
     {
@@ -211,12 +211,12 @@ final class BraceTransformer extends AbstractTransformer
             if (!$tokens[$prevMeaningfulTokenIndex]->equals(')')) {
                 return;
             }
-            $prevMeaningfulTokenIndex = $tokens->findBlockStart(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $prevMeaningfulTokenIndex);
+            $prevMeaningfulTokenIndex = $tokens->findBlockStart(Tokens::BLOCK_TYPE_PARENTHESIS, $prevMeaningfulTokenIndex);
             $prevMeaningfulTokenIndex = $tokens->getPrevMeaningfulToken($prevMeaningfulTokenIndex);
             if (!$tokens[$prevMeaningfulTokenIndex]->equals('}')) {
                 return;
             }
-            $prevMeaningfulTokenIndex = $tokens->findBlockStart(Tokens::BLOCK_TYPE_CURLY_BRACE, $prevMeaningfulTokenIndex);
+            $prevMeaningfulTokenIndex = $tokens->findBlockStart(Tokens::BLOCK_TYPE_BRACE, $prevMeaningfulTokenIndex);
             $prevMeaningfulTokenIndex = $tokens->getPrevMeaningfulToken($prevMeaningfulTokenIndex);
         }
         $closeIndex = $this->naivelyFindCurlyBlockEnd($tokens, $index);
@@ -224,11 +224,11 @@ final class BraceTransformer extends AbstractTransformer
         if (!$tokens[$nextMeaningfulTokenIndexAfterCloseIndex]->equalsAny([';', [\T_CLOSE_TAG], [\T_DOUBLE_COLON]])) {
             return;
         }
-        $tokens[$index] = new Token([CT::T_DYNAMIC_CLASS_CONSTANT_FETCH_CURLY_BRACE_OPEN, '{']);
-        $tokens[$closeIndex] = new Token([CT::T_DYNAMIC_CLASS_CONSTANT_FETCH_CURLY_BRACE_CLOSE, '}']);
+        $tokens[$index] = new Token([CT::T_DYNAMIC_CLASS_CONSTANT_FETCH_BRACE_OPEN, '{']);
+        $tokens[$closeIndex] = new Token([CT::T_DYNAMIC_CLASS_CONSTANT_FETCH_BRACE_CLOSE, '}']);
     }
     /**
-     * We do not want to rely on `$tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $index)` here,
+     * We do not want to rely on `$tokens->findBlockEnd(Tokens::BLOCK_TYPE_BRACE, $index)` here,
      * as it relies on block types that are assuming that `}` tokens are already transformed to Custom Tokens that are allowing to distinguish different block types.
      * As we are just about to transform `{` and `}` into Custom Tokens by this transformer, thus we need to compare those tokens manually by content without using `Tokens::findBlockEnd`.
      */

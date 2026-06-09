@@ -199,6 +199,7 @@ PHP
         }
         if ($nbNewlines > 1) {
             Preg::match('/^(.*?)(\R\h*)$/s', $newlineToken->getContent(), $matches);
+            \assert(isset($matches[1], $matches[2]));
             $indent = WhitespacesAnalyzer::detectIndent($tokens, $newlinePosition - 1);
             $tokens[$newlinePosition] = new Token([$newlineToken->getId(), $matches[1] . $lineEnding . $indent]);
             $tokens->insertAt(++$newlinePosition, new Token([\T_WHITESPACE, $matches[2]]));
@@ -255,11 +256,11 @@ PHP
     {
         $initialToken = $tokens[$position];
         if ($initialToken->isGivenKind(self::STRUCTURE_KINDS)) {
-            $position = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $tokens->getNextTokenOfKind($position, ['(']));
+            $position = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $tokens->getNextTokenOfKind($position, ['(']));
         } elseif ($initialToken->isGivenKind(\T_CLASS)) {
             $openParenthesisPosition = $tokens->getNextMeaningfulToken($position);
             if ('(' === $tokens[$openParenthesisPosition]->getContent()) {
-                $position = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openParenthesisPosition);
+                $position = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $openParenthesisPosition);
             }
         }
         if ($initialToken->isGivenKind(\T_FUNCTION)) {
@@ -270,9 +271,9 @@ PHP
         if ('{' !== $tokens[$position]->getContent()) {
             return $tokens->getNextTokenOfKind($position, [';']);
         }
-        $position = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $position);
+        $position = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_BRACE, $position);
         if ($initialToken->isGivenKind(\T_DO)) {
-            $position = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $tokens->getNextTokenOfKind($position, ['(']));
+            $position = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $tokens->getNextTokenOfKind($position, ['(']));
             return $tokens->getNextTokenOfKind($position, [';']);
         }
         return $position;

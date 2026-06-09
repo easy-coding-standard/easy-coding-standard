@@ -484,7 +484,7 @@ PHP
                 $index = $tokens->getNextTokenOfKind($index, ['{', ';', '(']);
                 // We don't align `=` on multi-line definition of function parameters with default values
                 if ($tokens[$index]->equals('(')) {
-                    $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $index);
+                    $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $index);
                     continue;
                 }
                 if ($tokens[$index]->equals(';')) {
@@ -494,23 +494,23 @@ PHP
                 $token = $tokens[$index];
             }
             if ($token->equals('{')) {
-                $until = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $index);
+                $until = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_BRACE, $index);
                 $this->injectAlignmentPlaceholders($tokens, $index + 1, $until - 1, $tokenContent);
                 $index = $until;
                 continue;
             }
             if ($token->equals('(')) {
-                $until = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $index);
+                $until = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $index);
                 $this->injectAlignmentPlaceholders($tokens, $index + 1, $until - 1, $tokenContent);
                 $index = $until;
                 continue;
             }
             if ($token->equals('[')) {
-                $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_INDEX_SQUARE_BRACE, $index);
+                $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_INDEX_BRACKET, $index);
                 continue;
             }
-            if ($token->isGivenKind(CT::T_ARRAY_SQUARE_BRACE_OPEN)) {
-                $until = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_ARRAY_SQUARE_BRACE, $index);
+            if ($token->isGivenKind(CT::T_ARRAY_BRACKET_OPEN)) {
+                $until = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_ARRAY_BRACKET, $index);
                 $this->injectAlignmentPlaceholders($tokens, $index + 1, $until - 1, $tokenContent);
                 $index = $until;
                 continue;
@@ -553,15 +553,15 @@ PHP
                 // don't use "$tokens->isArray()" here, short arrays are handled in the next case
                 $yieldFoundSinceLastPlaceholder = \false;
                 $from = $tokens->getNextMeaningfulToken($index);
-                $until = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $from);
+                $until = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $from);
                 $index = $until;
                 $this->injectArrayAlignmentPlaceholders($tokens, $from + 1, $until - 1);
                 continue;
             }
-            if ($token->isGivenKind(CT::T_ARRAY_SQUARE_BRACE_OPEN)) {
+            if ($token->isGivenKind(CT::T_ARRAY_BRACKET_OPEN)) {
                 $yieldFoundSinceLastPlaceholder = \false;
                 $from = $index;
-                $until = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_ARRAY_SQUARE_BRACE, $from);
+                $until = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_ARRAY_BRACKET, $from);
                 $index = $until;
                 $this->injectArrayAlignmentPlaceholders($tokens, $from + 1, $until - 1);
                 continue;
@@ -599,7 +599,7 @@ PHP
                     if ($tokens[$i + 1]->isGivenKind(\T_DOUBLE_ARROW)) {
                         break;
                     }
-                    if ($tokens[$i + 1]->isGivenKind([\T_ARRAY, CT::T_ARRAY_SQUARE_BRACE_OPEN])) {
+                    if ($tokens[$i + 1]->isGivenKind([\T_ARRAY, CT::T_ARRAY_BRACKET_OPEN])) {
                         $arrayStartIndex = $tokens[$i + 1]->isGivenKind(\T_ARRAY) ? $tokens->getNextMeaningfulToken($i + 1) : $i + 1;
                         $blockType = Tokens::detectBlockType($tokens[$arrayStartIndex]);
                         $arrayEndIndex = $tokens->findBlockEnd($blockType['type'], $arrayStartIndex);
@@ -611,13 +611,13 @@ PHP
                 }
             }
             if ($token->equals('{')) {
-                $until = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $index);
+                $until = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_BRACE, $index);
                 $this->injectArrayAlignmentPlaceholders($tokens, $index + 1, $until - 1);
                 $index = $until;
                 continue;
             }
             if ($token->equals('(')) {
-                $until = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $index);
+                $until = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $index);
                 $this->injectArrayAlignmentPlaceholders($tokens, $index + 1, $until - 1);
                 $index = $until;
                 continue;
@@ -680,7 +680,9 @@ PHP
                 if (self::ALIGN !== $alignStrategy) {
                     // move placeholders to match strategy
                     foreach ($group as $index) {
+                        \assert(isset($lines[$index]));
                         $currentPosition = strpos($lines[$index], $placeholder);
+                        \assert(\false !== $currentPosition);
                         $before = (string) substr($lines[$index], 0, $currentPosition);
                         if (self::ALIGN_SINGLE_SPACE === $alignStrategy || self::ALIGN_SINGLE_SPACE_BY_SCOPE === $alignStrategy) {
                             if (substr_compare($before, ' ', -strlen(' ')) !== 0) {
@@ -698,9 +700,11 @@ PHP
                 }
                 $rightmostSymbol = 0;
                 foreach ($group as $index) {
+                    \assert(isset($lines[$index]));
                     $rightmostSymbol = max($rightmostSymbol, $this->getSubstringWidth($lines[$index], $placeholder));
                 }
                 foreach ($group as $index) {
+                    \assert(isset($lines[$index]));
                     $line = $lines[$index];
                     $currentSymbol = $this->getSubstringWidth($line, $placeholder);
                     $delta = abs($rightmostSymbol - $currentSymbol);

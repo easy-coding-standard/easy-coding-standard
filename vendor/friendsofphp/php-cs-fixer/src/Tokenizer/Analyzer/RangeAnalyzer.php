@@ -51,8 +51,8 @@ final class RangeAnalyzer
             $rightStart = $tokens->getNextMeaningfulToken($rightStart);
             $rightEnd = $tokens->getPrevMeaningfulToken($rightEnd);
         }
-        $arrayOpenTypes = ['[', [CT::T_ARRAY_INDEX_CURLY_BRACE_OPEN]];
-        $arrayCloseTypes = [']', [CT::T_ARRAY_INDEX_CURLY_BRACE_CLOSE]];
+        $arrayOpenTypes = ['[', [CT::T_ARRAY_INDEX_BRACE_OPEN]];
+        $arrayCloseTypes = [']', [CT::T_ARRAY_INDEX_BRACE_CLOSE]];
         while (\true) {
             $leftToken = $tokens[$leftStart];
             $rightToken = $tokens[$rightStart];

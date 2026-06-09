@@ -79,12 +79,12 @@ final class NewExpressionParenthesesFixer extends AbstractFixer implements Confi
             if ($tokens[$classStartIndex]->isGivenKind(\T_CLASS)) {
                 $nextIndex = $tokens->getNextMeaningfulToken($classStartIndex);
                 if ($tokens[$nextIndex]->equals('(')) {
-                    $nextIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $nextIndex);
+                    $nextIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $nextIndex);
                 } else {
                     $nextIndex = $classStartIndex;
                 }
                 $bodyStartIndex = $tokens->getNextTokenOfKind($nextIndex, ['{']);
-                $bodyEndIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $bodyStartIndex);
+                $bodyEndIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_BRACE, $bodyStartIndex);
                 if ($useParentheses) {
                     $this->ensureWrappedInParentheses($tokens, $index, $bodyEndIndex);
                 } else {
@@ -103,7 +103,7 @@ final class NewExpressionParenthesesFixer extends AbstractFixer implements Confi
                 // and does not need parentheses, or we cannot omit its parentheses due to the grammar rules.
                 continue;
             }
-            $argsEndIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $nextIndex);
+            $argsEndIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $nextIndex);
             if ($useParentheses) {
                 $this->ensureWrappedInParentheses($tokens, $index, $argsEndIndex);
             } else {
@@ -115,20 +115,20 @@ final class NewExpressionParenthesesFixer extends AbstractFixer implements Confi
     {
         $prevIndex = $tokens->getPrevMeaningfulToken($exprStartIndex);
         $nextIndex = $tokens->getNextMeaningfulToken($exprEndIndex);
-        if ($tokens[$prevIndex]->isGivenKind(CT::T_BRACE_CLASS_INSTANTIATION_OPEN) && $tokens[$nextIndex]->isGivenKind(CT::T_BRACE_CLASS_INSTANTIATION_CLOSE)) {
+        if ($tokens[$prevIndex]->isGivenKind(CT::T_CLASS_INSTANTIATION_PARENTHESIS_OPEN) && $tokens[$nextIndex]->isGivenKind(CT::T_CLASS_INSTANTIATION_PARENTHESIS_CLOSE)) {
             return;
         }
         if (!$tokens[$nextIndex]->isObjectOperator() && !$tokens[$nextIndex]->isGivenKind(\T_PAAMAYIM_NEKUDOTAYIM)) {
             return;
         }
-        $tokens->insertAt($exprStartIndex, [new Token([CT::T_BRACE_CLASS_INSTANTIATION_OPEN, '('])]);
-        $tokens->insertAt($exprEndIndex + 2, [new Token([CT::T_BRACE_CLASS_INSTANTIATION_CLOSE, ')'])]);
+        $tokens->insertAt($exprStartIndex, [new Token([CT::T_CLASS_INSTANTIATION_PARENTHESIS_OPEN, '('])]);
+        $tokens->insertAt($exprEndIndex + 2, [new Token([CT::T_CLASS_INSTANTIATION_PARENTHESIS_CLOSE, ')'])]);
     }
     private function ensureNotWrappedInParentheses(Tokens $tokens, int $exprStartIndex, int $exprEndIndex): void
     {
         $prevIndex = $tokens->getPrevMeaningfulToken($exprStartIndex);
         $nextIndex = $tokens->getNextMeaningfulToken($exprEndIndex);
-        if (!$tokens[$prevIndex]->isGivenKind(CT::T_BRACE_CLASS_INSTANTIATION_OPEN) || !$tokens[$nextIndex]->isGivenKind(CT::T_BRACE_CLASS_INSTANTIATION_CLOSE)) {
+        if (!$tokens[$prevIndex]->isGivenKind(CT::T_CLASS_INSTANTIATION_PARENTHESIS_OPEN) || !$tokens[$nextIndex]->isGivenKind(CT::T_CLASS_INSTANTIATION_PARENTHESIS_CLOSE)) {
             return;
         }
         $operatorIndex = $tokens->getNextMeaningfulToken($nextIndex);
@@ -142,7 +142,7 @@ final class NewExpressionParenthesesFixer extends AbstractFixer implements Confi
     {
         // (expression) class name
         if ($tokens[$index]->equals('(')) {
-            return $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $index);
+            return $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $index);
         }
         // regular class name or $variable class name
         $nextTokens = [[\T_STRING], [\T_NS_SEPARATOR], [CT::T_NAMESPACE_OPERATOR], [\T_VARIABLE], '$', [CT::T_DYNAMIC_VAR_BRACE_OPEN], '[', [\T_OBJECT_OPERATOR], [\T_NULLSAFE_OBJECT_OPERATOR], [\T_PAAMAYIM_NEKUDOTAYIM]];

@@ -124,7 +124,7 @@ PHP
             }
             // assert called with 2 arguments
             $openIndex = $tokens->getNextMeaningfulToken($index);
-            $closeIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openIndex);
+            $closeIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $openIndex);
             $arguments = $argumentsAnalyzer->getArguments($tokens, $openIndex, $closeIndex);
             if (2 !== \count($arguments)) {
                 continue;
@@ -178,7 +178,7 @@ PHP
         $argumentsAnalyzer = new ArgumentsAnalyzer();
         $shouldAddNamespace = $tokens[$functionIndex - 1]->isGivenKind(\T_NS_SEPARATOR);
         $openIndex = $tokens->getNextMeaningfulToken($functionIndex);
-        $closeIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openIndex);
+        $closeIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $openIndex);
         $arguments = $argumentsAnalyzer->getArguments($tokens, $openIndex, $closeIndex);
         reset($arguments);
         $firstArgumentIndexStart = key($arguments);

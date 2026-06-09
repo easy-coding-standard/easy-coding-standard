@@ -230,12 +230,12 @@ PHP
                 $nextMeaningfulIndex = $tokens->getNextMeaningfulToken($index);
                 if ($tokens[$nextMeaningfulIndex]->equals('=')) {
                     $nextMeaningfulIndex = $tokens->getNextMeaningfulToken($nextMeaningfulIndex);
-                    if ($tokens[$nextMeaningfulIndex]->isGivenKind(CT::T_ARRAY_SQUARE_BRACE_OPEN)) {
-                        $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_ARRAY_SQUARE_BRACE, $nextMeaningfulIndex);
+                    if ($tokens[$nextMeaningfulIndex]->isGivenKind(CT::T_ARRAY_BRACKET_OPEN)) {
+                        $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_ARRAY_BRACKET, $nextMeaningfulIndex);
                     } elseif ($tokens[$nextMeaningfulIndex]->isGivenKind(\T_ARRAY)) {
                         $nextMeaningfulIndex = $tokens->getNextMeaningfulToken($nextMeaningfulIndex);
                         if ($tokens[$nextMeaningfulIndex]->equals('(')) {
-                            $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $nextMeaningfulIndex);
+                            $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $nextMeaningfulIndex);
                         }
                     }
                 }
@@ -263,7 +263,7 @@ PHP
             } else {
                 continue;
             }
-            $closeBraceIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $openBraceIndex);
+            $closeBraceIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_BRACE, $openBraceIndex);
             $addNewlinesInsideBraces = \true;
             if ($allowSingleLine || $allowSingleLineIfEmpty || $index < $allowSingleLineUntil) {
                 $addNewlinesInsideBraces = \false;
@@ -379,7 +379,7 @@ PHP
         if (!$nextToken->equals('(')) {
             return $structureTokenIndex;
         }
-        return $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $nextIndex);
+        return $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $nextIndex);
     }
     private function isFollowedByNewLine(Tokens $tokens, int $index): bool
     {

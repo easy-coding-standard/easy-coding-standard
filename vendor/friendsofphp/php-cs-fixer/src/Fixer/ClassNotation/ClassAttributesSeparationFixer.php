@@ -284,6 +284,7 @@ PHP
     {
         \assert(isset($class['elements'][$elementIndex]));
         $type = $class['elements'][$elementIndex]['type'];
+        \assert(isset($this->classElementTypes[$type]));
         $spacing = $this->classElementTypes[$type];
         if (self::SPACING_ONE === $spacing) {
             return 2;
@@ -375,7 +376,7 @@ PHP
                 }
                 $classIndex = $element['classIndex'];
                 $classOpen = $tokens->getNextTokenOfKind($classIndex, ['{']);
-                $classEnd = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $classOpen);
+                $classEnd = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_BRACE, $classOpen);
                 $class = ['index' => $element['classIndex'], 'open' => $classOpen, 'close' => $classEnd, 'elements' => []];
             }
             unset($element['classIndex']);
@@ -415,7 +416,7 @@ PHP
             if (\true === $attributes['abstract']) {
                 $elementEndIndex = $tokens->getNextTokenOfKind($elementIndex, [';']);
             } else {
-                $elementEndIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $tokens->getNextTokenOfKind($elementIndex, ['{']));
+                $elementEndIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_BRACE, $tokens->getNextTokenOfKind($elementIndex, ['{']));
             }
         } elseif ('trait_import' === $elementType) {
             $elementEndIndex = $elementIndex;
@@ -423,7 +424,7 @@ PHP
                 $elementEndIndex = $tokens->getNextMeaningfulToken($elementEndIndex);
             } while ($tokens[$elementEndIndex]->isGivenKind([\T_STRING, \T_NS_SEPARATOR]) || $tokens[$elementEndIndex]->equals(','));
             if (!$tokens[$elementEndIndex]->equals(';')) {
-                $elementEndIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $tokens->getNextTokenOfKind($elementIndex, ['{']));
+                $elementEndIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_BRACE, $tokens->getNextTokenOfKind($elementIndex, ['{']));
             }
         } else {
             // 'const', 'property', enum-'case', or 'method' of an interface

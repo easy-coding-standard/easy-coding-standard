@@ -139,7 +139,7 @@ PHP
                 continue;
             }
             $openIndex = $tokens->getNextTokenOfKind($index, ['(']);
-            $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openIndex);
+            $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $openIndex);
             $arguments = [];
             foreach ($argumentsAnalyzer->getArguments($tokens, $openIndex, $index) as $start => $end) {
                 $argumentInfo = $this->prepareArgumentInformation($tokens, $start, $end);
@@ -164,7 +164,9 @@ PHP
             }
             $lines = $doc->getLines();
             $linesCount = \count($lines);
+            \assert(isset($lines[$linesCount - 1]));
             Preg::match('/^(\s*).*$/', $lines[$linesCount - 1]->getContent(), $matches);
+            \assert(isset($matches[1]));
             $indent = $matches[1];
             $newLines = [];
             foreach ($arguments as $argument) {
@@ -191,6 +193,10 @@ PHP
         $sawName = \false;
         for ($index = $start; $index <= $end; ++$index) {
             $token = $tokens[$index];
+            if ($token->isGivenKind(FCT::T_ATTRIBUTE)) {
+                $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_ATTRIBUTE, $index);
+                continue;
+            }
             if ($token->isComment() || $token->isWhitespace() || $token->isGivenKind([CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PRIVATE, CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PROTECTED, CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PUBLIC, FCT::T_READONLY, FCT::T_PRIVATE_SET, FCT::T_PROTECTED_SET, FCT::T_PUBLIC_SET])) {
                 continue;
             }

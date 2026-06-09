@@ -19,14 +19,14 @@ final class InputParser
             // fallback to show all commands
             return new CLIRequest(null);
         }
+        $args = [];
+        $options = [];
         $command = array_shift($argv);
         if (strncmp((string) $command, '-', strlen('-')) === 0) {
             // most likely an option
-            $command = null;
             $options[ltrim((string) $command, '-')] = \true;
+            $command = null;
         }
-        $args = [];
-        $options = [];
         while ($argv !== []) {
             $item = array_shift($argv);
             // --option or --option=value

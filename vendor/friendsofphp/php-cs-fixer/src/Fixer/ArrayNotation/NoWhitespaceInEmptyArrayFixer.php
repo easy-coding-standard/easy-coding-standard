@@ -31,7 +31,7 @@ final class NoWhitespaceInEmptyArrayFixer extends AbstractFixer
     }
     public function isCandidate(Tokens $tokens): bool
     {
-        return $tokens->isTokenKindFound(CT::T_ARRAY_SQUARE_BRACE_OPEN);
+        return $tokens->isTokenKindFound(CT::T_ARRAY_BRACKET_OPEN);
     }
     /**
      * {@inheritdoc}
@@ -45,13 +45,13 @@ final class NoWhitespaceInEmptyArrayFixer extends AbstractFixer
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         for ($index = \count($tokens) - 1; $index > 0; --$index) {
-            if (!$tokens[$index]->isGivenKind(CT::T_ARRAY_SQUARE_BRACE_CLOSE)) {
+            if (!$tokens[$index]->isGivenKind(CT::T_ARRAY_BRACKET_CLOSE)) {
                 continue;
             }
             if ($tokens->getPrevNonWhitespace($index) !== $index - 2) {
                 continue;
             }
-            if (!$tokens[$index - 2]->isGivenKind(CT::T_ARRAY_SQUARE_BRACE_OPEN)) {
+            if (!$tokens[$index - 2]->isGivenKind(CT::T_ARRAY_BRACKET_OPEN)) {
                 continue;
             }
             $tokens->clearAt($index - 1);

@@ -68,7 +68,7 @@ final class NoUselessPrintfFixer extends AbstractFixer
             if ($tokens[$tokens->getNextMeaningfulToken($openParenthesisIndex)]->isGivenKind([\T_ELLIPSIS, CT::T_FIRST_CLASS_CALLABLE])) {
                 continue;
             }
-            $closeParenthesisIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openParenthesisIndex);
+            $closeParenthesisIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $openParenthesisIndex);
             if (1 !== $argumentsAnalyzer->countArguments($tokens, $openParenthesisIndex, $closeParenthesisIndex)) {
                 continue;
             }

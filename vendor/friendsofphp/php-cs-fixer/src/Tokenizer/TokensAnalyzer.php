@@ -131,7 +131,7 @@ final class TokensAnalyzer
      */
     public function isArray(int $index): bool
     {
-        return $this->tokens[$index]->isGivenKind([\T_ARRAY, \PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN]);
+        return $this->tokens[$index]->isGivenKind([\T_ARRAY, \PhpCsFixer\Tokenizer\CT::T_ARRAY_BRACKET_OPEN]);
     }
     /**
      * Check if the array at index is multiline.
@@ -375,7 +375,7 @@ final class TokensAnalyzer
             return \false;
         }
         $prevToken = $tokens[$tokens->getPrevMeaningfulToken($index)];
-        return $prevToken->equalsAny([']', [\T_STRING], [\T_VARIABLE], [\PhpCsFixer\Tokenizer\CT::T_ARRAY_INDEX_CURLY_BRACE_CLOSE], [\PhpCsFixer\Tokenizer\CT::T_DYNAMIC_PROP_BRACE_CLOSE], [\PhpCsFixer\Tokenizer\CT::T_DYNAMIC_VAR_BRACE_CLOSE]]);
+        return $prevToken->equalsAny([']', [\T_STRING], [\T_VARIABLE], [\PhpCsFixer\Tokenizer\CT::T_ARRAY_INDEX_BRACE_CLOSE], [\PhpCsFixer\Tokenizer\CT::T_DYNAMIC_PROP_BRACE_CLOSE], [\PhpCsFixer\Tokenizer\CT::T_DYNAMIC_VAR_BRACE_CLOSE]]);
     }
     /**
      * Checks if there is a unary predecessor operator under given index.
@@ -397,7 +397,7 @@ final class TokensAnalyzer
             return \false;
         }
         $prevToken = $tokens[$tokens->getPrevMeaningfulToken($index)];
-        if (!$prevToken->equalsAny([']', '}', ')', '"', '`', [\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_CLOSE], [\PhpCsFixer\Tokenizer\CT::T_ARRAY_INDEX_CURLY_BRACE_CLOSE], [\PhpCsFixer\Tokenizer\CT::T_DYNAMIC_PROP_BRACE_CLOSE], [\PhpCsFixer\Tokenizer\CT::T_DYNAMIC_VAR_BRACE_CLOSE], [\T_CLASS_C], [\T_CONSTANT_ENCAPSED_STRING], [\T_DEC], [\T_DIR], [\T_DNUMBER], [\T_FILE], [\T_FUNC_C], [\T_INC], [\T_LINE], [\T_LNUMBER], [\T_METHOD_C], [\T_NS_C], [\T_STRING], [\T_TRAIT_C], [\T_VARIABLE]])) {
+        if (!$prevToken->equalsAny([']', '}', ')', '"', '`', [\PhpCsFixer\Tokenizer\CT::T_ARRAY_BRACKET_CLOSE], [\PhpCsFixer\Tokenizer\CT::T_ARRAY_INDEX_BRACE_CLOSE], [\PhpCsFixer\Tokenizer\CT::T_DYNAMIC_PROP_BRACE_CLOSE], [\PhpCsFixer\Tokenizer\CT::T_DYNAMIC_VAR_BRACE_CLOSE], [\T_CLASS_C], [\T_CONSTANT_ENCAPSED_STRING], [\T_DEC], [\T_DIR], [\T_DNUMBER], [\T_FILE], [\T_FUNC_C], [\T_INC], [\T_LINE], [\T_LNUMBER], [\T_METHOD_C], [\T_NS_C], [\T_STRING], [\T_TRAIT_C], [\T_VARIABLE]])) {
             return \true;
         }
         if (!$token->equals('&') || !$prevToken->isGivenKind(\T_STRING)) {
@@ -503,7 +503,7 @@ final class TokensAnalyzer
         if (!$tokens[$endIndex]->equals('}')) {
             return \false;
         }
-        $startIndex = $tokens->findBlockStart(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $endIndex);
+        $startIndex = $tokens->findBlockStart(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_BRACE, $endIndex);
         $beforeStartIndex = $tokens->getPrevMeaningfulToken($startIndex);
         return $tokens[$beforeStartIndex]->isGivenKind(\T_DO);
     }
@@ -632,7 +632,7 @@ final class TokensAnalyzer
                 $elements[$index] = ['classIndex' => $classIndex, 'token' => $token, 'type' => 'method'];
                 if ('__construct' === $this->tokens[$functionNameIndex]->getContent()) {
                     $openParenthesis = $this->tokens->getNextMeaningfulToken($functionNameIndex);
-                    $closeParenthesis = $this->tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openParenthesis);
+                    $closeParenthesis = $this->tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS, $openParenthesis);
                     foreach ($this->tokens->findGivenKind([\PhpCsFixer\Tokenizer\CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PUBLIC, \PhpCsFixer\Tokenizer\CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PROTECTED, \PhpCsFixer\Tokenizer\CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PRIVATE, \PhpCsFixer\Tokenizer\FCT::T_READONLY, \T_FINAL], $openParenthesis, $closeParenthesis) as $kindElements) {
                         foreach (array_keys($kindElements) as $promotedPropertyModifierIndex) {
                             /** @var int $promotedPropertyVariableIndex */

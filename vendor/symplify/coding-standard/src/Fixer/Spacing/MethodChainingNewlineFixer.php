@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\Fixer\Spacing;
 
+use Override;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
@@ -52,6 +53,7 @@ final class MethodChainingNewlineFixer extends AbstractSymplifyFixer
      *
      * @see \PhpCsFixer\Fixer\Whitespace\MethodChainingIndentationFixer::getPriority()
      */
+    #[Override]
     public function getPriority(): int
     {
         return 39;

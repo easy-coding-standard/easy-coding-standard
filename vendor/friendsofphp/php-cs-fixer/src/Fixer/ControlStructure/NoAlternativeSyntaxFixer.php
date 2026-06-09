@@ -76,7 +76,7 @@ final class NoAlternativeSyntaxFixer extends AbstractFixer implements Configurab
     {
         $nextIndex = $tokens->getNextMeaningfulToken($structureTokenIndex);
         $nextToken = $tokens[$nextIndex];
-        return $nextToken->equals('(') ? $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $nextIndex) : $structureTokenIndex;
+        return $nextToken->equals('(') ? $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $nextIndex) : $structureTokenIndex;
         // return if next token is not opening parenthesis
     }
     /**
@@ -91,7 +91,7 @@ final class NoAlternativeSyntaxFixer extends AbstractFixer implements Configurab
     {
         if ($token->isGivenKind([\T_IF, \T_FOREACH, \T_WHILE, \T_FOR, \T_SWITCH, \T_DECLARE])) {
             $openIndex = $tokens->getNextTokenOfKind($index, ['(']);
-            $closeIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openIndex);
+            $closeIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $openIndex);
             $afterParenthesisIndex = $tokens->getNextMeaningfulToken($closeIndex);
             $afterParenthesis = $tokens[$afterParenthesisIndex];
             if (!$afterParenthesis->equals(':')) {

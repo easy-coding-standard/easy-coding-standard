@@ -96,7 +96,7 @@ PHP
      */
     private function getFunctionParamNames(Tokens $tokens, int $paramBlockStart): array
     {
-        $paramBlockEnd = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $paramBlockStart);
+        $paramBlockEnd = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $paramBlockStart);
         $paramNames = [];
         for ($i = $tokens->getNextTokenOfKind($paramBlockStart, [[\T_VARIABLE]]); null !== $i && $i < $paramBlockEnd; $i = $tokens->getNextTokenOfKind($i, [[\T_VARIABLE]])) {
             $paramNames[] = $tokens[$i];

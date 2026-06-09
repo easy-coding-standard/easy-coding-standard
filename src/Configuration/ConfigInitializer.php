@@ -38,12 +38,14 @@ final class ConfigInitializer
     public function areSomeCheckersRegistered(): bool
     {
         $fileProcessors = $this->fileProcessorCollector->getFileProcessors();
+        $found = \false;
         foreach ($fileProcessors as $fileProcessor) {
-            if ($fileProcessor->getCheckers()) {
-                return \true;
+            if ($fileProcessor->getCheckers() !== []) {
+                $found = \true;
+                break;
             }
         }
-        return \false;
+        return $found;
     }
     public function createConfig(string $projectDirectory): void
     {

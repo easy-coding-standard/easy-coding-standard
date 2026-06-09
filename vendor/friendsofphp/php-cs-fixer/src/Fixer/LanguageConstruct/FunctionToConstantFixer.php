@@ -83,6 +83,7 @@ final class FunctionToConstantFixer extends AbstractFixer implements Configurabl
     {
         $this->functionsFixMap = [];
         foreach ($this->configuration['functions'] as $key) {
+            \assert(isset(self::$availableFunctions[$key]));
             $this->functionsFixMap[$key] = self::$availableFunctions[$key];
         }
     }
@@ -172,7 +173,7 @@ final class FunctionToConstantFixer extends AbstractFixer implements Configurabl
             return null;
         }
         $braceOpenIndex = $tokens->getNextMeaningfulToken($index);
-        $braceCloseIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $braceOpenIndex);
+        $braceCloseIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $braceOpenIndex);
         if ($braceCloseIndex === $tokens->getNextMeaningfulToken($braceOpenIndex)) {
             // no arguments passed
             if (isset($this->functionsFixMap['get_class'])) {
@@ -205,6 +206,7 @@ final class FunctionToConstantFixer extends AbstractFixer implements Configurabl
      */
     private function getReplacementTokenClones(string $lowerContent, int $braceOpenIndex, int $braceCloseIndex): array
     {
+        \assert(isset($this->functionsFixMap[$lowerContent]));
         $clones = array_map(static function (Token $token): Token {
             return clone $token;
         }, $this->functionsFixMap[$lowerContent]);

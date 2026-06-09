@@ -56,7 +56,7 @@ final class SingleLineThrowFixer extends AbstractFixer
             while (!$tokens[$endCandidateIndex]->equalsAny([')', ']', ',', ';', [\T_CLOSE_TAG]])) {
                 $blockType = Tokens::detectBlockType($tokens[$endCandidateIndex]);
                 if (null !== $blockType) {
-                    if (Tokens::BLOCK_TYPE_CURLY_BRACE === $blockType['type'] || !$blockType['isStart']) {
+                    if (Tokens::BLOCK_TYPE_BRACE === $blockType['type'] || !$blockType['isStart']) {
                         break;
                     }
                     $endCandidateIndex = $tokens->findBlockEnd($blockType['type'], $endCandidateIndex);

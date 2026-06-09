@@ -17,8 +17,8 @@ use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 /**
- * Transform braced class instantiation braces in `(new Foo())` into CT::T_BRACE_CLASS_INSTANTIATION_OPEN
- * and CT::T_BRACE_CLASS_INSTANTIATION_CLOSE.
+ * Transform braced class instantiation braces in `(new Foo())` into CT::T_CLASS_INSTANTIATION_PARENTHESIS_OPEN
+ * and CT::T_CLASS_INSTANTIATION_PARENTHESIS_CLOSE.
  *
  * @author Sebastiaan Stok <s.stok@rollerscapes.net>
  *
@@ -42,15 +42,15 @@ final class BraceClassInstantiationTransformer extends AbstractTransformer
         if (!$tokens[$index]->equals('(') || !$tokens[$tokens->getNextMeaningfulToken($index)]->isGivenKind(\T_NEW)) {
             return;
         }
-        if ($tokens[$tokens->getPrevMeaningfulToken($index)]->equalsAny([')', ']', [CT::T_ARRAY_INDEX_CURLY_BRACE_CLOSE], [CT::T_ARRAY_SQUARE_BRACE_CLOSE], [CT::T_BRACE_CLASS_INSTANTIATION_CLOSE], [\T_ARRAY], [\T_CLASS], [\T_ELSEIF], [\T_FOR], [\T_FOREACH], [\T_IF], [\T_STATIC], [\T_STRING], [\T_SWITCH], [\T_VARIABLE], [\T_WHILE]])) {
+        if ($tokens[$tokens->getPrevMeaningfulToken($index)]->equalsAny([')', ']', [CT::T_ARRAY_INDEX_BRACE_CLOSE], [CT::T_ARRAY_BRACKET_CLOSE], [CT::T_CLASS_INSTANTIATION_PARENTHESIS_CLOSE], [\T_ARRAY], [\T_CLASS], [\T_ELSEIF], [\T_FOR], [\T_FOREACH], [\T_IF], [\T_STATIC], [\T_STRING], [\T_SWITCH], [\T_VARIABLE], [\T_WHILE]])) {
             return;
         }
-        $closeIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $index);
-        $tokens[$index] = new Token([CT::T_BRACE_CLASS_INSTANTIATION_OPEN, '(']);
-        $tokens[$closeIndex] = new Token([CT::T_BRACE_CLASS_INSTANTIATION_CLOSE, ')']);
+        $closeIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $index);
+        $tokens[$index] = new Token([CT::T_CLASS_INSTANTIATION_PARENTHESIS_OPEN, '(']);
+        $tokens[$closeIndex] = new Token([CT::T_CLASS_INSTANTIATION_PARENTHESIS_CLOSE, ')']);
     }
     public function getCustomTokens(): array
     {
-        return [CT::T_BRACE_CLASS_INSTANTIATION_OPEN, CT::T_BRACE_CLASS_INSTANTIATION_CLOSE];
+        return [CT::T_CLASS_INSTANTIATION_PARENTHESIS_OPEN, CT::T_CLASS_INSTANTIATION_PARENTHESIS_CLOSE];
     }
 }

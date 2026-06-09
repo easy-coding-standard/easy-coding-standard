@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\Fixer\LineLength;
 
+use Override;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
@@ -159,6 +160,7 @@ final class LineLengthFixer extends AbstractSymplifyFixer implements Configurabl
      *
      * @see \PhpCsFixer\Fixer\ArrayNotation\TrimArraySpacesFixer::getPriority()
      */
+    #[Override]
     public function getPriority(): int
     {
         return 5;

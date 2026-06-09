@@ -204,7 +204,7 @@ PHP
             }
             if ($token->isGivenKind(self::SYMBOL_KINDS)) {
                 $currentSymbol = $tokens[$tokens->getNextMeaningfulToken($index)]->getContent();
-                $currentSymbolEndIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $tokens->getNextTokenOfKind($index, ['{']));
+                $currentSymbolEndIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_BRACE, $tokens->getNextTokenOfKind($index, ['{']));
                 continue;
             }
             if (!$token->isGivenKind(\T_DOC_COMMENT)) {
@@ -288,15 +288,15 @@ PHP
         return null;
     }
     /**
-     * @param _DocumentElement&array{type: 'function'} $element
-     * @param null|non-empty-string                    $namespace
-     * @param array<string, string>                    $shortNames
+     * @param _DocumentElement&array{type: 'function', ...} $element
+     * @param null|non-empty-string                         $namespace
+     * @param array<string, string>                         $shortNames
      */
     private function fixFunctionDocComment(string $content, Tokens $tokens, array $element, ?string $namespace, ?string $currentSymbol, array $shortNames): string
     {
         $docBlock = new DocBlock($content);
         $openingParenthesisIndex = $tokens->getNextTokenOfKind($element['index'], ['(']);
-        $closingParenthesisIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openingParenthesisIndex);
+        $closingParenthesisIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $openingParenthesisIndex);
         $argumentsInfo = $this->getArgumentsInfo($tokens, $openingParenthesisIndex + 1, $closingParenthesisIndex - 1);
         foreach ($docBlock->getAnnotationsOfType('param') as $annotation) {
             $argumentName = $annotation->getVariableName();
@@ -323,9 +323,9 @@ PHP
         return $docBlock->getContent();
     }
     /**
-     * @param _DocumentElement&array{type: 'property'} $element
-     * @param null|non-empty-string                    $namespace
-     * @param array<string, string>                    $shortNames
+     * @param _DocumentElement&array{type: 'property', ...} $element
+     * @param null|non-empty-string                         $namespace
+     * @param array<string, string>                         $shortNames
      */
     private function fixPropertyDocComment(string $content, Tokens $tokens, array $element, ?string $namespace, ?string $currentSymbol, array $shortNames): string
     {
@@ -344,7 +344,7 @@ PHP
         return $docBlock->getContent();
     }
     /**
-     * @param _DocumentElement&array{type: 'classy'} $element
+     * @param _DocumentElement&array{type: 'classy', ...} $element
      */
     private function fixClassDocComment(string $content, array $element): string
     {

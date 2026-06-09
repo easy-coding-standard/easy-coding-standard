@@ -60,7 +60,7 @@ final class NoSpacesAfterFunctionNameFixer extends AbstractFixer
             // last non-whitespace token, can never be `null` always at least PHP open tag before it
             $lastTokenIndex = $tokens->getPrevNonWhitespace($index);
             // check for ternary operator
-            $endParenthesisIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $index);
+            $endParenthesisIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $index);
             $nextNonWhiteSpace = $tokens->getNextMeaningfulToken($endParenthesisIndex);
             if (null !== $nextNonWhiteSpace && !$tokens[$nextNonWhiteSpace]->equals(';') && $tokens[$lastTokenIndex]->isGivenKind([\T_ECHO, \T_PRINT, \T_INCLUDE, \T_INCLUDE_ONCE, \T_REQUIRE, \T_REQUIRE_ONCE])) {
                 continue;
@@ -74,9 +74,9 @@ final class NoSpacesAfterFunctionNameFixer extends AbstractFixer
                 if (!$tokens[$possibleDefinitionIndex]->isGivenKind(\T_FUNCTION)) {
                     $this->fixFunctionCall($tokens, $index);
                 }
-            } elseif ($tokens[$lastTokenIndex]->equalsAny([')', ']', [CT::T_DYNAMIC_VAR_BRACE_CLOSE], [CT::T_ARRAY_INDEX_CURLY_BRACE_CLOSE]])) {
+            } elseif ($tokens[$lastTokenIndex]->equalsAny([')', ']', [CT::T_DYNAMIC_VAR_BRACE_CLOSE], [CT::T_ARRAY_INDEX_BRACE_CLOSE]])) {
                 $block = Tokens::detectBlockType($tokens[$lastTokenIndex]);
-                if (Tokens::BLOCK_TYPE_ARRAY_INDEX_CURLY_BRACE === $block['type'] || Tokens::BLOCK_TYPE_DYNAMIC_VAR_BRACE === $block['type'] || Tokens::BLOCK_TYPE_INDEX_SQUARE_BRACE === $block['type'] || Tokens::BLOCK_TYPE_PARENTHESIS_BRACE === $block['type']) {
+                if (Tokens::BLOCK_TYPE_INDEX_BRACE === $block['type'] || Tokens::BLOCK_TYPE_DYNAMIC_VAR_BRACE === $block['type'] || Tokens::BLOCK_TYPE_INDEX_BRACKET === $block['type'] || Tokens::BLOCK_TYPE_PARENTHESIS === $block['type']) {
                     $this->fixFunctionCall($tokens, $index);
                 }
             }

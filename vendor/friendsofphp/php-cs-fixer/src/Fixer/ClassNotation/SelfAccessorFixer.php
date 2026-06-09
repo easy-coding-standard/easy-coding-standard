@@ -76,7 +76,7 @@ PHP
                 }
                 $nameIndex = $tokens->getNextTokenOfKind($index, [[\T_STRING]]);
                 $startIndex = $tokens->getNextTokenOfKind($nameIndex, ['{']);
-                $endIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $startIndex);
+                $endIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_BRACE, $startIndex);
                 $name = $tokens[$nameIndex]->getContent();
                 $this->replaceNameOccurrences($tokens, $namespace->getFullName(), $name, $startIndex, $endIndex);
                 $index = $endIndex;
@@ -98,7 +98,7 @@ PHP
             // skip anonymous classes
             if ($token->isGivenKind(\T_CLASS) && $tokensAnalyzer->isAnonymousClass($i)) {
                 $i = $tokens->getNextTokenOfKind($i, ['{']);
-                $i = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $i);
+                $i = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_BRACE, $i);
                 continue;
             }
             if ($token->isGivenKind(\T_FN)) {
@@ -109,7 +109,7 @@ PHP
             if ($token->isGivenKind(\T_FUNCTION)) {
                 if ($tokensAnalyzer->isLambda($i)) {
                     $i = $tokens->getNextTokenOfKind($i, ['{']);
-                    $i = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $i);
+                    $i = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_BRACE, $i);
                     continue;
                 }
                 $i = $tokens->getNextTokenOfKind($i, ['(']);

@@ -1,10 +1,10 @@
 <?php
 
+declare (strict_types=1);
 /**
  * This file is part of the Nette Framework (https://nette.org)
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
-declare (strict_types=1);
 namespace ECSPrefix202606\Nette\Utils;
 
 use ECSPrefix202606\Nette;
@@ -16,7 +16,7 @@ class Validators
 {
     use Nette\StaticClass;
     private const BuiltinTypes = ['string' => 1, 'int' => 1, 'float' => 1, 'bool' => 1, 'array' => 1, 'object' => 1, 'callable' => 1, 'iterable' => 1, 'void' => 1, 'null' => 1, 'mixed' => 1, 'false' => 1, 'never' => 1, 'true' => 1];
-    /** @var array<string,?callable> */
+    /** @var array<string, ?(callable(mixed): bool)> */
     protected static $validators = [
         // PHP types
         'array' => 'is_array',
@@ -61,7 +61,7 @@ class Validators
         'file' => 'is_file',
         'type' => [self::class, 'isType'],
     ];
-    /** @var array<string,callable> */
+    /** @var array<string, callable(mixed): int> */
     protected static $counters = ['string' => 'strlen', 'unicode' => [Strings::class, 'length'], 'array' => 'count', 'list' => 'count', 'alnum' => 'strlen', 'alpha' => 'strlen', 'digit' => 'strlen', 'lower' => 'strlen', 'space' => 'strlen', 'upper' => 'strlen', 'xdigit' => 'strlen'];
     /**
      * Verifies that the value is of expected types separated by pipe.
@@ -83,16 +83,17 @@ class Validators
         }
     }
     /**
-     * Verifies that element $key in array is of expected types separated by pipe.
+     * Verifies that item $key in array exists and is of expected types separated by pipe.
      * @param  mixed[]  $array
      * @throws AssertionException
+     * @param int|string $key
      */
     public static function assertField(array $array, $key, ?string $expected = null, string $label = "item '%' in array"): void
     {
         if (!array_key_exists($key, $array)) {
-            throw new AssertionException('Missing ' . str_replace('%', $key, $label) . '.');
+            throw new AssertionException('Missing ' . str_replace('%', (string) $key, $label) . '.');
         } elseif ($expected) {
-            static::assert($array[$key], $expected, str_replace('%', $key, $label));
+            static::assert($array[$key], $expected, str_replace('%', (string) $key, $label));
         }
     }
     /**
@@ -119,7 +120,7 @@ class Validators
                     if (!static::$validators[$type]($value)) {
                         continue;
                     }
-                } catch (\TypeError $e) {
+                } catch (\TypeError $exception) {
                     continue;
                 }
             } elseif ($type === 'pattern') {
@@ -149,7 +150,7 @@ class Validators
     }
     /**
      * Finds whether all values are of expected types separated by pipe.
-     * @param  mixed[]  $values
+     * @param  iterable<mixed>  $values
      */
     public static function everyIs(iterable $values, string $expected): bool
     {
@@ -205,7 +206,7 @@ class Validators
     }
     /**
      * Checks if the value is 0, '', false or null.
-     * @return ($value is 0|''|false|null ? true : false)
+     * @return ($value is 0|0.0|''|false|null ? true : false)
      * @param mixed $value
      */
     public static function isNone($value): bool
@@ -231,6 +232,7 @@ class Validators
     /**
      * Checks if the value is in the given range [min, max], where the upper or lower limit can be omitted (null).
      * Numbers, strings and DateTime objects can be compared.
+     * @param  array{int|float|string|\DateTimeInterface|null, int|float|string|\DateTimeInterface|null}  $range
      * @param mixed $value
      */
     public static function isInRange($value, array $range): bool

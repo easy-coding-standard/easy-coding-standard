@@ -221,14 +221,14 @@ PHP
         }
         if (\in_array('curly_brace_block', $tokensConfiguration, \true)) {
             $this->tokenEqualsMap['{'] = [$this, 'fixStructureOpenCloseIfMultiLine'];
-            // i.e. not: CT::T_ARRAY_INDEX_CURLY_BRACE_OPEN
+            // i.e. not: CT::T_ARRAY_INDEX_BRACE_OPEN
         }
         if (\in_array('parenthesis_brace_block', $tokensConfiguration, \true)) {
             $this->tokenEqualsMap['('] = [$this, 'fixStructureOpenCloseIfMultiLine'];
-            // i.e. not: CT::T_BRACE_CLASS_INSTANTIATION_OPEN
+            // i.e. not: CT::T_CLASS_INSTANTIATION_PARENTHESIS_OPEN
         }
         // Each item requires explicit array-like callable, otherwise PHPStan will complain about unused private methods.
-        $configMap = ['attribute' => [CT::T_ATTRIBUTE_CLOSE, [$this, 'fixAfterToken']], 'break' => [\T_BREAK, [$this, 'fixAfterToken']], 'case' => [\T_CASE, [$this, 'fixAfterCaseToken']], 'continue' => [\T_CONTINUE, [$this, 'fixAfterToken']], 'default' => [\T_DEFAULT, [$this, 'fixAfterToken']], 'extra' => [\T_WHITESPACE, [$this, 'removeMultipleBlankLines']], 'return' => [\T_RETURN, [$this, 'fixAfterToken']], 'square_brace_block' => [CT::T_ARRAY_SQUARE_BRACE_OPEN, [$this, 'fixStructureOpenCloseIfMultiLine']], 'switch' => [\T_SWITCH, [$this, 'fixAfterToken']], 'throw' => [\T_THROW, [$this, 'fixAfterThrowToken']], 'use' => [\T_USE, [$this, 'removeBetweenUse']], 'use_trait' => [CT::T_USE_TRAIT, [$this, 'removeBetweenUse']]];
+        $configMap = ['attribute' => [CT::T_ATTRIBUTE_CLOSE, [$this, 'fixAfterToken']], 'break' => [\T_BREAK, [$this, 'fixAfterToken']], 'case' => [\T_CASE, [$this, 'fixAfterCaseToken']], 'continue' => [\T_CONTINUE, [$this, 'fixAfterToken']], 'default' => [\T_DEFAULT, [$this, 'fixAfterToken']], 'extra' => [\T_WHITESPACE, [$this, 'removeMultipleBlankLines']], 'return' => [\T_RETURN, [$this, 'fixAfterToken']], 'square_brace_block' => [CT::T_ARRAY_BRACKET_OPEN, [$this, 'fixStructureOpenCloseIfMultiLine']], 'switch' => [\T_SWITCH, [$this, 'fixAfterToken']], 'throw' => [\T_THROW, [$this, 'fixAfterThrowToken']], 'use' => [\T_USE, [$this, 'removeBetweenUse']], 'use_trait' => [CT::T_USE_TRAIT, [$this, 'removeBetweenUse']]];
         $this->tokenKindCallbackMap = [];
         foreach ($tokensConfiguration as $config) {
             if (isset($configMap[$config])) {
@@ -306,7 +306,7 @@ PHP
             if ($this->tokens[$i]->isGivenKind(\T_CLASS) && $this->tokensAnalyzer->isAnonymousClass($i)) {
                 return;
             }
-            if ($this->tokens[$i]->isGivenKind([CT::T_ARRAY_SQUARE_BRACE_OPEN, CT::T_DESTRUCTURING_SQUARE_BRACE_OPEN])) {
+            if ($this->tokens[$i]->isGivenKind([CT::T_ARRAY_BRACKET_OPEN, CT::T_DESTRUCTURING_BRACKET_OPEN])) {
                 return;
             }
             if ($this->tokens[$i]->isWhitespace() && strpos($this->tokens[$i]->getContent(), "\n") !== \false) {

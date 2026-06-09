@@ -45,7 +45,7 @@ final class FixerAnnotationAnalyzer
             }
             if ($token->isGivenKind(\T_DECLARE)) {
                 $nextIndex = $tokens->getNextMeaningfulToken($index);
-                $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $nextIndex);
+                $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $nextIndex);
                 continue;
             }
             if ($token->isComment()) {

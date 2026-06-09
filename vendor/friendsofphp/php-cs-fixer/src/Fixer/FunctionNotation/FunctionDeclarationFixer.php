@@ -128,7 +128,7 @@ PHP
             if (!$tokens[$startParenthesisIndex]->equals('(')) {
                 continue;
             }
-            $endParenthesisIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $startParenthesisIndex);
+            $endParenthesisIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $startParenthesisIndex);
             if (\false === $this->configuration['trailing_comma_single_line'] && !$tokens->isPartialCodeMultiline($index, $endParenthesisIndex)) {
                 $commaIndex = $tokens->getPrevMeaningfulToken($endParenthesisIndex);
                 if ($tokens[$commaIndex]->equals(',')) {
@@ -149,7 +149,7 @@ PHP
                 // fix whitespace after CT:T_USE_LAMBDA (we might add a token, so do this before determining start and end parenthesis)
                 $tokens->ensureWhitespaceAtIndex($afterParenthesisIndex + 1, 0, ' ');
                 $useStartParenthesisIndex = $tokens->getNextTokenOfKind($afterParenthesisIndex, ['(']);
-                $useEndParenthesisIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $useStartParenthesisIndex);
+                $useEndParenthesisIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $useStartParenthesisIndex);
                 if (\false === $this->configuration['trailing_comma_single_line'] && !$tokens->isPartialCodeMultiline($index, $useEndParenthesisIndex)) {
                     $commaIndex = $tokens->getPrevMeaningfulToken($useEndParenthesisIndex);
                     if ($tokens[$commaIndex]->equals(',')) {

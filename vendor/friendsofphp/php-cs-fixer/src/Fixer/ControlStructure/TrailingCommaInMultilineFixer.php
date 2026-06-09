@@ -91,7 +91,7 @@ SAMPLE
     }
     public function isCandidate(Tokens $tokens): bool
     {
-        return $tokens->isAnyTokenKindsFound([\T_ARRAY, CT::T_ARRAY_SQUARE_BRACE_OPEN, '(', CT::T_DESTRUCTURING_SQUARE_BRACE_OPEN]);
+        return $tokens->isAnyTokenKindsFound([\T_ARRAY, CT::T_ARRAY_BRACKET_OPEN, '(', CT::T_DESTRUCTURING_BRACKET_OPEN]);
     }
     protected function createConfigurationDefinition(): FixerConfigurationResolverInterface
     {
@@ -108,14 +108,14 @@ SAMPLE
         // @TODO: drop condition when PHP 8.0+ is required
         $fixDestructuring = \in_array(self::ARRAY_DESTRUCTURING, $configuredElements, \true);
         for ($index = $tokens->count() - 1; $index >= 0; --$index) {
-            if ($tokens[$index]->isGivenKind(CT::T_DESTRUCTURING_SQUARE_BRACE_OPEN)) {
+            if ($tokens[$index]->isGivenKind(CT::T_DESTRUCTURING_BRACKET_OPEN)) {
                 if ($fixDestructuring) {
                     // array destructing short syntax
                     $this->fixBlock($tokens, $index);
                 }
                 continue;
             }
-            if ($tokens[$index]->isGivenKind(CT::T_ARRAY_SQUARE_BRACE_OPEN)) {
+            if ($tokens[$index]->isGivenKind(CT::T_ARRAY_BRACKET_OPEN)) {
                 if ($fixArrays) {
                     // array short syntax
                     $this->fixBlock($tokens, $index);

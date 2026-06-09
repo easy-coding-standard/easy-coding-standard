@@ -51,6 +51,7 @@ final class SimplifiedIfReturnFixer extends AbstractFixer
     }
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
+        $slices = [];
         for ($ifIndex = $tokens->count() - 1; 0 <= $ifIndex; --$ifIndex) {
             if (!$tokens[$ifIndex]->isGivenKind([\T_IF, \T_ELSEIF])) {
                 continue;
@@ -60,7 +61,7 @@ final class SimplifiedIfReturnFixer extends AbstractFixer
                 // in a loop without braces
             }
             $startParenthesisIndex = $tokens->getNextTokenOfKind($ifIndex, ['(']);
-            $endParenthesisIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $startParenthesisIndex);
+            $endParenthesisIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $startParenthesisIndex);
             $firstCandidateIndex = $tokens->getNextMeaningfulToken($endParenthesisIndex);
             foreach ($this->sequences as $sequenceSpec) {
                 $sequenceFound = $tokens->findSequence($sequenceSpec['sequence'], $firstCandidateIndex);
@@ -85,8 +86,12 @@ final class SimplifiedIfReturnFixer extends AbstractFixer
                 } else {
                     $newTokens[] = new Token([\T_BOOL_CAST, '(bool)']);
                 }
-                $tokens->overrideRange($ifIndex, $ifIndex, $newTokens);
+                $slices[$ifIndex] = $newTokens;
+                $tokens->clearAt($ifIndex);
             }
+        }
+        if ([] !== $slices) {
+            $tokens->insertSlices($slices);
         }
     }
 }

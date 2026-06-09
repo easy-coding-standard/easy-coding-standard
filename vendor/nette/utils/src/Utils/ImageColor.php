@@ -1,10 +1,10 @@
 <?php
 
+declare (strict_types=1);
 /**
  * This file is part of the Nette Framework (https://nette.org)
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
-declare (strict_types=1);
 namespace ECSPrefix202606\Nette\Utils;
 
 use ECSPrefix202606\Nette;
@@ -30,6 +30,9 @@ class ImageColor
      * @var float
      */
     public $opacity = 1;
+    /**
+     * Creates a color from RGB components (0..255) and opacity (0..1).
+     */
     public static function rgb(int $red, int $green, int $blue, float $opacity = 1): self
     {
         return new self($red, $green, $blue, $opacity);
@@ -60,6 +63,10 @@ class ImageColor
         $this->blue = max(0, min(255, $blue));
         $this->opacity = max(0, min(1, $opacity));
     }
+    /**
+     * Returns GD-compatible color array [R, G, B, alpha].
+     * @return array{int<0, 255>, int<0, 255>, int<0, 255>, int<0, 127>}
+     */
     public function toRGBA(): array
     {
         return [max(0, min(255, $this->red)), max(0, min(255, $this->green)), max(0, min(255, $this->blue)), max(0, min(127, (int) round(127 - $this->opacity * 127)))];

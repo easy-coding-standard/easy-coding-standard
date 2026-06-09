@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\Fixer\Commenting;
 
+use Override;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
@@ -53,6 +54,7 @@ final class RemoveUselessDefaultCommentFixer extends AbstractSymplifyFixer
     {
         return $tokens->isAnyTokenKindsFound([\T_DOC_COMMENT, \T_COMMENT]);
     }
+    #[Override]
     public function getPriority(): int
     {
         /** must run before @see \PhpCsFixer\Fixer\Basic\BracesFixer to cleanup spaces */

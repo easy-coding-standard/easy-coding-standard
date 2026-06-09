@@ -113,7 +113,7 @@ PHP
         $this->aliases = [];
         foreach ($this->configuration['sets'] as $set) {
             if ('@all' === $set) {
-                $this->aliases = array_merge(...array_values(self::SETS));
+                $this->aliases = self::mergeSets(self::SETS);
                 break;
             }
             \assert(isset(self::SETS[$set]));
@@ -140,7 +140,7 @@ PHP
             }
             if (\is_array($this->aliases[$tokenContent])) {
                 [$alias, $numberOfArguments] = $this->aliases[$tokenContent];
-                $count = $argumentsAnalyzer->countArguments($tokens, $openParenthesis, $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openParenthesis));
+                $count = $argumentsAnalyzer->countArguments($tokens, $openParenthesis, $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $openParenthesis));
                 if ($numberOfArguments !== $count) {
                     continue;
                 }
@@ -178,5 +178,14 @@ PHP
         }
         $list = rtrim($list, ";\n") . '.';
         return new FixerConfigurationResolver([(new FixerOptionBuilder('sets', $list))->setAllowedTypes(['string[]'])->setAllowedValues([new AllowedValueSubset(array_keys($sets))])->setDefault(['@internal', '@IMAP', '@pg'])->getOption()]);
+    }
+    /**
+     * @param array<string, array<string, array{string, int}|string>> $sets
+     *
+     * @return array<string, array{string, int}|string>
+     */
+    private static function mergeSets(array $sets): array
+    {
+        return array_merge(...array_values($sets));
     }
 }

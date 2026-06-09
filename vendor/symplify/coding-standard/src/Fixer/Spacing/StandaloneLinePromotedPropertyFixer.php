@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\Fixer\Spacing;
 
+use Override;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\CT;
@@ -41,6 +42,7 @@ final class StandaloneLinePromotedPropertyFixer extends AbstractSymplifyFixer
      *
      * @see \PhpCsFixer\Fixer\Basic\BracesFixer::getPriority()
      */
+    #[Override]
     public function getPriority(): int
     {
         return 40;

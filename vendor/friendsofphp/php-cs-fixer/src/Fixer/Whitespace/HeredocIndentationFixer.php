@@ -111,6 +111,7 @@ SAMPLE
             $indent .= $this->whitespacesConfig->getIndent();
         }
         Preg::match('/^\h*/', $tokens[$end]->getContent(), $matches);
+        \assert(isset($matches[0]));
         $currentIndent = $matches[0];
         $currentIndentLength = \strlen($currentIndent);
         $content = $indent . substr($tokens[$end]->getContent(), $currentIndentLength);

@@ -135,7 +135,7 @@ PHP
         foreach ($dataProviderAnalyzer->getDataProviders($tokens, $startIndex, $endIndex) as $dataProviderDefinitionIndex) {
             $methodStartIndex = $tokens->getNextTokenOfKind($dataProviderDefinitionIndex->getNameIndex(), ['{']);
             if (null !== $methodStartIndex) {
-                $methodEndIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $methodStartIndex);
+                $methodEndIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_BRACE, $methodStartIndex);
                 if (\false === $this->configuration['force'] && null !== $tokens->findSequence([[\T_VARIABLE, '$this']], $methodStartIndex, $methodEndIndex)) {
                     continue;
                 }

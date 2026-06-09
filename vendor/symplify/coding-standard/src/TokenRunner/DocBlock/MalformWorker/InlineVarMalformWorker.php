@@ -3,15 +3,15 @@
 declare (strict_types=1);
 namespace Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker;
 
-use ECSPrefix202606\Nette\Utils\Strings;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use Symplify\CodingStandard\TokenRunner\Contract\DocBlock\MalformWorkerInterface;
+use Symplify\CodingStandard\Utils\Regex;
 final class InlineVarMalformWorker implements MalformWorkerInterface
 {
     /**
-     * @var string
      * @see https://regex101.com/r/cj95e6/1
+     * @var string
      */
     private const SINGLE_ASTERISK_START_REGEX = '#^/\*(\n?\s+@(?:psalm-|phpstan-)?var)#';
     /**
@@ -24,6 +24,6 @@ final class InlineVarMalformWorker implements MalformWorkerInterface
         if (!$token->isGivenKind(\T_COMMENT)) {
             return $docContent;
         }
-        return Strings::replace($docContent, self::SINGLE_ASTERISK_START_REGEX, '/**$1');
+        return Regex::replace($docContent, self::SINGLE_ASTERISK_START_REGEX, '/**$1');
     }
 }

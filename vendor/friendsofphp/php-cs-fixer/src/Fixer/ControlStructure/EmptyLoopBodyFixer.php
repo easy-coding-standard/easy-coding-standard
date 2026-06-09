@@ -94,7 +94,7 @@ final class EmptyLoopBodyFixer extends AbstractFixer implements ConfigurableFixe
             if ($tokens[$index]->isGivenKind(self::TOKEN_LOOP_KINDS)) {
                 $endIndex = $tokens->getNextTokenOfKind($index, ['(']);
                 // proceed to open '('
-                $endIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $endIndex);
+                $endIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $endIndex);
                 // proceed to close ')'
                 $fixLoop($index, $endIndex);
                 // fix loop if needs fixing

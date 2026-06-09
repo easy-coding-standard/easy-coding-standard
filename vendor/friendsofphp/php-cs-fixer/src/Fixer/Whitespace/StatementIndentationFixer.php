@@ -48,7 +48,7 @@ final class StatementIndentationFixer extends AbstractFixer implements Configura
     use IndentationTrait;
     private const BLOCK_SIGNATURE_FIRST_TOKENS = [\T_USE, \T_IF, \T_ELSE, \T_ELSEIF, \T_FOR, \T_FOREACH, \T_WHILE, \T_DO, \T_SWITCH, \T_CASE, \T_DEFAULT, \T_TRY, \T_CLASS, \T_INTERFACE, \T_TRAIT, \T_EXTENDS, \T_IMPLEMENTS, \T_CONST, FCT::T_MATCH, FCT::T_ENUM];
     private const CONTROL_STRUCTURE_POSSIBIBLY_WITHOUT_BRACES_TOKENS = [\T_IF, \T_ELSE, \T_ELSEIF, \T_FOR, \T_FOREACH, \T_WHILE, \T_DO];
-    private const BLOCK_FIRST_TOKENS = ['{', [CT::T_DESTRUCTURING_SQUARE_BRACE_OPEN], [CT::T_USE_TRAIT], [CT::T_GROUP_IMPORT_BRACE_OPEN], [CT::T_PROPERTY_HOOK_BRACE_OPEN], [FCT::T_ATTRIBUTE]];
+    private const BLOCK_FIRST_TOKENS = ['{', [CT::T_DESTRUCTURING_BRACKET_OPEN], [CT::T_USE_TRAIT], [CT::T_GROUP_IMPORT_BRACE_OPEN], [CT::T_PROPERTY_HOOK_BRACE_OPEN], [FCT::T_ATTRIBUTE]];
     private const PROPERTY_KEYWORDS = [\T_VAR, \T_PUBLIC, \T_PROTECTED, \T_PRIVATE, \T_STATIC, FCT::T_READONLY];
     /**
      * @var \PhpCsFixer\Tokenizer\Analyzer\AlternativeSyntaxAnalyzer
@@ -173,14 +173,14 @@ PHP
                     } elseif ($this->alternativeSyntaxAnalyzer->belongsToAlternativeSyntax($tokens, $index)) {
                         $endIndex = $this->alternativeSyntaxAnalyzer->findAlternativeSyntaxBlockEnd($tokens, $alternativeBlockStarts[$index]);
                     }
-                } elseif ($token->isGivenKind(CT::T_DESTRUCTURING_SQUARE_BRACE_OPEN)) {
-                    $endIndex = $tokens->getNextTokenOfKind($index, [[CT::T_DESTRUCTURING_SQUARE_BRACE_CLOSE]]);
+                } elseif ($token->isGivenKind(CT::T_DESTRUCTURING_BRACKET_OPEN)) {
+                    $endIndex = $tokens->getNextTokenOfKind($index, [[CT::T_DESTRUCTURING_BRACKET_CLOSE]]);
                 } elseif ($token->isGivenKind(CT::T_GROUP_IMPORT_BRACE_OPEN)) {
                     $endIndex = $tokens->getNextTokenOfKind($index, [[CT::T_GROUP_IMPORT_BRACE_CLOSE]]);
                 } elseif ($token->equals('{')) {
-                    $endIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $index);
+                    $endIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_BRACE, $index);
                 } elseif ($token->equals('(')) {
-                    $endIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $index);
+                    $endIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $index);
                 } elseif ($token->isGivenKind(CT::T_PROPERTY_HOOK_BRACE_OPEN)) {
                     $endIndex = $tokens->getNextTokenOfKind($index, [[CT::T_PROPERTY_HOOK_BRACE_CLOSE]]);
                 } else {
@@ -209,8 +209,8 @@ PHP
                 }
                 continue;
             }
-            if ($token->isGivenKind(CT::T_ARRAY_SQUARE_BRACE_OPEN) || $token->equals('(') && $tokens[$tokens->getPrevMeaningfulToken($index)]->isGivenKind(\T_ARRAY)) {
-                $blockType = $token->equals('(') ? Tokens::BLOCK_TYPE_PARENTHESIS_BRACE : Tokens::BLOCK_TYPE_ARRAY_SQUARE_BRACE;
+            if ($token->isGivenKind(CT::T_ARRAY_BRACKET_OPEN) || $token->equals('(') && $tokens[$tokens->getPrevMeaningfulToken($index)]->isGivenKind(\T_ARRAY)) {
+                $blockType = $token->equals('(') ? Tokens::BLOCK_TYPE_PARENTHESIS : Tokens::BLOCK_TYPE_ARRAY_BRACKET;
                 $scopes[] = ['type' => 'statement', 'skip' => \true, 'end_index' => $tokens->findBlockEnd($blockType, $index), 'end_index_inclusive' => \true, 'initial_indent' => $previousLineInitialIndent, 'new_indent' => $previousLineNewIndent, 'is_indented_block' => \false];
                 continue;
             }
@@ -221,12 +221,12 @@ PHP
                 for ($endIndex = $index + 1, $max = \count($tokens); $endIndex < $max; ++$endIndex) {
                     $endToken = $tokens[$endIndex];
                     if ($endToken->equals('(')) {
-                        $closingParenthesisIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $endIndex);
+                        $closingParenthesisIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $endIndex);
                         $endIndex = $closingParenthesisIndex;
                         continue;
                     }
-                    if ($endToken->isGivenKind(CT::T_ARRAY_SQUARE_BRACE_OPEN)) {
-                        $endIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_ARRAY_SQUARE_BRACE, $endIndex);
+                    if ($endToken->isGivenKind(CT::T_ARRAY_BRACKET_OPEN)) {
+                        $endIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_ARRAY_BRACKET, $endIndex);
                         continue;
                     }
                     if ($endToken->equalsAny(['{', ';', [\T_DOUBLE_ARROW], [\T_IMPLEMENTS]])) {
@@ -261,7 +261,7 @@ PHP
                 $endIndex = $index + 1;
                 for ($max = \count($tokens); $endIndex < $max; ++$endIndex) {
                     if ($tokens[$endIndex]->equals('(')) {
-                        $endIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $endIndex);
+                        $endIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $endIndex);
                         continue;
                     }
                     if ($tokens[$endIndex]->equalsAny(['{', ';'])) {
@@ -387,13 +387,13 @@ PHP
                 ++$doWhileLevel;
                 continue;
             }
-            if ($searchEndToken->equalsAny(['(', '{', [CT::T_ARRAY_SQUARE_BRACE_OPEN]])) {
+            if ($searchEndToken->equalsAny(['(', '{', [CT::T_ARRAY_BRACKET_OPEN]])) {
                 if ($searchEndToken->equals('(')) {
-                    $blockType = Tokens::BLOCK_TYPE_PARENTHESIS_BRACE;
+                    $blockType = Tokens::BLOCK_TYPE_PARENTHESIS;
                 } elseif ($searchEndToken->equals('{')) {
-                    $blockType = Tokens::BLOCK_TYPE_CURLY_BRACE;
+                    $blockType = Tokens::BLOCK_TYPE_BRACE;
                 } else {
-                    $blockType = Tokens::BLOCK_TYPE_ARRAY_SQUARE_BRACE;
+                    $blockType = Tokens::BLOCK_TYPE_ARRAY_BRACKET;
                 }
                 $searchEndIndex = $tokens->findBlockEnd($blockType, $searchEndIndex);
                 $searchEndToken = $tokens[$searchEndIndex];
@@ -426,16 +426,16 @@ PHP
     {
         for ($max = \count($tokens); $index < $max; ++$index) {
             if ($tokens[$index]->isGivenKind(\T_SWITCH)) {
-                $braceIndex = $tokens->getNextMeaningfulToken($tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $tokens->getNextMeaningfulToken($index)));
+                $braceIndex = $tokens->getNextMeaningfulToken($tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $tokens->getNextMeaningfulToken($index)));
                 if ($tokens[$braceIndex]->equals(':')) {
                     $index = $this->alternativeSyntaxAnalyzer->findAlternativeSyntaxBlockEnd($tokens, $index);
                 } else {
-                    $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $braceIndex);
+                    $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_BRACE, $braceIndex);
                 }
                 continue;
             }
             if ($tokens[$index]->equals('{')) {
-                $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $index);
+                $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_BRACE, $index);
                 continue;
             }
             if ($tokens[$index]->isGivenKind([\T_CASE, \T_DEFAULT])) {

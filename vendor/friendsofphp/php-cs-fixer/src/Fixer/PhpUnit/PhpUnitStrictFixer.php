@@ -107,7 +107,7 @@ PHP
                     continue;
                 }
                 $openingParenthesisIndex = $tokens->getNextMeaningfulToken($methodIndex);
-                $argumentsCount = $argumentsAnalyzer->countArguments($tokens, $openingParenthesisIndex, $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openingParenthesisIndex));
+                $argumentsCount = $argumentsAnalyzer->countArguments($tokens, $openingParenthesisIndex, $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $openingParenthesisIndex));
                 if (2 === $argumentsCount || 3 === $argumentsCount) {
                     $tokens[$methodIndex] = new Token([\T_STRING, $methodAfter]);
                 }

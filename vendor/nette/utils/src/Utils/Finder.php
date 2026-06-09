@@ -1,17 +1,17 @@
 <?php
 
+declare (strict_types=1);
 /**
  * This file is part of the Nette Framework (https://nette.org)
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
-declare (strict_types=1);
 namespace ECSPrefix202606\Nette\Utils;
 
 use ECSPrefix202606\Nette;
 use function array_merge, count, func_get_args, func_num_args, glob, implode, is_array, is_dir, iterator_to_array, preg_match, preg_quote, preg_replace, preg_split, rtrim, spl_object_id, sprintf, str_ends_with, str_starts_with, strnatcmp, strpbrk, strrpos, strtolower, strtr, substr, usort;
 use const GLOB_NOESCAPE, GLOB_NOSORT, GLOB_ONLYDIR;
 /**
- * Finder allows searching through directory trees using iterator.
+ * Searches for files and directories in directory trees.
  *
  * Finder::findFiles('*.php')
  *     ->size('> 10kB')
@@ -22,14 +22,13 @@ use const GLOB_NOESCAPE, GLOB_NOSORT, GLOB_ONLYDIR;
  */
 class Finder implements \IteratorAggregate
 {
-    use Nette\SmartObject;
     /** @var array<array{string, string}> */
     private $find = [];
     /** @var string[] */
     private $in = [];
-    /** @var \Closure[] */
+    /** @var array<\Closure(FileInfo): bool> */
     private $filters = [];
-    /** @var \Closure[] */
+    /** @var array<\Closure(FileInfo): bool> */
     private $descentFilters = [];
     /** @var array<string|self> */
     private $appends = [];
@@ -37,7 +36,7 @@ class Finder implements \IteratorAggregate
      * @var bool
      */
     private $childFirst = \false;
-    /** @var ?callable */
+    /** @var ?(\Closure(FileInfo, FileInfo): int) */
     private $sort;
     /**
      * @var int
@@ -49,7 +48,7 @@ class Finder implements \IteratorAggregate
     private $ignoreUnreadableDirs = \true;
     /**
      * Begins search for files and directories matching mask.
-     * @param string|mixed[] $masks
+     * @param  string|list<string>  $masks
      * @return static
      */
     public static function find($masks = ['*'])
@@ -60,7 +59,7 @@ class Finder implements \IteratorAggregate
     }
     /**
      * Begins search for files matching mask.
-     * @param string|mixed[] $masks
+     * @param  string|list<string>  $masks
      * @return static
      */
     public static function findFiles($masks = ['*'])
@@ -71,7 +70,7 @@ class Finder implements \IteratorAggregate
     }
     /**
      * Begins search for directories matching mask.
-     * @param string|mixed[] $masks
+     * @param  string|list<string>  $masks
      * @return static
      */
     public static function findDirectories($masks = ['*'])
@@ -82,7 +81,7 @@ class Finder implements \IteratorAggregate
     }
     /**
      * Finds files matching the specified masks.
-     * @param string|mixed[] $masks
+     * @param  string|list<string>  $masks
      * @return static
      */
     public function files($masks = ['*'])
@@ -91,16 +90,15 @@ class Finder implements \IteratorAggregate
     }
     /**
      * Finds directories matching the specified masks.
-     * @param string|mixed[] $masks
+     * @param  string|list<string>  $masks
      * @return static
      */
     public function directories($masks = ['*'])
     {
         return $this->addMask((array) $masks, 'dir');
     }
-    /**
-     * @return static
-     */
+    /** @param  list<string>  $masks
+     * @return static */
     private function addMask(array $masks, string $mode)
     {
         foreach ($masks as $mask) {
@@ -120,7 +118,7 @@ class Finder implements \IteratorAggregate
     }
     /**
      * Searches in the given directories. Wildcards are allowed.
-     * @param string|mixed[] $paths
+     * @param  string|list<string>  $paths
      * @return static
      */
     public function in($paths)
@@ -132,7 +130,7 @@ class Finder implements \IteratorAggregate
     }
     /**
      * Searches recursively from the given directories. Wildcards are allowed.
-     * @param string|mixed[] $paths
+     * @param  string|list<string>  $paths
      * @return static
      */
     public function from($paths)
@@ -142,6 +140,7 @@ class Finder implements \IteratorAggregate
         $this->addLocation($paths, '/**');
         return $this;
     }
+    /** @param  list<string>  $paths */
     private function addLocation(array $paths, string $ext): void
     {
         foreach ($paths as $path) {
@@ -171,13 +170,13 @@ class Finder implements \IteratorAggregate
         return $this;
     }
     /**
-     * Set a compare function for sorting directory entries. The function will be called to sort entries from the same directory.
+     * Sets a comparison function for sorting entries within each directory.
      * @param  callable(FileInfo, FileInfo): int  $callback
      * @return static
      */
     public function sortBy(callable $callback)
     {
-        $this->sort = $callback;
+        $this->sort = \Closure::fromCallable($callback);
         return $this;
     }
     /**
@@ -192,8 +191,8 @@ class Finder implements \IteratorAggregate
         return $this;
     }
     /**
-     * Adds the specified paths or appends a new finder that returns.
-     * @param string|mixed[]|null $paths
+     * Appends the specified file paths to results. Passing null creates and returns a new sub-finder whose results are appended.
+     * @param  string|list<string>|null  $paths
      * @return static
      */
     public function append($paths = null)
@@ -207,7 +206,7 @@ class Finder implements \IteratorAggregate
     /********************* filtering ****************d*g**/
     /**
      * Skips entries that matches the given masks relative to the ones defined with the in() or from() methods.
-     * @param string|mixed[] $masks
+     * @param  string|list<string>  $masks
      * @return static
      */
     public function exclude($masks)
@@ -262,6 +261,7 @@ class Finder implements \IteratorAggregate
     }
     /**
      * Restricts the search by size. $operator accepts "[operator] [size] [unit]" example: >=10kB
+     * @param  '>'|'>='|'<'|'<='|'='|'=='|'==='|'!='|'!=='|'<>'  $operator  or predicate string
      * @return static
      */
     public function size(string $operator, ?int $size = null)
@@ -273,7 +273,7 @@ class Finder implements \IteratorAggregate
             }
             [, $operator, $size, $unit] = $matches;
             $units = ['' => 1, 'k' => 1000.0, 'm' => 1000000.0, 'g' => 1000000000.0];
-            $size *= $units[strtolower($unit)];
+            $size = (float) $size * $units[strtolower($unit)];
             $operator = $operator ?: '=';
         }
         return $this->filter(function (FileInfo $file) use ($operator, $size): bool {
@@ -282,6 +282,7 @@ class Finder implements \IteratorAggregate
     }
     /**
      * Restricts the search by modified time. $operator accepts "[operator] [date]" example: >1978-01-23
+     * @param  '>'|'>='|'<'|'<='|'='|'=='|'==='|'!='|'!=='|'<>'  $operator  or predicate string
      * @param string|int|\DateTimeInterface|null $date
      * @return static
      */
@@ -366,7 +367,7 @@ class Finder implements \IteratorAggregate
             }
             $relativePathname = FileSystem::unixSlashes($file->getRelativePathname());
             foreach ($searches as $search) {
-                if ($file->{'is' . $search->mode}() && preg_match($search->pattern, $relativePathname) && $this->proveFilters($this->filters, $file, $cache)) {
+                if (("is_{$search->mode}")(Helpers::IsWindows && $file->isLink() ? $file->getLinkTarget() : $file->getPathname()) && preg_match($search->pattern, $relativePathname) && $this->proveFilters($this->filters, $file, $cache)) {
                     yield $pathName => $file;
                     break;
                 }
@@ -376,6 +377,7 @@ class Finder implements \IteratorAggregate
             }
         }
     }
+    /** @param  iterable<string>  $pathNames */
     private function convertToFiles(iterable $pathNames, string $relativePath, bool $absolute): \Generator
     {
         foreach ($pathNames as $pathName) {
@@ -386,6 +388,10 @@ class Finder implements \IteratorAggregate
             yield new FileInfo($pathName, $relativePath);
         }
     }
+    /**
+     * @param  (\Closure(FileInfo): bool)[]  $filters
+     * @param  array<int, bool>  $cache
+     */
     private function proveFilters(array $filters, FileInfo $file, array &$cache): bool
     {
         foreach ($filters as $filter) {
@@ -432,6 +438,7 @@ class Finder implements \IteratorAggregate
     }
     /**
      * Since glob() does not know ** wildcard, we divide the path into a part for glob and a part for manual traversal.
+     * @return array{string, string, bool}
      */
     private static function splitRecursivePart(string $path): array
     {

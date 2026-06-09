@@ -40,7 +40,7 @@ final class DeclareParenthesesFixer extends AbstractFixer
             $tokens->removeTrailingWhitespace($index);
             $startParenthesisIndex = $tokens->getNextTokenOfKind($index, ['(']);
             $tokens->removeTrailingWhitespace($startParenthesisIndex);
-            $endParenthesisIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $startParenthesisIndex);
+            $endParenthesisIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $startParenthesisIndex);
             $tokens->removeLeadingWhitespace($endParenthesisIndex);
         }
     }

@@ -1,20 +1,18 @@
 <?php
 
+declare (strict_types=1);
 /**
  * This file is part of the Nette Framework (https://nette.org)
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
-declare (strict_types=1);
 namespace ECSPrefix202606\Nette\Utils;
 
-use ECSPrefix202606\Nette;
 use function array_merge, checkdate, implode, is_numeric, is_string, preg_replace_callback, sprintf, time, trim;
 /**
- * DateTime.
+ * Extends PHP's DateTime with strict validation and additional factory methods.
  */
 class DateTime extends \DateTime implements \JsonSerializable
 {
-    use Nette\SmartObject;
     /** minute in seconds */
     public const MINUTE = 60;
     /** hour in seconds */
@@ -49,16 +47,13 @@ class DateTime extends \DateTime implements \JsonSerializable
     }
     /**
      * Creates DateTime object.
-     * @throws Nette\InvalidArgumentException if the date and time are not valid.
+     * @throws \Exception if the date and time are not valid.
      * @return static
      */
     public static function fromParts(int $year, int $month, int $day, int $hour = 0, int $minute = 0, float $second = 0.0)
     {
-        $s = sprintf('%04d-%02d-%02d %02d:%02d:%02.5F', $year, $month, $day, $hour, $minute, $second);
-        if (!checkdate($month, $day, $year) || $hour < 0 || $hour > 23 || $minute < 0 || $minute > 59 || $second < 0 || $second >= 60) {
-            throw new Nette\InvalidArgumentException("Invalid date '{$s}'");
-        }
-        return new static($s);
+        $sec = (int) floor($second);
+        return (new static(''))->setDate($year, $month, $day)->setTime($hour, $minute, $sec, (int) round(($second - $sec) * 1000000.0));
     }
     /**
      * Returns a new DateTime object formatted according to the specified format.
@@ -91,7 +86,7 @@ class DateTime extends \DateTime implements \JsonSerializable
     public function setDate(int $year, int $month, int $day)
     {
         if (!checkdate($month, $day, $year)) {
-            trigger_error(sprintf(self::class . ': The date %04d-%02d-%02d is not valid.', $year, $month, $day), \E_USER_WARNING);
+            throw new \Exception(sprintf('The date %04d-%02d-%02d is not valid.', $year, $month, $day));
         }
         return parent::setDate($year, $month, $day);
     }
@@ -101,7 +96,7 @@ class DateTime extends \DateTime implements \JsonSerializable
     public function setTime(int $hour, int $minute, int $second = 0, int $microsecond = 0)
     {
         if ($hour < 0 || $hour > 23 || $minute < 0 || $minute > 59 || $second < 0 || $second >= 60 || $microsecond < 0 || $microsecond >= 1000000) {
-            trigger_error(sprintf(self::class . ': The time %02d:%02d:%08.5F is not valid.', $hour, $minute, $second + $microsecond / 1000000), \E_USER_WARNING);
+            throw new \Exception(sprintf('The time %02d:%02d:%08.5F is not valid.', $hour, $minute, $second + $microsecond / 1000000));
         }
         return parent::setTime($hour, $minute, $second, $microsecond);
     }
@@ -112,7 +107,7 @@ class DateTime extends \DateTime implements \JsonSerializable
     {
         return (new self('@0 ' . $relativeTime))->getTimestamp();
     }
-    private function apply(string $datetime, $timezone = null, bool $ctr = \false): void
+    private function apply(string $datetime, ?\DateTimeZone $timezone = null, bool $ctr = \false): void
     {
         $relPart = '';
         $absPart = preg_replace_callback('/[+-]?\s*\d+\s+((microsecond|millisecond|[mµu]sec)s?|[mµ]s|sec(ond)?s?|min(ute)?s?|hours?)(\s+ago)?\b/iu', function ($m) use (&$relPart) {
@@ -147,7 +142,7 @@ class DateTime extends \DateTime implements \JsonSerializable
         return $this->format('Y-m-d H:i:s');
     }
     /**
-     * You'd better use: (clone $dt)->modify(...)
+     * Returns a modified copy of the object. Use (clone $dt)->modify(...) for better type safety.
      * @return static
      */
     public function modifyClone(string $modify = '')
@@ -160,7 +155,7 @@ class DateTime extends \DateTime implements \JsonSerializable
         $errors = self::getLastErrors();
         $errors = array_merge($errors['errors'] ?? [], $errors['warnings'] ?? []);
         if ($errors) {
-            trigger_error(self::class . ': ' . implode(', ', $errors) . " '{$value}'", \E_USER_WARNING);
+            throw new \Exception(implode(', ', $errors) . " '{$value}'");
         }
     }
 }

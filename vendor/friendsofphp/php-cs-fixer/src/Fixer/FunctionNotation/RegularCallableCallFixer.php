@@ -85,7 +85,7 @@ PHP
                 // redeclare/override
             }
             $openParenthesis = $tokens->getNextMeaningfulToken($index);
-            $closeParenthesis = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openParenthesis);
+            $closeParenthesis = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $openParenthesis);
             $arguments = $argumentsAnalyzer->getArguments($tokens, $openParenthesis, $closeParenthesis);
             if (1 > \count($arguments)) {
                 return;
@@ -118,7 +118,7 @@ PHP
             $newCallTokens->clearEmptyTokens();
             $this->replaceCallUserFuncWithCallback($tokens, $index, $newCallTokens, $firstArgIndex, $firstArgIndex);
         } elseif ($firstArgToken->isGivenKind(\T_FUNCTION) || $firstArgToken->isGivenKind(\T_STATIC) && $tokens[$tokens->getNextMeaningfulToken($firstArgIndex)]->isGivenKind(\T_FUNCTION)) {
-            $firstArgEndIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $tokens->getNextTokenOfKind($firstArgIndex, ['{']));
+            $firstArgEndIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_BRACE, $tokens->getNextTokenOfKind($firstArgIndex, ['{']));
             $newCallTokens = $this->getTokensSubcollection($tokens, $firstArgIndex, $firstArgEndIndex);
             $newCallTokens->insertAt($newCallTokens->count(), new Token(')'));
             $newCallTokens->insertAt(0, new Token('('));
@@ -144,7 +144,7 @@ PHP
                     continue;
                 }
                 $blockType = Tokens::detectBlockType($newCallTokens[$newCallIndex]);
-                if (null !== $blockType && (Tokens::BLOCK_TYPE_ARRAY_INDEX_CURLY_BRACE === $blockType['type'] || Tokens::BLOCK_TYPE_INDEX_SQUARE_BRACE === $blockType['type'])) {
+                if (null !== $blockType && (Tokens::BLOCK_TYPE_INDEX_BRACE === $blockType['type'] || Tokens::BLOCK_TYPE_INDEX_BRACKET === $blockType['type'])) {
                     $newCallIndex = $newCallTokens->findBlockStart($blockType['type'], $newCallIndex);
                     continue;
                 }

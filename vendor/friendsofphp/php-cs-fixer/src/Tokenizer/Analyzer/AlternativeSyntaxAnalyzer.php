@@ -35,7 +35,7 @@ final class AlternativeSyntaxAnalyzer
         if (!$tokens[$prevIndex]->equals(')')) {
             return \false;
         }
-        $openParenthesisIndex = $tokens->findBlockStart(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $prevIndex);
+        $openParenthesisIndex = $tokens->findBlockStart(Tokens::BLOCK_TYPE_PARENTHESIS, $prevIndex);
         $beforeOpenParenthesisIndex = $tokens->getPrevMeaningfulToken($openParenthesisIndex);
         return $tokens[$beforeOpenParenthesisIndex]->isGivenKind([\T_DECLARE, \T_ELSEIF, \T_FOR, \T_FOREACH, \T_IF, \T_SWITCH, \T_WHILE]);
     }
@@ -75,7 +75,7 @@ final class AlternativeSyntaxAnalyzer
         }
         $index = $tokens->getNextMeaningfulToken($index);
         if ($tokens[$index]->equals('(')) {
-            $index = $tokens->getNextMeaningfulToken($tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $index));
+            $index = $tokens->getNextMeaningfulToken($tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $index));
         }
         return $tokens[$index]->equals(':');
     }

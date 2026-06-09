@@ -70,7 +70,7 @@ final class AttributeEmptyParenthesesFixer extends AbstractFixer implements Conf
                 $nextIndex = $tokens->getNextTokenOfKind($nextIndex, ['(', ',', [CT::T_ATTRIBUTE_CLOSE]]);
                 // Find closing parentheses, we need to do this in case there's a comma inside the parentheses
                 if ($tokens[$nextIndex]->equals('(')) {
-                    $nextIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $nextIndex);
+                    $nextIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $nextIndex);
                     $nextIndex = $tokens->getNextTokenOfKind($nextIndex, [',', [CT::T_ATTRIBUTE_CLOSE]]);
                 }
                 // In case there's a comma right before T_ATTRIBUTE_CLOSE

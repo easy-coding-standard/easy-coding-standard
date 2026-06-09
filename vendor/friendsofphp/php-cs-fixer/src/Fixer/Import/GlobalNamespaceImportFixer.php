@@ -146,6 +146,7 @@ PHP
                 $useDeclaration = end($useDeclarations);
                 $atIndex = $useDeclaration->getEndIndex() + 1;
             } else {
+                \assert(isset($tokens->getNamespaceDeclarations()[0]));
                 $namespace = $tokens->getNamespaceDeclarations()[0];
                 $atIndex = $namespace->getEndIndex() + 1;
             }
@@ -172,7 +173,7 @@ PHP
             $token = $tokens[$index];
             if ($token->isClassy()) {
                 $index = $tokens->getNextTokenOfKind($index, ['{']);
-                $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $index);
+                $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_BRACE, $index);
                 continue;
             }
             if (!$token->isGivenKind(\T_CONST)) {
@@ -509,7 +510,7 @@ PHP
             $token = $tokens[$index];
             if ($token->isClassy()) {
                 $classStart = $tokens->getNextTokenOfKind($index, ['{']);
-                $classEnd = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $classStart);
+                $classEnd = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_BRACE, $classStart);
                 for ($index = $classStart; $index <= $classEnd; ++$index) {
                     if (!$tokens[$index]->isGivenKind(\T_FUNCTION)) {
                         continue;
@@ -519,7 +520,7 @@ PHP
                         $index = $methodStart;
                         continue;
                     }
-                    $methodEnd = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $methodStart);
+                    $methodEnd = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_BRACE, $methodStart);
                     foreach ($this->findFunctionDeclarations($tokens, $methodStart, $methodEnd) as $function) {
                         yield $function;
                     }

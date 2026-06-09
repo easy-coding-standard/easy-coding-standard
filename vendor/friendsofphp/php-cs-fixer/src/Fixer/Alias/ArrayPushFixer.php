@@ -62,7 +62,7 @@ final class ArrayPushFixer extends AbstractFixer
             // figure out where the arguments list opens
             $openBraceIndex = $tokens->getNextMeaningfulToken($callIndex);
             // figure out where the arguments list closes
-            $closeBraceIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openBraceIndex);
+            $closeBraceIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $openBraceIndex);
             // meaningful after `)` must be `;`, `? >` or nothing
             $afterCloseBraceIndex = $tokens->getNextMeaningfulToken($closeBraceIndex);
             if (null !== $afterCloseBraceIndex && !$tokens[$afterCloseBraceIndex]->equalsAny([';', [\T_CLOSE_TAG]])) {
@@ -99,7 +99,7 @@ final class ArrayPushFixer extends AbstractFixer
     {
         $nextIndex = $tokens->getNextMeaningfulToken($index);
         $nextToken = $tokens[$nextIndex];
-        while ($nextToken->equalsAny(['$', '[', '(', [CT::T_ARRAY_INDEX_CURLY_BRACE_OPEN], [CT::T_DYNAMIC_PROP_BRACE_OPEN], [CT::T_DYNAMIC_VAR_BRACE_OPEN], [CT::T_NAMESPACE_OPERATOR], [\T_NS_SEPARATOR], [\T_STATIC], [\T_STRING], [\T_VARIABLE]])) {
+        while ($nextToken->equalsAny(['$', '[', '(', [CT::T_ARRAY_INDEX_BRACE_OPEN], [CT::T_DYNAMIC_PROP_BRACE_OPEN], [CT::T_DYNAMIC_VAR_BRACE_OPEN], [CT::T_NAMESPACE_OPERATOR], [\T_NS_SEPARATOR], [\T_STATIC], [\T_STRING], [\T_VARIABLE]])) {
             $blockType = Tokens::detectBlockType($nextToken);
             if (null !== $blockType) {
                 $nextIndex = $tokens->findBlockEnd($blockType['type'], $nextIndex);
