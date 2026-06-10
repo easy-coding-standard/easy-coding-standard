@@ -5,7 +5,7 @@
 Easy Coding Standard (ECS) is a single tool that runs [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) and [PHP-CS-Fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer) rules together, configured through one simple PHP file.
 
 > [!NOTE]
-> This is the **deployed** package. Development happens in the [symplify/easy-coding-standard](https://github.com/easy-coding-standard/easy-coding-standard) repository - report issues and send pull requests there.
+> This is the **deployed** package. Development happens in the [ecs-src](https://github.com/easy-coding-standard/ecs-src) repository - report issues and send pull requests there.
 
 <br>
 
