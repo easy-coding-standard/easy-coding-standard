@@ -14,7 +14,7 @@ final class EasyCodingStandardContainerFactory
     public function createFromFromInput(ArgvInput $argvInput): ECSConfig
     {
         // $easyCodingStandardKernel = new EasyCodingStandardKernel();
-        $lazyContainerFactory = new \Symplify\EasyCodingStandard\DependencyInjection\LazyContainerFactory();
+        $serviceContainerFactory = new \Symplify\EasyCodingStandard\DependencyInjection\ServiceContainerFactory();
         $inputConfigFiles = [];
         $rootECSConfig = getcwd() . \DIRECTORY_SEPARATOR . 'ecs.php';
         if ($argvInput->hasParameterOption(['--config', '-c'])) {
@@ -26,7 +26,7 @@ final class EasyCodingStandardContainerFactory
         } elseif (file_exists($rootECSConfig)) {
             $inputConfigFiles[] = $rootECSConfig;
         }
-        $ecsConfig = $lazyContainerFactory->create($inputConfigFiles);
+        $ecsConfig = $serviceContainerFactory->create($inputConfigFiles);
         $ecsConfig->boot();
         if ($inputConfigFiles !== []) {
             // for cache invalidation on config change

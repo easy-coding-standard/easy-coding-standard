@@ -1675,7 +1675,7 @@ class ComposerStaticInitb98b460274d30539ab1220e9d09778c6
         'Symplify\\EasyCodingStandard\\DependencyInjection\\CompilerPass\\RemoveExcludedCheckersCompilerPass' => __DIR__ . '/../..' . '/src/DependencyInjection/CompilerPass/RemoveExcludedCheckersCompilerPass.php',
         'Symplify\\EasyCodingStandard\\DependencyInjection\\CompilerPass\\RemoveMutualCheckersCompilerPass' => __DIR__ . '/../..' . '/src/DependencyInjection/CompilerPass/RemoveMutualCheckersCompilerPass.php',
         'Symplify\\EasyCodingStandard\\DependencyInjection\\EasyCodingStandardContainerFactory' => __DIR__ . '/../..' . '/src/DependencyInjection/EasyCodingStandardContainerFactory.php',
-        'Symplify\\EasyCodingStandard\\DependencyInjection\\LazyContainerFactory' => __DIR__ . '/../..' . '/src/DependencyInjection/LazyContainerFactory.php',
+        'Symplify\\EasyCodingStandard\\DependencyInjection\\ServiceContainerFactory' => __DIR__ . '/../..' . '/src/DependencyInjection/ServiceContainerFactory.php',
         'Symplify\\EasyCodingStandard\\DependencyInjection\\SimpleParameterProvider' => __DIR__ . '/../..' . '/src/DependencyInjection/SimpleParameterProvider.php',
         'Symplify\\EasyCodingStandard\\Error\\FileDiffFactory' => __DIR__ . '/../..' . '/src/Error/FileDiffFactory.php',
         'Symplify\\EasyCodingStandard\\Exception\\Configuration\\ConflictingCheckersLoadedException' => __DIR__ . '/../..' . '/src/Exception/Configuration/ConflictingCheckersLoadedException.php',

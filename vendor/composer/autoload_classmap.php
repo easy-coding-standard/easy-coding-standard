@@ -1474,7 +1474,7 @@ return array(
     'Symplify\\EasyCodingStandard\\DependencyInjection\\CompilerPass\\RemoveExcludedCheckersCompilerPass' => $baseDir . '/src/DependencyInjection/CompilerPass/RemoveExcludedCheckersCompilerPass.php',
     'Symplify\\EasyCodingStandard\\DependencyInjection\\CompilerPass\\RemoveMutualCheckersCompilerPass' => $baseDir . '/src/DependencyInjection/CompilerPass/RemoveMutualCheckersCompilerPass.php',
     'Symplify\\EasyCodingStandard\\DependencyInjection\\EasyCodingStandardContainerFactory' => $baseDir . '/src/DependencyInjection/EasyCodingStandardContainerFactory.php',
-    'Symplify\\EasyCodingStandard\\DependencyInjection\\LazyContainerFactory' => $baseDir . '/src/DependencyInjection/LazyContainerFactory.php',
+    'Symplify\\EasyCodingStandard\\DependencyInjection\\ServiceContainerFactory' => $baseDir . '/src/DependencyInjection/ServiceContainerFactory.php',
     'Symplify\\EasyCodingStandard\\DependencyInjection\\SimpleParameterProvider' => $baseDir . '/src/DependencyInjection/SimpleParameterProvider.php',
     'Symplify\\EasyCodingStandard\\Error\\FileDiffFactory' => $baseDir . '/src/Error/FileDiffFactory.php',
     'Symplify\\EasyCodingStandard\\Exception\\Configuration\\ConflictingCheckersLoadedException' => $baseDir . '/src/Exception/Configuration/ConflictingCheckersLoadedException.php',
