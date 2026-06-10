@@ -2539,66 +2539,6 @@
             "install-path": "..\/symfony\/string"
         },
         {
-            "name": "symplify\/coding-standard",
-            "version": "13.1.1",
-            "version_normalized": "13.1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https:\/\/github.com\/symplify\/coding-standard.git",
-                "reference": "c2fdcdf091c7679c05a7bc3497f680a8c04b5494"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/symplify\/coding-standard\/zipball\/c2fdcdf091c7679c05a7bc3497f680a8c04b5494",
-                "reference": "c2fdcdf091c7679c05a7bc3497f680a8c04b5494",
-                "shasum": ""
-            },
-            "require": {
-                "friendsofphp\/php-cs-fixer": "^3.95.4",
-                "php": ">=8.4"
-            },
-            "require-dev": {
-                "phpstan\/extension-installer": "^1.4",
-                "phpstan\/phpstan": "^2.2",
-                "phpunit\/phpunit": "^12.5",
-                "rector\/jack": "^1.0",
-                "rector\/rector": "^2.4",
-                "squizlabs\/php_codesniffer": "^4.0",
-                "symplify\/easy-coding-standard": "^13.1",
-                "symplify\/phpstan-extensions": "^12.0",
-                "tomasvotruba\/class-leak": "^2.1.5",
-                "tracy\/tracy": "^2.12"
-            },
-            "time": "2026-06-09T23:10:13+00:00",
-            "type": "library",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Symplify\\CodingStandard\\": "src"
-                }
-            },
-            "notification-url": "https:\/\/packagist.org\/downloads\/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Set of Symplify rules for PHP_CodeSniffer and PHP CS Fixer.",
-            "support": {
-                "issues": "https:\/\/github.com\/symplify\/coding-standard\/issues",
-                "source": "https:\/\/github.com\/symplify\/coding-standard\/tree\/13.1.1"
-            },
-            "funding": [
-                {
-                    "url": "https:\/\/www.paypal.me\/rectorphp",
-                    "type": "custom"
-                },
-                {
-                    "url": "https:\/\/github.com\/tomasvotruba",
-                    "type": "github"
-                }
-            ],
-            "install-path": "..\/symplify\/coding-standard"
-        },
-        {
             "name": "symplify\/easy-parallel",
             "version": "11.2.2",
             "version_normalized": "11.2.2.0",

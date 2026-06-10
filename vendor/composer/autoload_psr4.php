@@ -7,7 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Symplify\\EasyCodingStandard\\' => array($baseDir . '/src'),
-    'Symplify\\CodingStandard\\' => array($vendorDir . '/symplify/coding-standard/src'),
+    'Symplify\\CodingStandard\\' => array($baseDir . '/packages/coding-standard/src'),
     'Symfony\\Polyfill\\Php84\\' => array($vendorDir . '/symfony/polyfill-php84'),
     'Symfony\\Polyfill\\Php81\\' => array($vendorDir . '/symfony/polyfill-php81'),
     'Symfony\\Polyfill\\Php80\\' => array($vendorDir . '/symfony/polyfill-php80'),
