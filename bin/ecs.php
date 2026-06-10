@@ -132,6 +132,6 @@ try {
     exit(Command::FAILURE);
 }
 /** @var EasyCodingStandardConsoleApplication $application */
-$application = $container->get(EasyCodingStandardConsoleApplication::class);
+$application = $container->make(EasyCodingStandardConsoleApplication::class);
 $statusCode = $application->run();
 exit($statusCode);

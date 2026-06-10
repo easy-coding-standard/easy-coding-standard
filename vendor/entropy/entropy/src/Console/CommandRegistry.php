@@ -4,6 +4,8 @@ declare (strict_types=1);
 namespace ECSPrefix202606\Entropy\Console;
 
 use ECSPrefix202606\Entropy\Console\Contract\CommandInterface;
+use ECSPrefix202606\Entropy\Console\Contract\DefaultCommandInterface;
+use ECSPrefix202606\Entropy\Console\Contract\HiddenCommandInterface;
 use ECSPrefix202606\Entropy\Console\Exception\InvalidCommandException;
 use ECSPrefix202606\Entropy\Utils\FuzzyMatcher;
 use ECSPrefix202606\Webmozart\Assert\Assert;
@@ -43,11 +45,33 @@ final class CommandRegistry
         return $maxCommandNameLength;
     }
     /**
+     * @api used in tests and by applications inspecting registered commands
+     *
      * @return CommandInterface[]
      */
     public function all(): array
     {
         return $this->commands;
+    }
+    /**
+     * Commands that should be listed in help output (hidden ones are excluded).
+     *
+     * @return CommandInterface[]
+     */
+    public function getVisible(): array
+    {
+        return array_values(array_filter($this->commands, static function (CommandInterface $command): bool {
+            return !$command instanceof HiddenCommandInterface;
+        }));
+    }
+    public function getDefault(): ?CommandInterface
+    {
+        foreach ($this->commands as $command) {
+            if ($command instanceof DefaultCommandInterface) {
+                return $command;
+            }
+        }
+        return null;
     }
     public function has(string $commandName): bool
     {

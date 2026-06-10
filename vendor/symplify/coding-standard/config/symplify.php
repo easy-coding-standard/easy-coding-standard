@@ -10,7 +10,6 @@ use Symplify\CodingStandard\Fixer\Annotation\RemovePropertyVariableNameDescripti
 use Symplify\CodingStandard\Fixer\ArrayNotation\ArrayListItemNewlineFixer;
 use Symplify\CodingStandard\Fixer\ArrayNotation\ArrayOpenerAndCloserNewlineFixer;
 use Symplify\CodingStandard\Fixer\ArrayNotation\StandaloneLineInMultilineArrayFixer;
-use Symplify\CodingStandard\Fixer\Commenting\ParamReturnAndVarTagMalformsFixer;
 use Symplify\CodingStandard\Fixer\Commenting\RemoveUselessDefaultCommentFixer;
 use Symplify\CodingStandard\Fixer\LineLength\LineLengthFixer;
 use Symplify\CodingStandard\Fixer\Spacing\MethodChainingNewlineFixer;
@@ -20,10 +19,11 @@ use Symplify\CodingStandard\Fixer\Spacing\StandaloneLinePromotedPropertyFixer;
 use Symplify\CodingStandard\Fixer\Strict\BlankLineAfterStrictTypesFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 return static function (ECSConfig $ecsConfig): void {
+    // split @param/@return/@var malform rules
+    $ecsConfig->sets([__DIR__ . '/sets/docblock.php']);
     $ecsConfig->rules([
         // docblocks and comments
         RemovePHPStormAnnotationFixer::class,
-        ParamReturnAndVarTagMalformsFixer::class,
         RemoveUselessDefaultCommentFixer::class,
         RemoveMethodNameDuplicateDescriptionFixer::class,
         RemovePropertyVariableNameDescriptionFixer::class,

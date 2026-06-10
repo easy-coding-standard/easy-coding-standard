@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Config;
 
-use ECSPrefix202606\Illuminate\Container\Container;
+use ECSPrefix202606\Entropy\Container\Container;
 use Override;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
@@ -13,7 +13,6 @@ use PhpCsFixer\FixerFactory;
 use PhpCsFixer\RuleSet\RuleSet;
 use PhpCsFixer\WhitespacesFixerConfig;
 use Symplify\EasyCodingStandard\Configuration\ECSConfigBuilder;
-use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\ConflictingCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveExcludedCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualCheckersCompilerPass;
@@ -27,9 +26,31 @@ use ECSPrefix202606\Webmozart\Assert\InvalidArgumentException;
 final class ECSConfig extends Container
 {
     /**
-     * @var string[]
+     * Registered checkers, mapped to their configuration (empty array = no configuration).
+     *
+     * @var array<class-string<Sniff|FixerInterface>, mixed[]>
      */
-    private const AUTOTAG_INTERFACES = [Sniff::class, FixerInterface::class, OutputFormatterInterface::class];
+    private $checkerConfiguration = [];
+    /**
+     * Checkers removed by compiler passes (skip, mutual exclusion, …).
+     *
+     * @var array<class-string<Sniff|FixerInterface>, true>
+     */
+    private $removedCheckers = [];
+    /**
+     * Configured checker instances, built exactly once and shared, even when a
+     * class is declared in both a set and explicitly.
+     *
+     * @var array<class-string<Sniff|FixerInterface>, Sniff|FixerInterface>
+     */
+    private $builtCheckers = [];
+    /**
+     * Registration order, with duplicates preserved: a checker declared both in a
+     * set and explicitly is listed twice (both share the last-wins configuration).
+     *
+     * @var list<class-string<Sniff|FixerInterface>>
+     */
+    private $checkerRegistrationOrder = [];
     public static function configure(): ECSConfigBuilder
     {
         return new ECSConfigBuilder();
@@ -66,14 +87,7 @@ final class ECSConfig extends Container
     public function rule(string $checkerClass): void
     {
         $this->assertCheckerClass($checkerClass);
-        $this->singleton($checkerClass);
-        $this->autowireWhitespaceAwareFixer($checkerClass);
-        if (is_a($checkerClass, ConfigurableFixerInterface::class, \true)) {
-            $this->extend($checkerClass, static function (ConfigurableFixerInterface $configurableFixer): ConfigurableFixerInterface {
-                $configurableFixer->configure([]);
-                return $configurableFixer;
-            });
-        }
+        $this->registerChecker($checkerClass, []);
     }
     /**
      * @param array<class-string<Sniff|FixerInterface>> $checkerClasses
@@ -92,24 +106,10 @@ final class ECSConfig extends Container
     public function ruleWithConfiguration(string $checkerClass, array $configuration): void
     {
         $this->assertCheckerClass($checkerClass);
-        $this->singleton($checkerClass);
-        $this->autowireWhitespaceAwareFixer($checkerClass);
         if (is_a($checkerClass, FixerInterface::class, \true)) {
             Assert::isAOf($checkerClass, ConfigurableFixerInterface::class);
-            $this->extend($checkerClass, static function (ConfigurableFixerInterface $configurableFixer) use ($configuration): ConfigurableFixerInterface {
-                $configurableFixer->configure($configuration);
-                return $configurableFixer;
-            });
         }
-        if (is_a($checkerClass, Sniff::class, \true)) {
-            $this->extend($checkerClass, static function (Sniff $sniff) use ($configuration): Sniff {
-                foreach ($configuration as $propertyName => $value) {
-                    Assert::propertyExists($sniff, $propertyName);
-                    $sniff->{$propertyName} = $value;
-                }
-                return $sniff;
-            });
-        }
+        $this->registerChecker($checkerClass, $configuration);
     }
     /**
      * @param array<class-string<Sniff|FixerInterface>, mixed[]> $rulesWithConfiguration
@@ -206,19 +206,134 @@ final class ECSConfig extends Container
         $conflictingCheckersCompilerPass->process($this);
     }
     /**
-     * @param string $abstract
-     * @param mixed $concrete
+     * Checkers are returned fully configured; every other class is built by the parent container.
+     *
+     * @template TType as object
+     *
+     * @param class-string<TType> $class
+     * @return TType
      */
     #[Override]
-    public function singleton($abstract, $concrete = null): void
+    public function make(string $class): object
     {
-        parent::singleton($abstract, $concrete);
-        foreach (self::AUTOTAG_INTERFACES as $autotagInterface) {
-            if (!is_a($abstract, $autotagInterface, \true)) {
+        if (isset($this->checkerConfiguration[$class])) {
+            // a configured-checker key is always a Sniff|FixerInterface class-string
+            /** @var class-string<Sniff|FixerInterface> $checkerClass */
+            $checkerClass = $class;
+            /** @var TType $checker */
+            $checker = $this->buildConfiguredChecker($checkerClass);
+            return $checker;
+        }
+        return parent::make($class);
+    }
+    /**
+     * Checkers are returned in registration order with duplicates preserved (a class
+     * declared both in a set and explicitly appears twice, sharing one instance);
+     * every other service is resolved by the parent container.
+     *
+     * @template TType as object
+     *
+     * @param class-string<TType> $contractClass
+     * @return array<TType>
+     */
+    #[Override]
+    public function findByContract(string $contractClass): array
+    {
+        // genuine (non-checker) services from the parent container
+        $instances = [];
+        foreach (parent::findByContract($contractClass) as $class => $instance) {
+            if (isset($this->checkerConfiguration[$class])) {
+                // checkers are handled below, in registration order with duplicates
                 continue;
             }
-            $this->tag($abstract, $autotagInterface);
+            $instances[] = $instance;
         }
+        // checkers, in registration order, keeping duplicates and honouring removals
+        $checkerInstances = [];
+        foreach ($this->checkerRegistrationOrder as $checkerClass) {
+            if (isset($this->removedCheckers[$checkerClass])) {
+                continue;
+            }
+            // avoid building checkers that cannot match the requested contract
+            if (!is_a($checkerClass, $contractClass, \true)) {
+                continue;
+            }
+            $checkerInstances[] = $this->buildConfiguredChecker($checkerClass);
+        }
+        $matchingCheckers = array_filter($checkerInstances, static function (object $instance) use ($contractClass): bool {
+            return $instance instanceof $contractClass;
+        });
+        return array_merge($instances, array_values($matchingCheckers));
+    }
+    /**
+     * Registered checker classes, minus those removed by compiler passes.
+     *
+     * @return array<class-string<Sniff|FixerInterface>>
+     */
+    public function getCheckerClasses(): array
+    {
+        return array_values(array_filter(array_keys($this->checkerConfiguration), function (string $checkerClass): bool {
+            return !isset($this->removedCheckers[$checkerClass]);
+        }));
+    }
+    /**
+     * Registered checkers and their configuration, used for cache invalidation.
+     *
+     * @return array<class-string<Sniff|FixerInterface>, mixed[]>
+     */
+    public function getCheckerConfiguration(): array
+    {
+        $checkerConfiguration = [];
+        foreach ($this->checkerConfiguration as $checkerClass => $configuration) {
+            if (isset($this->removedCheckers[$checkerClass])) {
+                continue;
+            }
+            $checkerConfiguration[$checkerClass] = $configuration;
+        }
+        return $checkerConfiguration;
+    }
+    /**
+     * @param class-string<Sniff|FixerInterface> $checkerClass
+     */
+    public function removeChecker(string $checkerClass): void
+    {
+        $this->removedCheckers[$checkerClass] = \true;
+    }
+    /**
+     * @param class-string<Sniff|FixerInterface> $checkerClass
+     * @param mixed[] $configuration
+     */
+    private function registerChecker(string $checkerClass, array $configuration): void
+    {
+        // last registration wins for configuration, mirroring the previous container override behaviour
+        $this->checkerConfiguration[$checkerClass] = $configuration;
+        $this->checkerRegistrationOrder[] = $checkerClass;
+        unset($this->removedCheckers[$checkerClass]);
+    }
+    /**
+     * @param class-string<Sniff|FixerInterface> $checkerClass
+     */
+    private function buildConfiguredChecker(string $checkerClass): object
+    {
+        if (isset($this->builtCheckers[$checkerClass])) {
+            return $this->builtCheckers[$checkerClass];
+        }
+        // parent::make() autowires the raw checker by reflection; this class' make() override would recurse here
+        $checker = parent::make($checkerClass);
+        if ($checker instanceof WhitespacesAwareFixerInterface) {
+            $checker->setWhitespacesConfig($this->make(WhitespacesFixerConfig::class));
+        }
+        $configuration = $this->checkerConfiguration[$checkerClass];
+        if ($checker instanceof ConfigurableFixerInterface) {
+            $checker->configure($configuration);
+        } elseif ($checker instanceof Sniff) {
+            foreach ($configuration as $propertyName => $value) {
+                Assert::propertyExists($checker, $propertyName);
+                $checker->{$propertyName} = $value;
+            }
+        }
+        $this->builtCheckers[$checkerClass] = $checker;
+        return $checker;
     }
     /**
      * @param class-string $checkerClass
@@ -244,19 +359,5 @@ final class ECSConfig extends Container
         $duplicatedCheckerClasses = array_flip($duplicatedCheckerClassToCount);
         $errorMessage = sprintf('There are duplicated classes in $rectorConfig->rules(): "%s". Make them unique to avoid unexpected behavior.', implode('", "', $duplicatedCheckerClasses));
         throw new InvalidArgumentException($errorMessage);
-    }
-    /**
-     * @param class-string<FixerInterface|Sniff> $checkerClass
-     */
-    private function autowireWhitespaceAwareFixer(string $checkerClass): void
-    {
-        if (!is_a($checkerClass, WhitespacesAwareFixerInterface::class, \true)) {
-            return;
-        }
-        $this->extend($checkerClass, static function (WhitespacesAwareFixerInterface $whitespacesAwareFixer, Container $container): WhitespacesAwareFixerInterface {
-            $whitespacesFixerConfig = $container->make(WhitespacesFixerConfig::class);
-            $whitespacesAwareFixer->setWhitespacesConfig($whitespacesFixerConfig);
-            return $whitespacesAwareFixer;
-        });
     }
 }

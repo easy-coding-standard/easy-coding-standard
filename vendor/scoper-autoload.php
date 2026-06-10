@@ -14,7 +14,7 @@ $loader = (static function () {
     // Restore the backup and ensure the excluded files are properly marked as loaded
     $GLOBALS['__composer_autoload_files'] = \array_merge(
         $existingComposerAutoloadFiles,
-        \array_fill_keys(['acbe0d033c55cd0a032b415e08d14f4c', '8825ede83f2f289127722d4e842cf7e8', '80dfc307f8b4b13bcd033cef5c977d19', 'a4a119a56e50fbb293281d9a48007e0e', '23c18046f52bef3eea034657bafda50f', '7bfbed8d216c917b4d3e46b319a08b5c', '9d2b9fc6db0f153a0a149fefb182415e', 'c18d2008c6f2fa913c7bba17deb24ff5', 'c4dd194f5b50c0821acf143dcfed86ea', '606a39d89246991a373564698c2d8383', 'f49032536fdd06afd9df7191c3f21453', '7edcabe1b67fbb38f4972a722bbbb429', '7bdb062931f6e7102434c3ad28423eb6', '18e965175c6bcd96deba6bc791a44373', '51421aa3e5e8003b70a289762d146a2a', 'd1fb64fd99fc22e28e29a95cc0ea533a', '7b0b5d7b98f96ad751222ae5cc98cfcb', '79ae8b3fe21b90a128627e3871279d1b', '72e758a5054532edb6cb9ed0d015e600', '87005e5d70a864da11374798fc217696', '0e1fff5a03ce8edfa2fa9b52d709372a', 'ed74e3668930207f1a4ac3f94099e2e6', '3e593131d33cca33b86e55317d2bc0b3', '88eb642bc60ad56d36dcb0cbcddc74f4', 'f9fd4d0bdd191df87ed0092ea696bcbc', '5a966bedfea587acd3f5a140d050c889', '6046203b8b4fd0bfae542592d7d3c84e', 'a6d965e9b53fb32e474f5c893e61c163', '4fd257d788b18abc5c8ad55e2dd8c8ff', 'bf96e31e7c167fef53a9fe56c15eca5b'], true)
+        \array_fill_keys(['80dfc307f8b4b13bcd033cef5c977d19', '8825ede83f2f289127722d4e842cf7e8', 'acbe0d033c55cd0a032b415e08d14f4c', 'a4a119a56e50fbb293281d9a48007e0e', '23c18046f52bef3eea034657bafda50f', '9d2b9fc6db0f153a0a149fefb182415e', 'c18d2008c6f2fa913c7bba17deb24ff5', '7bfbed8d216c917b4d3e46b319a08b5c', '7bdb062931f6e7102434c3ad28423eb6', '18e965175c6bcd96deba6bc791a44373', 'f49032536fdd06afd9df7191c3f21453', '7edcabe1b67fbb38f4972a722bbbb429', '51421aa3e5e8003b70a289762d146a2a', 'd1fb64fd99fc22e28e29a95cc0ea533a', '7b0b5d7b98f96ad751222ae5cc98cfcb', '5a966bedfea587acd3f5a140d050c889', 'ed74e3668930207f1a4ac3f94099e2e6', '0e1fff5a03ce8edfa2fa9b52d709372a', '88eb642bc60ad56d36dcb0cbcddc74f4', 'f9fd4d0bdd191df87ed0092ea696bcbc', '3e593131d33cca33b86e55317d2bc0b3', '79ae8b3fe21b90a128627e3871279d1b', '72e758a5054532edb6cb9ed0d015e600', '87005e5d70a864da11374798fc217696'], true)
     );
 
     return $loader;
@@ -30,7 +30,7 @@ if (!function_exists('humbug_phpscoper_expose_class')) {
     }
 }
 humbug_phpscoper_expose_class('ECSAutoloadIncluder', 'ECSPrefix202606\ECSAutoloadIncluder');
-humbug_phpscoper_expose_class('ComposerAutoloaderInit2ec3346e2cc47494bb5cca6fc17b3c34', 'ECSPrefix202606\ComposerAutoloaderInit2ec3346e2cc47494bb5cca6fc17b3c34');
+humbug_phpscoper_expose_class('ComposerAutoloaderInitb98b460274d30539ab1220e9d09778c6', 'ECSPrefix202606\ComposerAutoloaderInitb98b460274d30539ab1220e9d09778c6');
 humbug_phpscoper_expose_class('Sample1', 'ECSPrefix202606\Sample1');
 humbug_phpscoper_expose_class('Sample2', 'ECSPrefix202606\Sample2');
 humbug_phpscoper_expose_class('Foo', 'ECSPrefix202606\Foo');
@@ -57,8 +57,6 @@ humbug_phpscoper_expose_class('ReturnTypeWillChange', 'ECSPrefix202606\ReturnTyp
 humbug_phpscoper_expose_class('Deprecated', 'ECSPrefix202606\Deprecated');
 humbug_phpscoper_expose_class('RoundingMode', 'ECSPrefix202606\RoundingMode');
 humbug_phpscoper_expose_class('ReflectionConstant', 'ECSPrefix202606\ReflectionConstant');
-humbug_phpscoper_expose_class('DelayedTargetValidation', 'ECSPrefix202606\DelayedTargetValidation');
-humbug_phpscoper_expose_class('NoDiscard', 'ECSPrefix202606\NoDiscard');
 
 // Function aliases. For more information see:
 // https://github.com/humbug/php-scoper/blob/master/docs/further-reading.md#function-aliases
@@ -69,9 +67,7 @@ if (!function_exists('array_all')) { function array_all() { return \ECSPrefix202
 if (!function_exists('array_any')) { function array_any() { return \ECSPrefix202606\array_any(...func_get_args()); } }
 if (!function_exists('array_find')) { function array_find() { return \ECSPrefix202606\array_find(...func_get_args()); } }
 if (!function_exists('array_find_key')) { function array_find_key() { return \ECSPrefix202606\array_find_key(...func_get_args()); } }
-if (!function_exists('array_first')) { function array_first() { return \ECSPrefix202606\array_first(...func_get_args()); } }
 if (!function_exists('array_is_list')) { function array_is_list() { return \ECSPrefix202606\array_is_list(...func_get_args()); } }
-if (!function_exists('array_last')) { function array_last() { return \ECSPrefix202606\array_last(...func_get_args()); } }
 if (!function_exists('b')) { function b() { return \ECSPrefix202606\b(...func_get_args()); } }
 if (!function_exists('bar')) { function bar() { return \ECSPrefix202606\bar(...func_get_args()); } }
 if (!function_exists('baz')) { function baz() { return \ECSPrefix202606\baz(...func_get_args()); } }
@@ -98,8 +94,6 @@ if (!function_exists('fpow')) { function fpow() { return \ECSPrefix202606\fpow(.
 if (!function_exists('generate')) { function generate() { return \ECSPrefix202606\generate(...func_get_args()); } }
 if (!function_exists('getValues')) { function getValues() { return \ECSPrefix202606\getValues(...func_get_args()); } }
 if (!function_exists('get_debug_type')) { function get_debug_type() { return \ECSPrefix202606\get_debug_type(...func_get_args()); } }
-if (!function_exists('get_error_handler')) { function get_error_handler() { return \ECSPrefix202606\get_error_handler(...func_get_args()); } }
-if (!function_exists('get_exception_handler')) { function get_exception_handler() { return \ECSPrefix202606\get_exception_handler(...func_get_args()); } }
 if (!function_exists('get_resource_id')) { function get_resource_id() { return \ECSPrefix202606\get_resource_id(...func_get_args()); } }
 if (!function_exists('giveMeData')) { function giveMeData() { return \ECSPrefix202606\giveMeData(...func_get_args()); } }
 if (!function_exists('grapheme_extract')) { function grapheme_extract() { return \ECSPrefix202606\grapheme_extract(...func_get_args()); } }
@@ -114,7 +108,6 @@ if (!function_exists('grapheme_strripos')) { function grapheme_strripos() { retu
 if (!function_exists('grapheme_strrpos')) { function grapheme_strrpos() { return \ECSPrefix202606\grapheme_strrpos(...func_get_args()); } }
 if (!function_exists('grapheme_strstr')) { function grapheme_strstr() { return \ECSPrefix202606\grapheme_strstr(...func_get_args()); } }
 if (!function_exists('grapheme_substr')) { function grapheme_substr() { return \ECSPrefix202606\grapheme_substr(...func_get_args()); } }
-if (!function_exists('locale_is_right_to_left')) { function locale_is_right_to_left() { return \ECSPrefix202606\locale_is_right_to_left(...func_get_args()); } }
 if (!function_exists('logger')) { function logger() { return \ECSPrefix202606\logger(...func_get_args()); } }
 if (!function_exists('lowercaseUntilFirstLower')) { function lowercaseUntilFirstLower() { return \ECSPrefix202606\lowercaseUntilFirstLower(...func_get_args()); } }
 if (!function_exists('m')) { function m() { return \ECSPrefix202606\m(...func_get_args()); } }

@@ -7,6 +7,7 @@ use ReflectionProperty;
 final class PrivatesAccessorHelper
 {
     /**
+     * @api used in tests to assert on private checker state
      * @return mixed
      */
     public static function getPropertyValue(object $object, string $propertyName)

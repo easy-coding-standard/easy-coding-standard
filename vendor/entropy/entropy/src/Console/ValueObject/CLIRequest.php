@@ -43,6 +43,14 @@ final class CLIRequest
         return $this->arguments;
     }
     /**
+     * Re-interpret a leading token (mistaken for a command name) as the first
+     * positional argument of the resolved command.
+     */
+    public function withCommandNameAndPrependedArgument(string $commandName, string $argument): self
+    {
+        return new self($commandName, array_merge([$argument], $this->arguments), $this->options);
+    }
+    /**
      * @return array<string, mixed>
      */
     public function getOptions(): array
@@ -56,10 +64,6 @@ final class CLIRequest
     public function option(string $name, $default = null)
     {
         return $this->options[$name] ?? $default;
-    }
-    public function isHelp(): bool
-    {
-        return $this->commandName === null;
     }
     public function isCommandHelp(): bool
     {

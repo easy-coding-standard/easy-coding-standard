@@ -14,7 +14,13 @@ use ReflectionClass;
 use ReflectionMethod;
 use ReflectionParameter;
 use ECSPrefix202606\Webmozart\Assert\Assert;
-final class Container
+/**
+ * Designed to be extended by applications that need to customise resolution
+ * (e.g. add their own service kinds), so this class is intentionally not final.
+ *
+ * @api extendable container
+ */
+class Container
 {
     /**
      * @var array<class-string, callable(Container): object>

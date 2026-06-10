@@ -20,8 +20,8 @@ final class FileHashComputer
         Assert::isCallable($callable);
         $ecsConfig = new ECSConfig();
         $callable($ecsConfig);
-        // hash the container setup
-        $fileHash = sha1(Json::encode($ecsConfig->getBindings()));
+        // hash the registered checkers and their configuration
+        $fileHash = sha1(Json::encode($ecsConfig->getCheckerConfiguration()));
         return sha1($fileHash . SimpleParameterProvider::hash() . StaticVersionResolver::PACKAGE_VERSION);
     }
     public function compute(string $filePath): string

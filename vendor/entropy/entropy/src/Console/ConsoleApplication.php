@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace ECSPrefix202606\Entropy\Console;
 
 use ECSPrefix202606\Entropy\Attributes\RelatedTest;
+use ECSPrefix202606\Entropy\Console\Contract\CommandInterface;
 use ECSPrefix202606\Entropy\Console\Enum\ExitCode;
 use ECSPrefix202606\Entropy\Console\Input\InputParser;
 use ECSPrefix202606\Entropy\Console\Mapper\CLIRequestMapper;
@@ -60,17 +61,27 @@ final class ConsoleApplication
     public function run(array $argv): int
     {
         $cliRequest = $this->inputParser->parse($argv);
-        // global help
-        if ($cliRequest->isHelp()) {
-            $this->helpPrinter->print();
-            return ExitCode::SUCCESS;
-        }
-        /** @var string $commandName */
         $commandName = $cliRequest->getCommandName();
+        // no command name given - fall back to the default command, or show help
+        if ($commandName === null) {
+            $defaultCommand = $this->commandRegistry->getDefault();
+            $wantsHelp = array_intersect(['h', 'help'], array_keys($cliRequest->getOptions())) !== [];
+            if (!$defaultCommand instanceof CommandInterface || $wantsHelp) {
+                $this->helpPrinter->print();
+                return ExitCode::SUCCESS;
+            }
+            $commandName = $defaultCommand->getName();
+        }
         if (!$this->commandRegistry->has($commandName)) {
-            fwrite(\STDERR, sprintf("Unknown command: %s\n\n", $commandName));
-            $this->helpPrinter->print();
-            return ExitCode::INVALID_COMMAND;
+            $defaultCommand = $this->commandRegistry->getDefault();
+            // with a default command, an unknown leading token is its first argument (e.g. "ecs src")
+            if (!$defaultCommand instanceof CommandInterface) {
+                fwrite(\STDERR, sprintf("Unknown command: %s\n\n", $commandName));
+                $this->helpPrinter->print();
+                return ExitCode::INVALID_COMMAND;
+            }
+            $cliRequest = $cliRequest->withCommandNameAndPrependedArgument($defaultCommand->getName(), $commandName);
+            $commandName = $defaultCommand->getName();
         }
         try {
             $command = $this->commandRegistry->get($commandName);

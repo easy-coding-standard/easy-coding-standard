@@ -87,4 +87,45 @@ final class OutputPrinter
         $this->yellow(str_repeat('=', strlen($text)));
         $this->newline();
     }
+    public function section(string $text): void
+    {
+        $this->newline();
+        $this->yellow($text);
+        $this->yellow(str_repeat('-', strlen($text)));
+    }
+    public function success(string $text): void
+    {
+        $this->newline();
+        $this->writeln($this->outputColorizer->background('[OK] ' . $text, Color::GREEN));
+        $this->newline();
+    }
+    public function warning(string $text): void
+    {
+        $this->newline();
+        $this->writeln($this->outputColorizer->background('[WARNING] ' . $text, Color::YELLOW));
+        $this->newline();
+    }
+    public function error(string $text): void
+    {
+        $this->newline();
+        $this->writeln($this->outputColorizer->background('[ERROR] ' . $text, Color::RED));
+        $this->newline();
+    }
+    /**
+     * Ask the user a question and return the trimmed answer, or the default when nothing is entered.
+     */
+    public function ask(string $question, ?string $default = null): ?string
+    {
+        $suffix = $default !== null ? sprintf(' [%s]', $default) : '';
+        $this->writeln($this->outputColorizer->color($question . $suffix . ':', Color::YELLOW));
+        if ($this->isSilent) {
+            return $default;
+        }
+        $answer = fgets(\STDIN);
+        if ($answer === \false) {
+            return $default;
+        }
+        $answer = trim($answer);
+        return $answer === '' ? $default : $answer;
+    }
 }

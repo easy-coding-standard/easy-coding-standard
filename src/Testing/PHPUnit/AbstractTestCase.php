@@ -3,21 +3,21 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Testing\PHPUnit;
 
-use ECSPrefix202606\Illuminate\Container\Container;
 use PHPUnit\Framework\TestCase;
+use Symplify\EasyCodingStandard\Config\ECSConfig;
 use Symplify\EasyCodingStandard\DependencyInjection\LazyContainerFactory;
 use ECSPrefix202606\Webmozart\Assert\Assert;
 abstract class AbstractTestCase extends TestCase
 {
     /**
-     * @var \Illuminate\Container\Container|null
+     * @var \Symplify\EasyCodingStandard\Config\ECSConfig|null
      */
-    private $container;
+    private $ecsConfig;
     protected function setUp(): void
     {
         $lazyContainerFactory = new LazyContainerFactory();
-        $this->container = $lazyContainerFactory->create();
-        $this->container->boot();
+        $this->ecsConfig = $lazyContainerFactory->create();
+        $this->ecsConfig->boot();
     }
     /**
      * @param string[] $configs
@@ -27,8 +27,8 @@ abstract class AbstractTestCase extends TestCase
         Assert::allString($configs);
         Assert::allFile($configs);
         $lazyContainerFactory = new LazyContainerFactory();
-        $this->container = $lazyContainerFactory->create($configs);
-        $this->container->boot();
+        $this->ecsConfig = $lazyContainerFactory->create($configs);
+        $this->ecsConfig->boot();
     }
     /**
      * @template TObject as object
@@ -38,7 +38,7 @@ abstract class AbstractTestCase extends TestCase
      */
     protected function make(string $class): object
     {
-        Assert::notNull($this->container);
-        return $this->container->make($class);
+        Assert::notNull($this->ecsConfig);
+        return $this->ecsConfig->make($class);
     }
 }

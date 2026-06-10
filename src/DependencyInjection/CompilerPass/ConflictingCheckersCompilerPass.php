@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\DependencyInjection\CompilerPass;
 
-use ECSPrefix202606\Illuminate\Container\Container;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\Files\EndFileNewlineSniff as GenericEndFileNewlineSniff;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\Files\EndFileNoNewlineSniff;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\LowerCaseConstantSniff;
@@ -19,6 +18,7 @@ use PhpCsFixer\Fixer\Phpdoc\NoBlankLinesAfterPhpdocFixer;
 use PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer;
 use Symplify\CodingStandard\Fixer\Spacing\StandaloneLineConstructorParamFixer;
 use Symplify\CodingStandard\Fixer\Spacing\StandaloneLinePromotedPropertyFixer;
+use Symplify\EasyCodingStandard\Config\ECSConfig;
 use Symplify\EasyCodingStandard\Exception\Configuration\ConflictingCheckersLoadedException;
 final class ConflictingCheckersCompilerPass
 {
@@ -28,9 +28,9 @@ final class ConflictingCheckersCompilerPass
      * @var string[][]
      */
     private const CONFLICTING_CHECKER_GROUPS = [[StandaloneLineConstructorParamFixer::class, StandaloneLinePromotedPropertyFixer::class], ['ECSPrefix202606\SlevomatCodingStandard\Sniffs\ControlStructures\DisallowYodaComparisonSniff', YodaStyleFixer::class], [LowerCaseConstantSniff::class, UpperCaseConstantSniff::class], [ConstantCaseFixer::class, UpperCaseConstantSniff::class], ['ECSPrefix202606\SlevomatCodingStandard\Sniffs\TypeHints\DeclareStrictTypesSniff', DeclareEqualNormalizeFixer::class], ['ECSPrefix202606\SlevomatCodingStandard\Sniffs\TypeHints\DeclareStrictTypesSniff', BlankLineAfterOpeningTagFixer::class], [FileHeaderSniff::class, NoBlankLinesAfterPhpdocFixer::class], [EndFileNewlineSniff::class, EndFileNoNewlineSniff::class], [GenericEndFileNewlineSniff::class, EndFileNoNewlineSniff::class], [DisallowTabIndentSniff::class, DisallowSpaceIndentSniff::class]];
-    public function process(Container $container): void
+    public function process(ECSConfig $ecsConfig): void
     {
-        $checkerTypes = \Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\CompilerPassHelper::resolveCheckerClasses($container);
+        $checkerTypes = \Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\CompilerPassHelper::resolveCheckerClasses($ecsConfig);
         if ($checkerTypes === []) {
             return;
         }

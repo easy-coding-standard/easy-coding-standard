@@ -17,9 +17,12 @@ use ECSPrefix202606\Webmozart\Assert\Assert;
 final class CLIRequestMapper
 {
     /**
+     * Standard global flags handled by the application/output layer, not by a
+     * command's run() signature. They are silently ignored during mapping.
+     *
      * @var array<string, bool>
      */
-    private const IGNORED_OPTIONS = ['help' => \true, 'h' => \true];
+    private const IGNORED_OPTIONS = ['help' => \true, 'h' => \true, 'version' => \true, 'quiet' => \true];
     /**
      * @return mixed[]
      */

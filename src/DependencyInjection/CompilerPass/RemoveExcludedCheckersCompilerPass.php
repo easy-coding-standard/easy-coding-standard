@@ -3,20 +3,20 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\DependencyInjection\CompilerPass;
 
-use ECSPrefix202606\Illuminate\Container\Container;
+use Symplify\EasyCodingStandard\Config\ECSConfig;
 use Symplify\EasyCodingStandard\DependencyInjection\SimpleParameterProvider;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 final class RemoveExcludedCheckersCompilerPass
 {
-    public function process(Container $container): void
+    public function process(ECSConfig $ecsConfig): void
     {
         $excludedCheckers = $this->getExcludedCheckersFromSkipParameter();
-        foreach (array_keys($container->getBindings()) as $classType) {
+        foreach ($ecsConfig->getCheckerClasses() as $classType) {
             if (!in_array($classType, $excludedCheckers, \true)) {
                 continue;
             }
-            // remove service from container completely
-            \Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\CompilerPassHelper::removeCheckerFromContainer($container, $classType);
+            // remove checker from container completely
+            \Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\CompilerPassHelper::removeCheckerFromContainer($ecsConfig, $classType);
         }
     }
     /**
