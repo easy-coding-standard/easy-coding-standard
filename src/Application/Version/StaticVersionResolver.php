@@ -15,7 +15,7 @@ final class StaticVersionResolver
      * @api
      * @var string
      */
-    public const PACKAGE_VERSION = '36a5d8600efbd41d748167dfbe6abe4286330b32';
+    public const PACKAGE_VERSION = '13.2.1';
     /**
      * @api
      * @var string
