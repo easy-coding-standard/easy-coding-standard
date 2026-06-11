@@ -14,7 +14,7 @@ $loader = (static function () {
     // Restore the backup and ensure the excluded files are properly marked as loaded
     $GLOBALS['__composer_autoload_files'] = \array_merge(
         $existingComposerAutoloadFiles,
-        \array_fill_keys(['acbe0d033c55cd0a032b415e08d14f4c', '8825ede83f2f289127722d4e842cf7e8', '80dfc307f8b4b13bcd033cef5c977d19', 'a4a119a56e50fbb293281d9a48007e0e', '23c18046f52bef3eea034657bafda50f', '7bfbed8d216c917b4d3e46b319a08b5c', '9d2b9fc6db0f153a0a149fefb182415e', 'c18d2008c6f2fa913c7bba17deb24ff5', 'f49032536fdd06afd9df7191c3f21453', '7edcabe1b67fbb38f4972a722bbbb429', '7bdb062931f6e7102434c3ad28423eb6', '18e965175c6bcd96deba6bc791a44373', '51421aa3e5e8003b70a289762d146a2a', 'd1fb64fd99fc22e28e29a95cc0ea533a', '7b0b5d7b98f96ad751222ae5cc98cfcb', '79ae8b3fe21b90a128627e3871279d1b', '72e758a5054532edb6cb9ed0d015e600', '87005e5d70a864da11374798fc217696', '0e1fff5a03ce8edfa2fa9b52d709372a', 'ed74e3668930207f1a4ac3f94099e2e6', '3e593131d33cca33b86e55317d2bc0b3', '88eb642bc60ad56d36dcb0cbcddc74f4', 'f9fd4d0bdd191df87ed0092ea696bcbc', '5a966bedfea587acd3f5a140d050c889'], true)
+        \array_fill_keys(['80dfc307f8b4b13bcd033cef5c977d19', '8825ede83f2f289127722d4e842cf7e8', 'acbe0d033c55cd0a032b415e08d14f4c', 'a4a119a56e50fbb293281d9a48007e0e', '23c18046f52bef3eea034657bafda50f', '9d2b9fc6db0f153a0a149fefb182415e', 'c18d2008c6f2fa913c7bba17deb24ff5', '7bfbed8d216c917b4d3e46b319a08b5c', '7bdb062931f6e7102434c3ad28423eb6', '18e965175c6bcd96deba6bc791a44373', 'f49032536fdd06afd9df7191c3f21453', '7edcabe1b67fbb38f4972a722bbbb429', '51421aa3e5e8003b70a289762d146a2a', 'd1fb64fd99fc22e28e29a95cc0ea533a', '7b0b5d7b98f96ad751222ae5cc98cfcb', '5a966bedfea587acd3f5a140d050c889', 'ed74e3668930207f1a4ac3f94099e2e6', '0e1fff5a03ce8edfa2fa9b52d709372a', '88eb642bc60ad56d36dcb0cbcddc74f4', 'f9fd4d0bdd191df87ed0092ea696bcbc', '3e593131d33cca33b86e55317d2bc0b3', '79ae8b3fe21b90a128627e3871279d1b', '72e758a5054532edb6cb9ed0d015e600', '87005e5d70a864da11374798fc217696'], true)
     );
 
     return $loader;
@@ -30,7 +30,7 @@ if (!function_exists('humbug_phpscoper_expose_class')) {
     }
 }
 humbug_phpscoper_expose_class('ECSAutoloadIncluder', 'ECSPrefix202606\ECSAutoloadIncluder');
-humbug_phpscoper_expose_class('ComposerAutoloaderInitbd052c41063cba5e14590adfe74b68ab', 'ECSPrefix202606\ComposerAutoloaderInitbd052c41063cba5e14590adfe74b68ab');
+humbug_phpscoper_expose_class('ComposerAutoloaderInit140cfe36c3b88e9853e9126c396a1c8e', 'ECSPrefix202606\ComposerAutoloaderInit140cfe36c3b88e9853e9126c396a1c8e');
 humbug_phpscoper_expose_class('Sample1', 'ECSPrefix202606\Sample1');
 humbug_phpscoper_expose_class('Sample2', 'ECSPrefix202606\Sample2');
 humbug_phpscoper_expose_class('Foo', 'ECSPrefix202606\Foo');
