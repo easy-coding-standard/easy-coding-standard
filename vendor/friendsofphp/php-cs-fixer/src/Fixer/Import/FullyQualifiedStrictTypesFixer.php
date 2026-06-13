@@ -561,7 +561,6 @@ PHP
             if ($type->isCompositeType() || !Preg::match('/^' . self::REGEX_CLASS . '$/', $currentTypeValue) || \in_array($currentTypeValue, ['min', 'max'], \true)) {
                 return $type;
             }
-            /** @var non-empty-string $currentTypeValue */
             $shortTokens = $this->determineShortType($currentTypeValue, 'class', $uses, $namespaceName);
             if (null === $shortTokens) {
                 return $type;

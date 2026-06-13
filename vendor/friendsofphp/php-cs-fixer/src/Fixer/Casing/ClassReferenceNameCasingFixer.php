@@ -108,7 +108,7 @@ final class ClassReferenceNameCasingFixer extends AbstractFixer
             if ($tokens[$prevIndex]->equalsAny($blockKinds['before']) && $tokens[$nextIndex]->equalsAny($blockKinds['after'])) {
                 continue;
             }
-            if (!$tokens[$prevIndex]->isGivenKind(\T_NEW) && $tokens[$nextIndex]->equalsAny(['(', ';', [\T_CLOSE_TAG]])) {
+            if (!$tokens[$prevIndex]->isGivenKind(\T_NEW) && $tokens[$nextIndex]->equalsAny(['(', ';', '=', [\T_CLOSE_TAG]])) {
                 continue;
             }
             yield $index;

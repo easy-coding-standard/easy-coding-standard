@@ -352,12 +352,12 @@ PHP;
             [$class, $method] = explode('::', $matches[2]);
             $attributeName = 'RequiresMethod';
             $attributeTokens = array_merge(self::toClassConstant($class), [new Token(','), new Token([\T_WHITESPACE, ' ']), self::createEscapedStringToken($method)]);
-        } elseif ('RequiresPhp' === $attributeName && isset($matches[3])) {
+        } elseif (\in_array($attributeName, ['RequiresPhp', 'RequiresPhpunit'], \true) && isset($matches[3])) {
             $attributeTokens = [self::createEscapedStringToken($matches[2] . ' ' . $matches[3])];
         } else {
             $attributeTokens = [self::createEscapedStringToken(self::fixVersionConstraint($matches[2]))];
         }
-        if (isset($matches[3]) && 'RequiresPhp' !== $attributeName) {
+        if (isset($matches[3]) && !\in_array($attributeName, ['RequiresPhp', 'RequiresPhpunit'], \true)) {
             $attributeTokens[] = new Token(',');
             $attributeTokens[] = new Token([\T_WHITESPACE, ' ']);
             $attributeTokens[] = self::createEscapedStringToken(self::fixVersionConstraint($matches[3]));
