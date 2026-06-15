@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit140cfe36c3b88e9853e9126c396a1c8e
+class ComposerStaticInit96e9799af1d30fd8df687f248d2a7f6c
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -249,6 +249,10 @@ class ComposerStaticInit140cfe36c3b88e9853e9126c396a1c8e
         'ECSPrefix202606\\Entropy\\Attributes\\RelatedTest' => __DIR__ . '/..' . '/entropy/entropy/src/Attributes/RelatedTest.php',
         'ECSPrefix202606\\Entropy\\Console\\CommandRegistry' => __DIR__ . '/..' . '/entropy/entropy/src/Console/CommandRegistry.php',
         'ECSPrefix202606\\Entropy\\Console\\ConsoleApplication' => __DIR__ . '/..' . '/entropy/entropy/src/Console/ConsoleApplication.php',
+        'ECSPrefix202606\\Entropy\\Console\\ConsoleTable\\ConsoleTable' => __DIR__ . '/..' . '/entropy/entropy/src/Console/ConsoleTable/ConsoleTable.php',
+        'ECSPrefix202606\\Entropy\\Console\\ConsoleTable\\ValueObject\\TableRow' => __DIR__ . '/..' . '/entropy/entropy/src/Console/ConsoleTable/ValueObject/TableRow.php',
+        'ECSPrefix202606\\Entropy\\Console\\ConsoleTable\\ValueObject\\TableView' => __DIR__ . '/..' . '/entropy/entropy/src/Console/ConsoleTable/ValueObject/TableView.php',
+        'ECSPrefix202606\\Entropy\\Console\\ConsoleTable\\ViewRenderer' => __DIR__ . '/..' . '/entropy/entropy/src/Console/ConsoleTable/ViewRenderer.php',
         'ECSPrefix202606\\Entropy\\Console\\Contract\\CommandInterface' => __DIR__ . '/..' . '/entropy/entropy/src/Console/Contract/CommandInterface.php',
         'ECSPrefix202606\\Entropy\\Console\\Contract\\DefaultCommandInterface' => __DIR__ . '/..' . '/entropy/entropy/src/Console/Contract/DefaultCommandInterface.php',
         'ECSPrefix202606\\Entropy\\Console\\Contract\\HiddenCommandInterface' => __DIR__ . '/..' . '/entropy/entropy/src/Console/Contract/HiddenCommandInterface.php',
@@ -1742,9 +1746,9 @@ class ComposerStaticInit140cfe36c3b88e9853e9126c396a1c8e
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit140cfe36c3b88e9853e9126c396a1c8e::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit140cfe36c3b88e9853e9126c396a1c8e::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit140cfe36c3b88e9853e9126c396a1c8e::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit96e9799af1d30fd8df687f248d2a7f6c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit96e9799af1d30fd8df687f248d2a7f6c::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit96e9799af1d30fd8df687f248d2a7f6c::$classMap;
 
         }, null, ClassLoader::class);
     }

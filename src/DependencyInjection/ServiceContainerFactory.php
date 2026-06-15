@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\DependencyInjection;
 
+use Closure;
 use ECSPrefix202606\Entropy\Container\Container;
 use PHP_CodeSniffer\Util\Tokens;
 use PhpCsFixer\Differ\DifferInterface;
@@ -57,6 +58,13 @@ final class ServiceContainerFactory
         foreach ($configFiles as $configFile) {
             $configClosure = require $configFile;
             Assert::isCallable($configClosure);
+            if ($configClosure instanceof Closure && !defined('PHPUNIT_COMPOSER_INSTALL')) {
+                /** @var SymfonyStyle $symfonyStyle */
+                $symfonyStyle = $ecsConfig->make(SymfonyStyle::class);
+                $symfonyStyle->warning(sprintf('The "return function (ECSConfig $ecsConfig): void {}" config format is deprecated. Use "return ECSConfig::configure()" fluent API instead in "%s".', $configFile));
+                // give the user a moment to notice the deprecation warning
+                sleep(5);
+            }
             $configClosure($ecsConfig);
         }
         return $ecsConfig;

@@ -9,6 +9,8 @@ return ECSConfig::configure()
     ->withPaths([
 __PATHS__
     ])
+    // include *.php files in the root directory
+    ->withRootFiles()
 
     // add a single rule
     ->withRules([
@@ -18,4 +20,9 @@ __PATHS__
     // add sets - group of rules, from easiest to more complex ones
     // uncomment one, apply one, commit, PR, merge and repeat
 __PREPARED_SETS__
-    ;
+
+    // ...but first: take it step by step
+    ->withSpacesLevel(0)
+    ->withArrayLevel(0)
+    ->withControlStructuresLevel(0)
+    ->withDocblockLevel(0);

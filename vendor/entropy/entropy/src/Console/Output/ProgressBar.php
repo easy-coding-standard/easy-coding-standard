@@ -4,7 +4,6 @@ declare (strict_types=1);
 namespace ECSPrefix202606\Entropy\Console\Output;
 
 use ECSPrefix202606\Entropy\Attributes\RelatedTest;
-use ECSPrefix202606\Entropy\Console\Enum\Color;
 use ECSPrefix202606\Entropy\Tests\Console\Output\ProgressBarTest;
 /**
  * Lightweight progress bar rendered on a single, re-written terminal line.
@@ -16,11 +15,6 @@ use ECSPrefix202606\Entropy\Tests\Console\Output\ProgressBarTest;
  */
 final class ProgressBar
 {
-    /**
-     * @readonly
-     * @var \Entropy\Console\Output\OutputColorizer
-     */
-    private $outputColorizer;
     /**
      * @var int
      */
@@ -38,9 +32,8 @@ final class ProgressBar
      * @var bool
      */
     private $isSilent;
-    public function __construct(OutputColorizer $outputColorizer)
+    public function __construct()
     {
-        $this->outputColorizer = $outputColorizer;
         // avoid printing to stdout during unit tests
         $this->isSilent = defined('PHPUNIT_COMPOSER_INSTALL');
     }
@@ -91,6 +84,6 @@ final class ProgressBar
             return;
         }
         // \r returns the cursor to the line start, so the bar is re-written in place
-        fwrite(\STDOUT, "\r" . $this->outputColorizer->color($this->render(), Color::GREEN));
+        fwrite(\STDOUT, "\r" . $this->render());
     }
 }
