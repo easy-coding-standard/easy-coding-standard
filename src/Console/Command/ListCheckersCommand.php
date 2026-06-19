@@ -3,20 +3,17 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Command;
 
+use ECSPrefix202606\Entropy\Console\Contract\CommandInterface;
 use ECSPrefix202606\Nette\Utils\Json;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\FixerInterface;
-use ECSPrefix202606\Symfony\Component\Console\Command\Command;
-use ECSPrefix202606\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix202606\Symfony\Component\Console\Input\InputOption;
-use ECSPrefix202606\Symfony\Component\Console\Output\OutputInterface;
+use Symplify\EasyCodingStandard\Console\ExitCode;
 use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 use Symplify\EasyCodingStandard\Console\Reporter\CheckerListReporter;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\Skipper\SkipCriteriaResolver\SkippedClassResolver;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
-use Symplify\EasyCodingStandard\ValueObject\Option;
-final class ListCheckersCommand extends Command
+final class ListCheckersCommand implements CommandInterface
 {
     /**
      * @readonly
@@ -44,29 +41,39 @@ final class ListCheckersCommand extends Command
         $this->fixerFileProcessor = $fixerFileProcessor;
         $this->checkerListReporter = $checkerListReporter;
         $this->skippedClassResolver = $skippedClassResolver;
-        parent::__construct();
     }
-    protected function configure(): void
+    public function getName(): string
     {
-        $this->setName('list-checkers');
-        $this->setDescription('Shows loaded checkers');
-        $this->addOption(Option::OUTPUT_FORMAT, null, InputOption::VALUE_REQUIRED, 'Select output format', ConsoleOutputFormatter::getName());
-        $this->addOption(Option::CONFIG, 'c', InputOption::VALUE_REQUIRED, 'Path to config file');
+        return 'list-checkers';
     }
-    protected function execute(InputInterface $input, OutputInterface $output): int
+    public function getDescription(): string
     {
-        $outputFormat = $input->getOption(Option::OUTPUT_FORMAT);
+        return 'Shows loaded checkers';
+    }
+    /**
+     * @param string $outputFormat Select output format
+     * @param string $config       Path to config file
+     *
+     * @option $outputFormat
+     * @option $config
+     *
+     * @api invoked via reflection by the Entropy console application
+     *
+     * @return ExitCode::*
+     */
+    public function run(string $outputFormat = ConsoleOutputFormatter::NAME, string $config = ''): int
+    {
         // include skipped rules to avoid adding those too
         $skippedCheckers = $this->getSkippedCheckers();
         if ($outputFormat === 'json') {
             $data = ['sniffs' => $this->getSniffClasses(), 'fixers' => $this->getFixerClasses(), 'skipped-checkers' => $skippedCheckers];
             echo Json::encode($data, Json::PRETTY) . \PHP_EOL;
-            return Command::SUCCESS;
+            return ExitCode::SUCCESS;
         }
         $this->checkerListReporter->report($this->getSniffClasses(), 'from PHP_CodeSniffer');
         $this->checkerListReporter->report($this->getFixerClasses(), 'from PHP-CS-Fixer');
         $this->checkerListReporter->report($skippedCheckers, 'are skipped');
-        return self::SUCCESS;
+        return ExitCode::SUCCESS;
     }
     /**
      * @return array<class-string<FixerInterface>>

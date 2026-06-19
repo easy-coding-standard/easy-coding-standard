@@ -3,17 +3,17 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Reporter;
 
-use ECSPrefix202606\Symfony\Component\Console\Style\SymfonyStyle;
+use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 final class CheckerListReporter
 {
     /**
      * @readonly
-     * @var \Symfony\Component\Console\Style\SymfonyStyle
+     * @var \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle
      */
-    private $symfonyStyle;
-    public function __construct(SymfonyStyle $symfonyStyle)
+    private $easyCodingStandardStyle;
+    public function __construct(EasyCodingStandardStyle $easyCodingStandardStyle)
     {
-        $this->symfonyStyle = $symfonyStyle;
+        $this->easyCodingStandardStyle = $easyCodingStandardStyle;
     }
     /**
      * @param string[] $checkerClasses
@@ -24,7 +24,7 @@ final class CheckerListReporter
             return;
         }
         $sectionMessage = sprintf('%d checker%s %s:', count($checkerClasses), count($checkerClasses) === 1 ? '' : 's', $type);
-        $this->symfonyStyle->section($sectionMessage);
-        $this->symfonyStyle->listing($checkerClasses);
+        $this->easyCodingStandardStyle->section($sectionMessage);
+        $this->easyCodingStandardStyle->listing($checkerClasses);
     }
 }

@@ -9,12 +9,11 @@ use ECSPrefix202606\Nette\Utils\Random;
 use ECSPrefix202606\React\EventLoop\StreamSelectLoop;
 use ECSPrefix202606\React\Socket\ConnectionInterface;
 use ECSPrefix202606\React\Socket\TcpServer;
-use ECSPrefix202606\Symfony\Component\Console\Command\Command;
-use ECSPrefix202606\Symfony\Component\Console\Input\InputInterface;
-use Symplify\EasyCodingStandard\Console\Command\CheckCommand;
+use Symplify\EasyCodingStandard\Console\ExitCode;
 use Symplify\EasyCodingStandard\DependencyInjection\SimpleParameterProvider;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
+use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
 use Symplify\EasyCodingStandard\ValueObject\Option;
@@ -58,7 +57,7 @@ final class ParallelFileProcessor
      * @param callable(int $stepCount): void $postFileCallback Used for progress bar jump
      * @return array{coding_standard_errors: CodingStandardError[], file_diffs: FileDiff[], system_errors: SystemError[]|string[], system_errors_count: int}
      */
-    public function check(Schedule $schedule, string $mainScript, callable $postFileCallback, ?string $projectConfigFile, InputInterface $input): array
+    public function check(Schedule $schedule, string $mainScript, callable $postFileCallback, ?string $projectConfigFile, Configuration $configuration): array
     {
         $jobs = array_reverse($schedule->getJobs());
         $streamSelectLoop = new StreamSelectLoop();
@@ -102,13 +101,15 @@ final class ParallelFileProcessor
             $this->processPool->quitAll();
         };
         $timeoutInSeconds = SimpleParameterProvider::getIntParameter(Option::PARALLEL_TIMEOUT_IN_SECONDS);
+        // options mirrored to each worker sub-process
+        $workerOptionValues = [Option::FIX => $configuration->isFixer(), Option::CLEAR_CACHE => $configuration->shouldClearCache(), Option::NO_ERROR_TABLE => !$configuration->shouldShowErrorTable(), Option::NO_DIFFS => !$configuration->shouldShowDiffs(), Option::MEMORY_LIMIT => $configuration->getMemoryLimit()];
         for ($i = 0; $i < $numberOfProcesses; ++$i) {
             // nothing else to process, stop now
             if ($jobs === []) {
                 break;
             }
             $processIdentifier = Random::generate();
-            $workerCommandLine = $this->workerCommandLineFactory->create($mainScript, CheckCommand::class, 'worker', Option::PATHS, $projectConfigFile, $input, $processIdentifier, $serverPort);
+            $workerCommandLine = $this->workerCommandLineFactory->create($mainScript, 'worker', $projectConfigFile, $workerOptionValues, $configuration->getSources(), $processIdentifier, $serverPort);
             $parallelProcess = new ParallelProcess($workerCommandLine, $streamSelectLoop, $timeoutInSeconds);
             $parallelProcess->start(
                 // 1. callable on data
@@ -145,7 +146,7 @@ final class ParallelFileProcessor
                 // 3. callable on exit
                 function ($exitCode, string $stdErr) use (&$systemErrors, $processIdentifier): void {
                     $this->processPool->tryQuitProcess($processIdentifier);
-                    if ($exitCode === Command::SUCCESS) {
+                    if ($exitCode === ExitCode::SUCCESS) {
                         return;
                     }
                     if ($exitCode === null) {

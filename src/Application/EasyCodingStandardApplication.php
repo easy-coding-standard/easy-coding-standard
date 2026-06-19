@@ -4,8 +4,6 @@ declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Application;
 
 use ParseError;
-use ECSPrefix202606\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix202606\Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\DependencyInjection\SimpleParameterProvider;
@@ -67,11 +65,6 @@ final class EasyCodingStandardApplication
     private $cpuCoreCountProvider;
     /**
      * @readonly
-     * @var \Symfony\Component\Console\Style\SymfonyStyle
-     */
-    private $symfonyStyle;
-    /**
-     * @readonly
      * @var \Symplify\EasyCodingStandard\Utils\ParametersMerger
      */
     private $parametersMerger;
@@ -79,7 +72,7 @@ final class EasyCodingStandardApplication
      * @var string
      */
     private const ARGV = 'argv';
-    public function __construct(EasyCodingStandardStyle $easyCodingStandardStyle, SourceFinder $sourceFinder, ChangedFilesDetector $changedFilesDetector, FileFilter $fileFilter, \Symplify\EasyCodingStandard\Application\SingleFileProcessor $singleFileProcessor, ScheduleFactory $scheduleFactory, ParallelFileProcessor $parallelFileProcessor, CpuCoreCountProvider $cpuCoreCountProvider, SymfonyStyle $symfonyStyle, ParametersMerger $parametersMerger)
+    public function __construct(EasyCodingStandardStyle $easyCodingStandardStyle, SourceFinder $sourceFinder, ChangedFilesDetector $changedFilesDetector, FileFilter $fileFilter, \Symplify\EasyCodingStandard\Application\SingleFileProcessor $singleFileProcessor, ScheduleFactory $scheduleFactory, ParallelFileProcessor $parallelFileProcessor, CpuCoreCountProvider $cpuCoreCountProvider, ParametersMerger $parametersMerger)
     {
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->sourceFinder = $sourceFinder;
@@ -89,13 +82,12 @@ final class EasyCodingStandardApplication
         $this->scheduleFactory = $scheduleFactory;
         $this->parallelFileProcessor = $parallelFileProcessor;
         $this->cpuCoreCountProvider = $cpuCoreCountProvider;
-        $this->symfonyStyle = $symfonyStyle;
         $this->parametersMerger = $parametersMerger;
     }
     /**
      * @return array{coding_standard_errors?: CodingStandardError[], file_diffs?: FileDiff[], system_errors?: SystemError[]|string[], system_errors_count?: int}
      */
-    public function run(Configuration $configuration, InputInterface $input): array
+    public function run(Configuration $configuration): array
     {
         // 1. find files in sources
         $filePaths = $this->sourceFinder->find($configuration->getSources());
@@ -120,10 +112,10 @@ final class EasyCodingStandardApplication
                 }
                 if (!$isProgressBarStarted) {
                     $fileCount = count($filePaths);
-                    $this->symfonyStyle->progressStart($fileCount);
+                    $this->easyCodingStandardStyle->progressStart($fileCount);
                     $isProgressBarStarted = \true;
                 }
-                $this->symfonyStyle->progressAdvance($stepCount);
+                $this->easyCodingStandardStyle->progressAdvance($stepCount);
                 // running in parallel here → nothing else to do
             };
             $mainScript = $this->resolveCalledEcsBinary();
@@ -131,7 +123,7 @@ final class EasyCodingStandardApplication
                 throw new ShouldNotHappenException('[parallel] Main script was not found');
             }
             // mimics see https://github.com/phpstan/phpstan-src/commit/9124c66dcc55a222e21b1717ba5f60771f7dda92#diff-387b8f04e0db7a06678eb52ce0c0d0aff73e0d7d8fc5df834d0a5fbec198e5daR139
-            return $this->parallelFileProcessor->check($schedule, $mainScript, $postFileCallback, $configuration->getConfig(), $input);
+            return $this->parallelFileProcessor->check($schedule, $mainScript, $postFileCallback, $configuration->getConfig(), $configuration);
         }
         // process found files by each processors
         return $this->processFoundFiles($filePaths, $configuration);

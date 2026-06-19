@@ -3,34 +3,93 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Style;
 
-use ECSPrefix202606\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix202606\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix202606\Symfony\Component\Console\Style\SymfonyStyle;
-use ECSPrefix202606\Symfony\Component\Console\Terminal;
+use ECSPrefix202606\Entropy\Console\Output\OutputPrinter;
+use ECSPrefix202606\Entropy\Console\Output\ProgressBar;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
-final class EasyCodingStandardStyle extends SymfonyStyle
+final class EasyCodingStandardStyle
 {
     /**
      * @readonly
-     * @var \Symfony\Component\Console\Terminal
+     * @var \Entropy\Console\Output\OutputPrinter
      */
-    private $terminal;
+    private $outputPrinter;
+    /**
+     * @readonly
+     * @var \Entropy\Console\Output\ProgressBar
+     */
+    private $progressBar;
+    /**
+     * @readonly
+     * @var bool
+     */
+    private $isDebug = \false;
     /**
      * To fit in Linux/Windows terminal windows to prevent overflow.
      * @var int
      */
     private const BULGARIAN_CONSTANT = 8;
-    public function __construct(InputInterface $input, OutputInterface $output, Terminal $terminal)
+    /**
+     * @var int
+     */
+    private const DEFAULT_TERMINAL_WIDTH = 120;
+    public function __construct(OutputPrinter $outputPrinter, ProgressBar $progressBar, bool $isDebug = \false)
     {
-        $this->terminal = $terminal;
-        parent::__construct($input, $output);
+        $this->outputPrinter = $outputPrinter;
+        $this->progressBar = $progressBar;
+        $this->isDebug = $isDebug;
+    }
+    public function writeln(string $message): void
+    {
+        $this->outputPrinter->writeln($this->normalizeTags($message));
+    }
+    public function newLine(int $count = 1): void
+    {
+        $this->outputPrinter->newline($count);
+    }
+    public function success(string $message): void
+    {
+        $this->outputPrinter->success($message);
+    }
+    public function warning(string $message): void
+    {
+        $this->outputPrinter->warning($message);
+    }
+    public function error(string $message): void
+    {
+        $this->outputPrinter->error($message);
+    }
+    public function section(string $message): void
+    {
+        $this->outputPrinter->section($message);
+    }
+    /**
+     * @param string[] $items
+     */
+    public function listing(array $items): void
+    {
+        $this->outputPrinter->listing($items);
+    }
+    public function ask(string $question, ?string $default = null): ?string
+    {
+        return $this->outputPrinter->ask($question, $default);
+    }
+    public function isDebug(): bool
+    {
+        return $this->isDebug;
+    }
+    public function progressStart(int $max): void
+    {
+        $this->progressBar->start($max);
+    }
+    public function progressAdvance(int $step = 1): void
+    {
+        $this->progressBar->advance($step);
     }
     /**
      * @param CodingStandardError[] $codingStandardErrors
      */
     public function printErrors(array $codingStandardErrors): void
     {
-        /** @var CodingStandardError $codingStandardError */
         foreach ($codingStandardErrors as $codingStandardError) {
             $this->separator();
             $this->writeln(' ' . $codingStandardError->getFileWithLine());
@@ -40,6 +99,20 @@ final class EasyCodingStandardStyle extends SymfonyStyle
             $this->separator();
             $this->newLine();
         }
+    }
+    /**
+     * Translate the Symfony-style console tags still emitted by the reporters into
+     * the smaller tag vocabulary understood by Entropy's OutputColorizer.
+     */
+    private function normalizeTags(string $text): string
+    {
+        // drop bold/underscore styling, keep the text
+        $text = (string) preg_replace('#<options=[^>]+>(.*?)</>#su', '$1', $text);
+        // <comment> → yellow, <info> → green
+        $text = (string) preg_replace('#<comment>(.*?)</comment>#su', '<fg=yellow>$1</>', $text);
+        $text = (string) preg_replace('#<info>(.*?)</info>#su', '<fg=green>$1</>', $text);
+        // normalize explicit closing tags (e.g. </fg=green>) to the generic closing tag
+        return (string) preg_replace('#</fg=[a-z]+>#', '</>', $text);
     }
     private function separator(): void
     {
@@ -54,7 +127,11 @@ final class EasyCodingStandardStyle extends SymfonyStyle
     }
     private function getTerminalWidth(): int
     {
-        return $this->terminal->getWidth() - self::BULGARIAN_CONSTANT;
+        $columns = getenv('COLUMNS');
+        if (is_numeric($columns)) {
+            return (int) $columns - self::BULGARIAN_CONSTANT;
+        }
+        return self::DEFAULT_TERMINAL_WIDTH - self::BULGARIAN_CONSTANT;
     }
     /**
      * This prevents message override in Windows system.

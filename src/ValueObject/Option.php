@@ -16,15 +16,7 @@ final class Option
     /**
      * @var string
      */
-    public const NO_PROGRESS_BAR = 'no-progress-bar';
-    /**
-     * @var string
-     */
     public const NO_ERROR_TABLE = 'no-error-table';
-    /**
-     * @var string
-     */
-    public const OUTPUT_FORMAT = 'output-format';
     /**
      * @var string
      */
@@ -85,31 +77,15 @@ final class Option
      */
     public const INDENTATION_TAB = 'tab';
     /**
-     * @var string
-     */
-    public const XDEBUG = 'xdebug';
-    /**
-     * @var string
-     */
-    public const DEBUG = 'debug';
-    /**
      * @see \Symplify\EasyCodingStandard\Config\ECSConfig::parallel()
      * @var string
      */
     public const PARALLEL = 'parallel';
     /**
-     * @var string
-     */
-    public const CONFIG = 'config';
-    /**
      * @see \Symplify\EasyCodingStandard\Config\ECSConfig::parallel()
      * @var string
      */
     public const PARALLEL_JOB_SIZE = 'parallel_job_size';
-    /**
-     * @var string
-     */
-    public const PARALLEL_PORT = 'port';
     /**
      * @var string
      */

@@ -91,7 +91,7 @@ class Markdown extends \PHP_CodeSniffer\Generators\Generator
     protected function processSniff(DOMElement $doc)
     {
         $content = '';
-        foreach ($doc->childNodes as $node) {
+        foreach ($doc->childNodes ?? [] as $node) {
             if ($node->nodeName === 'standard') {
                 $content .= $this->getFormattedTextBlock($node);
             } elseif ($node->nodeName === 'code_comparison') {

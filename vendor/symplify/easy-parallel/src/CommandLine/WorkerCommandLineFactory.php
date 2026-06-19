@@ -3,10 +3,6 @@
 declare (strict_types=1);
 namespace ECSPrefix202606\Symplify\EasyParallel\CommandLine;
 
-use ECSPrefix202606\Symfony\Component\Console\Command\Command;
-use ECSPrefix202606\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix202606\Symplify\EasyParallel\Exception\ParallelShouldNotHappenException;
-use ECSPrefix202606\Symplify\EasyParallel\Reflection\CommandFromReflectionFactory;
 /**
  * @api
  * @see \Symplify\EasyParallel\Tests\CommandLine\WorkerCommandLineFactoryTest
@@ -18,56 +14,34 @@ final class WorkerCommandLineFactory
      */
     private const OPTION_DASHES = '--';
     /**
-     * These options are not relevant for nested worker command line.
+     * These options are not relevant for nested worker command line, either
+     * because they are handled explicitly below or are framework globals that
+     * must not leak into the worker sub-process.
      *
      * @var string[]
      */
-    private const EXCLUDED_OPTION_NAMES = ['output-format'];
+    private const EXCLUDED_OPTION_NAMES = ['output-format', 'ansi', 'no-ansi', 'help', 'quiet', 'verbose', 'version', 'no-interaction'];
     /**
-     * @readonly
-     * @var \Symplify\EasyParallel\Reflection\CommandFromReflectionFactory
+     * The worker command name is always the first token, so the sub-process resolves the
+     * worker command directly instead of falling back to the application's default command.
+     *
+     * @param array<string, scalar|null> $optionValues option name => resolved value
+     * @param string[] $paths
      */
-    private $commandFromReflectionFactory;
-    public function __construct()
+    public function create(string $baseScript, string $workerCommandName, ?string $projectConfigFile, array $optionValues, array $paths, string $identifier, int $port): string
     {
-        $this->commandFromReflectionFactory = new CommandFromReflectionFactory();
-    }
-    /**
-     * @param class-string<Command> $mainCommandClass
-     */
-    public function create(string $baseScript, string $mainCommandClass, string $workerCommandName, string $pathsOptionName, ?string $projectConfigFile, InputInterface $input, string $identifier, int $port): string
-    {
-        $commandArguments = array_slice($_SERVER['argv'], 1);
-        $args = array_merge([\PHP_BINARY, $baseScript], $commandArguments);
-        $mainCommand = $this->commandFromReflectionFactory->create($mainCommandClass);
-        if ($mainCommand->getName() === null) {
-            $errorMessage = sprintf('The command name for "%s" is missing', get_class($mainCommand));
-            throw new ParallelShouldNotHappenException($errorMessage);
-        }
-        $mainCommandName = $mainCommand->getName();
-        $processCommandArray = [];
-        foreach ($args as $arg) {
-            // skip command name
-            if ($arg === $mainCommandName) {
-                break;
-            }
-            $processCommandArray[] = escapeshellarg((string) $arg);
-        }
-        $processCommandArray[] = $workerCommandName;
+        $processCommandArray = [escapeshellarg(\PHP_BINARY), escapeshellarg($baseScript), $workerCommandName];
         if ($projectConfigFile !== null) {
             $processCommandArray[] = '--config';
             $processCommandArray[] = escapeshellarg($projectConfigFile);
         }
-        $mainCommandOptionNames = $this->getCommandOptionNames($mainCommand);
-        $processCommandOptions = $this->mirrorCommandOptions($input, $mainCommandOptionNames);
+        $processCommandOptions = $this->mirrorCommandOptions($optionValues);
         $processCommandArray = array_merge($processCommandArray, $processCommandOptions);
         // for TCP local server
         $processCommandArray[] = '--port';
         $processCommandArray[] = $port;
         $processCommandArray[] = '--identifier';
         $processCommandArray[] = escapeshellarg($identifier);
-        /** @var string[] $paths */
-        $paths = (array) $input->getArgument($pathsOptionName);
         foreach ($paths as $path) {
             $processCommandArray[] = escapeshellarg($path);
         }
@@ -80,57 +54,36 @@ final class WorkerCommandLineFactory
         return implode(' ', $processCommandArray);
     }
     /**
-     * @return string[]
-     */
-    private function getCommandOptionNames(Command $command): array
-    {
-        $inputDefinition = $command->getDefinition();
-        $optionNames = [];
-        foreach ($inputDefinition->getOptions() as $inputOption) {
-            $optionNames[] = $inputOption->getName();
-        }
-        return $optionNames;
-    }
-    /**
      * Keeps all options that are allowed in check command options
      *
-     * @param string[] $mainCommandOptionNames
+     * @param array<string, scalar|null> $optionValues
      * @return string[]
      */
-    private function mirrorCommandOptions(InputInterface $input, array $mainCommandOptionNames): array
+    private function mirrorCommandOptions(array $optionValues): array
     {
         $processCommandOptions = [];
-        foreach ($mainCommandOptionNames as $mainCommandOptionName) {
-            if ($this->shouldSkipOption($input, $mainCommandOptionName)) {
+        foreach ($optionValues as $optionName => $optionValue) {
+            if (in_array($optionName, self::EXCLUDED_OPTION_NAMES, \true)) {
                 continue;
             }
-            /** @var bool|string|null $optionValue */
-            $optionValue = $input->getOption($mainCommandOptionName);
             // skip clutter
             if ($optionValue === null) {
                 continue;
             }
             if (is_bool($optionValue)) {
                 if ($optionValue) {
-                    $processCommandOptions[] = self::OPTION_DASHES . $mainCommandOptionName;
+                    $processCommandOptions[] = self::OPTION_DASHES . $optionName;
                 }
                 continue;
             }
-            if ($mainCommandOptionName === 'memory-limit') {
+            if ($optionName === 'memory-limit') {
                 // symfony/console does not accept -1 as value without assign
-                $processCommandOptions[] = '--' . $mainCommandOptionName . '=' . $optionValue;
+                $processCommandOptions[] = '--' . $optionName . '=' . $optionValue;
             } else {
-                $processCommandOptions[] = self::OPTION_DASHES . $mainCommandOptionName;
-                $processCommandOptions[] = escapeshellarg($optionValue);
+                $processCommandOptions[] = self::OPTION_DASHES . $optionName;
+                $processCommandOptions[] = escapeshellarg((string) $optionValue);
             }
         }
         return $processCommandOptions;
-    }
-    private function shouldSkipOption(InputInterface $input, string $optionName): bool
-    {
-        if (!$input->hasOption($optionName)) {
-            return \true;
-        }
-        return in_array($optionName, self::EXCLUDED_OPTION_NAMES, \true);
     }
 }

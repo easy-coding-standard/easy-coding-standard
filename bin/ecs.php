@@ -4,11 +4,14 @@ declare (strict_types=1);
 namespace ECSPrefix202606;
 
 // decoupled in own "*.php" file, so ECS, Rector and PHPStan works out of the box here
+use ECSPrefix202606\Composer\InstalledVersions;
+use ECSPrefix202606\Composer\XdebugHandler\XdebugHandler;
+use ECSPrefix202606\Entropy\Console\ConsoleApplication;
+use ECSPrefix202606\Entropy\Console\Output\OutputColorizer;
+use ECSPrefix202606\Entropy\Console\Output\OutputPrinter;
 use PHP_CodeSniffer\Util\Tokens;
-use ECSPrefix202606\Symfony\Component\Console\Command\Command;
-use ECSPrefix202606\Symfony\Component\Console\Input\ArgvInput;
-use Symplify\EasyCodingStandard\Console\EasyCodingStandardConsoleApplication;
-use Symplify\EasyCodingStandard\Console\Style\SymfonyStyleFactory;
+use Symplify\EasyCodingStandard\Application\Version\StaticVersionResolver;
+use Symplify\EasyCodingStandard\Console\ExitCode;
 use Symplify\EasyCodingStandard\DependencyInjection\EasyCodingStandardContainerFactory;
 use Symplify\EasyCodingStandard\DependencyInjection\ServiceContainerFactory;
 // performance boost
@@ -120,18 +123,62 @@ final class ECSAutoloadIncluder
  * Inspired by https://github.com/rectorphp/rector/pull/2373/files#diff-0fc04a2bb7928cac4ae339d5a8bf67f3
  */
 \class_alias('ECSPrefix202606\ECSAutoloadIncluder', 'ECSAutoloadIncluder', \false);
-try {
-    $input = new ArgvInput();
-    $ecsContainerFactory = new EasyCodingStandardContainerFactory();
-    $container = $ecsContainerFactory->createFromFromInput($input);
-} catch (\Throwable $throwable) {
-    $symfonyStyleFactory = new SymfonyStyleFactory();
-    $symfonyStyle = $symfonyStyleFactory->create();
-    $symfonyStyle->error($throwable->getMessage());
-    $symfonyStyle->writeln($throwable->getTraceAsString());
-    exit(Command::FAILURE);
+$rawArgv = $_SERVER['argv'] ?? [];
+// @fixes https://github.com/rectorphp/rector/issues/2205
+$isXdebugAllowed = \in_array('--xdebug', $rawArgv, \true);
+if (!$isXdebugAllowed && !\defined('PHPUNIT_COMPOSER_INSTALL')) {
+    $xdebugHandler = new XdebugHandler('ecs');
+    $xdebugHandler->check();
+    unset($xdebugHandler);
 }
-/** @var EasyCodingStandardConsoleApplication $application */
-$application = $container->make(EasyCodingStandardConsoleApplication::class);
-$statusCode = $application->run();
+try {
+    $ecsContainerFactory = new EasyCodingStandardContainerFactory();
+    $container = $ecsContainerFactory->createFromArgv($rawArgv);
+} catch (\Throwable $throwable) {
+    $outputPrinter = new OutputPrinter(new OutputColorizer());
+    $outputPrinter->error($throwable->getMessage());
+    $outputPrinter->writeln($throwable->getTraceAsString());
+    exit(ExitCode::FAILURE);
+}
+// print version and exit
+if (\in_array('--version', $rawArgv, \true) || \in_array('-V', $rawArgv, \true)) {
+    echo \sprintf('EasyCodingStandard %s', StaticVersionResolver::PACKAGE_VERSION) . \PHP_EOL;
+    echo \sprintf('+ PHP_CodeSniffer %s', InstalledVersions::getPrettyVersion('squizlabs/php_codesniffer')) . \PHP_EOL;
+    echo \sprintf('+ PHP-CS-Fixer %s', InstalledVersions::getPrettyVersion('friendsofphp/php-cs-fixer')) . \PHP_EOL;
+    exit(ExitCode::SUCCESS);
+}
+/** @var ConsoleApplication $application */
+$application = $container->make(ConsoleApplication::class);
+$statusCode = $application->run(ecs_normalize_argv($rawArgv));
 exit($statusCode);
+/**
+ * Strip global/decoration flags Symfony Console handled implicitly, and normalize
+ * the "-c" config shortcut to "--config", so the Entropy input parser does not
+ * treat them as unknown command options.
+ *
+ * @param string[] $argv
+ * @return string[]
+ */
+function ecs_normalize_argv(array $argv): array
+{
+    $decorationFlags = ['--ansi', '--no-ansi', '--quiet', '-q', '--no-interaction', '-n', '-v', '-vv', '-vvv', '--xdebug'];
+    if (\in_array('--no-ansi', $argv, \true)) {
+        \putenv('NO_COLOR=1');
+    }
+    $normalized = [];
+    foreach ($argv as $arg) {
+        if (\in_array($arg, $decorationFlags, \true)) {
+            continue;
+        }
+        if ($arg === '-c') {
+            $normalized[] = '--config';
+            continue;
+        }
+        if (\strncmp($arg, '-c=', \strlen('-c=')) === 0) {
+            $normalized[] = '--config=' . \substr($arg, 3);
+            continue;
+        }
+        $normalized[] = $arg;
+    }
+    return $normalized;
+}

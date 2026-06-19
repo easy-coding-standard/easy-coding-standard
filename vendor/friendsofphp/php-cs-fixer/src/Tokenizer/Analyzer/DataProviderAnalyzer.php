@@ -111,6 +111,7 @@ final class DataProviderAnalyzer
     private function getDataProviderNameIndex(Tokens $tokens, \PhpCsFixer\Tokenizer\Analyzer\FullyQualifiedNameAnalyzer $fullyQualifiedNameAnalyzer, array $attribute): ?int
     {
         $fullyQualifiedName = $fullyQualifiedNameAnalyzer->getFullyQualifiedName($attribute['name'], $tokens->getNextMeaningfulToken($attribute['start']), NamespaceUseAnalysis::TYPE_CLASS);
+        // note: do not apply `DataProvider::class` here, as it would confuse `composer-dependency-analyser` to have PHPUnit as non-dev dependency
         if ('PHPUnit\Framework\Attributes\DataProvider' !== $fullyQualifiedName) {
             return null;
         }

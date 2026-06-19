@@ -3,17 +3,16 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console;
 
-use ECSPrefix202606\Symfony\Component\Console\Command\Command;
 final class ExitCode
 {
     /**
      * @var int
      */
-    public const SUCCESS = Command::SUCCESS;
+    public const SUCCESS = 0;
     /**
      * @var int
      */
-    public const FAILURE = Command::FAILURE;
+    public const FAILURE = 1;
     /**
      * @var int
      */

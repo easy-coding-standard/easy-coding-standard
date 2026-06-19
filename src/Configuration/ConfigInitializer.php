@@ -4,8 +4,8 @@ declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Configuration;
 
 use ECSPrefix202606\Nette\Utils\FileSystem;
-use ECSPrefix202606\Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\EasyCodingStandard\Application\FileProcessorCollector;
+use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 final class ConfigInitializer
 {
     /**
@@ -15,9 +15,9 @@ final class ConfigInitializer
     private $fileProcessorCollector;
     /**
      * @readonly
-     * @var \Symfony\Component\Console\Style\SymfonyStyle
+     * @var \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle
      */
-    private $symfonyStyle;
+    private $easyCodingStandardStyle;
     /**
      * @readonly
      * @var \Symplify\EasyCodingStandard\Configuration\InitPathsResolver
@@ -28,10 +28,10 @@ final class ConfigInitializer
      * @var \Symfony\Component\Filesystem\Filesystem
      */
     private $filesystem;
-    public function __construct(FileProcessorCollector $fileProcessorCollector, SymfonyStyle $symfonyStyle, \Symplify\EasyCodingStandard\Configuration\InitPathsResolver $initPathsResolver, \ECSPrefix202606\Symfony\Component\Filesystem\Filesystem $filesystem)
+    public function __construct(FileProcessorCollector $fileProcessorCollector, EasyCodingStandardStyle $easyCodingStandardStyle, \Symplify\EasyCodingStandard\Configuration\InitPathsResolver $initPathsResolver, \ECSPrefix202606\Symfony\Component\Filesystem\Filesystem $filesystem)
     {
         $this->fileProcessorCollector = $fileProcessorCollector;
-        $this->symfonyStyle = $symfonyStyle;
+        $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->initPathsResolver = $initPathsResolver;
         $this->filesystem = $filesystem;
     }
@@ -52,10 +52,10 @@ final class ConfigInitializer
         $doesConfigExist = $this->filesystem->exists($projectDirectory . '/ecs.php');
         // config already exists, nothing to add
         if ($doesConfigExist) {
-            $this->symfonyStyle->warning('We found ecs.php config, but no rules in it. Register some rules or sets there first');
+            $this->easyCodingStandardStyle->warning('We found ecs.php config, but no rules in it. Register some rules or sets there first');
             return;
         }
-        $response = $this->symfonyStyle->ask('No "ecs.php" config found. Should we generate it for you?', 'yes');
+        $response = $this->easyCodingStandardStyle->ask('No "ecs.php" config found. Should we generate it for you?', 'yes');
         // be tolerant about input
         if (!in_array($response, ['yes', 'YES', 'y', 'Y'], \true)) {
             // okay, nothing we can do
@@ -66,7 +66,7 @@ final class ConfigInitializer
         $templateFileContents = $this->fillPreparedSets($projectDirectory, $templateFileContents);
         // create the ecs.php file
         FileSystem::write(getcwd() . '/ecs.php', $templateFileContents, null);
-        $this->symfonyStyle->success('The ecs.php config was generated! Re-run the command to tidy your code');
+        $this->easyCodingStandardStyle->success('The ecs.php config was generated! Re-run the command to tidy your code');
     }
     private function fillPaths(string $projectDirectory, string $templateFileContents): string
     {

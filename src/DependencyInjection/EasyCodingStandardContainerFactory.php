@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\DependencyInjection;
 
-use ECSPrefix202606\Symfony\Component\Console\Input\ArgvInput;
 use Symplify\EasyCodingStandard\Caching\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 /**
@@ -11,18 +10,18 @@ use Symplify\EasyCodingStandard\Config\ECSConfig;
  */
 final class EasyCodingStandardContainerFactory
 {
-    public function createFromFromInput(ArgvInput $argvInput): ECSConfig
+    /**
+     * @param string[] $argv
+     */
+    public function createFromArgv(array $argv): ECSConfig
     {
-        // $easyCodingStandardKernel = new EasyCodingStandardKernel();
         $serviceContainerFactory = new \Symplify\EasyCodingStandard\DependencyInjection\ServiceContainerFactory();
         $inputConfigFiles = [];
         $rootECSConfig = getcwd() . \DIRECTORY_SEPARATOR . 'ecs.php';
-        if ($argvInput->hasParameterOption(['--config', '-c'])) {
-            $commandLineConfigFile = $argvInput->getParameterOption(['--config', '-c']);
-            if (is_string($commandLineConfigFile) && file_exists($commandLineConfigFile)) {
-                // must be realpath, so container builder knows the location
-                $inputConfigFiles[] = (string) realpath($commandLineConfigFile);
-            }
+        $commandLineConfigFile = $this->resolveConfigFromArgv($argv);
+        if ($commandLineConfigFile !== null && file_exists($commandLineConfigFile)) {
+            // must be realpath, so container builder knows the location
+            $inputConfigFiles[] = (string) realpath($commandLineConfigFile);
         } elseif (file_exists($rootECSConfig)) {
             $inputConfigFiles[] = $rootECSConfig;
         }
@@ -35,5 +34,25 @@ final class EasyCodingStandardContainerFactory
             $changedFilesDetector->setUsedConfigs($inputConfigFiles);
         }
         return $ecsConfig;
+    }
+    /**
+     * Resolve "--config <file>", "--config=<file>", "-c <file>" or "-c=<file>" from raw argv.
+     *
+     * @param string[] $argv
+     */
+    private function resolveConfigFromArgv(array $argv): ?string
+    {
+        foreach ($argv as $index => $arg) {
+            if ($arg === '--config' || $arg === '-c') {
+                return $argv[$index + 1] ?? null;
+            }
+            if (strncmp($arg, '--config=', strlen('--config=')) === 0) {
+                return (string) substr($arg, strlen('--config='));
+            }
+            if (strncmp($arg, '-c=', strlen('-c=')) === 0) {
+                return (string) substr($arg, strlen('-c='));
+            }
+        }
+        return null;
     }
 }

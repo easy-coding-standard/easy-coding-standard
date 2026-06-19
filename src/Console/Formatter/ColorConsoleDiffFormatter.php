@@ -4,7 +4,6 @@ declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Formatter;
 
 use ECSPrefix202606\Nette\Utils\Strings;
-use ECSPrefix202606\Symfony\Component\Console\Formatter\OutputFormatter;
 /**
  * Inspired by @see https://github.com/FriendsOfPHP/PHP-CS-Fixer/blob/master/src/Differ/DiffConsoleFormatter.php to be
  * used as standalone class, without need to require whole package by Dariusz Rumiński <dariusz.ruminski@gmail.com>
@@ -48,7 +47,7 @@ final class ColorConsoleDiffFormatter
     }
     private function formatWithTemplate(string $diff, string $template): string
     {
-        $escapedDiff = OutputFormatter::escape(rtrim($diff));
+        $escapedDiff = rtrim($diff);
         $escapedDiffLines = Strings::split($escapedDiff, self::NEWLINES_REGEX);
         // remove description of added + remove; obvious on diffs
         foreach ($escapedDiffLines as $key => $escapedDiffLine) {

@@ -88,7 +88,7 @@ final class Utils
         // @phpstan-ignore return.type (PHPStan cannot understand that the result will still be L template)
     }
     /**
-     * Sort fixers by their priorities.
+     * Sort fixers by their priorities, and by their names if priorities are equal. That is ensuring always deterministic order of fixers.
      *
      * @template T of list<FixerInterface>
      *
@@ -98,13 +98,12 @@ final class Utils
      */
     public static function sortFixers(array $fixers): array
     {
-        // Schwartzian transform is used to improve the efficiency and avoid
-        // `usort(): Array was modified by the user comparison function` warning for mocked objects.
-        return self::stableSort($fixers, static function (FixerInterface $fixer): int {
-            return $fixer->getPriority();
-        }, static function (int $a, int $b): int {
-            return $b <=> $a;
+        usort($fixers, static function (FixerInterface $a, FixerInterface $b): int {
+            $cmpByPriority = $b->getPriority() <=> $a->getPriority();
+            return 0 !== $cmpByPriority ? $cmpByPriority : $a->getName() <=> $b->getName();
         });
+        return $fixers;
+        // @phpstan-ignore return.type (PHPStan cannot understand that the result will still be T template)
     }
     /**
      * Join names in natural language using specified wrapper (double quote by default).

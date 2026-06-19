@@ -9,13 +9,11 @@ use PHP_CodeSniffer\Util\Tokens;
 use PhpCsFixer\Differ\DifferInterface;
 use PhpCsFixer\Differ\UnifiedDiffer;
 use PhpCsFixer\WhitespacesFixerConfig;
-use ECSPrefix202606\Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\EasyCodingStandard\Caching\Cache;
 use Symplify\EasyCodingStandard\Caching\CacheFactory;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyleFactory;
-use Symplify\EasyCodingStandard\Console\Style\SymfonyStyleFactory;
 use Symplify\EasyCodingStandard\FixerRunner\WhitespacesFixerConfigFactory;
 use ECSPrefix202606\Webmozart\Assert\Assert;
 final class ServiceContainerFactory
@@ -33,9 +31,8 @@ final class ServiceContainerFactory
             $easyCodingStandardStyleFactory = $container->make(EasyCodingStandardStyleFactory::class);
             return $easyCodingStandardStyleFactory->create();
         });
-        $ecsConfig->service(SymfonyStyle::class, static function (): SymfonyStyle {
-            return SymfonyStyleFactory::create();
-        });
+        // console commands - autodiscovered, then collected by the default CommandRegistry contract lookup
+        $ecsConfig->autodiscover(__DIR__ . '/../Console/Command');
         // whitespace
         $ecsConfig->service(WhitespacesFixerConfig::class, static function (): WhitespacesFixerConfig {
             $whitespacesFixerConfigFactory = new WhitespacesFixerConfigFactory();
@@ -59,9 +56,9 @@ final class ServiceContainerFactory
             $configClosure = require $configFile;
             Assert::isCallable($configClosure);
             if ($configClosure instanceof Closure && !defined('PHPUNIT_COMPOSER_INSTALL')) {
-                /** @var SymfonyStyle $symfonyStyle */
-                $symfonyStyle = $ecsConfig->make(SymfonyStyle::class);
-                $symfonyStyle->warning(sprintf('The "return function (ECSConfig $ecsConfig): void {}" config format is deprecated. Use "return ECSConfig::configure()" fluent API instead in "%s".', $configFile));
+                /** @var EasyCodingStandardStyle $easyCodingStandardStyle */
+                $easyCodingStandardStyle = $ecsConfig->make(EasyCodingStandardStyle::class);
+                $easyCodingStandardStyle->warning(sprintf('The "return function (ECSConfig $ecsConfig): void {}" config format is deprecated. Use "return ECSConfig::configure()" fluent API instead in "%s".', $configFile));
                 // give the user a moment to notice the deprecation warning
                 sleep(5);
             }
