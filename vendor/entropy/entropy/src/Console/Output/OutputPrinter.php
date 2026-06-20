@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace ECSPrefix202606\Entropy\Console\Output;
 
 use ECSPrefix202606\Entropy\Console\Enum\Color;
+use ECSPrefix202606\Entropy\Console\Terminal\Terminal;
 use ECSPrefix202606\Webmozart\Assert\Assert;
 /**
  * @api used in many ways
@@ -95,21 +96,15 @@ final class OutputPrinter
     }
     public function success(string $text): void
     {
-        $this->newline();
-        $this->writeln($this->outputColorizer->background('[OK] ' . $text, Color::GREEN));
-        $this->newline();
+        $this->block('[OK] ' . $text, Color::GREEN);
     }
     public function warning(string $text): void
     {
-        $this->newline();
-        $this->writeln($this->outputColorizer->background('[WARNING] ' . $text, Color::YELLOW));
-        $this->newline();
+        $this->block('[WARNING] ' . $text, Color::YELLOW);
     }
     public function error(string $text): void
     {
-        $this->newline();
-        $this->writeln($this->outputColorizer->background('[ERROR] ' . $text, Color::RED));
-        $this->newline();
+        $this->block('[ERROR] ' . $text, Color::RED);
     }
     /**
      * Ask the user a question and return the trimmed answer, or the default when nothing is entered.
@@ -127,5 +122,23 @@ final class OutputPrinter
         }
         $answer = trim($answer);
         return $answer === '' ? $default : $answer;
+    }
+    /**
+     * Print a colored block padded by a blank colored line above and below the message,
+     * the same way SymfonyStyle renders success/warning/error blocks.
+     *
+     * @param Color::* $color
+     */
+    private function block(string $text, string $color): void
+    {
+        // reserve 2 chars for the single space padding the background() adds on each side
+        $contentWidth = Terminal::getWidth() - 2;
+        $emptyLine = str_repeat(' ', $contentWidth);
+        $paddedText = Terminal::padVisibleRight($text, $contentWidth);
+        $this->newline();
+        $this->writeln($this->outputColorizer->background($emptyLine, $color));
+        $this->writeln($this->outputColorizer->background($paddedText, $color));
+        $this->writeln($this->outputColorizer->background($emptyLine, $color));
+        $this->newline();
     }
 }

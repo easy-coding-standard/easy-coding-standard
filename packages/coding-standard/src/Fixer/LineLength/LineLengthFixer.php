@@ -24,6 +24,18 @@ use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
 /**
  * @see \Symplify\CodingStandard\Tests\Fixer\LineLength\LineLengthFixer\LineLengthFixerTest
  * @see \Symplify\CodingStandard\Tests\Fixer\LineLength\LineLengthFixer\ConfiguredLineLengthFixerTest
+ *
+ * @implements ConfigurableFixerInterface<
+ *     array{
+ *         self::LINE_LENGTH?: int,
+ *         self::BREAK_LONG_LINES?: bool,
+ *         self::INLINE_SHORT_LINES?: bool
+ *    }, array{
+ *         self::LINE_LENGTH: int,
+ *         self::BREAK_LONG_LINES: bool,
+ *         self::INLINE_SHORT_LINES: bool
+ *    }
+ *  >
  */
 final class LineLengthFixer extends AbstractSymplifyFixer implements ConfigurableFixerInterface
 {

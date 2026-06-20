@@ -20,6 +20,14 @@ final class ProgressBar
      */
     private const BAR_WIDTH = 28;
     /**
+     * @var string
+     */
+    private const COMPLETE_CHAR = '▓';
+    /**
+     * @var string
+     */
+    private const REMAINING_CHAR = '░';
+    /**
      * @var int
      */
     private $current = 0;
@@ -61,15 +69,14 @@ final class ProgressBar
         }
     }
     /**
-     * Pure rendering of the current state, e.g. " 50% [==========>        ] 5/10"
+     * Pure rendering of the current state, e.g. " 5/10 [▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░░░░░]  50%"
      */
     public function render(): string
     {
         $percent = $this->resolvePercent();
         $completeWidth = (int) floor($percent * self::BAR_WIDTH);
-        $hasArrow = $completeWidth < self::BAR_WIDTH;
-        $bar = str_repeat('=', $completeWidth) . ($hasArrow ? '>' : '') . str_repeat(' ', max(0, self::BAR_WIDTH - $completeWidth - ($hasArrow ? 1 : 0)));
-        return sprintf('%3d%% [%s] %d/%d', (int) round($percent * 100), $bar, $this->current, $this->maxSteps);
+        $bar = str_repeat(self::COMPLETE_CHAR, $completeWidth) . str_repeat(self::REMAINING_CHAR, max(0, self::BAR_WIDTH - $completeWidth));
+        return sprintf('%d/%d [%s] %3d%%', $this->current, $this->maxSteps, $bar, (int) round($percent * 100));
     }
     private function resolvePercent(): float
     {

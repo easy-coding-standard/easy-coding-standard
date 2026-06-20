@@ -69,7 +69,7 @@ final class JsonOutputFormatter implements OutputFormatterInterface
         return Json::encode($errorsArrayJson, Json::PRETTY);
     }
     /**
-     * @return array{totals: array{errors: int, diffs: int}, files: string[]}
+     * @return array{totals: array{errors: int, diffs: int}, files: array<string, array<string, list<array<string, mixed>>>>}
      */
     private function createBaseErrorsJson(ErrorAndDiffResult $errorAndDiffResult): array
     {

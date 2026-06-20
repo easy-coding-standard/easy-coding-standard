@@ -43,10 +43,6 @@ final class ParallelFileProcessor
      * @var int
      */
     private const SYSTEM_ERROR_LIMIT = 50;
-    /**
-     * @var \Symplify\EasyCodingStandard\Parallel\ValueObject\ProcessPool|null
-     */
-    private $processPool = null;
     public function __construct(WorkerCommandLineFactory $workerCommandLineFactory)
     {
         $this->workerCommandLineFactory = $workerCommandLineFactory;
@@ -68,20 +64,20 @@ final class ParallelFileProcessor
         $fileDiffs = [];
         $systemErrors = [];
         $tcpServer = new TcpServer('127.0.0.1:0', $streamSelectLoop);
-        $this->processPool = new ProcessPool($tcpServer);
-        $tcpServer->on(ReactEvent::CONNECTION, function (ConnectionInterface $connection) use (&$jobs): void {
+        $processPool = new ProcessPool($tcpServer);
+        $tcpServer->on(ReactEvent::CONNECTION, function (ConnectionInterface $connection) use (&$jobs, $processPool): void {
             $inDecoder = new Decoder($connection, \true, 512, 0, 4 * 1024 * 1024);
             $outEncoder = new Encoder($connection);
-            $inDecoder->on(ReactEvent::DATA, function (array $data) use (&$jobs, $inDecoder, $outEncoder): void {
+            $inDecoder->on(ReactEvent::DATA, function (array $data) use (&$jobs, $inDecoder, $outEncoder, $processPool): void {
                 $action = $data[ReactCommand::ACTION];
                 if ($action !== Action::HELLO) {
                     return;
                 }
                 $processIdentifier = $data[Option::PARALLEL_IDENTIFIER];
-                $parallelProcess = $this->processPool->getProcess($processIdentifier);
+                $parallelProcess = $processPool->getProcess($processIdentifier);
                 $parallelProcess->bindConnection($inDecoder, $outEncoder);
                 if ($jobs === []) {
-                    $this->processPool->quitProcess($processIdentifier);
+                    $processPool->quitProcess($processIdentifier);
                     return;
                 }
                 $job = array_pop($jobs);
@@ -94,11 +90,11 @@ final class ParallelFileProcessor
         $serverPort = parse_url($serverAddress, \PHP_URL_PORT);
         $systemErrorsCount = 0;
         $reachedSystemErrorsCountLimit = \false;
-        $handleErrorCallable = function (Throwable $throwable) use (&$systemErrors, &$systemErrorsCount, &$reachedSystemErrorsCountLimit): void {
+        $handleErrorCallable = function (Throwable $throwable) use (&$systemErrors, &$systemErrorsCount, &$reachedSystemErrorsCountLimit, $processPool): void {
             $systemErrors[] = new SystemError($throwable->getLine(), $throwable->getMessage(), $throwable->getFile());
             ++$systemErrorsCount;
             $reachedSystemErrorsCountLimit = \true;
-            $this->processPool->quitAll();
+            $processPool->quitAll();
         };
         $timeoutInSeconds = SimpleParameterProvider::getIntParameter(Option::PARALLEL_TIMEOUT_IN_SECONDS);
         // options mirrored to each worker sub-process
@@ -113,7 +109,7 @@ final class ParallelFileProcessor
             $parallelProcess = new ParallelProcess($workerCommandLine, $streamSelectLoop, $timeoutInSeconds);
             $parallelProcess->start(
                 // 1. callable on data
-                function (array $json) use ($parallelProcess, &$systemErrors, &$fileDiffs, &$codingStandardErrors, &$jobs, $postFileCallback, &$systemErrorsCount, &$reachedInternalErrorsCountLimit, $processIdentifier): void {
+                function (array $json) use ($parallelProcess, &$systemErrors, &$fileDiffs, &$codingStandardErrors, &$jobs, $postFileCallback, &$systemErrorsCount, &$reachedInternalErrorsCountLimit, $processIdentifier, $processPool): void {
                     // decode arrays to objects
                     foreach ($json[Bridge::SYSTEM_ERRORS] as $jsonError) {
                         if (is_string($jsonError)) {
@@ -132,10 +128,10 @@ final class ParallelFileProcessor
                     $systemErrorsCount += $json[Bridge::SYSTEM_ERRORS_COUNT];
                     if ($systemErrorsCount >= self::SYSTEM_ERROR_LIMIT) {
                         $reachedInternalErrorsCountLimit = \true;
-                        $this->processPool->quitAll();
+                        $processPool->quitAll();
                     }
                     if ($jobs === []) {
-                        $this->processPool->quitProcess($processIdentifier);
+                        $processPool->quitProcess($processIdentifier);
                         return;
                     }
                     $job = array_pop($jobs);
@@ -144,8 +140,8 @@ final class ParallelFileProcessor
                 // 2. callable on error
                 $handleErrorCallable,
                 // 3. callable on exit
-                function ($exitCode, string $stdErr) use (&$systemErrors, $processIdentifier): void {
-                    $this->processPool->tryQuitProcess($processIdentifier);
+                function ($exitCode, string $stdErr) use (&$systemErrors, $processIdentifier, $processPool): void {
+                    $processPool->tryQuitProcess($processIdentifier);
                     if ($exitCode === ExitCode::SUCCESS) {
                         return;
                     }
@@ -155,7 +151,7 @@ final class ParallelFileProcessor
                     $systemErrors[] = 'Child process error: ' . $stdErr;
                 }
             );
-            $this->processPool->attachProcess($processIdentifier, $parallelProcess);
+            $processPool->attachProcess($processIdentifier, $parallelProcess);
         }
         $streamSelectLoop->run();
         if ($reachedSystemErrorsCountLimit) {

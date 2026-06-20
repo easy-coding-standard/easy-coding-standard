@@ -5,6 +5,26 @@ namespace ECSPrefix202606\Entropy\Console\Terminal;
 
 final class Terminal
 {
+    /**
+     * @see SymfonyStyle::MAX_LINE_LENGTH
+     * @var int
+     */
+    private const MAX_LINE_LENGTH = 120;
+    /**
+     * Detect terminal width, capped at MAX_LINE_LENGTH, the same way SymfonyStyle does.
+     */
+    public static function getWidth(): int
+    {
+        $columns = getenv('COLUMNS');
+        if ($columns !== \false && is_numeric($columns)) {
+            return min((int) $columns, self::MAX_LINE_LENGTH);
+        }
+        $sttySize = @exec('stty size 2>/dev/null');
+        if (is_string($sttySize) && preg_match('#\d+ (?<columns>\d+)#', $sttySize, $matches) === 1) {
+            return min((int) $matches['columns'], self::MAX_LINE_LENGTH);
+        }
+        return self::MAX_LINE_LENGTH;
+    }
     public static function padVisibleRight(string $text, int $width, string $padChar = ' '): string
     {
         $len = self::visibleLength($text);
