@@ -6,6 +6,7 @@ namespace ECSPrefix202606\TomasVotruba\ClassLeak\Commands;
 use Closure;
 use ECSPrefix202606\Entropy\Console\Contract\CommandInterface;
 use ECSPrefix202606\Entropy\Console\Output\OutputPrinter;
+use ECSPrefix202606\Entropy\Console\Output\ProgressBar;
 use ECSPrefix202606\TomasVotruba\ClassLeak\Filtering\PossiblyUnusedClassesFilter;
 use ECSPrefix202606\TomasVotruba\ClassLeak\Finder\ClassNamesFinder;
 use ECSPrefix202606\TomasVotruba\ClassLeak\Finder\PhpFilesFinder;
@@ -49,7 +50,12 @@ final class CheckCommand implements CommandInterface
      * @var \TomasVotruba\ClassLeak\Reporting\UnusedClassesResultFactory
      */
     private $unusedClassesResultFactory;
-    public function __construct(ClassNamesFinder $classNamesFinder, UseImportsResolver $useImportsResolver, PossiblyUnusedClassesFilter $possiblyUnusedClassesFilter, UnusedClassReporter $unusedClassReporter, OutputPrinter $outputPrinter, PhpFilesFinder $phpFilesFinder, UnusedClassesResultFactory $unusedClassesResultFactory)
+    /**
+     * @readonly
+     * @var \Entropy\Console\Output\ProgressBar
+     */
+    private $progressBar;
+    public function __construct(ClassNamesFinder $classNamesFinder, UseImportsResolver $useImportsResolver, PossiblyUnusedClassesFilter $possiblyUnusedClassesFilter, UnusedClassReporter $unusedClassReporter, OutputPrinter $outputPrinter, PhpFilesFinder $phpFilesFinder, UnusedClassesResultFactory $unusedClassesResultFactory, ProgressBar $progressBar)
     {
         $this->classNamesFinder = $classNamesFinder;
         $this->useImportsResolver = $useImportsResolver;
@@ -58,6 +64,7 @@ final class CheckCommand implements CommandInterface
         $this->outputPrinter = $outputPrinter;
         $this->phpFilesFinder = $phpFilesFinder;
         $this->unusedClassesResultFactory = $unusedClassesResultFactory;
+        $this->progressBar = $progressBar;
     }
     public function getName(): string
     {
@@ -98,14 +105,20 @@ final class CheckCommand implements CommandInterface
             $progressCallback = $this->createProgressCallback(count($allFilePaths));
         }
         $usedNames = $this->resolveUsedClassNames($allFilePaths, $progressCallback);
-        $this->outputPrinter->newline(2);
+        if (!$json) {
+            $this->progressBar->finish();
+        }
+        $this->outputPrinter->newline();
         $progressCallback = null;
         if (!$json) {
             $this->outputPrinter->title('2. Extracting existing files with classes');
             $progressCallback = $this->createProgressCallback(count($phpFilePaths));
         }
         $existingFilesWithClasses = $this->classNamesFinder->resolveClassNamesToCheck($phpFilePaths, $progressCallback);
-        $this->outputPrinter->newline(2);
+        if (!$json) {
+            $this->progressBar->finish();
+        }
+        $this->outputPrinter->newline();
         $possiblyUnusedFilesWithClasses = $this->possiblyUnusedClassesFilter->filter($existingFilesWithClasses, $usedNames, $skipType, $skipSuffix, $skipAttribute, $includeEntities);
         $unusedClassesResult = $this->unusedClassesResultFactory->create($possiblyUnusedFilesWithClasses);
         $this->outputPrinter->newline();
@@ -127,16 +140,11 @@ final class CheckCommand implements CommandInterface
         sort($usedNames);
         return $usedNames;
     }
-    private function createProgressCallback(int $max): ?Closure
+    private function createProgressCallback(int $max): Closure
     {
-        // avoid printing to stdout during unit tests
-        if (defined('PHPUNIT_COMPOSER_INSTALL')) {
-            return null;
-        }
-        $current = 0;
-        return static function () use (&$current, $max): void {
-            ++$current;
-            fwrite(\STDOUT, sprintf("\r%d/%d", $current, $max));
+        $this->progressBar->start($max);
+        return function (): void {
+            $this->progressBar->advance();
         };
     }
 }

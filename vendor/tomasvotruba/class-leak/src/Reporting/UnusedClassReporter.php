@@ -31,7 +31,7 @@ final class UnusedClassReporter
         }
         $this->outputPrinter->newline(2);
         if ($unusedClassesResult->getCount() === 0) {
-            $this->outputPrinter->greenBackground('All services are used. Great job!');
+            $this->outputPrinter->success('All services are used. Great job!');
             return ExitCode::SUCCESS;
         }
         // separate with and without parent, as first one can be removed more easily
@@ -45,7 +45,7 @@ final class UnusedClassReporter
             $this->printLineWIthClasses('Unused traits - the easiest to remove', $unusedClassesResult->getTraits());
         }
         $this->outputPrinter->newline();
-        $this->outputPrinter->redBackground(sprintf('Found %d unused classes. Remove them or skip them using "--skip-type" option', $unusedClassesResult->getCount()));
+        $this->outputPrinter->error(sprintf('Found %d unused classes. Remove them or skip them using "--skip-type" option', $unusedClassesResult->getCount()));
         return ExitCode::ERROR;
     }
     /**

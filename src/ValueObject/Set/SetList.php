@@ -20,6 +20,7 @@ final class SetList
     public const CLEAN_CODE = __DIR__ . '/../../../config/set/clean-code.php';
     /**
      * @api
+     * @deprecated rules moved to the "common" sets (array, docblock, spaces). Use SetList::COMMON instead.
      * @var string
      */
     public const SYMPLIFY = __DIR__ . '/../../../config/set/symplify.php';
@@ -55,21 +56,9 @@ final class SetList
     public const NAMESPACES = __DIR__ . '/../../../config/set/common/namespaces.php';
     /**
      * @api
-     * @deprecated as dangerous without context. Use Rector instead.
-     * @var string
-     */
-    public const PHPUNIT = __DIR__ . '/../../../config/set/common/phpunit.php';
-    /**
-     * @api
      * @var string
      */
     public const SPACES = __DIR__ . '/../../../config/set/common/spaces.php';
-    /**
-     * @api
-     * @deprecated as dangerous without context. Use Rector instead.
-     * @var string
-     */
-    public const STRICT = __DIR__ . '/../../../config/set/common/strict.php';
     /**
      * @api
      * @var string

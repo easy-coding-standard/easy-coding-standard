@@ -2109,21 +2109,21 @@
         },
         {
             "name": "tomasvotruba\/class-leak",
-            "version": "2.1.7",
-            "version_normalized": "2.1.7.0",
+            "version": "2.1.8",
+            "version_normalized": "2.1.8.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/TomasVotruba\/class-leak.git",
-                "reference": "d8c62dd42e26bc753fcac1f18225daccc5fc5380"
+                "reference": "3ebe4d7bebfb40ab3a85a36431821367b0ac57ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/TomasVotruba\/class-leak\/zipball\/d8c62dd42e26bc753fcac1f18225daccc5fc5380",
-                "reference": "d8c62dd42e26bc753fcac1f18225daccc5fc5380",
+                "url": "https:\/\/api.github.com\/repos\/TomasVotruba\/class-leak\/zipball\/3ebe4d7bebfb40ab3a85a36431821367b0ac57ab",
+                "reference": "3ebe4d7bebfb40ab3a85a36431821367b0ac57ab",
                 "shasum": ""
             },
             "require": {
-                "entropy\/entropy": "^0.3 || ^0.4",
+                "entropy\/entropy": "^0.4.6",
                 "nette\/utils": "^4.1",
                 "nikic\/php-parser": "^5.7",
                 "php": ">=8.4",
@@ -2146,7 +2146,7 @@
                 "tomasvotruba\/unused-public": "^2.2",
                 "tracy\/tracy": "^2.12"
             },
-            "time": "2026-06-10T12:34:09+00:00",
+            "time": "2026-06-20T16:19:43+00:00",
             "bin": [
                 "bin\/class-leak",
                 "bin\/class-leak.php"
@@ -2165,7 +2165,7 @@
             "description": "Detect leaking classes",
             "support": {
                 "issues": "https:\/\/github.com\/TomasVotruba\/class-leak\/issues",
-                "source": "https:\/\/github.com\/TomasVotruba\/class-leak\/tree\/2.1.7"
+                "source": "https:\/\/github.com\/TomasVotruba\/class-leak\/tree\/2.1.8"
             },
             "funding": [
                 {

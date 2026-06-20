@@ -28,7 +28,10 @@ use PhpCsFixer\Fixer\Whitespace\NoSpacesAroundOffsetFixer;
 use PhpCsFixer\Fixer\Whitespace\NoWhitespaceInBlankLineFixer;
 use PhpCsFixer\Fixer\Whitespace\TypeDeclarationSpacesFixer;
 use PhpCsFixer\Fixer\Whitespace\TypesSpacesFixer;
+use Symplify\CodingStandard\Fixer\Spacing\MethodChainingNewlineFixer;
+use Symplify\CodingStandard\Fixer\Spacing\SpaceAfterCommaHereNowDocFixer;
 use Symplify\CodingStandard\Fixer\Spacing\StandaloneLinePromotedPropertyFixer;
+use Symplify\CodingStandard\Fixer\Strict\BlankLineAfterStrictTypesFixer;
 /**
  * Key 0 = level 0
  * Key 22 = level 22
@@ -64,16 +67,14 @@ final class SpacesLevel
         ReturnTypeDeclarationFixer::class,
         TypeDeclarationSpacesFixer::class,
         TypesSpacesFixer::class,
-        SuperfluousWhitespaceSniff::class,
-        // configurable, more impactful
-        ConcatSpaceFixer::class,
-        BinaryOperatorSpacesFixer::class,
         // most invasive structural changes
         MethodChainingIndentationFixer::class,
         StandaloneLinePromotedPropertyFixer::class,
         MethodArgumentSpaceFixer::class,
-        ClassAttributesSeparationFixer::class,
-        NoExtraBlankLinesFixer::class,
+        // newline spacing (from deprecated "symplify" set)
+        BlankLineAfterStrictTypesFixer::class,
+        SpaceAfterCommaHereNowDocFixer::class,
+        MethodChainingNewlineFixer::class,
     ];
     /**
      * Configurations matching the spaces set, applied when a configurable rule

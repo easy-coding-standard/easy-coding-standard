@@ -6,14 +6,11 @@ namespace Symplify\EasyCodingStandard\Config\Level;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\Casing\MagicConstantCasingFixer;
 use PhpCsFixer\Fixer\ClassNotation\ClassDefinitionFixer;
-use PhpCsFixer\Fixer\ClassNotation\OrderedClassElementsFixer;
 use PhpCsFixer\Fixer\ClassNotation\SelfAccessorFixer;
 use PhpCsFixer\Fixer\ClassNotation\SingleClassElementPerStatementFixer;
 use PhpCsFixer\Fixer\ControlStructure\IncludeFixer;
 use PhpCsFixer\Fixer\ControlStructure\NoAlternativeSyntaxFixer;
 use PhpCsFixer\Fixer\ControlStructure\NoSuperfluousElseifFixer;
-use PhpCsFixer\Fixer\ControlStructure\NoUselessElseFixer;
-use PhpCsFixer\Fixer\ControlStructure\SimplifiedIfReturnFixer;
 use PhpCsFixer\Fixer\ControlStructure\SwitchContinueToBreakFixer;
 use PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer;
 use PhpCsFixer\Fixer\FixerInterface;
@@ -23,7 +20,7 @@ use PhpCsFixer\Fixer\LanguageConstruct\FunctionToConstantFixer;
 use PhpCsFixer\Fixer\LanguageConstruct\IsNullFixer;
 use PhpCsFixer\Fixer\Operator\AssignNullCoalescingToCoalesceEqualFixer;
 use PhpCsFixer\Fixer\Operator\LongToShorthandOperatorFixer;
-use PhpCsFixer\Fixer\Operator\NewWithBracesFixer;
+use PhpCsFixer\Fixer\Operator\NewWithParenthesesFixer;
 use PhpCsFixer\Fixer\Operator\NoUselessConcatOperatorFixer;
 use PhpCsFixer\Fixer\Operator\NoUselessNullsafeOperatorFixer;
 use PhpCsFixer\Fixer\Operator\ObjectOperatorWithoutWhitespaceFixer;
@@ -54,7 +51,7 @@ final class ControlStructuresLevel
         IsNullFixer::class,
         FunctionToConstantFixer::class,
         StandardizeIncrementFixer::class,
-        NewWithBracesFixer::class,
+        NewWithParenthesesFixer::class,
         NullableTypeDeclarationForDefaultNullValueFixer::class,
         // operator spacing and simplification
         ObjectOperatorWithoutWhitespaceFixer::class,
@@ -69,18 +66,11 @@ final class ControlStructuresLevel
         ExplicitIndirectVariableFixer::class,
         // class-level tweaks
         SelfAccessorFixer::class,
-        ClassDefinitionFixer::class,
-        SingleClassElementPerStatementFixer::class,
         // control-flow normalization
         IncludeFixer::class,
         NoAlternativeSyntaxFixer::class,
         NoSuperfluousElseifFixer::class,
         SwitchContinueToBreakFixer::class,
-        // invasive control-flow / ordering changes
-        YodaStyleFixer::class,
-        NoUselessElseFixer::class,
-        SimplifiedIfReturnFixer::class,
-        OrderedClassElementsFixer::class,
     ];
     /**
      * @var array<class-string<Sniff|FixerInterface>, mixed[]>

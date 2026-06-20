@@ -37,11 +37,6 @@ final class ArrayLevel
         TrimArraySpacesFixer::class,
         NoWhitespaceInEmptyArrayFixer::class,
         NoMultilineWhitespaceAroundDoubleArrowFixer::class,
-        NoTrailingCommaInSinglelineFixer::class,
-        // syntax normalization
-        ArraySyntaxFixer::class,
-        ListSyntaxFixer::class,
-        TrailingCommaInMultilineFixer::class,
         // invasive layout changes
         ArrayIndentationFixer::class,
         ArrayOpenerAndCloserNewlineFixer::class,
