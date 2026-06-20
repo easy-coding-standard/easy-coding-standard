@@ -14,9 +14,9 @@ use Symplify\EasyCodingStandard\Configuration\ConfigurationFactory;
 use Symplify\EasyCodingStandard\Console\ExitCode;
 use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 use Symplify\EasyCodingStandard\MemoryLimitter;
+use Symplify\EasyCodingStandard\Parallel\Enum\Action;
+use Symplify\EasyCodingStandard\Parallel\Enum\ReactCommand;
 use Symplify\EasyCodingStandard\Parallel\WorkerRunner;
-use ECSPrefix202606\Symplify\EasyParallel\Enum\Action;
-use ECSPrefix202606\Symplify\EasyParallel\Enum\ReactCommand;
 /**
  * Inspired at: https://github.com/phpstan/phpstan-src/commit/9124c66dcc55a222e21b1717ba5f60771f7dda92
  * https://github.com/phpstan/phpstan-src/blob/c471c7b050e0929daf432288770de673b394a983/src/Command/WorkerCommand.php

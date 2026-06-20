@@ -1,11 +1,8 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202606\Symplify\EasyParallel\Enum;
+namespace Symplify\EasyCodingStandard\Parallel\Enum;
 
-/**
- * @api
- */
 final class Action
 {
     /**

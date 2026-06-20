@@ -14,7 +14,6 @@ return array(
     'PhpCsFixer\\' => array($vendorDir . '/friendsofphp/php-cs-fixer/src'),
     'ECSPrefix202606\\Webmozart\\Assert\\' => array($vendorDir . '/webmozart/assert/src'),
     'ECSPrefix202606\\TomasVotruba\\ClassLeak\\' => array($vendorDir . '/tomasvotruba/class-leak/src'),
-    'ECSPrefix202606\\Symplify\\EasyParallel\\' => array($vendorDir . '/symplify/easy-parallel/src'),
     'ECSPrefix202606\\Symfony\\Component\\OptionsResolver\\' => array($vendorDir . '/symfony/options-resolver'),
     'ECSPrefix202606\\Symfony\\Component\\Finder\\' => array($vendorDir . '/symfony/finder'),
     'ECSPrefix202606\\Symfony\\Component\\Filesystem\\' => array($vendorDir . '/symfony/filesystem'),

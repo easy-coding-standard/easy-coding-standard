@@ -1,13 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202606\Symplify\EasyParallel;
+namespace Symplify\EasyCodingStandard\Parallel;
 
 use ECSPrefix202606\Fidry\CpuCoreCounter\CpuCoreCounter;
 use ECSPrefix202606\Fidry\CpuCoreCounter\NumberOfCpuCoreNotFound;
-/**
- * @api
- */
 final class CpuCoreCountProvider
 {
     /**

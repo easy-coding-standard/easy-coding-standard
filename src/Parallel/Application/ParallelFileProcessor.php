@@ -11,20 +11,20 @@ use ECSPrefix202606\React\Socket\ConnectionInterface;
 use ECSPrefix202606\React\Socket\TcpServer;
 use Symplify\EasyCodingStandard\Console\ExitCode;
 use Symplify\EasyCodingStandard\DependencyInjection\SimpleParameterProvider;
+use Symplify\EasyCodingStandard\Parallel\CommandLine\WorkerCommandLineFactory;
+use Symplify\EasyCodingStandard\Parallel\Enum\Action;
+use Symplify\EasyCodingStandard\Parallel\Enum\Content;
+use Symplify\EasyCodingStandard\Parallel\Enum\ReactCommand;
+use Symplify\EasyCodingStandard\Parallel\Enum\ReactEvent;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
+use Symplify\EasyCodingStandard\Parallel\ValueObject\ParallelProcess;
+use Symplify\EasyCodingStandard\Parallel\ValueObject\ProcessPool;
+use Symplify\EasyCodingStandard\Parallel\ValueObject\Schedule;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use ECSPrefix202606\Symplify\EasyParallel\CommandLine\WorkerCommandLineFactory;
-use ECSPrefix202606\Symplify\EasyParallel\Enum\Action;
-use ECSPrefix202606\Symplify\EasyParallel\Enum\Content;
-use ECSPrefix202606\Symplify\EasyParallel\Enum\ReactCommand;
-use ECSPrefix202606\Symplify\EasyParallel\Enum\ReactEvent;
-use ECSPrefix202606\Symplify\EasyParallel\ValueObject\ParallelProcess;
-use ECSPrefix202606\Symplify\EasyParallel\ValueObject\ProcessPool;
-use ECSPrefix202606\Symplify\EasyParallel\ValueObject\Schedule;
 use Throwable;
 /**
  * Inspired from @see
@@ -36,7 +36,7 @@ final class ParallelFileProcessor
 {
     /**
      * @readonly
-     * @var \Symplify\EasyParallel\CommandLine\WorkerCommandLineFactory
+     * @var \Symplify\EasyCodingStandard\Parallel\CommandLine\WorkerCommandLineFactory
      */
     private $workerCommandLineFactory;
     /**
@@ -44,7 +44,7 @@ final class ParallelFileProcessor
      */
     private const SYSTEM_ERROR_LIMIT = 50;
     /**
-     * @var \Symplify\EasyParallel\ValueObject\ProcessPool|null
+     * @var \Symplify\EasyCodingStandard\Parallel\ValueObject\ProcessPool|null
      */
     private $processPool = null;
     public function __construct(WorkerCommandLineFactory $workerCommandLineFactory)

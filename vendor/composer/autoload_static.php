@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitb76fc5fe4092f8376225ebd89ba3640b
+class ComposerStaticInit7bfa69059fa0337cfc75373899fdd69d
 {
     public static $files = array (
         'ad155f8f1cf0d418fe49e248db8c661b' => __DIR__ . '/..' . '/react/promise/src/functions_include.php',
@@ -31,7 +31,6 @@ class ComposerStaticInitb76fc5fe4092f8376225ebd89ba3640b
         array (
             'ECSPrefix202606\\Webmozart\\Assert\\' => 33,
             'ECSPrefix202606\\TomasVotruba\\ClassLeak\\' => 39,
-            'ECSPrefix202606\\Symplify\\EasyParallel\\' => 38,
             'ECSPrefix202606\\Symfony\\Component\\OptionsResolver\\' => 50,
             'ECSPrefix202606\\Symfony\\Component\\Finder\\' => 41,
             'ECSPrefix202606\\Symfony\\Component\\Filesystem\\' => 45,
@@ -88,10 +87,6 @@ class ComposerStaticInitb76fc5fe4092f8376225ebd89ba3640b
         'ECSPrefix202606\\TomasVotruba\\ClassLeak\\' =>
         array (
             0 => __DIR__ . '/..' . '/tomasvotruba/class-leak/src',
-        ),
-        'ECSPrefix202606\\Symplify\\EasyParallel\\' =>
-        array (
-            0 => __DIR__ . '/..' . '/symplify/easy-parallel/src',
         ),
         'ECSPrefix202606\\Symfony\\Component\\OptionsResolver\\' =>
         array (
@@ -758,19 +753,6 @@ class ComposerStaticInitb76fc5fe4092f8376225ebd89ba3640b
         'ECSPrefix202606\\Symfony\\Component\\OptionsResolver\\OptionConfigurator' => __DIR__ . '/..' . '/symfony/options-resolver/OptionConfigurator.php',
         'ECSPrefix202606\\Symfony\\Component\\OptionsResolver\\Options' => __DIR__ . '/..' . '/symfony/options-resolver/Options.php',
         'ECSPrefix202606\\Symfony\\Component\\OptionsResolver\\OptionsResolver' => __DIR__ . '/..' . '/symfony/options-resolver/OptionsResolver.php',
-        'ECSPrefix202606\\Symplify\\EasyParallel\\CommandLine\\WorkerCommandLineFactory' => __DIR__ . '/..' . '/symplify/easy-parallel/src/CommandLine/WorkerCommandLineFactory.php',
-        'ECSPrefix202606\\Symplify\\EasyParallel\\Contract\\SerializableInterface' => __DIR__ . '/..' . '/symplify/easy-parallel/src/Contract/SerializableInterface.php',
-        'ECSPrefix202606\\Symplify\\EasyParallel\\CpuCoreCountProvider' => __DIR__ . '/..' . '/symplify/easy-parallel/src/CpuCoreCountProvider.php',
-        'ECSPrefix202606\\Symplify\\EasyParallel\\Enum\\Action' => __DIR__ . '/..' . '/symplify/easy-parallel/src/Enum/Action.php',
-        'ECSPrefix202606\\Symplify\\EasyParallel\\Enum\\Content' => __DIR__ . '/..' . '/symplify/easy-parallel/src/Enum/Content.php',
-        'ECSPrefix202606\\Symplify\\EasyParallel\\Enum\\ReactCommand' => __DIR__ . '/..' . '/symplify/easy-parallel/src/Enum/ReactCommand.php',
-        'ECSPrefix202606\\Symplify\\EasyParallel\\Enum\\ReactEvent' => __DIR__ . '/..' . '/symplify/easy-parallel/src/Enum/ReactEvent.php',
-        'ECSPrefix202606\\Symplify\\EasyParallel\\Exception\\ParallelShouldNotHappenException' => __DIR__ . '/..' . '/symplify/easy-parallel/src/Exception/ParallelShouldNotHappenException.php',
-        'ECSPrefix202606\\Symplify\\EasyParallel\\ScheduleFactory' => __DIR__ . '/..' . '/symplify/easy-parallel/src/ScheduleFactory.php',
-        'ECSPrefix202606\\Symplify\\EasyParallel\\ValueObject\\EasyParallelConfig' => __DIR__ . '/..' . '/symplify/easy-parallel/src/ValueObject/EasyParallelConfig.php',
-        'ECSPrefix202606\\Symplify\\EasyParallel\\ValueObject\\ParallelProcess' => __DIR__ . '/..' . '/symplify/easy-parallel/src/ValueObject/ParallelProcess.php',
-        'ECSPrefix202606\\Symplify\\EasyParallel\\ValueObject\\ProcessPool' => __DIR__ . '/..' . '/symplify/easy-parallel/src/ValueObject/ProcessPool.php',
-        'ECSPrefix202606\\Symplify\\EasyParallel\\ValueObject\\Schedule' => __DIR__ . '/..' . '/symplify/easy-parallel/src/ValueObject/Schedule.php',
         'ECSPrefix202606\\TomasVotruba\\ClassLeak\\ClassNameResolver' => __DIR__ . '/..' . '/tomasvotruba/class-leak/src/ClassNameResolver.php',
         'ECSPrefix202606\\TomasVotruba\\ClassLeak\\Commands\\CheckCommand' => __DIR__ . '/..' . '/tomasvotruba/class-leak/src/Commands/CheckCommand.php',
         'ECSPrefix202606\\TomasVotruba\\ClassLeak\\DependencyInjection\\ContainerFactory' => __DIR__ . '/..' . '/tomasvotruba/class-leak/src/DependencyInjection/ContainerFactory.php',
@@ -1523,8 +1505,20 @@ class ComposerStaticInitb76fc5fe4092f8376225ebd89ba3640b
         'Symplify\\EasyCodingStandard\\FixerRunner\\WhitespacesFixerConfigFactory' => __DIR__ . '/../..' . '/src/FixerRunner/WhitespacesFixerConfigFactory.php',
         'Symplify\\EasyCodingStandard\\MemoryLimitter' => __DIR__ . '/../..' . '/src/MemoryLimitter.php',
         'Symplify\\EasyCodingStandard\\Parallel\\Application\\ParallelFileProcessor' => __DIR__ . '/../..' . '/src/Parallel/Application/ParallelFileProcessor.php',
+        'Symplify\\EasyCodingStandard\\Parallel\\CommandLine\\WorkerCommandLineFactory' => __DIR__ . '/../..' . '/src/Parallel/CommandLine/WorkerCommandLineFactory.php',
+        'Symplify\\EasyCodingStandard\\Parallel\\Contract\\SerializableInterface' => __DIR__ . '/../..' . '/src/Parallel/Contract/SerializableInterface.php',
+        'Symplify\\EasyCodingStandard\\Parallel\\CpuCoreCountProvider' => __DIR__ . '/../..' . '/src/Parallel/CpuCoreCountProvider.php',
+        'Symplify\\EasyCodingStandard\\Parallel\\Enum\\Action' => __DIR__ . '/../..' . '/src/Parallel/Enum/Action.php',
+        'Symplify\\EasyCodingStandard\\Parallel\\Enum\\Content' => __DIR__ . '/../..' . '/src/Parallel/Enum/Content.php',
+        'Symplify\\EasyCodingStandard\\Parallel\\Enum\\ReactCommand' => __DIR__ . '/../..' . '/src/Parallel/Enum/ReactCommand.php',
+        'Symplify\\EasyCodingStandard\\Parallel\\Enum\\ReactEvent' => __DIR__ . '/../..' . '/src/Parallel/Enum/ReactEvent.php',
+        'Symplify\\EasyCodingStandard\\Parallel\\Exception\\ParallelShouldNotHappenException' => __DIR__ . '/../..' . '/src/Parallel/Exception/ParallelShouldNotHappenException.php',
+        'Symplify\\EasyCodingStandard\\Parallel\\ScheduleFactory' => __DIR__ . '/../..' . '/src/Parallel/ScheduleFactory.php',
         'Symplify\\EasyCodingStandard\\Parallel\\ValueObject\\Bridge' => __DIR__ . '/../..' . '/src/Parallel/ValueObject/Bridge.php',
         'Symplify\\EasyCodingStandard\\Parallel\\ValueObject\\Name' => __DIR__ . '/../..' . '/src/Parallel/ValueObject/Name.php',
+        'Symplify\\EasyCodingStandard\\Parallel\\ValueObject\\ParallelProcess' => __DIR__ . '/../..' . '/src/Parallel/ValueObject/ParallelProcess.php',
+        'Symplify\\EasyCodingStandard\\Parallel\\ValueObject\\ProcessPool' => __DIR__ . '/../..' . '/src/Parallel/ValueObject/ProcessPool.php',
+        'Symplify\\EasyCodingStandard\\Parallel\\ValueObject\\Schedule' => __DIR__ . '/../..' . '/src/Parallel/ValueObject/Schedule.php',
         'Symplify\\EasyCodingStandard\\Parallel\\WorkerRunner' => __DIR__ . '/../..' . '/src/Parallel/WorkerRunner.php',
         'Symplify\\EasyCodingStandard\\Reporter\\ProcessedFileReporter' => __DIR__ . '/../..' . '/src/Reporter/ProcessedFileReporter.php',
         'Symplify\\EasyCodingStandard\\Skipper\\Contract\\SkipVoterInterface' => __DIR__ . '/../..' . '/src/Skipper/Contract/SkipVoterInterface.php',
@@ -1566,9 +1560,9 @@ class ComposerStaticInitb76fc5fe4092f8376225ebd89ba3640b
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitb76fc5fe4092f8376225ebd89ba3640b::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitb76fc5fe4092f8376225ebd89ba3640b::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitb76fc5fe4092f8376225ebd89ba3640b::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit7bfa69059fa0337cfc75373899fdd69d::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit7bfa69059fa0337cfc75373899fdd69d::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit7bfa69059fa0337cfc75373899fdd69d::$classMap;
 
         }, null, ClassLoader::class);
     }

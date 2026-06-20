@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202606\Symplify\EasyParallel\Exception;
+namespace Symplify\EasyCodingStandard\Parallel\Exception;
 
 use Exception;
 final class ParallelShouldNotHappenException extends Exception

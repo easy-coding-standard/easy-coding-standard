@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202606\Symplify\EasyParallel\ValueObject;
+namespace Symplify\EasyCodingStandard\Parallel\ValueObject;
 
 use ECSPrefix202606\Clue\React\NDJson\Decoder;
 use ECSPrefix202606\Clue\React\NDJson\Encoder;
@@ -9,16 +9,14 @@ use Exception;
 use ECSPrefix202606\React\ChildProcess\Process;
 use ECSPrefix202606\React\EventLoop\LoopInterface;
 use ECSPrefix202606\React\EventLoop\TimerInterface;
-use ECSPrefix202606\Symplify\EasyParallel\Enum\Action;
-use ECSPrefix202606\Symplify\EasyParallel\Enum\Content;
-use ECSPrefix202606\Symplify\EasyParallel\Enum\ReactCommand;
-use ECSPrefix202606\Symplify\EasyParallel\Enum\ReactEvent;
-use ECSPrefix202606\Symplify\EasyParallel\Exception\ParallelShouldNotHappenException;
+use Symplify\EasyCodingStandard\Parallel\Enum\Action;
+use Symplify\EasyCodingStandard\Parallel\Enum\Content;
+use Symplify\EasyCodingStandard\Parallel\Enum\ReactCommand;
+use Symplify\EasyCodingStandard\Parallel\Enum\ReactEvent;
+use Symplify\EasyCodingStandard\Parallel\Exception\ParallelShouldNotHappenException;
 use Throwable;
 /**
  * Inspired at @see https://raw.githubusercontent.com/phpstan/phpstan-src/master/src/Parallel/Process.php
- *
- * @api
  */
 final class ParallelProcess
 {
@@ -84,15 +82,16 @@ final class ParallelProcess
         $this->onData = $onData;
         $this->onError = $onError;
         $this->process->on(ReactEvent::EXIT, function ($exitCode) use ($onExit): void {
-            if ($this->stdErr === null) {
+            $stdErr = $this->stdErr;
+            if ($stdErr === null) {
                 throw new ParallelShouldNotHappenException();
             }
             $this->cancelTimer();
-            rewind($this->stdErr);
+            rewind($stdErr);
             /** @var string $streamContents */
-            $streamContents = stream_get_contents($this->stdErr);
+            $streamContents = stream_get_contents($stdErr);
             $onExit($exitCode, $streamContents);
-            fclose($this->stdErr);
+            fclose($stdErr);
         });
     }
     /**

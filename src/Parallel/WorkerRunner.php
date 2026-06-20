@@ -6,14 +6,14 @@ namespace Symplify\EasyCodingStandard\Parallel;
 use ECSPrefix202606\Clue\React\NDJson\Decoder;
 use ECSPrefix202606\Clue\React\NDJson\Encoder;
 use Symplify\EasyCodingStandard\Application\SingleFileProcessor;
+use Symplify\EasyCodingStandard\Parallel\Enum\Action;
+use Symplify\EasyCodingStandard\Parallel\Enum\Content;
+use Symplify\EasyCodingStandard\Parallel\Enum\ReactCommand;
+use Symplify\EasyCodingStandard\Parallel\Enum\ReactEvent;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
 use Symplify\EasyCodingStandard\Utils\ParametersMerger;
 use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
-use ECSPrefix202606\Symplify\EasyParallel\Enum\Action;
-use ECSPrefix202606\Symplify\EasyParallel\Enum\Content;
-use ECSPrefix202606\Symplify\EasyParallel\Enum\ReactCommand;
-use ECSPrefix202606\Symplify\EasyParallel\Enum\ReactEvent;
 use Throwable;
 final class WorkerRunner
 {

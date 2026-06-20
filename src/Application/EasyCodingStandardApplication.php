@@ -12,6 +12,8 @@ use Symplify\EasyCodingStandard\FileSystem\FileFilter;
 use Symplify\EasyCodingStandard\FileSystem\StaticRelativeFilePathHelper;
 use Symplify\EasyCodingStandard\Finder\SourceFinder;
 use Symplify\EasyCodingStandard\Parallel\Application\ParallelFileProcessor;
+use Symplify\EasyCodingStandard\Parallel\CpuCoreCountProvider;
+use Symplify\EasyCodingStandard\Parallel\ScheduleFactory;
 use Symplify\EasyCodingStandard\Parallel\ValueObject\Bridge;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
 use Symplify\EasyCodingStandard\Utils\ParametersMerger;
@@ -19,8 +21,6 @@ use Symplify\EasyCodingStandard\ValueObject\Configuration;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use ECSPrefix202606\Symplify\EasyParallel\CpuCoreCountProvider;
-use ECSPrefix202606\Symplify\EasyParallel\ScheduleFactory;
 final class EasyCodingStandardApplication
 {
     /**
@@ -50,7 +50,7 @@ final class EasyCodingStandardApplication
     private $singleFileProcessor;
     /**
      * @readonly
-     * @var \Symplify\EasyParallel\ScheduleFactory
+     * @var \Symplify\EasyCodingStandard\Parallel\ScheduleFactory
      */
     private $scheduleFactory;
     /**
@@ -60,7 +60,7 @@ final class EasyCodingStandardApplication
     private $parallelFileProcessor;
     /**
      * @readonly
-     * @var \Symplify\EasyParallel\CpuCoreCountProvider
+     * @var \Symplify\EasyCodingStandard\Parallel\CpuCoreCountProvider
      */
     private $cpuCoreCountProvider;
     /**
