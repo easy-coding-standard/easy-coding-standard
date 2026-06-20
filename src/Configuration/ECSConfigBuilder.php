@@ -56,7 +56,7 @@ final class ECSConfigBuilder
      */
     private $rules = [];
     /**
-     * @var array<class-string<(FixerInterface | Sniff)>, mixed>
+     * @var array<class-string<(FixerInterface|Sniff)>, mixed>
      */
     private $rulesWithConfiguration = [];
     /**
@@ -222,6 +222,10 @@ final class ECSConfigBuilder
         bool $namespaces = \false,
         /** @see SetList::CONTROL_STRUCTURES */
         bool $controlStructures = \false,
+        /** @see SetList::CASING */
+        bool $casing = \false,
+        /** @see SetList::CLEANUP */
+        bool $cleanup = \false,
         /**
          * @deprecated as never worked, used different rules. Use Rector instead.
          * @see SetList::PHPUNIT
@@ -245,7 +249,7 @@ final class ECSConfigBuilder
         if ($common) {
             // include all "common" sets
             $this->sets[] = SetList::COMMON;
-            if (($alreadyIncludedSets = array_keys(array_filter(['arrays' => $arrays, 'spaces' => $spaces, 'namespaces' => $namespaces, 'docblocks' => $docblocks, 'controlStructures' => $controlStructures, 'comments' => $comments]))) !== []) {
+            if (($alreadyIncludedSets = array_keys(array_filter(['arrays' => $arrays, 'spaces' => $spaces, 'namespaces' => $namespaces, 'docblocks' => $docblocks, 'controlStructures' => $controlStructures, 'comments' => $comments, 'casing' => $casing, 'cleanup' => $cleanup]))) !== []) {
                 throw new SuperfluousConfigurationException(sprintf('The following sets are already included in the "common" set: %s. Please remove them.', implode(', ', $alreadyIncludedSets)));
             }
         } else {
@@ -269,6 +273,12 @@ final class ECSConfigBuilder
             }
             if ($comments) {
                 $this->sets[] = SetList::COMMENTS;
+            }
+            if ($casing) {
+                $this->sets[] = SetList::CASING;
+            }
+            if ($cleanup) {
+                $this->sets[] = SetList::CLEANUP;
             }
         }
         if ($strict) {
@@ -524,7 +534,7 @@ final class ECSConfigBuilder
         return $this;
     }
     /**
-     * @param class-string<(FixerInterface | Sniff)> $checkerClass
+     * @param class-string<(FixerInterface|Sniff)> $checkerClass
      * @param mixed[] $configuration
      */
     public function withConfiguredRule(string $checkerClass, array $configuration): self

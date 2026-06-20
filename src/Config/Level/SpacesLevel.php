@@ -27,6 +27,7 @@ use PhpCsFixer\Fixer\Whitespace\NoExtraBlankLinesFixer;
 use PhpCsFixer\Fixer\Whitespace\NoSpacesAroundOffsetFixer;
 use PhpCsFixer\Fixer\Whitespace\NoWhitespaceInBlankLineFixer;
 use PhpCsFixer\Fixer\Whitespace\TypeDeclarationSpacesFixer;
+use PhpCsFixer\Fixer\Whitespace\TypesSpacesFixer;
 use Symplify\CodingStandard\Fixer\Spacing\StandaloneLinePromotedPropertyFixer;
 /**
  * Key 0 = level 0
@@ -62,6 +63,7 @@ final class SpacesLevel
         TernaryOperatorSpacesFixer::class,
         ReturnTypeDeclarationFixer::class,
         TypeDeclarationSpacesFixer::class,
+        TypesSpacesFixer::class,
         SuperfluousWhitespaceSniff::class,
         // configurable, more impactful
         ConcatSpaceFixer::class,

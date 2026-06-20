@@ -6,12 +6,22 @@ namespace Symplify\EasyCodingStandard\Config\Level;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\Comment\NoTrailingWhitespaceInCommentFixer;
 use PhpCsFixer\Fixer\FixerInterface;
+use PhpCsFixer\Fixer\Phpdoc\AlignMultilineCommentFixer;
+use PhpCsFixer\Fixer\Phpdoc\NoBlankLinesAfterPhpdocFixer;
 use PhpCsFixer\Fixer\Phpdoc\NoEmptyPhpdocFixer;
 use PhpCsFixer\Fixer\Phpdoc\NoSuperfluousPhpdocTagsFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocIndentFixer;
+use PhpCsFixer\Fixer\Phpdoc\PhpdocInlineTagNormalizerFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocLineSpanFixer;
+use PhpCsFixer\Fixer\Phpdoc\PhpdocNoAccessFixer;
+use PhpCsFixer\Fixer\Phpdoc\PhpdocNoAliasTagFixer;
+use PhpCsFixer\Fixer\Phpdoc\PhpdocNoDuplicateTypesFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocNoEmptyReturnFixer;
+use PhpCsFixer\Fixer\Phpdoc\PhpdocNoPackageFixer;
+use PhpCsFixer\Fixer\Phpdoc\PhpdocOrderByValueFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocReturnSelfReferenceFixer;
+use PhpCsFixer\Fixer\Phpdoc\PhpdocScalarFixer;
+use PhpCsFixer\Fixer\Phpdoc\PhpdocTagCasingFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocTrimConsecutiveBlankLineSeparationFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocTrimFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocTypesFixer;
@@ -61,12 +71,22 @@ final class DocblockLevel
         PhpdocTrimFixer::class,
         PhpdocTrimConsecutiveBlankLineSeparationFixer::class,
         PhpdocIndentFixer::class,
+        NoBlankLinesAfterPhpdocFixer::class,
+        AlignMultilineCommentFixer::class,
         // type / formatting normalization
+        PhpdocTagCasingFixer::class,
+        PhpdocInlineTagNormalizerFixer::class,
+        PhpdocNoDuplicateTypesFixer::class,
+        PhpdocScalarFixer::class,
         PhpdocTypesFixer::class,
         PhpdocLineSpanFixer::class,
         PhpdocVarWithoutNameFixer::class,
         PhpdocReturnSelfReferenceFixer::class,
+        PhpdocOrderByValueFixer::class,
         // dropping content
+        PhpdocNoAliasTagFixer::class,
+        PhpdocNoAccessFixer::class,
+        PhpdocNoPackageFixer::class,
         NoEmptyPhpdocFixer::class,
         PhpdocNoEmptyReturnFixer::class,
         RemoveUselessDefaultCommentFixer::class,

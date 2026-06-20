@@ -5,4 +5,4 @@ namespace ECSPrefix202606;
 
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
-return ECSConfig::configure()->withSets([SetList::ARRAY, SetList::COMMENTS, SetList::CONTROL_STRUCTURES, SetList::DOCBLOCK, SetList::NAMESPACES, SetList::SPACES, SetList::CLEAN_CODE]);
+return ECSConfig::configure()->withSets([SetList::ARRAY, SetList::COMMENTS, SetList::CONTROL_STRUCTURES, SetList::DOCBLOCK, SetList::NAMESPACES, SetList::SPACES, SetList::CASING, SetList::CLEANUP, SetList::CLEAN_CODE]);

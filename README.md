@@ -89,6 +89,42 @@ return ECSConfig::configure()
 
 <br>
 
+### Prepared Sets
+
+`->withPreparedSets()` bundles curated rule sets. Enable the whole `common` set, or pick single topics:
+
+```php
+use Symplify\EasyCodingStandard\Config\ECSConfig;
+
+return ECSConfig::configure()
+    ->withPaths([__DIR__ . '/src', __DIR__ . '/tests'])
+    ->withPreparedSets(
+        arrays: true,
+        spaces: true,
+        namespaces: true,
+        docblocks: true,
+        controlStructures: true,
+        comments: true,
+        casing: true,
+        cleanup: true,
+    );
+```
+
+| Set | What it covers |
+| --- | --- |
+| `arrays` | array syntax, spacing, trailing commas, indentation |
+| `spaces` | whitespace, operator/type spacing, blank lines |
+| `namespaces` | imports ordering, unused/needless-alias imports |
+| `docblocks` | phpdoc tags, types, alignment, cleanup |
+| `controlStructures` | control flow, casing, operators, class structure |
+| `comments` | comment style, spacing, empty-comment cleanup |
+| `casing` | native function/type, magic method, literal casing |
+| `cleanup` | dead statements, useless returns/casts, unused closure imports |
+
+Or enable everything at once with `->withPreparedSets(common: true)`.
+
+<br>
+
 Do you want to include one of sets from [php-cs-fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/blob/master/doc/ruleSets/index.rst)?
 
 You can:
