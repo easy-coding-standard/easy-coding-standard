@@ -108,7 +108,7 @@ final class ECSAutoloadIncluder
         if (\in_array($file, $this->alreadyLoadedAutoloadFiles, \true)) {
             return;
         }
-        /** @var string|false $realPath */
+        /** @var non-empty-string|false $realPath */
         $realPath = \realpath($file);
         if (!\is_string($realPath)) {
             return;
