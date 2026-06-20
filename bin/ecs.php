@@ -19,9 +19,6 @@ use Symplify\EasyCodingStandard\DependencyInjection\ServiceContainerFactory;
 \define('__ECS_RUNNING__', \true);
 # 1. autoload
 $autoloadIncluder = new ECSAutoloadIncluder();
-if (\file_exists(__DIR__ . '/../preload.php')) {
-    require_once __DIR__ . '/../preload.php';
-}
 $autoloadIncluder->includeCwdVendorAutoloadIfExists();
 $autoloadIncluder->loadIfNotLoadedYet(__DIR__ . '/../vendor/scoper-autoload.php');
 $autoloadIncluder->autoloadProjectAutoloaderFile('/../../autoload.php');
@@ -111,6 +108,7 @@ final class ECSAutoloadIncluder
         if (\in_array($file, $this->alreadyLoadedAutoloadFiles, \true)) {
             return;
         }
+        /** @var string|false $realPath */
         $realPath = \realpath($file);
         if (!\is_string($realPath)) {
             return;
