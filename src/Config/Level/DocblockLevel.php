@@ -34,6 +34,7 @@ use Symplify\CodingStandard\Fixer\Commenting\AddMissingParamNameFixer;
 use Symplify\CodingStandard\Fixer\Commenting\AddMissingVarNameFixer;
 use Symplify\CodingStandard\Fixer\Commenting\DoubleAsteriskInlineVarFixer;
 use Symplify\CodingStandard\Fixer\Commenting\FixParamNameTypoFixer;
+use Symplify\CodingStandard\Fixer\Commenting\FixTagTypoFixer;
 use Symplify\CodingStandard\Fixer\Commenting\RemoveDeadParamFixer;
 use Symplify\CodingStandard\Fixer\Commenting\RemoveDeadVarThisFixer;
 use Symplify\CodingStandard\Fixer\Commenting\RemoveParamNameReferenceFixer;
@@ -55,6 +56,8 @@ final class DocblockLevel
      * @var array<class-string<Sniff|FixerInterface>>
      */
     public const RULES = [
+        // tag name typos (@returns → @return), run early so later rules see correct tags
+        FixTagTypoFixer::class,
         // inline @var
         DoubleAsteriskInlineVarFixer::class,
         RemoveDeadVarThisFixer::class,

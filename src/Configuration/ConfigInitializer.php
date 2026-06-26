@@ -6,6 +6,7 @@ namespace Symplify\EasyCodingStandard\Configuration;
 use ECSPrefix202606\Nette\Utils\FileSystem;
 use Symplify\EasyCodingStandard\Application\FileProcessorCollector;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
+use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 final class ConfigInitializer
 {
     /**
