@@ -70,6 +70,8 @@ final class RemoveMethodNameDuplicateDescriptionFixer extends AbstractSymplifyFi
             $docblockLines = explode("\n", $originalDocContent);
             foreach ($docblockLines as $key => $docblockLine) {
                 $spacelessDocblockLine = Regex::replace($docblockLine, '#[\s\n]+#', '');
+                // ignore trailing sentence punctuation, e.g. "Set name." duplicates setName()
+                $spacelessDocblockLine = rtrim($spacelessDocblockLine, '.!');
                 if (strtolower($spacelessDocblockLine) !== strtolower('*' . $methodName)) {
                     continue;
                 }
