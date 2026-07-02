@@ -56,7 +56,7 @@ final class EscapeImplicitBackslashesFixer extends AbstractProxyFixer implements
         $codeSample = <<<'EOF'
 <?php
 
-namespace ECSPrefix202606;
+namespace ECSPrefix202607;
 
 $singleQuoted = 'String with \" and My\Prefix\\';
 $doubleQuoted = "Interpret my \n but not my \\a";

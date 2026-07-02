@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 declare (strict_types=1);
-namespace ECSPrefix202606;
+namespace ECSPrefix202607;
 
-use ECSPrefix202606\Fidry\CpuCoreCounter\Diagnoser;
-use ECSPrefix202606\Fidry\CpuCoreCounter\Finder\FinderRegistry;
+use ECSPrefix202607\Fidry\CpuCoreCounter\Diagnoser;
+use ECSPrefix202607\Fidry\CpuCoreCounter\Finder\FinderRegistry;
 require_once __DIR__ . '/../vendor/autoload.php';
 echo 'Running diagnosis...' . \PHP_EOL . \PHP_EOL;
 echo Diagnoser::diagnose(FinderRegistry::getAllVariants()) . \PHP_EOL;

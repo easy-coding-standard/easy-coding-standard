@@ -5,9 +5,9 @@ declare (strict_types=1);
  * This file is part of the Nette Framework (https://nette.org)
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
-namespace ECSPrefix202606\Nette\Utils;
+namespace ECSPrefix202607\Nette\Utils;
 
-use ECSPrefix202606\Nette;
+use ECSPrefix202607\Nette;
 if (\false) {
     /** @deprecated use Nette\HtmlStringable */
     interface IHtmlString extends Nette\HtmlStringable
@@ -16,7 +16,7 @@ if (\false) {
 } elseif (!interface_exists(IHtmlString::class)) {
     class_alias(Nette\HtmlStringable::class, IHtmlString::class);
 }
-namespace ECSPrefix202606\Nette\Localization;
+namespace ECSPrefix202607\Nette\Localization;
 
 if (\false) {
     /** @deprecated use Nette\Localization\Translator */

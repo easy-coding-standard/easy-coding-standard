@@ -49,7 +49,7 @@ final class HeredocIndentationFixer extends AbstractFixer implements Configurabl
         return new FixerDefinition('Heredoc/nowdoc content must be properly indented.', [new CodeSample(<<<'SAMPLE'
 <?php
 
-namespace ECSPrefix202606;
+namespace ECSPrefix202607;
 
 $heredoc = <<<EOD
 abc
@@ -65,7 +65,7 @@ SAMPLE
 ), new CodeSample(<<<'SAMPLE'
 <?php
 
-namespace ECSPrefix202606;
+namespace ECSPrefix202607;
 
 $nowdoc = <<<'EOD'
 abc

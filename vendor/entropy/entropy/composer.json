@@ -23,13 +23,13 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix202606\\Entropy\\": "src"
+            "ECSPrefix202607\\Entropy\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix202606\\Entropy\\Tests\\": "tests",
-            "ECSPrefix202606\\App\\Project\\": [
+            "ECSPrefix202607\\Entropy\\Tests\\": "tests",
+            "ECSPrefix202607\\App\\Project\\": [
                 "tests\/Container\/Autodiscovery\/Fixture\/project-with-value-objects\/src"
             ]
         }

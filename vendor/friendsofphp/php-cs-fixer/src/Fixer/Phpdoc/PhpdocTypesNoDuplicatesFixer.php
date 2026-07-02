@@ -29,7 +29,7 @@ final class PhpdocTypesNoDuplicatesFixer extends AbstractProxyFixer implements D
         return new FixerDefinition('Removes duplicate PHPDoc types.', [new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202606;
+namespace ECSPrefix202607;
 
 /**
 * @param string|string|int $bar

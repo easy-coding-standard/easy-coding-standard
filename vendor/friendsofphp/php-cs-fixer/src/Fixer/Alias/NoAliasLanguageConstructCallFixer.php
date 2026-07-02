@@ -28,7 +28,7 @@ final class NoAliasLanguageConstructCallFixer extends AbstractFixer
         return new FixerDefinition('Master language constructs shall be used instead of aliases.', [new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202606;
+namespace ECSPrefix202607;
 
 die;
 

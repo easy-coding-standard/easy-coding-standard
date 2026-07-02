@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix202606\React\Socket;
+namespace ECSPrefix202607\React\Socket;
 
-use ECSPrefix202606\React\Stream\DuplexStreamInterface;
+use ECSPrefix202607\React\Stream\DuplexStreamInterface;
 /**
  * Any incoming and outgoing connection is represented by this interface,
  * such as a normal TCP/IP connection.

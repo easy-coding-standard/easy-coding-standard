@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Config;
 
-use ECSPrefix202606\Entropy\Container\Container;
+use ECSPrefix202607\Entropy\Container\Container;
 use Override;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
@@ -18,8 +18,8 @@ use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveExcludedC
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\SimpleParameterProvider;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use ECSPrefix202606\Webmozart\Assert\Assert;
-use ECSPrefix202606\Webmozart\Assert\InvalidArgumentException;
+use ECSPrefix202607\Webmozart\Assert\Assert;
+use ECSPrefix202607\Webmozart\Assert\InvalidArgumentException;
 /**
  * @api
  */

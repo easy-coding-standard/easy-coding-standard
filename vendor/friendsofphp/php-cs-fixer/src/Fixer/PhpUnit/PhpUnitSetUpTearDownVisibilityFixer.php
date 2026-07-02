@@ -31,9 +31,9 @@ final class PhpUnitSetUpTearDownVisibilityFixer extends AbstractPhpUnitFixer
         return new FixerDefinition('Changes the visibility of the `setUp()` and `tearDown()` functions of PHPUnit to `protected`, to match the PHPUnit TestCase.', [new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202606;
+namespace ECSPrefix202607;
 
-final class MyTest extends \ECSPrefix202606\PHPUnit_Framework_TestCase
+final class MyTest extends \ECSPrefix202607\PHPUnit_Framework_TestCase
 {
     private $hello;
     public function setUp()
@@ -45,7 +45,7 @@ final class MyTest extends \ECSPrefix202606\PHPUnit_Framework_TestCase
         $this->hello = null;
     }
 }
-\class_alias('ECSPrefix202606\MyTest', 'MyTest', \false);
+\class_alias('ECSPrefix202607\MyTest', 'MyTest', \false);
 
 PHP
 )], null, 'This fixer may change functions named `setUp()` or `tearDown()` outside of PHPUnit tests, ' . 'when a class is wrongly seen as a PHPUnit test.');

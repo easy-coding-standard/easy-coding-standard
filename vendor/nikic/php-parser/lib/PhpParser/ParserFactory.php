@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202606\PhpParser;
+namespace ECSPrefix202607\PhpParser;
 
-use ECSPrefix202606\PhpParser\Parser\Php7;
-use ECSPrefix202606\PhpParser\Parser\Php8;
+use ECSPrefix202607\PhpParser\Parser\Php7;
+use ECSPrefix202607\PhpParser\Parser\Php8;
 class ParserFactory
 {
     /**

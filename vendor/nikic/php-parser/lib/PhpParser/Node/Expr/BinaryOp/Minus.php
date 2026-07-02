@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202606\PhpParser\Node\Expr\BinaryOp;
+namespace ECSPrefix202607\PhpParser\Node\Expr\BinaryOp;
 
-use ECSPrefix202606\PhpParser\Node\Expr\BinaryOp;
+use ECSPrefix202607\PhpParser\Node\Expr\BinaryOp;
 class Minus extends BinaryOp
 {
     public function getOperatorSigil(): string

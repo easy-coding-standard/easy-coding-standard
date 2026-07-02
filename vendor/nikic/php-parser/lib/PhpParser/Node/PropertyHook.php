@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202606\PhpParser\Node;
+namespace ECSPrefix202607\PhpParser\Node;
 
-use ECSPrefix202606\PhpParser\Modifiers;
-use ECSPrefix202606\PhpParser\Node\Expr\Assign;
-use ECSPrefix202606\PhpParser\Node\Expr\PropertyFetch;
-use ECSPrefix202606\PhpParser\Node\Expr\Variable;
-use ECSPrefix202606\PhpParser\Node\Stmt\Expression;
-use ECSPrefix202606\PhpParser\Node\Stmt\Return_;
-use ECSPrefix202606\PhpParser\NodeAbstract;
+use ECSPrefix202607\PhpParser\Modifiers;
+use ECSPrefix202607\PhpParser\Node\Expr\Assign;
+use ECSPrefix202607\PhpParser\Node\Expr\PropertyFetch;
+use ECSPrefix202607\PhpParser\Node\Expr\Variable;
+use ECSPrefix202607\PhpParser\Node\Stmt\Expression;
+use ECSPrefix202607\PhpParser\Node\Stmt\Return_;
+use ECSPrefix202607\PhpParser\NodeAbstract;
 class PropertyHook extends NodeAbstract implements FunctionLike
 {
     /** @var AttributeGroup[] PHP attribute groups */

@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202606\TomasVotruba\ClassLeak\Filtering;
+namespace ECSPrefix202607\TomasVotruba\ClassLeak\Filtering;
 
-use ECSPrefix202606\TomasVotruba\ClassLeak\ValueObject\FileWithClass;
-use ECSPrefix202606\Webmozart\Assert\Assert;
+use ECSPrefix202607\TomasVotruba\ClassLeak\ValueObject\FileWithClass;
+use ECSPrefix202607\Webmozart\Assert\Assert;
 final class PossiblyUnusedClassesFilter
 {
     /**
@@ -15,67 +15,67 @@ final class PossiblyUnusedClassesFilter
      */
     private const DEFAULT_TYPES_TO_SKIP = [
         // http-kernel
-        'ECSPrefix202606\Symfony\Component\Console\Application',
-        'ECSPrefix202606\Symfony\Component\HttpKernel\DependencyInjection\Extension',
-        'ECSPrefix202606\Symfony\Bundle\FrameworkBundle\Controller\Controller',
-        'ECSPrefix202606\Symfony\Bundle\FrameworkBundle\Controller\AbstractController',
-        'ECSPrefix202606\Livewire\Component',
-        'ECSPrefix202606\Illuminate\Routing\Controller',
-        'ECSPrefix202606\Illuminate\Contracts\Http\Kernel',
-        'ECSPrefix202606\Illuminate\Support\ServiceProvider',
+        'ECSPrefix202607\Symfony\Component\Console\Application',
+        'ECSPrefix202607\Symfony\Component\HttpKernel\DependencyInjection\Extension',
+        'ECSPrefix202607\Symfony\Bundle\FrameworkBundle\Controller\Controller',
+        'ECSPrefix202607\Symfony\Bundle\FrameworkBundle\Controller\AbstractController',
+        'ECSPrefix202607\Livewire\Component',
+        'ECSPrefix202607\Illuminate\Routing\Controller',
+        'ECSPrefix202607\Illuminate\Contracts\Http\Kernel',
+        'ECSPrefix202607\Illuminate\Support\ServiceProvider',
         // events
-        'ECSPrefix202606\Symfony\Component\EventDispatcher\EventSubscriberInterface',
-        'ECSPrefix202606\Symfony\Component\Form\FormTypeExtensionInterface',
-        'ECSPrefix202606\Symfony\Component\Security\Core\Authentication\SimpleAuthenticatorInterface',
-        'ECSPrefix202606\Vich\UploaderBundle\Naming\DirectoryNamerInterface',
+        'ECSPrefix202607\Symfony\Component\EventDispatcher\EventSubscriberInterface',
+        'ECSPrefix202607\Symfony\Component\Form\FormTypeExtensionInterface',
+        'ECSPrefix202607\Symfony\Component\Security\Core\Authentication\SimpleAuthenticatorInterface',
+        'ECSPrefix202607\Vich\UploaderBundle\Naming\DirectoryNamerInterface',
         // validator
-        'ECSPrefix202606\Symfony\Component\Validator\Constraint',
-        'ECSPrefix202606\Symfony\Component\Validator\ConstraintValidator',
-        'ECSPrefix202606\Symfony\Component\Validator\ConstraintValidatorInterface',
-        'ECSPrefix202606\Symfony\Component\Security\Core\Authorization\Voter\VoterInterface',
-        'ECSPrefix202606\Symfony\Component\Security\Http\Logout\LogoutSuccessHandlerInterface',
-        'ECSPrefix202606\Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerInterface',
-        'ECSPrefix202606\Symfony\Component\Security\Http\Authorization\AccessDeniedHandlerInterface',
-        'ECSPrefix202606\Symfony\Component\Security\Http\Authentication\AuthenticationFailureHandlerInterface',
+        'ECSPrefix202607\Symfony\Component\Validator\Constraint',
+        'ECSPrefix202607\Symfony\Component\Validator\ConstraintValidator',
+        'ECSPrefix202607\Symfony\Component\Validator\ConstraintValidatorInterface',
+        'ECSPrefix202607\Symfony\Component\Security\Core\Authorization\Voter\VoterInterface',
+        'ECSPrefix202607\Symfony\Component\Security\Http\Logout\LogoutSuccessHandlerInterface',
+        'ECSPrefix202607\Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerInterface',
+        'ECSPrefix202607\Symfony\Component\Security\Http\Authorization\AccessDeniedHandlerInterface',
+        'ECSPrefix202607\Symfony\Component\Security\Http\Authentication\AuthenticationFailureHandlerInterface',
         // symfony forms
-        'ECSPrefix202606\Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface',
-        'ECSPrefix202606\Symfony\Component\Form\AbstractType',
+        'ECSPrefix202607\Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface',
+        'ECSPrefix202607\Symfony\Component\Form\AbstractType',
         // doctrine
-        'ECSPrefix202606\Doctrine\Common\DataFixtures\FixtureInterface',
-        'ECSPrefix202606\Doctrine\Common\EventSubscriber',
-        'ECSPrefix202606\Nelmio\Alice\ProcessorInterface',
+        'ECSPrefix202607\Doctrine\Common\DataFixtures\FixtureInterface',
+        'ECSPrefix202607\Doctrine\Common\EventSubscriber',
+        'ECSPrefix202607\Nelmio\Alice\ProcessorInterface',
         // kernel
-        'ECSPrefix202606\Symfony\Component\HttpKernel\Bundle\BundleInterface',
-        'ECSPrefix202606\Symfony\Component\HttpKernel\KernelInterface',
-        'ECSPrefix202606\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator',
+        'ECSPrefix202607\Symfony\Component\HttpKernel\Bundle\BundleInterface',
+        'ECSPrefix202607\Symfony\Component\HttpKernel\KernelInterface',
+        'ECSPrefix202607\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator',
         // console
-        'ECSPrefix202606\Symfony\Component\Console\Command\Command',
-        'ECSPrefix202606\Entropy\Console\Contract\CommandInterface',
-        'ECSPrefix202606\Twig\Extension\ExtensionInterface',
+        'ECSPrefix202607\Symfony\Component\Console\Command\Command',
+        'ECSPrefix202607\Entropy\Console\Contract\CommandInterface',
+        'ECSPrefix202607\Twig\Extension\ExtensionInterface',
         'PhpCsFixer\Fixer\FixerInterface',
         'PHPUnit\Framework\TestCase',
-        'ECSPrefix202606\PHPStan\Rules\Rule',
-        'ECSPrefix202606\PHPStan\Command\ErrorFormatter\ErrorFormatter',
+        'ECSPrefix202607\PHPStan\Rules\Rule',
+        'ECSPrefix202607\PHPStan\Command\ErrorFormatter\ErrorFormatter',
         // tests
-        'ECSPrefix202606\Behat\Behat\Context\Context',
+        'ECSPrefix202607\Behat\Behat\Context\Context',
         // jms
-        'ECSPrefix202606\JMS\Serializer\Handler\SubscribingHandlerInterface',
+        'ECSPrefix202607\JMS\Serializer\Handler\SubscribingHandlerInterface',
         // laravel
-        'ECSPrefix202606\Illuminate\Support\ServiceProvider',
-        'ECSPrefix202606\Illuminate\Foundation\Http\Kernel',
-        'ECSPrefix202606\Illuminate\Contracts\Console\Kernel',
-        'ECSPrefix202606\Illuminate\Routing\Controller',
+        'ECSPrefix202607\Illuminate\Support\ServiceProvider',
+        'ECSPrefix202607\Illuminate\Foundation\Http\Kernel',
+        'ECSPrefix202607\Illuminate\Contracts\Console\Kernel',
+        'ECSPrefix202607\Illuminate\Routing\Controller',
         // Doctrine
-        'ECSPrefix202606\Doctrine\Migrations\AbstractMigration',
+        'ECSPrefix202607\Doctrine\Migrations\AbstractMigration',
     ];
     /**
      * @var string[]
      */
     private const DEFAULT_ATTRIBUTES_TO_SKIP = [
         // Symfony
-        'ECSPrefix202606\Symfony\Component\Console\Attribute\AsCommand',
-        'ECSPrefix202606\Symfony\Component\HttpKernel\Attribute\AsController',
-        'ECSPrefix202606\Symfony\Component\EventDispatcher\Attribute\AsEventListener',
+        'ECSPrefix202607\Symfony\Component\Console\Attribute\AsCommand',
+        'ECSPrefix202607\Symfony\Component\HttpKernel\Attribute\AsController',
+        'ECSPrefix202607\Symfony\Component\EventDispatcher\Attribute\AsEventListener',
     ];
     /**
      * @param FileWithClass[] $filesWithClasses

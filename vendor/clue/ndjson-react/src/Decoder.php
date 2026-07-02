@@ -1,11 +1,11 @@
 <?php
 
-namespace ECSPrefix202606\Clue\React\NDJson;
+namespace ECSPrefix202607\Clue\React\NDJson;
 
-use ECSPrefix202606\Evenement\EventEmitter;
-use ECSPrefix202606\React\Stream\ReadableStreamInterface;
-use ECSPrefix202606\React\Stream\Util;
-use ECSPrefix202606\React\Stream\WritableStreamInterface;
+use ECSPrefix202607\Evenement\EventEmitter;
+use ECSPrefix202607\React\Stream\ReadableStreamInterface;
+use ECSPrefix202607\React\Stream\Util;
+use ECSPrefix202607\React\Stream\WritableStreamInterface;
 /**
  * The Decoder / Parser reads from a plain stream and emits data objects for each JSON element
  */

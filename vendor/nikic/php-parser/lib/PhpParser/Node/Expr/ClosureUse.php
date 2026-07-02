@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202606\PhpParser\Node\Expr;
+namespace ECSPrefix202607\PhpParser\Node\Expr;
 
 require __DIR__ . '/../ClosureUse.php';
 if (\false) {
@@ -10,7 +10,7 @@ if (\false) {
      *
      * @deprecated use \PhpParser\Node\ClosureUse instead.
      */
-    class ClosureUse extends \ECSPrefix202606\PhpParser\Node\ClosureUse
+    class ClosureUse extends \ECSPrefix202607\PhpParser\Node\ClosureUse
     {
     }
 }

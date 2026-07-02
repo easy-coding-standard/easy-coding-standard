@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202606\Symfony\Component\Finder;
+namespace ECSPrefix202607\Symfony\Component\Finder;
 
 /**
  * Extends \SplFileInfo to support relative paths.
@@ -66,7 +66,7 @@ class SplFileInfo extends \SplFileInfo
      */
     public function getContents(): string
     {
-        set_error_handler(function ($type, $msg) use (&$error) {
+        set_error_handler(static function ($type, $msg) use (&$error) {
             $error = $msg;
         });
         try {

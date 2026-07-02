@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202606\Webmozart\Assert;
+namespace ECSPrefix202607\Webmozart\Assert;
 
 use ArrayAccess;
 use Closure;
@@ -2127,7 +2127,7 @@ class Assert
     }
     protected static function strlen(string $value): int
     {
-        if (!\function_exists('mb_detect_encoding') && !\function_exists('ECSPrefix202606\mb_detect_encoding')) {
+        if (!\function_exists('mb_detect_encoding') && !\function_exists('ECSPrefix202607\mb_detect_encoding')) {
             return \strlen($value);
         }
         if (\false === $encoding = \mb_detect_encoding($value)) {

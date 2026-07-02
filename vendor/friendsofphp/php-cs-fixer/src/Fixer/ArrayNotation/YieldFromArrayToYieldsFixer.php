@@ -31,7 +31,7 @@ final class YieldFromArrayToYieldsFixer extends AbstractFixer
         return new FixerDefinition('Yield from array must be unpacked to series of yields.', [new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202606;
+namespace ECSPrefix202607;
 
 function generate()
 {

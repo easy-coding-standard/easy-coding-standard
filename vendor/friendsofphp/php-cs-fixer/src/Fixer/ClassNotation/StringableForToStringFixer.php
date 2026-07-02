@@ -33,7 +33,7 @@ final class StringableForToStringFixer extends AbstractFixer
         return new FixerDefinition('A class that implements the `__toString()` method must explicitly implement the `Stringable` interface.', [new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202606;
+namespace ECSPrefix202607;
 
 class Foo
 {
@@ -42,7 +42,7 @@ class Foo
         return "Foo";
     }
 }
-\class_alias('ECSPrefix202606\Foo', 'Foo', \false);
+\class_alias('ECSPrefix202607\Foo', 'Foo', \false);
 
 PHP
 )]);

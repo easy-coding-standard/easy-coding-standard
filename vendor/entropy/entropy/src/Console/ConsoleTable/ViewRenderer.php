@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202606\Entropy\Console\ConsoleTable;
+namespace ECSPrefix202607\Entropy\Console\ConsoleTable;
 
-use ECSPrefix202606\Entropy\Attributes\RelatedTest;
-use ECSPrefix202606\Entropy\Console\ConsoleTable\ValueObject\TableRow;
-use ECSPrefix202606\Entropy\Console\ConsoleTable\ValueObject\TableView;
-use ECSPrefix202606\Entropy\Console\Output\OutputPrinter;
-use ECSPrefix202606\Entropy\Tests\Console\ConsoleTable\ViewRendererTest;
+use ECSPrefix202607\Entropy\Attributes\RelatedTest;
+use ECSPrefix202607\Entropy\Console\ConsoleTable\ValueObject\TableRow;
+use ECSPrefix202607\Entropy\Console\ConsoleTable\ValueObject\TableView;
+use ECSPrefix202607\Entropy\Console\Output\OutputPrinter;
+use ECSPrefix202607\Entropy\Tests\Console\ConsoleTable\ViewRendererTest;
 final class ViewRenderer
 {
     /**

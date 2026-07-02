@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202606\PhpParser\Node;
+namespace ECSPrefix202607\PhpParser\Node;
 
-use ECSPrefix202606\PhpParser\NodeAbstract;
+use ECSPrefix202607\PhpParser\NodeAbstract;
 /**
  * Represents the "..." in "foo(...)" of the first-class callable syntax.
  */

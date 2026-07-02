@@ -32,7 +32,7 @@ final class LowercaseKeywordsFixer extends AbstractFixer
         return new FixerDefinition('PHP keywords MUST be in lower case.', [new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202606;
+namespace ECSPrefix202607;
 
 foreach ($a as $B) {
     try {

@@ -60,7 +60,7 @@ final class NullableTypeDeclarationFixer extends AbstractFixer implements Config
         return new FixerDefinition('Nullable single type declaration should be standardised using configured syntax.', [new VersionSpecificCodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202606;
+namespace ECSPrefix202607;
 
 function bar(null|int $value, null|\Closure $callable): int|null
 {
@@ -70,7 +70,7 @@ PHP
 , new VersionSpecification(80000)), new VersionSpecificCodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202606;
+namespace ECSPrefix202607;
 
 function baz(?int $value, ?\stdClass $obj, ?array $config): ?int
 {
@@ -80,7 +80,7 @@ PHP
 , new VersionSpecification(80000), ['syntax' => self::OPTION_SYNTAX_UNION]), new VersionSpecificCodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202606;
+namespace ECSPrefix202607;
 
 class ValueObject
 {
@@ -89,7 +89,7 @@ class ValueObject
     public null|bool $internal;
     public null|\Closure $callback;
 }
-\class_alias('ECSPrefix202606\ValueObject', 'ValueObject', \false);
+\class_alias('ECSPrefix202607\ValueObject', 'ValueObject', \false);
 
 PHP
 , new VersionSpecification(80000), ['syntax' => self::OPTION_SYNTAX_QUESTION_MARK])]);

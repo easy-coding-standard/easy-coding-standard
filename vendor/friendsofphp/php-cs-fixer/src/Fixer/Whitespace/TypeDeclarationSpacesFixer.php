@@ -56,7 +56,7 @@ final class TypeDeclarationSpacesFixer extends AbstractFixer implements Configur
         return new FixerDefinition('Ensure single space between a variable and its type declaration in function arguments and properties.', [new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202606;
+namespace ECSPrefix202607;
 
 class Bar
 {
@@ -66,13 +66,13 @@ class Bar
     {
     }
 }
-\class_alias('ECSPrefix202606\Bar', 'Bar', \false);
+\class_alias('ECSPrefix202607\Bar', 'Bar', \false);
 
 PHP
 ), new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202606;
+namespace ECSPrefix202607;
 
 class Foo
 {
@@ -82,13 +82,13 @@ class Foo
         return fn(bool $c): string => (string) $c;
     }
 }
-\class_alias('ECSPrefix202606\Foo', 'Foo', \false);
+\class_alias('ECSPrefix202607\Foo', 'Foo', \false);
 
 PHP
 , ['elements' => ['function']]), new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202606;
+namespace ECSPrefix202607;
 
 class Foo
 {
@@ -97,19 +97,19 @@ class Foo
     {
     }
 }
-\class_alias('ECSPrefix202606\Foo', 'Foo', \false);
+\class_alias('ECSPrefix202607\Foo', 'Foo', \false);
 
 PHP
 , ['elements' => ['property']]), new VersionSpecificCodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202606;
+namespace ECSPrefix202607;
 
 class Foo
 {
     public const string BAR = "";
 }
-\class_alias('ECSPrefix202606\Foo', 'Foo', \false);
+\class_alias('ECSPrefix202607\Foo', 'Foo', \false);
 
 PHP
 , new VersionSpecification(80300), ['elements' => ['constant']])]);

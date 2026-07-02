@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202606\Composer\Pcre\PHPStan;
+namespace ECSPrefix202607\Composer\Pcre\PHPStan;
 
-use ECSPrefix202606\Composer\Pcre\Preg;
-use ECSPrefix202606\PhpParser\Node\Expr\StaticCall;
-use ECSPrefix202606\PHPStan\Analyser\Scope;
-use ECSPrefix202606\PHPStan\Analyser\SpecifiedTypes;
-use ECSPrefix202606\PHPStan\Analyser\TypeSpecifier;
-use ECSPrefix202606\PHPStan\Analyser\TypeSpecifierAwareExtension;
-use ECSPrefix202606\PHPStan\Analyser\TypeSpecifierContext;
-use ECSPrefix202606\PHPStan\Reflection\MethodReflection;
-use ECSPrefix202606\PHPStan\TrinaryLogic;
-use ECSPrefix202606\PHPStan\Type\Constant\ConstantArrayType;
-use ECSPrefix202606\PHPStan\Type\Php\RegexArrayShapeMatcher;
-use ECSPrefix202606\PHPStan\Type\StaticMethodTypeSpecifyingExtension;
-use ECSPrefix202606\PHPStan\Type\TypeCombinator;
-use ECSPrefix202606\PHPStan\Type\Type;
+use ECSPrefix202607\Composer\Pcre\Preg;
+use ECSPrefix202607\PhpParser\Node\Expr\StaticCall;
+use ECSPrefix202607\PHPStan\Analyser\Scope;
+use ECSPrefix202607\PHPStan\Analyser\SpecifiedTypes;
+use ECSPrefix202607\PHPStan\Analyser\TypeSpecifier;
+use ECSPrefix202607\PHPStan\Analyser\TypeSpecifierAwareExtension;
+use ECSPrefix202607\PHPStan\Analyser\TypeSpecifierContext;
+use ECSPrefix202607\PHPStan\Reflection\MethodReflection;
+use ECSPrefix202607\PHPStan\TrinaryLogic;
+use ECSPrefix202607\PHPStan\Type\Constant\ConstantArrayType;
+use ECSPrefix202607\PHPStan\Type\Php\RegexArrayShapeMatcher;
+use ECSPrefix202607\PHPStan\Type\StaticMethodTypeSpecifyingExtension;
+use ECSPrefix202607\PHPStan\Type\TypeCombinator;
+use ECSPrefix202607\PHPStan\Type\Type;
 final class PregMatchTypeSpecifyingExtension implements StaticMethodTypeSpecifyingExtension, TypeSpecifierAwareExtension
 {
     /**

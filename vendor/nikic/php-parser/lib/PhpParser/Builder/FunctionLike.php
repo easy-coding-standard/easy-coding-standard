@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202606\PhpParser\Builder;
+namespace ECSPrefix202607\PhpParser\Builder;
 
-use ECSPrefix202606\PhpParser\BuilderHelpers;
-use ECSPrefix202606\PhpParser\Node;
+use ECSPrefix202607\PhpParser\BuilderHelpers;
+use ECSPrefix202607\PhpParser\Node;
 abstract class FunctionLike extends Declaration
 {
     /**

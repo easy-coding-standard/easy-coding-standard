@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202606\PhpParser\Node\Expr;
+namespace ECSPrefix202607\PhpParser\Node\Expr;
 
-use ECSPrefix202606\PhpParser\Node\Expr;
+use ECSPrefix202607\PhpParser\Node\Expr;
 abstract class AssignOp extends Expr
 {
     /** @var Expr Variable */

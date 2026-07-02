@@ -53,9 +53,9 @@ final class PhpUnitStrictFixer extends AbstractPhpUnitFixer implements Configura
         return new FixerDefinition('PHPUnit methods like `assertSame` should be used instead of `assertEquals`.', [new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202606;
+namespace ECSPrefix202607;
 
-final class MyTest extends \ECSPrefix202606\PHPUnit_Framework_TestCase
+final class MyTest extends \ECSPrefix202607\PHPUnit_Framework_TestCase
 {
     public function testSomeTest()
     {
@@ -65,15 +65,15 @@ final class MyTest extends \ECSPrefix202606\PHPUnit_Framework_TestCase
         $this->assertNotEquals(a(), b());
     }
 }
-\class_alias('ECSPrefix202606\MyTest', 'MyTest', \false);
+\class_alias('ECSPrefix202607\MyTest', 'MyTest', \false);
 
 PHP
 ), new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202606;
+namespace ECSPrefix202607;
 
-final class MyTest extends \ECSPrefix202606\PHPUnit_Framework_TestCase
+final class MyTest extends \ECSPrefix202607\PHPUnit_Framework_TestCase
 {
     public function testSomeTest()
     {
@@ -83,7 +83,7 @@ final class MyTest extends \ECSPrefix202606\PHPUnit_Framework_TestCase
         $this->assertNotEquals(a(), b());
     }
 }
-\class_alias('ECSPrefix202606\MyTest', 'MyTest', \false);
+\class_alias('ECSPrefix202607\MyTest', 'MyTest', \false);
 
 PHP
 , ['assertions' => ['assertEquals']])], null, 'Risky when any of the functions are overridden or when testing object equality.');

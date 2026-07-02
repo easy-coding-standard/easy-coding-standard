@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202606\PhpParser\Parser;
+namespace ECSPrefix202607\PhpParser\Parser;
 
-use ECSPrefix202606\PhpParser\Error;
-use ECSPrefix202606\PhpParser\Modifiers;
-use ECSPrefix202606\PhpParser\Node;
-use ECSPrefix202606\PhpParser\Node\Expr;
-use ECSPrefix202606\PhpParser\Node\Name;
-use ECSPrefix202606\PhpParser\Node\Scalar;
-use ECSPrefix202606\PhpParser\Node\Stmt;
+use ECSPrefix202607\PhpParser\Error;
+use ECSPrefix202607\PhpParser\Modifiers;
+use ECSPrefix202607\PhpParser\Node;
+use ECSPrefix202607\PhpParser\Node\Expr;
+use ECSPrefix202607\PhpParser\Node\Name;
+use ECSPrefix202607\PhpParser\Node\Scalar;
+use ECSPrefix202607\PhpParser\Node\Stmt;
 /* This is an automatically GENERATED file, which should not be manually edited.
  * Instead edit one of the following:
  *  * the grammar file grammar/php.y
  *  * the skeleton file grammar/parser.template
  *  * the preprocessing script grammar/rebuildParsers.php
  */
-class Php8 extends \ECSPrefix202606\PhpParser\ParserAbstract
+class Php8 extends \ECSPrefix202607\PhpParser\ParserAbstract
 {
     public const YYERRTOK = 256;
     public const T_VOID_CAST = 257;

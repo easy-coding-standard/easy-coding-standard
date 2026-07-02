@@ -32,7 +32,7 @@ final class SwitchCaseSemicolonToColonFixer extends AbstractFixer
         return new FixerDefinition('A case should be followed by a colon and not a semicolon.', [new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202606;
+namespace ECSPrefix202607;
 
 switch ($a) {
     case 1:

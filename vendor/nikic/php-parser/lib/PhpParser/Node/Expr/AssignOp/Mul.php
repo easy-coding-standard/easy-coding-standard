@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202606\PhpParser\Node\Expr\AssignOp;
+namespace ECSPrefix202607\PhpParser\Node\Expr\AssignOp;
 
-use ECSPrefix202606\PhpParser\Node\Expr\AssignOp;
+use ECSPrefix202607\PhpParser\Node\Expr\AssignOp;
 class Mul extends AssignOp
 {
     public function getType(): string

@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202606\PhpParser\Builder;
+namespace ECSPrefix202607\PhpParser\Builder;
 
-use ECSPrefix202606\PhpParser;
-use ECSPrefix202606\PhpParser\BuilderHelpers;
-use ECSPrefix202606\PhpParser\Node;
-use ECSPrefix202606\PhpParser\Node\Identifier;
-use ECSPrefix202606\PhpParser\Node\Name;
-use ECSPrefix202606\PhpParser\Node\Stmt;
+use ECSPrefix202607\PhpParser;
+use ECSPrefix202607\PhpParser\BuilderHelpers;
+use ECSPrefix202607\PhpParser\Node;
+use ECSPrefix202607\PhpParser\Node\Identifier;
+use ECSPrefix202607\PhpParser\Node\Name;
+use ECSPrefix202607\PhpParser\Node\Stmt;
 class Enum_ extends Declaration
 {
     /**

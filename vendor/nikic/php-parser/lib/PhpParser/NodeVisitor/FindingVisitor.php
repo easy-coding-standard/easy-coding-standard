@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202606\PhpParser\NodeVisitor;
+namespace ECSPrefix202607\PhpParser\NodeVisitor;
 
-use ECSPrefix202606\PhpParser\Node;
-use ECSPrefix202606\PhpParser\NodeVisitorAbstract;
+use ECSPrefix202607\PhpParser\Node;
+use ECSPrefix202607\PhpParser\NodeVisitorAbstract;
 /**
  * This visitor can be used to find and collect all nodes satisfying some criterion determined by
  * a filter callback.

@@ -3,9 +3,9 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Output;
 
-use ECSPrefix202606\SebastianBergmann\Diff\Chunk;
-use ECSPrefix202606\SebastianBergmann\Diff\Line;
-use ECSPrefix202606\SebastianBergmann\Diff\Parser as DiffParser;
+use ECSPrefix202607\SebastianBergmann\Diff\Chunk;
+use ECSPrefix202607\SebastianBergmann\Diff\Line;
+use ECSPrefix202607\SebastianBergmann\Diff\Parser as DiffParser;
 use Symplify\EasyCodingStandard\Console\ExitCode;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;

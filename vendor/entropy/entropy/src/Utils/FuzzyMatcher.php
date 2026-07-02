@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202606\Entropy\Utils;
+namespace ECSPrefix202607\Entropy\Utils;
 
-use ECSPrefix202606\Entropy\Attributes\RelatedTest;
-use ECSPrefix202606\Entropy\Tests\Utils\FuzzyMatcherTest;
+use ECSPrefix202607\Entropy\Attributes\RelatedTest;
+use ECSPrefix202607\Entropy\Tests\Utils\FuzzyMatcherTest;
 final class FuzzyMatcher
 {
     /**

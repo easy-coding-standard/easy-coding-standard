@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202606\PhpParser\Node\Stmt;
+namespace ECSPrefix202607\PhpParser\Node\Stmt;
 
-use ECSPrefix202606\PhpParser\Node\Identifier;
-use ECSPrefix202606\PhpParser\Node\Stmt;
+use ECSPrefix202607\PhpParser\Node\Identifier;
+use ECSPrefix202607\PhpParser\Node\Stmt;
 class Goto_ extends Stmt
 {
     /** @var Identifier Name of label to jump to */

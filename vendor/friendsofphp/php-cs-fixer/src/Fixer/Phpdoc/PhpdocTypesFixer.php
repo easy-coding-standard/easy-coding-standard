@@ -57,7 +57,7 @@ final class PhpdocTypesFixer extends AbstractPhpdocTypesFixer implements Configu
         return new FixerDefinition('The correct case must be used for standard PHP types in PHPDoc.', [new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202606;
+namespace ECSPrefix202607;
 
 /**
 * @param STRING|String[] $bar
@@ -69,7 +69,7 @@ PHP
 ), new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202606;
+namespace ECSPrefix202607;
 
 /**
 * @param BOOL $foo
@@ -81,7 +81,7 @@ PHP
 , ['groups' => ['simple', 'alias']]), new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202606;
+namespace ECSPrefix202607;
 
 /**
 * @param Resource $foo

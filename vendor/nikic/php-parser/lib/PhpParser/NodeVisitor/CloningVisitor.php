@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202606\PhpParser\NodeVisitor;
+namespace ECSPrefix202607\PhpParser\NodeVisitor;
 
-use ECSPrefix202606\PhpParser\Node;
-use ECSPrefix202606\PhpParser\NodeVisitorAbstract;
+use ECSPrefix202607\PhpParser\Node;
+use ECSPrefix202607\PhpParser\NodeVisitorAbstract;
 /**
  * Visitor cloning all nodes and linking to the original nodes using an attribute.
  *

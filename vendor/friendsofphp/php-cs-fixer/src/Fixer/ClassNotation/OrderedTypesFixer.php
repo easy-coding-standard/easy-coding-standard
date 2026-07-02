@@ -60,7 +60,7 @@ final class OrderedTypesFixer extends AbstractFixer implements ConfigurableFixer
         return new FixerDefinition('Sort union types and intersection types using configured order.', [new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202606;
+namespace ECSPrefix202607;
 
 try {
     cache()->save($foo);
@@ -73,38 +73,38 @@ PHP
 ), new VersionSpecificCodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202606;
+namespace ECSPrefix202607;
 
 interface Foo
 {
-    public function bar(\ECSPrefix202606\Aaa|\ECSPrefix202606\AA $foo): string|int;
+    public function bar(\ECSPrefix202607\Aaa|\ECSPrefix202607\AA $foo): string|int;
 }
-\class_alias('ECSPrefix202606\Foo', 'Foo', \false);
+\class_alias('ECSPrefix202607\Foo', 'Foo', \false);
 
 PHP
 , new VersionSpecification(80000), ['case_sensitive' => \true]), new VersionSpecificCodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202606;
+namespace ECSPrefix202607;
 
 interface Foo
 {
     public function bar(null|string|int $foo): string|int;
     public function foo(\Stringable&\Countable $obj): int;
 }
-\class_alias('ECSPrefix202606\Foo', 'Foo', \false);
+\class_alias('ECSPrefix202607\Foo', 'Foo', \false);
 
 PHP
 , new VersionSpecification(80100), ['null_adjustment' => 'always_last']), new VersionSpecificCodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202606;
+namespace ECSPrefix202607;
 
 interface Bar
 {
     public function bar(null|string|int $foo): string|int;
 }
-\class_alias('ECSPrefix202606\Bar', 'Bar', \false);
+\class_alias('ECSPrefix202607\Bar', 'Bar', \false);
 
 PHP
 , new VersionSpecification(80000), ['sort_algorithm' => 'none', 'null_adjustment' => 'always_last'])]);

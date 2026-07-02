@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202606\PhpParser\Node\Stmt;
+namespace ECSPrefix202607\PhpParser\Node\Stmt;
 
-use ECSPrefix202606\PhpParser\Node;
-use ECSPrefix202606\PhpParser\Node\PropertyItem;
+use ECSPrefix202607\PhpParser\Node;
+use ECSPrefix202607\PhpParser\Node\PropertyItem;
 abstract class ClassLike extends Node\Stmt
 {
     /** @var Node\Identifier|null Name */

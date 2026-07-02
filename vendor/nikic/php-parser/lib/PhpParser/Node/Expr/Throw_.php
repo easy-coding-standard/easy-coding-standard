@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202606\PhpParser\Node\Expr;
+namespace ECSPrefix202607\PhpParser\Node\Expr;
 
-use ECSPrefix202606\PhpParser\Node;
+use ECSPrefix202607\PhpParser\Node;
 class Throw_ extends Node\Expr
 {
     /** @var Node\Expr Expression */

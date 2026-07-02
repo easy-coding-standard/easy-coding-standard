@@ -56,7 +56,7 @@ final class VoidReturnFixer extends AbstractFixer implements ConfigurableFixerIn
         $sharedSnipped = <<<'PHP'
 <?php
 
-namespace ECSPrefix202606;
+namespace ECSPrefix202607;
 
 class Foo
 {
@@ -68,7 +68,7 @@ class Foo
         echo $hello('World');
     }
 }
-\class_alias('ECSPrefix202606\Foo', 'Foo', \false);
+\class_alias('ECSPrefix202607\Foo', 'Foo', \false);
 
 PHP;
         return new FixerDefinition('Add `void` return type to functions with missing or empty return statements, but priority is given to `@return` annotations.', [new CodeSample($sharedSnipped), new CodeSample($sharedSnipped, ['fix_lambda' => \false])], null, 'Modifies the signature of functions.');

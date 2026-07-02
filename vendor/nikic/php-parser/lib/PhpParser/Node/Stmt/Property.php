@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202606\PhpParser\Node\Stmt;
+namespace ECSPrefix202607\PhpParser\Node\Stmt;
 
-use ECSPrefix202606\PhpParser\Modifiers;
-use ECSPrefix202606\PhpParser\Node;
-use ECSPrefix202606\PhpParser\Node\ComplexType;
-use ECSPrefix202606\PhpParser\Node\Identifier;
-use ECSPrefix202606\PhpParser\Node\Name;
-use ECSPrefix202606\PhpParser\Node\PropertyItem;
+use ECSPrefix202607\PhpParser\Modifiers;
+use ECSPrefix202607\PhpParser\Node;
+use ECSPrefix202607\PhpParser\Node\ComplexType;
+use ECSPrefix202607\PhpParser\Node\Identifier;
+use ECSPrefix202607\PhpParser\Node\Name;
+use ECSPrefix202607\PhpParser\Node\PropertyItem;
 class Property extends Node\Stmt
 {
     /** @var int Modifiers */

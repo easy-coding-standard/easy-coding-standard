@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Parallel\ValueObject;
 
-use ECSPrefix202606\React\Socket\TcpServer;
+use ECSPrefix202607\React\Socket\TcpServer;
 use Symplify\EasyCodingStandard\Parallel\Exception\ParallelShouldNotHappenException;
 /**
  * Used from https://github.com/phpstan/phpstan-src/blob/master/src/Parallel/ProcessPool.php

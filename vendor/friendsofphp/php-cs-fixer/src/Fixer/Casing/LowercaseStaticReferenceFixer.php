@@ -31,7 +31,7 @@ final class LowercaseStaticReferenceFixer extends AbstractFixer
         return new FixerDefinition('Class static references `self`, `static` and `parent` MUST be in lower case.', [new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202606;
+namespace ECSPrefix202607;
 
 class Foo extends Bar
 {
@@ -48,13 +48,13 @@ class Foo extends Bar
         return \true;
     }
 }
-\class_alias('ECSPrefix202606\Foo', 'Foo', \false);
+\class_alias('ECSPrefix202607\Foo', 'Foo', \false);
 
 PHP
 ), new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202606;
+namespace ECSPrefix202607;
 
 class Foo extends Bar
 {
@@ -63,7 +63,7 @@ class Foo extends Bar
         return \false;
     }
 }
-\class_alias('ECSPrefix202606\Foo', 'Foo', \false);
+\class_alias('ECSPrefix202607\Foo', 'Foo', \false);
 
 PHP
 )]);

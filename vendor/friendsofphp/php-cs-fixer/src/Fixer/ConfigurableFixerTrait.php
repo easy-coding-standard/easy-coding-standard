@@ -20,8 +20,8 @@ use PhpCsFixer\FixerConfiguration\DeprecatedFixerOption;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
 use PhpCsFixer\FixerConfiguration\InvalidOptionsForEnvException;
 use PhpCsFixer\Future;
-use ECSPrefix202606\Symfony\Component\OptionsResolver\Exception\ExceptionInterface;
-use ECSPrefix202606\Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
+use ECSPrefix202607\Symfony\Component\OptionsResolver\Exception\ExceptionInterface;
+use ECSPrefix202607\Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 /**
  * @internal
  *

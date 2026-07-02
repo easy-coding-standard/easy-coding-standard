@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202606\TomasVotruba\ClassLeak;
+namespace ECSPrefix202607\TomasVotruba\ClassLeak;
 
-use ECSPrefix202606\PhpParser\NodeTraverser;
-use ECSPrefix202606\PhpParser\Parser;
+use ECSPrefix202607\PhpParser\NodeTraverser;
+use ECSPrefix202607\PhpParser\Parser;
 use RuntimeException;
 use Throwable;
-use ECSPrefix202606\TomasVotruba\ClassLeak\NodeDecorator\FullyQualifiedNameNodeDecorator;
-use ECSPrefix202606\TomasVotruba\ClassLeak\NodeVisitor\UsedClassNodeVisitor;
+use ECSPrefix202607\TomasVotruba\ClassLeak\NodeDecorator\FullyQualifiedNameNodeDecorator;
+use ECSPrefix202607\TomasVotruba\ClassLeak\NodeVisitor\UsedClassNodeVisitor;
 /**
  * @see \TomasVotruba\ClassLeak\Tests\UseImportsResolver\UseImportsResolverTest
  */

@@ -1,40 +1,40 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202606\PhpParser;
+namespace ECSPrefix202607\PhpParser;
 
 /*
  * This parser is based on a skeleton written by Moriyoshi Koizumi, which in
  * turn is based on work by Masato Bito.
  */
-use ECSPrefix202606\PhpParser\Node\Arg;
-use ECSPrefix202606\PhpParser\Node\Expr;
-use ECSPrefix202606\PhpParser\Node\Expr\Array_;
-use ECSPrefix202606\PhpParser\Node\Expr\Cast\Double;
-use ECSPrefix202606\PhpParser\Node\Identifier;
-use ECSPrefix202606\PhpParser\Node\InterpolatedStringPart;
-use ECSPrefix202606\PhpParser\Node\Name;
-use ECSPrefix202606\PhpParser\Node\Param;
-use ECSPrefix202606\PhpParser\Node\PropertyHook;
-use ECSPrefix202606\PhpParser\Node\Scalar\InterpolatedString;
-use ECSPrefix202606\PhpParser\Node\Scalar\Int_;
-use ECSPrefix202606\PhpParser\Node\Scalar\String_;
-use ECSPrefix202606\PhpParser\Node\Stmt;
-use ECSPrefix202606\PhpParser\Node\Stmt\Class_;
-use ECSPrefix202606\PhpParser\Node\Stmt\ClassConst;
-use ECSPrefix202606\PhpParser\Node\Stmt\ClassMethod;
-use ECSPrefix202606\PhpParser\Node\Stmt\Const_;
-use ECSPrefix202606\PhpParser\Node\Stmt\Else_;
-use ECSPrefix202606\PhpParser\Node\Stmt\ElseIf_;
-use ECSPrefix202606\PhpParser\Node\Stmt\Enum_;
-use ECSPrefix202606\PhpParser\Node\Stmt\Interface_;
-use ECSPrefix202606\PhpParser\Node\Stmt\Namespace_;
-use ECSPrefix202606\PhpParser\Node\Stmt\Nop;
-use ECSPrefix202606\PhpParser\Node\Stmt\Property;
-use ECSPrefix202606\PhpParser\Node\Stmt\TryCatch;
-use ECSPrefix202606\PhpParser\Node\UseItem;
-use ECSPrefix202606\PhpParser\Node\VarLikeIdentifier;
-use ECSPrefix202606\PhpParser\NodeVisitor\CommentAnnotatingVisitor;
+use ECSPrefix202607\PhpParser\Node\Arg;
+use ECSPrefix202607\PhpParser\Node\Expr;
+use ECSPrefix202607\PhpParser\Node\Expr\Array_;
+use ECSPrefix202607\PhpParser\Node\Expr\Cast\Double;
+use ECSPrefix202607\PhpParser\Node\Identifier;
+use ECSPrefix202607\PhpParser\Node\InterpolatedStringPart;
+use ECSPrefix202607\PhpParser\Node\Name;
+use ECSPrefix202607\PhpParser\Node\Param;
+use ECSPrefix202607\PhpParser\Node\PropertyHook;
+use ECSPrefix202607\PhpParser\Node\Scalar\InterpolatedString;
+use ECSPrefix202607\PhpParser\Node\Scalar\Int_;
+use ECSPrefix202607\PhpParser\Node\Scalar\String_;
+use ECSPrefix202607\PhpParser\Node\Stmt;
+use ECSPrefix202607\PhpParser\Node\Stmt\Class_;
+use ECSPrefix202607\PhpParser\Node\Stmt\ClassConst;
+use ECSPrefix202607\PhpParser\Node\Stmt\ClassMethod;
+use ECSPrefix202607\PhpParser\Node\Stmt\Const_;
+use ECSPrefix202607\PhpParser\Node\Stmt\Else_;
+use ECSPrefix202607\PhpParser\Node\Stmt\ElseIf_;
+use ECSPrefix202607\PhpParser\Node\Stmt\Enum_;
+use ECSPrefix202607\PhpParser\Node\Stmt\Interface_;
+use ECSPrefix202607\PhpParser\Node\Stmt\Namespace_;
+use ECSPrefix202607\PhpParser\Node\Stmt\Nop;
+use ECSPrefix202607\PhpParser\Node\Stmt\Property;
+use ECSPrefix202607\PhpParser\Node\Stmt\TryCatch;
+use ECSPrefix202607\PhpParser\Node\UseItem;
+use ECSPrefix202607\PhpParser\Node\VarLikeIdentifier;
+use ECSPrefix202607\PhpParser\NodeVisitor\CommentAnnotatingVisitor;
 abstract class ParserAbstract implements Parser
 {
     private const SYMBOL_NONE = -1;

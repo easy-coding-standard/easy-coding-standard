@@ -21,7 +21,7 @@ final class AddMissingVarNameFixer extends \Symplify\CodingStandard\Fixer\Commen
      * @see https://regex101.com/r/s1UkZs/1
      * @var string
      */
-    private const VAR_WITHOUT_NAME_REGEX = '#^(?<open>\/\*\* @(?:psalm-|phpstan-)?var )(?<type>[\\\\\\w\|\[\]-]+)(?<close>\s+\*\/)$#';
+    private const VAR_WITHOUT_NAME_REGEX = '#^(?<open>\/\*\* @(?:psalm-|phpstan-)?var )(?<type>[\\\\\\w\|\[\]&-]+)(?<close>\s+\*\/)$#';
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(self::ERROR_MESSAGE, []);

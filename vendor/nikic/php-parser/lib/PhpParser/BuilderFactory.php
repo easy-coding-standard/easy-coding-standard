@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202606\PhpParser;
+namespace ECSPrefix202607\PhpParser;
 
-use ECSPrefix202606\PhpParser\Node\Arg;
-use ECSPrefix202606\PhpParser\Node\Expr;
-use ECSPrefix202606\PhpParser\Node\Expr\BinaryOp\Concat;
-use ECSPrefix202606\PhpParser\Node\Identifier;
-use ECSPrefix202606\PhpParser\Node\Name;
-use ECSPrefix202606\PhpParser\Node\Scalar\String_;
-use ECSPrefix202606\PhpParser\Node\Stmt\Use_;
+use ECSPrefix202607\PhpParser\Node\Arg;
+use ECSPrefix202607\PhpParser\Node\Expr;
+use ECSPrefix202607\PhpParser\Node\Expr\BinaryOp\Concat;
+use ECSPrefix202607\PhpParser\Node\Identifier;
+use ECSPrefix202607\PhpParser\Node\Name;
+use ECSPrefix202607\PhpParser\Node\Scalar\String_;
+use ECSPrefix202607\PhpParser\Node\Stmt\Use_;
 class BuilderFactory
 {
     /**

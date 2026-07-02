@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202606\TomasVotruba\ClassLeak\Reporting;
+namespace ECSPrefix202607\TomasVotruba\ClassLeak\Reporting;
 
-use ECSPrefix202606\Entropy\Console\Enum\ExitCode;
-use ECSPrefix202606\Entropy\Console\Output\OutputPrinter;
-use ECSPrefix202606\Nette\Utils\Json;
-use ECSPrefix202606\TomasVotruba\ClassLeak\ValueObject\FileWithClass;
-use ECSPrefix202606\TomasVotruba\ClassLeak\ValueObject\UnusedClassesResult;
+use ECSPrefix202607\Entropy\Console\Enum\ExitCode;
+use ECSPrefix202607\Entropy\Console\Output\OutputPrinter;
+use ECSPrefix202607\Nette\Utils\Json;
+use ECSPrefix202607\TomasVotruba\ClassLeak\ValueObject\FileWithClass;
+use ECSPrefix202607\TomasVotruba\ClassLeak\ValueObject\UnusedClassesResult;
 final class UnusedClassReporter
 {
     /**

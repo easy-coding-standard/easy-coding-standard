@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202606\TomasVotruba\ClassLeak\Finder;
+namespace ECSPrefix202607\TomasVotruba\ClassLeak\Finder;
 
-use ECSPrefix202606\Symfony\Component\Finder\Finder;
-use ECSPrefix202606\Symfony\Component\Finder\SplFileInfo;
-use ECSPrefix202606\Webmozart\Assert\Assert;
+use ECSPrefix202607\Symfony\Component\Finder\Finder;
+use ECSPrefix202607\Symfony\Component\Finder\SplFileInfo;
+use ECSPrefix202607\Webmozart\Assert\Assert;
 /**
  * @see \TomasVotruba\ClassLeak\Tests\Finder\PhpFilesFinderTest
  */

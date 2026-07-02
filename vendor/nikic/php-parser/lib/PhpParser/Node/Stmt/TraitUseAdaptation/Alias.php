@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202606\PhpParser\Node\Stmt\TraitUseAdaptation;
+namespace ECSPrefix202607\PhpParser\Node\Stmt\TraitUseAdaptation;
 
-use ECSPrefix202606\PhpParser\Node;
+use ECSPrefix202607\PhpParser\Node;
 class Alias extends Node\Stmt\TraitUseAdaptation
 {
     /** @var null|int New modifier */

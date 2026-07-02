@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202606\TomasVotruba\ClassLeak\ValueObject;
+namespace ECSPrefix202607\TomasVotruba\ClassLeak\ValueObject;
 
 use JsonSerializable;
-use ECSPrefix202606\Nette\Utils\FileSystem;
-use ECSPrefix202606\TomasVotruba\ClassLeak\FileSystem\StaticRelativeFilePathHelper;
+use ECSPrefix202607\Nette\Utils\FileSystem;
+use ECSPrefix202607\TomasVotruba\ClassLeak\FileSystem\StaticRelativeFilePathHelper;
 final class FileWithClass implements JsonSerializable
 {
     /**
@@ -78,10 +78,10 @@ final class FileWithClass implements JsonSerializable
     public function isEntity(): bool
     {
         $fileContents = FileSystem::read($this->filePath);
-        if (strpos($fileContents, 'ECSPrefix202606\Doctrine\ODM\MongoDB\Mapping\Annotations') !== \false) {
+        if (strpos($fileContents, 'ECSPrefix202607\Doctrine\ODM\MongoDB\Mapping\Annotations') !== \false) {
             return \true;
         }
-        if (strpos($fileContents, 'ECSPrefix202606\Doctrine\ORM\Annotations') !== \false) {
+        if (strpos($fileContents, 'ECSPrefix202607\Doctrine\ORM\Annotations') !== \false) {
             return \true;
         }
         if (strpos($fileContents, '@ORM\Entity') !== \false) {

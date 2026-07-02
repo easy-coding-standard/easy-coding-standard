@@ -150,7 +150,7 @@ final class NoUnneededControlParenthesesFixer extends AbstractFixer implements C
         return new FixerDefinition('Removes unneeded parentheses around control statements.', [new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202606;
+namespace ECSPrefix202607;
 
 while ($x) {
     while ($y) {
@@ -173,7 +173,7 @@ PHP
 ), new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202606;
+namespace ECSPrefix202607;
 
 while ($x) {
     while ($y) {

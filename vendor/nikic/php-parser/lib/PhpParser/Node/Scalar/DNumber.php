@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202606\PhpParser\Node\Scalar;
+namespace ECSPrefix202607\PhpParser\Node\Scalar;
 
 require __DIR__ . '/Float_.php';
 if (\false) {

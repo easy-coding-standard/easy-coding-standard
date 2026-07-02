@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202606\PhpParser\Lexer\TokenEmulator;
+namespace ECSPrefix202607\PhpParser\Lexer\TokenEmulator;
 
-use ECSPrefix202606\PhpParser\Token;
+use ECSPrefix202607\PhpParser\Token;
 abstract class KeywordEmulator extends TokenEmulator
 {
     abstract public function getKeywordString(): string;

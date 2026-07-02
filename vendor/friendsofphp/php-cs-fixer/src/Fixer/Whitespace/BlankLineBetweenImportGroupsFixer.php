@@ -36,53 +36,53 @@ final class BlankLineBetweenImportGroupsFixer extends AbstractFixer implements W
         return new FixerDefinition('Putting blank lines between `use` statement groups.', [new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202606;
+namespace ECSPrefix202607;
 
-use function ECSPrefix202606\AAC;
+use function ECSPrefix202607\AAC;
 use const AAB;
-use ECSPrefix202606\AAA;
+use ECSPrefix202607\AAA;
 
 PHP
 ), new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202606;
+namespace ECSPrefix202607;
 
 use const AAAA;
 use const BBB;
-use ECSPrefix202606\Bar;
-use ECSPrefix202606\AAC;
-use ECSPrefix202606\Acme;
-use function ECSPrefix202606\CCC\AA;
-use function ECSPrefix202606\DDD;
+use ECSPrefix202607\Bar;
+use ECSPrefix202607\AAC;
+use ECSPrefix202607\Acme;
+use function ECSPrefix202607\CCC\AA;
+use function ECSPrefix202607\DDD;
 
 PHP
 ), new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202606;
+namespace ECSPrefix202607;
 
 use const BBB;
 use const AAAA;
-use ECSPrefix202606\Acme;
-use ECSPrefix202606\AAC;
-use ECSPrefix202606\Bar;
-use function ECSPrefix202606\DDD;
-use function ECSPrefix202606\CCC\AA;
+use ECSPrefix202607\Acme;
+use ECSPrefix202607\AAC;
+use ECSPrefix202607\Bar;
+use function ECSPrefix202607\DDD;
+use function ECSPrefix202607\CCC\AA;
 
 PHP
 ), new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202606;
+namespace ECSPrefix202607;
 
 use const AAAA;
 use const BBB;
-use ECSPrefix202606\Acme;
-use function ECSPrefix202606\DDD;
-use ECSPrefix202606\AAC;
-use function ECSPrefix202606\CCC\AA;
-use ECSPrefix202606\Bar;
+use ECSPrefix202607\Acme;
+use function ECSPrefix202607\DDD;
+use ECSPrefix202607\AAC;
+use function ECSPrefix202607\CCC\AA;
+use ECSPrefix202607\Bar;
 
 PHP
 )]);
