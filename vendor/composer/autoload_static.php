@@ -1390,6 +1390,7 @@ class ComposerStaticInitc23700a8507cf45c476c8104d331b180
         'Symplify\\CodingStandard\\Fixer\\Commenting\\RemoveUselessDefaultCommentFixer' => __DIR__ . '/../..' . '/packages/coding-standard/src/Fixer/Commenting/RemoveUselessDefaultCommentFixer.php',
         'Symplify\\CodingStandard\\Fixer\\Commenting\\SingleLineInlineVarDocBlockFixer' => __DIR__ . '/../..' . '/packages/coding-standard/src/Fixer/Commenting/SingleLineInlineVarDocBlockFixer.php',
         'Symplify\\CodingStandard\\Fixer\\Commenting\\SwitchedTypeAndNameFixer' => __DIR__ . '/../..' . '/packages/coding-standard/src/Fixer/Commenting/SwitchedTypeAndNameFixer.php',
+        'Symplify\\CodingStandard\\Fixer\\Commenting\\TypeToVarTagFixer' => __DIR__ . '/../..' . '/packages/coding-standard/src/Fixer/Commenting/TypeToVarTagFixer.php',
         'Symplify\\CodingStandard\\Fixer\\LineLength\\LineLengthFixer' => __DIR__ . '/../..' . '/packages/coding-standard/src/Fixer/LineLength/LineLengthFixer.php',
         'Symplify\\CodingStandard\\Fixer\\Naming\\ClassNameResolver' => __DIR__ . '/../..' . '/packages/coding-standard/src/Fixer/Naming/ClassNameResolver.php',
         'Symplify\\CodingStandard\\Fixer\\Naming\\MethodNameResolver' => __DIR__ . '/../..' . '/packages/coding-standard/src/Fixer/Naming/MethodNameResolver.php',
