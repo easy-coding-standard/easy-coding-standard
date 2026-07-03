@@ -1369,6 +1369,7 @@ class ComposerStaticInitc23700a8507cf45c476c8104d331b180
         'Symplify\\CodingStandard\\Enum\\BlockBorderType' => __DIR__ . '/../..' . '/packages/coding-standard/src/Enum/BlockBorderType.php',
         'Symplify\\CodingStandard\\Exception\\ShouldNotHappenException' => __DIR__ . '/../..' . '/packages/coding-standard/src/Exception/ShouldNotHappenException.php',
         'Symplify\\CodingStandard\\Fixer\\AbstractSymplifyFixer' => __DIR__ . '/../..' . '/packages/coding-standard/src/Fixer/AbstractSymplifyFixer.php',
+        'Symplify\\CodingStandard\\Fixer\\Annotation\\RemoveEventSubscriberDescriptionFixer' => __DIR__ . '/../..' . '/packages/coding-standard/src/Fixer/Annotation/RemoveEventSubscriberDescriptionFixer.php',
         'Symplify\\CodingStandard\\Fixer\\Annotation\\RemoveMethodNameDuplicateDescriptionFixer' => __DIR__ . '/../..' . '/packages/coding-standard/src/Fixer/Annotation/RemoveMethodNameDuplicateDescriptionFixer.php',
         'Symplify\\CodingStandard\\Fixer\\Annotation\\RemovePHPStormAnnotationFixer' => __DIR__ . '/../..' . '/packages/coding-standard/src/Fixer/Annotation/RemovePHPStormAnnotationFixer.php',
         'Symplify\\CodingStandard\\Fixer\\Annotation\\RemovePropertyVariableNameDescriptionFixer' => __DIR__ . '/../..' . '/packages/coding-standard/src/Fixer/Annotation/RemovePropertyVariableNameDescriptionFixer.php',

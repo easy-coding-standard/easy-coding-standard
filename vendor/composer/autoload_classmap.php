@@ -1200,6 +1200,7 @@ return array(
     'Symplify\\CodingStandard\\Enum\\BlockBorderType' => $baseDir . '/packages/coding-standard/src/Enum/BlockBorderType.php',
     'Symplify\\CodingStandard\\Exception\\ShouldNotHappenException' => $baseDir . '/packages/coding-standard/src/Exception/ShouldNotHappenException.php',
     'Symplify\\CodingStandard\\Fixer\\AbstractSymplifyFixer' => $baseDir . '/packages/coding-standard/src/Fixer/AbstractSymplifyFixer.php',
+    'Symplify\\CodingStandard\\Fixer\\Annotation\\RemoveEventSubscriberDescriptionFixer' => $baseDir . '/packages/coding-standard/src/Fixer/Annotation/RemoveEventSubscriberDescriptionFixer.php',
     'Symplify\\CodingStandard\\Fixer\\Annotation\\RemoveMethodNameDuplicateDescriptionFixer' => $baseDir . '/packages/coding-standard/src/Fixer/Annotation/RemoveMethodNameDuplicateDescriptionFixer.php',
     'Symplify\\CodingStandard\\Fixer\\Annotation\\RemovePHPStormAnnotationFixer' => $baseDir . '/packages/coding-standard/src/Fixer/Annotation/RemovePHPStormAnnotationFixer.php',
     'Symplify\\CodingStandard\\Fixer\\Annotation\\RemovePropertyVariableNameDescriptionFixer' => $baseDir . '/packages/coding-standard/src/Fixer/Annotation/RemovePropertyVariableNameDescriptionFixer.php',

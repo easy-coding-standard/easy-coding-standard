@@ -27,6 +27,7 @@ use PhpCsFixer\Fixer\Phpdoc\PhpdocTrimConsecutiveBlankLineSeparationFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocTrimFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocTypesFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocVarWithoutNameFixer;
+use Symplify\CodingStandard\Fixer\Annotation\RemoveEventSubscriberDescriptionFixer;
 use Symplify\CodingStandard\Fixer\Annotation\RemoveMethodNameDuplicateDescriptionFixer;
 use Symplify\CodingStandard\Fixer\Annotation\RemovePHPStormAnnotationFixer;
 use Symplify\CodingStandard\Fixer\Annotation\RemovePropertyVariableNameDescriptionFixer;
@@ -103,6 +104,7 @@ final class DocblockLevel
         RemovePHPStormAnnotationFixer::class,
         RemoveMethodNameDuplicateDescriptionFixer::class,
         RemovePropertyVariableNameDescriptionFixer::class,
+        RemoveEventSubscriberDescriptionFixer::class,
     ];
     /**
      * @var array<class-string<Sniff|FixerInterface>, mixed[]>
