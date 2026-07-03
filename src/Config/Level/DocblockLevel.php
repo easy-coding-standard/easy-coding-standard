@@ -36,6 +36,7 @@ use Symplify\CodingStandard\Fixer\Commenting\AddMissingVarNameFixer;
 use Symplify\CodingStandard\Fixer\Commenting\DoubleAsteriskInlineVarFixer;
 use Symplify\CodingStandard\Fixer\Commenting\FixParamNameTypoFixer;
 use Symplify\CodingStandard\Fixer\Commenting\FixTagTypoFixer;
+use Symplify\CodingStandard\Fixer\Commenting\MergeDocBlockStartFixer;
 use Symplify\CodingStandard\Fixer\Commenting\RemoveDeadParamFixer;
 use Symplify\CodingStandard\Fixer\Commenting\RemoveDeadVarThisFixer;
 use Symplify\CodingStandard\Fixer\Commenting\RemoveParamNameReferenceFixer;
@@ -77,6 +78,7 @@ final class DocblockLevel
         // switched type/name order
         SwitchedTypeAndNameFixer::class,
         // pure whitespace cleanup
+        MergeDocBlockStartFixer::class,
         NoTrailingWhitespaceInCommentFixer::class,
         PhpdocTrimFixer::class,
         PhpdocTrimConsecutiveBlankLineSeparationFixer::class,

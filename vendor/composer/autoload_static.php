@@ -1382,6 +1382,7 @@ class ComposerStaticInitc23700a8507cf45c476c8104d331b180
         'Symplify\\CodingStandard\\Fixer\\Commenting\\DoubleAsteriskInlineVarFixer' => __DIR__ . '/../..' . '/packages/coding-standard/src/Fixer/Commenting/DoubleAsteriskInlineVarFixer.php',
         'Symplify\\CodingStandard\\Fixer\\Commenting\\FixParamNameTypoFixer' => __DIR__ . '/../..' . '/packages/coding-standard/src/Fixer/Commenting/FixParamNameTypoFixer.php',
         'Symplify\\CodingStandard\\Fixer\\Commenting\\FixTagTypoFixer' => __DIR__ . '/../..' . '/packages/coding-standard/src/Fixer/Commenting/FixTagTypoFixer.php',
+        'Symplify\\CodingStandard\\Fixer\\Commenting\\MergeDocBlockStartFixer' => __DIR__ . '/../..' . '/packages/coding-standard/src/Fixer/Commenting/MergeDocBlockStartFixer.php',
         'Symplify\\CodingStandard\\Fixer\\Commenting\\ParamReturnAndVarTagMalformsFixer' => __DIR__ . '/../..' . '/packages/coding-standard/src/Fixer/Commenting/ParamReturnAndVarTagMalformsFixer.php',
         'Symplify\\CodingStandard\\Fixer\\Commenting\\RemoveDeadParamFixer' => __DIR__ . '/../..' . '/packages/coding-standard/src/Fixer/Commenting/RemoveDeadParamFixer.php',
         'Symplify\\CodingStandard\\Fixer\\Commenting\\RemoveDeadVarThisFixer' => __DIR__ . '/../..' . '/packages/coding-standard/src/Fixer/Commenting/RemoveDeadVarThisFixer.php',
