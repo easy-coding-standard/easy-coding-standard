@@ -18,6 +18,10 @@ use Symplify\EasyCodingStandard\DependencyInjection\ServiceContainerFactory;
 \gc_disable();
 \define('__ECS_RUNNING__', \true);
 // 1. autoload
+// load react/proc functions
+if (\file_exists(__DIR__ . '/../preload.php')) {
+    require_once __DIR__ . '/../preload.php';
+}
 $autoloadIncluder = new ECSAutoloadIncluder();
 $autoloadIncluder->includeCwdVendorAutoloadIfExists();
 $autoloadIncluder->loadIfNotLoadedYet(__DIR__ . '/../vendor/scoper-autoload.php');
