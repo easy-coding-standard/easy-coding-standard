@@ -72,7 +72,7 @@ final class RemoveMethodNameDuplicateDescriptionFixer extends AbstractSymplifyFi
                 $spacelessDocblockLine = Regex::replace($docblockLine, '#[\s\n]+#', '');
                 // ignore trailing sentence punctuation, e.g. "Set name." duplicates setName()
                 $spacelessDocblockLine = rtrim($spacelessDocblockLine, '.!');
-                if (strtolower($spacelessDocblockLine) !== strtolower('*' . $methodName)) {
+                if (!$this->isDuplicateDescription($spacelessDocblockLine, $methodName)) {
                     continue;
                 }
                 $hasChanged = \true;
@@ -83,5 +83,25 @@ final class RemoveMethodNameDuplicateDescriptionFixer extends AbstractSymplifyFi
             }
             $tokens[$index] = new Token([\T_DOC_COMMENT, implode("\n", $docblockLines)]);
         }
+    }
+    private function isDuplicateDescription(string $spacelessDocblockLine, string $methodName): bool
+    {
+        $description = strtolower(ltrim($spacelessDocblockLine, '*'));
+        $methodName = strtolower($methodName);
+        if ($description === $methodName) {
+            return \true;
+        }
+        // getter/setter verb mix-up, e.g. "Get results" description on setResults()
+        $descriptionNoun = $this->resolveGetterSetterNoun($description);
+        return $descriptionNoun !== null && $descriptionNoun === $this->resolveGetterSetterNoun($methodName);
+    }
+    private function resolveGetterSetterNoun(string $value): ?string
+    {
+        foreach (['get', 'set'] as $prefix) {
+            if (strncmp($value, $prefix, strlen($prefix)) === 0 && strlen($value) > strlen($prefix)) {
+                return (string) substr($value, strlen($prefix));
+            }
+        }
+        return null;
     }
 }
