@@ -907,6 +907,9 @@ abstract class ParserAbstract implements Parser
         if ($node->variadic && null !== $node->default) {
             $this->emitError(new Error('Variadic parameter cannot have a default value', $node->default->getAttributes()));
         }
+        if ($node->type instanceof Identifier && $node->type->name === 'void') {
+            $this->emitError(new Error('void cannot be used as a parameter type', $node->type->getAttributes()));
+        }
     }
     protected function checkTryCatch(TryCatch $node): void
     {
