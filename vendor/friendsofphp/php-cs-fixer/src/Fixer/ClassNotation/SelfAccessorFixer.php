@@ -132,7 +132,7 @@ PHP
                 }
                 $prevToken = $tokens[$tokens->getPrevMeaningfulToken($classStartIndex)];
             }
-            if ($prevToken->isGivenKind(\T_STRING) || $prevToken->isObjectOperator()) {
+            if ($prevToken->isGivenKind([\T_STRING, \T_PAAMAYIM_NEKUDOTAYIM]) || $prevToken->isObjectOperator()) {
                 continue;
             }
             if ($prevToken->isGivenKind([\T_INSTANCEOF, \T_NEW]) || $nextToken->isGivenKind(\T_PAAMAYIM_NEKUDOTAYIM) || null !== $insideMethodSignatureUntil && $i < $insideMethodSignatureUntil && $prevToken->equalsAny(['(', ',', [CT::T_NULLABLE_TYPE], [CT::T_TYPE_ALTERNATION], [CT::T_TYPE_COLON]])) {

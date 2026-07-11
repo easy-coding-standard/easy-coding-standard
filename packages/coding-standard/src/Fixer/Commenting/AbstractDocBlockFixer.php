@@ -43,7 +43,10 @@ abstract class AbstractDocBlockFixer extends AbstractSymplifyFixer
             if (!$token->isGivenKind([\T_CALLABLE])) {
                 continue;
             }
-            if (!(isset($tokens[$index + 3]) && $tokens[$index + 3]->getContent() === ')')) {
+            if (!isset($tokens[$index + 3])) {
+                continue;
+            }
+            if ($tokens[$index + 3]->getContent() !== ')') {
                 continue;
             }
             return \false;

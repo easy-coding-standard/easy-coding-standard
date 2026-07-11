@@ -158,6 +158,10 @@ exit($statusCode);
  * the "-c" config shortcut to "--config", so the Entropy input parser does not
  * treat them as unknown command options.
  *
+ * When the first argument is an option (e.g. "ecs --config=ecs.php"), inject the
+ * default "check" command, so the Entropy input parser does not mistake the leading
+ * "--config=<file>" for an unknown boolean flag and fail with "Unknown option".
+ *
  * @param string[] $argv
  * @return string[]
  */
@@ -181,6 +185,12 @@ function ecs_normalize_argv(array $argv): array
             continue;
         }
         $normalized[] = $arg;
+    }
+    // $normalized[0] is the script name; the first real argument sits at index 1.
+    // Keep "-h"/"--help" untouched, so it still prints the global command list.
+    $helpFlags = ['-h', '--help'];
+    if (isset($normalized[1]) && \strncmp($normalized[1], '-', \strlen('-')) === 0 && !\in_array($normalized[1], $helpFlags, \true)) {
+        \array_splice($normalized, 1, 0, 'check');
     }
     return $normalized;
 }

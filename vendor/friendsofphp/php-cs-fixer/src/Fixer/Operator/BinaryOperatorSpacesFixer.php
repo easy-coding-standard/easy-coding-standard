@@ -570,8 +570,7 @@ PHP
             // there is also no need to analyse the second arrow of a line
             if ($token->isGivenKind(\T_DOUBLE_ARROW) && $newLineFoundSinceLastPlaceholder) {
                 if ($yieldFoundSinceLastPlaceholder) {
-                    ++$this->deepestLevel;
-                    ++$this->currentLevel;
+                    $this->currentLevel = ++$this->deepestLevel;
                 }
                 $tokenContent = \sprintf(self::ALIGN_PLACEHOLDER, $this->currentLevel) . $token->getContent();
                 $nextToken = $tokens[$index + 1];
