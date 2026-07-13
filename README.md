@@ -40,6 +40,12 @@ Then you can run again to see the suggested diffs:
 vendor/bin/ecs
 ```
 
+Want to check specific paths instead of the configured ones? Pass them as arguments:
+
+```bash
+vendor/bin/ecs src tests
+```
+
 To actually **fix your code**, add `--fix`:
 
 ```bash
