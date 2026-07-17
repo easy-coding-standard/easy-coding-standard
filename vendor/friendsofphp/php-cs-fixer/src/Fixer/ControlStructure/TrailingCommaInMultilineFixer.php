@@ -168,7 +168,7 @@ SAMPLE
         }
         $beforeEndToken = $tokens[$beforeEndIndex];
         // if there is some item between braces then add `,` after it
-        if ($startIndex !== $beforeEndIndex && !$beforeEndToken->equals(',') && (\true === $this->configuration['after_heredoc'] || !$beforeEndToken->isGivenKind(\T_END_HEREDOC))) {
+        if ($startIndex !== $beforeEndIndex && !$beforeEndToken->equalsAny([',', [CT::T_FIRST_CLASS_CALLABLE]]) && (\true === $this->configuration['after_heredoc'] || !$beforeEndToken->isGivenKind(\T_END_HEREDOC))) {
             $tokens->insertAt($beforeEndIndex + 1, new Token(','));
             $endToken = $tokens[$endIndex];
             if (!$endToken->isComment() && !$endToken->isWhitespace()) {
