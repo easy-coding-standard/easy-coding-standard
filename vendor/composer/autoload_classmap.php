@@ -146,6 +146,7 @@ return array(
     'ECSPrefix202607\\Nette\\Utils\\AssertionException' => $vendorDir . '/nette/utils/src/Utils/exceptions.php',
     'ECSPrefix202607\\Nette\\Utils\\Callback' => $vendorDir . '/nette/utils/src/Utils/Callback.php',
     'ECSPrefix202607\\Nette\\Utils\\DateTime' => $vendorDir . '/nette/utils/src/Utils/DateTime.php',
+    'ECSPrefix202607\\Nette\\Utils\\DateTimeImmutable' => $vendorDir . '/nette/utils/src/Utils/DateTimeImmutable.php',
     'ECSPrefix202607\\Nette\\Utils\\FileInfo' => $vendorDir . '/nette/utils/src/Utils/FileInfo.php',
     'ECSPrefix202607\\Nette\\Utils\\FileSystem' => $vendorDir . '/nette/utils/src/Utils/FileSystem.php',
     'ECSPrefix202607\\Nette\\Utils\\Finder' => $vendorDir . '/nette/utils/src/Utils/Finder.php',

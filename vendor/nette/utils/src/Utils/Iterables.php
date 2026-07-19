@@ -176,6 +176,7 @@ final class Iterables
         return new class(\Closure::fromCallable($factory)) implements \IteratorAggregate
         {
             /**
+             * @readonly
              * @var \Closure
              */
             private $factory;

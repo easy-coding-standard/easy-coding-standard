@@ -178,7 +178,7 @@ final class ObjectHelpers
                 if ($rp->isPublic() && !$rp->isStatic()) {
                     $prop = $name >= 'onA' && $name < 'on_' ? 'event' : \true;
                 }
-            } catch (\ReflectionException $e) {
+            } catch (\ReflectionException $exception) {
             }
         }
         return $prop;
