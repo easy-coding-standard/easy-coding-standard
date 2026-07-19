@@ -1233,6 +1233,7 @@ return array(
     'Symplify\\CodingStandard\\Fixer\\Spacing\\MethodChainingNewlineFixer' => $baseDir . '/packages/coding-standard/src/Fixer/Spacing/MethodChainingNewlineFixer.php',
     'Symplify\\CodingStandard\\Fixer\\Spacing\\SpaceAfterCommaHereNowDocFixer' => $baseDir . '/packages/coding-standard/src/Fixer/Spacing/SpaceAfterCommaHereNowDocFixer.php',
     'Symplify\\CodingStandard\\Fixer\\Spacing\\StandaloneLineConstructorParamFixer' => $baseDir . '/packages/coding-standard/src/Fixer/Spacing/StandaloneLineConstructorParamFixer.php',
+    'Symplify\\CodingStandard\\Fixer\\Spacing\\StandaloneLinePlainConstructorParamFixer' => $baseDir . '/packages/coding-standard/src/Fixer/Spacing/StandaloneLinePlainConstructorParamFixer.php',
     'Symplify\\CodingStandard\\Fixer\\Spacing\\StandaloneLinePromotedPropertyFixer' => $baseDir . '/packages/coding-standard/src/Fixer/Spacing/StandaloneLinePromotedPropertyFixer.php',
     'Symplify\\CodingStandard\\Fixer\\Spacing\\StandaloneLineRequiredParamFixer' => $baseDir . '/packages/coding-standard/src/Fixer/Spacing/StandaloneLineRequiredParamFixer.php',
     'Symplify\\CodingStandard\\Fixer\\Strict\\BlankLineAfterStrictTypesFixer' => $baseDir . '/packages/coding-standard/src/Fixer/Strict/BlankLineAfterStrictTypesFixer.php',
