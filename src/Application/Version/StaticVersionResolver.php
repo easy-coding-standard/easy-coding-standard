@@ -15,12 +15,12 @@ final class StaticVersionResolver
      * @api
      * @var string
      */
-    public const PACKAGE_VERSION = '13.2.12';
+    public const PACKAGE_VERSION = '717415b8e8a34327fcf93fcf4d5ebb6485ae195c';
     /**
      * @api
      * @var string
      */
-    public const RELEASE_DATE = '2026-07-20 09:46:00';
+    public const RELEASE_DATE = '2026-07-20 11:39:43';
     /**
      * @var int
      */
