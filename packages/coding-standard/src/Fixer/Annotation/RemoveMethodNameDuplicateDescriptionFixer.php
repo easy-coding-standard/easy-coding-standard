@@ -71,6 +71,8 @@ final class RemoveMethodNameDuplicateDescriptionFixer extends AbstractSymplifyFi
             foreach ($docblockLines as $key => $docblockLine) {
                 // drop articles, so "Get the API helper" still duplicates getApiHelper()
                 $docblockLine = Regex::replace($docblockLine, '#\b(?:a|an|the)\b#i', '');
+                // drop 3rd person verb "s", so "Contacts a user" still duplicates contactUser()
+                $docblockLine = Regex::replace($docblockLine, '#^([\s*]*\w+?)s\b#', '$1');
                 $spacelessDocblockLine = Regex::replace($docblockLine, '#[\s\n]+#', '');
                 // ignore trailing sentence punctuation, e.g. "Set name." duplicates setName()
                 $spacelessDocblockLine = rtrim($spacelessDocblockLine, '.!');
