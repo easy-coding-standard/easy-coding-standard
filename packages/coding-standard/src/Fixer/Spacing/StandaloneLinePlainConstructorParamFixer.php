@@ -15,7 +15,8 @@ use Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
 use Symplify\CodingStandard\TokenAnalyzer\Naming\MethodNameResolver;
 use Symplify\CodingStandard\TokenAnalyzer\ParamNewliner;
 /**
- * Every parameter of a constructor without promoted properties must be on a standalone line.
+ * Every parameter of a constructor without promoted properties must be on a standalone line, unless the constructor
+ * has 3 or less parameters.
  *
  * Constructors with promoted properties are handled by @see StandaloneLinePromotedPropertyFixer, so both rules can
  * be used side by side without processing the same constructor twice.
@@ -38,6 +39,11 @@ final class StandaloneLinePlainConstructorParamFixer extends AbstractSymplifyFix
      * @var string
      */
     private const ERROR_MESSAGE = 'Constructor param should be on a standalone line to ease git diffs on new dependency';
+    /**
+     * Short parameter lists are readable on a single line.
+     * @var int
+     */
+    private const MIN_PARAM_COUNT = 4;
     /**
      * @var int[]
      */
@@ -95,7 +101,7 @@ CODE_SAMPLE
             if ($paramBracketPosition === null) {
                 continue;
             }
-            if (!$this->hasParams($tokens, $paramBracketPosition)) {
+            if ($this->countParams($tokens, $paramBracketPosition) < self::MIN_PARAM_COUNT) {
                 continue;
             }
             if ($this->hasPromotedProperty($tokens, $paramBracketPosition)) {
@@ -116,19 +122,29 @@ CODE_SAMPLE
         return $tokens->getNextMeaningfulToken($namePosition);
     }
     /**
-     * An empty parameter list would be broken into an empty line between the brackets.
-     *
      * @param Tokens<Token> $tokens
      */
-    private function hasParams(Tokens $tokens, int $openBracketPosition): bool
+    private function countParams(Tokens $tokens, int $openBracketPosition): int
     {
-        $firstParamPosition = $tokens->getNextMeaningfulToken($openBracketPosition);
-        if ($firstParamPosition === null) {
-            return \false;
+        $closeBracketPosition = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openBracketPosition);
+        $paramCount = 0;
+        $nestingLevel = 0;
+        for ($index = $openBracketPosition + 1; $index < $closeBracketPosition; ++$index) {
+            /** @var Token $token */
+            $token = $tokens[$index];
+            if ($token->equalsAny(['(', '[', '{'])) {
+                ++$nestingLevel;
+                continue;
+            }
+            if ($token->equalsAny([')', ']', '}'])) {
+                --$nestingLevel;
+                continue;
+            }
+            if ($nestingLevel === 0 && $token->isGivenKind(\T_VARIABLE)) {
+                ++$paramCount;
+            }
         }
-        /** @var Token $firstParamToken */
-        $firstParamToken = $tokens[$firstParamPosition];
-        return $firstParamToken->getContent() !== ')';
+        return $paramCount;
     }
     /**
      * @param Tokens<Token> $tokens
