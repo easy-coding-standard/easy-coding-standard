@@ -20,6 +20,8 @@ use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
  * Only a fixed allowlist of Symfony attributes is handled, so third-party attributes keep their original layout.
  * Attributes are matched by their short name (#[AsCommand] or #[\Symfony\...\AsCommand]). See self::SYMFONY_ATTRIBUTE_SHORT_NAMES.
  *
+ * #[AsCommand] is always broken to standalone lines; every other attribute only when it has 2+ arguments.
+ *
  * @see \Symplify\CodingStandard\Tests\Fixer\Spacing\StandaloneLineSymfonyAttributeParamFixer\StandaloneLineSymfonyAttributeParamFixerTest
  */
 final class StandaloneLineSymfonyAttributeParamFixer extends AbstractSymplifyFixer
@@ -33,6 +35,11 @@ final class StandaloneLineSymfonyAttributeParamFixer extends AbstractSymplifyFix
      * @var string
      */
     private const ERROR_MESSAGE = 'Symfony attribute argument should be on a standalone line to ease git diffs on change';
+    /**
+     * Always broken to standalone lines, even with a single argument.
+     * @var string
+     */
+    private const ALWAYS_ATTRIBUTE_SHORT_NAME = 'AsCommand';
     /**
      * @var string[]
      */
@@ -89,12 +96,17 @@ CODE_SAMPLE
             if ($openBracketPosition > $attributeEndPosition) {
                 continue;
             }
-            if (!$this->isSymfonyAttribute($tokens, $openBracketPosition)) {
+            $attributeShortName = $this->matchSymfonyAttributeShortName($tokens, $openBracketPosition);
+            if ($attributeShortName === null) {
                 continue;
             }
             $closeBracketPosition = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openBracketPosition);
             if ($tokens->getNextMeaningfulToken($openBracketPosition) === $closeBracketPosition) {
                 // empty argument list, e.g. #[\Symfony\...\AsCommand()]
+                continue;
+            }
+            // AsCommand always breaks; other attributes only when they have 2+ arguments
+            if ($attributeShortName !== self::ALWAYS_ATTRIBUTE_SHORT_NAME && $this->countArguments($tokens, $openBracketPosition, $closeBracketPosition) < 2) {
                 continue;
             }
             $blockInfo = new BlockInfo($openBracketPosition, $closeBracketPosition);
@@ -104,18 +116,47 @@ CODE_SAMPLE
     /**
      * @param Tokens<Token> $tokens
      */
-    private function isSymfonyAttribute(Tokens $tokens, int $openBracketPosition): bool
+    private function matchSymfonyAttributeShortName(Tokens $tokens, int $openBracketPosition): ?string
     {
         // the attribute short name is the T_STRING right before its "(", e.g. "AsCommand"
         $previousPosition = $tokens->getPrevMeaningfulToken($openBracketPosition);
         if ($previousPosition === null) {
-            return \false;
+            return null;
         }
         /** @var Token $previousToken */
         $previousToken = $tokens[$previousPosition];
         if (!$previousToken->isGivenKind(\T_STRING)) {
-            return \false;
+            return null;
         }
-        return in_array($previousToken->getContent(), self::SYMFONY_ATTRIBUTE_SHORT_NAMES, \true);
+        $shortName = $previousToken->getContent();
+        if (!in_array($shortName, self::SYMFONY_ATTRIBUTE_SHORT_NAMES, \true)) {
+            return null;
+        }
+        return $shortName;
+    }
+    /**
+     * @param Tokens<Token> $tokens
+     */
+    private function countArguments(Tokens $tokens, int $openBracketPosition, int $closeBracketPosition): int
+    {
+        $argumentCount = 1;
+        $nestingLevel = 0;
+        for ($position = $openBracketPosition + 1; $position < $closeBracketPosition; ++$position) {
+            /** @var Token $token */
+            $token = $tokens[$position];
+            $content = $token->getContent();
+            if (in_array($content, ['(', '['], \true) || $token->isGivenKind(\T_ATTRIBUTE)) {
+                ++$nestingLevel;
+                continue;
+            }
+            if (in_array($content, [')', ']'], \true)) {
+                --$nestingLevel;
+                continue;
+            }
+            if ($nestingLevel === 0 && $content === ',') {
+                ++$argumentCount;
+            }
+        }
+        return $argumentCount;
     }
 }
