@@ -18,8 +18,9 @@ use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
 /**
  * Every argument of a Symfony attribute must be on a standalone line, to ease git diffs when arguments change.
  *
- * Only Symfony attributes are handled, so third-party attributes keep their original layout. Both fully-qualified
- * names (#[\Symfony\...\AsCommand]) and short names imported via a use statement (#[AsCommand]) are recognized.
+ * Only a fixed allowlist of Symfony attributes is handled, so third-party attributes keep their original layout.
+ * Both fully-qualified names (#[\Symfony\...\AsCommand]) and short names imported via a use statement (#[AsCommand])
+ * are recognized. See self::SYMFONY_ATTRIBUTE_CLASSES.
  *
  * @see \Symplify\CodingStandard\Tests\Fixer\Spacing\StandaloneLineSymfonyAttributeParamFixer\StandaloneLineSymfonyAttributeParamFixerTest
  */
@@ -40,9 +41,9 @@ final class StandaloneLineSymfonyAttributeParamFixer extends AbstractSymplifyFix
      */
     private const ERROR_MESSAGE = 'Symfony attribute argument should be on a standalone line to ease git diffs on change';
     /**
-     * @var string
+     * @var string[]
      */
-    private const SYMFONY_NAMESPACE_PART = 'Symfony';
+    private const SYMFONY_ATTRIBUTE_CLASSES = ['ECSPrefix202607\Symfony\Component\Console\Attribute\AsCommand', 'ECSPrefix202607\Symfony\Component\Routing\Attribute\Route', 'ECSPrefix202607\Symfony\Component\DependencyInjection\Attribute\Autowire', 'ECSPrefix202607\Symfony\Component\DependencyInjection\Attribute\AutowireIterator', 'ECSPrefix202607\Symfony\Component\DependencyInjection\Attribute\AutowireLocator', 'ECSPrefix202607\Symfony\Component\DependencyInjection\Attribute\AsAlias', 'ECSPrefix202607\Symfony\Component\DependencyInjection\Attribute\AsDecorator', 'ECSPrefix202607\Symfony\Component\DependencyInjection\Attribute\AsTaggedItem', 'ECSPrefix202607\Symfony\Component\DependencyInjection\Attribute\When', 'ECSPrefix202607\Symfony\Component\EventDispatcher\Attribute\AsEventListener', 'ECSPrefix202607\Symfony\Component\Messenger\Attribute\AsMessageHandler', 'ECSPrefix202607\Symfony\Component\HttpKernel\Attribute\AsController', 'ECSPrefix202607\Symfony\Component\HttpKernel\Attribute\MapRequestPayload', 'ECSPrefix202607\Symfony\Component\HttpKernel\Attribute\MapQueryParameter', 'ECSPrefix202607\Symfony\Component\HttpKernel\Attribute\MapQueryString', 'ECSPrefix202607\Symfony\Component\HttpKernel\Attribute\MapEntity', 'ECSPrefix202607\Symfony\Component\Security\Http\Attribute\IsGranted'];
     public function __construct(TokensNewliner $tokensNewliner, NamespaceUsesAnalyzer $namespaceUsesAnalyzer)
     {
         $this->tokensNewliner = $tokensNewliner;
@@ -116,18 +117,14 @@ CODE_SAMPLE
     private function isSymfonyAttribute(Tokens $tokens, int $openBracketPosition, array $shortNameToFullName): bool
     {
         $attributeName = $this->resolveAttributeName($tokens, $openBracketPosition);
-        // fully-qualified or partially-qualified Symfony name, e.g. #[\Symfony\...\AsCommand]
-        if (strpos($attributeName, self::SYMFONY_NAMESPACE_PART) !== \false) {
-            return \true;
-        }
-        // fully-qualified but not Symfony
+        // fully-qualified name, e.g. #[\Symfony\...\AsCommand]
         if (strncmp($attributeName, '\\', strlen('\\')) === 0) {
-            return \false;
+            return in_array(ltrim($attributeName, '\\'), self::SYMFONY_ATTRIBUTE_CLASSES, \true);
         }
         // short name imported via a use statement, e.g. #[AsCommand] with "use Symfony\...\AsCommand;"
         $firstNamePart = explode('\\', $attributeName)[0];
         $fullName = $shortNameToFullName[$firstNamePart] ?? null;
-        return $fullName !== null && strpos($fullName, self::SYMFONY_NAMESPACE_PART) !== \false;
+        return $fullName !== null && in_array($fullName, self::SYMFONY_ATTRIBUTE_CLASSES, \true);
     }
     /**
      * Reads the attribute name written right before its "(", e.g. "\Symfony\...\AsCommand" or "AsCommand".
