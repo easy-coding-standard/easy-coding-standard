@@ -1405,6 +1405,7 @@ class ComposerStaticInit2c61700fbd67a8913d04692d87a1f0ec
         'Symplify\\CodingStandard\\Fixer\\Spacing\\StandaloneLinePlainConstructorParamFixer' => __DIR__ . '/../..' . '/packages/coding-standard/src/Fixer/Spacing/StandaloneLinePlainConstructorParamFixer.php',
         'Symplify\\CodingStandard\\Fixer\\Spacing\\StandaloneLinePromotedPropertyFixer' => __DIR__ . '/../..' . '/packages/coding-standard/src/Fixer/Spacing/StandaloneLinePromotedPropertyFixer.php',
         'Symplify\\CodingStandard\\Fixer\\Spacing\\StandaloneLineRequiredParamFixer' => __DIR__ . '/../..' . '/packages/coding-standard/src/Fixer/Spacing/StandaloneLineRequiredParamFixer.php',
+        'Symplify\\CodingStandard\\Fixer\\Spacing\\StandaloneLineSymfonyAttributeParamFixer' => __DIR__ . '/../..' . '/packages/coding-standard/src/Fixer/Spacing/StandaloneLineSymfonyAttributeParamFixer.php',
         'Symplify\\CodingStandard\\Fixer\\Strict\\BlankLineAfterStrictTypesFixer' => __DIR__ . '/../..' . '/packages/coding-standard/src/Fixer/Strict/BlankLineAfterStrictTypesFixer.php',
         'Symplify\\CodingStandard\\TokenAnalyzer\\ChainMethodCallAnalyzer' => __DIR__ . '/../..' . '/packages/coding-standard/src/TokenAnalyzer/ChainMethodCallAnalyzer.php',
         'Symplify\\CodingStandard\\TokenAnalyzer\\DocblockRelatedParamNamesResolver' => __DIR__ . '/../..' . '/packages/coding-standard/src/TokenAnalyzer/DocblockRelatedParamNamesResolver.php',

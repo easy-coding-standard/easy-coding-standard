@@ -1236,6 +1236,7 @@ return array(
     'Symplify\\CodingStandard\\Fixer\\Spacing\\StandaloneLinePlainConstructorParamFixer' => $baseDir . '/packages/coding-standard/src/Fixer/Spacing/StandaloneLinePlainConstructorParamFixer.php',
     'Symplify\\CodingStandard\\Fixer\\Spacing\\StandaloneLinePromotedPropertyFixer' => $baseDir . '/packages/coding-standard/src/Fixer/Spacing/StandaloneLinePromotedPropertyFixer.php',
     'Symplify\\CodingStandard\\Fixer\\Spacing\\StandaloneLineRequiredParamFixer' => $baseDir . '/packages/coding-standard/src/Fixer/Spacing/StandaloneLineRequiredParamFixer.php',
+    'Symplify\\CodingStandard\\Fixer\\Spacing\\StandaloneLineSymfonyAttributeParamFixer' => $baseDir . '/packages/coding-standard/src/Fixer/Spacing/StandaloneLineSymfonyAttributeParamFixer.php',
     'Symplify\\CodingStandard\\Fixer\\Strict\\BlankLineAfterStrictTypesFixer' => $baseDir . '/packages/coding-standard/src/Fixer/Strict/BlankLineAfterStrictTypesFixer.php',
     'Symplify\\CodingStandard\\TokenAnalyzer\\ChainMethodCallAnalyzer' => $baseDir . '/packages/coding-standard/src/TokenAnalyzer/ChainMethodCallAnalyzer.php',
     'Symplify\\CodingStandard\\TokenAnalyzer\\DocblockRelatedParamNamesResolver' => $baseDir . '/packages/coding-standard/src/TokenAnalyzer/DocblockRelatedParamNamesResolver.php',

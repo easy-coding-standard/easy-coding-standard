@@ -229,7 +229,9 @@ final class ECSConfigBuilder
         /** @see SetList::CLEANUP */
         bool $cleanup = \false,
         /** @see SetList::CLEAN_CODE */
-        bool $cleanCode = \false
+        bool $cleanCode = \false,
+        /** @see SetList::STANDALONE_LINE */
+        bool $standaloneLine = \false
     ): self
     {
         if (func_get_args() === []) {
@@ -272,6 +274,9 @@ final class ECSConfigBuilder
         }
         if ($cleanCode) {
             $this->sets[] = SetList::CLEAN_CODE;
+        }
+        if ($standaloneLine) {
+            $this->sets[] = SetList::STANDALONE_LINE;
         }
         if ($symplify) {
             // soft-deprecated: rules moved to the "common" sets, still loaded for backward compatibility
