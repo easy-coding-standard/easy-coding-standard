@@ -7,7 +7,6 @@ use Override;
 use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
-use PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
@@ -19,8 +18,7 @@ use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
  * Every argument of a Symfony attribute must be on a standalone line, to ease git diffs when arguments change.
  *
  * Only a fixed allowlist of Symfony attributes is handled, so third-party attributes keep their original layout.
- * Both fully-qualified names (#[\Symfony\...\AsCommand]) and short names imported via a use statement (#[AsCommand])
- * are recognized. See self::SYMFONY_ATTRIBUTE_CLASSES.
+ * Attributes are matched by their short name (#[AsCommand] or #[\Symfony\...\AsCommand]). See self::SYMFONY_ATTRIBUTE_SHORT_NAMES.
  *
  * @see \Symplify\CodingStandard\Tests\Fixer\Spacing\StandaloneLineSymfonyAttributeParamFixer\StandaloneLineSymfonyAttributeParamFixerTest
  */
@@ -32,22 +30,16 @@ final class StandaloneLineSymfonyAttributeParamFixer extends AbstractSymplifyFix
      */
     private $tokensNewliner;
     /**
-     * @readonly
-     * @var \PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer
-     */
-    private $namespaceUsesAnalyzer;
-    /**
      * @var string
      */
     private const ERROR_MESSAGE = 'Symfony attribute argument should be on a standalone line to ease git diffs on change';
     /**
      * @var string[]
      */
-    private const SYMFONY_ATTRIBUTE_CLASSES = ['ECSPrefix202607\Symfony\Component\Console\Attribute\AsCommand', 'ECSPrefix202607\Symfony\Component\Routing\Attribute\Route', 'ECSPrefix202607\Symfony\Component\DependencyInjection\Attribute\Autowire', 'ECSPrefix202607\Symfony\Component\DependencyInjection\Attribute\AutowireIterator', 'ECSPrefix202607\Symfony\Component\DependencyInjection\Attribute\AutowireLocator', 'ECSPrefix202607\Symfony\Component\DependencyInjection\Attribute\AsAlias', 'ECSPrefix202607\Symfony\Component\DependencyInjection\Attribute\AsDecorator', 'ECSPrefix202607\Symfony\Component\DependencyInjection\Attribute\AsTaggedItem', 'ECSPrefix202607\Symfony\Component\DependencyInjection\Attribute\When', 'ECSPrefix202607\Symfony\Component\EventDispatcher\Attribute\AsEventListener', 'ECSPrefix202607\Symfony\Component\Messenger\Attribute\AsMessageHandler', 'ECSPrefix202607\Symfony\Component\HttpKernel\Attribute\AsController', 'ECSPrefix202607\Symfony\Component\HttpKernel\Attribute\MapRequestPayload', 'ECSPrefix202607\Symfony\Component\HttpKernel\Attribute\MapQueryParameter', 'ECSPrefix202607\Symfony\Component\HttpKernel\Attribute\MapQueryString', 'ECSPrefix202607\Symfony\Component\HttpKernel\Attribute\MapEntity', 'ECSPrefix202607\Symfony\Component\Security\Http\Attribute\IsGranted'];
-    public function __construct(TokensNewliner $tokensNewliner, NamespaceUsesAnalyzer $namespaceUsesAnalyzer)
+    private const SYMFONY_ATTRIBUTE_SHORT_NAMES = ['AsCommand', 'Route', 'Autowire', 'AutowireIterator', 'AutowireLocator', 'AsAlias', 'AsDecorator', 'AsTaggedItem', 'When', 'AsEventListener', 'AsMessageHandler', 'AsController', 'MapRequestPayload', 'MapQueryParameter', 'MapQueryString', 'MapEntity', 'IsGranted'];
+    public function __construct(TokensNewliner $tokensNewliner)
     {
         $this->tokensNewliner = $tokensNewliner;
-        $this->namespaceUsesAnalyzer = $namespaceUsesAnalyzer;
     }
     /**
      * Must run before
@@ -81,7 +73,6 @@ CODE_SAMPLE
      */
     public function fix(SplFileInfo $fileInfo, Tokens $tokens): void
     {
-        $shortNameToFullName = $this->resolveShortNameToFullName($tokens);
         // from the bottom up, as adding tokens shifts every position after them
         for ($position = count($tokens) - 1; $position >= 0; --$position) {
             /** @var Token $token */
@@ -98,7 +89,7 @@ CODE_SAMPLE
             if ($openBracketPosition > $attributeEndPosition) {
                 continue;
             }
-            if (!$this->isSymfonyAttribute($tokens, $openBracketPosition, $shortNameToFullName)) {
+            if (!$this->isSymfonyAttribute($tokens, $openBracketPosition)) {
                 continue;
             }
             $closeBracketPosition = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openBracketPosition);
@@ -112,48 +103,19 @@ CODE_SAMPLE
     }
     /**
      * @param Tokens<Token> $tokens
-     * @param array<string, string> $shortNameToFullName
      */
-    private function isSymfonyAttribute(Tokens $tokens, int $openBracketPosition, array $shortNameToFullName): bool
+    private function isSymfonyAttribute(Tokens $tokens, int $openBracketPosition): bool
     {
-        $attributeName = $this->resolveAttributeName($tokens, $openBracketPosition);
-        // fully-qualified name, e.g. #[\Symfony\...\AsCommand]
-        if (strncmp($attributeName, '\\', strlen('\\')) === 0) {
-            return in_array(ltrim($attributeName, '\\'), self::SYMFONY_ATTRIBUTE_CLASSES, \true);
+        // the attribute short name is the T_STRING right before its "(", e.g. "AsCommand"
+        $previousPosition = $tokens->getPrevMeaningfulToken($openBracketPosition);
+        if ($previousPosition === null) {
+            return \false;
         }
-        // short name imported via a use statement, e.g. #[AsCommand] with "use Symfony\...\AsCommand;"
-        $firstNamePart = explode('\\', $attributeName)[0];
-        $fullName = $shortNameToFullName[$firstNamePart] ?? null;
-        return $fullName !== null && in_array($fullName, self::SYMFONY_ATTRIBUTE_CLASSES, \true);
-    }
-    /**
-     * Reads the attribute name written right before its "(", e.g. "\Symfony\...\AsCommand" or "AsCommand".
-     *
-     * @param Tokens<Token> $tokens
-     */
-    private function resolveAttributeName(Tokens $tokens, int $openBracketPosition): string
-    {
-        $attributeName = '';
-        for ($index = $openBracketPosition - 1; $index >= 0; --$index) {
-            /** @var Token $token */
-            $token = $tokens[$index];
-            if (!$token->isGivenKind([\T_STRING, \T_NS_SEPARATOR])) {
-                break;
-            }
-            $attributeName = $token->getContent() . $attributeName;
+        /** @var Token $previousToken */
+        $previousToken = $tokens[$previousPosition];
+        if (!$previousToken->isGivenKind(\T_STRING)) {
+            return \false;
         }
-        return $attributeName;
-    }
-    /**
-     * @param Tokens<Token> $tokens
-     * @return array<string, string>
-     */
-    private function resolveShortNameToFullName(Tokens $tokens): array
-    {
-        $shortNameToFullName = [];
-        foreach ($this->namespaceUsesAnalyzer->getDeclarationsFromTokens($tokens) as $namespaceUseAnalysis) {
-            $shortNameToFullName[$namespaceUseAnalysis->getShortName()] = $namespaceUseAnalysis->getFullName();
-        }
-        return $shortNameToFullName;
+        return in_array($previousToken->getContent(), self::SYMFONY_ATTRIBUTE_SHORT_NAMES, \true);
     }
 }
