@@ -9,7 +9,7 @@ declare (strict_types=1);
  *
  * @see https://github.com/ergebnis/agent-detector
  */
-namespace ECSPrefix202607\Ergebnis\AgentDetector;
+namespace ECSPrefix202608\Ergebnis\AgentDetector;
 
 /**
  * The agent detector is inspired by shipfastlabs/agent-detector, originally licensed under MIT by Pushpak Chhajed.

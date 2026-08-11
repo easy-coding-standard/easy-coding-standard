@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix202607\React\Promise;
+namespace ECSPrefix202608\React\Promise;
 
-use ECSPrefix202607\React\Promise\Internal\RejectedPromise;
+use ECSPrefix202608\React\Promise\Internal\RejectedPromise;
 /**
  * @template T
  * @template-implements PromiseInterface<T>

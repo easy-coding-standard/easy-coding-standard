@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202607\PhpParser\Node\Stmt;
+namespace ECSPrefix202608\PhpParser\Node\Stmt;
 
-use ECSPrefix202607\PhpParser\Node\Name;
-use ECSPrefix202607\PhpParser\Node\Stmt;
-use ECSPrefix202607\PhpParser\Node\UseItem;
+use ECSPrefix202608\PhpParser\Node\Name;
+use ECSPrefix202608\PhpParser\Node\Stmt;
+use ECSPrefix202608\PhpParser\Node\UseItem;
 class GroupUse extends Stmt
 {
     /**

@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202607\Entropy\Console\Mapper;
+namespace ECSPrefix202608\Entropy\Console\Mapper;
 
-use ECSPrefix202607\Entropy\Attributes\RelatedTest;
-use ECSPrefix202607\Entropy\Console\Contract\CommandInterface;
-use ECSPrefix202607\Entropy\Console\Exception\InvalidCommandException;
-use ECSPrefix202607\Entropy\Console\ValueObject\Argument;
-use ECSPrefix202607\Entropy\Console\ValueObject\ArgumentsAndOptions;
-use ECSPrefix202607\Entropy\Console\ValueObject\Option;
-use ECSPrefix202607\Entropy\Reflection\ParameterDescriptionResolver;
-use ECSPrefix202607\Entropy\Reflection\ParameterOptionMarkerResolver;
-use ECSPrefix202607\Entropy\Tests\Console\Mapper\CommandRunParametersMapperTest;
+use ECSPrefix202608\Entropy\Attributes\RelatedTest;
+use ECSPrefix202608\Entropy\Console\Contract\CommandInterface;
+use ECSPrefix202608\Entropy\Console\Exception\InvalidCommandException;
+use ECSPrefix202608\Entropy\Console\ValueObject\Argument;
+use ECSPrefix202608\Entropy\Console\ValueObject\ArgumentsAndOptions;
+use ECSPrefix202608\Entropy\Console\ValueObject\Option;
+use ECSPrefix202608\Entropy\Reflection\ParameterDescriptionResolver;
+use ECSPrefix202608\Entropy\Reflection\ParameterOptionMarkerResolver;
+use ECSPrefix202608\Entropy\Tests\Console\Mapper\CommandRunParametersMapperTest;
 use ReflectionMethod;
 use ReflectionNamedType;
 final class CommandRunParametersMapper

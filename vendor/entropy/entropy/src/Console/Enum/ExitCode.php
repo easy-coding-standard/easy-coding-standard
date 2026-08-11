@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202607\Entropy\Console\Enum;
+namespace ECSPrefix202608\Entropy\Console\Enum;
 
 final class ExitCode
 {

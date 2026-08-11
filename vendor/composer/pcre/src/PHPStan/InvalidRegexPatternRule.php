@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202607\Composer\Pcre\PHPStan;
+namespace ECSPrefix202608\Composer\Pcre\PHPStan;
 
-use ECSPrefix202607\Composer\Pcre\Preg;
-use ECSPrefix202607\Composer\Pcre\Regex;
-use ECSPrefix202607\Composer\Pcre\PcreException;
-use ECSPrefix202607\Nette\Utils\RegexpException;
-use ECSPrefix202607\Nette\Utils\Strings;
-use ECSPrefix202607\PhpParser\Node;
-use ECSPrefix202607\PhpParser\Node\Expr\StaticCall;
-use ECSPrefix202607\PhpParser\Node\Name\FullyQualified;
-use ECSPrefix202607\PHPStan\Analyser\Scope;
-use ECSPrefix202607\PHPStan\Rules\Rule;
-use ECSPrefix202607\PHPStan\Rules\RuleErrorBuilder;
+use ECSPrefix202608\Composer\Pcre\Preg;
+use ECSPrefix202608\Composer\Pcre\Regex;
+use ECSPrefix202608\Composer\Pcre\PcreException;
+use ECSPrefix202608\Nette\Utils\RegexpException;
+use ECSPrefix202608\Nette\Utils\Strings;
+use ECSPrefix202608\PhpParser\Node;
+use ECSPrefix202608\PhpParser\Node\Expr\StaticCall;
+use ECSPrefix202608\PhpParser\Node\Name\FullyQualified;
+use ECSPrefix202608\PHPStan\Analyser\Scope;
+use ECSPrefix202608\PHPStan\Rules\Rule;
+use ECSPrefix202608\PHPStan\Rules\RuleErrorBuilder;
 use function in_array;
 use function sprintf;
 /**

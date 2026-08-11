@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202607\PhpParser\Builder;
+namespace ECSPrefix202608\PhpParser\Builder;
 
-use ECSPrefix202607\PhpParser;
-use ECSPrefix202607\PhpParser\BuilderHelpers;
-use ECSPrefix202607\PhpParser\Node;
-use ECSPrefix202607\PhpParser\Node\Stmt;
+use ECSPrefix202608\PhpParser;
+use ECSPrefix202608\PhpParser\BuilderHelpers;
+use ECSPrefix202608\PhpParser\Node;
+use ECSPrefix202608\PhpParser\Node\Stmt;
 class Trait_ extends Declaration
 {
     /**

@@ -11,7 +11,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "ECSPrefix202607\\TomasVotruba\\ClassLeak\\": "src"
+            "ECSPrefix202608\\TomasVotruba\\ClassLeak\\": "src"
         }
     }
 }

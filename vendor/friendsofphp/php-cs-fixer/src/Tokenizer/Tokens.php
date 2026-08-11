@@ -737,15 +737,13 @@ class Tokens extends \SplFixedArray
         $firstToken = $sequence[$firstKey];
         unset($sequence[$firstKey]);
         // begin searching for the first token in the sequence (start included)
-        $index = $start - 1;
-        while ($index <= $end) {
-            $index = $this->getNextTokenOfKind($index, [$firstToken], $firstCs);
-            // ensure we found a match and didn't get past the end index
-            if (null === $index || $index > $end) {
-                return null;
+        for ($index = $start; $index <= $end; ++$index) {
+            $current = $this[$index];
+            if (!$current->equals($firstToken, $firstCs)) {
+                continue;
             }
             // initialise the result array with the current index
-            $result = [$index => $this[$index]];
+            $result = [$index => $current];
             // advance cursor to the current position
             $currIdx = $index;
             // iterate through the remaining tokens in the sequence
@@ -753,14 +751,15 @@ class Tokens extends \SplFixedArray
                 $currIdx = $this->getNextMeaningfulToken($currIdx);
                 // ensure we didn't go too far
                 if (null === $currIdx || $currIdx > $end) {
-                    return null;
+                    continue 2;
                 }
-                if (!$this[$currIdx]->equals($token, self::isKeyCaseSensitive($caseSensitive, $key))) {
+                $current = $this[$currIdx];
+                if (!$current->equals($token, self::isKeyCaseSensitive($caseSensitive, $key))) {
                     // not a match, restart the outer loop
                     continue 2;
                 }
                 // append index to the result array
-                $result[$currIdx] = $this[$currIdx];
+                $result[$currIdx] = $current;
             }
             // do we have a complete match?
             // hint: $result is bigger than $sequence since the first token has been removed from the latter

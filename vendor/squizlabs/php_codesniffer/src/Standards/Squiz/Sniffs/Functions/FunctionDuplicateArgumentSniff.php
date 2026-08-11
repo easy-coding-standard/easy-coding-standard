@@ -35,6 +35,10 @@ class FunctionDuplicateArgumentSniff implements Sniff
     public function process(File $phpcsFile, int $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
+        if (isset($tokens[$stackPtr]['parenthesis_opener'], $tokens[$stackPtr]['parenthesis_closer']) === \false) {
+            // Parser error or live coding.
+            return;
+        }
         $openBracket = $tokens[$stackPtr]['parenthesis_opener'];
         $closeBracket = $tokens[$stackPtr]['parenthesis_closer'];
         $foundVariables = [];

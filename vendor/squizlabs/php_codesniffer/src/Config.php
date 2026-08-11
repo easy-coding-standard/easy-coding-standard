@@ -88,7 +88,7 @@ class Config
      *
      * @var string
      */
-    public const VERSION = '4.0.1';
+    public const VERSION = '4.0.4';
     /**
      * Package stability; either stable, RC, beta or alpha.
      *
@@ -1329,7 +1329,7 @@ class Config
         }
         if ($temp === \false) {
             $path = '';
-            if (is_callable('ECSPrefix202607\Phar::running') === \true) {
+            if (is_callable('ECSPrefix202608\Phar::running') === \true) {
                 $path = Phar::running(\false);
             }
             if ($path !== '') {
@@ -1384,7 +1384,7 @@ class Config
             return self::$configData;
         }
         $path = '';
-        if (is_callable('ECSPrefix202607\Phar::running') === \true) {
+        if (is_callable('ECSPrefix202608\Phar::running') === \true) {
             $path = Phar::running(\false);
         }
         if ($path !== '') {

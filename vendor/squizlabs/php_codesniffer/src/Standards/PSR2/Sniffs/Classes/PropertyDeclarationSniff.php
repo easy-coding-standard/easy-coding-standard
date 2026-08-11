@@ -52,6 +52,7 @@ class PropertyDeclarationSniff extends AbstractVariableSniff
         $find = Tokens::SCOPE_MODIFIERS;
         $find[] = \T_VARIABLE;
         $find[] = \T_VAR;
+        $find[] = \T_STATIC;
         $find[] = \T_READONLY;
         $find[] = \T_FINAL;
         $find[] = \T_ABSTRACT;

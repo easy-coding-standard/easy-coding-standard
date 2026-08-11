@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 declare (strict_types=1);
-namespace ECSPrefix202607\Fidry\CpuCoreCounter\Finder;
+namespace ECSPrefix202608\Fidry\CpuCoreCounter\Finder;
 
 /**
  * Find the number of logical CPU cores for FreeSBD, Solaris and the likes.

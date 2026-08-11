@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202607\TomasVotruba\ClassLeak;
+namespace ECSPrefix202608\TomasVotruba\ClassLeak;
 
-use ECSPrefix202607\PhpParser\NodeTraverser;
-use ECSPrefix202607\PhpParser\Parser;
-use ECSPrefix202607\TomasVotruba\ClassLeak\NodeDecorator\FullyQualifiedNameNodeDecorator;
-use ECSPrefix202607\TomasVotruba\ClassLeak\NodeVisitor\ClassNameNodeVisitor;
-use ECSPrefix202607\TomasVotruba\ClassLeak\ValueObject\ClassNames;
+use ECSPrefix202608\PhpParser\NodeTraverser;
+use ECSPrefix202608\PhpParser\Parser;
+use ECSPrefix202608\TomasVotruba\ClassLeak\NodeDecorator\FullyQualifiedNameNodeDecorator;
+use ECSPrefix202608\TomasVotruba\ClassLeak\NodeVisitor\ClassNameNodeVisitor;
+use ECSPrefix202608\TomasVotruba\ClassLeak\ValueObject\ClassNames;
 /**
  * @see \TomasVotruba\ClassLeak\Tests\ClassNameResolver\ClassNameResolverTest
  */

@@ -158,8 +158,8 @@ class FunctionDeclarationArgumentSpacingSniff implements Sniff
                     $spacesBefore = $tokens[$param['token'] + 1]['length'];
                 }
                 if ($spacesBefore !== $this->equalsSpacing) {
-                    $error = 'Incorrect spacing between argument "%s" and equals sign; expected ' . $this->equalsSpacing . ' but found %s';
-                    $data = [$param['name'], $spacesBefore];
+                    $error = 'Incorrect spacing between argument "%1$s" and equals sign; expected %3$s but found %2$s';
+                    $data = [$param['name'], $spacesBefore, $this->equalsSpacing];
                     $nextNonWhitespace = $phpcsFile->findNext(\T_WHITESPACE, $param['token'] + 1, $equalToken, \true);
                     if ($nextNonWhitespace !== \false) {
                         $phpcsFile->addError($error, $equalToken, 'SpaceBeforeEquals', $data);
@@ -183,8 +183,8 @@ class FunctionDeclarationArgumentSpacingSniff implements Sniff
                     $spacesAfter = $tokens[$equalToken + 1]['length'];
                 }
                 if ($spacesAfter !== $this->equalsSpacing) {
-                    $error = 'Incorrect spacing between default value and equals sign for argument "%s"; expected ' . $this->equalsSpacing . ' but found %s';
-                    $data = [$param['name'], $spacesAfter];
+                    $error = 'Incorrect spacing between default value and equals sign for argument "%1$s"; expected %3$s but found %2$s';
+                    $data = [$param['name'], $spacesAfter, $this->equalsSpacing];
                     $nextNonWhitespace = $phpcsFile->findNext(\T_WHITESPACE, $equalToken + 1, $param['default_token'], \true);
                     if ($nextNonWhitespace !== \false) {
                         $phpcsFile->addError($error, $equalToken, 'SpaceAfterEquals', $data);
@@ -217,7 +217,7 @@ class FunctionDeclarationArgumentSpacingSniff implements Sniff
                         $data[] = strlen($gap);
                     } else {
                         // Gap contains more than just spaces: render these for better clarity.
-                        $data[] = '"' . Common::prepareForOutput($gap) . '"';
+                        $data[] = '"' . Common::prepareForOutput($gap, [' ']) . '"';
                     }
                     $fix = $phpcsFile->addFixableError($error, $typeHintToken, 'SpacingAfterHint', $data);
                     if ($fix === \true) {

@@ -5,7 +5,7 @@ namespace Symplify\EasyCodingStandard\Skipper\SkipCriteriaResolver;
 
 use Symplify\EasyCodingStandard\DependencyInjection\SimpleParameterProvider;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use ECSPrefix202607\Webmozart\Assert\Assert;
+use ECSPrefix202608\Webmozart\Assert\Assert;
 final class SkippedClassAndCodesResolver
 {
     /**

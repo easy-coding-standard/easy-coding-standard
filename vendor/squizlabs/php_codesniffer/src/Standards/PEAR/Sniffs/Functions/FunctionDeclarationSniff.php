@@ -338,8 +338,8 @@ class FunctionDeclarationSniff implements Sniff
         $closeBracket = $tokens[$stackPtr]['parenthesis_closer'];
         $prev = $phpcsFile->findPrevious(\T_WHITESPACE, $closeBracket - 1, null, \true);
         if ($tokens[$closeBracket]['line'] !== $tokens[$tokens[$closeBracket]['parenthesis_opener']]['line'] && $tokens[$prev]['line'] === $tokens[$closeBracket]['line']) {
-            $error = 'The closing parenthesis of a multi-line ' . $type . ' declaration must be on a new line';
-            $fix = $phpcsFile->addFixableError($error, $closeBracket, 'CloseBracketLine');
+            $error = 'The closing parenthesis of a multi-line %s declaration must be on a new line';
+            $fix = $phpcsFile->addFixableError($error, $closeBracket, 'CloseBracketLine', [$type]);
             if ($fix === \true) {
                 $phpcsFile->fixer->addNewlineBefore($closeBracket);
             }
@@ -376,8 +376,8 @@ class FunctionDeclarationSniff implements Sniff
                 // We changed lines, so this should be a whitespace indent token.
                 $foundIndent = 0;
                 if ($tokens[$i]['code'] === \T_WHITESPACE && $tokens[$i]['line'] !== $tokens[$i + 1]['line']) {
-                    $error = 'Blank lines are not allowed in a multi-line ' . $type . ' declaration';
-                    $fix = $phpcsFile->addFixableError($error, $i, 'EmptyLine');
+                    $error = 'Blank lines are not allowed in a multi-line %s declaration';
+                    $fix = $phpcsFile->addFixableError($error, $i, 'EmptyLine', [$type]);
                     if ($fix === \true) {
                         $phpcsFile->fixer->replaceToken($i, '');
                     }
@@ -388,15 +388,35 @@ class FunctionDeclarationSniff implements Sniff
                 } elseif ($tokens[$i]['code'] === \T_DOC_COMMENT_WHITESPACE) {
                     $foundIndent = $tokens[$i]['length'];
                     ++$expectedIndent;
+                } elseif (($tokens[$i]['code'] === \T_COMMENT || isset(Tokens::PHPCS_ANNOTATION_TOKENS[$tokens[$i]['code']]) === \true) && (($tokens[$i - 1]['code'] === \T_COMMENT || isset(Tokens::PHPCS_ANNOTATION_TOKENS[$tokens[$i - 1]['code']]) === \true) && $tokens[$i - 1]['line'] === $lastLine)) {
+                    // This is the second line of a multi-line comment.
+                    // This token _may_ include indentation whitespace if this is part of a block comment.
+                    $trimmedContent = ltrim($tokens[$i]['content']);
+                    $trimmedLength = strlen($trimmedContent);
+                    if ($trimmedLength === 0) {
+                        // This is a blank comment line, so indenting it is pointless.
+                        $lastLine = $tokens[$i]['line'];
+                        continue;
+                    }
+                    $foundIndent = strlen($tokens[$i]['content']) - $trimmedLength;
+                    if ($trimmedContent[0] === '*') {
+                        ++$expectedIndent;
+                    } elseif ($foundIndent >= $expectedIndent) {
+                        // Multi-line block comment, not star-aligned. These may contain extra indent.
+                        $lastLine = $tokens[$i]['line'];
+                        continue;
+                    }
                 }
                 if ($expectedIndent !== $foundIndent) {
-                    $error = 'Multi-line ' . $type . ' declaration not indented correctly; expected %s spaces but found %s';
-                    $data = [$expectedIndent, $foundIndent];
+                    $error = 'Multi-line %3$s declaration not indented correctly; expected %1$s spaces but found %2$s';
+                    $data = [$expectedIndent, $foundIndent, $type];
                     $fix = $phpcsFile->addFixableError($error, $i, 'Indent', $data);
                     if ($fix === \true) {
                         $spaces = str_repeat(' ', $expectedIndent);
                         if ($foundIndent === 0) {
                             $phpcsFile->fixer->addContentBefore($i, $spaces);
+                        } elseif ($tokens[$i]['code'] === \T_COMMENT || isset(Tokens::PHPCS_ANNOTATION_TOKENS[$tokens[$i]['code']]) === \true) {
+                            $phpcsFile->fixer->replaceToken($i, $spaces . ltrim($tokens[$i]['content']));
                         } else {
                             $phpcsFile->fixer->replaceToken($i, $spaces);
                         }

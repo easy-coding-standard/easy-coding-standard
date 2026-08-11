@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202607\PhpParser;
+namespace ECSPrefix202608\PhpParser;
 
-use ECSPrefix202607\PhpParser\Node\ComplexType;
-use ECSPrefix202607\PhpParser\Node\Expr;
-use ECSPrefix202607\PhpParser\Node\Identifier;
-use ECSPrefix202607\PhpParser\Node\Name;
-use ECSPrefix202607\PhpParser\Node\Name\FullyQualified;
-use ECSPrefix202607\PhpParser\Node\NullableType;
-use ECSPrefix202607\PhpParser\Node\Scalar;
-use ECSPrefix202607\PhpParser\Node\Stmt;
+use ECSPrefix202608\PhpParser\Node\ComplexType;
+use ECSPrefix202608\PhpParser\Node\Expr;
+use ECSPrefix202608\PhpParser\Node\Identifier;
+use ECSPrefix202608\PhpParser\Node\Name;
+use ECSPrefix202608\PhpParser\Node\Name\FullyQualified;
+use ECSPrefix202608\PhpParser\Node\NullableType;
+use ECSPrefix202608\PhpParser\Node\Scalar;
+use ECSPrefix202608\PhpParser\Node\Stmt;
 /**
  * This class defines helpers used in the implementation of builders. Don't use it directly.
  *

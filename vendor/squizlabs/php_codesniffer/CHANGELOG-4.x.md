@@ -2,6 +2,124 @@
 
 The file documents changes to the PHP_CodeSniffer project for the 4.x series of releases.
 
+## [4.0.4] - 2026-08-06
+
+_The 4.0.2 release, the 4.0.3 and the 4.0.4 release are 100% the same, there was just a slight snafu in the release publication on GitHub. Sorry for the confusion._
+
+## [4.0.3] - 2026-08-06
+
+~~WITHDRAWN~~
+
+## [4.0.2] - 2026-08-06
+
+**This is a security release and all users are advised to update their install(s) as soon as possible.**
+The security issue only affects users of the `Gitblame`, `Hgblame` or `Svnblame` report(s).
+
+### Added
+- Tokenizer support for the PHP 8.5 `(void)` cast. [#1325]
+    The `T_VOID_CAST` token has been added to the `Tokens::CAST_TOKENS` array.
+- `suggest` section to the `composer.json` file to inform users about the recommended `iconv` and `pcntl` PHP extensions. [#1388]
+    - Thanks to [Rodrigo Primo][@rodrigoprimo] for the patch.
+
+### Changed
+- Clarified that `libxml` is a required PHP extension. [#1409]
+- Squiz.Scope.StaticThisUsage: the sniff will now also search for the use of `$this` in static closures. [#1377]
+- The Generic.PHP.LowerCaseKeyword, Generic.WhiteSpace.LanguageConstructSpacing and Squiz.Functions.FunctionDeclarationArgumentSpacing sniffs no longer embed UTF-8 middot characters for spaces in error messages. [#1379], [#1389] Fixes [Squiz/#2652][sq-2652].
+    - Thanks to [Rodrigo Primo][@rodrigoprimo] for the patches.
+- PSR2.ControlStructures.SwitchDeclaration: the error message for the use of colon + curly braces (`WrongOpener*`) has been made more informative. [#1358]. Fixes [#1322].
+    - Thanks to [Sule-Balogun Olanrewaju][@bigdevlarry] for the patch.
+- The error messages for the following sniffs have been improved by exposing more data placeholders:
+    - `PEAR.Functions.FunctionDeclaration` [#1445]
+        - The `CloseBracketLine` error message now exposes 1 data value (previously 0).
+        - The `EmptyLine` error message now exposes 1 data value (previously 0).
+        - The `Indent` error message now exposes 3 data values (previously 2).
+        - These changes also affect the same error codes for the `PSR12.Classes.AnonClassDeclaration` and `Squiz.Functions.MultiLineFunctionDeclaration` sniffs.
+    - `PSR2.Classes.ClassDeclaration` [#1446]
+        - The `ExtendsLine` and `ImplementsLine` error messages now expose 3 data values (previously 1).
+        - The `SpaceBeforeExtends` and `SpaceBeforeImplements` error messages now expose 2 data values (previously 1).
+        - These changes also affect the same error codes for the `PSR12.Classes.AnonClassDeclaration` and `Squiz.Classes.ClassDeclaration` sniffs.
+    - `PSR2.ControlStructures.SwitchDeclaration` [#1447]
+        - The `defaultNotLower` and `caseNotLower` error messages now expose 3 data values (previously 2).
+        - The `SpaceBeforeColonDEFAULT` and `SpaceBeforeColonCASE` error messages now expose 1 data value (previously 0).
+        - The `BodyOnNextLineDEFAULT` and `BodyOnNextLineCASE` error messages now expose 1 data value (previously 0).
+        - The `WrongOpenerdefault` and `WrongOpenercase` error messages now expose 1 data value (previously 0).
+    - `Squiz.ControlStructures.SwitchDeclaration` [#1449]
+        - The `CaseNotLower` and `DefaultNotLower` error messages now expose 3 data values (previously 2).
+        - The `CaseIndent` and `DefaultIndent` error messages now expose 2 data values (previously 0).
+        - The `SpaceBeforeColonCase` and `SpaceBeforeColonDefault` error messages now expose 1 data value (previously 0).
+        - The `BreakIndent` error message now exposes 1 data value (previously 0).
+        - The `SpacingAfterCase` and `SpacingAfterDefault` error messages now expose 1 data value (previously 0).
+    - `Squiz.Functions.FunctionDeclarationArgumentSpacing` [#1452]
+        - The `SpaceBeforeEquals` error message now exposes 3 data values (previously 2).
+        - The `SpaceAfterEquals` error message now exposes 3 data values (previously 2).
+    - `Squiz.Functions.MultiLineFunctionDeclaration` [#1453]
+        - The `FirstParamSpacing` and `UseFirstParamSpacing` error messages now expose 1 data value (previously 0).
+        - The `OneParamPerLine` and `UseOneParamPerLine` error messages now expose 1 data value (previously 0).
+        - These changes also affect the same error codes for the `PSR12.Classes.AnonClassDeclaration` sniff.
+    - If you have customised the error messages of these sniffs, please review your ruleset after upgrading.
+    - Thanks to [Zhang WenTao][@ntdiary] for these patches.
+- The following sniff(s) have received efficiency improvements:
+    - PSR2.Classes.PropertyDeclaration
+    - Thanks to [Jonathan Champ][@jrchamp] for the patch.
+- The test suite is now more contributor friendly for contributors on MacOS. [#1437]
+    - Thanks to [Sergei Morozov][@morozov] for the patch.
+- Various housekeeping, including improvements to the tests and documentation.
+    - Thanks to [Dan Wallis][@fredden], [Rodrigo Primo][@rodrigoprimo], [Sergei Morozov][@morozov] and [Juliette Reinders Folmer][@jrfnl] for their contributions.
+
+### Fixed
+- **SECURITY FIX**: Running PHP_CodeSniffer over untrusted files, for example, in a CI pipeline that scans pull requests, or on a developer machine reviewing third-party code, could result in attacker-controlled shell commands being executed when the `Gitblame`, `Hgblame` or `Svnblame` report(s) would process a file whose name contains shell metacharacters. [#1473]
+    - Users using the default `Full` report, or any of the other non-*blame reports, are not affected.
+    - For more details, see the [security advisory][sec-1].
+    - Thanks go to [Faze-up][@Faze-up] and [Volker Dusch][@edorian] for responsibly disclosing the vulnerability.
+    - Additionally, thanks go to [Volker Dusch][@edorian], [Rodrigo Primo][@rodrigoprimo], [Dan Wallis][@fredden] and [Juliette Reinders Folmer][@jrfnl] for creating and testing the fix.
+- Fixed bug [#1320]: Generic.Strings.UnnecessaryHeredoc: the fixer could incidentally change tab indentation to space indentation in select lines in the heredoc body.
+- Fixed bug [#1354]: PSR12.Functions.ReturnTypeDeclaration: prevent an "Undefined array key" warning if the code under scan contains a parse error.
+    - Thanks to [Dan Wallis][@fredden] for the patch.
+- Fixed bug [#1357]: Squiz.Scope.StaticThisUsage: false positive for usage of `$this` in non-static closures nested in OO methods.
+- Fixed bug [#1368]: PEAR.Functions.FunctionDeclaration: the indentation for subsequent lines in multi-line block comments within a multi-line function signature, would be incorrectly determined, leading to false positives and resulting in a fixer conflict when running `phpcbf`.
+    - This also fixes, by extension, the same issue in the `Squiz.Functions.MultiLineFunctionDeclaration` sniff.
+- Fixed bug [#1418]: Tokenizer/PHP: tokenization of an inline else colon after an inline comment could fail and/or throw a "Trying to access array offset on null" warning.
+    - Thanks to [Lazizbek Ergashev][@lazerg] for the patch.
+- Fixed bug [#1435]: Generic.Formatting.MultipleStatementAlignment would get into a fixer conflict for multiple assignments within a single statement spanning multiple lines.
+    - Same as when the statement would be single-line, alignment of subsequent assignment operators within the same multi-line statement will now be ignored.
+    - Thanks to [Sergei Morozov][@morozov] for the patch.
+- Fixed bug [#1451]: Tokenizer/PHP: prevent an "Undefined array key" warning during live coding when a file ends on the name in a constant declaration.
+    - Thanks to [Lazizbek Ergashev][@lazerg] and [Sai Asish Y][@SAY-5] for the patch.
+- Fixed bug [#1463]: Squiz.Functions.FunctionDuplicateArgument: prevent an "Undefined array key" PHP warning when the sniff encounters a function declaration without parentheses (parse error / live coding).
+    - Thanks to [Rodrigo Primo][@rodrigoprimo] for the patch.
+
+### Other
+- The GPG signature for the PHAR files has been rotated. The new fingerprint is: 5CB4F778BF9BC4FB67AE511D96E91A992CF22FF4.
+
+[sec-1]: https://github.com/PHPCSStandards/PHP_CodeSniffer/security/advisories/GHSA-hmqg-cxww-wqhq
+
+[sq-2652]: https://github.com/squizlabs/PHP_CodeSniffer/issues/2652
+[#1320]:   https://github.com/PHPCSStandards/PHP_CodeSniffer/issues/1320
+[#1322]:   https://github.com/PHPCSStandards/PHP_CodeSniffer/issues/1322
+[#1325]:   https://github.com/PHPCSStandards/PHP_CodeSniffer/pull/1325
+[#1354]:   https://github.com/PHPCSStandards/PHP_CodeSniffer/pull/1354
+[#1357]:   https://github.com/PHPCSStandards/PHP_CodeSniffer/issues/1357
+[#1358]:   https://github.com/PHPCSStandards/PHP_CodeSniffer/pull/1358
+[#1368]:   https://github.com/PHPCSStandards/PHP_CodeSniffer/issues/1368
+[#1377]:   https://github.com/PHPCSStandards/PHP_CodeSniffer/pull/1377
+[#1379]:   https://github.com/PHPCSStandards/PHP_CodeSniffer/pull/1379
+[#1388]:   https://github.com/PHPCSStandards/PHP_CodeSniffer/pull/1388
+[#1389]:   https://github.com/PHPCSStandards/PHP_CodeSniffer/pull/1389
+[#1409]:   https://github.com/PHPCSStandards/PHP_CodeSniffer/pull/1409
+[#1418]:   https://github.com/PHPCSStandards/PHP_CodeSniffer/issues/1418
+[#1435]:   https://github.com/PHPCSStandards/PHP_CodeSniffer/issues/1435
+[#1437]:   https://github.com/PHPCSStandards/PHP_CodeSniffer/pull/1437
+[#1445]:   https://github.com/PHPCSStandards/PHP_CodeSniffer/pull/1445
+[#1446]:   https://github.com/PHPCSStandards/PHP_CodeSniffer/pull/1446
+[#1447]:   https://github.com/PHPCSStandards/PHP_CodeSniffer/pull/1447
+[#1449]:   https://github.com/PHPCSStandards/PHP_CodeSniffer/pull/1449
+[#1451]:   https://github.com/PHPCSStandards/PHP_CodeSniffer/issues/1451
+[#1452]:   https://github.com/PHPCSStandards/PHP_CodeSniffer/pull/1452
+[#1453]:   https://github.com/PHPCSStandards/PHP_CodeSniffer/pull/1453
+[#1463]:   https://github.com/PHPCSStandards/PHP_CodeSniffer/pull/1463
+[#1473]:   https://github.com/PHPCSStandards/PHP_CodeSniffer/pull/1473
+
+
 ## [4.0.1] - 2025-11-10
 
 This release includes all improvements and bugfixes from PHP_CodeSniffer [3.13.5].
@@ -430,6 +548,9 @@ Special thanks go out to [Dan Wallis][@fredden] and [Rodrigo Primo][@rodrigoprim
 === Link list for release links ====
 -->
 
+[4.0.4]:      https://github.com/PHPCSStandards/PHP_CodeSniffer/compare/4.0.3...4.0.4
+[4.0.3]:      https://github.com/PHPCSStandards/PHP_CodeSniffer/compare/4.0.2...4.0.3
+[4.0.2]:      https://github.com/PHPCSStandards/PHP_CodeSniffer/compare/4.0.1...4.0.2
 [4.0.1]:      https://github.com/PHPCSStandards/PHP_CodeSniffer/compare/4.0.0...4.0.1
 [4.0.0]:      https://github.com/PHPCSStandards/PHP_CodeSniffer/compare/4.0.0RC1...4.0.0
 [4.0.0RC1]:   https://github.com/PHPCSStandards/PHP_CodeSniffer/compare/4.0.0beta1...4.0.0RC1
@@ -442,8 +563,16 @@ Special thanks go out to [Dan Wallis][@fredden] and [Rodrigo Primo][@rodrigoprim
 
 [@andrewnicols]:        https://github.com/andrewnicols
 [@anomiex]:             https://github.com/anomiex
+[@bigdevlarry]:         https://github.com/bigdevlarry
+[@edorian]:             https://github.com/edorian
 [@fredden]:             https://github.com/fredden
+[@Faze-up]:             https://github.com/Faze-up
 [@gsherwood]:           https://github.com/gsherwood
+[@jrchamp]:             https://github.com/jrchamp
 [@jrfnl]:               https://github.com/jrfnl
+[@lazerg]:              https://github.com/lazerg
+[@morozov]:             https://github.com/morozov
+[@ntdiary]:             https://github.com/ntdiary
 [@rodrigoprimo]:        https://github.com/rodrigoprimo
+[@SAY-5]:               https://github.com/SAY-5
 [@Soh1121]:             https://github.com/Soh1121

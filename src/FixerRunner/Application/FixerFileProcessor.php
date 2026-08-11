@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\FixerRunner\Application;
 
-use ECSPrefix202607\Nette\Utils\FileSystem;
+use ECSPrefix202608\Nette\Utils\FileSystem;
 use PhpCsFixer\Differ\DifferInterface;
 use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\Tokenizer\Token;
@@ -51,8 +51,9 @@ final class FixerFileProcessor implements FileProcessorInterface
     private $fileDiffFactory;
     /**
      * @var FixerInterface[]
+     * @readonly
      */
-    private $fixers = [];
+    private $fixers;
     /**
      * @readonly
      * @var bool

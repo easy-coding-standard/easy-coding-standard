@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202607\TomasVotruba\ClassLeak\NodeVisitor;
+namespace ECSPrefix202608\TomasVotruba\ClassLeak\NodeVisitor;
 
-use ECSPrefix202607\PhpParser\Comment\Doc;
-use ECSPrefix202607\PhpParser\Node;
-use ECSPrefix202607\PhpParser\Node\Identifier;
-use ECSPrefix202607\PhpParser\Node\Name;
-use ECSPrefix202607\PhpParser\Node\Stmt\Class_;
-use ECSPrefix202607\PhpParser\Node\Stmt\ClassLike;
-use ECSPrefix202607\PhpParser\Node\Stmt\Interface_;
-use ECSPrefix202607\PhpParser\NodeTraverser;
-use ECSPrefix202607\PhpParser\NodeVisitorAbstract;
+use ECSPrefix202608\PhpParser\Comment\Doc;
+use ECSPrefix202608\PhpParser\Node;
+use ECSPrefix202608\PhpParser\Node\Identifier;
+use ECSPrefix202608\PhpParser\Node\Name;
+use ECSPrefix202608\PhpParser\Node\Stmt\Class_;
+use ECSPrefix202608\PhpParser\Node\Stmt\ClassLike;
+use ECSPrefix202608\PhpParser\Node\Stmt\Interface_;
+use ECSPrefix202608\PhpParser\NodeTraverser;
+use ECSPrefix202608\PhpParser\NodeVisitorAbstract;
 final class ClassNameNodeVisitor extends NodeVisitorAbstract
 {
     /**

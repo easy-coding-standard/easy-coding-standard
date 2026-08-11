@@ -21,13 +21,13 @@ use PhpCsFixer\RuleSet\Sets\PhpCsFixerRiskySet;
 use PhpCsFixer\RuleSet\Sets\PhpCsFixerSet;
 use PhpCsFixer\RuleSet\Sets\SymfonyRiskySet;
 use PhpCsFixer\RuleSet\Sets\SymfonySet;
-use ECSPrefix202607\Symfony\Component\Console\Attribute\AsCommand;
-use ECSPrefix202607\Symfony\Component\Console\Command\Command;
-use ECSPrefix202607\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix202607\Symfony\Component\Console\Output\ConsoleOutputInterface;
-use ECSPrefix202607\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix202607\Symfony\Component\Console\Style\SymfonyStyle;
-use ECSPrefix202607\Symfony\Component\Filesystem\Exception\IOException;
+use ECSPrefix202608\Symfony\Component\Console\Attribute\AsCommand;
+use ECSPrefix202608\Symfony\Component\Console\Command\Command;
+use ECSPrefix202608\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix202608\Symfony\Component\Console\Output\ConsoleOutputInterface;
+use ECSPrefix202608\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix202608\Symfony\Component\Console\Style\SymfonyStyle;
+use ECSPrefix202608\Symfony\Component\Filesystem\Exception\IOException;
 /**
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  *

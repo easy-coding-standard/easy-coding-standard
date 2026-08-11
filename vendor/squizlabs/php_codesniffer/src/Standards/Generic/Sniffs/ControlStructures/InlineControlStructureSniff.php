@@ -49,7 +49,7 @@ class InlineControlStructureSniff implements Sniff
         // Ignore the ELSE in ELSE IF. We'll process the IF part later.
         if ($tokens[$stackPtr]['code'] === \T_ELSE) {
             $next = $phpcsFile->findNext(Tokens::EMPTY_TOKENS, $stackPtr + 1, null, \true);
-            if ($tokens[$next]['code'] === \T_IF) {
+            if ($next === \false || $tokens[$next]['code'] === \T_IF) {
                 return;
             }
         }
@@ -87,10 +87,6 @@ class InlineControlStructureSniff implements Sniff
             $start = $tokens[$stackPtr]['parenthesis_closer'];
         }
         $nextNonEmpty = $phpcsFile->findNext(Tokens::EMPTY_TOKENS, $start + 1, null, \true);
-        if ($nextNonEmpty === \false) {
-            // Live coding or parse error.
-            return;
-        }
         if ($tokens[$nextNonEmpty]['code'] === \T_OPEN_CURLY_BRACKET || $tokens[$nextNonEmpty]['code'] === \T_COLON) {
             // T_CLOSE_CURLY_BRACKET missing, or alternative control structure with
             // T_END... missing. Either live coding, parse error or end

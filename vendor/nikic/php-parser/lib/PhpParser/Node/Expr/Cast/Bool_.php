@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202607\PhpParser\Node\Expr\Cast;
+namespace ECSPrefix202608\PhpParser\Node\Expr\Cast;
 
-use ECSPrefix202607\PhpParser\Node\Expr\Cast;
+use ECSPrefix202608\PhpParser\Node\Expr\Cast;
 class Bool_ extends Cast
 {
     // For use in "kind" attribute

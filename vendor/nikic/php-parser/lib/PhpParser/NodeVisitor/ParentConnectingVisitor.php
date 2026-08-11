@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202607\PhpParser\NodeVisitor;
+namespace ECSPrefix202608\PhpParser\NodeVisitor;
 
-use ECSPrefix202607\PhpParser\Node;
-use ECSPrefix202607\PhpParser\NodeVisitorAbstract;
+use ECSPrefix202608\PhpParser\Node;
+use ECSPrefix202608\PhpParser\NodeVisitorAbstract;
 use function array_pop;
 use function count;
 /**

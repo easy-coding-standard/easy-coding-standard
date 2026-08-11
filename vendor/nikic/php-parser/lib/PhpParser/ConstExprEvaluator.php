@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202607\PhpParser;
+namespace ECSPrefix202608\PhpParser;
 
-use ECSPrefix202607\PhpParser\Node\Expr;
-use ECSPrefix202607\PhpParser\Node\Scalar;
+use ECSPrefix202608\PhpParser\Node\Expr;
+use ECSPrefix202608\PhpParser\Node\Scalar;
 use function array_merge;
 /**
  * Evaluates constant expressions.

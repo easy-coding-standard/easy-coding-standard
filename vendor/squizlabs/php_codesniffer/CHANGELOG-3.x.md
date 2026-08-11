@@ -2,6 +2,30 @@
 
 The file documents changes to the PHP_CodeSniffer project for the 3.x series of releases.
 
+
+## [3.13.6] - 2026-08-06
+
+**This is a security release and all users are advised to update their install(s) as soon as possible.**
+
+### Changed
+- Various housekeeping, including improvements to the tests and documentation.
+    - Thanks to [Sergei Morozov][@morozov] and [Juliette Reinders Folmer][@jrfnl] for their contributions.
+
+### Fixed
+- **SECURITY FIX**: Running PHP_CodeSniffer over untrusted files, for example, in a CI pipeline that scans pull requests, or on a developer machine reviewing third-party code, could result in attacker-controlled shell commands being executed when the `Gitblame`, `Hgblame` or `Svnblame` report(s) would process a file whose name contains shell metacharacters. [#1473]
+    - Users using the default `Full` report, or any of the other non-*blame reports, are not affected.
+    - For more details, see the [security advisory][sec-1].
+    - Thanks go to [Faze-up][@Faze-up] and [Volker Dusch][@edorian] for responsibly disclosing the vulnerability.
+    - Additionally, thanks go to [Volker Dusch][@edorian], [Rodrigo Primo][@rodrigoprimo], [Dan Wallis][@fredden] and [Juliette Reinders Folmer][@jrfnl] for creating and testing the fix.
+
+### Other
+- The GPG signature for the PHAR files has been rotated. The new fingerprint is: 5CB4F778BF9BC4FB67AE511D96E91A992CF22FF4.
+
+[sec-1]: https://github.com/PHPCSStandards/PHP_CodeSniffer/security/advisories/GHSA-hmqg-cxww-wqhq
+
+[#1473]: https://github.com/PHPCSStandards/PHP_CodeSniffer/pull/1473
+
+
 ## [3.13.5] - 2025-11-04
 
 ### Added
@@ -3804,6 +3828,7 @@ Additionally, thanks to [Alexander Turek][@derrabus] for consulting on the repo 
 === Link list for release links ====
 -->
 
+[3.13.6]:     https://github.com/PHPCSStandards/PHP_CodeSniffer/compare/3.13.5...3.13.6
 [3.13.5]:     https://github.com/PHPCSStandards/PHP_CodeSniffer/compare/3.13.4...3.13.5
 [3.13.4]:     https://github.com/PHPCSStandards/PHP_CodeSniffer/compare/3.13.3...3.13.4
 [3.13.3]:     https://github.com/PHPCSStandards/PHP_CodeSniffer/compare/3.13.2...3.13.3
@@ -3902,6 +3927,7 @@ Additionally, thanks to [Alexander Turek][@derrabus] for consulting on the repo 
 [@enl]:                 https://github.com/enl
 [@exussum12]:           https://github.com/exussum12
 [@fabacino]:            https://github.com/fabacino
+[@Faze-up]:             https://github.com/Faze-up
 [@fcool]:               https://github.com/fcool
 [@filips123]:           https://github.com/filips123
 [@Fischer-Bjoern]:      https://github.com/Fischer-Bjoern

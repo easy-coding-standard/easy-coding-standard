@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202607\PhpParser\Node\Stmt;
+namespace ECSPrefix202608\PhpParser\Node\Stmt;
 
-use ECSPrefix202607\PhpParser\Modifiers;
-use ECSPrefix202607\PhpParser\Node;
-use ECSPrefix202607\PhpParser\Node\FunctionLike;
+use ECSPrefix202608\PhpParser\Modifiers;
+use ECSPrefix202608\PhpParser\Node;
+use ECSPrefix202608\PhpParser\Node\FunctionLike;
 class ClassMethod extends Node\Stmt implements FunctionLike
 {
     /** @var int Flags */

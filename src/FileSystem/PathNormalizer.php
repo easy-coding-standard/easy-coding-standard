@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\FileSystem;
 
-use ECSPrefix202607\Nette\Utils\Strings;
+use ECSPrefix202608\Nette\Utils\Strings;
 /**
  * @api
  *
@@ -39,7 +39,7 @@ final class PathNormalizer
             $scheme = self::SCHEME_UNDEFINED;
             $path = $originalPath;
         }
-        $normalizedPath = str_replace('\\', '/', (string) $path);
+        $normalizedPath = str_replace('\\', '/', $path);
         $path = Strings::replace($normalizedPath, self::TWO_AND_MORE_SLASHES_REGEX, '/');
         $pathRoot = strncmp($path, '/', strlen('/')) === 0 ? $directorySeparator : '';
         $pathParts = explode('/', trim($path, '/'));

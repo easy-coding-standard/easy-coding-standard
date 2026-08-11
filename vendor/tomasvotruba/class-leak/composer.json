@@ -27,12 +27,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix202607\\TomasVotruba\\ClassLeak\\": "src"
+            "ECSPrefix202608\\TomasVotruba\\ClassLeak\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix202607\\TomasVotruba\\ClassLeak\\Tests\\": "tests"
+            "ECSPrefix202608\\TomasVotruba\\ClassLeak\\Tests\\": "tests"
         }
     },
     "replace": {

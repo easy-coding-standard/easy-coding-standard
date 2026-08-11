@@ -587,8 +587,9 @@ class ScopeIndentSniff implements Sniff
                 if ($next === \false || $tokens[$next]['code'] !== \T_CLOSURE && $tokens[$next]['code'] !== \T_VARIABLE && $tokens[$next]['code'] !== \T_FN) {
                     $isMethodPrefix = \true;
                     if (isset($tokens[$checkToken]['nested_parenthesis']) === \true) {
-                        $parenthesis = array_keys($tokens[$checkToken]['nested_parenthesis']);
-                        $deepestOpen = array_pop($parenthesis);
+                        $parentheses = $tokens[$checkToken]['nested_parenthesis'];
+                        $parentheses = array_keys($parentheses);
+                        $deepestOpen = array_pop($parentheses);
                         if (isset($tokens[$deepestOpen]['parenthesis_owner']) === \true && $tokens[$tokens[$deepestOpen]['parenthesis_owner']]['code'] === \T_FUNCTION) {
                             // This is constructor property promotion and not a method prefix.
                             $isMethodPrefix = \false;

@@ -46,23 +46,28 @@ class ReturnTypeDeclarationSniff implements Sniff
         if ($methodProperties['nullable_return_type'] === \true) {
             $returnType = $phpcsFile->findPrevious(\T_NULLABLE, $returnType - 1);
         }
-        if ($tokens[$returnType - 1]['code'] !== \T_WHITESPACE || $tokens[$returnType - 1]['content'] !== ' ' || $tokens[$returnType - 2]['code'] !== \T_COLON) {
+        $colon = $phpcsFile->findPrevious(\T_COLON, $returnType - 1, $tokens[$stackPtr]['parenthesis_closer']);
+        if ($colon === \false) {
+            // Parse error / live coding.
+            return;
+        }
+        if ($tokens[$returnType - 1]['code'] !== \T_WHITESPACE || $tokens[$returnType - 1]['content'] !== ' ' || $returnType - 2 !== $colon) {
             $error = 'There must be a single space between the colon and type in a return type declaration';
-            if ($tokens[$returnType - 1]['code'] === \T_WHITESPACE && $tokens[$returnType - 2]['code'] === \T_COLON) {
-                $fix = $phpcsFile->addFixableError($error, $returnType, 'SpaceBeforeReturnType');
-                if ($fix === \true) {
-                    $phpcsFile->fixer->replaceToken($returnType - 1, ' ');
-                }
-            } elseif ($tokens[$returnType - 1]['code'] === \T_COLON) {
-                $fix = $phpcsFile->addFixableError($error, $returnType, 'SpaceBeforeReturnType');
-                if ($fix === \true) {
-                    $phpcsFile->fixer->addContentBefore($returnType, ' ');
-                }
-            } else {
+            $nonWhitespaceToken = $phpcsFile->findNext(\T_WHITESPACE, $colon + 1, $returnType, \true);
+            if ($nonWhitespaceToken !== \false) {
                 $phpcsFile->addError($error, $returnType, 'SpaceBeforeReturnType');
+            } else {
+                $fix = $phpcsFile->addFixableError($error, $returnType, 'SpaceBeforeReturnType');
+                if ($fix === \true) {
+                    $phpcsFile->fixer->beginChangeset();
+                    for ($i = $returnType - 1; $i > $colon; $i--) {
+                        $phpcsFile->fixer->replaceToken($i, '');
+                    }
+                    $phpcsFile->fixer->addContentBefore($returnType, ' ');
+                    $phpcsFile->fixer->endChangeset();
+                }
             }
         }
-        $colon = $phpcsFile->findPrevious(\T_COLON, $returnType);
         if ($tokens[$colon - 1]['code'] !== \T_CLOSE_PARENTHESIS) {
             $error = 'There must not be a space before the colon in a return type declaration';
             $prev = $phpcsFile->findPrevious(\T_WHITESPACE, $colon - 1, null, \true);

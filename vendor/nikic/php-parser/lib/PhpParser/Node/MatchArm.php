@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202607\PhpParser\Node;
+namespace ECSPrefix202608\PhpParser\Node;
 
-use ECSPrefix202607\PhpParser\Node;
-use ECSPrefix202607\PhpParser\NodeAbstract;
+use ECSPrefix202608\PhpParser\Node;
+use ECSPrefix202608\PhpParser\NodeAbstract;
 class MatchArm extends NodeAbstract
 {
     /** @var null|list<Node\Expr> */

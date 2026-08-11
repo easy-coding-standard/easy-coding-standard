@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202607\Entropy\Console\ValueObject;
+namespace ECSPrefix202608\Entropy\Console\ValueObject;
 
 final class Option
 {
@@ -22,7 +22,7 @@ final class Option
     private $acceptsMultipleValues = \false;
     /**
      * @readonly
-     * @var bool|int|string|null
+     * @var string|bool|int|null
      */
     private $defaultValue = null;
     /**
@@ -51,7 +51,7 @@ final class Option
         return $this->description;
     }
     /**
-     * @return bool|int|string|null
+     * @return int|string|bool|null
      */
     public function getDefaultValue()
     {

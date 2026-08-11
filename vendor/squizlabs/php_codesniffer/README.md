@@ -9,7 +9,7 @@
 [![License](https://img.shields.io/github/license/PHPCSStandards/PHP_CodeSniffer)](https://github.com/PHPCSStandards/PHP_CodeSniffer/blob/HEAD/licence.txt)
 
 ![Minimum PHP Version](https://img.shields.io/packagist/dependency-v/squizlabs/php_codesniffer/php.svg)
-[![Tested on PHP 7.2 to 8.4](https://img.shields.io/badge/tested%20on-PHP%207.2%20|%207.3%20|%207.4%20|%208.0%20|%208.1%20|%208.2%20|%208.3%20|%208.4-brightgreen.svg?maxAge=2419200)][GHA-test]
+[![Tested on PHP 7.2 to 8.5](https://img.shields.io/badge/tested%20on-PHP%207.2%20|%207.3%20|%207.4%20|%208.0%20|%208.1%20|%208.2%20|%208.3%20|%208.4%20|%208.5-brightgreen.svg?maxAge=2419200)][GHA-test]
 
 [GHA-test]: https://github.com/PHPCSStandards/PHP_CodeSniffer/actions/workflows/test.yml
 
@@ -25,7 +25,9 @@ PHP_CodeSniffer is a set of two PHP scripts; the main `phpcs` script that tokeni
 
 ## Requirements
 
-PHP_CodeSniffer requires PHP version 7.2.0 or greater, although individual sniffs may have additional requirements such as external applications and scripts. See the [Configuration Options manual page](https://github.com/PHPCSStandards/PHP_CodeSniffer/wiki/Configuration-Options) for a list of these requirements.
+PHP_CodeSniffer requires PHP version 7.2.0 or greater. For more information about required and recommended PHP extensions, see the [Requirements manual page](https://github.com/PHPCSStandards/PHP_CodeSniffer/wiki/Requirements).
+
+Individual sniffs may have additional requirements such as external applications and scripts. See the [Configuration Options manual page](https://github.com/PHPCSStandards/PHP_CodeSniffer/wiki/Configuration-Options) for a list of these requirements.
 
 If you're using PHP_CodeSniffer as part of a team, or you're running it on a [CI](https://en.wikipedia.org/wiki/Continuous_integration) server, you may want to configure your project's settings [using a configuration file](https://github.com/PHPCSStandards/PHP_CodeSniffer/wiki/Advanced-Usage#using-a-default-configuration-file).
 
@@ -48,7 +50,7 @@ php phpcbf.phar -h
 ```
 
 These Phars are signed with the official Release key for PHPCS with the
-fingerprint `D91D 8696 3AF3 A29B 6520 4622 97B0 2DD8 E507 1466`.
+fingerprint `5CB4 F778 BF9B C4FB 67AE 511D 96E9 1A99 2CF2 2FF4`.
 
 As of PHP_CodeSniffer 3.10.3, the provenance of PHAR files associated with a release can be verified via [GitHub Artifact Attestations](https://docs.github.com/en/actions/how-tos/secure-your-work/use-artifact-attestations/use-artifact-attestations) using the [GitHub CLI tool](https://cli.github.com/) with the following command: `gh attestation verify [phpcs|phpcbf].phar -o PHPCSStandards`.
 
@@ -78,8 +80,8 @@ You will then be able to run PHP_CodeSniffer from the vendor bin directory:
 ### Phive
 If you use Phive, you can install PHP_CodeSniffer as a project tool using the following commands:
 ```bash
-phive install --trust-gpg-keys D91D86963AF3A29B6520462297B02DD8E5071466 phpcs
-phive install --trust-gpg-keys D91D86963AF3A29B6520462297B02DD8E5071466 phpcbf
+phive install --trust-gpg-keys 5CB4F778BF9BC4FB67AE511D96E91A992CF22FF4 phpcs
+phive install --trust-gpg-keys 5CB4F778BF9BC4FB67AE511D96E91A992CF22FF4 phpcbf
 ```
 You will then be able to run PHP_CodeSniffer from the `tools` directory:
 ```bash

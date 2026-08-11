@@ -33,7 +33,7 @@ final class PhpUnitDataProviderReturnTypeFixer extends AbstractPhpUnitFixer
         return new FixerDefinition('The return type of PHPUnit data provider must be `iterable`.', [new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202607;
+namespace ECSPrefix202608;
 
 class FooTest extends TestCase
 {
@@ -47,13 +47,13 @@ class FooTest extends TestCase
     {
     }
 }
-\class_alias('ECSPrefix202607\FooTest', 'FooTest', \false);
+\class_alias('ECSPrefix202608\FooTest', 'FooTest', \false);
 
 PHP
 ), new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202607;
+namespace ECSPrefix202608;
 
 class FooTest extends TestCase
 {
@@ -67,7 +67,7 @@ class FooTest extends TestCase
     {
     }
 }
-\class_alias('ECSPrefix202607\FooTest', 'FooTest', \false);
+\class_alias('ECSPrefix202608\FooTest', 'FooTest', \false);
 
 PHP
 )], 'Data provider must return `iterable`, either an array of arrays or an object that implements the `Traversable` interface.', 'Risky when relying on signature of the data provider.');

@@ -56,7 +56,7 @@ class Gitblame extends \PHP_CodeSniffer\Reports\VersionControl
     {
         $cwd = getcwd();
         chdir(dirname($filename));
-        $command = 'git blame --date=short "' . basename($filename) . '" 2>&1';
+        $command = 'git blame --date=short -- ' . escapeshellarg(basename($filename)) . ' 2>&1';
         $handle = popen($command, 'r');
         if ($handle === \false) {
             $error = 'ERROR: Could not execute "' . $command . '"' . \PHP_EOL . \PHP_EOL;

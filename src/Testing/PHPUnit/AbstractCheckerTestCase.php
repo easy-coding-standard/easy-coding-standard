@@ -4,14 +4,14 @@ declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Testing\PHPUnit;
 
 use Iterator;
-use ECSPrefix202607\Nette\Utils\FileSystem;
-use ECSPrefix202607\Nette\Utils\Strings;
+use ECSPrefix202608\Nette\Utils\FileSystem;
+use ECSPrefix202608\Nette\Utils\Strings;
 use Override;
 use Symplify\EasyCodingStandard\Exception\ShouldNotHappenException;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 use Symplify\EasyCodingStandard\Testing\Contract\ConfigAwareInterface;
-use ECSPrefix202607\Webmozart\Assert\Assert;
+use ECSPrefix202608\Webmozart\Assert\Assert;
 // needed for scoped version to load unprefixed classes; does not have any effect inside the class
 $scoperAutoloadFilepath = __DIR__ . '/../../../vendor/scoper-autoload.php';
 if (file_exists($scoperAutoloadFilepath)) {
@@ -65,7 +65,7 @@ abstract class AbstractCheckerTestCase extends \Symplify\EasyCodingStandard\Test
             $inputContents = $fileContents;
             $expectedContents = $fileContents;
         }
-        $inputFilePath = sys_get_temp_dir() . '/ecs_tests/' . md5((string) $inputContents) . '.php';
+        $inputFilePath = sys_get_temp_dir() . '/ecs_tests/' . md5($inputContents) . '.php';
         FileSystem::write($inputFilePath, $inputContents, null);
         // 1. process php-cs-fixer
         if ($this->fixerFileProcessor->getCheckers() !== []) {

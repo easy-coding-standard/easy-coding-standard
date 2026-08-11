@@ -30,7 +30,7 @@ final class StaticLambdaFixer extends AbstractFixer
         return new FixerDefinition('Lambdas not (indirectly) referencing `$this` must be declared `static`.', [new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202607;
+namespace ECSPrefix202608;
 
 $a = function () {
     echo $b;

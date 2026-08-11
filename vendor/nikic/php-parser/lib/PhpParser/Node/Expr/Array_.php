@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202607\PhpParser\Node\Expr;
+namespace ECSPrefix202608\PhpParser\Node\Expr;
 
-use ECSPrefix202607\PhpParser\Node\ArrayItem;
-use ECSPrefix202607\PhpParser\Node\Expr;
+use ECSPrefix202608\PhpParser\Node\ArrayItem;
+use ECSPrefix202608\PhpParser\Node\Expr;
 class Array_ extends Expr
 {
     // For use in "kind" attribute

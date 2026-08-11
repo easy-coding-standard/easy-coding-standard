@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202607\PhpParser\Node\Scalar;
+namespace ECSPrefix202608\PhpParser\Node\Scalar;
 
-use ECSPrefix202607\PhpParser\Node\Expr;
-use ECSPrefix202607\PhpParser\Node\InterpolatedStringPart;
-use ECSPrefix202607\PhpParser\Node\Scalar;
+use ECSPrefix202608\PhpParser\Node\Expr;
+use ECSPrefix202608\PhpParser\Node\InterpolatedStringPart;
+use ECSPrefix202608\PhpParser\Node\Scalar;
 class InterpolatedString extends Scalar
 {
     /** @var (Expr|InterpolatedStringPart)[] list of string parts */

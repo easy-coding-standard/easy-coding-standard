@@ -31,7 +31,7 @@ final class ModernizeTypesCastingFixer extends AbstractFunctionReferenceFixer
         return new FixerDefinition('Replaces `intval`, `floatval`, `doubleval`, `strval` and `boolval` function calls with according type casting operator.', [new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202607;
+namespace ECSPrefix202608;
 
 $a = \intval($b);
 $a = \floatval($b);
@@ -56,7 +56,7 @@ PHP
         $argumentsAnalyzer = new ArgumentsAnalyzer();
         foreach (['intval' => [\T_INT_CAST, '(int)'], 'floatval' => [\T_DOUBLE_CAST, '(float)'], 'doubleval' => [\T_DOUBLE_CAST, '(float)'], 'strval' => [\T_STRING_CAST, '(string)'], 'boolval' => [\T_BOOL_CAST, '(bool)']] as $functionIdentity => $newToken) {
             $currIndex = 0;
-            do {
+            while (\true) {
                 // try getting function reference and translate boundaries for humans
                 $boundaries = $this->find($functionIdentity, $tokens, $currIndex, $tokens->count() - 1);
                 if (null === $boundaries) {
@@ -119,7 +119,7 @@ PHP
                 $tokens->overrideRange($functionName, $functionName, $replacementSequence);
                 // nested transformations support
                 $currIndex = $functionName;
-            } while (null !== $currIndex);
+            }
         }
     }
 }

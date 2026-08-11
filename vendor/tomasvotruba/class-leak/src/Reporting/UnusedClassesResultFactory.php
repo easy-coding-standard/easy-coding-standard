@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202607\TomasVotruba\ClassLeak\Reporting;
+namespace ECSPrefix202608\TomasVotruba\ClassLeak\Reporting;
 
-use ECSPrefix202607\TomasVotruba\ClassLeak\ValueObject\FileWithClass;
-use ECSPrefix202607\TomasVotruba\ClassLeak\ValueObject\UnusedClassesResult;
+use ECSPrefix202608\TomasVotruba\ClassLeak\ValueObject\FileWithClass;
+use ECSPrefix202608\TomasVotruba\ClassLeak\ValueObject\UnusedClassesResult;
 final class UnusedClassesResultFactory
 {
     /**

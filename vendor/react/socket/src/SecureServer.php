@@ -1,10 +1,10 @@
 <?php
 
-namespace ECSPrefix202607\React\Socket;
+namespace ECSPrefix202608\React\Socket;
 
-use ECSPrefix202607\Evenement\EventEmitter;
-use ECSPrefix202607\React\EventLoop\Loop;
-use ECSPrefix202607\React\EventLoop\LoopInterface;
+use ECSPrefix202608\Evenement\EventEmitter;
+use ECSPrefix202608\React\EventLoop\Loop;
+use ECSPrefix202608\React\EventLoop\LoopInterface;
 use BadMethodCallException;
 use UnexpectedValueException;
 /**
@@ -126,7 +126,7 @@ final class SecureServer extends EventEmitter implements ServerInterface
             // manual type check to support legacy PHP < 7.1
             throw new \InvalidArgumentException('Argument #2 ($loop) expected null|React\EventLoop\LoopInterface');
         }
-        if (!\function_exists('stream_socket_enable_crypto') && !\function_exists('ECSPrefix202607\stream_socket_enable_crypto')) {
+        if (!\function_exists('stream_socket_enable_crypto') && !\function_exists('ECSPrefix202608\stream_socket_enable_crypto')) {
             throw new \BadMethodCallException('Encryption not supported on your platform (HHVM < 3.8?)');
             // @codeCoverageIgnore
         }

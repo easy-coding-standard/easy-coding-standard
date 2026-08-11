@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202607\Entropy\Console\Output;
+namespace ECSPrefix202608\Entropy\Console\Output;
 
-use ECSPrefix202607\Entropy\Console\Enum\Color;
-use ECSPrefix202607\Entropy\Console\Terminal\Terminal;
-use ECSPrefix202607\Webmozart\Assert\Assert;
+use ECSPrefix202608\Entropy\Console\Enum\Color;
+use ECSPrefix202608\Entropy\Console\Terminal\Terminal;
+use ECSPrefix202608\Webmozart\Assert\Assert;
 /**
  * @api used in many ways
  */

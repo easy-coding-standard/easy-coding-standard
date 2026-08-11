@@ -20,7 +20,7 @@ class StaticThisUsageSniff extends AbstractScopeSniff
      */
     public function __construct()
     {
-        parent::__construct([\T_CLASS, \T_TRAIT, \T_ENUM, \T_ANON_CLASS], [\T_FUNCTION]);
+        parent::__construct([\T_CLASS, \T_TRAIT, \T_ENUM, \T_ANON_CLASS], [\T_FUNCTION, \T_CLOSURE], \true);
     }
     /**
      * Processes this test, when one of its tokens is encountered.
@@ -36,20 +36,25 @@ class StaticThisUsageSniff extends AbstractScopeSniff
     {
         $tokens = $phpcsFile->getTokens();
         // Determine if this is a function which needs to be examined.
-        $conditions = $tokens[$stackPtr]['conditions'];
-        end($conditions);
-        $deepestScope = key($conditions);
-        if ($deepestScope !== $currScope) {
-            return;
-        }
-        // Ignore abstract functions.
-        if (isset($tokens[$stackPtr]['scope_closer']) === \false) {
-            return;
-        }
-        $next = $phpcsFile->findNext(Tokens::EMPTY_TOKENS, $stackPtr + 1, null, \true);
-        if ($next === \false || $tokens[$next]['code'] !== \T_STRING) {
-            // Not a function declaration, or incomplete.
-            return;
+        if ($tokens[$stackPtr]['code'] === \T_FUNCTION) {
+            $conditions = $tokens[$stackPtr]['conditions'];
+            end($conditions);
+            $deepestScope = key($conditions);
+            if ($deepestScope !== $currScope) {
+                return;
+            }
+            // Ignore abstract functions.
+            if (isset($tokens[$stackPtr]['scope_closer']) === \false) {
+                return;
+            }
+            $next = $phpcsFile->findNext(Tokens::EMPTY_TOKENS, $stackPtr + 1, null, \true);
+            if ($next === \false || $tokens[$next]['code'] !== \T_STRING) {
+                // Not a function declaration, or incomplete.
+                return;
+            }
+            $type = 'method';
+        } else {
+            $type = 'closure';
         }
         $methodProps = $phpcsFile->getMethodProperties($stackPtr);
         if ($methodProps['is_static'] === \false) {
@@ -57,7 +62,7 @@ class StaticThisUsageSniff extends AbstractScopeSniff
         }
         $next = $stackPtr;
         $end = $tokens[$stackPtr]['scope_closer'];
-        $this->checkThisUsage($phpcsFile, $next, $end);
+        $this->checkThisUsage($phpcsFile, $next, $end, $type);
     }
     /**
      * Check for $this variable usage between $next and $end tokens.
@@ -65,27 +70,29 @@ class StaticThisUsageSniff extends AbstractScopeSniff
      * @param \PHP_CodeSniffer\Files\File $phpcsFile The current file being scanned.
      * @param int                         $next      The position of the next token to check.
      * @param int                         $end       The position of the last token to check.
+     * @param string                      $type      Type of context being checked. Either 'method' or 'closure'.
      *
      * @return void
      */
-    private function checkThisUsage(File $phpcsFile, int $next, int $end)
+    private function checkThisUsage(File $phpcsFile, int $next, int $end, string $type)
     {
         $tokens = $phpcsFile->getTokens();
         do {
-            $next = $phpcsFile->findNext([\T_VARIABLE, \T_ANON_CLASS], $next + 1, $end);
+            $next = $phpcsFile->findNext([\T_VARIABLE, \T_CLOSURE, \T_ANON_CLASS], $next + 1, $end);
             if ($next === \false) {
                 continue;
             }
-            if ($tokens[$next]['code'] === \T_ANON_CLASS) {
-                $this->checkThisUsage($phpcsFile, $next, $tokens[$next]['scope_opener']);
+            if (($tokens[$next]['code'] === \T_ANON_CLASS || $tokens[$next]['code'] === \T_CLOSURE) && isset($tokens[$next]['scope_opener']) === \true) {
+                $this->checkThisUsage($phpcsFile, $next, $tokens[$next]['scope_opener'], $type);
                 $next = $tokens[$next]['scope_closer'];
                 continue;
             }
             if ($tokens[$next]['content'] !== '$this') {
                 continue;
             }
-            $error = 'Usage of "$this" in static methods will cause runtime errors';
-            $phpcsFile->addError($error, $next, 'Found');
+            $error = 'Usage of "$this" in a static %s will cause runtime errors';
+            $data = [$type];
+            $phpcsFile->addError($error, $next, 'Found', $data);
         } while ($next !== \false);
     }
     /**
@@ -100,5 +107,15 @@ class StaticThisUsageSniff extends AbstractScopeSniff
      */
     protected function processTokenOutsideScope(File $phpcsFile, int $stackPtr)
     {
+        $tokens = $phpcsFile->getTokens();
+        if ($tokens[$stackPtr]['code'] !== \T_CLOSURE) {
+            // We're only interested in closures when looking outside of OO.
+            return;
+        }
+        $methodProps = $phpcsFile->getMethodProperties($stackPtr);
+        if ($methodProps['is_static'] === \false) {
+            return;
+        }
+        $this->checkThisUsage($phpcsFile, $stackPtr, $tokens[$stackPtr]['scope_closer'], 'closure');
     }
 }

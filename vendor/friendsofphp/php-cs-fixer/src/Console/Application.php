@@ -28,15 +28,15 @@ use PhpCsFixer\Future;
 use PhpCsFixer\PharChecker;
 use PhpCsFixer\Runner\Parallel\WorkerException;
 use PhpCsFixer\ToolInfo;
-use ECSPrefix202607\Symfony\Component\Console\Application as BaseApplication;
-use ECSPrefix202607\Symfony\Component\Console\Command\Command;
-use ECSPrefix202607\Symfony\Component\Console\Command\CompleteCommand;
-use ECSPrefix202607\Symfony\Component\Console\Command\DumpCompletionCommand;
-use ECSPrefix202607\Symfony\Component\Console\Command\ListCommand;
-use ECSPrefix202607\Symfony\Component\Console\Exception\CommandNotFoundException;
-use ECSPrefix202607\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix202607\Symfony\Component\Console\Output\ConsoleOutputInterface;
-use ECSPrefix202607\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix202608\Symfony\Component\Console\Application as BaseApplication;
+use ECSPrefix202608\Symfony\Component\Console\Command\Command;
+use ECSPrefix202608\Symfony\Component\Console\Command\CompleteCommand;
+use ECSPrefix202608\Symfony\Component\Console\Command\DumpCompletionCommand;
+use ECSPrefix202608\Symfony\Component\Console\Command\ListCommand;
+use ECSPrefix202608\Symfony\Component\Console\Exception\CommandNotFoundException;
+use ECSPrefix202608\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix202608\Symfony\Component\Console\Output\ConsoleOutputInterface;
+use ECSPrefix202608\Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
@@ -48,7 +48,7 @@ use ECSPrefix202607\Symfony\Component\Console\Output\OutputInterface;
 final class Application extends BaseApplication
 {
     public const NAME = 'PHP CS Fixer';
-    public const VERSION = '3.95.15';
+    public const VERSION = '3.95.18';
     public const VERSION_CODENAME = 'Adalbertus';
     /**
      * @readonly

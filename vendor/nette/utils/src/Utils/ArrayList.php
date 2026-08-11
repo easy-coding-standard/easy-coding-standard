@@ -5,9 +5,9 @@ declare (strict_types=1);
  * This file is part of the Nette Framework (https://nette.org)
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
-namespace ECSPrefix202607\Nette\Utils;
+namespace ECSPrefix202608\Nette\Utils;
 
-use ECSPrefix202607\Nette;
+use ECSPrefix202608\Nette;
 use function array_splice, array_unshift, count, is_int;
 /**
  * Generic list with integer indices.

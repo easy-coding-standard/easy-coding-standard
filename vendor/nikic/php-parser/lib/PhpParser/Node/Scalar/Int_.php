@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202607\PhpParser\Node\Scalar;
+namespace ECSPrefix202608\PhpParser\Node\Scalar;
 
-use ECSPrefix202607\PhpParser\Error;
-use ECSPrefix202607\PhpParser\Node\Scalar;
+use ECSPrefix202608\PhpParser\Error;
+use ECSPrefix202608\PhpParser\Node\Scalar;
 class Int_ extends Scalar
 {
     /* For use in "kind" attribute */

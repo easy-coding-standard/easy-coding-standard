@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202607\Entropy\Utils;
+namespace ECSPrefix202608\Entropy\Utils;
 
-use ECSPrefix202607\Entropy\FileSystem\Exception\FileSystemException;
-use ECSPrefix202607\Webmozart\Assert\Assert;
+use ECSPrefix202608\Entropy\FileSystem\Exception\FileSystemException;
+use ECSPrefix202608\Webmozart\Assert\Assert;
 /**
  * @api public api to use
  */

@@ -29,8 +29,13 @@
         "source": "https:\/\/github.com\/PHPCSStandards\/PHP_CodeSniffer",
         "security": "https:\/\/github.com\/PHPCSStandards\/PHP_CodeSniffer\/security\/policy"
     },
+    "suggest": {
+        "ext-iconv": "For accurate character length calculation when the checked files contain multi-byte characters.",
+        "ext-pcntl": "For parallel processing support via the --parallel CLI option."
+    },
     "require": {
         "php": ">=7.2.0",
+        "ext-libxml": "*",
         "ext-simplexml": "*",
         "ext-tokenizer": "*",
         "ext-xmlwriter": "*"

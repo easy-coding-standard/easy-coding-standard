@@ -36,7 +36,7 @@ function checkRequirements()
         fwrite(\STDERR, $error);
         exit($exitCode);
     }
-    $requiredExtensions = array('tokenizer', 'xmlwriter', 'SimpleXML');
+    $requiredExtensions = array('tokenizer', 'libxml', 'xmlwriter', 'SimpleXML');
     $missingExtensions = array();
     foreach ($requiredExtensions as $extension) {
         if (extension_loaded($extension) === \false) {

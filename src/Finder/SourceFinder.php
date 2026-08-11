@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Finder;
 
-use ECSPrefix202607\Symfony\Component\Finder\Finder;
+use ECSPrefix202608\Symfony\Component\Finder\Finder;
 use Symplify\EasyCodingStandard\DependencyInjection\SimpleParameterProvider;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 /**
@@ -13,8 +13,9 @@ final class SourceFinder
 {
     /**
      * @var string[]
+     * @readonly
      */
-    private $fileExtensions = [];
+    private $fileExtensions;
     public function __construct()
     {
         $this->fileExtensions = SimpleParameterProvider::getArrayParameter(Option::FILE_EXTENSIONS);
@@ -43,7 +44,7 @@ final class SourceFinder
     private function processDirectory(string $directory): array
     {
         $normalizedFileExtensions = $this->normalizeFileExtensions($this->fileExtensions);
-        $finder = Finder::create()->files()->ignoreDotFiles(\false)->name($normalizedFileExtensions)->in($directory)->exclude('vendor')->size('> 0')->sortByName();
+        $finder = Finder::create()->files()->ignoreDotFiles(\false)->name($normalizedFileExtensions)->in($directory)->exclude(['vendor', 'node_modules'])->size('> 0')->sortByName();
         return array_keys(iterator_to_array($finder));
     }
     /**

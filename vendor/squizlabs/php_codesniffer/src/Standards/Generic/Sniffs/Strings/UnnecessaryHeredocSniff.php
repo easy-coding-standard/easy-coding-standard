@@ -104,9 +104,12 @@ class UnnecessaryHeredocSniff implements Sniff
             $replacement = str_replace($identifier, $replaceWith, $tokens[$stackPtr]['content']);
             $phpcsFile->fixer->replaceToken($stackPtr, $replacement);
             for ($i = $stackPtr + 1; $i < $closer; $i++) {
-                $content = $tokens[$i]['content'];
-                $content = str_replace(['\$', '\\\\'], ['$', '\\'], $content);
-                if ($tokens[$i]['content'] !== $content) {
+                $origContent = $tokens[$i]['content'];
+                if (isset($tokens[$i]['orig_content']) === \true) {
+                    $origContent = $tokens[$i]['orig_content'];
+                }
+                $content = str_replace(['\$', '\\\\'], ['$', '\\'], $origContent);
+                if ($origContent !== $content) {
                     $phpcsFile->fixer->replaceToken($i, $content);
                 }
             }

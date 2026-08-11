@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202607\PhpParser\Node;
+namespace ECSPrefix202608\PhpParser\Node;
 
-use ECSPrefix202607\PhpParser\Node;
-use ECSPrefix202607\PhpParser\NodeAbstract;
-use ECSPrefix202607\PhpParser\Node\Stmt\Use_;
+use ECSPrefix202608\PhpParser\Node;
+use ECSPrefix202608\PhpParser\NodeAbstract;
+use ECSPrefix202608\PhpParser\Node\Stmt\Use_;
 class UseItem extends NodeAbstract
 {
     /**

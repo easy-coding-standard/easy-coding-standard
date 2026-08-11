@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202607\PhpParser\Lexer\TokenEmulator;
+namespace ECSPrefix202608\PhpParser\Lexer\TokenEmulator;
 
-use ECSPrefix202607\PhpParser\PhpVersion;
-use ECSPrefix202607\PhpParser\Token;
+use ECSPrefix202608\PhpParser\PhpVersion;
+use ECSPrefix202608\PhpParser\Token;
 class ExplicitOctalEmulator extends TokenEmulator
 {
     public function getPhpVersion(): PhpVersion

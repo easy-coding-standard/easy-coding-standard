@@ -6,7 +6,7 @@ namespace Symplify\EasyCodingStandard\Testing\PHPUnit;
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 use Symplify\EasyCodingStandard\DependencyInjection\ServiceContainerFactory;
-use ECSPrefix202607\Webmozart\Assert\Assert;
+use ECSPrefix202608\Webmozart\Assert\Assert;
 abstract class AbstractTestCase extends TestCase
 {
     /**

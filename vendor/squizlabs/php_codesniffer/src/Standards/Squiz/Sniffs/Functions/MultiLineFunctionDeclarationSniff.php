@@ -158,8 +158,8 @@ class MultiLineFunctionDeclarationSniff extends PEARFunctionDeclarationSniff
         if ($tokens[$openBracket]['line'] !== $tokens[$closeBracket]['line']) {
             $next = $phpcsFile->findNext(Tokens::EMPTY_TOKENS, $openBracket + 1, null, \true);
             if ($tokens[$next]['line'] === $tokens[$openBracket]['line']) {
-                $error = 'The first parameter of a multi-line ' . $type . ' declaration must be on the line after the opening bracket';
-                $fix = $phpcsFile->addFixableError($error, $next, $errorPrefix . 'FirstParamSpacing');
+                $error = 'The first parameter of a multi-line %s declaration must be on the line after the opening bracket';
+                $fix = $phpcsFile->addFixableError($error, $next, $errorPrefix . 'FirstParamSpacing', [$type]);
                 if ($fix === \true) {
                     if ($tokens[$next]['line'] === $tokens[$openBracket]['line']) {
                         $phpcsFile->fixer->addNewline($openBracket);
@@ -198,8 +198,8 @@ class MultiLineFunctionDeclarationSniff extends PEARFunctionDeclarationSniff
             }
             $next = $phpcsFile->findNext(Tokens::EMPTY_TOKENS, $i + 1, null, \true);
             if ($tokens[$next]['line'] === $tokens[$i]['line']) {
-                $error = 'Multi-line ' . $type . ' declarations must define one parameter per line';
-                $fix = $phpcsFile->addFixableError($error, $next, $errorPrefix . 'OneParamPerLine');
+                $error = 'Multi-line %s declarations must define one parameter per line';
+                $fix = $phpcsFile->addFixableError($error, $next, $errorPrefix . 'OneParamPerLine', [$type]);
                 if ($fix === \true) {
                     $phpcsFile->fixer->addNewline($i);
                 }

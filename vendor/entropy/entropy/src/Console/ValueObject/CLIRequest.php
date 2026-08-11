@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202607\Entropy\Console\ValueObject;
+namespace ECSPrefix202608\Entropy\Console\ValueObject;
 
-use ECSPrefix202607\Webmozart\Assert\Assert;
+use ECSPrefix202608\Webmozart\Assert\Assert;
 final class CLIRequest
 {
     /**

@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202607\PhpParser\NodeVisitor;
+namespace ECSPrefix202608\PhpParser\NodeVisitor;
 
-use ECSPrefix202607\PhpParser\Node;
-use ECSPrefix202607\PhpParser\NodeVisitor;
-use ECSPrefix202607\PhpParser\NodeVisitorAbstract;
+use ECSPrefix202608\PhpParser\Node;
+use ECSPrefix202608\PhpParser\NodeVisitor;
+use ECSPrefix202608\PhpParser\NodeVisitorAbstract;
 /**
  * This visitor can be used to find the first node satisfying some criterion determined by
  * a filter callback.

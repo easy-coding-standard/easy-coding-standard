@@ -75,7 +75,7 @@ final class NoSuperfluousPhpdocTagsFixer extends AbstractFixer implements Config
         return new FixerDefinition('Removes `@param`, `@return` and `@var` tags that don\'t provide any useful information.', [new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202607;
+namespace ECSPrefix202608;
 
 class Foo
 {
@@ -89,13 +89,13 @@ class Foo
     {
     }
 }
-\class_alias('ECSPrefix202607\Foo', 'Foo', \false);
+\class_alias('ECSPrefix202608\Foo', 'Foo', \false);
 
 PHP
 ), new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202607;
+namespace ECSPrefix202608;
 
 class Foo
 {
@@ -107,13 +107,13 @@ class Foo
     {
     }
 }
-\class_alias('ECSPrefix202607\Foo', 'Foo', \false);
+\class_alias('ECSPrefix202608\Foo', 'Foo', \false);
 
 PHP
 , ['allow_mixed' => \true]), new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202607;
+namespace ECSPrefix202608;
 
 class Foo
 {
@@ -124,13 +124,13 @@ class Foo
     {
     }
 }
-\class_alias('ECSPrefix202607\Foo', 'Foo', \false);
+\class_alias('ECSPrefix202608\Foo', 'Foo', \false);
 
 PHP
 , ['remove_inheritdoc' => \true]), new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202607;
+namespace ECSPrefix202608;
 
 class Foo
 {
@@ -144,13 +144,13 @@ class Foo
     {
     }
 }
-\class_alias('ECSPrefix202607\Foo', 'Foo', \false);
+\class_alias('ECSPrefix202608\Foo', 'Foo', \false);
 
 PHP
 , ['allow_hidden_params' => \true]), new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202607;
+namespace ECSPrefix202608;
 
 class Foo
 {
@@ -164,7 +164,7 @@ class Foo
     {
     }
 }
-\class_alias('ECSPrefix202607\Foo', 'Foo', \false);
+\class_alias('ECSPrefix202608\Foo', 'Foo', \false);
 
 PHP
 , ['allow_unused_params' => \true])]);
@@ -381,10 +381,14 @@ PHP
         // virtualise "hidden params" as if they would be regular ones
         if (\true === $this->configuration['allow_hidden_params']) {
             $paramsString = $tokens->generatePartialCode($start, $end);
-            Preg::matchAll('|/\*[^$]*(\$\w+)[^*]*\*/|', $paramsString, $matches);
-            foreach ($matches[1] as $match) {
-                $argumentsInfo[$match] = self::NO_TYPE_INFO;
-                // HINT: one could try to extract actual type for hidden param, for now we only indicate it's existence
+            Preg::matchAll('~/\*.*?\*/~s', $paramsString, $matches);
+            foreach ($matches[0] as $comment) {
+                Preg::matchAll('~\$\w+~', $comment, $paramMatches);
+                /** @var non-empty-string $hiddenParam */
+                foreach ($paramMatches[0] as $hiddenParam) {
+                    $argumentsInfo[$hiddenParam] = self::NO_TYPE_INFO;
+                    // HINT: one could try to extract actual type for hidden param, for now we only indicate it's existence
+                }
             }
         }
         return $argumentsInfo;

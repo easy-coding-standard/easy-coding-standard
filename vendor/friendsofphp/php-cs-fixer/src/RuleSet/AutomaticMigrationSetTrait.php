@@ -12,7 +12,7 @@ declare (strict_types=1);
  */
 namespace PhpCsFixer\RuleSet;
 
-use ECSPrefix202607\Composer\Semver\Semver;
+use ECSPrefix202608\Composer\Semver\Semver;
 use PhpCsFixer\ComposerJsonReader;
 use PhpCsFixer\ConfigurationException\UnresolvableAutoRuleSetConfigurationException;
 /**

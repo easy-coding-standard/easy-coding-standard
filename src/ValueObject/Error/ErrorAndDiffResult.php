@@ -13,12 +13,14 @@ final class ErrorAndDiffResult
     private $systemErrors;
     /**
      * @var CodingStandardError[]
+     * @readonly
      */
-    private $codingStandardErrors = [];
+    private $codingStandardErrors;
     /**
      * @var FileDiff[]
+     * @readonly
      */
-    private $fileDiffs = [];
+    private $fileDiffs;
     /**
      * @param CodingStandardError[] $codingStandardErrors
      * @param FileDiff[] $fileDiffs

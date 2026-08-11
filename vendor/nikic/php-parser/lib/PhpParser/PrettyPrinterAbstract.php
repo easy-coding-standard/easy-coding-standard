@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202607\PhpParser;
+namespace ECSPrefix202608\PhpParser;
 
-use ECSPrefix202607\PhpParser\Internal\DiffElem;
-use ECSPrefix202607\PhpParser\Internal\Differ;
-use ECSPrefix202607\PhpParser\Internal\PrintableNewAnonClassNode;
-use ECSPrefix202607\PhpParser\Internal\TokenStream;
-use ECSPrefix202607\PhpParser\Node\AttributeGroup;
-use ECSPrefix202607\PhpParser\Node\Expr;
-use ECSPrefix202607\PhpParser\Node\Expr\AssignOp;
-use ECSPrefix202607\PhpParser\Node\Expr\BinaryOp;
-use ECSPrefix202607\PhpParser\Node\Expr\Cast;
-use ECSPrefix202607\PhpParser\Node\IntersectionType;
-use ECSPrefix202607\PhpParser\Node\MatchArm;
-use ECSPrefix202607\PhpParser\Node\Param;
-use ECSPrefix202607\PhpParser\Node\PropertyHook;
-use ECSPrefix202607\PhpParser\Node\Scalar;
-use ECSPrefix202607\PhpParser\Node\Stmt;
-use ECSPrefix202607\PhpParser\Node\UnionType;
+use ECSPrefix202608\PhpParser\Internal\DiffElem;
+use ECSPrefix202608\PhpParser\Internal\Differ;
+use ECSPrefix202608\PhpParser\Internal\PrintableNewAnonClassNode;
+use ECSPrefix202608\PhpParser\Internal\TokenStream;
+use ECSPrefix202608\PhpParser\Node\AttributeGroup;
+use ECSPrefix202608\PhpParser\Node\Expr;
+use ECSPrefix202608\PhpParser\Node\Expr\AssignOp;
+use ECSPrefix202608\PhpParser\Node\Expr\BinaryOp;
+use ECSPrefix202608\PhpParser\Node\Expr\Cast;
+use ECSPrefix202608\PhpParser\Node\IntersectionType;
+use ECSPrefix202608\PhpParser\Node\MatchArm;
+use ECSPrefix202608\PhpParser\Node\Param;
+use ECSPrefix202608\PhpParser\Node\PropertyHook;
+use ECSPrefix202608\PhpParser\Node\Scalar;
+use ECSPrefix202608\PhpParser\Node\Stmt;
+use ECSPrefix202608\PhpParser\Node\UnionType;
 abstract class PrettyPrinterAbstract implements PrettyPrinter
 {
     protected const FIXUP_PREC_LEFT = 0;

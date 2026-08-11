@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202607\Entropy\Console\Output;
+namespace ECSPrefix202608\Entropy\Console\Output;
 
-use ECSPrefix202607\Entropy\Console\CommandRegistry;
+use ECSPrefix202608\Entropy\Console\CommandRegistry;
 final class HelpPrinter
 {
     /**

@@ -1516,8 +1516,9 @@ class File
         }
         // Make sure it's not a method parameter.
         if (empty($this->tokens[$stackPtr]['nested_parenthesis']) === \false) {
-            $parenthesis = array_keys($this->tokens[$stackPtr]['nested_parenthesis']);
-            $deepestOpen = array_pop($parenthesis);
+            $parentheses = $this->tokens[$stackPtr]['nested_parenthesis'];
+            $parentheses = array_keys($parentheses);
+            $deepestOpen = array_pop($parentheses);
             if ($deepestOpen > $ptr && isset($this->tokens[$deepestOpen]['parenthesis_owner']) === \true && $this->tokens[$this->tokens[$deepestOpen]['parenthesis_owner']]['code'] === \T_FUNCTION) {
                 throw new RuntimeException('$stackPtr is not a class member var');
             }

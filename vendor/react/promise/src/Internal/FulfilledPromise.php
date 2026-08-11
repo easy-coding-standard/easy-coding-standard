@@ -1,9 +1,9 @@
 <?php
 
-namespace ECSPrefix202607\React\Promise\Internal;
+namespace ECSPrefix202608\React\Promise\Internal;
 
-use ECSPrefix202607\React\Promise\PromiseInterface;
-use function ECSPrefix202607\React\Promise\resolve;
+use ECSPrefix202608\React\Promise\PromiseInterface;
+use function ECSPrefix202608\React\Promise\resolve;
 /**
  * @internal
  *

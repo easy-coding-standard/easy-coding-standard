@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202607\PhpParser\Node;
+namespace ECSPrefix202608\PhpParser\Node;
 
-use ECSPrefix202607\PhpParser\NodeAbstract;
+use ECSPrefix202608\PhpParser\NodeAbstract;
 /**
  * This is a base class for complex types, including nullable types and union types.
  *

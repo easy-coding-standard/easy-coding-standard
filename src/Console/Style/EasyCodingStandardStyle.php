@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Style;
 
-use ECSPrefix202607\Entropy\Console\Output\OutputPrinter;
-use ECSPrefix202607\Entropy\Console\Output\ProgressBar;
+use ECSPrefix202608\Entropy\Console\Output\OutputPrinter;
+use ECSPrefix202608\Entropy\Console\Output\ProgressBar;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\Error\CodingStandardError;
 final class EasyCodingStandardStyle
 {

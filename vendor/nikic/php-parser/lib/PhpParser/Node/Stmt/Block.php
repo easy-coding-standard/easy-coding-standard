@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202607\PhpParser\Node\Stmt;
+namespace ECSPrefix202608\PhpParser\Node\Stmt;
 
-use ECSPrefix202607\PhpParser\Node\Stmt;
+use ECSPrefix202608\PhpParser\Node\Stmt;
 class Block extends Stmt
 {
     /** @var Stmt[] Statements */

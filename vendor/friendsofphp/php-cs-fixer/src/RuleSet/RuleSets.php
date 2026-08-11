@@ -13,7 +13,7 @@ declare (strict_types=1);
 namespace PhpCsFixer\RuleSet;
 
 use PhpCsFixer\RuleSetNameValidator;
-use ECSPrefix202607\Symfony\Component\Finder\Finder;
+use ECSPrefix202608\Symfony\Component\Finder\Finder;
 /**
  * Set of rule sets to be used by fixer.
  *

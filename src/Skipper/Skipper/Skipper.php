@@ -20,8 +20,9 @@ final class Skipper
     private const FILE_ELEMENT = 'file_elements';
     /**
      * @var SkipVoterInterface[]
+     * @readonly
      */
-    private $skipVoters = [];
+    private $skipVoters;
     public function __construct(ClassAndCodeSkipVoter $classAndCodeSkipVoter, ClassSkipVoter $classSkipVoter, MessageSkipVoter $messageSkipVoter, PathSkipVoter $pathSkipVoter)
     {
         $this->skipVoters = [$classAndCodeSkipVoter, $classSkipVoter, $messageSkipVoter, $pathSkipVoter];

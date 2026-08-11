@@ -71,7 +71,7 @@ class Hgblame extends \PHP_CodeSniffer\Reports\VersionControl
             $error = 'ERROR: Could not locate .hg directory ' . \PHP_EOL . \PHP_EOL;
             throw new DeepExitException($error, ExitCode::PROCESS_ERROR);
         }
-        $command = 'hg blame -u -d -v "' . $filename . '" 2>&1';
+        $command = 'hg blame -u -d -v ' . escapeshellarg($filename) . ' 2>&1';
         $handle = popen($command, 'r');
         if ($handle === \false) {
             $error = 'ERROR: Could not execute "' . $command . '"' . \PHP_EOL . \PHP_EOL;

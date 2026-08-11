@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202607\TomasVotruba\ClassLeak\Finder;
+namespace ECSPrefix202608\TomasVotruba\ClassLeak\Finder;
 
 use Closure;
-use ECSPrefix202607\TomasVotruba\ClassLeak\ClassNameResolver;
-use ECSPrefix202607\TomasVotruba\ClassLeak\ValueObject\ClassNames;
-use ECSPrefix202607\TomasVotruba\ClassLeak\ValueObject\FileWithClass;
+use ECSPrefix202608\TomasVotruba\ClassLeak\ClassNameResolver;
+use ECSPrefix202608\TomasVotruba\ClassLeak\ValueObject\ClassNames;
+use ECSPrefix202608\TomasVotruba\ClassLeak\ValueObject\FileWithClass;
 final class ClassNamesFinder
 {
     /**

@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202607\Entropy\Container;
+namespace ECSPrefix202608\Entropy\Container;
 
-use ECSPrefix202607\Entropy\Attributes\RelatedTest;
-use ECSPrefix202607\Entropy\Console\CommandRegistry;
-use ECSPrefix202607\Entropy\Console\Contract\CommandInterface;
-use ECSPrefix202607\Entropy\Container\Exception\CreateServiceException;
-use ECSPrefix202607\Entropy\Container\Exception\RegisterServiceException;
-use ECSPrefix202607\Entropy\Reflection\ParameterTypesResolver;
-use ECSPrefix202607\Entropy\Tests\Container\Container\ContainerTest;
+use ECSPrefix202608\Entropy\Attributes\RelatedTest;
+use ECSPrefix202608\Entropy\Console\CommandRegistry;
+use ECSPrefix202608\Entropy\Console\Contract\CommandInterface;
+use ECSPrefix202608\Entropy\Container\Exception\CreateServiceException;
+use ECSPrefix202608\Entropy\Container\Exception\RegisterServiceException;
+use ECSPrefix202608\Entropy\Reflection\ParameterTypesResolver;
+use ECSPrefix202608\Entropy\Tests\Container\Container\ContainerTest;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionParameter;
-use ECSPrefix202607\Webmozart\Assert\Assert;
+use ECSPrefix202608\Webmozart\Assert\Assert;
 /**
  * Designed to be extended by applications that need to customise resolution
  * (e.g. add their own service kinds), so this class is intentionally not final.

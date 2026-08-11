@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202607\PhpParser;
+namespace ECSPrefix202608\PhpParser;
 
-use ECSPrefix202607\PhpParser\Node\Expr\Array_;
-use ECSPrefix202607\PhpParser\Node\Expr\Include_;
-use ECSPrefix202607\PhpParser\Node\Expr\List_;
-use ECSPrefix202607\PhpParser\Node\Scalar\Int_;
-use ECSPrefix202607\PhpParser\Node\Scalar\InterpolatedString;
-use ECSPrefix202607\PhpParser\Node\Scalar\String_;
-use ECSPrefix202607\PhpParser\Node\Stmt\GroupUse;
-use ECSPrefix202607\PhpParser\Node\Stmt\Use_;
-use ECSPrefix202607\PhpParser\Node\UseItem;
+use ECSPrefix202608\PhpParser\Node\Expr\Array_;
+use ECSPrefix202608\PhpParser\Node\Expr\Include_;
+use ECSPrefix202608\PhpParser\Node\Expr\List_;
+use ECSPrefix202608\PhpParser\Node\Scalar\Int_;
+use ECSPrefix202608\PhpParser\Node\Scalar\InterpolatedString;
+use ECSPrefix202608\PhpParser\Node\Scalar\String_;
+use ECSPrefix202608\PhpParser\Node\Stmt\GroupUse;
+use ECSPrefix202608\PhpParser\Node\Stmt\Use_;
+use ECSPrefix202608\PhpParser\Node\UseItem;
 class NodeDumper
 {
     /**

@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202607\PhpParser;
+namespace ECSPrefix202608\PhpParser;
 
-use ECSPrefix202607\PhpParser\Node\Name;
-use ECSPrefix202607\PhpParser\Node\Name\FullyQualified;
-use ECSPrefix202607\PhpParser\Node\Stmt;
+use ECSPrefix202608\PhpParser\Node\Name;
+use ECSPrefix202608\PhpParser\Node\Name\FullyQualified;
+use ECSPrefix202608\PhpParser\Node\Stmt;
 class NameContext
 {
     /** @var null|Name Current namespace */

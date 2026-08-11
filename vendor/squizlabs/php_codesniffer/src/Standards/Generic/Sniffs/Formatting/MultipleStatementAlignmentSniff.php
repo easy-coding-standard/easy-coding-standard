@@ -183,6 +183,11 @@ class MultipleStatementAlignmentSniff implements Sniff
                     $lastCode = $assign;
                     continue;
                 }
+                if ($tokens[$lastCode]['line'] !== $tokens[$assign]['line']) {
+                    // Skip multiple assignments within one statement, where the next assignment operator
+                    // is on the next line. We only align the first assignment.
+                    continue;
+                }
                 // Make sure it is not assigned inside a condition (eg. IF, FOR).
                 if (isset($tokens[$assign]['nested_parenthesis']) === \true) {
                     // If the parenthesis is on the same line as the assignment,

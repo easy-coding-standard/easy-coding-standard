@@ -14,9 +14,9 @@ namespace PhpCsFixer\Console\Command;
 
 use PhpCsFixer\Preg;
 use PhpCsFixer\ToolInfoInterface;
-use ECSPrefix202607\Symfony\Component\Console\Attribute\AsCommand;
-use ECSPrefix202607\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix202607\Symfony\Component\Console\Input\InputOption;
+use ECSPrefix202608\Symfony\Component\Console\Attribute\AsCommand;
+use ECSPrefix202608\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix202608\Symfony\Component\Console\Input\InputOption;
 /**
  * @author Greg Korba <greg@codito.dev>
  *

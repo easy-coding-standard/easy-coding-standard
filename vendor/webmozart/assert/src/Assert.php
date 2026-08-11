@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202607\Webmozart\Assert;
+namespace ECSPrefix202608\Webmozart\Assert;
 
 use ArrayAccess;
 use Closure;
@@ -89,7 +89,7 @@ class Assert
      * @param string|callable():string $message
      *
      * @throws InvalidArgumentException
-     * @return float|int|string
+     * @return int|float|string
      * @param mixed $value
      */
     public static function integerish($value, $message = '')
@@ -185,7 +185,7 @@ class Assert
      * @param string|callable():string $message
      *
      * @throws InvalidArgumentException
-     * @return float|int|string
+     * @return int|float|string
      * @param mixed $value
      */
     public static function numeric($value, $message = '')
@@ -242,7 +242,7 @@ class Assert
      * @param string|callable():string $message
      *
      * @throws InvalidArgumentException
-     * @return bool|float|int|string
+     * @return int|bool|float|string
      * @param mixed $value
      */
     public static function scalar($value, $message = '')
@@ -1769,7 +1769,7 @@ class Assert
      * @param string|callable():string $message
      *
      * @throws InvalidArgumentException
-     * @return int|string
+     * @return string|int
      * @param mixed $value
      */
     public static function validArrayKey($value, $message = '')
@@ -2127,7 +2127,7 @@ class Assert
     }
     protected static function strlen(string $value): int
     {
-        if (!\function_exists('mb_detect_encoding') && !\function_exists('ECSPrefix202607\mb_detect_encoding')) {
+        if (!\function_exists('mb_detect_encoding') && !\function_exists('ECSPrefix202608\mb_detect_encoding')) {
             return \strlen($value);
         }
         if (\false === $encoding = \mb_detect_encoding($value)) {

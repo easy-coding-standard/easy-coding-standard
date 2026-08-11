@@ -93,8 +93,9 @@ class OperatorBracketSniff implements Sniff
         $allowed += [\T_VARIABLE => \T_VARIABLE, \T_LNUMBER => \T_LNUMBER, \T_DNUMBER => \T_DNUMBER, \T_WHITESPACE => \T_WHITESPACE, \T_SELF => \T_SELF, \T_STATIC => \T_STATIC, \T_PARENT => \T_PARENT, \T_OBJECT_OPERATOR => \T_OBJECT_OPERATOR, \T_NULLSAFE_OBJECT_OPERATOR => \T_NULLSAFE_OBJECT_OPERATOR, \T_DOUBLE_COLON => \T_DOUBLE_COLON, \T_OPEN_SQUARE_BRACKET => \T_OPEN_SQUARE_BRACKET, \T_CLOSE_SQUARE_BRACKET => \T_CLOSE_SQUARE_BRACKET, \T_NONE => \T_NONE, \T_BITWISE_NOT => \T_BITWISE_NOT];
         $lastBracket = \false;
         if (isset($tokens[$stackPtr]['nested_parenthesis']) === \true) {
-            $parenthesis = array_reverse($tokens[$stackPtr]['nested_parenthesis'], \true);
-            foreach ($parenthesis as $bracket => $endBracket) {
+            $parentheses = $tokens[$stackPtr]['nested_parenthesis'];
+            $parentheses = array_reverse($parentheses, \true);
+            foreach ($parentheses as $bracket => $endBracket) {
                 $prevToken = $phpcsFile->findPrevious(\T_WHITESPACE, $bracket - 1, null, \true);
                 $prevCode = $tokens[$prevToken]['code'];
                 if ($prevCode === \T_ISSET) {
@@ -211,6 +212,11 @@ class OperatorBracketSniff implements Sniff
             break;
         }
         $before = $phpcsFile->findNext(Tokens::EMPTY_TOKENS, $before + 1, null, \true);
+        if ($tokens[$before]['code'] === \T_VOID_CAST) {
+            // Don't throw an error if a (void) cast is the first token in the expression
+            // as adding parentheses would turn that into a parse error.
+            return;
+        }
         // A few extra tokens are allowed to be on the right side of the expression.
         $allowed[\T_EQUAL] = \true;
         $allowed[\T_NEW] = \true;

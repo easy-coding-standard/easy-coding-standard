@@ -20,12 +20,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix202607\\Evenement\\": "src\/"
+            "ECSPrefix202608\\Evenement\\": "src\/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix202607\\Evenement\\Tests\\": "tests\/"
+            "ECSPrefix202608\\Evenement\\Tests\\": "tests\/"
         },
         "files": [
             "tests\/functions.php"

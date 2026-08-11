@@ -33,7 +33,7 @@ final class SwitchContinueToBreakFixer extends AbstractFixer
         return new FixerDefinition('Switch case must not be ended with `continue` but with `break`.', [new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202607;
+namespace ECSPrefix202608;
 
 switch ($foo) {
     case 1:
@@ -44,7 +44,7 @@ PHP
 ), new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202607;
+namespace ECSPrefix202608;
 
 switch ($foo) {
     case 1:

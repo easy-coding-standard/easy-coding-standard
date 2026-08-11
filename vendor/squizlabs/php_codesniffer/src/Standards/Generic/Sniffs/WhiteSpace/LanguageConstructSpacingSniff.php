@@ -77,7 +77,7 @@ class LanguageConstructSpacingSniff implements Sniff
                 $yieldFromEnd = $i;
             }
             $error = 'Language constructs must be followed by a single space; expected 1 space between YIELD FROM found "%s"';
-            $data = [Common::prepareForOutput($found)];
+            $data = [Common::prepareForOutput($found, [' '])];
             if ($hasComment === \true) {
                 $phpcsFile->addError($error, $stackPtr, 'IncorrectYieldFromWithComment', $data);
             } else {
@@ -98,8 +98,15 @@ class LanguageConstructSpacingSniff implements Sniff
         if ($tokens[$stackPtr + 1]['code'] === \T_WHITESPACE) {
             $content = $tokens[$stackPtr + 1]['content'];
             if ($content !== ' ') {
-                $error = 'Language constructs must be followed by a single space; expected 1 space but found "%s"';
-                $data = [Common::prepareForOutput($content)];
+                if (trim($content, ' ') === '') {
+                    // Only space characters: report the count.
+                    $found = $tokens[$stackPtr + 1]['length'] . ' spaces';
+                } else {
+                    // Contains tabs or newlines: make them visible.
+                    $found = '"' . Common::prepareForOutput($content, [' ']) . '"';
+                }
+                $error = 'Language constructs must be followed by a single space; expected 1 space but found %s';
+                $data = [$found];
                 $fix = $phpcsFile->addFixableError($error, $stackPtr, 'IncorrectSingle', $data);
                 if ($fix === \true) {
                     $phpcsFile->fixer->replaceToken($stackPtr + 1, ' ');

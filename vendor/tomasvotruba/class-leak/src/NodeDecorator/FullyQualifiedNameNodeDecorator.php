@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202607\TomasVotruba\ClassLeak\NodeDecorator;
+namespace ECSPrefix202608\TomasVotruba\ClassLeak\NodeDecorator;
 
-use ECSPrefix202607\PhpParser\Node\Stmt;
-use ECSPrefix202607\PhpParser\NodeTraverser;
-use ECSPrefix202607\PhpParser\NodeVisitor\NameResolver;
-use ECSPrefix202607\PhpParser\NodeVisitor\NodeConnectingVisitor;
+use ECSPrefix202608\PhpParser\Node\Stmt;
+use ECSPrefix202608\PhpParser\NodeTraverser;
+use ECSPrefix202608\PhpParser\NodeVisitor\NameResolver;
+use ECSPrefix202608\PhpParser\NodeVisitor\NodeConnectingVisitor;
 final class FullyQualifiedNameNodeDecorator
 {
     /**

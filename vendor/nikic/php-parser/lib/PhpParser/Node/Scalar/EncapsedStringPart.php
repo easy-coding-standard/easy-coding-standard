@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202607\PhpParser\Node\Scalar;
+namespace ECSPrefix202608\PhpParser\Node\Scalar;
 
-use ECSPrefix202607\PhpParser\Node\InterpolatedStringPart;
+use ECSPrefix202608\PhpParser\Node\InterpolatedStringPart;
 require __DIR__ . '/../InterpolatedStringPart.php';
 if (\false) {
     /**

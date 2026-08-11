@@ -1,5 +1,5 @@
 #!/usr/bin/env php
 <?php 
-namespace ECSPrefix202607;
+namespace ECSPrefix202608;
 
 require __DIR__ . '/class-leak.php';

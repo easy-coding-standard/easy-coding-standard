@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202607\PhpParser\Node\Stmt;
+namespace ECSPrefix202608\PhpParser\Node\Stmt;
 
 require __DIR__ . '/../StaticVar.php';
 if (\false) {
@@ -10,7 +10,7 @@ if (\false) {
      *
      * @deprecated use \PhpParser\Node\StaticVar instead.
      */
-    class StaticVar extends \ECSPrefix202607\PhpParser\Node\StaticVar
+    class StaticVar extends \ECSPrefix202608\PhpParser\Node\StaticVar
     {
     }
 }

@@ -45,7 +45,7 @@ final class DirConstantFixer extends AbstractFunctionReferenceFixer
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
         $currIndex = 0;
-        do {
+        while (\true) {
             $boundaries = $this->find('dirname', $tokens, $currIndex, $tokens->count() - 1);
             if (null === $boundaries) {
                 return;
@@ -96,6 +96,6 @@ final class DirConstantFixer extends AbstractFunctionReferenceFixer
             // replace constant and remove function name
             $tokens[$fileCandidateLeftIndex] = new Token([\T_DIR, '__DIR__']);
             $tokens->clearTokenAndMergeSurroundingWhitespace($functionNameIndex);
-        } while (null !== $currIndex);
+        }
     }
 }

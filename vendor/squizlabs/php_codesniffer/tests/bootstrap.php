@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix202607;
+namespace ECSPrefix202608;
 
 /**
  * Bootstrap file for PHP_CodeSniffer unit tests.

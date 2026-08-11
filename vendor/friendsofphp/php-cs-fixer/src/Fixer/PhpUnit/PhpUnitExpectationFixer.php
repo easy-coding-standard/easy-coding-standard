@@ -53,9 +53,9 @@ final class PhpUnitExpectationFixer extends AbstractPhpUnitFixer implements Conf
         return new FixerDefinition('Usages of `->setExpectedException*` methods MUST be replaced by `->expectException*` methods.', [new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202607;
+namespace ECSPrefix202608;
 
-final class MyTest extends \ECSPrefix202607\PHPUnit_Framework_TestCase
+final class MyTest extends \ECSPrefix202608\PHPUnit_Framework_TestCase
 {
     public function testFoo()
     {
@@ -68,15 +68,15 @@ final class MyTest extends \ECSPrefix202607\PHPUnit_Framework_TestCase
         bar();
     }
 }
-\class_alias('ECSPrefix202607\MyTest', 'MyTest', \false);
+\class_alias('ECSPrefix202608\MyTest', 'MyTest', \false);
 
 PHP
 ), new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202607;
+namespace ECSPrefix202608;
 
-final class MyTest extends \ECSPrefix202607\PHPUnit_Framework_TestCase
+final class MyTest extends \ECSPrefix202608\PHPUnit_Framework_TestCase
 {
     public function testFoo()
     {
@@ -89,15 +89,15 @@ final class MyTest extends \ECSPrefix202607\PHPUnit_Framework_TestCase
         bar();
     }
 }
-\class_alias('ECSPrefix202607\MyTest', 'MyTest', \false);
+\class_alias('ECSPrefix202608\MyTest', 'MyTest', \false);
 
 PHP
 , ['target' => \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_8_4]), new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202607;
+namespace ECSPrefix202608;
 
-final class MyTest extends \ECSPrefix202607\PHPUnit_Framework_TestCase
+final class MyTest extends \ECSPrefix202608\PHPUnit_Framework_TestCase
 {
     public function testFoo()
     {
@@ -110,15 +110,15 @@ final class MyTest extends \ECSPrefix202607\PHPUnit_Framework_TestCase
         bar();
     }
 }
-\class_alias('ECSPrefix202607\MyTest', 'MyTest', \false);
+\class_alias('ECSPrefix202608\MyTest', 'MyTest', \false);
 
 PHP
 , ['target' => \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_5_6]), new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202607;
+namespace ECSPrefix202608;
 
-final class MyTest extends \ECSPrefix202607\PHPUnit_Framework_TestCase
+final class MyTest extends \ECSPrefix202608\PHPUnit_Framework_TestCase
 {
     public function testFoo()
     {
@@ -131,7 +131,7 @@ final class MyTest extends \ECSPrefix202607\PHPUnit_Framework_TestCase
         bar();
     }
 }
-\class_alias('ECSPrefix202607\MyTest', 'MyTest', \false);
+\class_alias('ECSPrefix202608\MyTest', 'MyTest', \false);
 
 PHP
 , ['target' => \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_5_2])], null, 'Risky when PHPUnit classes are overridden or not accessible, or when project has PHPUnit incompatibilities.');

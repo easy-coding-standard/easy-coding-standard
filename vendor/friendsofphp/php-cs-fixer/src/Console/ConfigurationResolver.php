@@ -12,7 +12,7 @@ declare (strict_types=1);
  */
 namespace PhpCsFixer\Console;
 
-use ECSPrefix202607\Ergebnis\AgentDetector;
+use ECSPrefix202608\Ergebnis\AgentDetector;
 use PhpCsFixer\Cache\CacheManagerInterface;
 use PhpCsFixer\Cache\Directory;
 use PhpCsFixer\Cache\DirectoryInterface;
@@ -51,8 +51,8 @@ use PhpCsFixer\UnsupportedPhpVersionAllowedConfigInterface;
 use PhpCsFixer\Utils;
 use PhpCsFixer\WhitespacesFixerConfig;
 use PhpCsFixer\WordMatcher;
-use ECSPrefix202607\Symfony\Component\Filesystem\Filesystem;
-use ECSPrefix202607\Symfony\Component\Finder\Finder as SymfonyFinder;
+use ECSPrefix202608\Symfony\Component\Filesystem\Filesystem;
+use ECSPrefix202608\Symfony\Component\Finder\Finder as SymfonyFinder;
 /**
  * The resolver that resolves configuration to use by command line options and config.
  *

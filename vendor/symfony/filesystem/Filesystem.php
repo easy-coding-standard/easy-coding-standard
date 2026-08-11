@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix202607\Symfony\Component\Filesystem;
+namespace ECSPrefix202608\Symfony\Component\Filesystem;
 
-use ECSPrefix202607\Symfony\Component\Filesystem\Exception\FileNotFoundException;
-use ECSPrefix202607\Symfony\Component\Filesystem\Exception\InvalidArgumentException;
-use ECSPrefix202607\Symfony\Component\Filesystem\Exception\IOException;
+use ECSPrefix202608\Symfony\Component\Filesystem\Exception\FileNotFoundException;
+use ECSPrefix202608\Symfony\Component\Filesystem\Exception\InvalidArgumentException;
+use ECSPrefix202608\Symfony\Component\Filesystem\Exception\IOException;
 /**
  * Provides basic utility to manipulate the file system.
  *
@@ -532,8 +532,10 @@ class Filesystem
         [$scheme, $hierarchy] = $this->getSchemeAndHierarchy($dir);
         // If no scheme or scheme is "file" or "gs" (Google Cloud) create temp file in local filesystem
         if ((null === $scheme || 'file' === $scheme || 'gs' === $scheme) && '' === $suffix) {
+            // PHP's tempnam() truncates the prefix to 63 characters; trim trailing whitespace
+            // from the truncated value, as a trailing space makes the file creation fail on Windows
             // If tempnam failed or no scheme return the filename otherwise prepend the scheme
-            if ($tmpFile = self::box('tempnam', $hierarchy, $prefix)) {
+            if ($tmpFile = self::box('tempnam', $hierarchy, rtrim(substr($prefix, 0, 63)))) {
                 if (null !== $scheme && 'gs' !== $scheme) {
                     return $scheme . '://' . $tmpFile;
                 }
