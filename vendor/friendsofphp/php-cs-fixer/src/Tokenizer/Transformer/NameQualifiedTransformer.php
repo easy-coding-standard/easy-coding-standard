@@ -35,7 +35,7 @@ final class NameQualifiedTransformer extends AbstractTransformer
     {
         return 80000;
     }
-    public function process(Tokens $tokens, Token $token, int $index): void
+    public function processToken(Tokens $tokens, Token $token, int $index): void
     {
         if ($token->isGivenKind([FCT::T_NAME_QUALIFIED, FCT::T_NAME_FULLY_QUALIFIED])) {
             $this->transformQualified($tokens, $token, $index);

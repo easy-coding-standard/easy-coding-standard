@@ -591,7 +591,7 @@ PHP
             }
             if ($token->equals(',')) {
                 for ($i = $index; $i < $endAt - 1; ++$i) {
-                    if (strpos($tokens[$i - 1]->getContent(), "\n") !== \false) {
+                    if (strpos($tokens[$i]->getContent(), "\n") !== \false) {
                         $newLineFoundSinceLastPlaceholder = \true;
                         break;
                     }

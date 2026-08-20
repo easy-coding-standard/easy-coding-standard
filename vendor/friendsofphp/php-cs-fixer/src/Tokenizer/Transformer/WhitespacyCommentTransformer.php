@@ -30,7 +30,7 @@ final class WhitespacyCommentTransformer extends AbstractTransformer
     {
         return 50000;
     }
-    public function process(Tokens $tokens, Token $token, int $index): void
+    public function processToken(Tokens $tokens, Token $token, int $index): void
     {
         if (!$token->isComment()) {
             return;

@@ -35,7 +35,7 @@ final class TypeIntersectionTransformer extends AbstractTypeTransformer
     {
         return 80100;
     }
-    public function process(Tokens $tokens, Token $token, int $index): void
+    public function processToken(Tokens $tokens, Token $token, int $index): void
     {
         $this->doProcess($tokens, $index, [\T_AMPERSAND_NOT_FOLLOWED_BY_VAR_OR_VARARG, '&']);
     }

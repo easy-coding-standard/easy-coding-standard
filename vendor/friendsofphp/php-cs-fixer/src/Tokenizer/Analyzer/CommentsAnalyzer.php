@@ -133,7 +133,7 @@ final class CommentsAnalyzer
         return $indices;
     }
     /**
-     * @see https://github.com/phpDocumentor/fig-standards/blob/master/proposed/phpdoc.md#3-definitions
+     * @see https://github.com/php-fig/fig-standards/blob/master/proposed/phpdoc.md#3-definitions
      */
     private function isStructuralElement(Tokens $tokens, int $index): bool
     {

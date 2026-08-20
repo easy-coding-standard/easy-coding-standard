@@ -188,12 +188,12 @@ PHP
             if (!$tokens[$index]->isGivenKind(\T_STATIC)) {
                 continue;
             }
-            $staticIndex = $index;
-            $index = $tokens->getNextMeaningfulToken($index);
-            if (!$tokens[$index]->isGivenKind(\T_DOUBLE_COLON)) {
+            $nextIndex = $tokens->getNextMeaningfulToken($index);
+            if (!$tokens[$nextIndex]->isGivenKind(\T_DOUBLE_COLON)) {
                 continue;
             }
-            $tokens[$staticIndex] = new Token([\T_STRING, 'self']);
+            $tokens[$index] = new Token([\T_STRING, 'self']);
+            $index = $nextIndex;
         }
         return $index;
     }

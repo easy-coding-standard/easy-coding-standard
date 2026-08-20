@@ -98,6 +98,11 @@ PHP
         if ('php' !== $file->getExtension() || !Preg::match('/^' . TypeExpression::REGEX_IDENTIFIER . '$/', $file->getBasename('.php'))) {
             return \false;
         }
+        $realPath = $file->getRealPath();
+        // ignore file that cannot be resolved on disk, since its location is what gets compared to the namespace
+        if (\false === $realPath) {
+            return \false;
+        }
         try {
             $tokens = Tokens::fromCode(\sprintf('<?php class %s {}', $file->getBasename('.php')));
             if ($tokens[3]->isKeyword() || $tokens[3]->isMagicConstant()) {
@@ -109,7 +114,7 @@ PHP
             return \false;
         }
         // ignore stubs/fixtures, since they typically contain invalid files for various reasons
-        return !Preg::match('{[/\\\\](stub|fixture)s?[/\\\\]}i', $file->getRealPath());
+        return !Preg::match('{[/\\\\](stub|fixture)s?[/\\\\]}i', $realPath);
     }
     protected function configurePostNormalisation(): void
     {

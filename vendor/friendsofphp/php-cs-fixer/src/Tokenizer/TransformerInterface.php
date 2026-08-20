@@ -60,5 +60,5 @@ interface TransformerInterface
     /**
      * Process Token to transform it into custom token when needed.
      */
-    public function process(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, int $index): void;
+    public function process(\PhpCsFixer\Tokenizer\Tokens $tokens): void;
 }

@@ -38,7 +38,7 @@ final class TypeColonTransformer extends AbstractTransformer
     {
         return 70000;
     }
-    public function process(Tokens $tokens, Token $token, int $index): void
+    public function processToken(Tokens $tokens, Token $token, int $index): void
     {
         if (!$token->equals(':')) {
             return;

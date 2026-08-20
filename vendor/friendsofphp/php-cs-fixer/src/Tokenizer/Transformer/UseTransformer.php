@@ -40,7 +40,7 @@ final class UseTransformer extends AbstractTransformer
     {
         return 50300;
     }
-    public function process(Tokens $tokens, Token $token, int $index): void
+    public function processToken(Tokens $tokens, Token $token, int $index): void
     {
         if ($token->isGivenKind(\T_USE) && $this->isUseForLambda($tokens, $index)) {
             $tokens[$index] = new Token([CT::T_USE_LAMBDA, $token->getContent()]);

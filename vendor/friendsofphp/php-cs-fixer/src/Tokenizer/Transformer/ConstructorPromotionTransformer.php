@@ -31,7 +31,7 @@ final class ConstructorPromotionTransformer extends AbstractTransformer
     {
         return 80000;
     }
-    public function process(Tokens $tokens, Token $token, int $index): void
+    public function processToken(Tokens $tokens, Token $token, int $index): void
     {
         if (!$tokens[$index]->isGivenKind(\T_FUNCTION)) {
             return;
