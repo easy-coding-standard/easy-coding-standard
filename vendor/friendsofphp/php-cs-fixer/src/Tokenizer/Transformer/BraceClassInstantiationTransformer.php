@@ -37,6 +37,10 @@ final class BraceClassInstantiationTransformer extends AbstractTransformer
     {
         return 50000;
     }
+    public function isCandidate(Tokens $tokens): bool
+    {
+        return $tokens->isTokenKindFound(\T_NEW);
+    }
     public function processToken(Tokens $tokens, Token $token, int $index): void
     {
         if (!$tokens[$index]->equals('(') || !$tokens[$tokens->getNextMeaningfulToken($index)]->isGivenKind(\T_NEW)) {

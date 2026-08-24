@@ -43,6 +43,10 @@ final class SquareBraceTransformer extends AbstractTransformer
         // Same for array destructing syntax sugar `[` introduced in PHP 7.1.
         return 50000;
     }
+    public function isCandidate(Tokens $tokens): bool
+    {
+        return $tokens->isTokenKindFound('[');
+    }
     public function processToken(Tokens $tokens, Token $token, int $index): void
     {
         if ($this->isArrayDestructing($tokens, $index)) {

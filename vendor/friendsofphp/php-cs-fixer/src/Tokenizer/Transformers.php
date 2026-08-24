@@ -56,8 +56,12 @@ final class Transformers
     public function transform(\PhpCsFixer\Tokenizer\Tokens $tokens): void
     {
         foreach ($this->items as $transformer) {
+            if (!$transformer->isCandidate($tokens)) {
+                continue;
+            }
             $transformer->process($tokens);
         }
+        $tokens->clearEmptyTokens();
     }
     /**
      * @param TransformerInterface $transformer Transformer

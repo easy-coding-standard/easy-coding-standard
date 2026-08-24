@@ -58,6 +58,12 @@ interface TransformerInterface
      */
     public function getRequiredPhpVersionId(): int;
     /**
+     * Returns whether this transformer should act upon this token collection.
+     *
+     * @see FixerInterface::isCandidate()
+     */
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens): bool;
+    /**
      * Process Token to transform it into custom token when needed.
      */
     public function process(\PhpCsFixer\Tokenizer\Tokens $tokens): void;

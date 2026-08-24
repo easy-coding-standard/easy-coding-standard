@@ -67,7 +67,6 @@ PHP
             $type = (string) substr($type, 1);
         }
         return $prefix . Preg::replaceCallback('/^(.+?)((?:\h*\[\h*\])+)$/', static function (array $matches): string {
-            \assert(isset($matches[1], $matches[2]));
             $type = $matches[1];
             $level = substr_count($matches[2], '[');
             if (strncmp($type, '(', strlen('(')) === 0 && substr_compare($type, ')', -strlen(')')) === 0) {

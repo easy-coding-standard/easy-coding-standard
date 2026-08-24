@@ -39,14 +39,9 @@ final class IntegerLiteralCaseFixer extends AbstractFixer
                 continue;
             }
             $content = $token->getContent();
-            $newContent = Preg::replaceCallback(
-                '#^0([boxBOX])([0-9a-fA-F_]+)$#',
-                // @phpstan-ignore-next-line offsetAccess.notFound
-                static function (array $matches): string {
-                    return '0' . strtolower($matches[1]) . strtoupper($matches[2]);
-                },
-                $content
-            );
+            $newContent = Preg::replaceCallback('#^0([boxBOX])([0-9a-fA-F_]+)$#', static function (array $matches): string {
+                return '0' . strtolower($matches[1]) . strtoupper($matches[2]);
+            }, $content);
             if ($content === $newContent) {
                 continue;
             }

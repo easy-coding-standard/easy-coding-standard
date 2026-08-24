@@ -31,6 +31,10 @@ final class ArrayTypehintTransformer extends AbstractTransformer
     {
         return 50000;
     }
+    public function isCandidate(Tokens $tokens): bool
+    {
+        return $tokens->isTokenKindFound(\T_ARRAY);
+    }
     public function processToken(Tokens $tokens, Token $token, int $index): void
     {
         if (!$token->isGivenKind(\T_ARRAY)) {

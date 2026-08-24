@@ -31,6 +31,10 @@ final class ClassConstantTransformer extends AbstractTransformer
     {
         return 50500;
     }
+    public function isCandidate(Tokens $tokens): bool
+    {
+        return $tokens->isAnyTokenKindsFound([\T_CLASS, \T_STRING]);
+    }
     public function processToken(Tokens $tokens, Token $token, int $index): void
     {
         if (!$token->equalsAny([[\T_CLASS, 'class'], [\T_STRING, 'class']], \false)) {

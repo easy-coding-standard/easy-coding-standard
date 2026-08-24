@@ -38,6 +38,10 @@ final class NullableTypeTransformer extends AbstractTransformer
     {
         return 70100;
     }
+    public function isCandidate(Tokens $tokens): bool
+    {
+        return $tokens->isTokenKindFound('?');
+    }
     public function processToken(Tokens $tokens, Token $token, int $index): void
     {
         if (!$token->equals('?')) {

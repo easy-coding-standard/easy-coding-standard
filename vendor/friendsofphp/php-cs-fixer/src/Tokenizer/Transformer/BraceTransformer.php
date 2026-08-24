@@ -41,6 +41,10 @@ final class BraceTransformer extends AbstractTransformer
     {
         return 50000;
     }
+    public function isCandidate(Tokens $tokens): bool
+    {
+        return $tokens->isAnyTokenKindsFound([\T_CURLY_OPEN, \T_DOLLAR_OPEN_CURLY_BRACES, '{']);
+    }
     public function processToken(Tokens $tokens, Token $token, int $index): void
     {
         $this->transformIntoCurlyCloseBrace($tokens, $index);

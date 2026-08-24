@@ -297,17 +297,17 @@
         },
         {
             "name": "entropy\/entropy",
-            "version": "0.4.6",
-            "version_normalized": "0.4.6.0",
+            "version": "0.4.9",
+            "version_normalized": "0.4.9.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/TomasVotruba\/entropy.git",
-                "reference": "415f69258150409db7c36aa747923e28aa53e9f6"
+                "reference": "856fea65681d3fe0fb17b947ae0eacef895dd407"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/TomasVotruba\/entropy\/zipball\/415f69258150409db7c36aa747923e28aa53e9f6",
-                "reference": "415f69258150409db7c36aa747923e28aa53e9f6",
+                "url": "https:\/\/api.github.com\/repos\/TomasVotruba\/entropy\/zipball\/856fea65681d3fe0fb17b947ae0eacef895dd407",
+                "reference": "856fea65681d3fe0fb17b947ae0eacef895dd407",
                 "shasum": ""
             },
             "require": {
@@ -329,7 +329,7 @@
                 "tomasvotruba\/unused-public": "^2.2",
                 "tracy\/tracy": "^2.12"
             },
-            "time": "2026-06-20T10:04:38+00:00",
+            "time": "2026-08-22T21:35:13+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -344,7 +344,7 @@
             "description": "Entropy framework",
             "support": {
                 "issues": "https:\/\/github.com\/TomasVotruba\/entropy\/issues",
-                "source": "https:\/\/github.com\/TomasVotruba\/entropy\/tree\/0.4.6"
+                "source": "https:\/\/github.com\/TomasVotruba\/entropy\/tree\/0.4.9"
             },
             "install-path": "..\/entropy\/entropy"
         },
@@ -536,17 +536,17 @@
         },
         {
             "name": "friendsofphp\/php-cs-fixer",
-            "version": "v3.95.20",
-            "version_normalized": "3.95.20.0",
+            "version": "v3.95.22",
+            "version_normalized": "3.95.22.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/PHP-CS-Fixer\/PHP-CS-Fixer.git",
-                "reference": "4d6c9886a77dbc1db3b9eaca6472cedf9eb1fab7"
+                "reference": "482722e0783c16325a07a998a0d9eda560f9be99"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/PHP-CS-Fixer\/PHP-CS-Fixer\/zipball\/4d6c9886a77dbc1db3b9eaca6472cedf9eb1fab7",
-                "reference": "4d6c9886a77dbc1db3b9eaca6472cedf9eb1fab7",
+                "url": "https:\/\/api.github.com\/repos\/PHP-CS-Fixer\/PHP-CS-Fixer\/zipball\/482722e0783c16325a07a998a0d9eda560f9be99",
+                "reference": "482722e0783c16325a07a998a0d9eda560f9be99",
                 "shasum": ""
             },
             "require": {
@@ -594,7 +594,7 @@
                 "ext-dom": "For handling output formats in XML",
                 "ext-mbstring": "For handling non-UTF8 characters."
             },
-            "time": "2026-08-19T16:28:14+00:00",
+            "time": "2026-08-24T10:37:43+00:00",
             "bin": [
                 "php-cs-fixer"
             ],
@@ -631,7 +631,7 @@
             ],
             "support": {
                 "issues": "https:\/\/github.com\/PHP-CS-Fixer\/PHP-CS-Fixer\/issues",
-                "source": "https:\/\/github.com\/PHP-CS-Fixer\/PHP-CS-Fixer\/tree\/v3.95.20"
+                "source": "https:\/\/github.com\/PHP-CS-Fixer\/PHP-CS-Fixer\/tree\/v3.95.22"
             },
             "funding": [
                 {
@@ -1640,17 +1640,17 @@
         },
         {
             "name": "symfony\/filesystem",
-            "version": "v8.1.2",
-            "version_normalized": "8.1.2.0",
+            "version": "v8.1.5",
+            "version_normalized": "8.1.5.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/symfony\/filesystem.git",
-                "reference": "17856b7a222664a26a5ea1cb06ee0721c2438217"
+                "reference": "6b2f4a0eeb28b5d74f90862592923a654bc629b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/symfony\/filesystem\/zipball\/17856b7a222664a26a5ea1cb06ee0721c2438217",
-                "reference": "17856b7a222664a26a5ea1cb06ee0721c2438217",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/filesystem\/zipball\/6b2f4a0eeb28b5d74f90862592923a654bc629b3",
+                "reference": "6b2f4a0eeb28b5d74f90862592923a654bc629b3",
                 "shasum": ""
             },
             "require": {
@@ -1662,7 +1662,7 @@
             "require-dev": {
                 "symfony\/process": "^7.4|^8.0"
             },
-            "time": "2026-07-22T15:42:13+00:00",
+            "time": "2026-08-21T12:16:08+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -1690,7 +1690,7 @@
             "description": "Provides basic utilities for the filesystem",
             "homepage": "https:\/\/symfony.com",
             "support": {
-                "source": "https:\/\/github.com\/symfony\/filesystem\/tree\/v8.1.2"
+                "source": "https:\/\/github.com\/symfony\/filesystem\/tree\/v8.1.5"
             },
             "funding": [
                 {
@@ -1714,17 +1714,17 @@
         },
         {
             "name": "symfony\/finder",
-            "version": "v7.4.14",
-            "version_normalized": "7.4.14.0",
+            "version": "v7.4.17",
+            "version_normalized": "7.4.17.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/symfony\/finder.git",
-                "reference": "13b38720174286f55d1761152b575a8d1436fc25"
+                "reference": "5ce28827081f6d1f0c32eaf3882750f19cb5bbe6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/symfony\/finder\/zipball\/13b38720174286f55d1761152b575a8d1436fc25",
-                "reference": "13b38720174286f55d1761152b575a8d1436fc25",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/finder\/zipball\/5ce28827081f6d1f0c32eaf3882750f19cb5bbe6",
+                "reference": "5ce28827081f6d1f0c32eaf3882750f19cb5bbe6",
                 "shasum": ""
             },
             "require": {
@@ -1733,7 +1733,7 @@
             "require-dev": {
                 "symfony\/filesystem": "^6.4|^7.0|^8.0"
             },
-            "time": "2026-06-27T08:31:18+00:00",
+            "time": "2026-08-21T12:09:28+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -1761,7 +1761,7 @@
             "description": "Finds files and directories via an intuitive fluent interface",
             "homepage": "https:\/\/symfony.com",
             "support": {
-                "source": "https:\/\/github.com\/symfony\/finder\/tree\/v7.4.14"
+                "source": "https:\/\/github.com\/symfony\/finder\/tree\/v7.4.17"
             },
             "funding": [
                 {

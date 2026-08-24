@@ -31,6 +31,10 @@ final class ReturnRefTransformer extends AbstractTransformer
     {
         return 50000;
     }
+    public function isCandidate(Tokens $tokens): bool
+    {
+        return $tokens->isAnyTokenKindsFound([\T_FUNCTION, \T_FN]);
+    }
     public function processToken(Tokens $tokens, Token $token, int $index): void
     {
         if ($token->equals('&') && $tokens[$tokens->getPrevMeaningfulToken($index)]->isGivenKind([\T_FUNCTION, \T_FN])) {

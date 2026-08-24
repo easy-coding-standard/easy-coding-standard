@@ -542,6 +542,7 @@ return array(
     'ECSPrefix202608\\SebastianBergmann\\Diff\\Output\\DiffOutputBuilderInterface' => $vendorDir . '/sebastian/diff/src/Output/DiffOutputBuilderInterface.php',
     'ECSPrefix202608\\SebastianBergmann\\Diff\\Output\\StrictUnifiedDiffOutputBuilder' => $vendorDir . '/sebastian/diff/src/Output/StrictUnifiedDiffOutputBuilder.php',
     'ECSPrefix202608\\SebastianBergmann\\Diff\\Parser' => $vendorDir . '/sebastian/diff/src/Parser.php',
+    'ECSPrefix202608\\Symfony\\Component\\Console\\Application' => $baseDir . '/stubs/symfony-console-application.php',
     'ECSPrefix202608\\Symfony\\Component\\Filesystem\\Exception\\ExceptionInterface' => $vendorDir . '/symfony/filesystem/Exception/ExceptionInterface.php',
     'ECSPrefix202608\\Symfony\\Component\\Filesystem\\Exception\\FileNotFoundException' => $vendorDir . '/symfony/filesystem/Exception/FileNotFoundException.php',
     'ECSPrefix202608\\Symfony\\Component\\Filesystem\\Exception\\IOException' => $vendorDir . '/symfony/filesystem/Exception/IOException.php',
