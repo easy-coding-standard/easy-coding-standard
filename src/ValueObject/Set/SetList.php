@@ -20,12 +20,6 @@ final class SetList
     public const CLEAN_CODE = __DIR__ . '/../../../config/set/clean-code.php';
     /**
      * @api
-     * @deprecated rules moved to the "common" sets (array, docblock, spaces). Use SetList::COMMON instead.
-     * @var string
-     */
-    public const SYMPLIFY = __DIR__ . '/../../../config/set/symplify.php';
-    /**
-     * @api
      * @var string
      */
     public const ARRAY = __DIR__ . '/../../../config/set/common/array.php';
