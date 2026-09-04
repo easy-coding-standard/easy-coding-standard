@@ -6,26 +6,13 @@ namespace Symplify\EasyCodingStandard\Configuration;
 use ECSPrefix202609\Entropy\Console\Output\OutputColorizer;
 use ECSPrefix202609\Entropy\Console\Output\OutputPrinter;
 use PHP_CodeSniffer\Sniffs\Sniff;
-use PHP_CodeSniffer\Standards\Generic\Sniffs\Files\EndFileNewlineSniff as GenericEndFileNewlineSniff;
-use PHP_CodeSniffer\Standards\Generic\Sniffs\Files\EndFileNoNewlineSniff;
-use PHP_CodeSniffer\Standards\PSR2\Sniffs\Files\EndFileNewlineSniff as Psr2EndFileNewlineSniff;
-use PHP_CodeSniffer\Standards\Squiz\Sniffs\Strings\DoubleQuoteUsageSniff;
-use PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\SuperfluousWhitespaceSniff;
 use PhpCsFixer\Fixer\FixerInterface;
-use PhpCsFixer\Fixer\StringNotation\SingleQuoteFixer;
-use PhpCsFixer\Fixer\Whitespace\NoTrailingWhitespaceFixer;
-use PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer;
 use ECSPrefix202609\Symfony\Component\Finder\Finder;
-use Symplify\CodingStandard\Fixer\LineLength\LineLengthFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 use Symplify\EasyCodingStandard\Config\Level\ArrayLevel;
 use Symplify\EasyCodingStandard\Config\Level\ControlStructuresLevel;
 use Symplify\EasyCodingStandard\Config\Level\DocblockLevel;
 use Symplify\EasyCodingStandard\Config\Level\SpacesLevel;
-use Symplify\EasyCodingStandard\Configuration\EditorConfig\EditorConfigFactory;
-use Symplify\EasyCodingStandard\Configuration\EditorConfig\EndOfLine;
-use Symplify\EasyCodingStandard\Configuration\EditorConfig\IndentStyle;
-use Symplify\EasyCodingStandard\Configuration\EditorConfig\QuoteType;
 use Symplify\EasyCodingStandard\Configuration\Levels\LevelRulesResolver;
 use Symplify\EasyCodingStandard\Exception\Configuration\InitializationException;
 use Symplify\EasyCodingStandard\Exception\Configuration\SuperfluousConfigurationException;
@@ -97,10 +84,6 @@ final class ECSConfigBuilder
      */
     private $reportingRealPath;
     /**
-     * @var bool|null
-     */
-    private $useEditorConfig;
-    /**
      * To make sure each common set and its corresponding level are not
      * duplicated, as both contain the same rules.
      * @var bool|null
@@ -120,7 +103,6 @@ final class ECSConfigBuilder
     private $isSpacesLevelUsed;
     public function __invoke(ECSConfig $ecsConfig): void
     {
-        $this->applyEditorConfigSettings();
         $this->assertLevelAndSetNotMixed($this->isArrayLevelUsed, SetList::ARRAY, 'array', 'withArrayLevel');
         $this->assertLevelAndSetNotMixed($this->isControlStructuresLevelUsed, SetList::CONTROL_STRUCTURES, 'control structures', 'withControlStructuresLevel');
         $this->assertLevelAndSetNotMixed($this->isDocblockLevelUsed, SetList::DOCBLOCK, 'docblock', 'withDocblockLevel');
@@ -312,9 +294,13 @@ final class ECSConfigBuilder
         $this->cacheNamespace = $namespace;
         return $this;
     }
-    public function withEditorConfig(bool $enabled = \true): self
+    /**
+     * @deprecated EditorConfig support is deprecated, as it leaks project-wide settings into ECS. Configure the matching PHP-CS-Fixer rules explicitly instead.
+     */
+    public function withEditorConfig(): self
     {
-        $this->useEditorConfig = $enabled;
+        $outputPrinter = new OutputPrinter(new OutputColorizer());
+        $outputPrinter->warning('The "withEditorConfig()" method is deprecated, as it leaks project-wide settings into ECS. Configure the matching PHP-CS-Fixer rules explicitly instead.');
         return $this;
     }
     /**
@@ -424,73 +410,6 @@ final class ECSConfigBuilder
         }
         if (in_array(SetList::COMMON, $this->sets, \true)) {
             throw new SuperfluousConfigurationException(sprintf('Your config already enables the "common" set, which includes the "%s" set.%sRemove "->%s()" as it only duplicates it, or remove the "common" set.', $setLabel, \PHP_EOL, $methodName));
-        }
-    }
-    private function applyEditorConfigSettings(): void
-    {
-        if (!$this->useEditorConfig) {
-            return;
-        }
-        /**
-         * PHP CS Fixer handles most of this, code sniffer just needs to stay
-         * out of out way. Luckily, we have a pass to make sure it does!
-         *
-         * This does introduce a quirk that if someone manually disables a Fixer
-         * rule, but does not enable the equivalent Sniffer rule, that
-         * EditorConfig setting won't be respected. But why would they do that?
-         *
-         * @see \Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualCheckersCompilerPass
-         */
-        $editorConfig = (new EditorConfigFactory())->load();
-        if ($editorConfig->indentStyle !== null) {
-            switch ($editorConfig->indentStyle) {
-                case IndentStyle::Space:
-                    $this->indentation = Option::INDENTATION_SPACES;
-                    break;
-                case IndentStyle::Tab:
-                    $this->indentation = Option::INDENTATION_TAB;
-                    break;
-                default:
-                    $this->indentation = Option::INDENTATION_SPACES;
-                    break;
-            }
-        }
-        if ($editorConfig->endOfLine !== null) {
-            switch ($editorConfig->endOfLine) {
-                case EndOfLine::Posix:
-                    $this->lineEnding = "\n";
-                    break;
-                case EndOfLine::Legacy:
-                    $this->lineEnding = "\r";
-                    break;
-                case EndOfLine::Windows:
-                    $this->lineEnding = "\r\n";
-                    break;
-                default:
-                    $this->lineEnding = "\n";
-                    break;
-            }
-        }
-        if ($editorConfig->maxLineLength) {
-            $this->rulesWithConfiguration[LineLengthFixer::class] = array_merge(is_array($this->rulesWithConfiguration[LineLengthFixer::class] ?? []) ? $this->rulesWithConfiguration[LineLengthFixer::class] ?? [] : iterator_to_array(is_array($this->rulesWithConfiguration[LineLengthFixer::class] ?? []) ? new \ArrayIterator($this->rulesWithConfiguration[LineLengthFixer::class] ?? []) : $this->rulesWithConfiguration[LineLengthFixer::class] ?? []), ['line_length' => $editorConfig->maxLineLength]);
-        }
-        if ($editorConfig->trimTrailingWhitespace === \true) {
-            $this->rules[] = NoTrailingWhitespaceFixer::class;
-        } elseif ($editorConfig->trimTrailingWhitespace === \false) {
-            $this->skip = array_merge($this->skip, [NoTrailingWhitespaceFixer::class, SuperfluousWhitespaceSniff::class]);
-        }
-        if ($editorConfig->insertFinalNewline === \true) {
-            $this->rules[] = SingleBlankLineAtEofFixer::class;
-        } elseif ($editorConfig->insertFinalNewline === \false) {
-            $this->rules[] = EndFileNoNewlineSniff::class;
-            $this->skip[] = [SingleBlankLineAtEofFixer::class, Psr2EndFileNewlineSniff::class, GenericEndFileNewlineSniff::class];
-        }
-        if ($editorConfig->quoteType === QuoteType::Auto) {
-            $this->rules[] = SingleQuoteFixer::class;
-        } elseif ($editorConfig->quoteType === QuoteType::Single) {
-            $this->rulesWithConfiguration[SingleQuoteFixer::class] = ['strings_containing_single_quote_chars' => \true];
-        } elseif ($editorConfig->quoteType === QuoteType::Double) {
-            $this->skip = array_merge($this->skip, [SingleQuoteFixer::class, DoubleQuoteUsageSniff::class]);
         }
     }
 }
