@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\PhpParser\ErrorHandler;
+namespace ECSPrefix202609\PhpParser\ErrorHandler;
 
-use ECSPrefix202608\PhpParser\Error;
-use ECSPrefix202608\PhpParser\ErrorHandler;
+use ECSPrefix202609\PhpParser\Error;
+use ECSPrefix202609\PhpParser\ErrorHandler;
 /**
  * Error handler that collects all errors into an array.
  *

@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\Entropy\FileSystem;
+namespace ECSPrefix202609\Entropy\FileSystem;
 
-use ECSPrefix202608\Entropy\Attributes\RelatedTest;
-use ECSPrefix202608\Entropy\Tests\FileSystem\FileFinder\FileFinderTest;
+use ECSPrefix202609\Entropy\Attributes\RelatedTest;
+use ECSPrefix202609\Entropy\Tests\FileSystem\FileFinder\FileFinderTest;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use SplFileInfo;

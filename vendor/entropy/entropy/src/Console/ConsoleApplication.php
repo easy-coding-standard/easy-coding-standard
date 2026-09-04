@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\Entropy\Console;
+namespace ECSPrefix202609\Entropy\Console;
 
-use ECSPrefix202608\Entropy\Attributes\RelatedTest;
-use ECSPrefix202608\Entropy\Console\Contract\CommandInterface;
-use ECSPrefix202608\Entropy\Console\Enum\ExitCode;
-use ECSPrefix202608\Entropy\Console\Input\InputParser;
-use ECSPrefix202608\Entropy\Console\Mapper\CLIRequestMapper;
-use ECSPrefix202608\Entropy\Console\Output\CommandHelpFactory;
-use ECSPrefix202608\Entropy\Console\Output\HelpPrinter;
-use ECSPrefix202608\Entropy\Console\Output\OutputPrinter;
-use ECSPrefix202608\Entropy\Tests\Console\ConsoleApplication\ConsoleApplicationTest;
+use ECSPrefix202609\Entropy\Attributes\RelatedTest;
+use ECSPrefix202609\Entropy\Console\Contract\CommandInterface;
+use ECSPrefix202609\Entropy\Console\Enum\ExitCode;
+use ECSPrefix202609\Entropy\Console\Input\InputParser;
+use ECSPrefix202609\Entropy\Console\Mapper\CLIRequestMapper;
+use ECSPrefix202609\Entropy\Console\Output\CommandHelpFactory;
+use ECSPrefix202609\Entropy\Console\Output\HelpPrinter;
+use ECSPrefix202609\Entropy\Console\Output\OutputPrinter;
+use ECSPrefix202609\Entropy\Tests\Console\ConsoleApplication\ConsoleApplicationTest;
 use Throwable;
 final class ConsoleApplication
 {

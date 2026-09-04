@@ -32,14 +32,16 @@ abstract class AbstractFixer implements FixerInterface
     protected $whitespacesConfig;
     /**
      * @readonly
-     * @var string
+     *
+     * @var non-empty-string
      */
     private $name;
     public function __construct()
     {
         $nameParts = explode('\\', static::class);
-        $name = (string) substr(end($nameParts), 0, -\strlen('Fixer'));
-        $this->name = \PhpCsFixer\Utils::camelCaseToUnderscore($name);
+        $name = \PhpCsFixer\Utils::camelCaseToUnderscore((string) substr(end($nameParts), 0, -\strlen('Fixer')));
+        \assert('' !== $name);
+        $this->name = $name;
         if ($this instanceof ConfigurableFixerInterface) {
             try {
                 $this->configure([]);

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\PhpParser;
+namespace ECSPrefix202609\PhpParser;
 
 /**
  * A PHP token. On PHP 8.0 this extends from PhpToken.

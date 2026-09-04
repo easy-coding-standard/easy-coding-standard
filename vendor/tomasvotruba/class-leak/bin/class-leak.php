@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608;
+namespace ECSPrefix202609;
 
-use ECSPrefix202608\Entropy\Console\ConsoleApplication;
-use ECSPrefix202608\TomasVotruba\ClassLeak\DependencyInjection\ContainerFactory;
+use ECSPrefix202609\Entropy\Console\ConsoleApplication;
+use ECSPrefix202609\TomasVotruba\ClassLeak\DependencyInjection\ContainerFactory;
 if (\file_exists(__DIR__ . '/../../../../vendor/autoload.php')) {
     // project's autoload
     require_once __DIR__ . '/../../../../vendor/autoload.php';

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\PhpParser\Internal;
+namespace ECSPrefix202609\PhpParser\Internal;
 
 /**
  * Implements the Myers diff algorithm.

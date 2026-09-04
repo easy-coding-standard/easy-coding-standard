@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\FileSystem;
 
-use ECSPrefix202608\Nette\Utils\Strings;
+use ECSPrefix202609\Nette\Utils\Strings;
 /**
  * @api
  *

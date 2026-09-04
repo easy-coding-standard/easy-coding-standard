@@ -5,9 +5,9 @@ declare (strict_types=1);
  * This file is part of the Nette Framework (https://nette.org)
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
-namespace ECSPrefix202608\Nette\Utils;
+namespace ECSPrefix202609\Nette\Utils;
 
-use ECSPrefix202608\Nette;
+use ECSPrefix202609\Nette;
 use function array_map, array_search, array_splice, array_values, count, explode, implode, is_a, is_resource, is_string, strcasecmp, strtolower, substr, trim;
 /**
  * PHP type reflection.
@@ -198,6 +198,9 @@ final class Type
     {
         return $this->singleName !== null;
     }
+    /**
+     * @deprecated use isSimple()
+     */
     public function isSingle(): bool
     {
         return $this->singleName !== null;

@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\PhpParser\Node\Expr;
+namespace ECSPrefix202609\PhpParser\Node\Expr;
 
-use ECSPrefix202608\PhpParser\Node;
-use ECSPrefix202608\PhpParser\Node\Expr;
-use ECSPrefix202608\PhpParser\Node\Identifier;
+use ECSPrefix202609\PhpParser\Node;
+use ECSPrefix202609\PhpParser\Node\Expr;
+use ECSPrefix202609\PhpParser\Node\Identifier;
 class PropertyFetch extends Expr
 {
     /** @var Expr Variable holding object */

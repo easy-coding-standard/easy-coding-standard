@@ -1,18 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\TomasVotruba\ClassLeak\Commands;
+namespace ECSPrefix202609\TomasVotruba\ClassLeak\Commands;
 
 use Closure;
-use ECSPrefix202608\Entropy\Console\Contract\CommandInterface;
-use ECSPrefix202608\Entropy\Console\Output\OutputPrinter;
-use ECSPrefix202608\Entropy\Console\Output\ProgressBar;
-use ECSPrefix202608\TomasVotruba\ClassLeak\Filtering\PossiblyUnusedClassesFilter;
-use ECSPrefix202608\TomasVotruba\ClassLeak\Finder\ClassNamesFinder;
-use ECSPrefix202608\TomasVotruba\ClassLeak\Finder\PhpFilesFinder;
-use ECSPrefix202608\TomasVotruba\ClassLeak\Reporting\UnusedClassesResultFactory;
-use ECSPrefix202608\TomasVotruba\ClassLeak\Reporting\UnusedClassReporter;
-use ECSPrefix202608\TomasVotruba\ClassLeak\UseImportsResolver;
+use ECSPrefix202609\Entropy\Console\Contract\CommandInterface;
+use ECSPrefix202609\Entropy\Console\Output\OutputPrinter;
+use ECSPrefix202609\Entropy\Console\Output\ProgressBar;
+use ECSPrefix202609\TomasVotruba\ClassLeak\ConstructorParamTypeResolver;
+use ECSPrefix202609\TomasVotruba\ClassLeak\Filtering\PossiblyUnusedClassesFilter;
+use ECSPrefix202609\TomasVotruba\ClassLeak\Finder\ClassNamesFinder;
+use ECSPrefix202609\TomasVotruba\ClassLeak\Finder\PhpFilesFinder;
+use ECSPrefix202609\TomasVotruba\ClassLeak\Reporting\UnusedClassesResultFactory;
+use ECSPrefix202609\TomasVotruba\ClassLeak\Reporting\UnusedClassReporter;
+use ECSPrefix202609\TomasVotruba\ClassLeak\UseImportsResolver;
 final class CheckCommand implements CommandInterface
 {
     /**
@@ -25,6 +26,11 @@ final class CheckCommand implements CommandInterface
      * @var \TomasVotruba\ClassLeak\UseImportsResolver
      */
     private $useImportsResolver;
+    /**
+     * @readonly
+     * @var \TomasVotruba\ClassLeak\ConstructorParamTypeResolver
+     */
+    private $constructorParamTypeResolver;
     /**
      * @readonly
      * @var \TomasVotruba\ClassLeak\Filtering\PossiblyUnusedClassesFilter
@@ -55,10 +61,11 @@ final class CheckCommand implements CommandInterface
      * @var \Entropy\Console\Output\ProgressBar
      */
     private $progressBar;
-    public function __construct(ClassNamesFinder $classNamesFinder, UseImportsResolver $useImportsResolver, PossiblyUnusedClassesFilter $possiblyUnusedClassesFilter, UnusedClassReporter $unusedClassReporter, OutputPrinter $outputPrinter, PhpFilesFinder $phpFilesFinder, UnusedClassesResultFactory $unusedClassesResultFactory, ProgressBar $progressBar)
+    public function __construct(ClassNamesFinder $classNamesFinder, UseImportsResolver $useImportsResolver, ConstructorParamTypeResolver $constructorParamTypeResolver, PossiblyUnusedClassesFilter $possiblyUnusedClassesFilter, UnusedClassReporter $unusedClassReporter, OutputPrinter $outputPrinter, PhpFilesFinder $phpFilesFinder, UnusedClassesResultFactory $unusedClassesResultFactory, ProgressBar $progressBar)
     {
         $this->classNamesFinder = $classNamesFinder;
         $this->useImportsResolver = $useImportsResolver;
+        $this->constructorParamTypeResolver = $constructorParamTypeResolver;
         $this->possiblyUnusedClassesFilter = $possiblyUnusedClassesFilter;
         $this->unusedClassReporter = $unusedClassReporter;
         $this->outputPrinter = $outputPrinter;
@@ -105,6 +112,7 @@ final class CheckCommand implements CommandInterface
             $progressCallback = $this->createProgressCallback(count($allFilePaths));
         }
         $usedNames = $this->resolveUsedClassNames($allFilePaths, $progressCallback);
+        $constructorInjectedNames = $this->resolveConstructorInjectedNames($allFilePaths);
         if (!$json) {
             $this->progressBar->finish();
         }
@@ -119,7 +127,7 @@ final class CheckCommand implements CommandInterface
             $this->progressBar->finish();
         }
         $this->outputPrinter->newline();
-        $possiblyUnusedFilesWithClasses = $this->possiblyUnusedClassesFilter->filter($existingFilesWithClasses, $usedNames, $skipType, $skipSuffix, $skipAttribute, $includeEntities);
+        $possiblyUnusedFilesWithClasses = $this->possiblyUnusedClassesFilter->filter($existingFilesWithClasses, $usedNames, $skipType, $skipSuffix, $skipAttribute, $includeEntities, $constructorInjectedNames);
         $unusedClassesResult = $this->unusedClassesResultFactory->create($possiblyUnusedFilesWithClasses);
         $this->outputPrinter->newline();
         return $this->unusedClassReporter->reportResult($unusedClassesResult, $json);
@@ -139,6 +147,19 @@ final class CheckCommand implements CommandInterface
         $usedNames = array_unique($usedNames);
         sort($usedNames);
         return $usedNames;
+    }
+    /**
+     * @param string[] $phpFilePaths
+     * @return string[] types injected as constructor parameters, used to keep classes wired by their interface
+     */
+    private function resolveConstructorInjectedNames(array $phpFilePaths): array
+    {
+        $constructorInjectedNames = [];
+        foreach ($phpFilePaths as $phpFilePath) {
+            $currentNames = $this->constructorParamTypeResolver->resolve($phpFilePath);
+            $constructorInjectedNames = array_merge($constructorInjectedNames, $currentNames);
+        }
+        return array_unique($constructorInjectedNames);
     }
     private function createProgressCallback(int $max): Closure
     {

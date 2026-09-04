@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\Entropy\Reflection;
+namespace ECSPrefix202609\Entropy\Reflection;
 
-use ECSPrefix202608\Entropy\Attributes\RelatedTest;
-use ECSPrefix202608\Entropy\Tests\Reflection\ClassNameResolver\ClassNameResolverTest;
+use ECSPrefix202609\Entropy\Attributes\RelatedTest;
+use ECSPrefix202609\Entropy\Tests\Reflection\ClassNameResolver\ClassNameResolverTest;
 final class ClassNameResolver
 {
     /**

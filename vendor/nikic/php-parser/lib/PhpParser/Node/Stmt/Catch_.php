@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\PhpParser\Node\Stmt;
+namespace ECSPrefix202609\PhpParser\Node\Stmt;
 
-use ECSPrefix202608\PhpParser\Node;
-use ECSPrefix202608\PhpParser\Node\Expr;
+use ECSPrefix202609\PhpParser\Node;
+use ECSPrefix202609\PhpParser\Node\Expr;
 class Catch_ extends Node\Stmt
 {
     /** @var Node\Name[] Types of exceptions to catch */

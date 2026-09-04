@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\PhpParser;
+namespace ECSPrefix202609\PhpParser;
 
-if (!\function_exists('ECSPrefix202608\PhpParser\defineCompatibilityTokens')) {
+if (!\function_exists('ECSPrefix202609\PhpParser\defineCompatibilityTokens')) {
     function defineCompatibilityTokens(): void
     {
         $compatTokens = [

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\PhpParser\Node\Scalar;
+namespace ECSPrefix202609\PhpParser\Node\Scalar;
 
 require __DIR__ . '/Int_.php';
 if (\false) {

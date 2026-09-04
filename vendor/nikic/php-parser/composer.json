@@ -28,12 +28,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix202608\\PhpParser\\": "lib\/PhpParser"
+            "ECSPrefix202609\\PhpParser\\": "lib\/PhpParser"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix202608\\PhpParser\\": "test\/PhpParser\/"
+            "ECSPrefix202609\\PhpParser\\": "test\/PhpParser\/"
         }
     },
     "bin": [

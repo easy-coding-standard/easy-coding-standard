@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608;
+namespace ECSPrefix202609;
 
 use PHP_CodeSniffer\Standards\Generic\Sniffs\VersionControl\GitMergeConflictSniff;
 use PhpCsFixer\Fixer\Comment\MultilineCommentOpeningClosingFixer;

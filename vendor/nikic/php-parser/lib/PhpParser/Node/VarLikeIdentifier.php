@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\PhpParser\Node;
+namespace ECSPrefix202609\PhpParser\Node;
 
 /**
  * Represents a name that is written in source code with a leading dollar,

@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\PhpParser\Node\Scalar;
+namespace ECSPrefix202609\PhpParser\Node\Scalar;
 
-use ECSPrefix202608\PhpParser\Node\Scalar;
+use ECSPrefix202609\PhpParser\Node\Scalar;
 class Float_ extends Scalar
 {
     /** @var float Number value */

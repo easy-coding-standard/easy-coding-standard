@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\PhpParser\Builder;
+namespace ECSPrefix202609\PhpParser\Builder;
 
-use ECSPrefix202608\PhpParser\Builder;
-use ECSPrefix202608\PhpParser\BuilderHelpers;
-use ECSPrefix202608\PhpParser\Node;
-use ECSPrefix202608\PhpParser\Node\Stmt;
+use ECSPrefix202609\PhpParser\Builder;
+use ECSPrefix202609\PhpParser\BuilderHelpers;
+use ECSPrefix202609\PhpParser\Node;
+use ECSPrefix202609\PhpParser\Node\Stmt;
 class TraitUse implements Builder
 {
     /** @var Node\Name[] */

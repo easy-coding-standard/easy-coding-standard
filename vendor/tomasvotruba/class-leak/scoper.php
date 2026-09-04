@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608;
+namespace ECSPrefix202609;
 
 require __DIR__ . '/vendor/autoload.php';
 $nowDateTime = new \DateTime('now');

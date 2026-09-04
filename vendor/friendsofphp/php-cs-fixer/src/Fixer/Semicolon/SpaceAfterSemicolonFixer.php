@@ -45,7 +45,7 @@ final class SpaceAfterSemicolonFixer extends AbstractFixer implements Configurab
         return new FixerDefinition('Fix whitespace after a semicolon.', [new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202608;
+namespace ECSPrefix202609;
 
 sample();
 $test = 1;
@@ -58,7 +58,7 @@ PHP
 ), new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202608;
+namespace ECSPrefix202609;
 
 for ($i = 0;; ++$i) {
 }

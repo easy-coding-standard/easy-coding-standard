@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\PhpParser\Node\Stmt;
+namespace ECSPrefix202609\PhpParser\Node\Stmt;
 
-use ECSPrefix202608\PhpParser\Node\PropertyItem;
+use ECSPrefix202609\PhpParser\Node\PropertyItem;
 require __DIR__ . '/../PropertyItem.php';
 if (\false) {
     /**

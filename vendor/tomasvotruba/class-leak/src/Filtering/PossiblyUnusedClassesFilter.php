@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\TomasVotruba\ClassLeak\Filtering;
+namespace ECSPrefix202609\TomasVotruba\ClassLeak\Filtering;
 
-use ECSPrefix202608\TomasVotruba\ClassLeak\ValueObject\FileWithClass;
-use ECSPrefix202608\Webmozart\Assert\Assert;
+use ECSPrefix202609\TomasVotruba\ClassLeak\ValueObject\FileWithClass;
+use ECSPrefix202609\Webmozart\Assert\Assert;
 final class PossiblyUnusedClassesFilter
 {
     /**
@@ -15,67 +15,78 @@ final class PossiblyUnusedClassesFilter
      */
     private const DEFAULT_TYPES_TO_SKIP = [
         // http-kernel
-        'ECSPrefix202608\Symfony\Component\Console\Application',
-        'ECSPrefix202608\Symfony\Component\HttpKernel\DependencyInjection\Extension',
-        'ECSPrefix202608\Symfony\Bundle\FrameworkBundle\Controller\Controller',
-        'ECSPrefix202608\Symfony\Bundle\FrameworkBundle\Controller\AbstractController',
-        'ECSPrefix202608\Livewire\Component',
-        'ECSPrefix202608\Illuminate\Routing\Controller',
-        'ECSPrefix202608\Illuminate\Contracts\Http\Kernel',
-        'ECSPrefix202608\Illuminate\Support\ServiceProvider',
+        'ECSPrefix202609\Symfony\Component\Console\Application',
+        'ECSPrefix202609\Symfony\Component\HttpKernel\DependencyInjection\Extension',
+        'ECSPrefix202609\Symfony\Component\DependencyInjection\Extension\Extension',
+        'ECSPrefix202609\Symfony\Bundle\FrameworkBundle\Controller\Controller',
+        'ECSPrefix202609\Symfony\Bundle\FrameworkBundle\Controller\AbstractController',
+        'ECSPrefix202609\Livewire\Component',
+        'ECSPrefix202609\Illuminate\Routing\Controller',
+        'ECSPrefix202609\Illuminate\Contracts\Http\Kernel',
+        'ECSPrefix202609\Illuminate\Support\ServiceProvider',
         // events
-        'ECSPrefix202608\Symfony\Component\EventDispatcher\EventSubscriberInterface',
-        'ECSPrefix202608\Symfony\Component\Form\FormTypeExtensionInterface',
-        'ECSPrefix202608\Symfony\Component\Security\Core\Authentication\SimpleAuthenticatorInterface',
-        'ECSPrefix202608\Vich\UploaderBundle\Naming\DirectoryNamerInterface',
+        'ECSPrefix202609\Symfony\Component\EventDispatcher\EventSubscriberInterface',
+        'ECSPrefix202609\Symfony\Component\Form\FormTypeExtensionInterface',
+        'ECSPrefix202609\Symfony\Component\Security\Core\Authentication\SimpleAuthenticatorInterface',
+        'ECSPrefix202609\Vich\UploaderBundle\Naming\DirectoryNamerInterface',
         // validator
-        'ECSPrefix202608\Symfony\Component\Validator\Constraint',
-        'ECSPrefix202608\Symfony\Component\Validator\ConstraintValidator',
-        'ECSPrefix202608\Symfony\Component\Validator\ConstraintValidatorInterface',
-        'ECSPrefix202608\Symfony\Component\Security\Core\Authorization\Voter\VoterInterface',
-        'ECSPrefix202608\Symfony\Component\Security\Http\Logout\LogoutSuccessHandlerInterface',
-        'ECSPrefix202608\Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerInterface',
-        'ECSPrefix202608\Symfony\Component\Security\Http\Authorization\AccessDeniedHandlerInterface',
-        'ECSPrefix202608\Symfony\Component\Security\Http\Authentication\AuthenticationFailureHandlerInterface',
+        'ECSPrefix202609\Symfony\Component\Validator\Constraint',
+        'ECSPrefix202609\Symfony\Component\Validator\ConstraintValidator',
+        'ECSPrefix202609\Symfony\Component\Validator\ConstraintValidatorInterface',
+        'ECSPrefix202609\Symfony\Component\Security\Core\Authorization\Voter\VoterInterface',
+        'ECSPrefix202609\Symfony\Component\Security\Http\Logout\LogoutSuccessHandlerInterface',
+        'ECSPrefix202609\Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerInterface',
+        'ECSPrefix202609\Symfony\Component\Security\Http\Authorization\AccessDeniedHandlerInterface',
+        'ECSPrefix202609\Symfony\Component\Security\Http\Authentication\AuthenticationFailureHandlerInterface',
         // symfony forms
-        'ECSPrefix202608\Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface',
-        'ECSPrefix202608\Symfony\Component\Form\AbstractType',
+        'ECSPrefix202609\Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface',
+        'ECSPrefix202609\Symfony\Component\Form\AbstractType',
         // doctrine
-        'ECSPrefix202608\Doctrine\Common\DataFixtures\FixtureInterface',
-        'ECSPrefix202608\Doctrine\Common\EventSubscriber',
-        'ECSPrefix202608\Nelmio\Alice\ProcessorInterface',
+        'ECSPrefix202609\Doctrine\Common\DataFixtures\FixtureInterface',
+        'ECSPrefix202609\Doctrine\Common\EventSubscriber',
+        'ECSPrefix202609\Nelmio\Alice\ProcessorInterface',
         // kernel
-        'ECSPrefix202608\Symfony\Component\HttpKernel\Bundle\BundleInterface',
-        'ECSPrefix202608\Symfony\Component\HttpKernel\KernelInterface',
-        'ECSPrefix202608\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator',
+        'ECSPrefix202609\Symfony\Component\HttpKernel\Bundle\BundleInterface',
+        'ECSPrefix202609\Symfony\Component\HttpKernel\KernelInterface',
+        'ECSPrefix202609\Symfony\Component\HttpKernel\HttpKernelInterface',
+        'ECSPrefix202609\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator',
         // console
-        'ECSPrefix202608\Symfony\Component\Console\Command\Command',
-        'ECSPrefix202608\Entropy\Console\Contract\CommandInterface',
-        'ECSPrefix202608\Twig\Extension\ExtensionInterface',
+        'ECSPrefix202609\Symfony\Component\Console\Command\Command',
+        'ECSPrefix202609\Entropy\Console\Contract\CommandInterface',
+        'ECSPrefix202609\Twig\Extension\ExtensionInterface',
         'PhpCsFixer\Fixer\FixerInterface',
         'PHPUnit\Framework\TestCase',
-        'ECSPrefix202608\PHPStan\Rules\Rule',
-        'ECSPrefix202608\PHPStan\Command\ErrorFormatter\ErrorFormatter',
+        'ECSPrefix202609\PHPStan\Rules\Rule',
+        'ECSPrefix202609\PHPStan\Command\ErrorFormatter\ErrorFormatter',
         // tests
-        'ECSPrefix202608\Behat\Behat\Context\Context',
+        'ECSPrefix202609\Behat\Behat\Context\Context',
         // jms
-        'ECSPrefix202608\JMS\Serializer\Handler\SubscribingHandlerInterface',
+        'ECSPrefix202609\JMS\Serializer\Handler\SubscribingHandlerInterface',
+        'ECSPrefix202609\JMS\Serializer\EventDispatcher\EventSubscriberInterface',
         // laravel
-        'ECSPrefix202608\Illuminate\Support\ServiceProvider',
-        'ECSPrefix202608\Illuminate\Foundation\Http\Kernel',
-        'ECSPrefix202608\Illuminate\Contracts\Console\Kernel',
-        'ECSPrefix202608\Illuminate\Routing\Controller',
+        'ECSPrefix202609\Illuminate\Support\ServiceProvider',
+        'ECSPrefix202609\Illuminate\Foundation\Http\Kernel',
+        'ECSPrefix202609\Illuminate\Contracts\Console\Kernel',
+        'ECSPrefix202609\Illuminate\Routing\Controller',
         // Doctrine
-        'ECSPrefix202608\Doctrine\Migrations\AbstractMigration',
+        'ECSPrefix202609\Doctrine\Migrations\AbstractMigration',
     ];
     /**
      * @var string[]
      */
     private const DEFAULT_ATTRIBUTES_TO_SKIP = [
         // Symfony
-        'ECSPrefix202608\Symfony\Component\Console\Attribute\AsCommand',
-        'ECSPrefix202608\Symfony\Component\HttpKernel\Attribute\AsController',
-        'ECSPrefix202608\Symfony\Component\EventDispatcher\Attribute\AsEventListener',
+        'ECSPrefix202609\Symfony\Component\Console\Attribute\AsCommand',
+        'ECSPrefix202609\Symfony\Component\HttpKernel\Attribute\AsController',
+        'ECSPrefix202609\Symfony\Component\Routing\Attribute\Route',
+        'ECSPrefix202609\Symfony\Component\EventDispatcher\Attribute\AsEventListener',
+        'ECSPrefix202609\Symfony\Component\Messenger\Attribute\AsMessageHandler',
+        // Doctrine
+        'ECSPrefix202609\Doctrine\Bundle\DoctrineBundle\Attribute\AsDoctrineListener',
+        // Twig
+        'ECSPrefix202609\Twig\Attribute\AsTwigFunction',
+        'ECSPrefix202609\Twig\Attribute\AsTwigFilter',
+        'ECSPrefix202609\Twig\Attribute\AsTwigTest',
     ];
     /**
      * @param FileWithClass[] $filesWithClasses
@@ -83,10 +94,11 @@ final class PossiblyUnusedClassesFilter
      * @param string[] $typesToSkip
      * @param string[] $suffixesToSkip
      * @param string[] $attributesToSkip
+     * @param string[] $constructorInjectedNames types injected as constructor parameters somewhere
      *
      * @return FileWithClass[]
      */
-    public function filter(array $filesWithClasses, array $usedClassNames, array $typesToSkip, array $suffixesToSkip, array $attributesToSkip, bool $shouldIncludeEntities): array
+    public function filter(array $filesWithClasses, array $usedClassNames, array $typesToSkip, array $suffixesToSkip, array $attributesToSkip, bool $shouldIncludeEntities, array $constructorInjectedNames = []): array
     {
         Assert::allString($usedClassNames);
         Assert::allString($typesToSkip);
@@ -108,6 +120,10 @@ final class PossiblyUnusedClassesFilter
             if ($fileWithClass->isSerialized()) {
                 continue;
             }
+            // implemented interface is injected via constructor, class is resolved through it
+            if ($this->isImplementedInterfaceConstructorInjected($fileWithClass, $constructorInjectedNames)) {
+                continue;
+            }
             // is excluded suffix?
             foreach ($suffixesToSkip as $suffixToSkip) {
                 if (substr_compare($fileWithClass->getClassName(), $suffixToSkip, -strlen($suffixToSkip)) === 0) {
@@ -123,6 +139,22 @@ final class PossiblyUnusedClassesFilter
             $possiblyUnusedFilesWithClasses[] = $fileWithClass;
         }
         return $possiblyUnusedFilesWithClasses;
+    }
+    /**
+     * A class whose interface is type-hinted in some constructor is wired by the container through it.
+     *
+     * @param string[] $constructorInjectedNames
+     */
+    private function isImplementedInterfaceConstructorInjected(FileWithClass $fileWithClass, array $constructorInjectedNames): bool
+    {
+        $found = \false;
+        foreach ($fileWithClass->getInterfaceNames() as $interfaceName) {
+            if (in_array($interfaceName, $constructorInjectedNames, \true)) {
+                $found = \true;
+                break;
+            }
+        }
+        return $found;
     }
     /**
      * @param string[] $skips

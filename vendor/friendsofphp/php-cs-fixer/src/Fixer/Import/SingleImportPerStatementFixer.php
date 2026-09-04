@@ -52,19 +52,19 @@ final class SingleImportPerStatementFixer extends AbstractFixer implements Confi
         return new FixerDefinition('There MUST be one use keyword per declaration.', [new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202608;
+namespace ECSPrefix202609;
 
-use ECSPrefix202608\Foo, ECSPrefix202608\Sample, ECSPrefix202608\Sample\Sample as Sample2;
+use ECSPrefix202609\Foo, ECSPrefix202609\Sample, ECSPrefix202609\Sample\Sample as Sample2;
 
 PHP
 ), new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202608;
+namespace ECSPrefix202609;
 
-use ECSPrefix202608\Space\Models\TestModelA;
-use ECSPrefix202608\Space\Models\TestModelB;
-use ECSPrefix202608\Space\Models\TestModel;
+use ECSPrefix202609\Space\Models\TestModelA;
+use ECSPrefix202609\Space\Models\TestModelB;
+use ECSPrefix202609\Space\Models\TestModel;
 
 PHP
 , ['group_to_single_imports' => \true])]);

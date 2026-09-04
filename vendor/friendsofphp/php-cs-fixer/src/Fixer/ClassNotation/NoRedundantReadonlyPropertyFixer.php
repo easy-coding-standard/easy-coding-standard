@@ -49,13 +49,13 @@ final class NoRedundantReadonlyPropertyFixer extends AbstractFixer
         return new FixerDefinition('Removes redundant readonly from properties in readonly classes.', [new VersionSpecificCodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202608;
+namespace ECSPrefix202609;
 
 readonly class Foo
 {
     private readonly int $bar;
 }
-\class_alias('ECSPrefix202608\Foo', 'Foo', \false);
+\class_alias('ECSPrefix202609\Foo', 'Foo', \false);
 
 PHP
 , new VersionSpecification(80200))]);

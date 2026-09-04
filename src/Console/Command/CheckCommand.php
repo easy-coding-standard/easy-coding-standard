@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Console\Command;
 
-use ECSPrefix202608\Entropy\Console\Contract\CommandInterface;
-use ECSPrefix202608\Entropy\Console\Contract\DefaultCommandInterface;
+use ECSPrefix202609\Entropy\Console\Contract\CommandInterface;
+use ECSPrefix202609\Entropy\Console\Contract\DefaultCommandInterface;
 use Symplify\EasyCodingStandard\Application\EasyCodingStandardApplication;
 use Symplify\EasyCodingStandard\Configuration\ConfigInitializer;
 use Symplify\EasyCodingStandard\Configuration\ConfigurationFactory;

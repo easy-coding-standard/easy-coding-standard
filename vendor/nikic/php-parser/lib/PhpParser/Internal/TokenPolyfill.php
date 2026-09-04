@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\PhpParser\Internal;
+namespace ECSPrefix202609\PhpParser\Internal;
 
 if (\PHP_VERSION_ID >= 80000) {
     class TokenPolyfill extends \PhpToken

@@ -52,9 +52,9 @@ final class PhpUnitConstructFixer extends AbstractPhpUnitFixer implements Config
         return new FixerDefinition('PHPUnit assertion method calls like `->assertSame(true, $foo)` should be written with dedicated method like `->assertTrue($foo)`.', [new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202608;
+namespace ECSPrefix202609;
 
-final class FooTest extends \ECSPrefix202608\PHPUnit_Framework_TestCase
+final class FooTest extends \ECSPrefix202609\PHPUnit_Framework_TestCase
 {
     public function testSomething()
     {
@@ -64,15 +64,15 @@ final class FooTest extends \ECSPrefix202608\PHPUnit_Framework_TestCase
         $this->assertNotSame(null, $d);
     }
 }
-\class_alias('ECSPrefix202608\FooTest', 'FooTest', \false);
+\class_alias('ECSPrefix202609\FooTest', 'FooTest', \false);
 
 PHP
 ), new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202608;
+namespace ECSPrefix202609;
 
-final class FooTest extends \ECSPrefix202608\PHPUnit_Framework_TestCase
+final class FooTest extends \ECSPrefix202609\PHPUnit_Framework_TestCase
 {
     public function testSomething()
     {
@@ -82,7 +82,7 @@ final class FooTest extends \ECSPrefix202608\PHPUnit_Framework_TestCase
         $this->assertNotSame(null, $d);
     }
 }
-\class_alias('ECSPrefix202608\FooTest', 'FooTest', \false);
+\class_alias('ECSPrefix202609\FooTest', 'FooTest', \false);
 
 PHP
 , ['assertions' => ['assertSame', 'assertNotSame']])], null, 'Fixer could be risky if one is overriding PHPUnit\'s native methods.');

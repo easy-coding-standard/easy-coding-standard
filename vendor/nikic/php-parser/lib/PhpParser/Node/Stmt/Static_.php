@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\PhpParser\Node\Stmt;
+namespace ECSPrefix202609\PhpParser\Node\Stmt;
 
-use ECSPrefix202608\PhpParser\Node\StaticVar;
-use ECSPrefix202608\PhpParser\Node\Stmt;
+use ECSPrefix202609\PhpParser\Node\StaticVar;
+use ECSPrefix202609\PhpParser\Node\Stmt;
 class Static_ extends Stmt
 {
     /** @var StaticVar[] Variable definitions */

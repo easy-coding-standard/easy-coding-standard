@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\PhpParser\Node\Stmt;
+namespace ECSPrefix202609\PhpParser\Node\Stmt;
 
-use ECSPrefix202608\PhpParser\Node\Stmt;
-use ECSPrefix202608\PhpParser\Node\UseItem;
+use ECSPrefix202609\PhpParser\Node\Stmt;
+use ECSPrefix202609\PhpParser\Node\UseItem;
 class Use_ extends Stmt
 {
     /**

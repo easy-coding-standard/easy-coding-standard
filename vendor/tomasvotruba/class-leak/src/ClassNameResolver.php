@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\TomasVotruba\ClassLeak;
+namespace ECSPrefix202609\TomasVotruba\ClassLeak;
 
-use ECSPrefix202608\PhpParser\NodeTraverser;
-use ECSPrefix202608\PhpParser\Parser;
-use ECSPrefix202608\TomasVotruba\ClassLeak\NodeDecorator\FullyQualifiedNameNodeDecorator;
-use ECSPrefix202608\TomasVotruba\ClassLeak\NodeVisitor\ClassNameNodeVisitor;
-use ECSPrefix202608\TomasVotruba\ClassLeak\ValueObject\ClassNames;
+use ECSPrefix202609\PhpParser\NodeTraverser;
+use ECSPrefix202609\PhpParser\Parser;
+use ECSPrefix202609\TomasVotruba\ClassLeak\NodeDecorator\FullyQualifiedNameNodeDecorator;
+use ECSPrefix202609\TomasVotruba\ClassLeak\NodeVisitor\ClassNameNodeVisitor;
+use ECSPrefix202609\TomasVotruba\ClassLeak\ValueObject\ClassNames;
 /**
  * @see \TomasVotruba\ClassLeak\Tests\ClassNameResolver\ClassNameResolverTest
  */
@@ -45,6 +45,6 @@ final class ClassNameResolver
         if (!is_string($className)) {
             return null;
         }
-        return new ClassNames($className, $classNameNodeVisitor->hasParentClassOrInterface(), $classNameNodeVisitor->getAttributes());
+        return new ClassNames($className, $classNameNodeVisitor->hasParentClassOrInterface(), $classNameNodeVisitor->getAttributes(), $classNameNodeVisitor->getInterfaceNames());
     }
 }

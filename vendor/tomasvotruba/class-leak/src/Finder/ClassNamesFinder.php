@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\TomasVotruba\ClassLeak\Finder;
+namespace ECSPrefix202609\TomasVotruba\ClassLeak\Finder;
 
 use Closure;
-use ECSPrefix202608\TomasVotruba\ClassLeak\ClassNameResolver;
-use ECSPrefix202608\TomasVotruba\ClassLeak\ValueObject\ClassNames;
-use ECSPrefix202608\TomasVotruba\ClassLeak\ValueObject\FileWithClass;
+use ECSPrefix202609\TomasVotruba\ClassLeak\ClassNameResolver;
+use ECSPrefix202609\TomasVotruba\ClassLeak\ValueObject\ClassNames;
+use ECSPrefix202609\TomasVotruba\ClassLeak\ValueObject\FileWithClass;
 final class ClassNamesFinder
 {
     /**
@@ -31,7 +31,7 @@ final class ClassNamesFinder
             if (!$classNames instanceof ClassNames) {
                 continue;
             }
-            $filesWithClasses[] = new FileWithClass($filePath, $classNames->getClassName(), $classNames->hasParentClassOrInterface(), $classNames->getAttributes());
+            $filesWithClasses[] = new FileWithClass($filePath, $classNames->getClassName(), $classNames->hasParentClassOrInterface(), $classNames->getAttributes(), $classNames->getInterfaceNames());
         }
         return $filesWithClasses;
     }

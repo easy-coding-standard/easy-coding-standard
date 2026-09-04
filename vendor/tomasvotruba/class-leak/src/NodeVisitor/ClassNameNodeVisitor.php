@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\TomasVotruba\ClassLeak\NodeVisitor;
+namespace ECSPrefix202609\TomasVotruba\ClassLeak\NodeVisitor;
 
-use ECSPrefix202608\PhpParser\Comment\Doc;
-use ECSPrefix202608\PhpParser\Node;
-use ECSPrefix202608\PhpParser\Node\Identifier;
-use ECSPrefix202608\PhpParser\Node\Name;
-use ECSPrefix202608\PhpParser\Node\Stmt\Class_;
-use ECSPrefix202608\PhpParser\Node\Stmt\ClassLike;
-use ECSPrefix202608\PhpParser\Node\Stmt\Interface_;
-use ECSPrefix202608\PhpParser\NodeTraverser;
-use ECSPrefix202608\PhpParser\NodeVisitorAbstract;
+use ECSPrefix202609\PhpParser\Comment\Doc;
+use ECSPrefix202609\PhpParser\Node;
+use ECSPrefix202609\PhpParser\Node\Identifier;
+use ECSPrefix202609\PhpParser\Node\Name;
+use ECSPrefix202609\PhpParser\Node\Stmt\Class_;
+use ECSPrefix202609\PhpParser\Node\Stmt\ClassLike;
+use ECSPrefix202609\PhpParser\Node\Stmt\Interface_;
+use ECSPrefix202609\PhpParser\NodeTraverser;
+use ECSPrefix202609\PhpParser\NodeVisitorAbstract;
 final class ClassNameNodeVisitor extends NodeVisitorAbstract
 {
     /**
@@ -32,6 +32,10 @@ final class ClassNameNodeVisitor extends NodeVisitorAbstract
      */
     private $attributes = [];
     /**
+     * @var string[]
+     */
+    private $interfaceNames = [];
+    /**
      * @param Node\Stmt[] $nodes
      * @return Node\Stmt[]
      */
@@ -40,6 +44,7 @@ final class ClassNameNodeVisitor extends NodeVisitorAbstract
         $this->className = null;
         $this->hasParentClassOrInterface = \false;
         $this->attributes = [];
+        $this->interfaceNames = [];
         return $nodes;
     }
     public function enterNode(Node $node): ?int
@@ -63,6 +68,9 @@ final class ClassNameNodeVisitor extends NodeVisitorAbstract
             }
             if ($node->implements !== []) {
                 $this->hasParentClassOrInterface = \true;
+                foreach ($node->implements as $implement) {
+                    $this->interfaceNames[] = $implement->toString();
+                }
             }
         }
         if ($node instanceof Interface_ && $node->extends !== []) {
@@ -96,6 +104,13 @@ final class ClassNameNodeVisitor extends NodeVisitorAbstract
     public function getAttributes(): array
     {
         return array_unique($this->attributes);
+    }
+    /**
+     * @return string[]
+     */
+    public function getInterfaceNames(): array
+    {
+        return $this->interfaceNames;
     }
     private function hasApiTag(ClassLike $classLike): bool
     {

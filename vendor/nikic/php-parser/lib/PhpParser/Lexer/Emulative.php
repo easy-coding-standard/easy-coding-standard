@@ -1,27 +1,27 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\PhpParser\Lexer;
+namespace ECSPrefix202609\PhpParser\Lexer;
 
-use ECSPrefix202608\PhpParser\Error;
-use ECSPrefix202608\PhpParser\ErrorHandler;
-use ECSPrefix202608\PhpParser\Lexer;
-use ECSPrefix202608\PhpParser\Lexer\TokenEmulator\AsymmetricVisibilityTokenEmulator;
-use ECSPrefix202608\PhpParser\Lexer\TokenEmulator\AttributeEmulator;
-use ECSPrefix202608\PhpParser\Lexer\TokenEmulator\EnumTokenEmulator;
-use ECSPrefix202608\PhpParser\Lexer\TokenEmulator\ExplicitOctalEmulator;
-use ECSPrefix202608\PhpParser\Lexer\TokenEmulator\FnTokenEmulator;
-use ECSPrefix202608\PhpParser\Lexer\TokenEmulator\MatchTokenEmulator;
-use ECSPrefix202608\PhpParser\Lexer\TokenEmulator\NullsafeTokenEmulator;
-use ECSPrefix202608\PhpParser\Lexer\TokenEmulator\PipeOperatorEmulator;
-use ECSPrefix202608\PhpParser\Lexer\TokenEmulator\PropertyTokenEmulator;
-use ECSPrefix202608\PhpParser\Lexer\TokenEmulator\ReadonlyFunctionTokenEmulator;
-use ECSPrefix202608\PhpParser\Lexer\TokenEmulator\ReadonlyTokenEmulator;
-use ECSPrefix202608\PhpParser\Lexer\TokenEmulator\ReverseEmulator;
-use ECSPrefix202608\PhpParser\Lexer\TokenEmulator\TokenEmulator;
-use ECSPrefix202608\PhpParser\Lexer\TokenEmulator\VoidCastEmulator;
-use ECSPrefix202608\PhpParser\PhpVersion;
-use ECSPrefix202608\PhpParser\Token;
+use ECSPrefix202609\PhpParser\Error;
+use ECSPrefix202609\PhpParser\ErrorHandler;
+use ECSPrefix202609\PhpParser\Lexer;
+use ECSPrefix202609\PhpParser\Lexer\TokenEmulator\AsymmetricVisibilityTokenEmulator;
+use ECSPrefix202609\PhpParser\Lexer\TokenEmulator\AttributeEmulator;
+use ECSPrefix202609\PhpParser\Lexer\TokenEmulator\EnumTokenEmulator;
+use ECSPrefix202609\PhpParser\Lexer\TokenEmulator\ExplicitOctalEmulator;
+use ECSPrefix202609\PhpParser\Lexer\TokenEmulator\FnTokenEmulator;
+use ECSPrefix202609\PhpParser\Lexer\TokenEmulator\MatchTokenEmulator;
+use ECSPrefix202609\PhpParser\Lexer\TokenEmulator\NullsafeTokenEmulator;
+use ECSPrefix202609\PhpParser\Lexer\TokenEmulator\PipeOperatorEmulator;
+use ECSPrefix202609\PhpParser\Lexer\TokenEmulator\PropertyTokenEmulator;
+use ECSPrefix202609\PhpParser\Lexer\TokenEmulator\ReadonlyFunctionTokenEmulator;
+use ECSPrefix202609\PhpParser\Lexer\TokenEmulator\ReadonlyTokenEmulator;
+use ECSPrefix202609\PhpParser\Lexer\TokenEmulator\ReverseEmulator;
+use ECSPrefix202609\PhpParser\Lexer\TokenEmulator\TokenEmulator;
+use ECSPrefix202609\PhpParser\Lexer\TokenEmulator\VoidCastEmulator;
+use ECSPrefix202609\PhpParser\PhpVersion;
+use ECSPrefix202609\PhpParser\Token;
 class Emulative extends Lexer
 {
     /** @var array{int, string, string}[] Patches used to reverse changes introduced in the code */

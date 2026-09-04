@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\PhpParser\Node\Expr;
+namespace ECSPrefix202609\PhpParser\Node\Expr;
 
-use ECSPrefix202608\PhpParser\Node;
-use ECSPrefix202608\PhpParser\Node\Expr;
-use ECSPrefix202608\PhpParser\Node\Name;
+use ECSPrefix202609\PhpParser\Node;
+use ECSPrefix202609\PhpParser\Node\Expr;
+use ECSPrefix202609\PhpParser\Node\Name;
 class Instanceof_ extends Expr
 {
     /** @var Expr Expression */

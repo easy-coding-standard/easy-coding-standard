@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\PhpParser\Builder;
+namespace ECSPrefix202609\PhpParser\Builder;
 
-use ECSPrefix202608\PhpParser;
-use ECSPrefix202608\PhpParser\BuilderHelpers;
+use ECSPrefix202609\PhpParser;
+use ECSPrefix202609\PhpParser\BuilderHelpers;
 abstract class Declaration implements PhpParser\Builder
 {
     /** @var array<string, mixed> */

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 declare (strict_types=1);
-namespace ECSPrefix202608\Fidry\CpuCoreCounter\Executor;
+namespace ECSPrefix202609\Fidry\CpuCoreCounter\Executor;
 
 interface ProcessExecutor
 {

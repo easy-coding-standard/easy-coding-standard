@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\PhpParser\Builder;
+namespace ECSPrefix202609\PhpParser\Builder;
 
-use ECSPrefix202608\PhpParser;
-use ECSPrefix202608\PhpParser\BuilderHelpers;
-use ECSPrefix202608\PhpParser\Node;
-use ECSPrefix202608\PhpParser\Node\Name;
-use ECSPrefix202608\PhpParser\Node\Stmt;
+use ECSPrefix202609\PhpParser;
+use ECSPrefix202609\PhpParser\BuilderHelpers;
+use ECSPrefix202609\PhpParser\Node;
+use ECSPrefix202609\PhpParser\Node\Name;
+use ECSPrefix202609\PhpParser\Node\Stmt;
 class Interface_ extends Declaration
 {
     /**

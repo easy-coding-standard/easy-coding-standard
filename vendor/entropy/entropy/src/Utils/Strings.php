@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\Entropy\Utils;
+namespace ECSPrefix202609\Entropy\Utils;
 
-use ECSPrefix202608\Entropy\Attributes\RelatedTest;
-use ECSPrefix202608\Entropy\Tests\Utils\StringsTest;
+use ECSPrefix202609\Entropy\Attributes\RelatedTest;
+use ECSPrefix202609\Entropy\Tests\Utils\StringsTest;
 /**
  * @api to be used outside
  */

@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\Entropy\Console\Output;
+namespace ECSPrefix202609\Entropy\Console\Output;
 
-use ECSPrefix202608\Entropy\Attributes\RelatedTest;
-use ECSPrefix202608\Entropy\Console\Enum\Color;
-use ECSPrefix202608\Entropy\Tests\Console\Output\OutputColozierTest;
+use ECSPrefix202609\Entropy\Attributes\RelatedTest;
+use ECSPrefix202609\Entropy\Console\Enum\Color;
+use ECSPrefix202609\Entropy\Tests\Console\Output\OutputColozierTest;
 final class OutputColorizer
 {
     /**

@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\PhpParser\Node;
+namespace ECSPrefix202609\PhpParser\Node;
 
-use ECSPrefix202608\PhpParser\Modifiers;
-use ECSPrefix202608\PhpParser\Node;
-use ECSPrefix202608\PhpParser\NodeAbstract;
+use ECSPrefix202609\PhpParser\Modifiers;
+use ECSPrefix202609\PhpParser\Node;
+use ECSPrefix202609\PhpParser\NodeAbstract;
 class Param extends NodeAbstract
 {
     /** @var null|Identifier|Name|ComplexType Type declaration */

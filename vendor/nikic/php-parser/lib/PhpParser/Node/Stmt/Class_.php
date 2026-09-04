@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\PhpParser\Node\Stmt;
+namespace ECSPrefix202609\PhpParser\Node\Stmt;
 
-use ECSPrefix202608\PhpParser\Modifiers;
-use ECSPrefix202608\PhpParser\Node;
+use ECSPrefix202609\PhpParser\Modifiers;
+use ECSPrefix202609\PhpParser\Node;
 class Class_ extends ClassLike
 {
     /** @deprecated Use Modifiers::PUBLIC instead */

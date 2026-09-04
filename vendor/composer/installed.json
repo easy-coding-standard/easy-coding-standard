@@ -28,7 +28,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202608\\Clue\\React\\NDJson\\": "src\/"
+                    "ECSPrefix202609\\Clue\\React\\NDJson\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -109,7 +109,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202608\\Composer\\Pcre\\": "src"
+                    "ECSPrefix202609\\Composer\\Pcre\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -178,7 +178,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202608\\Composer\\Semver\\": "src"
+                    "ECSPrefix202609\\Composer\\Semver\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -256,7 +256,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202608\\Composer\\XdebugHandler\\": "src"
+                    "ECSPrefix202609\\Composer\\XdebugHandler\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -297,17 +297,17 @@
         },
         {
             "name": "entropy\/entropy",
-            "version": "0.4.9",
-            "version_normalized": "0.4.9.0",
+            "version": "0.4.13",
+            "version_normalized": "0.4.13.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/TomasVotruba\/entropy.git",
-                "reference": "856fea65681d3fe0fb17b947ae0eacef895dd407"
+                "reference": "b2c703a93350f49ce67d150bb8560e886be01027"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/TomasVotruba\/entropy\/zipball\/856fea65681d3fe0fb17b947ae0eacef895dd407",
-                "reference": "856fea65681d3fe0fb17b947ae0eacef895dd407",
+                "url": "https:\/\/api.github.com\/repos\/TomasVotruba\/entropy\/zipball\/b2c703a93350f49ce67d150bb8560e886be01027",
+                "reference": "b2c703a93350f49ce67d150bb8560e886be01027",
                 "shasum": ""
             },
             "require": {
@@ -329,12 +329,12 @@
                 "tomasvotruba\/unused-public": "^2.2",
                 "tracy\/tracy": "^2.12"
             },
-            "time": "2026-08-22T21:35:13+00:00",
+            "time": "2026-09-03T19:53:04+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202608\\Entropy\\": "src"
+                    "ECSPrefix202609\\Entropy\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -344,7 +344,7 @@
             "description": "Entropy framework",
             "support": {
                 "issues": "https:\/\/github.com\/TomasVotruba\/entropy\/issues",
-                "source": "https:\/\/github.com\/TomasVotruba\/entropy\/tree\/0.4.9"
+                "source": "https:\/\/github.com\/TomasVotruba\/entropy\/tree\/0.4.13"
             },
             "install-path": "..\/entropy\/entropy"
         },
@@ -397,7 +397,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202608\\Ergebnis\\AgentDetector\\": "src\/"
+                    "ECSPrefix202609\\Ergebnis\\AgentDetector\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -446,7 +446,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202608\\Evenement\\": "src\/"
+                    "ECSPrefix202609\\Evenement\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -504,7 +504,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202608\\Fidry\\CpuCoreCounter\\": "src\/"
+                    "ECSPrefix202609\\Fidry\\CpuCoreCounter\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -536,17 +536,17 @@
         },
         {
             "name": "friendsofphp\/php-cs-fixer",
-            "version": "v3.95.22",
-            "version_normalized": "3.95.22.0",
+            "version": "v3.95.24",
+            "version_normalized": "3.95.24.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/PHP-CS-Fixer\/PHP-CS-Fixer.git",
-                "reference": "482722e0783c16325a07a998a0d9eda560f9be99"
+                "reference": "9a4b8050f8768646bf3693ee7416978ceeca6206"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/PHP-CS-Fixer\/PHP-CS-Fixer\/zipball\/482722e0783c16325a07a998a0d9eda560f9be99",
-                "reference": "482722e0783c16325a07a998a0d9eda560f9be99",
+                "url": "https:\/\/api.github.com\/repos\/PHP-CS-Fixer\/PHP-CS-Fixer\/zipball\/9a4b8050f8768646bf3693ee7416978ceeca6206",
+                "reference": "9a4b8050f8768646bf3693ee7416978ceeca6206",
                 "shasum": ""
             },
             "require": {
@@ -594,7 +594,7 @@
                 "ext-dom": "For handling output formats in XML",
                 "ext-mbstring": "For handling non-UTF8 characters."
             },
-            "time": "2026-08-24T10:37:43+00:00",
+            "time": "2026-08-31T15:31:12+00:00",
             "bin": [
                 "php-cs-fixer"
             ],
@@ -631,7 +631,7 @@
             ],
             "support": {
                 "issues": "https:\/\/github.com\/PHP-CS-Fixer\/PHP-CS-Fixer\/issues",
-                "source": "https:\/\/github.com\/PHP-CS-Fixer\/PHP-CS-Fixer\/tree\/v3.95.22"
+                "source": "https:\/\/github.com\/PHP-CS-Fixer\/PHP-CS-Fixer\/tree\/v3.95.24"
             },
             "funding": [
                 {
@@ -689,7 +689,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202608\\Nette\\": "src"
+                    "ECSPrefix202609\\Nette\\": "src"
                 },
                 "classmap": [
                     "src\/"
@@ -772,7 +772,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202608\\PhpParser\\": "lib\/PhpParser"
+                    "ECSPrefix202609\\PhpParser\\": "lib\/PhpParser"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -823,7 +823,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202608\\Psr\\Log\\": "src"
+                    "ECSPrefix202609\\Psr\\Log\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -875,7 +875,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202608\\React\\Cache\\": "src\/"
+                    "ECSPrefix202609\\React\\Cache\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -954,7 +954,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202608\\React\\ChildProcess\\": "src\/"
+                    "ECSPrefix202609\\React\\ChildProcess\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -1032,7 +1032,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202608\\React\\Dns\\": "src\/"
+                    "ECSPrefix202609\\React\\Dns\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -1109,7 +1109,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202608\\React\\EventLoop\\": "src\/"
+                    "ECSPrefix202609\\React\\EventLoop\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -1185,7 +1185,7 @@
                     "src\/functions_include.php"
                 ],
                 "psr-4": {
-                    "ECSPrefix202608\\React\\Promise\\": "src\/"
+                    "ECSPrefix202609\\React\\Promise\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -1265,7 +1265,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202608\\React\\Socket\\": "src\/"
+                    "ECSPrefix202609\\React\\Socket\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -1343,7 +1343,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202608\\React\\Stream\\": "src\/"
+                    "ECSPrefix202609\\React\\Stream\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -1397,27 +1397,27 @@
         },
         {
             "name": "sebastian\/diff",
-            "version": "9.0.0",
-            "version_normalized": "9.0.0.0",
+            "version": "9.0.1",
+            "version_normalized": "9.0.1.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/sebastianbergmann\/diff.git",
-                "reference": "a3fb6a298a265ff487a91bbea46e03cd01dbb226"
+                "reference": "a2df6626c1baf31d5a88674882a3072f151b5a26"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/sebastianbergmann\/diff\/zipball\/a3fb6a298a265ff487a91bbea46e03cd01dbb226",
-                "reference": "a3fb6a298a265ff487a91bbea46e03cd01dbb226",
+                "url": "https:\/\/api.github.com\/repos\/sebastianbergmann\/diff\/zipball\/a2df6626c1baf31d5a88674882a3072f151b5a26",
+                "reference": "a2df6626c1baf31d5a88674882a3072f151b5a26",
                 "shasum": ""
             },
             "require": {
                 "php": ">=8.4"
             },
             "require-dev": {
-                "phpunit\/phpunit": "^13.2",
-                "symfony\/process": "^7.4.13"
+                "phpunit\/phpunit": "^13.3.1",
+                "symfony\/process": "^7.4.17"
             },
-            "time": "2026-06-05T03:04:51+00:00",
+            "time": "2026-08-25T15:38:55+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1455,7 +1455,7 @@
             "support": {
                 "issues": "https:\/\/github.com\/sebastianbergmann\/diff\/issues",
                 "security": "https:\/\/github.com\/sebastianbergmann\/diff\/security\/policy",
-                "source": "https:\/\/github.com\/sebastianbergmann\/diff\/tree\/9.0.0"
+                "source": "https:\/\/github.com\/sebastianbergmann\/diff\/tree\/9.0.1"
             },
             "funding": [
                 {
@@ -1640,17 +1640,17 @@
         },
         {
             "name": "symfony\/filesystem",
-            "version": "v8.1.5",
-            "version_normalized": "8.1.5.0",
+            "version": "v8.1.6",
+            "version_normalized": "8.1.6.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/symfony\/filesystem.git",
-                "reference": "6b2f4a0eeb28b5d74f90862592923a654bc629b3"
+                "reference": "7599ebb855fede59413ddb7f15198d67bfcae7ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/symfony\/filesystem\/zipball\/6b2f4a0eeb28b5d74f90862592923a654bc629b3",
-                "reference": "6b2f4a0eeb28b5d74f90862592923a654bc629b3",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/filesystem\/zipball\/7599ebb855fede59413ddb7f15198d67bfcae7ba",
+                "reference": "7599ebb855fede59413ddb7f15198d67bfcae7ba",
                 "shasum": ""
             },
             "require": {
@@ -1662,12 +1662,12 @@
             "require-dev": {
                 "symfony\/process": "^7.4|^8.0"
             },
-            "time": "2026-08-21T12:16:08+00:00",
+            "time": "2026-08-23T10:06:25+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202608\\Symfony\\Component\\Filesystem\\": ""
+                    "ECSPrefix202609\\Symfony\\Component\\Filesystem\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -1690,7 +1690,7 @@
             "description": "Provides basic utilities for the filesystem",
             "homepage": "https:\/\/symfony.com",
             "support": {
-                "source": "https:\/\/github.com\/symfony\/filesystem\/tree\/v8.1.5"
+                "source": "https:\/\/github.com\/symfony\/filesystem\/tree\/v8.1.6"
             },
             "funding": [
                 {
@@ -1738,7 +1738,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202608\\Symfony\\Component\\Finder\\": ""
+                    "ECSPrefix202609\\Symfony\\Component\\Finder\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -1807,7 +1807,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202608\\Symfony\\Component\\OptionsResolver\\": ""
+                    "ECSPrefix202609\\Symfony\\Component\\OptionsResolver\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -2112,17 +2112,17 @@
         },
         {
             "name": "tomasvotruba\/class-leak",
-            "version": "2.1.8",
-            "version_normalized": "2.1.8.0",
+            "version": "2.2.4",
+            "version_normalized": "2.2.4.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/TomasVotruba\/class-leak.git",
-                "reference": "3ebe4d7bebfb40ab3a85a36431821367b0ac57ab"
+                "reference": "bc56eb6d4940e250f959a5a5ee7dcb2f064c2725"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/TomasVotruba\/class-leak\/zipball\/3ebe4d7bebfb40ab3a85a36431821367b0ac57ab",
-                "reference": "3ebe4d7bebfb40ab3a85a36431821367b0ac57ab",
+                "url": "https:\/\/api.github.com\/repos\/TomasVotruba\/class-leak\/zipball\/bc56eb6d4940e250f959a5a5ee7dcb2f064c2725",
+                "reference": "bc56eb6d4940e250f959a5a5ee7dcb2f064c2725",
                 "shasum": ""
             },
             "require": {
@@ -2146,10 +2146,9 @@
                 "rector\/rector": "^2.4",
                 "symplify\/easy-coding-standard": "^13.0",
                 "symplify\/phpstan-extensions": "^12",
-                "tomasvotruba\/unused-public": "^2.2",
                 "tracy\/tracy": "^2.12"
             },
-            "time": "2026-06-20T16:19:43+00:00",
+            "time": "2026-09-03T08:44:47+00:00",
             "bin": [
                 "bin\/class-leak",
                 "bin\/class-leak.php"
@@ -2158,7 +2157,8 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202608\\TomasVotruba\\ClassLeak\\": "src"
+                    "ECSPrefix202609\\TomasVotruba\\ClassLeak\\": "src",
+                    "ECSPrefix202609\\TomasVotruba\\UnusedPublic\\": "packages\/unused-public\/src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -2168,7 +2168,7 @@
             "description": "Detect leaking classes",
             "support": {
                 "issues": "https:\/\/github.com\/TomasVotruba\/class-leak\/issues",
-                "source": "https:\/\/github.com\/TomasVotruba\/class-leak\/tree\/2.1.8"
+                "source": "https:\/\/github.com\/TomasVotruba\/class-leak\/tree\/2.2.4"
             },
             "funding": [
                 {
@@ -2222,7 +2222,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "ECSPrefix202608\\Webmozart\\Assert\\": "src\/"
+                    "ECSPrefix202609\\Webmozart\\Assert\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",

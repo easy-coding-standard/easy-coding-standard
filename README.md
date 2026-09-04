@@ -131,20 +131,6 @@ Or enable everything at once with `->withPreparedSets(common: true)`.
 
 <br>
 
-Do you want to include one of sets from [php-cs-fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/blob/master/doc/ruleSets/index.rst)?
-
-You can:
-
-```php
-use Symplify\EasyCodingStandard\Config\ECSConfig;
-
-return ECSConfig::configure()
-    ->withPaths([__DIR__ . '/src', __DIR__ . '/tests'])
-    ->withPhpCsFixerSets(perCS20: true, doctrineAnnotation: true);
-```
-
-<br>
-
 ### Gradual Adoption with Levels
 
 Want to adopt a coding standard step by step instead of all at once? Use `with*Level()` methods to start from the safest rules and raise the level as your codebase catches up:

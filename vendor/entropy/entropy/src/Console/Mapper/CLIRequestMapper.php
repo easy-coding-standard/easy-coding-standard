@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\Entropy\Console\Mapper;
+namespace ECSPrefix202609\Entropy\Console\Mapper;
 
-use ECSPrefix202608\Entropy\Attributes\RelatedTest;
-use ECSPrefix202608\Entropy\Console\Contract\CommandInterface;
-use ECSPrefix202608\Entropy\Console\Exception\ConsoleInputMappingException;
-use ECSPrefix202608\Entropy\Console\ValueObject\CLIRequest;
-use ECSPrefix202608\Entropy\Reflection\ParameterOptionMarkerResolver;
-use ECSPrefix202608\Entropy\Tests\Console\Mapper\CLIRequestMapperTest;
+use ECSPrefix202609\Entropy\Attributes\RelatedTest;
+use ECSPrefix202609\Entropy\Console\Contract\CommandInterface;
+use ECSPrefix202609\Entropy\Console\Exception\ConsoleInputMappingException;
+use ECSPrefix202609\Entropy\Console\ValueObject\CLIRequest;
+use ECSPrefix202609\Entropy\Reflection\ParameterOptionMarkerResolver;
+use ECSPrefix202609\Entropy\Tests\Console\Mapper\CLIRequestMapperTest;
 use ReflectionMethod;
 use ReflectionNamedType;
 use ReflectionParameter;
 use ReflectionType;
-use ECSPrefix202608\Webmozart\Assert\Assert;
+use ECSPrefix202609\Webmozart\Assert\Assert;
 final class CLIRequestMapper
 {
     /**

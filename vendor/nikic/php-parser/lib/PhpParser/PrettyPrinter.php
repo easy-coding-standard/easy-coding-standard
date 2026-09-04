@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\PhpParser;
+namespace ECSPrefix202609\PhpParser;
 
-use ECSPrefix202608\PhpParser\Node\Expr;
+use ECSPrefix202609\PhpParser\Node\Expr;
 interface PrettyPrinter
 {
     /**

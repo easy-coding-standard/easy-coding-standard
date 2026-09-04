@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\PhpParser\Lexer\TokenEmulator;
+namespace ECSPrefix202609\PhpParser\Lexer\TokenEmulator;
 
-use ECSPrefix202608\PhpParser\PhpVersion;
+use ECSPrefix202609\PhpParser\PhpVersion;
 /**
  * Reverses emulation direction of the inner emulator.
  */

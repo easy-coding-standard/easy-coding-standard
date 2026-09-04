@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\PhpParser\Lexer\TokenEmulator;
+namespace ECSPrefix202609\PhpParser\Lexer\TokenEmulator;
 
-use ECSPrefix202608\PhpParser\PhpVersion;
-use ECSPrefix202608\PhpParser\Token;
+use ECSPrefix202609\PhpParser\PhpVersion;
+use ECSPrefix202609\PhpParser\Token;
 final class AsymmetricVisibilityTokenEmulator extends TokenEmulator
 {
     public function getPhpVersion(): PhpVersion

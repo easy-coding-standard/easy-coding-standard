@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\TomasVotruba\ClassLeak\DependencyInjection;
+namespace ECSPrefix202609\TomasVotruba\ClassLeak\DependencyInjection;
 
-use ECSPrefix202608\Entropy\Container\Container;
-use ECSPrefix202608\PhpParser\Parser;
-use ECSPrefix202608\PhpParser\ParserFactory;
+use ECSPrefix202609\Entropy\Container\Container;
+use ECSPrefix202609\PhpParser\Parser;
+use ECSPrefix202609\PhpParser\ParserFactory;
 /**
  * @api
  */

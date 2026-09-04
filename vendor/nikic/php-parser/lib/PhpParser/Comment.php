@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\PhpParser;
+namespace ECSPrefix202609\PhpParser;
 
 class Comment implements \JsonSerializable
 {

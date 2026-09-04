@@ -38,7 +38,7 @@ final class SelfStaticAccessorFixer extends AbstractFixer
         return new FixerDefinition('Inside an enum or `final`/anonymous class, `self` should be preferred over `static`.', [new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202608;
+namespace ECSPrefix202609;
 
 final class Sample
 {
@@ -52,13 +52,13 @@ final class Sample
         return 'test';
     }
 }
-\class_alias('ECSPrefix202608\Sample', 'Sample', \false);
+\class_alias('ECSPrefix202609\Sample', 'Sample', \false);
 
 PHP
 ), new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202608;
+namespace ECSPrefix202609;
 
 final class Foo
 {
@@ -67,13 +67,13 @@ final class Foo
         return new static();
     }
 }
-\class_alias('ECSPrefix202608\Foo', 'Foo', \false);
+\class_alias('ECSPrefix202609\Foo', 'Foo', \false);
 
 PHP
 ), new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202608;
+namespace ECSPrefix202609;
 
 final class Foo
 {
@@ -82,13 +82,13 @@ final class Foo
         return $foo instanceof static;
     }
 }
-\class_alias('ECSPrefix202608\Foo', 'Foo', \false);
+\class_alias('ECSPrefix202609\Foo', 'Foo', \false);
 
 PHP
 ), new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202608;
+namespace ECSPrefix202609;
 
 $a = new class
 {
@@ -102,7 +102,7 @@ PHP
 ), new VersionSpecificCodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202608;
+namespace ECSPrefix202609;
 
 enum Foo
 {

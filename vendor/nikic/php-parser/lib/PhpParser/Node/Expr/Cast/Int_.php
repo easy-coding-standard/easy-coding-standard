@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\PhpParser\Node\Expr\Cast;
+namespace ECSPrefix202609\PhpParser\Node\Expr\Cast;
 
-use ECSPrefix202608\PhpParser\Node\Expr\Cast;
+use ECSPrefix202609\PhpParser\Node\Expr\Cast;
 class Int_ extends Cast
 {
     // For use in "kind" attribute

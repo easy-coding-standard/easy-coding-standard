@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\Entropy\Utils;
+namespace ECSPrefix202609\Entropy\Utils;
 
-use ECSPrefix202608\Webmozart\Assert\Assert;
+use ECSPrefix202609\Webmozart\Assert\Assert;
 /**
  * @api to be used outside
  */

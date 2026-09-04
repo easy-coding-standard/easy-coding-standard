@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\PhpParser\NodeVisitor;
+namespace ECSPrefix202609\PhpParser\NodeVisitor;
 
-use ECSPrefix202608\PhpParser\ErrorHandler;
-use ECSPrefix202608\PhpParser\NameContext;
-use ECSPrefix202608\PhpParser\Node;
-use ECSPrefix202608\PhpParser\Node\Expr;
-use ECSPrefix202608\PhpParser\Node\Name;
-use ECSPrefix202608\PhpParser\Node\Name\FullyQualified;
-use ECSPrefix202608\PhpParser\Node\Stmt;
-use ECSPrefix202608\PhpParser\NodeVisitorAbstract;
+use ECSPrefix202609\PhpParser\ErrorHandler;
+use ECSPrefix202609\PhpParser\NameContext;
+use ECSPrefix202609\PhpParser\Node;
+use ECSPrefix202609\PhpParser\Node\Expr;
+use ECSPrefix202609\PhpParser\Node\Name;
+use ECSPrefix202609\PhpParser\Node\Name\FullyQualified;
+use ECSPrefix202609\PhpParser\Node\Stmt;
+use ECSPrefix202609\PhpParser\NodeVisitorAbstract;
 class NameResolver extends NodeVisitorAbstract
 {
     /** @var NameContext Naming context */

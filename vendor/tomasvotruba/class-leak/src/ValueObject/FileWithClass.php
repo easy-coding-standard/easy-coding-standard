@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\TomasVotruba\ClassLeak\ValueObject;
+namespace ECSPrefix202609\TomasVotruba\ClassLeak\ValueObject;
 
 use JsonSerializable;
-use ECSPrefix202608\Nette\Utils\FileSystem;
-use ECSPrefix202608\TomasVotruba\ClassLeak\FileSystem\StaticRelativeFilePathHelper;
+use ECSPrefix202609\Nette\Utils\FileSystem;
+use ECSPrefix202609\TomasVotruba\ClassLeak\FileSystem\StaticRelativeFilePathHelper;
 final class FileWithClass implements JsonSerializable
 {
     /**
@@ -29,14 +29,21 @@ final class FileWithClass implements JsonSerializable
      */
     private $attributes;
     /**
-     * @param string[] $attributes
+     * @var string[]
+     * @readonly
      */
-    public function __construct(string $filePath, string $className, bool $hasParentClassOrInterface, array $attributes)
+    private $interfaceNames = [];
+    /**
+     * @param string[] $attributes
+     * @param string[] $interfaceNames
+     */
+    public function __construct(string $filePath, string $className, bool $hasParentClassOrInterface, array $attributes, array $interfaceNames = [])
     {
         $this->filePath = $filePath;
         $this->className = $className;
         $this->hasParentClassOrInterface = $hasParentClassOrInterface;
         $this->attributes = $attributes;
+        $this->interfaceNames = $interfaceNames;
     }
     public function getClassName(): string
     {
@@ -56,6 +63,13 @@ final class FileWithClass implements JsonSerializable
     public function getAttributes(): array
     {
         return $this->attributes;
+    }
+    /**
+     * @return string[]
+     */
+    public function getInterfaceNames(): array
+    {
+        return $this->interfaceNames;
     }
     /**
      * @return array{file_path: string, class: string, attributes: string[]}
@@ -78,10 +92,10 @@ final class FileWithClass implements JsonSerializable
     public function isEntity(): bool
     {
         $fileContents = FileSystem::read($this->filePath);
-        if (strpos($fileContents, 'ECSPrefix202608\Doctrine\ODM\MongoDB\Mapping\Annotations') !== \false) {
+        if (strpos($fileContents, 'ECSPrefix202609\Doctrine\ODM\MongoDB\Mapping\Annotations') !== \false) {
             return \true;
         }
-        if (strpos($fileContents, 'ECSPrefix202608\Doctrine\ORM\Annotations') !== \false) {
+        if (strpos($fileContents, 'ECSPrefix202609\Doctrine\ORM\Annotations') !== \false) {
             return \true;
         }
         if (strpos($fileContents, '@ORM\Entity') !== \false) {

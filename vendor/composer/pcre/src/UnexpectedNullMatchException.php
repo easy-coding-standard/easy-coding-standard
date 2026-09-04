@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-namespace ECSPrefix202608\Composer\Pcre;
+namespace ECSPrefix202609\Composer\Pcre;
 
 class UnexpectedNullMatchException extends PcreException
 {

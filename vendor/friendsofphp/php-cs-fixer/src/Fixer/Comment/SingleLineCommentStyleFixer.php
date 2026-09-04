@@ -56,7 +56,7 @@ final class SingleLineCommentStyleFixer extends AbstractFixer implements Configu
         return new FixerDefinition('Single-line comments and multi-line comments with only one line of actual content should use the `//` syntax.', [new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202608;
+namespace ECSPrefix202609;
 
 /* asterisk comment */
 $a = 1;
@@ -72,7 +72,7 @@ PHP
 ), new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202608;
+namespace ECSPrefix202609;
 
 /* first comment */
 $a = 1;

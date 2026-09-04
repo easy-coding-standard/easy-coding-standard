@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\Entropy\Console\Contract;
+namespace ECSPrefix202609\Entropy\Console\Contract;
 
 interface CommandInterface
 {

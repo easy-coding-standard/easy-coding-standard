@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\Entropy\Console\ValueObject;
+namespace ECSPrefix202609\Entropy\Console\ValueObject;
 
 final class Argument
 {

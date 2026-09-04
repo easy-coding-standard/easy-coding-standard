@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\PhpParser\NodeVisitor;
+namespace ECSPrefix202609\PhpParser\NodeVisitor;
 
-use ECSPrefix202608\PhpParser\Comment;
-use ECSPrefix202608\PhpParser\Node;
-use ECSPrefix202608\PhpParser\NodeVisitorAbstract;
-use ECSPrefix202608\PhpParser\Token;
+use ECSPrefix202609\PhpParser\Comment;
+use ECSPrefix202609\PhpParser\Node;
+use ECSPrefix202609\PhpParser\NodeVisitorAbstract;
+use ECSPrefix202609\PhpParser\Token;
 class CommentAnnotatingVisitor extends NodeVisitorAbstract
 {
     /** @var int Last seen token start position */

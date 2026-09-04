@@ -1,11 +1,11 @@
 <?php
 
-namespace ECSPrefix202608\React\Promise\Internal;
+namespace ECSPrefix202609\React\Promise\Internal;
 
-use ECSPrefix202608\React\Promise\PromiseInterface;
-use function ECSPrefix202608\React\Promise\_checkTypehint;
-use function ECSPrefix202608\React\Promise\resolve;
-use function ECSPrefix202608\React\Promise\set_rejection_handler;
+use ECSPrefix202609\React\Promise\PromiseInterface;
+use function ECSPrefix202609\React\Promise\_checkTypehint;
+use function ECSPrefix202609\React\Promise\resolve;
+use function ECSPrefix202609\React\Promise\set_rejection_handler;
 /**
  * @internal
  *

@@ -3,14 +3,14 @@
 declare (strict_types=1);
 namespace Symplify\EasyCodingStandard\Config;
 
-use ECSPrefix202608\Entropy\Container\Container;
+use ECSPrefix202609\Entropy\Console\Output\OutputColorizer;
+use ECSPrefix202609\Entropy\Console\Output\OutputPrinter;
+use ECSPrefix202609\Entropy\Container\Container;
 use Override;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
-use PhpCsFixer\FixerFactory;
-use PhpCsFixer\RuleSet\RuleSet;
 use PhpCsFixer\WhitespacesFixerConfig;
 use Symplify\EasyCodingStandard\Configuration\ECSConfigBuilder;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\ConflictingCheckersCompilerPass;
@@ -18,8 +18,8 @@ use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveExcludedC
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\SimpleParameterProvider;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use ECSPrefix202608\Webmozart\Assert\Assert;
-use ECSPrefix202608\Webmozart\Assert\InvalidArgumentException;
+use ECSPrefix202609\Webmozart\Assert\Assert;
+use ECSPrefix202609\Webmozart\Assert\InvalidArgumentException;
 /**
  * @api
  */
@@ -170,24 +170,14 @@ final class ECSConfig extends Container
         SimpleParameterProvider::setParameter(Option::REPORTING_REALPATH, $absolute);
     }
     /**
-     * @see https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/blob/master/doc/ruleSets/index.rst
+     * @deprecated Loading PHP-CS-Fixer sets is deprecated. Use ->rule()/->ruleWithConfiguration() or prepared sets instead.
      * @param string[] $setNames
      */
     public function dynamicSets(array $setNames): void
     {
-        $fixerFactory = new FixerFactory();
-        $fixerFactory->registerBuiltInFixers();
-        $ruleSet = new RuleSet(array_fill_keys($setNames, \true));
-        $fixerFactory->useRuleSet($ruleSet);
-        /** @var FixerInterface $fixer */
-        foreach ($fixerFactory->getFixers() as $fixer) {
-            $ruleConfiguration = $ruleSet->getRuleConfiguration($fixer->getName());
-            if ($ruleConfiguration === null) {
-                $this->rule(get_class($fixer));
-            } else {
-                $this->ruleWithConfiguration(get_class($fixer), $ruleConfiguration);
-            }
-        }
+        $outputPrinter = new OutputPrinter(new OutputColorizer());
+        $outputPrinter->warning('The "dynamicSets()" method is deprecated. Use ->rule()/->ruleWithConfiguration() or prepared sets instead.');
+        trigger_error('The "dynamicSets()" method is deprecated. Use ->rule()/->ruleWithConfiguration() or prepared sets instead.', \E_USER_DEPRECATED);
     }
     public function import(string $setFilePath): void
     {

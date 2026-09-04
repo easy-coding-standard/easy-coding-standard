@@ -34,7 +34,7 @@ final class NoBlankLinesAfterPhpdocFixer extends AbstractFixer
         return new FixerDefinition('There should not be blank lines between docblock and the documented element.', [new CodeSample(<<<'PHP'
 <?php
 
-namespace ECSPrefix202608;
+namespace ECSPrefix202609;
 
 /**
 * This is the bar class.
@@ -45,7 +45,7 @@ class Bar
 /**
 * This is the bar class.
 */
-\class_alias('ECSPrefix202608\Bar', 'Bar', \false);
+\class_alias('ECSPrefix202609\Bar', 'Bar', \false);
 
 PHP
 )]);

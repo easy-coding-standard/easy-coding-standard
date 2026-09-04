@@ -25,6 +25,11 @@ use PhpCsFixer\Tokenizer\Tokens;
 final class ControlStructureBracesFixer extends AbstractFixer
 {
     private const CONTROL_TOKENS = [\T_DECLARE, \T_DO, \T_ELSE, \T_ELSEIF, \T_FINALLY, \T_FOR, \T_FOREACH, \T_IF, \T_WHILE, \T_TRY, \T_CATCH, \T_SWITCH];
+    /**
+     * Control structures that take no condition, so that a parenthesis
+     * following one of them opens their body rather than closing a condition.
+     */
+    private const CONDITIONLESS_CONTROL_TOKENS = [\T_DO, \T_ELSE, \T_FINALLY, \T_TRY];
     private const CONTROL_CONTINUATION_TOKENS = [\T_IF => [\T_ELSE, \T_ELSEIF], \T_DO => [\T_WHILE], \T_TRY => [\T_CATCH, \T_FINALLY]];
     private const FINAL_CONTROL_CONTINUATION_TOKENS = [\T_IF => [\T_ELSE], \T_DO => [], \T_TRY => [\T_FINALLY]];
     public function getDefinition(): FixerDefinitionInterface
@@ -90,6 +95,9 @@ final class ControlStructureBracesFixer extends AbstractFixer
     }
     private function findParenthesisEnd(Tokens $tokens, int $structureTokenIndex): int
     {
+        if ($tokens[$structureTokenIndex]->isGivenKind(self::CONDITIONLESS_CONTROL_TOKENS)) {
+            return $structureTokenIndex;
+        }
         $nextIndex = $tokens->getNextMeaningfulToken($structureTokenIndex);
         $nextToken = $tokens[$nextIndex];
         if (!$nextToken->equals('(')) {

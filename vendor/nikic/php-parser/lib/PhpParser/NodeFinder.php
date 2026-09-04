@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix202608\PhpParser;
+namespace ECSPrefix202609\PhpParser;
 
-use ECSPrefix202608\PhpParser\NodeVisitor\FindingVisitor;
-use ECSPrefix202608\PhpParser\NodeVisitor\FirstFindingVisitor;
+use ECSPrefix202609\PhpParser\NodeVisitor\FindingVisitor;
+use ECSPrefix202609\PhpParser\NodeVisitor\FirstFindingVisitor;
 class NodeFinder
 {
     /**
