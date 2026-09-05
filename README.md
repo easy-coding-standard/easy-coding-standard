@@ -215,7 +215,6 @@ We currently provide formatters for:
 - `console`:  Human-oriented printing à la PHP CS Fixer.
 - `json`:  A custom JSON blob for arbitrary tooling.
 - `checkstyle`: Useful for Github Action Reports.
-- `gitlab`: For Gitlab code quality reports or Code Climate tooling.
 
 You can use the output format option as below
 

@@ -1348,7 +1348,6 @@ return array(
     'Symplify\\EasyCodingStandard\\Console\\Output\\CheckstyleOutputFormatter' => $baseDir . '/src/Console/Output/CheckstyleOutputFormatter.php',
     'Symplify\\EasyCodingStandard\\Console\\Output\\ConsoleOutputFormatter' => $baseDir . '/src/Console/Output/ConsoleOutputFormatter.php',
     'Symplify\\EasyCodingStandard\\Console\\Output\\ExitCodeResolver' => $baseDir . '/src/Console/Output/ExitCodeResolver.php',
-    'Symplify\\EasyCodingStandard\\Console\\Output\\GitlabOutputFormatter' => $baseDir . '/src/Console/Output/GitlabOutputFormatter.php',
     'Symplify\\EasyCodingStandard\\Console\\Output\\JsonOutputFormatter' => $baseDir . '/src/Console/Output/JsonOutputFormatter.php',
     'Symplify\\EasyCodingStandard\\Console\\Output\\OutputFormatterCollector' => $baseDir . '/src/Console/Output/OutputFormatterCollector.php',
     'Symplify\\EasyCodingStandard\\Console\\Reporter\\CheckerListReporter' => $baseDir . '/src/Console/Reporter/CheckerListReporter.php',
