@@ -1523,7 +1523,6 @@ class ComposerStaticInit9164a1d2f3f167f38915f8a57b56faba
         'Symplify\\EasyCodingStandard\\Console\\Output\\ConsoleOutputFormatter' => __DIR__ . '/../..' . '/src/Console/Output/ConsoleOutputFormatter.php',
         'Symplify\\EasyCodingStandard\\Console\\Output\\ExitCodeResolver' => __DIR__ . '/../..' . '/src/Console/Output/ExitCodeResolver.php',
         'Symplify\\EasyCodingStandard\\Console\\Output\\GitlabOutputFormatter' => __DIR__ . '/../..' . '/src/Console/Output/GitlabOutputFormatter.php',
-        'Symplify\\EasyCodingStandard\\Console\\Output\\JUnitOutputFormatter' => __DIR__ . '/../..' . '/src/Console/Output/JUnitOutputFormatter.php',
         'Symplify\\EasyCodingStandard\\Console\\Output\\JsonOutputFormatter' => __DIR__ . '/../..' . '/src/Console/Output/JsonOutputFormatter.php',
         'Symplify\\EasyCodingStandard\\Console\\Output\\OutputFormatterCollector' => __DIR__ . '/../..' . '/src/Console/Output/OutputFormatterCollector.php',
         'Symplify\\EasyCodingStandard\\Console\\Reporter\\CheckerListReporter' => __DIR__ . '/../..' . '/src/Console/Reporter/CheckerListReporter.php',
