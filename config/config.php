@@ -12,4 +12,4 @@ if (StaticVersionResolver::PACKAGE_VERSION !== '@package_version@') {
 }
 // make cache individual per project
 $cacheNamespace = \str_replace(\DIRECTORY_SEPARATOR, '_', \getcwd());
-return ECSConfig::configure()->withParallel()->withSpacing(Option::INDENTATION_SPACES, \PHP_EOL)->withCache($cacheDirectory, $cacheNamespace)->withFileExtensions(['php'])->withSkip([])->withPaths([])->withRealPathReporting(\false);
+return ECSConfig::configure()->withParallel()->withSpacing(Option::INDENTATION_SPACES, \PHP_EOL)->withCache($cacheDirectory, $cacheNamespace)->withFileExtensions(['php'])->withSkip([])->withPaths([]);

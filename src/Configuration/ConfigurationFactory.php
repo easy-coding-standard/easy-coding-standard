@@ -31,8 +31,7 @@ final class ConfigurationFactory
         $showErrorTable = !$noErrorTable;
         $showDiffs = !$noDiffs;
         $isParallel = SimpleParameterProvider::getBoolParameter(Option::PARALLEL);
-        $isReportingWithRealPath = SimpleParameterProvider::getBoolParameter(Option::REPORTING_REALPATH);
-        return new Configuration($isFixer, $shouldClearCache, $showProgressBar, $showErrorTable, $paths, $outputFormat, $isParallel, $config, $parallelPort, $parallelIdentifier, $memoryLimit, $showDiffs, $isReportingWithRealPath);
+        return new Configuration($isFixer, $shouldClearCache, $showProgressBar, $showErrorTable, $paths, $outputFormat, $isParallel, $config, $parallelPort, $parallelIdentifier, $memoryLimit, $showDiffs);
     }
     private function canShowProgressBar(bool $debug, string $outputFormat, bool $noProgressBar): bool
     {

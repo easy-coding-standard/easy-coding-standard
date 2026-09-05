@@ -80,10 +80,6 @@ final class ECSConfigBuilder
      */
     private $parallelJobSize = 20;
     /**
-     * @var bool|null
-     */
-    private $reportingRealPath;
-    /**
      * To make sure each common set and its corresponding level are not
      * duplicated, as both contain the same rules.
      * @var bool|null
@@ -143,9 +139,6 @@ final class ECSConfigBuilder
             } else {
                 $ecsConfig->disableParallel();
             }
-        }
-        if ($this->reportingRealPath !== null) {
-            $ecsConfig->reportingRealPath($this->reportingRealPath);
         }
     }
     /**
@@ -340,9 +333,13 @@ final class ECSConfigBuilder
         $this->parallel = \false;
         return $this;
     }
-    public function withRealPathReporting(bool $absolutePath = \true): self
+    /**
+     * @deprecated Real path reporting is deprecated. Use the JSON output format ("--output-format json"), which always reports absolute paths.
+     */
+    public function withRealPathReporting(): self
     {
-        $this->reportingRealPath = $absolutePath;
+        $outputPrinter = new OutputPrinter(new OutputColorizer());
+        $outputPrinter->warning('The "withRealPathReporting()" method is deprecated. Use the JSON output format ("--output-format json") to get absolute paths.');
         return $this;
     }
     /**

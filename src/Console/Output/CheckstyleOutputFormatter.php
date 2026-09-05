@@ -36,7 +36,7 @@ final class CheckstyleOutputFormatter implements OutputFormatterInterface
      */
     public function report(ErrorAndDiffResult $errorAndDiffResult, Configuration $configuration): int
     {
-        $checkstyleContent = $this->createCheckstyleContent($errorAndDiffResult, $configuration->isReportingWithRealPath());
+        $checkstyleContent = $this->createCheckstyleContent($errorAndDiffResult, \false);
         $this->easyCodingStandardStyle->writeln($checkstyleContent);
         return $this->exitCodeResolver->resolve($errorAndDiffResult, $configuration);
     }

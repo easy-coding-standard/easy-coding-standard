@@ -102,7 +102,7 @@ final class GitlabOutputFormatter implements OutputFormatterInterface
     }
     public function generateReport(ErrorAndDiffResult $errorAndDiffResult, Configuration $configuration): string
     {
-        $reportedQualityIssues = !$configuration->isFixer() && $configuration->shouldShowDiffs() ? merge($this->generateIssuesForErrors($errorAndDiffResult->getErrors(), $configuration->isReportingWithRealPath()), $this->generateIssuesForFixes($errorAndDiffResult->getFileDiffs(), $configuration->isReportingWithRealPath())) : $this->generateIssuesForErrors($errorAndDiffResult->getErrors(), $configuration->isReportingWithRealPath());
+        $reportedQualityIssues = !$configuration->isFixer() && $configuration->shouldShowDiffs() ? merge($this->generateIssuesForErrors($errorAndDiffResult->getErrors(), \false), $this->generateIssuesForFixes($errorAndDiffResult->getFileDiffs(), \false)) : $this->generateIssuesForErrors($errorAndDiffResult->getErrors(), \false);
         return $this->encode($reportedQualityIssues);
     }
     /**

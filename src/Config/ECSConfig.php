@@ -164,10 +164,12 @@ final class ECSConfig extends Container
     }
     /**
      * @api
+     * @deprecated Real path reporting is deprecated. Use the JSON output format ("--output-format json"), which always reports absolute paths.
      */
-    public function reportingRealPath(bool $absolute = \true): void
+    public function reportingRealPath(): void
     {
-        SimpleParameterProvider::setParameter(Option::REPORTING_REALPATH, $absolute);
+        $outputPrinter = new OutputPrinter(new OutputColorizer());
+        $outputPrinter->warning('The "reportingRealPath()" method is deprecated. Use the JSON output format ("--output-format json") to get absolute paths.');
     }
     /**
      * @deprecated Loading PHP-CS-Fixer sets is deprecated. Use ->rule()/->ruleWithConfiguration() or prepared sets instead.
