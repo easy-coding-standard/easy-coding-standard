@@ -214,12 +214,11 @@ We currently provide formatters for:
 
 - `console`:  Human-oriented printing à la PHP CS Fixer.
 - `json`:  A custom JSON blob for arbitrary tooling.
-- `checkstyle`: Useful for Github Action Reports.
 
 You can use the output format option as below
 
 ```bash
-vendor/bin/ecs --output-format=checkstyle
+vendor/bin/ecs --output-format=json
 ```
 
 <br>

@@ -1345,7 +1345,6 @@ return array(
     'Symplify\\EasyCodingStandard\\Console\\Command\\WorkerCommand' => $baseDir . '/src/Console/Command/WorkerCommand.php',
     'Symplify\\EasyCodingStandard\\Console\\ExitCode' => $baseDir . '/src/Console/ExitCode.php',
     'Symplify\\EasyCodingStandard\\Console\\Formatter\\ColorConsoleDiffFormatter' => $baseDir . '/src/Console/Formatter/ColorConsoleDiffFormatter.php',
-    'Symplify\\EasyCodingStandard\\Console\\Output\\CheckstyleOutputFormatter' => $baseDir . '/src/Console/Output/CheckstyleOutputFormatter.php',
     'Symplify\\EasyCodingStandard\\Console\\Output\\ConsoleOutputFormatter' => $baseDir . '/src/Console/Output/ConsoleOutputFormatter.php',
     'Symplify\\EasyCodingStandard\\Console\\Output\\ExitCodeResolver' => $baseDir . '/src/Console/Output/ExitCodeResolver.php',
     'Symplify\\EasyCodingStandard\\Console\\Output\\JsonOutputFormatter' => $baseDir . '/src/Console/Output/JsonOutputFormatter.php',

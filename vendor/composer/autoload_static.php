@@ -1519,7 +1519,6 @@ class ComposerStaticInit9164a1d2f3f167f38915f8a57b56faba
         'Symplify\\EasyCodingStandard\\Console\\Command\\WorkerCommand' => __DIR__ . '/../..' . '/src/Console/Command/WorkerCommand.php',
         'Symplify\\EasyCodingStandard\\Console\\ExitCode' => __DIR__ . '/../..' . '/src/Console/ExitCode.php',
         'Symplify\\EasyCodingStandard\\Console\\Formatter\\ColorConsoleDiffFormatter' => __DIR__ . '/../..' . '/src/Console/Formatter/ColorConsoleDiffFormatter.php',
-        'Symplify\\EasyCodingStandard\\Console\\Output\\CheckstyleOutputFormatter' => __DIR__ . '/../..' . '/src/Console/Output/CheckstyleOutputFormatter.php',
         'Symplify\\EasyCodingStandard\\Console\\Output\\ConsoleOutputFormatter' => __DIR__ . '/../..' . '/src/Console/Output/ConsoleOutputFormatter.php',
         'Symplify\\EasyCodingStandard\\Console\\Output\\ExitCodeResolver' => __DIR__ . '/../..' . '/src/Console/Output/ExitCodeResolver.php',
         'Symplify\\EasyCodingStandard\\Console\\Output\\JsonOutputFormatter' => __DIR__ . '/../..' . '/src/Console/Output/JsonOutputFormatter.php',

@@ -18,7 +18,7 @@ final class OutputFormatterCollector
      *
      * @var array<string, string>
      */
-    private const REMOVED_FORMATS = ['junit' => \Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter::NAME, 'gitlab' => \Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter::NAME];
+    private const REMOVED_FORMATS = ['junit' => \Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter::NAME, 'gitlab' => \Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter::NAME, 'checkstyle' => \Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter::NAME];
     /**
      * @var array<string, OutputFormatterInterface>
      */
