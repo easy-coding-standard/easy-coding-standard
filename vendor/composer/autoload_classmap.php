@@ -1276,6 +1276,7 @@ return array(
     'Symplify\\CodingStandard\\Fixer\\Naming\\MethodNameResolver' => $baseDir . '/packages/coding-standard/src/Fixer/Naming/MethodNameResolver.php',
     'Symplify\\CodingStandard\\Fixer\\Naming\\PropertyNameResolver' => $baseDir . '/packages/coding-standard/src/Fixer/Naming/PropertyNameResolver.php',
     'Symplify\\CodingStandard\\Fixer\\Spacing\\MethodChainingNewlineFixer' => $baseDir . '/packages/coding-standard/src/Fixer/Spacing/MethodChainingNewlineFixer.php',
+    'Symplify\\CodingStandard\\Fixer\\Spacing\\NoBlankLineBetweenImportsFixer' => $baseDir . '/packages/coding-standard/src/Fixer/Spacing/NoBlankLineBetweenImportsFixer.php',
     'Symplify\\CodingStandard\\Fixer\\Spacing\\SpaceAfterCommaHereNowDocFixer' => $baseDir . '/packages/coding-standard/src/Fixer/Spacing/SpaceAfterCommaHereNowDocFixer.php',
     'Symplify\\CodingStandard\\Fixer\\Spacing\\StandaloneLineConstructorParamFixer' => $baseDir . '/packages/coding-standard/src/Fixer/Spacing/StandaloneLineConstructorParamFixer.php',
     'Symplify\\CodingStandard\\Fixer\\Spacing\\StandaloneLinePlainConstructorParamFixer' => $baseDir . '/packages/coding-standard/src/Fixer/Spacing/StandaloneLinePlainConstructorParamFixer.php',

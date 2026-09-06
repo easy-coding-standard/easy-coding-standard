@@ -29,6 +29,7 @@ use PhpCsFixer\Fixer\Whitespace\NoWhitespaceInBlankLineFixer;
 use PhpCsFixer\Fixer\Whitespace\TypeDeclarationSpacesFixer;
 use PhpCsFixer\Fixer\Whitespace\TypesSpacesFixer;
 use Symplify\CodingStandard\Fixer\Spacing\MethodChainingNewlineFixer;
+use Symplify\CodingStandard\Fixer\Spacing\NoBlankLineBetweenImportsFixer;
 use Symplify\CodingStandard\Fixer\Spacing\SpaceAfterCommaHereNowDocFixer;
 use Symplify\CodingStandard\Fixer\Spacing\StandaloneLinePromotedPropertyFixer;
 use Symplify\CodingStandard\Fixer\Spacing\StandaloneLineRequiredParamFixer;
@@ -61,6 +62,7 @@ final class SpacesLevel
         SingleTraitInsertPerStatementFixer::class,
         PhpdocSingleLineVarSpacingFixer::class,
         LanguageConstructSpacingSniff::class,
+        NoBlankLineBetweenImportsFixer::class,
         // operator and type spacing
         CastSpacesFixer::class,
         NotOperatorWithSuccessorSpaceFixer::class,
