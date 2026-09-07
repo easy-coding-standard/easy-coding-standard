@@ -172,6 +172,8 @@ final class ECSConfigBuilder
     public function withPreparedSets(
         /** @see SetList::PSR_12 */
         bool $psr12 = \false,
+        /** @see SetList::PER_CS */
+        bool $perCs = \false,
         /** @see SetList::COMMON */
         bool $common = \false,
         /** @see SetList::LARAVEL */
@@ -204,6 +206,9 @@ final class ECSConfigBuilder
         }
         if ($psr12) {
             $this->sets[] = SetList::PSR_12;
+        }
+        if ($perCs) {
+            $this->sets[] = SetList::PER_CS;
         }
         if ($common) {
             // include all "common" sets

@@ -9,4 +9,4 @@ return ECSConfig::configure()->withPaths([__DIR__ . '/bin', __DIR__ . '/src', __
     __DIR__ . '/tests/UseImportsResolver/Fixture/ParseError.php',
     '*/Fixture/*',
     '*/Source/*',
-])->withPreparedSets(\true, \true);
+])->withPreparedSets(\true, \false, \true);
